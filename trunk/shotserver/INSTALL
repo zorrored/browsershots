@@ -1,0 +1,3 @@
+Simply run the following command with appropriate permissions:
+
+# python setup.py install
