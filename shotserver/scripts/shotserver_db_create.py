@@ -80,7 +80,7 @@ cur = con.cursor()
 
 # Simple variable length string tables.
 for name in 'arch os browser engine'.split():
-    cur.execute("""CREATE TABLE %s (
+    cur.execute("""CREATE TABLE `%s` (
     id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     value    VARCHAR(%u) NOT NULL UNIQUE)
     """ % (name, maxlen[name]))
@@ -141,8 +141,8 @@ uploaded   TIMESTAMP,
 redirected TIMESTAMP,
 locked     TIMESTAMP,
 
-KEY (browser, browserver),
-KEY (engine, enginever),
+KEY (browser, browser_version),
+KEY (engine, engine_version),
 KEY (factory),
 KEY (uploaded))
 """ % maxlen)
@@ -165,12 +165,12 @@ registered TIMESTAMP)
 # Factories poll the central server for jobs.
 cur.execute("""CREATE TABLE `poll` (
 factory    INT UNSIGNED NOT NULL,
-
 useragent  VARCHAR(255),
-browser    INT UNSIGNED NOT NULL,
-browserver CHAR(10),
-engine     INT UNSIGNED NOT NULL,
-enginever  CHAR(10),
+
+browser         INT UNSIGNED NOT NULL,
+browser_version CHAR(10),
+engine          INT UNSIGNED NOT NULL,
+engine_version  CHAR(10),
 
 flash      TINYINT UNSIGNED NOT NULL,
 java       TINYINT UNSIGNED NOT NULL,
