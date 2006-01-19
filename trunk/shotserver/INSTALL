@@ -1,6 +1,7 @@
-Simply run the following command with appropriate permissions:
+Simply run the following commands with appropriate permissions:
 
 # python setup.py install
+# shotserver_db_create.py
 
 Prerequisites (Debian package names in parentheses):
 - Python (python)

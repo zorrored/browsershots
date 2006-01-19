@@ -9,6 +9,6 @@ setup(name = 'ShotServer',
       author_email = 'johann@browsershots.org',
       url = 'http://browsershots.org/',
       package_dir = {'shotserver': 'lib'},
-      packages = ['shotserver'],
+      packages = ['shotserver', 'shotserver.database'],
       scripts = ['scripts/shotserver_db_create.py'],
       )
