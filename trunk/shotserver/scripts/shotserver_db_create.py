@@ -19,8 +19,8 @@
 # MA 02111-1307, USA.
 
 """
-Create the database `browsershots` with all tables. Attention: any
-existing database with that name will be dropped. The root password
+ATTENTION: any existing database named 'browsershots' will be dropped.
+Create the database 'browsershots' with all tables. The root password
 for mysql is read from /root/.my.cnf, so you may have to run this
 script as root.
 """
@@ -59,16 +59,16 @@ rootuser, rootpass = read_credentials()
 # Create database.
 db_name = 'browsershots'
 con = MySQLdb.connect(host = 'localhost',
-                       user = rootuser, passwd = rootpass)
+                      user = rootuser, passwd = rootpass)
 cur = con.cursor()
 cur.execute("DROP DATABASE IF EXISTS " + db_name)
 cur.execute("CREATE DATABASE " + db_name)
 
 # Set permissions.
 cur.execute("GRANT USAGE, SELECT, INSERT, UPDATE, DELETE" +
-               " ON `%s`.*" % db_name +
-               " TO '%s'@'localhost'" % db_name +
-               " IDENTIFIED BY 'secret'")
+            " ON `%s`.*" % db_name +
+            " TO '%s'@'localhost'" % db_name +
+            " IDENTIFIED BY 'secret'")
 
 cur.close()
 con.close()
@@ -78,56 +78,56 @@ con = MySQLdb.connect(host = 'localhost', db = db_name,
                        user = rootuser, passwd = rootpass)
 cur = con.cursor()
 
-# Strings are stored in extra tables to avoid duplication.
-def create_varchar_table(table, size):
-    """
-    Create a named string table.
-    """
+# Simple variable length string tables.
+for name in 'arch os browser engine'.split():
     cur.execute("""CREATE TABLE %s (
     id       INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    value    VARCHAR(%u) NOT NULL UNIQUE,
-    refcount INT UNSIGNED NOT NULL,
-
-    updated  TIMESTAMP,
-    added    TIMESTAMP)
-    """ % (table, size))
-
-create_varchar_table('nickname', maxlen['nickname'])
-create_varchar_table('email', maxlen['email'])
-
-create_varchar_table('url', 255)
-create_varchar_table('arch', 10)
-create_varchar_table('os', 20)
-create_varchar_table('browser', 20)
-create_varchar_table('engine', 20)
+    value    VARCHAR(%u) NOT NULL UNIQUE)
+    """ % (name, maxlen[name]))
 
 # Users register online if they run a factory, or for priority service.
-cur.execute("DROP TABLE IF EXISTS user")
-cur.execute("""CREATE TABLE user (
-nickname   INT UNSIGNED PRIMARY KEY,
-email      INT UNSIGNED NOT NULL UNIQUE,
+cur.execute("""CREATE TABLE `user` (
+id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nickname   VARCHAR(%(nickname)u),
+email      VARCHAR(%(email)u) NOT NULL UNIQUE,
 password   CHAR(41) NOT NULL,
 
 updated    TIMESTAMP,
 pwchanged  TIMESTAMP,
 registered TIMESTAMP)
-""")
+""" % maxlen)
 
-# Users submit jobs, factories process them.
-cur.execute("DROP TABLE IF EXISTS job")
-cur.execute("""CREATE TABLE job (
+# Users submit sites for testing.
+cur.execute("""CREATE TABLE `site` (
 id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-url        INT UNSIGNED NOT NULL,
-user       INT UNSIGNED NOT NULL,
+url        VARCHAR(%(url)u) NOT NULL,
+user       INT UNSIGNED,
+ip         INT UNSIGNED,
 
+submitted  TIMESTAMP,
+
+KEY (url),
+KEY (user),
+KEY (submitted))
+""" % maxlen)
+
+# For each site, a user can request different browsers.
+cur.execute("""CREATE TABLE `job` (
+id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 arch       INT UNSIGNED,
 os         INT UNSIGNED,
-browser    INT UNSIGNED,
-engine     INT UNSIGNED,
+os_version CHAR(10),
+
+browser         INT UNSIGNED,
+browser_version CHAR(10),
+engine          INT UNSIGNED,
+engine_version  CHAR(10),
+
 width      SMALLINT UNSIGNED,
 height     SMALLINT UNSIGNED,
 depth      TINYINT UNSIGNED,
-lang       CHAR(4),
+
+lang       CHAR(5),
 flash      TINYINT UNSIGNED,
 java       TINYINT UNSIGNED,
 javascript TINYINT UNSIGNED,
@@ -140,49 +140,63 @@ updated    TIMESTAMP,
 uploaded   TIMESTAMP,
 redirected TIMESTAMP,
 locked     TIMESTAMP,
-submitted  TIMESTAMP,
 
-KEY (url),
-KEY (user),
-KEY (browser),
-KEY (width, height, depth),
+KEY (browser, browserver),
+KEY (engine, enginever),
 KEY (factory),
-KEY (uploaded),
-KEY (submitted))
+KEY (uploaded))
+""" % maxlen)
+
+# Factories poll the job queue and upload screenshots.
+cur.execute("""CREATE TABLE `factory` (
+id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nickname   VARCHAR(%(nickname)u) NOT NULL UNIQUE,
+user       INT UNSIGNED NOT NULL,
+
+arch       INT UNSIGNED NOT NULL,
+os         INT UNSIGNED NOT NULL,
+osversion  CHAR(10),
+lang       CHAR(5),
+
+updated    TIMESTAMP,
+registered TIMESTAMP)
+""" % maxlen)
+
+# Factories poll the central server for jobs.
+cur.execute("""CREATE TABLE `poll` (
+factory    INT UNSIGNED NOT NULL,
+
+useragent  VARCHAR(255),
+browser    INT UNSIGNED NOT NULL,
+browserver CHAR(10),
+engine     INT UNSIGNED NOT NULL,
+enginever  CHAR(10),
+
+flash      TINYINT UNSIGNED NOT NULL,
+java       TINYINT UNSIGNED NOT NULL,
+javascript TINYINT UNSIGNED NOT NULL,
+quicktime  TINYINT UNSIGNED NOT NULL,
+
+width      SMALLINT UNSIGNED NOT NULL,
+height     SMALLINT UNSIGNED NOT NULL,
+depth      TINYINT UNSIGNED NOT NULL,
+
+polled     TIMESTAMP)
 """)
 
 # Factories must lock jobs before processing.
-cur.execute("DROP TABLE IF EXISTS `lock`")
 cur.execute("""CREATE TABLE `lock` (
 job     INT UNSIGNED PRIMARY KEY,
 factory INT UNSIGNED NOT NULL,
 locked  TIMESTAMP)
 """)
 
-# Factories poll the job queue and upload screenshots.
-cur.execute("DROP TABLE IF EXISTS factory")
-cur.execute("""CREATE TABLE factory (
-nickname   INT UNSIGNED PRIMARY KEY,
-user       INT UNSIGNED NOT NULL,
-
-arch       INT UNSIGNED NOT NULL,
-os         INT UNSIGNED NOT NULL,
-lang       CHAR(4),
-
-updated    TIMESTAMP,
-polled     TIMESTAMP,
-uploaded   TIMESTAMP,
-firstpoll  TIMESTAMP)
-""")
-
 # A nonce is a one-time challenge that can only be answered if you
 # know the correct password, without disclosing the password even
-# through an untrusted channel.
-# Each factory can process many jobs in parallel, so it can hold many nonces.
-# Users will be sent a nonce in email when they register or when they
-# need to reset their password.
-cur.execute("DROP TABLE IF EXISTS nonce")
-cur.execute("""CREATE TABLE nonce (
+# through an untrusted channel. Each factory can process many jobs in
+# parallel, so it can hold many nonces. Users will be sent a nonce in
+# email when they register or when they need to reset their password.
+cur.execute("""CREATE TABLE `nonce` (
 nonce   CHAR(32) PRIMARY KEY,
 factory INT UNSIGNED,
 user    INT UNSIGNED,
@@ -192,32 +206,6 @@ ip      INT UNSIGNED NOT NULL,
 updated TIMESTAMP,
 used    TIMESTAMP,
 created TIMESTAMP)
-""")
-
-# Each factory can have many browsers.
-cur.execute("DROP TABLE IF EXISTS browser")
-cur.execute("""CREATE TABLE browser (
-id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-factory    INT UNSIGNED NOT NULL,
-
-useragent  INT UNSIGNED NOT NULL,
-browser    INT UNSIGNED NOT NULL,
-engine     INT UNSIGNED NOT NULL,
-flash      TINYINT UNSIGNED NOT NULL,
-java       TINYINT UNSIGNED NOT NULL,
-javascript TINYINT UNSIGNED NOT NULL,
-quicktime  TINYINT UNSIGNED NOT NULL)
-""")
-
-# Each factory can have many screen resolutions.
-cur.execute("DROP TABLE IF EXISTS resolution")
-cur.execute("""CREATE TABLE resolution (
-id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-factory    INT UNSIGNED NOT NULL,
-
-width      SMALLINT UNSIGNED NOT NULL,
-height     SMALLINT UNSIGNED NOT NULL,
-depth      TINYINT UNSIGNED NOT NULL)
 """)
 
 cur.close()
