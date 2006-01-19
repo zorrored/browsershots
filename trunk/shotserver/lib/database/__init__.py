@@ -26,8 +26,16 @@ __author__   = '$Author$'
 
 import MySQLdb
 
-minlen = {'nickname': 3,  'password': 8}
-maxlen = {'nickname': 20, 'password': 20, 'email': 80}
+minlen = {'nickname': 3,
+          'password': 8}
+maxlen = {'nickname': 20,
+          'password': 20,
+          'email': 80,
+          'url': 255,
+          'arch': 10,
+          'os': 20,
+          'browser': 20,
+          'engine': 20}
 
 def connect():
     """
