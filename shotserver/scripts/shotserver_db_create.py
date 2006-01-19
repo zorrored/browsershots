@@ -19,7 +19,7 @@
 # MA 02111-1307, USA.
 
 """
-Create the database `browsershots03` with all tables. Attention: any
+Create the database `browsershots` with all tables. Attention: any
 existing database with that name will be dropped. The root password
 for mysql is read from /root/.my.cnf, so you may have to run this
 script as root.
@@ -31,7 +31,7 @@ __author__   = '$Author$'
 
 import re
 import MySQLdb
-from shotserver03.database import maxlen
+from shotserver.database import maxlen
 
 re_key_value = re.compile(r'(\w+)\s*\=\s*(\S+)')
 def read_credentials(filename = '/root/.my.cnf'):
@@ -57,7 +57,7 @@ def read_credentials(filename = '/root/.my.cnf'):
 rootuser, rootpass = read_credentials()
 
 # Create database.
-db_name = 'browsershots03'
+db_name = 'browsershots'
 con = MySQLdb.connect(host = 'localhost',
                        user = rootuser, passwd = rootpass)
 cur = con.cursor()
