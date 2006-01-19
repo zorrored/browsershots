@@ -16,6 +16,11 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston,
 # MA 02111-1307, USA.
 
+"""
+Top-level shotserver module.
+All HTTP requests are handled from here.
+"""
+
 __revision__ = '$Rev$'
 __date__     = '$Date$'
 __author__   = '$Author$'
