@@ -39,11 +39,15 @@ def handler(req):
     """
     try:
         __builtins__['req'] = req
-        req.info = request.RequestInfo()
+        # req.info = request.RequestInfo()
 
         req.status = apache.OK
         req.content_type = 'application/xhtml+xml; charset=UTF-8'
+        write_html_head()
 
+        #xhtml.write_close_tag_line('body')
+        xhtml.write_close_tag_line('html')
+        return req.status
     except:
         if naked == 'redirect':
             write_html_head()
