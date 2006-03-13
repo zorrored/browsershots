@@ -21,5 +21,5 @@ Web interface actions, selected by the first URI path segment.
 """
 
 __revision__ = '$Rev: 882 $'
-__date__     = '$Date: 2005-12-31 15:20:50 +0100 (Sa, 31 Dez 2005) $'
-__author__   = '$Author: johann $'
+__date__ = '$Date: 2005-12-31 15:20:50 +0100 (Sa, 31 Dez 2005) $'
+__author__ = '$Author: johann $'
