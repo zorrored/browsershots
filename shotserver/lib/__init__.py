@@ -25,32 +25,64 @@ __revision__ = '$Rev$'
 __date__     = '$Date$'
 __author__   = '$Author$'
 
+import sys, traceback
 from mod_python import apache
 from interface import xhtml
 
-def write_html_head():
+def write_html_head(title):
     req.write('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"')
     req.write(' "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n')
     xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
+
+    xhtml.write_open_tag_line('head')
+    xhtml.write_tag_line('title', title)
+    xhtml.write_tag_line('link', rel="stylesheet", type="text/css",
+                         href="/style/style.css")
+    xhtml.write_close_tag_line('head')
+
+def import_deep(name):
+    """
+    Import a module from some.levels.deep and return the module
+    itself, not its uppermost parent.
+    """
+    mod = __import__(name)
+    components = name.split('.')
+    for comp in components[1:]:
+        mod = getattr(mod, comp)
+    return mod
+
+def import_action(name):
+    """Import an action module."""
+    return import_deep("shotserver03.actions." + name)
+
+def action_option(module, key, default):
+    if hasattr(module, key):
+        return module.__dict__[key]()
+    else:
+        return default
 
 def handler(req):
     """
     Process all incoming HTTP requests.
     """
     try:
-        __builtins__['req'] = req
-        # req.info = request.RequestInfo()
-
         req.status = apache.OK
         req.content_type = 'application/xhtml+xml; charset=UTF-8'
-        write_html_head()
+        __builtins__['req'] = req
+
+        # req.info = request.RequestInfo()
+        action_module = import_action('start') # req.info.action
+        naked = action_option(action_module, 'naked', False)
+        title = action_option(action_module, 'title', 'Browsershots')
+
+        write_html_head(title)
 
         #xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
         return req.status
     except:
-        if naked == 'redirect':
-            write_html_head()
+        # if naked == 'redirect':
+        write_html_head()
 
         while len(xhtml.open_tags) > 2:
             xhtml.write_close_tag_line()
