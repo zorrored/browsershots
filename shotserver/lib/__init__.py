@@ -57,8 +57,7 @@ def write_html_head(title):
 
     xhtml.write_open_tag_line('head')
     xhtml.write_tag_line('title', '%s - Browsershots' % title)
-    xhtml.write_tag_line('link', rel="stylesheet", type="text/css",
-                         href="/style/style.css")
+    xhtml.write_tag_line('link', rel="stylesheet", type="text/css", href="/style/style.css")
     xhtml.write_close_tag_line('head')
 
 def handler(req):
