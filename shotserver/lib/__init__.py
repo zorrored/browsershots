@@ -78,8 +78,15 @@ def handler(req):
         write_html_head(title)
 
         xhtml.write_open_tag_line('body')
-        xhtml.write_tag_line('a', 'Home', href="/")
+        xhtml.write_open_tag_line('div', _id="all")
 
+        xhtml.write_open_tag('ul', _id="topmenu")
+        xhtml.write_tag('li', xhtml.tag('a', 'Home', href="/"), _class="first")
+        xhtml.write_tag('li', xhtml.tag('a', 'Trac', href="/trac/"))
+        xhtml.write_tag('li', xhtml.tag('a', 'Blog', href="/blog/"))
+        xhtml.write_close_tag_line('ul') # id="topmenu"
+
+        xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
         return req.status
