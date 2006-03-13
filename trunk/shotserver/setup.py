@@ -11,4 +11,5 @@ setup(name = 'ShotServer',
                   'shotserver03.interface',
                   'shotserver03.database'],
       scripts = ['scripts/shotserver03_db_create.py'],
+      data_files = [('shotserver03/style', ['style/style.css'])],
       )

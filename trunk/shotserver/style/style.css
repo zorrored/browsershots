@@ -1,0 +1,3 @@
+p.error { color: #F00; }
+p.success { color: #080; }
+p.error, p.success { font-weight: bold; }
