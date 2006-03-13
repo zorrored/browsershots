@@ -1,5 +1,5 @@
-test : format.py
-	@find lib scripts -name "*.py" | xargs python format.py
+test :
+	@find lib scripts -name "*.py" | xargs scripts/shotserver03_format.py
 	@python lib/interface/xhtml.py
 
 install :
