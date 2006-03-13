@@ -27,7 +27,7 @@ __author__   = '$Author$'
 
 import sys, traceback
 from mod_python import apache
-from interface import xhtml
+from interface import xhtml, menu
 
 def import_deep(name):
     """
@@ -56,7 +56,7 @@ def write_html_head(title):
     xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
 
     xhtml.write_open_tag_line('head')
-    xhtml.write_tag_line('title', title)
+    xhtml.write_tag_line('title', '%s - Browsershots' % title)
     xhtml.write_tag_line('link', rel="stylesheet", type="text/css",
                          href="/style/style.css")
     xhtml.write_close_tag_line('head')
@@ -80,11 +80,21 @@ def handler(req):
         xhtml.write_open_tag_line('body')
         xhtml.write_open_tag_line('div', _id="all")
 
-        xhtml.write_open_tag('ul', _id="topmenu")
-        xhtml.write_tag('li', xhtml.tag('a', 'Home', href="/"), _class="first")
-        xhtml.write_tag('li', xhtml.tag('a', 'Trac', href="/trac/"))
-        xhtml.write_tag('li', xhtml.tag('a', 'Blog', href="/blog/"))
-        xhtml.write_close_tag_line('ul') # id="topmenu"
+        menu.write_top()
+        xhtml.write_open_tag_line('div', _class="menu", _id="sub")
+        xhtml.write_tag_line('img', src="style/logo40.png", _class="right")
+
+        xhtml.write_open_tag('ul', _class="left")
+        xhtml.write_tag('li', xhtml.tag('a', 'Screenshots', href="/screenshots/"), _class="first")
+        xhtml.write_tag('li', xhtml.tag('a', 'Submit', href="/submit/"))
+        xhtml.write_tag('li', xhtml.tag('a', 'Search', href="/search/"))
+        xhtml.write_close_tag_line('ul') # class="left"
+
+        xhtml.write_tag_line('h1', title)
+        xhtml.write_close_tag_line('div') # id="sub"
+
+        menu.write_bottom()
+        menu.write_sponsors()
 
         xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
