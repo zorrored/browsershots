@@ -63,7 +63,7 @@ def split_file(filename):
         shebang = ''
     docstring = read_block(fh)
     if fh.readline().strip():
-        raise FormatError(filename, "blank line after docstring")
+        raise FormatError(filename, "no blank line after docstring")
     keywords = read_block(fh)
     return shebang, head, docstring, keywords
 
