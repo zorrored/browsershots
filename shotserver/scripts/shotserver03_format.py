@@ -23,68 +23,76 @@ Check formatting of Python source code.
 """
 
 __revision__ = '$Rev: 2 $'
-__date__     = '$Date: 2006-02-26 14:02:33 +0100 (Sun, 26 Feb 2006) $'
-__author__   = '$Author: johann $'
+__date__ = '$Date: 2006-02-26 14:02:33 +0100 (Sun, 26 Feb 2006) $'
+__author__ = '$Author: johann $'
 
 import sys, os
 
 class FormatError:
-    def __init__(self, filename, error):
-        self.message = "error in %s: %s" % (filename, error)
+    def __init__(self, filename, lineno, error):
+        self.message = "%s:%d: %s" % (filename, lineno, error)
 
-def read_docstring(fh):
-    lines = []
-    while True:
-        line = fh.readline()
-        if not line: break
-        lines.append(line)
-        if line.strip() == '"""': break
-    return ''.join(lines)
+def read_blocks(filename):
+    blocks = []
+    block = []
+    start = 1
+    docstring = False
+    lines = file(filename).readlines()
+    lines.append('')
+    for number, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped == '"""' and not docstring:
+            stripped = ''
+            docstring = True
+        if stripped or docstring:
+            block.append(line)
+        else:
+            if block:
+                blocks.append((start, block))
+                if len(blocks) > 4:
+                    break
+                block = []
+            start = number + 2
+        if stripped == '"""' and docstring:
+            docstring = False
+    return blocks
 
-def read_block(fh):
-    line = fh.readline()
-    if line.startswith('"""'):
-        return line + read_docstring(fh)
-    lines = [line]
-    while True:
-        line = fh.readline()
-        if not line: break
-        if not line.strip(): break
-        lines.append(line)
-    return ''.join(lines)
-
-def split_file(filename):
-    fh = file(filename)
-    shebang = read_block(fh)
-    if shebang.startswith('#!'):
-        head = read_block(fh)
-    else:
-        head = shebang
-        shebang = ''
-    docstring = read_block(fh)
-    if fh.readline().strip():
-        raise FormatError(filename, "no blank line after docstring")
-    keywords = read_block(fh)
-    return shebang, head, docstring, keywords
-
-reference = split_file(sys.argv[0])
+reference = read_blocks(sys.argv[0])
+ref_shebang, ref_head, ref_docstring, ref_keywords = reference[:4]
 error = 0
 
 files = sys.argv[1:]
 files.sort()
 for filename in files:
     try:
-        shebang, head, docstring, keywords = split_file(filename)
-        if shebang and shebang != reference[0]:
-            raise FormatError(filename, "wrong shebang")
-        if head != reference[1]:
-            raise FormatError(filename, "wrong copyright")
-        if not docstring.startswith('"""'):
-            raise  FormatError(filename, "missing docstring")
-        if not keywords.startswith("__revision__ = '$Rev:"):
-            raise  FormatError(filename, "missing __revision__")
+        blocks = read_blocks(filename)
+        if blocks[0][1][0].startswith('#!'):
+            shebang, head, docstring, keywords = blocks[:4]
+            if shebang[1] != ref_shebang[1]:
+                raise FormatError(filename, shebang[0], "wrong shebang")
+        else:
+            head, docstring, keywords = blocks[:3]
+        if head[1] != ref_head[1]:
+            for offset, line in enumerate(head[1]):
+                if offset >= len(ref_head[1]):
+                    raise FormatError(filename, head[0] + offset, "copyright too short")
+                if line != ref_head[1][offset]:
+                    raise FormatError(filename, head[0] + offset, "wrong copyright")
+            raise FormatError(filename, head[0] + len(head[1]), "copyright too short")
+        if docstring[1][0].strip() != '"""':
+            raise  FormatError(filename, docstring[0], "missing docstring")
+        if docstring[1][-1].strip() != '"""':
+            raise  FormatError(filename, docstring[0] + len(docstring[1]) - 1, "missing docstring")
+        if len(docstring[1]) < 3:
+            raise  FormatError(filename, docstring[0] + 1, "empty docstring")
+        if not keywords[1][0].startswith("__revision__ = '$Rev:"):
+            raise  FormatError(filename, keywords[0], "missing __revision__")
+        if not keywords[1][1].startswith("__date__ = '$Date:"):
+            raise  FormatError(filename, keywords[0] + 1, "missing __date__")
+        if not keywords[1][2].startswith("__author__ = '$Author:"):
+            raise  FormatError(filename, keywords[0] + 2, "missing __author__")
     except FormatError, f:
-        print 'error:', f.message
+        print f.message
         error = 1
 
 if error:
