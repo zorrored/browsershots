@@ -5,3 +5,6 @@ test : format.py
 install :
 	python setup.py install
 	apache2ctl restart
+
+clean :
+	rm -rf build
