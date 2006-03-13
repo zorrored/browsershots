@@ -1,3 +1,38 @@
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+div#all {
+  width: 920px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+}
+
+ul#topmenu {
+  background-color: #05F;
+  color: white;
+  margin: 0;
+  padding: 1ex 0;
+  font-size: small;
+  font-weight: bold;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+}
+ul#topmenu a { color: white; }
+ul#topmenu li {
+  display: inline;
+  padding: 0 1ex;
+  border-left: 1px solid white;
+}
+
+ul#topmenu li.first {
+  border-left: none;
+}
+
+a { text-decoration: none; }
+
 p.error { color: #F00; }
 p.success { color: #080; }
 p.error, p.success { font-weight: bold; }
