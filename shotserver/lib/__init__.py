@@ -29,17 +29,6 @@ import sys, traceback
 from mod_python import apache
 from interface import xhtml
 
-def write_html_head(title):
-    req.write('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"')
-    req.write(' "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n')
-    xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
-
-    xhtml.write_open_tag_line('head')
-    xhtml.write_tag_line('title', title)
-    xhtml.write_tag_line('link', rel="stylesheet", type="text/css",
-                         href="/style/style.css")
-    xhtml.write_close_tag_line('head')
-
 def import_deep(name):
     """
     Import a module from some.levels.deep and return the module
@@ -61,10 +50,22 @@ def action_option(module, key, default):
     else:
         return default
 
+def write_html_head(title):
+    req.write('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"')
+    req.write(' "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n')
+    xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
+
+    xhtml.write_open_tag_line('head')
+    xhtml.write_tag_line('title', title)
+    xhtml.write_tag_line('link', rel="stylesheet", type="text/css",
+                         href="/style/style.css")
+    xhtml.write_close_tag_line('head')
+
 def handler(req):
     """
     Process all incoming HTTP requests.
     """
+    naked = False
     try:
         req.status = apache.OK
         req.content_type = 'application/xhtml+xml; charset=UTF-8'
@@ -74,15 +75,17 @@ def handler(req):
         action_module = import_action('start') # req.info.action
         naked = action_option(action_module, 'naked', False)
         title = action_option(action_module, 'title', 'Browsershots')
-
         write_html_head(title)
 
-        #xhtml.write_close_tag_line('body')
+        xhtml.write_open_tag_line('body')
+        xhtml.write_tag_line('a', 'Home', href="/")
+
+        xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
         return req.status
     except:
-        # if naked == 'redirect':
-        write_html_head()
+        if naked == 'redirect':
+            write_html_head()
 
         while len(xhtml.open_tags) > 2:
             xhtml.write_close_tag_line()
@@ -90,7 +93,7 @@ def handler(req):
             xhtml.write_close_tag_line('head')
         if xhtml.open_tags[-1] != 'body':
             xhtml.write_open_tag_line('body')
-        # xhtml.write_tag_line('br')
+
         xhtml.write_tag_line('p', 'Internal error:', _class="error")
         trace = ''.join(traceback.format_exception(*sys.exc_info()))
         trace = trace.replace('<', '&lt;')
