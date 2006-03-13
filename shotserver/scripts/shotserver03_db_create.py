@@ -26,8 +26,8 @@ script as root.
 """
 
 __revision__ = '$Rev$'
-__date__     = '$Date$'
-__author__   = '$Author$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 import re
 import MySQLdb

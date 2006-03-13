@@ -22,8 +22,8 @@ All HTTP requests are handled from here.
 """
 
 __revision__ = '$Rev$'
-__date__     = '$Date$'
-__author__   = '$Author$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 import sys, traceback
 from mod_python import apache

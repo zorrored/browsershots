@@ -21,8 +21,8 @@ A higher-level interface to the MySQL database.
 """
 
 __revision__ = '$Rev$'
-__date__     = '$Date$'
-__author__   = '$Author$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 import MySQLdb
 
