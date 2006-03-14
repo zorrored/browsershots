@@ -20,9 +20,9 @@
 Check formatting of Python source code.
 """
 
-__revision__ = '$Rev: 2 $'
-__date__ = '$Date: 2006-02-26 14:02:33 +0100 (Sun, 26 Feb 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
@@ -59,7 +59,7 @@ def write_sub():
 def write_sponsors():
     xhtml.write_open_tag('p', _id="sponsors")
     req.write("Sponsored by ")
-    xhtml.write_tag('img', src="style/mfg.png")
+    xhtml.write_tag('img', src="style/mfg.png", alt="MFG Stiftung BW")
     xhtml.write_close_tag_line('p') # id="sponsors"
 
 def write_bottom():

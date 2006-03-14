@@ -17,20 +17,27 @@
 # MA 02111-1307, USA.
 
 """
-Home page.
+Display recent screenshots in a horizontal row.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+import os
 from shotserver03.interface import xhtml
-from shotserver03.segments import recent, active_factories
 
-def title():
-    return "Browsershots 0.3"
+thumbdir = 'png/60'
+max_thumbs = 30
 
-def body():
-    xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
-    recent.write()
-    active_factories.write()
+def write():
+    xhtml.write_open_tag_line('div', _id="recent")
+    
+    images = os.listdir('/var/www/browsershots.org/' + thumbdir)
+    images.sort()
+    for index, image in enumerate(images):
+        if index == max_thumbs:
+            break
+        xhtml.write_tag_line('img', src='/'.join(('', thumbdir, image)), alt="", _class="absolute", style="right:%dpx" % (4 + index * 64))
+
+    xhtml.write_close_tag_line('div') # id="recent"
