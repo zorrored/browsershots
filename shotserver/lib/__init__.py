@@ -51,12 +51,12 @@ def action_option(module, key, default):
         return default
 
 def write_html_head(title):
+    req.content_type = 'application/xhtml+xml; charset=UTF-8'
     req.write('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"')
     req.write(' "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n')
     xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
-
     xhtml.write_open_tag_line('head')
-    xhtml.write_tag_line('title', '%s - Browsershots' % title)
+    xhtml.write_tag_line('title', title)
     xhtml.write_tag_line('link', rel="stylesheet", type="text/css", href="/style/style.css")
     xhtml.write_close_tag_line('head')
 
@@ -66,11 +66,9 @@ def handler(req):
     """
     naked = False
     try:
-        req.status = apache.OK
-        req.content_type = 'application/xhtml+xml; charset=UTF-8'
         __builtins__['req'] = req
-
         # req.info = request.RequestInfo()
+
         action_module = import_action('start') # req.info.action
         naked = action_option(action_module, 'naked', False)
         title = action_option(action_module, 'title', 'Browsershots')
@@ -81,7 +79,7 @@ def handler(req):
 
         menu.write_top()
         xhtml.write_open_tag_line('div', _class="menu", _id="sub")
-        xhtml.write_tag_line('img', src="style/logo40.png", _class="right")
+        xhtml.write_tag_line('img', src="style/logo40.png", _class="right", alt="browsershots.org beta")
 
         xhtml.write_open_tag('ul', _class="left")
         xhtml.write_tag('li', xhtml.tag('a', 'Screenshots', href="/screenshots/"), _class="first")
@@ -92,29 +90,34 @@ def handler(req):
         xhtml.write_tag_line('h1', title)
         xhtml.write_close_tag_line('div') # id="sub"
 
+        action_module.body()
+        
         menu.write_bottom()
         menu.write_sponsors()
 
         xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
-        return req.status
+        return apache.OK
     except:
         if naked == 'redirect':
             write_html_head()
 
         while len(xhtml.open_tags) > 2:
             xhtml.write_close_tag_line()
-        if xhtml.open_tags[-1] == 'head':
+        if xhtml.open_tags and xhtml.open_tags[-1] == 'head':
             xhtml.write_close_tag_line('head')
-        if xhtml.open_tags[-1] != 'body':
+        if xhtml.open_tags and xhtml.open_tags[-1] != 'body':
             xhtml.write_open_tag_line('body')
 
+        xhtml.write_open_tag_line('div', _class="traceback")
         xhtml.write_tag_line('p', 'Internal error:', _class="error")
         trace = ''.join(traceback.format_exception(*sys.exc_info()))
         trace = trace.replace('<', '&lt;')
         trace = trace.replace('>', '&gt;')
         xhtml.write_tag_line('pre', trace)
+        xhtml.write_tag_line('p', 'If this problem persists, please <a href="mailto:johann@browsershots.org">send a bug report</a>.')
+        xhtml.write_close_tag_line('div') # class="traceback"
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
         return apache.OK

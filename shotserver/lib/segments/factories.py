@@ -17,7 +17,7 @@
 # MA 02111-1307, USA.
 
 """
-Home page.
+Display factories and some information in an XHTML table.
 """
 
 __revision__ = '$Rev$'
@@ -25,12 +25,8 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
-from shotserver03.segments import recent, active_factories
 
-def title():
-    return "Browsershots 0.3"
-
-def body():
-    xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
-    recent.write()
-    active_factories.write()
+def write():
+    xhtml.write_open_tag_line('table', _id="factories")
+    
+    xhtml.write_close_tag_line('table') # id="factories"

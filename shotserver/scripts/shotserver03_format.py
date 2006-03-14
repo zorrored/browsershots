@@ -22,9 +22,9 @@
 Check formatting of Python source code.
 """
 
-__revision__ = '$Rev: 2 $'
-__date__ = '$Date: 2006-02-26 14:02:33 +0100 (Sun, 26 Feb 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 import sys, os
 
@@ -86,11 +86,11 @@ for filename in files:
         if len(docstring[1]) < 3:
             raise  FormatError(filename, docstring[0] + 1, "empty docstring")
         if not keywords[1][0].startswith("__revision__ = '$Rev:"):
-            raise  FormatError(filename, keywords[0], "missing __revision__")
+            raise  FormatError(filename, keywords[0], "missing __revision__ = '$Rev:")
         if not keywords[1][1].startswith("__date__ = '$Date:"):
-            raise  FormatError(filename, keywords[0] + 1, "missing __date__")
+            raise  FormatError(filename, keywords[0] + 1, "missing __date__ = '$Date:")
         if not keywords[1][2].startswith("__author__ = '$Author:"):
-            raise  FormatError(filename, keywords[0] + 2, "missing __author__")
+            raise  FormatError(filename, keywords[0] + 2, "missing __author__ = '$Author:")
     except FormatError, f:
         print f.message
         error = 1
