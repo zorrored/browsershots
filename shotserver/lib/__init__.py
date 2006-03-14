@@ -118,6 +118,7 @@ def handler(req):
         xhtml.write_tag_line('pre', trace)
         xhtml.write_tag_line('p', 'If this problem persists, please <a href="mailto:johann@browsershots.org">send a bug report</a>.')
         xhtml.write_close_tag_line('div') # class="traceback"
-        xhtml.write_close_tag_line('body')
-        xhtml.write_close_tag_line('html')
+        if len(xhtml.open_tags) == 2:
+            xhtml.write_close_tag_line('body')
+            xhtml.write_close_tag_line('html')
         return apache.OK
