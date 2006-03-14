@@ -70,11 +70,16 @@ def close_tag(name = None):
     Make a closing tag.
     """
     global open_tags
-    innermost = open_tags.pop(-1)
-    if name is not None and name != innermost:
-        open_tags.append(innermost)
-        raise ClosingTagMismatch("%s != %s" % (name, innermost))
-    return '</%s>' % innermost
+    if len(open_tags):
+        innermost = open_tags.pop(-1)
+        if name is None:
+            name = innermost
+        elif name != innermost:
+            open_tags.append(innermost)
+            raise ClosingTagMismatch("%s != %s" % (name, innermost))
+    elif name is None:
+        raise ClosingTagMismatch("no open tag")
+    return '</%s>' % name
 
 def tag(name, data = None, **attributes):
     """
