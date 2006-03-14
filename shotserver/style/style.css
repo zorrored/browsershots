@@ -10,7 +10,7 @@ body {
 .right { float: right; }
 
 div#all {
-  width: 760px;
+  width: 764px;
   margin: 0 auto;
   padding: 0;
   text-align: left;
@@ -57,6 +57,12 @@ div#recent {
   margin: 1ex 0;
   padding: 0 0 130px;
 }
+table#factories {
+  margin: 1ex 0;
+  width: 100%;
+}
+table { border-collapse: collapse; }
+td { padding: 0 1ex 0 0; }
 
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -76,9 +82,12 @@ div.traceback {
   padding: 0 1em;
 }
 
+input { vertical-align: middle; }
+
 .top { vertical-align: top; }
 .middle { vertical-align: middle; }
 .bottom { vertical-align: bottom; }
 .relative { position: relative; }
 .absolute { position: absolute; }
 .clear { clear: both; }
+.red { color: red; }
