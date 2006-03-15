@@ -28,17 +28,20 @@ __author__ = '$Author$'
 import os
 from shotserver03.interface import xhtml
 
-thumbdir = 'png/60'
 max_thumbs = 30
 
 def write():
     xhtml.write_open_tag_line('div', _id="recent")
     
-    images = os.listdir('/var/www/browsershots.org/' + thumbdir)
-    images.sort()
-    for index, image in enumerate(images):
+    lines = file('/var/www/browsershots.org/png/sizes.txt').readlines()
+    for index, line in enumerate(lines):
         if index == max_thumbs:
             break
-        xhtml.write_tag_line('img', src='/'.join(('', thumbdir, image)), alt="", _class="absolute", style="right:%dpx" % (2 + index * 64))
+        image, width, height = line.split()
+        width = int(width) / 4
+        height = int(height) / 4
+        img = xhtml.tag('img', src='/'.join(('', 'png', '120',image)), alt="", _class="absolute",
+                        style="right:%dpx;width:%dpx;height:%dpx;margin-right:-30px" % (32 + index * 64, width, height))
+        xhtml.write_tag_line('a', img, href="/")
 
     xhtml.write_close_tag_line('div') # id="recent"
