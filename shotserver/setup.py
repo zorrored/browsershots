@@ -16,5 +16,5 @@ setup(name = 'ShotServer',
                   'shotserver03.segments'],
       scripts = ['scripts/shotserver03_db_create.py',
                  'scripts/shotserver03_resize.py'],
-      data_files = [('shotserver03/style', ['style/style.css', 'style/logo40.png', 'style/mfg.png'])],
+      data_files = [('shotserver03/style', ['style/style.css', 'style/logo40.png', 'style/mfg.png', 'style/zoom.js'])],
       )
