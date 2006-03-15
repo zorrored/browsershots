@@ -31,8 +31,8 @@ def write():
     xhtml.write_open_tag_line('form', action="/post/submit/", method="post")
 
     xhtml.write_open_tag_line('p', _id="inputurl")
-    xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Make Screenshots", _class="right")
-    xhtml.write_tag_line('input', _type="text", _id="url", _name="url", value="Enter your web address here", size=50)
+    xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Make Screenshots", _class="right button")
+    xhtml.write_tag_line('input', _type="text", _id="url", _name="url", value="Enter your web address here", size=50, _class="text")
     xhtml.write_close_tag_line('p')
 
     xhtml.write_open_tag_line('table', _id="factories")
