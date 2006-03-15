@@ -5,6 +5,7 @@ function step(img, width, height, margin) {
 }
 
 function larger(img, width, height) {
+  img.style.zIndex = 2
   setTimeout(function() { step(img, width*1.1+'px', height*1.1+'px', '-1px -33px 0 0') }, 20);
   setTimeout(function() { step(img, width*1.2+'px', height*1.2+'px', '-2px -36px 0 0') }, 40);
   setTimeout(function() { step(img, width*1.3+'px', height*1.3+'px', '-3px -39px 0 0') }, 60);
@@ -18,6 +19,7 @@ function larger(img, width, height) {
 }
 
 function smaller(img, width, height) {
+  img.style.zIndex = 1
   setTimeout(function() { step(img, width*1.9+'px', height*1.9+'px', '-9px -57px 0 0') }, 20);
   setTimeout(function() { step(img, width*1.8+'px', height*1.8+'px', '-8px -54px 0 0') }, 40);
   setTimeout(function() { step(img, width*1.7+'px', height*1.7+'px', '-7px -51px 0 0') }, 60);
