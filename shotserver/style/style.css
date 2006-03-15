@@ -63,8 +63,6 @@ div#recent {
   margin: 1ex 0;
   padding: 0 0 120px;
 }
-div#recent img { z-index: 1; }
-div#recent a:hover img { z-index: 2; }
 table#factories {
   margin: 1ex 0;
   width: 100%;
