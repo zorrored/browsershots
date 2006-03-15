@@ -52,7 +52,7 @@ div#logo { padding: 0.5ex 0; }
 p#sponsors {
   clear: both;
   padding: 0.5ex 0;
-  margin: 0;
+  margin: 1em 0 0;
   color: gray;
 }
 
@@ -74,9 +74,9 @@ th, td {
   text-align: left;
   padding: 0 1ex 0 0;
 }
-p#inputurl { margin: 1em 0 0; }
+p#inputurl { margin: 2em 0 1em; }
 p#inputurl input#url {
-  width: 588px;
+  width: 548px;
   padding: 2px 4px;
   border-color: #444 #CCC #CCC #444;
 }
