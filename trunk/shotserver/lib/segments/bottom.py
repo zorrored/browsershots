@@ -32,8 +32,8 @@ def write():
 
     xhtml.write_open_tag('ul', _class="left")
     xhtml.write_tag('li', xhtml.tag('a', 'FAQ', href="/trac/wiki/FrequentlyAskedQuestions/"), _class="first")
-    xhtml.write_tag('li', xhtml.tag('a', 'Terms of Use', href="/trac/wike/TermsOfUse/"))
-    xhtml.write_tag('li', xhtml.tag('a', 'Privacy Policy', href="/trac/wike/PrivacyPolicy/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Terms of Use', href="/trac/wiki/TermsOfUse/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Privacy Policy', href="/trac/wiki/PrivacyPolicy/"))
     xhtml.write_close_tag_line('ul') # class="left"
 
     xhtml.write_open_tag('ul', _class="right")
