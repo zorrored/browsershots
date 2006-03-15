@@ -18,10 +18,30 @@
 # MA 02111-1307, USA.
 
 """
-XHTML segments for web frontend. Each segment is wrapped in a div or table
-or p or something, with the segment name in its id attribute.
+Display top menu bar.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
+
+from shotserver03.interface import xhtml
+
+def write():
+    xhtml.write_open_tag_line('div', _class="menu", _id="topmenu")
+
+    xhtml.write_open_tag('ul', _class="left")
+    xhtml.write_tag('li', xhtml.tag('a', 'Home', href="/"),  _class="first")
+    xhtml.write_tag('li', xhtml.tag('a', 'Trac', href="/trac/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Blog', href="/blog/"))
+    xhtml.write_close_tag_line('ul') # class="left"
+
+    xhtml.write_open_tag('ul', _class="right")
+    xhtml.write_tag('li', xhtml.tag('a', 'Settings', href="/settings/"), _class="first")
+    xhtml.write_tag('li', xhtml.tag('a', 'Sign Out', href="/signout/"))
+    xhtml.write_close_tag_line('ul') # class="right"
+
+    xhtml.write_tag_line('p', '60 seconds', _class="right")
+    xhtml.write_tag_line('div', '', _class="clear")
+    xhtml.write_close_tag_line('div') # id="topmenu"
+
