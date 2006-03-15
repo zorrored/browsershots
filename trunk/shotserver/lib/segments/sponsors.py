@@ -30,5 +30,6 @@ from shotserver03.interface import xhtml
 def write():
     xhtml.write_open_tag('p', _id="sponsors")
     req.write("Sponsored by ")
-    xhtml.write_tag('img', src="/style/mfg.png", alt="MFG Stiftung BW", _class="top")
+    img = xhtml.tag('img', src="/style/mfg.png", alt="MFG Stiftung BW", _class="top")
+    xhtml.write_tag('a', img, href="http://www.mfg.de/stiftung/")
     xhtml.write_close_tag_line('p') # id="sponsors"
