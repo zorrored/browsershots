@@ -29,7 +29,7 @@ from shotserver03.interface import xhtml
 from shotserver03.segments import recent, factories
 
 def title():
-    return "Browsershots 0.3"
+    return "Welcome"
 
 def body():
     # xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
