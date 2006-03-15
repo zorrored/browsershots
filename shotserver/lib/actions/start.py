@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # browsershots.org
 # Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -31,9 +32,6 @@ def title():
     return "Browsershots 0.3"
 
 def body():
-    xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
+    # xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
     recent.write()
-    
-    xhtml.write_open_tag_line('form', action="/post/submit/")
     factories.write()
-    xhtml.write_close_tag_line('form')
