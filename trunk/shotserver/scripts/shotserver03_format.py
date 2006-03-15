@@ -1,5 +1,5 @@
 #! /usr/bin/python
-
+# -*- coding: utf-8 -*-
 # browsershots.org
 # Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -38,6 +38,8 @@ def read_blocks(filename):
     start = 1
     docstring = False
     lines = file(filename).readlines()
+    if not lines[-1].endswith('\n'):
+        raise FormatError(filename, len(lines), 'no newline before EOF')
     lines.append('')
     for number, line in enumerate(lines):
         stripped = line.strip()
@@ -48,7 +50,7 @@ def read_blocks(filename):
             block.append(line)
         else:
             if block:
-                blocks.append((start, block))
+                blocks.append([start, block])
                 if len(blocks) > 4:
                     break
                 block = []
@@ -57,8 +59,14 @@ def read_blocks(filename):
             docstring = False
     return blocks
 
+def remove_shebang(head):
+    if head[1][0] == '#! /usr/bin/python\n':
+            head[0] += 1
+            head[1].pop(0)
+            
 reference = read_blocks(sys.argv[0])
-ref_shebang, ref_head, ref_docstring, ref_keywords = reference[:4]
+ref_head, ref_docstring, ref_keywords = reference[:3]
+remove_shebang(ref_head)
 error = 0
 
 files = sys.argv[1:]
@@ -66,12 +74,8 @@ files.sort()
 for filename in files:
     try:
         blocks = read_blocks(filename)
-        if blocks[0][1][0].startswith('#!'):
-            shebang, head, docstring, keywords = blocks[:4]
-            if shebang[1] != ref_shebang[1]:
-                raise FormatError(filename, shebang[0], "wrong shebang")
-        else:
-            head, docstring, keywords = blocks[:3]
+        head, docstring, keywords = blocks[:3]
+        remove_shebang(head)
         if head[1] != ref_head[1]:
             for offset, line in enumerate(head[1]):
                 if offset >= len(ref_head[1]):

@@ -1,5 +1,5 @@
 #! /usr/bin/python
-
+# -*- coding: utf-8 -*-
 # browsershots.org
 # Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
 #
