@@ -1,5 +1,5 @@
 body {
-  margin: 0 1em;
+  margin: 0 8px;
   padding: 0;
   text-align: center;
   font-family: Verdana, Arial, sans-serif;
@@ -9,8 +9,13 @@ body {
 .left { float: left; }
 .right { float: right; }
 
+input {
+  border-width: 1px;
+  border-style: solid;
+}
+
 div#all {
-  width: 764px;
+  width: 734px;
   margin: 0 auto;
   padding: 0;
   text-align: left;
@@ -33,13 +38,11 @@ div.menu li {
 }
 div.menu li.first { border-left: none; }
 
-div#top { background-color: #04A; }
-div#top a, div#top p { color: white; }
-div#top a { font-weight: bold; }
-div#top ul.right li.first { padding-left: 4ex; }
-div#top li { border-left-color: white; }
-
-div#sub li.first { padding-left: 0; }
+div#topmenu { background-color: #04A; }
+div#topmenu a, div#topmenu p { color: white; }
+div#topmenu a { font-weight: bold; }
+div#topmenu ul.right li.first { padding-left: 4ex; }
+div#topmenu li { border-left-color: white; }
 
 div#bottom { background-color: #DDD; }
 div#bottom a, div#bottom a { color: black; }
@@ -55,24 +58,51 @@ p#sponsors {
 
 div#recent {
   margin: 1ex 0;
-  padding: 0 0 130px;
+  padding: 0 0 120px;
+  overflow: hidden;
 }
 table#factories {
   margin: 1ex 0;
   width: 100%;
 }
+table#factories input {
+  padding: 0;
+  margin: 0;
+}
 table { border-collapse: collapse; }
-td { padding: 0 1ex 0 0; }
+th, td {
+  text-align: left;
+  padding: 0 1ex 0 0;
+}
+p#inputurl { margin: 1em 0 0; }
+p#inputurl input#url {
+  width: 588px;
+  padding: 2px 4px;
+  border-color: #444 #CCC #CCC #444;
+}
+p#inputurl input#submit {
+  width: 160px;
+  font-weight: bold;
+  padding: 1px 4px;
+  background-color: #DDD;
+  border-color: #CCC #444 #444 #CCC;
+}
 
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+h1 {
+  position: relative;
+  font-size: 36px;
+  left: -3px;
+}
 h1, h2 {
   clear: left;
   font-family: "Trebuchet MS", Arial, sans-serif;
   margin: 0;
 }
 
+p { margin: 1ex 0; }
 p.error { color: #F00; }
 p.success { color: #080; }
 p.error, p.success { font-weight: bold; }
@@ -81,8 +111,6 @@ div.traceback {
   border: 3px solid red;
   padding: 0 1em;
 }
-
-input { vertical-align: middle; }
 
 .top { vertical-align: top; }
 .middle { vertical-align: middle; }
