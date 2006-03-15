@@ -52,12 +52,21 @@ def action_option(module, key, default):
     else:
         return default
 
+def negotiate_xml():
+    if not req.headers_in.has_key('Accept'):
+        # Send XML to validator.w3.org etc.
+        return True
+    if req.headers_in['Accept'].count('application/xhtml+xml'):
+        # Send XML to all modern browsers.
+        return True
+    # Send text/html to MSIE 6 and 7.
+    return False
+
 def write_html_head(title):
-    xml = req.headers_in['Accept'].count('application/xhtml+xml')
+    req.content_type = 'text/html; charset=UTF-8'
+    xml = negotiate_xml()
     if xml:
         req.content_type = 'application/xhtml+xml; charset=UTF-8'
-    else:
-        req.content_type = 'text/html; charset=UTF-8'
     req.write('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"')
     req.write(' "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n')
     xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
