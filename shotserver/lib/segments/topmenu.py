@@ -41,7 +41,8 @@ def write():
     xhtml.write_tag('li', xhtml.tag('a', 'Sign Out', href="/signout/"))
     xhtml.write_close_tag_line('ul') # class="right"
 
-    xhtml.write_tag_line('p', '60 seconds', _class="right")
+    link = xhtml.tag('a', 'Mock-up!', href="http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/")
+    xhtml.write_tag_line('p', link, _class="right mockup")
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="topmenu"
 
