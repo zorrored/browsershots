@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # browsershots.org
 # Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -27,7 +28,8 @@ __author__ = '$Author$'
 
 import sys, traceback
 from mod_python import apache
-from interface import xhtml, menu
+from interface import xhtml
+from segments import topmenu, bottom, sponsors
 
 def import_deep(name):
     """
@@ -51,12 +53,19 @@ def action_option(module, key, default):
         return default
 
 def write_html_head(title):
-    req.content_type = 'application/xhtml+xml; charset=UTF-8'
+    xml = req.headers_in['Accept'].count('application/xhtml+xml')
+    if xml:
+        req.content_type = 'application/xhtml+xml; charset=UTF-8'
+    else:
+        req.content_type = 'text/html; charset=UTF-8'
     req.write('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"')
     req.write(' "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n')
     xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
     xhtml.write_open_tag_line('head')
-    xhtml.write_tag_line('title', title)
+    if xml:
+        xhtml.write_tag_line('title', title)
+    else:
+        xhtml.write_tag_line('title', 'This browser does not understand XML')
     xhtml.write_tag_line('link', rel="stylesheet", type="text/css", href="/style/style.css")
     xhtml.write_close_tag_line('head')
 
@@ -77,23 +86,16 @@ def handler(req):
         xhtml.write_open_tag_line('body')
         xhtml.write_open_tag_line('div', _id="all")
 
-        menu.write_top()
-        xhtml.write_open_tag_line('div', _class="menu", _id="sub")
-        xhtml.write_tag_line('img', src="style/logo40.png", _class="right", alt="browsershots.org beta")
-
-        xhtml.write_open_tag('ul', _class="left")
-        xhtml.write_tag('li', xhtml.tag('a', 'Screenshots', href="/screenshots/"), _class="first")
-        xhtml.write_tag('li', xhtml.tag('a', 'Submit', href="/submit/"))
-        xhtml.write_tag('li', xhtml.tag('a', 'Search', href="/search/"))
-        xhtml.write_close_tag_line('ul') # class="left"
-
+        topmenu.write()
+        xhtml.write_open_tag_line('div', _class="menu", _id="headline")
+        xhtml.write_tag_line('img', src="/style/logo40.png", _class="right", alt="browsershots.org beta")
         xhtml.write_tag_line('h1', title)
         xhtml.write_close_tag_line('div') # id="sub"
 
         action_module.body()
         
-        menu.write_bottom()
-        menu.write_sponsors()
+        bottom.write()
+        sponsors.write()
 
         xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
