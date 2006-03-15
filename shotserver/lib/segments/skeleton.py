@@ -18,10 +18,16 @@
 # MA 02111-1307, USA.
 
 """
-XHTML segments for web frontend. Each segment is wrapped in a div or table
-or p or something, with the segment name in its id attribute.
+Display some content.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
+
+from shotserver03.interface import xhtml
+
+def write():
+    xhtml.write_open_tag('p', _id="sponsors")
+
+    xhtml.write_close_tag_line('p') # id="sponsors"

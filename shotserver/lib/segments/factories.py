@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # browsershots.org
 # Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -27,8 +28,26 @@ __author__ = '$Author$'
 from shotserver03.interface import xhtml
 
 def write():
+    xhtml.write_open_tag_line('form', action="/post/submit/", method="post")
+
+    xhtml.write_open_tag_line('p', _id="inputurl")
+    xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Make Screenshots", _class="right")
+    xhtml.write_tag_line('input', _type="text", _id="url", _name="url", value="Enter your web address here", size=50)
+    xhtml.write_close_tag_line('p')
+
     xhtml.write_open_tag_line('table', _id="factories")
     
+    xhtml.write_open_tag('tr')
+    xhtml.write_tag('th', 'Browser name<br />and version', colspan=2)
+    xhtml.write_tag('th', 'Rendering<br />engine')
+    xhtml.write_tag('th', 'Operating<br />system')
+    xhtml.write_tag('th', 'Last<br />poll')
+    xhtml.write_tag('th', 'Last<br />upload')
+    xhtml.write_tag('th', 'Uploads<br />in 24h')
+    xhtml.write_tag('th', 'Jobs in<br />queue')
+    xhtml.write_tag('th', 'Queue<br />time')
+    xhtml.write_close_tag_line('tr')
+
     factories = [
         ('Epiphany 1.4.8', 'Gecko 20050718', 'Linux Debian', '4 min', '4 min', '233', '10', '62 minutes'),
         ('Firefox 1.0.4', 'Gecko 20050825', 'Linux Debian', '14 s', '46 s', '288', '15', '75 minutes'),
@@ -44,13 +63,12 @@ def write():
 
     for index, factory in enumerate(factories):
         xhtml.write_open_tag('tr')
+        xhtml.write_tag('td', xhtml.tag('input', checked="checked", type="checkbox", value=str(index), _name="factory"))
         for column, cell in enumerate(factory):
-            if not column:
-                checkbox = xhtml.tag('input', checked="checked", type="checkbox", value=str(index), _name="factory")
-                cell = ' '.join((checkbox, cell))
-            if cell.endswith('minutes') and cell[1] != '&' and cell[0:2] > '60':
+            if cell.endswith('minutes') and cell[1] != ' ' and cell[0:2] > '60':
                 cell = xhtml.tag('span', cell, _class="red")
             xhtml.write_tag('td', cell)
         xhtml.write_close_tag_line('tr')
         
     xhtml.write_close_tag_line('table') # id="factories"
+    xhtml.write_close_tag_line('form')

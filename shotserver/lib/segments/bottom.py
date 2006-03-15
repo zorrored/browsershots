@@ -18,27 +18,29 @@
 # MA 02111-1307, USA.
 
 """
-Display recent screenshots in a horizontal row.
+Display bottom line with some links.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import os
 from shotserver03.interface import xhtml
 
-thumbdir = 'png/60'
-max_thumbs = 30
-
 def write():
-    xhtml.write_open_tag_line('div', _id="recent")
-    
-    images = os.listdir('/var/www/browsershots.org/' + thumbdir)
-    images.sort()
-    for index, image in enumerate(images):
-        if index == max_thumbs:
-            break
-        xhtml.write_tag_line('img', src='/'.join(('', thumbdir, image)), alt="", _class="absolute", style="right:%dpx" % (2 + index * 64))
+    xhtml.write_open_tag_line('div', _class="menu", _id="bottom")
 
-    xhtml.write_close_tag_line('div') # id="recent"
+    xhtml.write_open_tag('ul', _class="left")
+    xhtml.write_tag('li', xhtml.tag('a', 'FAQ', href="/trac/wiki/FrequentlyAskedQuestions/"), _class="first")
+    xhtml.write_tag('li', xhtml.tag('a', 'Terms of Use', href="/trac/wike/TermsOfUse/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Privacy Policy', href="/trac/wike/PrivacyPolicy/"))
+    xhtml.write_close_tag_line('ul') # class="left"
+
+    xhtml.write_open_tag('ul', _class="right")
+    xhtml.write_tag('li', xhtml.tag('a', 'XHTML 1.1', href="http://validator.w3.org/check?uri=referer"), _class="first")
+    xhtml.write_tag('li', xhtml.tag('a', 'CSS', href="http://jigsaw.w3.org/css-validator/check/referer"))
+    xhtml.write_close_tag_line('ul') # class="right"
+
+    xhtml.write_tag_line('div', '', _class="clear")
+    xhtml.write_close_tag_line('div') # id="bottom"
+

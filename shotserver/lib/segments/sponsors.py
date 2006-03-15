@@ -18,10 +18,17 @@
 # MA 02111-1307, USA.
 
 """
-XHTML segments for web frontend. Each segment is wrapped in a div or table
-or p or something, with the segment name in its id attribute.
+Display project sponsor logos with links.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
+
+from shotserver03.interface import xhtml
+
+def write():
+    xhtml.write_open_tag('p', _id="sponsors")
+    req.write("Sponsored by ")
+    xhtml.write_tag('img', src="/style/mfg.png", alt="MFG Stiftung BW", _class="top")
+    xhtml.write_close_tag_line('p') # id="sponsors"
