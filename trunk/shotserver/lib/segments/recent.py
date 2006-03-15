@@ -32,7 +32,7 @@ max_thumbs = 30
 
 def write():
     xhtml.write_open_tag_line('div', _id="recent")
-    
+
     lines = file('/var/www/browsershots.org/png/sizes.txt').readlines()
     for index, line in enumerate(lines):
         if index == max_thumbs:
@@ -41,7 +41,9 @@ def write():
         width = int(width) / 4
         height = int(height) / 4
         img = xhtml.tag('img', src='/'.join(('', 'png', '120',image)), alt="", _class="absolute",
+                        onmouseover="larger(this,%d,%d)" % (width, height),
+                        onmouseout="smaller(this,%d,%d)" % (width, height),
                         style="right:%dpx;width:%dpx;height:%dpx;margin-right:-30px" % (32 + index * 64, width, height))
-        xhtml.write_tag_line('a', img, href="/")
+        xhtml.write_tag_line('a', img, href='png/240/%s' % image)
 
     xhtml.write_close_tag_line('div') # id="recent"
