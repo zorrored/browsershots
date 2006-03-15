@@ -54,13 +54,12 @@ def action_option(module, key, default):
 
 def negotiate_xml():
     if not req.headers_in.has_key('Accept'):
-        # Send XML to validator.w3.org etc.
-        return True
+        return True # Send XML to validator.w3.org etc.
     if req.headers_in['Accept'].count('application/xhtml+xml'):
-        # Send XML to all modern browsers.
-        return True
-    # Send text/html to MSIE 6 and 7.
-    return False
+        return True # Send XML to all modern browsers.
+    if req.headers_in['Accept'] == '*/*':
+        return True # Send XML to Safari.
+    return False # Send text/html to MSIE 6 and 7.
 
 def write_html_head(title):
     req.content_type = 'text/html; charset=UTF-8'
@@ -75,7 +74,8 @@ def write_html_head(title):
         xhtml.write_tag_line('title', title)
     else:
         xhtml.write_tag_line('title', 'This browser does not understand XML')
-    xhtml.write_tag_line('link', rel="stylesheet", type="text/css", href="/style/style.css")
+    xhtml.write_tag_line('link', type="text/css", href="/style/style.css", rel="stylesheet")
+    xhtml.write_tag_line('script', '', type="text/javascript", src="/style/zoom.js")
     xhtml.write_close_tag_line('head')
 
 def handler(req):
