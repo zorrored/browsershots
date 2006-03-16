@@ -44,7 +44,7 @@ def write():
         img = xhtml.tag('img', src='/'.join(('', 'png', '120',image)), alt="", _class="absolute",
                         onmouseover="larger(this,%d,%d)" % (width, height),
                         onmouseout="smaller(this,%d,%d)" % (width, height),
-                        style="right:%dpx;width:%dpx;height:%dpx;margin-right:-30px" % (32 + index * 64, width/2, height/2))
+                        style="right:%dpx;width:%dpx;height:%dpx;margin-right:-30px;z-index:1" % (32 + index * 64, width/2, height/2))
         xhtml.write_tag_line('a', img, href='png/240/%s' % image)
 
     xhtml.write_close_tag_line('div') # id="recent"
