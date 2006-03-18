@@ -27,7 +27,6 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import sys, traceback
-from mod_python import apache
 from interface import xhtml
 from segments import topmenu, bottom, sponsors
 
@@ -109,6 +108,7 @@ def handler(req):
         xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
+        from mod_python import apache
         return apache.OK
     except:
         if naked == 'redirect':
@@ -132,4 +132,5 @@ def handler(req):
         if len(xhtml.open_tags) == 2:
             xhtml.write_close_tag_line('body')
             xhtml.write_close_tag_line('html')
+        from mod_python import apache
         return apache.OK
