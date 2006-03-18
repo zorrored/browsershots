@@ -31,7 +31,7 @@ __author__ = '$Author$'
 
 import re
 import MySQLdb
-from shotserver.database import maxlen
+from shotserver03.database import maxlen
 
 re_key_value = re.compile(r'(\w+)\s*\=\s*(\S+)')
 def read_credentials(filename = '/root/.my.cnf'):
@@ -57,7 +57,7 @@ def read_credentials(filename = '/root/.my.cnf'):
 rootuser, rootpass = read_credentials()
 
 # Create database.
-db_name = 'browsershots'
+db_name = 'shotserver03'
 con = MySQLdb.connect(host = 'localhost',
                        user = rootuser, passwd = rootpass)
 cur = con.cursor()
@@ -206,7 +206,10 @@ engine     INT UNSIGNED NOT NULL,
 flash      TINYINT UNSIGNED NOT NULL,
 java       TINYINT UNSIGNED NOT NULL,
 javascript TINYINT UNSIGNED NOT NULL,
-quicktime  TINYINT UNSIGNED NOT NULL)
+quicktime  TINYINT UNSIGNED NOT NULL,
+
+FOREIGN KEY (factory) REFERENCES factory (id)
+)
 """)
 
 # Each factory can have many screen resolutions.
