@@ -1,4 +1,4 @@
 CREATE VIEW browser_stats AS
-SELECT browser.name, COUNT(*) AS queued FROM job, browser
-WHERE job.screenshot IS NULL and job.browser = browser.id
-GROUP BY browser.name;
+SELECT browser_name, COUNT(*) AS queued FROM request, browser
+WHERE request_browser = browser AND screenshot IS NULL
+GROUP BY browser_name;
