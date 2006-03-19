@@ -1,42 +1,53 @@
-INSERT INTO browser (name, manufacturer) VALUES ('Firefox', 'Mozilla');
-INSERT INTO browser (name, manufacturer) VALUES ('Safari', 'Apple');
-INSERT INTO browser (name, manufacturer) VALUES ('Internet Explorer', 'Microsoft');
-INSERT INTO browser (name, manufacturer) VALUES ('Konqueror', 'KDE');
-INSERT INTO browser (name) VALUES ('Galeon');
-INSERT INTO browser (name) VALUES ('Mozilla');
-INSERT INTO browser (name) VALUES ('Epiphany');
-INSERT INTO browser (name) VALUES ('Opera');
+INSERT INTO person (person_name, person_email) VALUES ('Johann C. Rocholl', 'jcrocholl@browsershots.org');
 
-INSERT INTO browser_version (browser, major, minor, engine) VALUES (1, 1, 5, 'Gecko');
-INSERT INTO browser_version (browser, major, minor, engine) VALUES (2, 2, 0, 'KHTML');
-INSERT INTO browser_version (browser, major, minor, engine) VALUES (1, 1, 0, 'Gecko');
-INSERT INTO browser_version (browser, major, minor, engine) VALUES (4, 3, 2, 'KHTML');
+INSERT INTO browser (browser_name, browser_manufacturer) VALUES ('Firefox', 'Mozilla');
+INSERT INTO browser (browser_name, browser_manufacturer) VALUES ('Safari', 'Apple');
+INSERT INTO browser (browser_name, browser_manufacturer) VALUES ('Internet Explorer', 'Microsoft');
+INSERT INTO browser (browser_name, browser_manufacturer) VALUES ('Konqueror', 'KDE');
+INSERT INTO browser (browser_name) VALUES ('Galeon');
+INSERT INTO browser (browser_name) VALUES ('Mozilla');
+INSERT INTO browser (browser_name) VALUES ('Epiphany');
+INSERT INTO browser (browser_name) VALUES ('Opera');
 
-INSERT INTO os (name, distro, version, major, minor, manufacturer) VALUES ('Linux', 'Ubuntu', 'Dapper Drake', 6, 4, 'Canonical');
-INSERT INTO os (name, distro, version, major, minor, manufacturer) VALUES ('Mac OS', 'X', 'Tiger', 10, 4, 'Apple');
-INSERT INTO os (name, distro, version, manufacturer) VALUES ('Windows', 'XP', 'Service Pack 2', 'Microsoft');
-INSERT INTO os (name, distro, version, major, minor) VALUES ('Linux', 'Debian', 'Sarge', 3, 1);
+INSERT INTO browser_version (browser, browser_major, browser_minor, browser_engine) VALUES (1, 1, 5, 'Gecko');
+INSERT INTO browser_version (browser, browser_major, browser_minor, browser_engine) VALUES (2, 2, 0, 'KHTML');
+INSERT INTO browser_version (browser, browser_major, browser_minor, browser_engine) VALUES (1, 1, 0, 'Gecko');
+INSERT INTO browser_version (browser, browser_major, browser_minor, browser_engine) VALUES (4, 3, 2, 'KHTML');
+INSERT INTO browser_version (browser, browser_major, browser_minor, browser_engine) VALUES (8, 8, 5, 'Opera');
 
-INSERT INTO factory (name, os) VALUES ('tyll', 1);
-INSERT INTO factory (name, os) VALUES ('runt', 2);
-INSERT INTO factory (name, os) VALUES ('sven', 3);
-INSERT INTO factory (name, os) VALUES ('quad', 3);
-INSERT INTO factory (name, os) VALUES ('azul', 4);
+INSERT INTO os (os_name) VALUES ('Linux');
+INSERT INTO os (os_name, os_manufacturer) VALUES ('Mac OS', 'Apple');
+INSERT INTO os (os_name, os_manufacturer) VALUES ('Windows', 'Microsoft');
+
+INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (1, 'Ubuntu', 'Dapper Drake', 6, 4);
+INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (2, 'X', 'Tiger', 10, 4);
+INSERT INTO os_version (os, os_distro, os_codename) VALUES (3, 'XP', 'Service Pack 2');
+INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (1, 'Debian', 'Sarge', 3, 1);
+
+INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('tyll', 1, 1);
+INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('runt', 2, 1);
+INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('sven', 3, 1);
+INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('quad', 3, 1);
+INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('azul', 4, 1);
 
 INSERT INTO factory_browser (factory, browser_version) VALUES (1, 1);
 INSERT INTO factory_browser (factory, browser_version) VALUES (2, 2);
 INSERT INTO factory_browser (factory, browser_version) VALUES (5, 3);
 INSERT INTO factory_browser (factory, browser_version) VALUES (5, 4);
+INSERT INTO factory_browser (factory, browser_version) VALUES (5, 5);
 
-INSERT INTO factory_resolution (factory, width, height) VALUES (1, 1024, 768);
-INSERT INTO factory_resolution (factory, width, height) VALUES (1, 800, 600);
+INSERT INTO factory_screen (factory, screen_width, screen_height) VALUES (1, 1024, 768);
+INSERT INTO factory_screen (factory, screen_width, screen_height) VALUES (1, 800, 600);
 
-INSERT INTO website (url) VALUES ('http://foo');
-INSERT INTO website (url) VALUES ('http://bar');
-INSERT INTO website (url) VALUES ('http://baz');
+INSERT INTO website (website_url) VALUES ('http://foo');
+INSERT INTO website (website_url) VALUES ('http://bar');
+INSERT INTO website (website_url) VALUES ('http://baz');
 
-INSERT INTO job (browser, website) VALUES (1, 1);
-INSERT INTO job (browser, website) VALUES (1, 2);
-INSERT INTO job (browser, website) VALUES (2, 1);
-INSERT INTO job (browser, website) VALUES (2, 2);
-INSERT INTO job (browser, website) VALUES (2, 3);
+INSERT INTO request (website, request_browser, request_major, request_minor) VALUES (1, 1, 1, 5);
+INSERT INTO request (website, request_browser, request_os) VALUES (2, 1, 1);
+INSERT INTO request (website, request_browser) VALUES (1, 2);
+INSERT INTO request (website, request_browser) VALUES (2, 2);
+INSERT INTO request (website, request_browser) VALUES (3, 2);
+
+INSERT INTO lock (request, factory) VALUES (1, 1);
+INSERT INTO lock (request, factory) VALUES (3, 2);

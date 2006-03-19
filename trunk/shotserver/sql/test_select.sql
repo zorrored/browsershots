@@ -1,13 +1,18 @@
+SELECT * FROM person;
 SELECT * FROM os;
+
+SELECT factory_name, os_name, os_manufacturer,
+os_distro, os_codename, os_major, os_minor, person_name AS admin_name
+FROM factory NATURAL JOIN os_version NATURAL JOIN os NATURAL JOIN person
+ORDER BY factory_name;
+
+SELECT factory_name, browser_manufacturer, browser_name, browser_major, browser_minor, browser_engine
+FROM factory_browser NATURAL JOIN factory NATURAL JOIN browser_version NATURAL JOIN browser
+ORDER BY factory_name;
+
+SELECT * FROM request;
 SELECT * FROM browser_stats;
 
-SELECT factory.name,
-os.manufacturer, os.name, os.distro, os.version, os.major, os.minor
-FROM factory, os WHERE factory.os = os.id;
-
-SELECT factory.name, browser.manufacturer, browser.name,
-browser_version.major, browser_version.minor, browser_version.engine
-FROM factory_browser, factory, browser_version, browser
-WHERE factory_browser.factory = factory.id
-AND factory_browser.browser_version = browser_version.id
-AND browser_version.browser = browser.id;
+SELECT website_url, factory_name, browser_name
+FROM lock NATURAL JOIN request NATURAL JOIN website NATURAL JOIN factory, browser
+WHERE browser = request_browser;
