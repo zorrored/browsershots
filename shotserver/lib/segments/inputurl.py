@@ -18,7 +18,7 @@
 # MA 02111-1307, USA.
 
 """
-Home page.
+URL input for submitting new jobs.
 """
 
 __revision__ = '$Rev$'
@@ -26,16 +26,9 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
-from shotserver03.segments import recent, factories, inputurl, browsers
 
-def title():
-    return "Welcome"
-
-def body():
-    # xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
-    recent.write()
-    
-    xhtml.write_open_tag_line('form', action="/post/submit/", method="post")
-    inputurl.write()
-    browsers.write()
-    xhtml.write_close_tag_line('form')
+def write():
+    xhtml.write_open_tag_line('p', _id="inputurl")
+    xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Make Screenshots", _class="right button")
+    xhtml.write_tag_line('input', _type="text", _id="url", _name="url", value="Enter your web address here", size=50, _class="text")
+    xhtml.write_close_tag_line('p')
