@@ -36,7 +36,7 @@ div.menu p, div.menu ul {
 div.menu li {
   display: inline;
   padding: 0 1ex;
-  border-left: 1px solid gray;
+  border-left: 1px solid white;
 }
 div.menu li.first { border-left: none; }
 
@@ -45,10 +45,8 @@ div#topmenu a { color: black; }
 div#topmenu p.mockup a { color: red; }
 div#topmenu a { font-weight: bold; }
 div#topmenu ul.right li.first { padding-left: 4ex; }
-div#topmenu li { border-left-color: white; }
 
 div#bottom a, div#bottom a { color: black; }
-div#bottom li { border-left-color: black; }
 
 div#logo { padding: 0.5ex 0; }
 p#sponsors {
