@@ -17,7 +17,7 @@ input.text, input.button {
 }
 
 div#all {
-  width: 734px;
+  width: 764px;
   margin: 0 auto;
   padding: 0;
   text-align: left;
@@ -40,14 +40,13 @@ div.menu li {
 }
 div.menu li.first { border-left: none; }
 
-div#topmenu { background-color: #04A; }
-div#topmenu a { color: white; }
-div#topmenu p.mockup a { color: #FC0; }
+div#topmenu { margin: 0 0 1em; }
+div#topmenu a { color: black; }
+div#topmenu p.mockup a { color: red; }
 div#topmenu a { font-weight: bold; }
 div#topmenu ul.right li.first { padding-left: 4ex; }
 div#topmenu li { border-left-color: white; }
 
-div#bottom { background-color: #DDD; }
 div#bottom a, div#bottom a { color: black; }
 div#bottom li { border-left-color: black; }
 
@@ -55,30 +54,37 @@ div#logo { padding: 0.5ex 0; }
 p#sponsors {
   clear: both;
   padding: 0.5ex 0;
-  margin: 1em 0 0;
+  margin: 1em 0;
   color: gray;
 }
 
 div#recent {
-  margin: 1ex 0;
+  position: absolute;
+  margin: 1em 0;
   padding: 0 0 120px;
+  left: 50%;
+  margin-left: 382px;
 }
-table#factories {
-  margin: 1ex 0;
+table#factories,
+table#browsers {
+  margin: 1em 0;
   width: 100%;
 }
-table#factories input {
+table#factories input,
+table#browsers input {
   padding: 0;
   margin: 0;
 }
+
 table { border-collapse: collapse; }
 th, td {
   text-align: left;
   padding: 0 1ex 0 0;
 }
-p#inputurl { margin: 2em 0 1em; }
+
+p#inputurl { margin: 1em 0; }
 p#inputurl input#url {
-  width: 548px;
+  width: 578px;
   padding: 2px 4px;
   border-color: #444 #CCC #CCC #444;
 }
@@ -121,3 +127,4 @@ div.traceback {
 .absolute { position: absolute; }
 .clear { clear: both; }
 .red { color: red; }
+.lightgray { background-color: #E4E4E4; }
