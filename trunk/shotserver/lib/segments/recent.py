@@ -48,4 +48,4 @@ def write():
         xhtml.write_tag_line('a', img, href='png/240/%s' % image)
 
     xhtml.write_close_tag_line('div') # id="recent"
-    xhtml.write_tag_line('div', _class="spacer", style="height:140px;margin:0 0 1em")
+    xhtml.write_tag_line('div', _class="spacer", style="height:160px;margin:0 0 1em")
