@@ -42,8 +42,10 @@ div.menu li.first { border-left: none; }
 
 div#topmenu { margin: 0 0 1em; }
 div#topmenu a { color: black; }
-div#topmenu p.mockup a { color: red; }
-div#topmenu a { font-weight: bold; }
+div#topmenu p.mockup a {
+  color: red;
+  font-weight: bold;
+}
 div#topmenu ul.right li.first { padding-left: 4ex; }
 
 div#bottom a, div#bottom a { color: black; }
