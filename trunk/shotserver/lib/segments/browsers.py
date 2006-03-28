@@ -29,7 +29,7 @@ from shotserver03.interface import xhtml
 
 def write():
     xhtml.write_open_tag_line('table', _id="browsers")
-    
+
     xhtml.write_open_tag('tr')
     xhtml.write_tag('th', 'Linux')
     xhtml.write_tag('th', 'Mac')
@@ -40,7 +40,7 @@ def write():
 
     xhtml.write_open_tag('tr')
     xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Epiphany 1.4')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Camino 0.4')
+    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Camino 1.0')
     xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Firefox 1.5')
     xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Links 1.0')
     xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Opera 8.5')
@@ -64,7 +64,7 @@ def write():
 
     xhtml.write_open_tag('tr')
     xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Galeon 1.3')
-    xhtml.write_tag('td', '')
+    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Safari 2.0')
     xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' MSIE 7.0')
     xhtml.write_tag('td', '')
     xhtml.write_tag('td', '')
