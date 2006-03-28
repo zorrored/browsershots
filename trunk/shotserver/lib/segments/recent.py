@@ -28,7 +28,7 @@ __author__ = '$Author$'
 import os, random
 from shotserver03.interface import xhtml
 
-max_thumbs = 30
+max_thumbs = 12
 
 def write():
     xhtml.write_open_tag_line('div', _id="recent")
@@ -44,7 +44,8 @@ def write():
         img = xhtml.tag('img', src='/'.join(('', 'png', '120',image)), alt="", _class="absolute",
                         onmouseover="larger(this,%d,%d)" % (width, height),
                         onmouseout="smaller(this,%d,%d)" % (width, height),
-                        style="right:%dpx;width:%dpx;height:%dpx;margin-right:-30px;z-index:1" % (32 + index * 64, width/2, height/2))
+                        style="right:%dpx;width:%dpx;height:%dpx;margin-right:-30px;z-index:1" % (30 + index * 64, width/2, height/2))
         xhtml.write_tag_line('a', img, href='png/240/%s' % image)
 
     xhtml.write_close_tag_line('div') # id="recent"
+    xhtml.write_tag_line('div', _class="spacer", style="height:140px;margin:0 0 1em")
