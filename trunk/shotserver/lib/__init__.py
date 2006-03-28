@@ -102,8 +102,8 @@ def handler(req):
 
         action_module.body()
         
-        bottom.write()
         sponsors.write()
+        bottom.write()
 
         xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
