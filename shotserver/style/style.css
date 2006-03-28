@@ -55,6 +55,9 @@ p#sponsors {
   margin: 1em 0;
   color: gray;
 }
+p#sponsors img {
+  margin-left: 1em;
+}
 
 div#recent {
   position: absolute;
