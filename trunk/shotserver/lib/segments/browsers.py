@@ -34,8 +34,8 @@ def write():
     xhtml.write_tag('th', 'Linux')
     xhtml.write_tag('th', 'Mac')
     xhtml.write_tag('th', 'Windows')
-    xhtml.write_tag('th', 'Text Based')
-    xhtml.write_tag('th', 'Handheld')
+    xhtml.write_tag('th', 'Terminal')
+    xhtml.write_tag('th', 'Mobile')
     xhtml.write_close_tag_line('tr')
 
     xhtml.write_open_tag('tr')
