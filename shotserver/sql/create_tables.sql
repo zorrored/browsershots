@@ -6,7 +6,8 @@ person_email VARCHAR(60) NOT NULL UNIQUE);
 CREATE TABLE browser (
 browser SERIAL PRIMARY KEY NOT NULL,
 browser_name VARCHAR(20) NOT NULL UNIQUE,
-browser_manufacturer VARCHAR(20));
+browser_manufacturer VARCHAR(20),
+terminal BOOLEAN NOT NULL DEFAULT FALSE);
 
 CREATE TABLE engine (
 engine SERIAL PRIMARY KEY NOT NULL,
@@ -22,7 +23,8 @@ engine INT REFERENCES engine);
 CREATE TABLE os (
 os SERIAL PRIMARY KEY NOT NULL,
 os_name VARCHAR(20) NOT NULL,
-os_manufacturer VARCHAR(20));
+os_manufacturer VARCHAR(20),
+mobile BOOLEAN NOT NULL DEFAULT FALSE);
 
 CREATE TABLE os_version (
 os_version SERIAL PRIMARY KEY NOT NULL,
