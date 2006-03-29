@@ -9,9 +9,9 @@ INSERT INTO browser (browser_name) VALUES ('Mozilla');
 INSERT INTO browser (browser_name) VALUES ('Epiphany');
 INSERT INTO browser (browser_name) VALUES ('Opera');
 INSERT INTO browser (browser_name) VALUES ('Camino');
-INSERT INTO browser (browser_name) VALUES ('Links');
-INSERT INTO browser (browser_name) VALUES ('Lynx');
-INSERT INTO browser (browser_name) VALUES ('W3M');
+INSERT INTO browser (browser_name, terminal) VALUES ('Links', TRUE);
+INSERT INTO browser (browser_name, terminal) VALUES ('Lynx', TRUE);
+INSERT INTO browser (browser_name, terminal) VALUES ('W3M', TRUE);
 INSERT INTO browser (browser_name) VALUES ('NetFront');
 INSERT INTO browser (browser_name) VALUES ('Blazer');
 INSERT INTO browser (browser_name) VALUES ('EudoraWeb');
@@ -39,7 +39,7 @@ INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (
 INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (2, 'X', 'Tiger', 10, 4);
 INSERT INTO os_version (os, os_distro, os_codename) VALUES (3, 'XP', 'Service Pack 2');
 INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (1, 'Debian', 'Sarge', 3, 1);
-INSERT INTO os_version (os, os_codename, os_major, os_minor) VALUES (4, 'Cobalt', 6, 1);
+INSERT INTO os_version (os, os_codename, os_major, os_minor, mobile) VALUES (4, 'Cobalt', 6, 1, TRUE);
 
 INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('tyll', 1, 1);
 INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('runt', 2, 1);
