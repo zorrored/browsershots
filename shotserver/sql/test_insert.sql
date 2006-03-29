@@ -33,13 +33,13 @@ INSERT INTO browser_version (browser, browser_major, browser_minor) VALUES (13, 
 INSERT INTO os (os_name) VALUES ('Linux');
 INSERT INTO os (os_name, os_manufacturer) VALUES ('Mac OS', 'Apple');
 INSERT INTO os (os_name, os_manufacturer) VALUES ('Windows', 'Microsoft');
-INSERT INTO os (os_name, os_manufacturer) VALUES ('Palm OS', 'Palm');
+INSERT INTO os (os_name, mobile) VALUES ('Palm OS', TRUE);
 
 INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (1, 'Ubuntu', 'Dapper Drake', 6, 4);
 INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (2, 'X', 'Tiger', 10, 4);
 INSERT INTO os_version (os, os_distro, os_codename) VALUES (3, 'XP', 'Service Pack 2');
 INSERT INTO os_version (os, os_distro, os_codename, os_major, os_minor) VALUES (1, 'Debian', 'Sarge', 3, 1);
-INSERT INTO os_version (os, os_codename, os_major, os_minor, mobile) VALUES (4, 'Cobalt', 6, 1, TRUE);
+INSERT INTO os_version (os, os_codename, os_major, os_minor) VALUES (4, 'Cobalt', 6, 1);
 
 INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('tyll', 1, 1);
 INSERT INTO factory (factory_name, os_version, factory_admin) VALUES ('runt', 2, 1);
