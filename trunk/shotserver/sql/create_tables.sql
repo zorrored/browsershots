@@ -8,12 +8,16 @@ browser SERIAL PRIMARY KEY NOT NULL,
 browser_name VARCHAR(20) NOT NULL UNIQUE,
 browser_manufacturer VARCHAR(20));
 
+CREATE TABLE engine (
+engine SERIAL PRIMARY KEY NOT NULL,
+engine_name VARCHAR(20));
+
 CREATE TABLE browser_version (
 browser_version SERIAL PRIMARY KEY NOT NULL,
 browser INT NOT NULL REFERENCES browser,
 browser_major INT,
 browser_minor INT,
-browser_engine VARCHAR(20));
+engine INT REFERENCES engine);
 
 CREATE TABLE os (
 os SERIAL PRIMARY KEY NOT NULL,
@@ -23,8 +27,8 @@ os_manufacturer VARCHAR(20));
 CREATE TABLE os_version (
 os_version SERIAL PRIMARY KEY NOT NULL,
 os INT NOT NULL REFERENCES os,
-os_distro VARCHAR(20) NOT NULL,
-os_codename VARCHAR(20) NOT NULL,
+os_distro VARCHAR(20),
+os_codename VARCHAR(20),
 os_major INT,
 os_minor INT);
 
