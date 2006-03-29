@@ -61,10 +61,12 @@ p#sponsors img {
   margin-left: 1em;
 }
 
+div#headline {
+  margin: 0;
+  padding: 0 0 2em;
+}
 div#recent {
   position: absolute;
-  margin: 1em 0;
-  padding: 0 0 120px;
   left: 50%;
   margin-left: 382px;
 }
