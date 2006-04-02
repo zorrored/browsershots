@@ -22,7 +22,7 @@ INSERT INTO browser (name, terminal, creator) VALUES ('Links', TRUE, 1);
 INSERT INTO browser (name, terminal, creator) VALUES ('Lynx', TRUE, 1);
 INSERT INTO browser (name, terminal, creator) VALUES ('W3M', TRUE, 1);
 INSERT INTO browser (name, creator) VALUES ('NetFront', 1);
-INSERT INTO browser (name, creator) VALUES ('Blazer', 1);
+INSERT INTO browser (name, creator) VALUES ('WebToGo', 1);
 INSERT INTO browser (name, creator) VALUES ('EudoraWeb', 1);
 
 INSERT INTO browser_version (browser, major, minor, engine, creator) VALUES (1, 1, 5, 1, 1);
@@ -37,11 +37,13 @@ INSERT INTO browser_version (browser, major, minor, engine, creator) VALUES (9, 
 INSERT INTO browser_version (browser, major, minor, creator) VALUES (10, 1, 0, 1);
 INSERT INTO browser_version (browser, major, minor, creator) VALUES (11, 2, 8, 1);
 INSERT INTO browser_version (browser, major, minor, creator) VALUES (12, 0, 5, 1);
-INSERT INTO browser_version (browser, major, minor, creator) VALUES (13, 1, 0, 1);
-INSERT INTO browser_version (browser, major, minor, creator) VALUES (14, 1, 0, 1);
-INSERT INTO browser_version (browser, major, minor, creator) VALUES (15, 1, 0, 1);
+INSERT INTO browser_version (browser, major, minor, creator) VALUES (13, 3, 3, 1);
+INSERT INTO browser_version (browser, major, minor, creator) VALUES (14, 4, 2, 1);
+INSERT INTO browser_version (browser, major, minor, creator) VALUES (15, 2, 1, 1);
 INSERT INTO browser_version (browser, major, minor, engine, creator) VALUES (1, 1, 0, 1, 1);
 INSERT INTO browser_version (browser, major, minor, creator) VALUES (3, 7, 0, 1);
+INSERT INTO browser_version (browser, major, minor, creator) VALUES (3, 5, 2, 1);
+INSERT INTO browser_version (browser, major, minor, creator) VALUES (3, 5, 5, 1);
 
 INSERT INTO os (name, creator) VALUES ('Linux', 1);
 INSERT INTO os (name, manufacturer, creator) VALUES ('Mac OS', 'Apple', 1);
@@ -71,10 +73,17 @@ INSERT INTO factory (name, os_version, platform, creator) VALUES ('azul', 8, 5, 
 INSERT INTO factory (name, os_version, platform, creator) VALUES ('sven', 3, 1, 1);
 
 INSERT INTO factory_browser (factory, browser_version) VALUES (1, 1);
+INSERT INTO factory_browser (factory, browser_version) VALUES (1, 10);
+INSERT INTO factory_browser (factory, browser_version) VALUES (1, 11);
+INSERT INTO factory_browser (factory, browser_version) VALUES (1, 12);
 INSERT INTO factory_browser (factory, browser_version) VALUES (2, 2);
 INSERT INTO factory_browser (factory, browser_version) VALUES (2, 9);
+INSERT INTO factory_browser (factory, browser_version) VALUES (2, 18);
 INSERT INTO factory_browser (factory, browser_version) VALUES (3, 3);
 INSERT INTO factory_browser (factory, browser_version) VALUES (3, 1);
+INSERT INTO factory_browser (factory, browser_version) VALUES (4, 13);
+INSERT INTO factory_browser (factory, browser_version) VALUES (4, 14);
+INSERT INTO factory_browser (factory, browser_version) VALUES (4, 15);
 INSERT INTO factory_browser (factory, browser_version) VALUES (8, 4);
 INSERT INTO factory_browser (factory, browser_version) VALUES (8, 5);
 INSERT INTO factory_browser (factory, browser_version) VALUES (8, 6);
@@ -82,6 +91,8 @@ INSERT INTO factory_browser (factory, browser_version) VALUES (8, 7);
 INSERT INTO factory_browser (factory, browser_version) VALUES (8, 8);
 INSERT INTO factory_browser (factory, browser_version) VALUES (8, 16);
 INSERT INTO factory_browser (factory, browser_version) VALUES (9, 17);
+INSERT INTO factory_browser (factory, browser_version) VALUES (9, 19);
+INSERT INTO factory_browser (factory, browser_version) VALUES (9, 8);
 
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 1024, 768);
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 800, 600);
