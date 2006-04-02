@@ -75,6 +75,7 @@ def write_html_head(title):
         xhtml.write_tag_line('title', 'This browser does not understand XML')
     xhtml.write_tag_line('link', type="text/css", href="/style/style.css", rel="stylesheet")
     xhtml.write_tag_line('script', '', type="text/javascript", src="/style/zoom.js")
+    xhtml.write_tag_line('script', '', type="text/javascript", src="/style/forms.js")
     xhtml.write_close_tag_line('head')
 
 def handler(req):
