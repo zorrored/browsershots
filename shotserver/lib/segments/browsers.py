@@ -26,72 +26,61 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
+from shotserver03 import database
+
+def select_browsers(platform, where):
+    cur.execute("""SELECT browser.name, browser_version.major, browser_version.minor
+        FROM factory_browser
+        JOIN factory USING (factory)
+        JOIN os_version USING (os_version)
+        JOIN os USING (os)
+        JOIN browser_version USING (browser_version)
+        JOIN browser USING (browser)
+        WHERE %s
+        ORDER BY browser.name, browser_version.major, browser_version.minor""" % where)
+    result = []
+    for row in cur.fetchall():
+        browser, major, minor = row
+        code = '%s-%s-%d.%d' % (platform, browser.lower(), major, minor)
+        result.append(xhtml.tag('input', _type="checkbox", _name=code, checked="checked") +
+        ' %s %d.%d' % (browser, major, minor))
+    return result
+    
+def write_header(platforms):
+    xhtml.write_open_tag('tr')
+    for platform in platforms:
+        xhtml.write_tag('th', platform)
+    xhtml.write_close_tag_line('tr')
+
+def write_columns(*columns):
+    row = 0
+    while True:
+        cells = []
+        done = True
+        for column in columns:
+            if len(column) > row:
+                cell = column[row]
+                done = False
+            else:
+                cell = ''
+            cells.append(xhtml.tag('td', cell))
+        if done:
+            break
+        xhtml.write_tag_line('tr', ''.join(cells))
+        row += 1
 
 def write():
+    database.connect()
+    try:
+        linux = select_browsers('linux', "os.name = 'Linux' AND NOT browser.terminal AND NOT os_version.mobile")
+        mac = select_browsers('mac', "os.name = 'Mac OS' AND NOT browser.terminal AND NOT os_version.mobile")
+        windows = select_browsers('windows', "os.name = 'Windows' AND NOT browser.terminal AND NOT os_version.mobile")
+        terminal = select_browsers('terminal', "browser.terminal AND NOT os_version.mobile")
+        mobile = select_browsers('mobile', "os_version.mobile")
+    finally:
+        database.disconnect()
+
     xhtml.write_open_tag_line('table', _id="browsers")
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('th', 'Linux')
-    xhtml.write_tag('th', 'Mac')
-    xhtml.write_tag('th', 'Windows')
-    xhtml.write_tag('th', 'Terminal')
-    xhtml.write_tag('th', 'Mobile')
-    xhtml.write_close_tag_line('tr')
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Epiphany 1.4')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Camino 1.0')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Firefox 1.5')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Links 1.0')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Opera 8.5')
-    xhtml.write_close_tag_line('tr')
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Firefox 1.0')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' MSIE 5.2')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' MSIE 5.5')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Lynx 2.8')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Palm 2.0')
-    xhtml.write_close_tag_line('tr')
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Firefox 1.5')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Safari 1.2')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' MSIE 6.0')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' W3M 0.5')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Palm 3.0')
-    xhtml.write_close_tag_line('tr')
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Galeon 1.3')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Safari 2.0')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' MSIE 7.0')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_close_tag_line('tr')
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Konqueror 3.3')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Opera 8.5')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_close_tag_line('tr')
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Mozilla 1.7')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_close_tag_line('tr')
-
-    xhtml.write_open_tag('tr')
-    xhtml.write_tag('td', xhtml.tag('input', _type="checkbox", checked="checked") + ' Opera 8.5')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_tag('td', '')
-    xhtml.write_close_tag_line('tr')
-
+    write_header('Linux Mac Windows Terminal Mobile'.split())
+    write_columns(linux, mac, windows, terminal, mobile)
     xhtml.write_close_tag_line('table') # id="browsers"
