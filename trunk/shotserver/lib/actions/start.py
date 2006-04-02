@@ -29,7 +29,7 @@ from shotserver03.interface import xhtml
 from shotserver03.segments import recent, factories, inputurl, browsers
 
 def title():
-    return "Welcome"
+    return "Test Your Website"
 
 def body():
     # xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
