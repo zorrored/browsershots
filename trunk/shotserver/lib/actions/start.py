@@ -35,7 +35,7 @@ def body():
     # xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
     recent.write()
     
-    xhtml.write_open_tag_line('form', action="/post/submit/", method="post")
+    xhtml.write_open_tag_line('form', action="/post/submit/", method="post", _name="submitform")
     inputurl.write()
     browsers.write()
     xhtml.write_close_tag_line('form')
