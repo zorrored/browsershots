@@ -1,47 +1,58 @@
 CREATE TABLE person (
 person SERIAL PRIMARY KEY NOT NULL,
-person_name VARCHAR(20) NOT NULL UNIQUE,
-person_email VARCHAR(60) NOT NULL UNIQUE);
-
-CREATE TABLE browser (
-browser SERIAL PRIMARY KEY NOT NULL,
-browser_name VARCHAR(20) NOT NULL UNIQUE,
-browser_manufacturer VARCHAR(20),
-terminal BOOLEAN NOT NULL DEFAULT FALSE);
+name VARCHAR(20) NOT NULL UNIQUE,
+email VARCHAR(60) NOT NULL UNIQUE,
+created TIMESTAMP DEFAULT NOW());
 
 CREATE TABLE engine (
 engine SERIAL PRIMARY KEY NOT NULL,
-engine_name VARCHAR(20));
+name VARCHAR(20),
+created TIMESTAMP DEFAULT NOW(),
+creator INT NOT NULL REFERENCES person);
+
+CREATE TABLE browser (
+browser SERIAL PRIMARY KEY NOT NULL,
+name VARCHAR(20) NOT NULL UNIQUE,
+manufacturer VARCHAR(20),
+terminal BOOLEAN NOT NULL DEFAULT FALSE,
+created TIMESTAMP DEFAULT NOW(),
+creator INT NOT NULL REFERENCES person);
 
 CREATE TABLE browser_version (
 browser_version SERIAL PRIMARY KEY NOT NULL,
 browser INT NOT NULL REFERENCES browser,
-browser_major INT,
-browser_minor INT,
-engine INT REFERENCES engine);
+major INT NOT NULL,
+minor INT,
+engine INT REFERENCES engine,
+created TIMESTAMP DEFAULT NOW(),
+creator INT NOT NULL REFERENCES person);
 
 CREATE TABLE os (
 os SERIAL PRIMARY KEY NOT NULL,
-os_name VARCHAR(20) NOT NULL,
-os_manufacturer VARCHAR(20),
-mobile BOOLEAN NOT NULL DEFAULT FALSE);
+name VARCHAR(20) NOT NULL,
+manufacturer VARCHAR(20),
+mobile BOOLEAN NOT NULL DEFAULT FALSE,
+created TIMESTAMP DEFAULT NOW(),
+creator INT NOT NULL REFERENCES person);
 
 CREATE TABLE os_version (
 os_version SERIAL PRIMARY KEY NOT NULL,
 os INT NOT NULL REFERENCES os,
-os_distro VARCHAR(20),
-os_codename VARCHAR(20),
-os_major INT,
-os_minor INT);
+distro VARCHAR(20),
+codename VARCHAR(20),
+major INT,
+minor INT,
+created TIMESTAMP DEFAULT NOW(),
+creator INT NOT NULL REFERENCES person);
 
 CREATE TABLE factory (
 factory SERIAL PRIMARY KEY NOT NULL,
-factory_name VARCHAR(20) NOT NULL UNIQUE,
-factory_admin INT NOT NULL REFERENCES person,
+name VARCHAR(20) NOT NULL UNIQUE,
 os_version INT NOT NULL REFERENCES os_version,
-factory_added TIMESTAMP DEFAULT NOW(),
-factory_last_polled TIMESTAMP,
-factory_last_uploaded TIMESTAMP);
+created TIMESTAMP DEFAULT NOW(),
+creator INT NOT NULL REFERENCES person,
+last_poll TIMESTAMP,
+last_upload TIMESTAMP);
 
 CREATE TABLE factory_browser (
 factory INT NOT NULL REFERENCES factory,
@@ -49,33 +60,34 @@ browser_version INT NOT NULL REFERENCES browser_version);
 
 CREATE TABLE factory_screen (
 factory INT NOT NULL REFERENCES factory,
-screen_width INT NOT NULL,
-screen_height INT NOT NULL);
+width INT NOT NULL,
+height INT NOT NULL);
 
 CREATE TABLE screenshot (
 screenshot SERIAL PRIMARY KEY NOT NULL,
 factory INT NOT NULL REFERENCES factory,
-screenshot_width INT NOT NULL,
-screenshot_height INT NOT NULL,
-screenshot_uploaded TIMESTAMP DEFAULT NOW());
+width INT NOT NULL,
+height INT NOT NULL,
+created TIMESTAMP DEFAULT NOW());
 
 CREATE TABLE website (
 website SERIAL PRIMARY KEY NOT NULL,
-website_url VARCHAR(255) NOT NULL UNIQUE CHECK (website_url LIKE 'http://%'),
-website_first_submitted TIMESTAMP DEFAULT NOW());
+url VARCHAR(255) NOT NULL UNIQUE CHECK (url LIKE 'http://%'),
+created TIMESTAMP DEFAULT NOW());
 
 CREATE TABLE request (
 request SERIAL PRIMARY KEY NOT NULL,
 website INT NOT NULL,
-request_browser INT NOT NULL REFERENCES browser,
-request_major INT,
-request_minor INT,
-request_width INT,
-request_os INT,
+browser INT NOT NULL REFERENCES browser,
+major INT,
+minor INT,
+width INT,
+os INT,
 screenshot INT REFERENCES screenshot,
-request_submitted TIMESTAMP DEFAULT NOW());
+created TIMESTAMP DEFAULT NOW(),
+creator INT REFERENCES person);
 
 CREATE TABLE lock (
 request INT NOT NULL REFERENCES request,
 factory INT NOT NULL REFERENCES factory,
-locked TIMESTAMP DEFAULT NOW());
+created TIMESTAMP DEFAULT NOW());
