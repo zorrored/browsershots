@@ -18,34 +18,21 @@
 # MA 02111-1307, USA.
 
 """
-A higher-level interface to the MySQL database.
+A higher-level interface to the PostgreSQL database.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import MySQLdb
-
-minlen = {'nickname': 3,
-          'password': 8}
-maxlen = {'nickname': 20,
-          'password': 20,
-          'email': 80,
-          'url': 255,
-          'arch': 10,
-          'os': 20,
-          'browser': 20,
-          'engine': 20}
+from pyPgSQL import PgSQL
 
 def connect():
     """
     Connect to the browsershots database.
     """
-    __builtins__['con'] = MySQLdb.connect(
-        host = 'localhost', db = 'browsershots',
-        user = 'browsershots', passwd = 'secret')
-    __builtins__['cur'] = con.cursor(MySQLdb.cursors.DictCursor)
+    __builtins__['con'] = PgSQL.connect(database = 'shotserver03')
+    __builtins__['cur'] = con.cursor()
 
 def disconnect():
     """
