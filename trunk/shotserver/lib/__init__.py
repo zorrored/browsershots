@@ -27,8 +27,9 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import sys, traceback
-from interface import xhtml
-from segments import topmenu, bottom, sponsors
+from shotserver03 import request
+from shotserver03.interface import xhtml
+from shotserver03.segments import topmenu, bottom, sponsors
 
 def import_deep(name):
     """
@@ -85,9 +86,9 @@ def handler(req):
     naked = False
     try:
         __builtins__['req'] = req
-        # req.info = request.RequestInfo()
+        req.info = request.RequestInfo()
 
-        action_module = import_action('start') # req.info.action
+        action_module = import_action(req.info.action)
         naked = action_option(action_module, 'naked', False)
         title = action_option(action_module, 'title', 'Browsershots')
         write_html_head(title)
