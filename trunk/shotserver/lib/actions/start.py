@@ -26,7 +26,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
-from shotserver03.segments import recent, factories, inputurl, browsers
+from shotserver03.segments import recent, inputurl, browsers
 
 def title():
     return "Test Your Website"
