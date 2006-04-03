@@ -41,9 +41,16 @@ def select_browsers(platform, where):
     result = []
     for row in cur.fetchall():
         browser, major, minor = row
-        code = '%s-%s-%d.%d' % (platform, browser.lower(), major, minor)
-        result.append(xhtml.tag('input', _type="checkbox", _name=code, checked="checked") +
-        ' %s %d.%d' % (browser, major, minor))
+        code = '%s_%s_%d_%d' % (platform, browser.lower(), major, minor)
+        result.append(
+            xhtml.tag('input', _type="checkbox", _id=code, _name=code, checked="checked",
+                onclick="updateMaster('%s')" % platform) + ' ' +
+            xhtml.tag('label', '%s %d.%d' % (browser, major, minor), _for=code))
+    code = '%s_all' % platform
+    result.append(
+        xhtml.tag('input', _type="checkbox", _id=code, checked="checked",
+            onclick="multiCheck('%s',this.checked)" % platform) + ' ' +
+        xhtml.tag('label', '<b>All</b>', _for=code))
     return result
     
 def write_header(platforms):
