@@ -80,6 +80,10 @@ table#browsers input {
   padding: 0;
   margin: 0;
 }
+table#browsers th,
+table#browsers td {
+  width: 20%;
+}
 
 table { border-collapse: collapse; }
 th, td {
