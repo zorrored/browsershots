@@ -82,3 +82,10 @@ JOIN os USING (os)
 JOIN browser_version USING (browser_version)
 JOIN browser USING (browser)
 WHERE os_version.mobile;
+
+SELECT factory.name, platform.name, os.name,
+os_version.distro, os_version.codename, os_version.major, os_version.minor, os_version.mobile
+FROM factory
+JOIN platform USING (platform)
+JOIN os_version USING (os_version)
+JOIN os USING (os);
