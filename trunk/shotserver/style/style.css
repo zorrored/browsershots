@@ -10,6 +10,7 @@ body {
 .right { float: right; }
 
 img { border: none; }
+form { margin: 0; }
 
 input.text, input.button {
   border-width: 1px;
