@@ -57,8 +57,6 @@ def negotiate_xml():
         return True # Send XML to validator.w3.org etc.
     if req.headers_in['Accept'].count('application/xhtml+xml'):
         return True # Send XML to all modern browsers.
-    if req.headers_in['Accept'] == '*/*':
-        return True # Send XML to Safari.
     return False # Send text/html to MSIE 6 and 7.
 
 def write_html_head(title):
