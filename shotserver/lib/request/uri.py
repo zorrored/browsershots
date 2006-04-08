@@ -52,3 +52,5 @@ class URI(tabledict.TableDict):
                 raise IncorrectBasepathError('%s != %s' %
                     (repr(basepart), repr(self.parts[0])))
             self.parts.pop(0)
+
+        self.lang = self.parts.pop()
