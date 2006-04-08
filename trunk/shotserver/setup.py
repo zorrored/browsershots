@@ -29,5 +29,7 @@ setup(name = 'ShotServer',
                   'style/forms.js']),
             ('/usr/share/trac/templates', [
                   'trac/templates/header.cs',
-                  'trac/templates/settings.cs'])],
+                  'trac/templates/settings.cs']),
+            ('/usr/share/trac/htdocs/css', [
+                  'trac/htdocs/css/trac.css'])],
       )
