@@ -92,7 +92,7 @@ def handler(req):
         write_html_head(title)
 
         xhtml.write_open_tag_line('body')
-        xhtml.write_open_tag_line('div', _id="all")
+        xhtml.write_open_tag_line('div', _id="main")
 
         metamenu.write()
         topmenu.write()
