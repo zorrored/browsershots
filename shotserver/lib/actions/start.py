@@ -26,7 +26,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
-from shotserver03.segments import recent, inputurl, browsers
+from shotserver03.segments import recent, inputurl, browsers, sponsors
 
 def title():
     return "Test Your Website"
@@ -38,4 +38,6 @@ def body():
     xhtml.write_open_tag_line('form', action="/post/submit/", method="post")
     inputurl.write()
     browsers.write()
+    
+    sponsors.write()
     xhtml.write_close_tag_line('form')
