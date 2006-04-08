@@ -123,6 +123,7 @@ h1 {
   position: relative;
   font-size: 36px;
   left: -2px;
+  top: -4px;
 }
 h1, h2 {
   clear: left;
