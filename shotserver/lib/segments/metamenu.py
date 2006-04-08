@@ -33,7 +33,7 @@ def write():
     xhtml.write_open_tag('ul', _class="left")
     xhtml.write_tag('li', xhtml.tag('a', 'Home', href="/"+req.info.uri.lang),  _class="first")
     xhtml.write_tag('li', xhtml.tag('a', 'Blog', href="/blog/"))
-    xhtml.write_tag('li', xhtml.tag('a', 'Wiki', href="/trac/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Wiki', href="/trac/wiki/"))
     xhtml.write_tag('li', xhtml.tag('a', 'Timeline', href="/trac/timeline/"))
     xhtml.write_tag('li', xhtml.tag('a', 'Roadmap', href="/trac/roadmap/"))
     xhtml.write_tag('li', xhtml.tag('a', 'Source', href="/trac/browser/"))
@@ -45,7 +45,7 @@ def write():
     xhtml.write_open_tag_line('div', _class="right")
     # xhtml.write_tag_line('input', _type="text")
     # xhtml.write_tag_line('input', _type="submit", value="Search")
-    
+
     xhtml.write_open_tag_line('select', _id="langsel",
         onchange="document.location.href=this.form.langsel.options[this.form.langsel.options.selectedIndex].value")
     xhtml.write_tag_line('option', 'Deutsch', value="de")
