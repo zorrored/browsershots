@@ -31,14 +31,14 @@ def write():
     xhtml.write_open_tag_line('div', _class="menu lightgray", _id="topmenu")
 
     xhtml.write_open_tag('ul', _class="left")
-    xhtml.write_tag('li', xhtml.tag('a', 'Home', href="/"),  _class="first")
-    xhtml.write_tag('li', xhtml.tag('a', 'Trac', href="/trac/"))
-    xhtml.write_tag('li', xhtml.tag('a', 'Blog', href="/blog/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Screenshots', href="/screenshots/"+req.info.uri.lang),  _class="first")
+    xhtml.write_tag('li', xhtml.tag('a', 'Queue', href="/queue/"+req.info.uri.lang))
+    xhtml.write_tag('li', xhtml.tag('a', 'Factories', href="/factories/"+req.info.uri.lang))
+    xhtml.write_tag('li', xhtml.tag('a', 'Search', href="/search/"+req.info.uri.lang))
     xhtml.write_close_tag_line('ul') # class="left"
 
     xhtml.write_open_tag('ul', _class="right")
-    xhtml.write_tag('li', xhtml.tag('a', 'Settings', href="/settings/"), _class="first")
-    xhtml.write_tag('li', xhtml.tag('a', 'Sign Out', href="/signout/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Sign In', href="/signin/"), _class="first")
     xhtml.write_close_tag_line('ul') # class="right"
 
     link = xhtml.tag('a', 'Mock-up!', href="http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/")
