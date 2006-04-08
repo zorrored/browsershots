@@ -1,6 +1,4 @@
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head><?cs
  if:project.name_encoded ?>
@@ -21,31 +19,9 @@
  /each ?><style type="text/css"><?cs include:"site_css.cs" ?></style>
  <script type="text/javascript" src="<?cs
    var:htdocs_location ?>js/trac.js"></script>
+<link href="/style/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<?cs include "site_header.cs" ?>
-<div id="banner">
-
-<div id="header"><?cs
- if:chrome.logo.src ?><a id="logo" href="<?cs
-  var:chrome.logo.link ?>"><img src="<?cs var:chrome.logo.src ?>"<?cs
-  if:chrome.logo.width ?> width="<?cs var:chrome.logo.width ?>"<?cs /if ?><?cs
-  if:chrome.logo.height ?> height="<?cs var:chrome.logo.height ?>"<?cs
-  /if ?> alt="<?cs var:chrome.logo.alt ?>" /></a><hr /><?cs
- elif:project.name_encoded ?><h1><a href="<?cs var:chrome.logo.link ?>"><?cs
-  var:project.name_encoded ?></a></h1><?cs
- /if ?></div>
-
-<form id="search" action="<?cs var:trac.href.search ?>" method="get">
- <?cs if:trac.acl.SEARCH_VIEW ?><div>
-  <label for="proj-search">Search:</label>
-  <input type="text" id="proj-search" name="q" size="10" accesskey="f" value="" />
-  <input type="submit" value="Search" />
-  <input type="hidden" name="wiki" value="on" />
-  <input type="hidden" name="changeset" value="on" />
-  <input type="hidden" name="ticket" value="on" />
- </div><?cs /if ?>
-</form>
 
 <?cs def:nav(items) ?><?cs
  if:len(items) ?><ul><?cs
