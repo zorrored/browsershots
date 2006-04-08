@@ -35,26 +35,28 @@ class TableDict:
     def __init__(self):
         pass
 
-    def tablerows(self, prefix = ''):
+    def write_table_rows(self, prefix = ''):
         """
-        Print instance variables in XHTML table rows.
+        Debug instance variables in XHTML table rows.
         """
-        body = ''
         keys = self.__dict__.keys()
         keys.sort()
         for key in keys:
             value = self.__dict__[key]
-            if hasattr(value, 'tablerows'):
-                body += value.tablerows(prefix + key + '.')
-                continue
-            body += xhtml.tablerow((prefix + key + ':', value))
-        return body
+            if hasattr(value, 'write_table_rows'):
+                value.write_table_rows(prefix + key + '.')
+            else:
+                value = str(value)
+                value = value.replace('<', '&lt;')
+                value = value.replace('>', '&gt;')
+                xhtml.write_tag_line('tr',
+                    xhtml.tag('th', prefix + key + ':') +
+                    xhtml.tag('td', value))
 
-    def table(self):
+    def write_table(self):
         """
         Debug instance variables with XHTML table.
         """
-        body = '<table>\n'
-        body += self.tablerows()
-        body += '</table>\n'
-        return body
+        xhtml.write_open_tag_line('table')
+        self.write_table_rows()
+        xhtml.write_close_tag_line('table')
