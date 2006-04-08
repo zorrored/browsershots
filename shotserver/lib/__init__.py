@@ -29,7 +29,7 @@ __author__ = '$Author$'
 import sys, traceback
 from shotserver03 import request
 from shotserver03.interface import xhtml
-from shotserver03.segments import topmenu, bottom, sponsors
+from shotserver03.segments import metamenu, topmenu, bottom
 
 def import_deep(name):
     """
@@ -96,7 +96,9 @@ def handler(req):
         xhtml.write_open_tag_line('body')
         xhtml.write_open_tag_line('div', _id="all")
 
+        metamenu.write()
         topmenu.write()
+
         xhtml.write_open_tag_line('div', _class="menu", _id="headline")
         xhtml.write_tag_line('img', src="/style/logo40.png", _class="right", alt="browsershots.org beta")
         xhtml.write_tag_line('h1', title)
@@ -104,7 +106,7 @@ def handler(req):
 
         action_module.body()
         
-        sponsors.write()
+        # req.info.write_table()
         bottom.write()
 
         xhtml.write_close_tag_line('div') # id="all"
