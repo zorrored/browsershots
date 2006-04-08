@@ -26,26 +26,26 @@
 
 <div class="menu" id="metamenu">
 <ul class="left"><li class="first"><a
- href="/">Home</a></li><li><a
- href="/blog/">Blog</a></li><li><a
- href="/trac/">Wiki</a></li><li><a
- href="/trac/timeline/">Timeline</a></li><li><a
- href="/trac/roadmap/">Roadmap</a></li><li><a
- href="/trac/browser/">Source</a></li><li><a
- href="/trac/report/">Tickets</a></li><li><a
- href="/trac/wiki/HelpIndex">Help</a></li></ul>
+href="/">Home</a></li><li><a
+href="/blog/">Blog</a></li><li><a
+href="/trac/wiki/">Wiki</a></li><li><a
+href="/trac/timeline/">Timeline</a></li><li><a
+href="/trac/roadmap/">Roadmap</a></li><li><a
+href="/trac/browser/">Source</a></li><li><a
+href="/trac/report/">Tickets</a></li><li><a
+href="/trac/wiki/HelpIndex">Help</a></li></ul>
 <div class="clear"></div>
 </div>
 
 <div class="menu lightgray" id="topmenu">
 <ul class="left"><li class="first"><a
- href="/screenshots/">Screenshots</a></li><li><a
- href="/queue/">Queue</a></li><li><a
- href="/factories/">Factories</a></li><li><a
- href="/search/">Search</a></li></ul>
+href="/screenshots/">Screenshots</a></li><li><a
+href="/queue/">Queue</a></li><li><a
+href="/factories/">Factories</a></li><li><a
+href="/search/">Search</a></li></ul>
 <ul class="right"><li class="first"><a
- href="/trac/login">Login</a></li><li><a
- href="/trac/settings">Settings</a></li></ul>
+href="/trac/login">Login</a></li><li><a
+href="/trac/settings">Settings</a></li></ul>
 <p class="right mockup"><a href="http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/">Mock-up!</a></p>
 <div class="clear"></div>
 </div>
