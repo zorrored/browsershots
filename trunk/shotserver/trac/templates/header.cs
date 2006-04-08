@@ -22,28 +22,30 @@
 <link href="/style/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+<div id="main">
 
-<?cs def:nav(items) ?><?cs
- if:len(items) ?><ul><?cs
-  set:idx = 0 ?><?cs
-  set:max = len(items) - 1 ?><?cs
-  each:item = items ?><?cs
-   set:first = idx == 0 ?><?cs
-   set:last = idx == max ?><li<?cs
-   if:first || last || item.active ?> class="<?cs
-    if:item.active ?>active<?cs /if ?><?cs
-    if:item.active && (first || last) ?> <?cs /if ?><?cs
-    if:first ?>first<?cs /if ?><?cs
-    if:(item.active || first) && last ?> <?cs /if ?><?cs
-    if:last ?>last<?cs /if ?>"<?cs
-   /if ?>><?cs var:item ?></li><?cs
-   set:idx = idx + 1 ?><?cs
-  /each ?></ul><?cs
- /if ?><?cs
-/def ?>
-
-<div id="metanav" class="nav"><?cs call:nav(chrome.nav.metanav) ?></div>
+<div class="menu" id="metamenu">
+<ul class="left"><li class="first"><a
+ href="/">Home</a></li><li><a
+ href="/blog/">Blog</a></li><li><a
+ href="/trac/">Wiki</a></li><li><a
+ href="/trac/timeline/">Timeline</a></li><li><a
+ href="/trac/roadmap/">Roadmap</a></li><li><a
+ href="/trac/browser/">Source</a></li><li><a
+ href="/trac/report/">Tickets</a></li><li><a
+ href="/trac/wiki/HelpIndex">Help</a></li></ul>
+<div class="clear"></div>
 </div>
 
-<div id="mainnav" class="nav"><?cs call:nav(chrome.nav.mainnav) ?></div>
-<div id="main">
+<div class="menu lightgray" id="topmenu">
+<ul class="left"><li class="first"><a
+ href="/screenshots/">Screenshots</a></li><li><a
+ href="/queue/">Queue</a></li><li><a
+ href="/factories/">Factories</a></li><li><a
+ href="/search/">Search</a></li></ul>
+<ul class="right"><li class="first"><a
+ href="/trac/login">Login</a></li><li><a
+ href="/trac/settings">Settings</a></li></ul>
+<p class="right mockup"><a href="http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/">Mock-up!</a></p>
+<div class="clear"></div>
+</div>
