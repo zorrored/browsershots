@@ -26,8 +26,7 @@ div#all {
 div.menu {
   clear: both;
   margin: 0;
-  padding: 0.5ex 0;
-  font-family: "Trebuchet MS", Arial, sans-serif;
+  padding: 0.4ex 0;
 }
 div.menu p, div.menu ul {
   margin: 0;
@@ -35,11 +34,21 @@ div.menu p, div.menu ul {
 }
 div.menu li {
   display: inline;
-  padding: 0 1ex;
-  border-left: 1px solid white;
+  padding: 0 1ex 2px;
+  border-left: 1px solid #CCC;
 }
-div.menu li.first { border-left: none; }
+div.menu li.first {
+  border-left: none;
+  padding-left: 0;
+}
 
+.lightgray { background-color: #E4E4E4; }
+div.lightgray li { border-color: white; }
+div.lightgray li.first { padding-left: 1ex; }
+
+div#metamenu ul {
+  padding: 0.3ex 0 0;
+}
 div#topmenu { margin: 0 0 1em; }
 div#topmenu a { color: black; }
 div#topmenu p.mockup a {
@@ -53,9 +62,10 @@ div#bottom a, div#bottom a { color: black; }
 div#logo { padding: 0.5ex 0; }
 p#sponsors {
   clear: both;
-  padding: 0.5ex 0;
-  margin: 1em 0;
+  padding: 0 0 1ex;
+  margin: 0;
   color: gray;
+  text-align: right;
 }
 p#sponsors img {
   margin-left: 1em;
@@ -72,7 +82,7 @@ div#recent {
 }
 table#factories,
 table#browsers {
-  margin: 1em 0;
+  margin: 1em 0 0;
   width: 100%;
 }
 table#factories input,
@@ -136,4 +146,3 @@ div.traceback {
 .absolute { position: absolute; }
 .clear { clear: both; }
 .red { color: red; }
-.lightgray { background-color: #E4E4E4; }
