@@ -34,6 +34,13 @@ href="/trac/roadmap/">Roadmap</a></li><li><a
 href="/trac/browser/">Source</a></li><li><a
 href="/trac/report/">Tickets</a></li><li><a
 href="/trac/wiki/HelpIndex">Help</a></li></ul>
+<form action="">
+<div class="right">
+<select id="langsel">
+<option value="en">English</option>
+</select>
+</div>
+</form>
 <div class="clear"></div>
 </div>
 
