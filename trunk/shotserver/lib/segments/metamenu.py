@@ -56,4 +56,4 @@ def write():
     xhtml.write_close_tag_line('form')
 
     xhtml.write_tag_line('div', '', _class="clear")
-    xhtml.write_close_tag_line('div') # id="submenu"
+    xhtml.write_close_tag_line('div') # id="metamenu"
