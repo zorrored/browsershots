@@ -33,8 +33,11 @@ def write():
     xhtml.write_open_tag('ul', _class="left")
     xhtml.write_tag('li', xhtml.tag('a', 'Home', href="/"+req.info.uri.lang),  _class="first")
     xhtml.write_tag('li', xhtml.tag('a', 'Blog', href="/blog/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Wiki', href="/trac/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Timeline', href="/trac/timeline/"))
     xhtml.write_tag('li', xhtml.tag('a', 'Roadmap', href="/trac/roadmap/"))
-    xhtml.write_tag('li', xhtml.tag('a', 'History', href="/trac/timeline/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Source', href="/trac/browser/"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Tickets', href="/trac/report/"))
     xhtml.write_tag('li', xhtml.tag('a', 'Help', href="/trac/wiki/HelpIndex"))
     xhtml.write_close_tag_line('ul') # class="left"
 
