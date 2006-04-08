@@ -44,4 +44,4 @@ class RequestInfo(tabledict.TableDict):
             self.options = self.uri.parts[1:]
         else:
             self.action = 'start'
-            self.options = self.uri.parts[0:]
+            self.options = []
