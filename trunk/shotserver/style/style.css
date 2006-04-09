@@ -119,12 +119,7 @@ p#inputurl input#submit {
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-h1 {
-  position: relative;
-  font-size: 36px;
-  left: -2px;
-  top: -4px;
-}
+h1 { font-size: 28px; }
 h1, h2 {
   clear: left;
   font-family: "Trebuchet MS", Arial, sans-serif;
