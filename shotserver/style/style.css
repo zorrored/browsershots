@@ -50,15 +50,15 @@ div.lightgray li.first { padding-left: 1ex; }
 div#metamenu ul {
   padding: 0.3ex 0 0;
 }
-div#topmenu { margin: 0 0 1em; }
-div#topmenu a { color: black; }
 div#topmenu p.mockup a {
   color: red;
   font-weight: bold;
 }
-div#topmenu ul.right li.first { padding-left: 4ex; }
-
-div#bottom a, div#bottom a { color: black; }
+div#topmenu { margin: 0 0 1em; }
+div#bottom { margin: 1em 0 0; }
+div#topmenu ul.right li.first { padding-left: 6ex; }
+div#topmenu a,
+div#bottom a { color: black; }
 
 div#logo { padding: 0.5ex 0; }
 p#sponsors {
@@ -72,10 +72,6 @@ p#sponsors img {
   margin-left: 1em;
 }
 
-div#headline {
-  margin: 0;
-  padding: 0 0 2em;
-}
 div#recent {
   position: absolute;
   left: 50%;
