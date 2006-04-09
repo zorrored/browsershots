@@ -73,6 +73,7 @@ p#sponsors img {
 }
 
 div#recent {
+  margin-top: 2ex;
   position: absolute;
   left: 50%;
   margin-left: 382px;

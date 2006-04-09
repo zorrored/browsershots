@@ -27,17 +27,17 @@
 <div class="menu" id="metamenu">
 <ul class="left"><li class="first"><a
 href="/">Home</a></li><li><a
-href="/blog/">Blog</a></li><li><a
-href="/trac/wiki/">Wiki</a></li><li><a
-href="/trac/timeline/">Timeline</a></li><li><a
-href="/trac/roadmap/">Roadmap</a></li><li><a
-href="/trac/browser/">Source</a></li><li><a
-href="/trac/report/">Tickets</a></li><li><a
+href="/blog/">News</a></li><li><a
+href="/trac/wiki">Documentation</a></li><li><a
+href="/trac/timeline">Timeline</a></li><li><a
+href="/trac/roadmap">Roadmap</a></li><li><a
+href="/trac/browser">Source</a></li><li><a
+href="/trac/query">Tickets</a></li><li><a
 href="/trac/wiki/HelpIndex">Help</a></li></ul>
 <form action="">
 <div class="right">
 <select id="langsel">
-<option value="en">English</option>
+<option value="en">English only</option>
 </select>
 </div>
 </form>
