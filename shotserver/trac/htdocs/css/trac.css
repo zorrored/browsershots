@@ -27,16 +27,6 @@ ol.lowerroman { list-style-type: lower-roman }
 ol.upperroman { list-style-type: upper-roman }
 ol.arabic     { list-style-type: decimal }
 
-/* Link styles */
-:link, :visited {
- text-decoration: none;
- color: #b00;
- border-bottom: 1px dotted #bbb;
-}
-:link:hover, :visited:hover {
- background-color: #eee;
- color: #555;
-}
 h1 :link, h1 :visited ,h2 :link, h2 :visited, h3 :link, h3 :visited,
 h4 :link, h4 :visited, h5 :link, h5 :visited, h6 :link, h6 :visited {
  color: inherit;
