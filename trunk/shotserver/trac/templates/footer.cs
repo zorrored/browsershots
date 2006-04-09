@@ -13,23 +13,17 @@ if:len(chrome.links.alternate) ?>
  /each ?></ul></div><?cs
 /if ?>
 
+<div class="menu lightgray" id="bottom">
+<ul class="left"><li class="first"><a
+href="/trac/wiki/ContactDetails">Contact</a></li><li><a
+href="/trac/wiki/TermsOfUse">Terms of Use</a></li><li><a
+href="/trac/wiki/PrivacyPolicy">Privacy Policy</a></li></ul>
+<ul class="right"><li class="first"><a
+href="http://validator.w3.org/check?uri=referer">XHTML 1.1</a></li><li><a
+href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a></li></ul>
+<div class="clear"></div>
 </div>
 
-<div id="footer">
- <hr />
- <a id="tracpowered" href="http://trac.edgewall.com/"><img src="<?cs
-   var:htdocs_location ?>trac_logo_mini.png" height="30" width="107"
-   alt="Trac Powered"/></a>
- <p class="left">
-  Powered by <a href="<?cs var:trac.href.about ?>"><strong>Trac <?cs
-  var:trac.version ?></strong></a><br />
-  By <a href="http://www.edgewall.com/">Edgewall Software</a>.
- </p>
- <p class="right">
-  <?cs var:project.footer ?>
- </p>
 </div>
-
-<?cs include "site_footer.cs" ?>
- </body>
+</body>
 </html>
