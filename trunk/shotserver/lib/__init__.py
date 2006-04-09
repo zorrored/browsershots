@@ -69,7 +69,7 @@ def write_html_head(title):
     xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
     xhtml.write_open_tag_line('head')
     if xml:
-        xhtml.write_tag_line('title', title)
+        xhtml.write_tag_line('title', '%s - Browsershots' % title)
     else:
         xhtml.write_tag_line('title', 'This browser does not understand XML')
     xhtml.write_tag_line('link', type="text/css", href="/style/style.css", rel="stylesheet")
@@ -103,7 +103,7 @@ def handler(req):
         xhtml.write_close_tag_line('div') # id="sub"
 
         action_module.body()
-        
+
         # req.info.write_table()
         bottom.write()
 
