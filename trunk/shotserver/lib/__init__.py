@@ -84,8 +84,10 @@ def handler(req):
 
         if req.info.form:
             action_module = import_deep('shotserver03.post.%s' % req.info.action)
+            action_module.body()
             from mod_python import apache
-            return apache.OK
+            req.status = apache.HTTP_MOVED_TEMPORARILY
+            return apache.HTTP_MOVED_TEMPORARILY
 
         action_module = import_deep('shotserver03.get.%s' % req.info.action)
         naked = action_option(action_module, 'naked', False)
