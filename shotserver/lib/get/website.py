@@ -18,7 +18,7 @@
 # MA 02111-1307, USA.
 
 """
-List all factories.
+Show a website overview.
 """
 
 __revision__ = '$Rev: 117 $'
@@ -31,43 +31,10 @@ from shotserver03 import database
 def title():
     return "Website"
 
-def read_form(form):
-    url = ''
-    for key in form.keys():
-        if key == 'url':
-            url = form[key]
-        elif key == 'submit':
-            pass
-        else:
-            raise "unexpected input: %s" % key
-    return url
-
-def select_or_insert(url):
-    """
-    Get the website id of a URL. Insert URL into website table if necessary.
-    """
-    database.connect()
-    try:
-        cur.execute("SELECT website FROM website WHERE url=%s", url)
-        row = cur.fetchone()
-        if row is None:
-            cur.execute("INSERT INTO website (url) VALUES (%s)", url)
-            cur.execute("SELECT website FROM website WHERE url=%s", url)
-            row = cur.fetchone()
-        return row['website']
-    finally:
-        database.disconnect()
-
-def select(substring):
-
 def body():
-    if req.info.form:
-        url = read_form(req.info.form)
-        website = select_or_insert(url)
-    elif req.info.uri.options:
-        websites = select_by_options('/'.join(req.info.uri.options))
-        for websites
+    assert len(req.info.options) == 1
+    website = int(req.info.options[0])
 
     xhtml.write_open_tag_line('div')
-    xhtml.write_tag_line('p', url)
+    xhtml.write_tag_line('p', website)
     xhtml.write_close_tag_line('div')
