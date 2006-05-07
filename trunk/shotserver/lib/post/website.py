@@ -18,7 +18,7 @@
 # MA 02111-1307, USA.
 
 """
-List all factories.
+Insert a new website into the database.
 """
 
 __revision__ = '$Rev: 117 $'
@@ -27,9 +27,6 @@ __author__ = '$Author: johann $'
 
 from shotserver03.interface import xhtml
 from shotserver03 import database
-
-def title():
-    return "Website"
 
 def read_form(form):
     url = ''
@@ -58,16 +55,7 @@ def select_or_insert(url):
     finally:
         database.disconnect()
 
-def select(substring):
-
 def body():
-    if req.info.form:
-        url = read_form(req.info.form)
-        website = select_or_insert(url)
-    elif req.info.uri.options:
-        websites = select_by_options('/'.join(req.info.uri.options))
-        for websites
-
-    xhtml.write_open_tag_line('div')
-    xhtml.write_tag_line('p', url)
-    xhtml.write_close_tag_line('div')
+    url = read_form(req.info.form)
+    website = select_or_insert(url)
+    req.headers_out['Location'] = '/website/%d/' % website
