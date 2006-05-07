@@ -28,7 +28,7 @@ __author__ = '$Author$'
 from shotserver03.interface import xhtml
 
 def write():
-    xhtml.write_open_tag_line('form', action="/url/", method="post")
+    xhtml.write_open_tag_line('form', action="/website/", method="post")
     xhtml.write_open_tag_line('div', _id="inputurl")
     xhtml.write_tag_line('p', "Paste your web address here, starting with http://")
     xhtml.write_tag_line('input', _type="text", _id="url", _name="url", value="", _class="text")
