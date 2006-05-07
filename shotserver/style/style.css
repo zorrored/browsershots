@@ -12,11 +12,6 @@ body {
 img { border: none; }
 form { margin: 0; }
 
-input.text, input.button {
-  border-width: 1px;
-  border-style: solid;
-}
-
 div#main {
   width: 764px;
   margin: 0 auto;
@@ -99,18 +94,29 @@ th, td {
   padding: 0 1ex 0 0;
 }
 
-p#inputurl { margin: 1em 0; }
-p#inputurl input#url {
-  width: 578px;
-  padding: 2px 4px;
-  border-color: #444 #CCC #CCC #444;
+div#inputurl {
+  position: relative;
+  margin: 1em 0;
+  padding: 10px 20px;
+  background-color: #AAF;
+  height: 3.5em;
 }
-p#inputurl input#submit {
-  width: 160px;
+div#inputurl p {
+  margin: 0;
   font-weight: bold;
-  padding: 1px 4px;
-  background-color: #DDD;
-  border-color: #CCC #444 #444 #CCC;
+}
+div#inputurl input#url {
+  position: absolute;
+  left: 20px;
+  width: 600px;
+  padding: 2px 4px;
+}
+div#inputurl input#submit {
+  position: absolute;
+  right: 20px;
+  width: 100px;
+  padding: 2px 4px;
+  font-weight: bold;
 }
 
 a { text-decoration: none; }
