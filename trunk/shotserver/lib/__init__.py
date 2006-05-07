@@ -42,10 +42,6 @@ def import_deep(name):
         mod = getattr(mod, comp)
     return mod
 
-def import_action(name):
-    """Import an action module."""
-    return import_deep("shotserver03.actions." + name)
-
 def action_option(module, key, default):
     if hasattr(module, key):
         return module.__dict__[key]()
@@ -86,7 +82,12 @@ def handler(req):
         __builtins__['req'] = req
         req.info = request.RequestInfo()
 
-        action_module = import_action(req.info.action)
+        if req.info.form:
+            action_module = import_deep('shotserver03.post.%s' % req.info.action)
+            from mod_python import apache
+            return apache.OK
+
+        action_module = import_deep('shotserver03.get.%s' % req.info.action)
         naked = action_option(action_module, 'naked', False)
         title = action_option(action_module, 'title', 'Browsershots')
         write_html_head(title)
