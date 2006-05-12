@@ -77,20 +77,24 @@ def handler(req):
     """
     Process all incoming HTTP requests.
     """
-    naked = False
     try:
         __builtins__['req'] = req
         req.info = request.RequestInfo()
 
         if req.info.form:
             action_module = import_deep('shotserver03.post.%s' % req.info.action)
-            action_module.body()
+            assert action_module.redirect()
             from mod_python import apache
             req.status = apache.HTTP_MOVED_TEMPORARILY
             return apache.HTTP_MOVED_TEMPORARILY
 
         action_module = import_deep('shotserver03.get.%s' % req.info.action)
-        naked = action_option(action_module, 'naked', False)
+        if hasattr(action_module, 'redirect'):
+            if action_module.redirect():
+                from mod_python import apache
+                req.status = apache.HTTP_MOVED_TEMPORARILY
+                return apache.HTTP_MOVED_TEMPORARILY
+        
         title = action_option(action_module, 'title', 'Browsershots')
         write_html_head(title)
 
@@ -116,9 +120,6 @@ def handler(req):
         from mod_python import apache
         return apache.OK
     except:
-        if naked == 'redirect':
-            write_html_head()
-
         while len(xhtml.open_tags) > 2:
             xhtml.write_close_tag_line()
         if xhtml.open_tags and xhtml.open_tags[-1] == 'head':
