@@ -55,7 +55,8 @@ def select_or_insert(url):
     finally:
         database.disconnect()
 
-def body():
+def redirect():
     url = read_form(req.info.form)
     website = select_or_insert(url)
     req.headers_out['Location'] = '/website/%d/' % website
+    return True
