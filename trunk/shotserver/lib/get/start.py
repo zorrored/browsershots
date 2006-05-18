@@ -31,7 +31,28 @@ from shotserver03.segments import recent, inputurl, browsers, sponsors
 def title():
     return "Test Your Design"
 
+class UnexpectedFieldName(Exception):
+    pass
+
+def read_form():
+    result = {}
+    accept_fields = 'error url'.split()
+    for name in accept_fields:
+        result[name] = ''
+    for field in req.info.form.list:
+        if field.name not in accept_fields:
+            raise UnexpectedFieldName(field.name)
+        result[field.name] = field.value
+    return result
+
 def body():
     # xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
-    inputurl.write()
+    url = ''
+    if req.info.form:
+        parameters = read_form()
+        if (parameters['error']):
+            xhtml.write_tag('p', parameters['error'], _class="error")
+        if (parameters['url']):
+            url = parameters['url']
+    inputurl.write(url)
     sponsors.write()
