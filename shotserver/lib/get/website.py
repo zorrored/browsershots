@@ -48,7 +48,7 @@ def request_numeric_to_url():
         return None
     return result['url']
 
-suffix_match = re.compile(r'/(\w+)(\.\w{1,4})$').search
+suffix_match = re.compile(r'/([\w\.\-\_]+)(\.\w{1,4})$').search
 def core_to_url(core):
     if not core:
         return None
@@ -57,18 +57,26 @@ def core_to_url(core):
     else:
         return 'http://%s/' % core
 
-simple_url_match = re.compile(r'^http://([\w\./]+)$').match
+simple_url_match = re.compile(r'^http://(\w[\w\.\-\_/]+\w)/?$').match
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
     """
-    if not request_is_numeric(): return False
+    if not request_is_numeric():
+        return False
+
     url = request_numeric_to_url()
-    if url is None: return False
+    if url is None:
+        return False
+
     match = simple_url_match(url)
-    if match is None: return False
+    if match is None:
+        return False
+
     core = match.group(1)
-    if core_to_url(core) != url: return False
+    if core_to_url(core) != url:
+        return False
+
     encoded = 'http://%s/website/%s/' % (req.info.uri.hostname, core)
     req.headers_out['Location'] = encoded
     return True
@@ -87,5 +95,6 @@ def body():
     if website is None:
         xhtml.write_tag_line('p', "Unknown website.", _class="error")
     else:
+        website = website.replace('&', '&amp;')
         xhtml.write_tag_line('p', website)
     xhtml.write_close_tag_line('div')
