@@ -81,20 +81,21 @@ def handler(req):
         __builtins__['req'] = req
         req.info = request.RequestInfo()
 
-        if req.info.form:
+        if req.method == 'POST':
             action_module = import_deep('shotserver03.post.%s' % req.info.action)
             assert action_module.redirect()
             from mod_python import apache
             req.status = apache.HTTP_MOVED_TEMPORARILY
             return apache.HTTP_MOVED_TEMPORARILY
 
+        assert req.method == 'GET' or req.method == 'HEAD'
         action_module = import_deep('shotserver03.get.%s' % req.info.action)
         if hasattr(action_module, 'redirect'):
             if action_module.redirect():
                 from mod_python import apache
                 req.status = apache.HTTP_MOVED_TEMPORARILY
                 return apache.HTTP_MOVED_TEMPORARILY
-        
+
         title = action_option(action_module, 'title', 'Browsershots')
         write_html_head(title)
 
