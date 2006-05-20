@@ -27,6 +27,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import sys, traceback
+from mod_python import apache
 from shotserver03 import request
 from shotserver03.interface import xhtml
 from shotserver03.segments import metamenu, topmenu, bottom
@@ -84,7 +85,6 @@ def handler(req):
         if req.method == 'POST':
             action_module = import_deep('shotserver03.post.%s' % req.info.action)
             assert action_module.redirect()
-            from mod_python import apache
             req.status = apache.HTTP_MOVED_TEMPORARILY
             return apache.HTTP_MOVED_TEMPORARILY
 
@@ -92,7 +92,6 @@ def handler(req):
         action_module = import_deep('shotserver03.get.%s' % req.info.action)
         if hasattr(action_module, 'redirect'):
             if action_module.redirect():
-                from mod_python import apache
                 req.status = apache.HTTP_MOVED_TEMPORARILY
                 return apache.HTTP_MOVED_TEMPORARILY
 
@@ -118,8 +117,9 @@ def handler(req):
         xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
-        from mod_python import apache
         return apache.OK
+    except apache.SERVER_RETURN:
+        raise
     except:
         while len(xhtml.open_tags) > 2:
             xhtml.write_close_tag_line()
@@ -139,5 +139,4 @@ def handler(req):
         if len(xhtml.open_tags) == 2:
             xhtml.write_close_tag_line('body')
             xhtml.write_close_tag_line('html')
-        from mod_python import apache
         return apache.OK
