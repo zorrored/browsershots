@@ -70,6 +70,18 @@ def error_redirect(**params):
     location = '/?' + urllib.urlencode(params)
     util.redirect(req, location)
 
+port_match = re.compile(r':(\d+)$').search
+def get_port(protocol, server):
+    match = port_match(server)
+    if match:
+        return int(match.group(1))
+    elif protocol == 'http':
+        return 80
+    elif protocol == 'https':
+        return 443
+    else:
+        raise "Protocol %s is not supported." % protocol
+
 def sanity_check_url(url):
     protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
     if not protocol:
@@ -77,10 +89,22 @@ def sanity_check_url(url):
             url += '/'
         suggestion = 'http://' + url.lstrip('/')
         raise error_redirect(error = "URL should start with 'http://' or 'https://'. Please try again.", url = suggestion)
+
     if protocol not in ('http', 'https'):
         raise error_redirect(error = "Protocol %s is not supported." % protocol, url = url)
     if not server:
         raise error_redirect(error = "Malformed URL. Please check for typos.", url = url)
+
+    port = get_port(protocol, server)
+    if port == 80:
+        if protocol != 'http':
+            raise error_redirect(error = "Protocol should be http on port 80.", url = url)
+    elif port == 443:
+        if protocol != 'https':
+            raise error_redirect(error = "Protocol should be https on port 443.", url = url)
+    elif port < 1024:
+        raise error_redirect(error = "Port %d is not supported." % port, url = url)
+
     if not path:
         raise error_redirect(error = "There should be a slash after the server name. Please try again.", url = url + '/')
 
