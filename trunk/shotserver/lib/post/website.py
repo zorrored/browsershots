@@ -60,7 +60,11 @@ def select_or_insert(url):
     finally:
         database.disconnect()
 
+def ucfirst(s):
+    return s[0].upper() + s[1:]
+
 def server_said(errornumber, errorstring, prefix = '', suffix = ''):
+    errorstring = ucfirst(errorstring)
     result = "The server said '%d %s'." % (errornumber, errorstring)
     if prefix: result = prefix + ' ' + result
     if suffix: result = result + ' ' + suffix
@@ -110,12 +114,15 @@ def sanity_check_url(url):
 
 def test_head(url):
     protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
-    if protocol == 'http':
-        connection = httplib.HTTPConnection(server)
-    elif protocol == 'https':
-        connection = httplib.HTTPSConnection(server)
-    else:
-        raise "Protocol %s is not supported." % protocol
+    try:
+        if protocol == 'http':
+            connection = httplib.HTTPConnection(server)
+        elif protocol == 'https':
+            connection = httplib.HTTPSConnection(server)
+        else:
+            raise "Protocol %s is not supported." % protocol
+    except httplib.HTTPException, e:
+        error_redirect(error = ' '.join(("Could not open web address.", ucfirst(str(e)) + '.', "Please check for typos.")), url = url)
 
     if query: path += '?' + query
     try:
