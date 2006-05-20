@@ -71,8 +71,13 @@ def error_redirect(**params):
     util.redirect(req, location)
 
 def sanity_check_url(url):
-    protocol, server, path, query, fragment = urlparse.urlsplit(url, 'http')
-    if protocol != 'http':
+    protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
+    if not protocol:
+        if not url.count('/'):
+            url += '/'
+        suggestion = 'http://' + url.lstrip('/')
+        raise error_redirect(error = "URL should start with 'http://' or 'https://'. Please try again.", url = suggestion)
+    if protocol not in ('http', 'https'):
         raise error_redirect(error = "Protocol %s is not supported." % protocol, url = url)
     if not server:
         raise error_redirect(error = "Malformed URL. Please check for typos.", url = url)
@@ -80,21 +85,28 @@ def sanity_check_url(url):
         raise error_redirect(error = "There should be a slash after the server name. Please try again.", url = url + '/')
 
 def test_head(url):
-    protocol, server, path, query, fragment = urlparse.urlsplit(url, 'http')
-    assert protocol == 'http'
-    connection = httplib.HTTPConnection(server)
+    protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
+    if protocol == 'http':
+        connection = httplib.HTTPConnection(server)
+    elif protocol == 'https':
+        connection = httplib.HTTPSConnection(server)
+    else:
+        raise "Protocol %s is not supported." % protocol
+
+    if query: path += '?' + query
     try:
-        if query: path += '?' + query
         connection.request('HEAD', path)
     except socket.error, (errornumber, errorstring):
         error_redirect(error = ' '.join(("Could not open web address.", errorstring + '.', "Please check for typos.")), url = url)
+
     response = connection.getresponse()
-    if response.status == 302:
+    if response.status == 200:
+        pass # all good
+    elif response.status in (301, 302):
         redirected = response.getheader('Location')
         if fragment: redirected += '#' + fragment
-        error_redirect(error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again."),
-                       url = redirected)
-    if response.status != 200:
+        error_redirect(error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again."), url = redirected)
+    else:
         error_redirect(error = server_said(response.status, response.reason, "Unexpected server response."), url = url)
 
 def redirect():
