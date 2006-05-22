@@ -72,7 +72,7 @@ def redirect():
 def title():
     return "Website"
 
-request_match = re.compile(r'(\w+)\s+/website/(\S*)\s+(HTTP/[\d\.]+)$').match
+request_match = re.compile(r'(\w+)\s+/(|intl/[\w\-]+/)website/(\S*)\s+(HTTP/[\d\.]+)$').match
 def body():
     if request_is_numeric():
         website = request_numeric_to_url()
@@ -80,7 +80,7 @@ def body():
         match = request_match(req.the_request)
         if match is None:
             raise "Request does not match: %s" % req.the_request
-        website = match.group(2)
+        website = match.group(3)
 
     xhtml.write_open_tag_line('div')
     if not website:
