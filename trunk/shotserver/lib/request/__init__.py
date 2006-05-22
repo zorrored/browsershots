@@ -45,3 +45,6 @@ class RequestInfo(tabledict.TableDict):
         else:
             self.action = 'start'
             self.options = []
+
+        if len(self.options) and self.options[-1] == '':
+            self.options.pop()
