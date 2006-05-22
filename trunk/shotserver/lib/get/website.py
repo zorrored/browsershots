@@ -31,7 +31,8 @@ from shotserver03.interface import xhtml
 from shotserver03 import database
 
 def request_is_numeric():
-    if len(req.info.options) != 1: return False
+    if len(req.info.options) != 1:
+        return False
     return req.info.options[0].isdigit()
 
 def request_numeric_to_int():
@@ -49,7 +50,7 @@ def request_numeric_to_url():
         return None
     return result['url']
 
-simple_url_match = re.compile(r'^(\w+)://(\w[\w\.\-\_/]+\w/?)$').match
+simple_url_match = re.compile(r'^(\w+://\w[\w\.\-\_/]+\w/?)$').match
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
@@ -65,20 +66,21 @@ def redirect():
     if match is None:
         return False
 
-    protocol, core = match.groups()
-    encoded = 'http://%s/website/%s/%s' % (req.info.uri.hostname, protocol, core)
-    util.redirect(req, encoded)
+    location = 'http://%s/website/%s' % (req.info.uri.hostname, url)
+    util.redirect(req, location)
 
 def title():
     return "Website"
 
+request_match = re.compile(r'(\w+)\s+/website/(\S+)\s+(HTTP/[\d\.]+)$').match
 def body():
     if request_is_numeric():
         website = request_numeric_to_url()
     else:
-        protocol = req.info.options[0]
-        core = '/'.join(req.info.options[1:])
-        website = '%s://%s' % (protocol, core)
+        match = request_match(req.the_request)
+        if match is None:
+            raise "Request does not match: %s" % req.the_request
+        website = match.group(2)
 
     xhtml.write_open_tag_line('div')
     if website is None:
