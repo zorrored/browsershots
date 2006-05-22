@@ -26,6 +26,7 @@ __date__ = '$Date: 2006-04-08 08:51:18 +0200 (Sat, 08 Apr 2006) $'
 __author__ = '$Author: johann $'
 
 import re
+from mod_python import util
 from shotserver03.interface import xhtml
 from shotserver03 import database
 
@@ -48,16 +49,7 @@ def request_numeric_to_url():
         return None
     return result['url']
 
-suffix_match = re.compile(r'/([\w\.\-\_]+)(\.\w{1,4})$').search
-def core_to_url(core):
-    if not core:
-        return None
-    elif suffix_match(core):
-        return 'http://%s' % core
-    else:
-        return 'http://%s/' % core
-
-simple_url_match = re.compile(r'^http://(\w[\w\.\-\_/]+\w)/?$').match
+simple_url_match = re.compile(r'^(\w+)://(\w[\w\.\-\_/]+\w/?)$').match
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
@@ -73,13 +65,9 @@ def redirect():
     if match is None:
         return False
 
-    core = match.group(1)
-    if core_to_url(core) != url:
-        return False
-
-    encoded = 'http://%s/website/%s/' % (req.info.uri.hostname, core)
-    req.headers_out['Location'] = encoded
-    return True
+    protocol, core = match.groups()
+    encoded = 'http://%s/website/%s/%s' % (req.info.uri.hostname, protocol, core)
+    util.redirect(req, encoded)
 
 def title():
     return "Website"
@@ -88,8 +76,9 @@ def body():
     if request_is_numeric():
         website = request_numeric_to_url()
     else:
-        core = '/'.join(req.info.options)
-        website = core_to_url(core)
+        protocol = req.info.options[0]
+        core = '/'.join(req.info.options[1:])
+        website = '%s://%s' % (protocol, core)
 
     xhtml.write_open_tag_line('div')
     if website is None:
