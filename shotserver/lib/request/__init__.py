@@ -39,12 +39,16 @@ class RequestInfo(tabledict.TableDict):
         self.form = util.FieldStorage(req)
         self.uri = uri.URI(basepath)
 
-        if len(self.uri.parts):
-            self.action = self.uri.parts[0]
-            self.options = self.uri.parts[1:]
-        else:
-            self.action = 'start'
-            self.options = []
-
+        self.options = self.uri.parts
         if len(self.options) and self.options[-1] == '':
             self.options.pop()
+
+        if len(self.options) and self.options[0] == 'intl':
+            self.lang = self.options[1]
+            self.options = self.options[2:]
+
+        if len(self.options):
+            self.action = self.options[0]
+            self.options = self.options[1:]
+        else:
+            self.action = 'start'
