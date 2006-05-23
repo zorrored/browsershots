@@ -25,10 +25,20 @@ __revision__ = '$Rev: 77 $'
 __date__ = '$Date: 2006-03-29 00:48:25 +0200 (Wed, 29 Mar 2006) $'
 __author__ = '$Author: johann $'
 
+import re
 from shotserver03.interface import xhtml
 
+items = re.compile('<item>\s*<title>(.+?)</title>\s*<link>(http.+?)</link>').findall
 def write():
-    xhtml.write_open_tag('div', _id="news")
+    xhtml.write_open_tag_line('div', _id="news")
     xhtml.write_tag_line('h2', "Latest News")
+
+    xhtml.write_open_tag('ul')
+    rss = file('/var/www/browsershots.org/blog/rss.xml').read()
+    for item in items(rss):
+        title, link = item
+        link = xhtml.tag('a', title, href=link)
+        xhtml.write_tag_line('li', link)
+    xhtml.write_close_tag('ul')
 
     xhtml.write_close_tag_line('div') # id="news"

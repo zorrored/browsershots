@@ -140,11 +140,21 @@ div#inputurl input#submit {
 
 div#about, div#news, div#sponsors {
   float: left;
-  width: 290px;
-  margin: 0 12px 1em 0;
+  width: 270px;
+  margin: 0 32px 1em 0;
   float: left;
 }
 div#sponsors {
   width: 160px;
   margin: 0 0 1em 0;
+}
+div#news ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+div#news li {
+  text-indent: -2em;
+  padding: 0;
+  margin: 0 0 0 2em;
 }
