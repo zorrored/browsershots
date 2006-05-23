@@ -55,7 +55,8 @@ div#topmenu ul.right li.first { padding-left: 6ex; }
 div#topmenu a,
 div#bottom a { color: black; }
 
-div#logo { padding: 0.5ex 0; }
+div#languages { padding: 17px 0; }
+div#logo { padding: 10px 0; }
 p#sponsors {
   clear: both;
   padding: 0 0 1ex;
