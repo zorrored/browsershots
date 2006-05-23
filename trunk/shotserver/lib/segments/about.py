@@ -18,25 +18,24 @@
 # MA 02111-1307, USA.
 
 """
-Display project sponsor logos with links.
+Explain the purpose of this project.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = '$Rev: 77 $'
+__date__ = '$Date: 2006-03-29 00:48:25 +0200 (Wed, 29 Mar 2006) $'
+__author__ = '$Author: johann $'
 
 from shotserver03.interface import xhtml
 
 def write():
-    xhtml.write_open_tag('div', _id="sponsors")
-    xhtml.write_tag_line('h2', "Sponsors")
+    xhtml.write_open_tag('div', _id="about")
+    xhtml.write_tag_line('h2', "What is this?")
 
-    img = xhtml.tag('img', src="/style/mfg40.png", alt="MFG Stiftung BW", _class="top")
-    link = xhtml.tag('a', img, href="http://www.mfg.de/stiftung/")
-    xhtml.write_tag_line('p', link)
+    text = ("Browsershots is a free open-source online platform where you can test your web design in different browsers.",
+            "When you submit your web address, it will be added to the job queue.",
+            "A number of distributed computers will automatically open your website in their browser.",
+            "Then they will make screenshots and upload them to the central server here.")
+    text = '\n'.join(text)
+    xhtml.write_tag_line('p', text)
 
-    img = xhtml.tag('img', src="/style/lisog40.png", alt="LiSoG e.V.", _class="top")
-    link = xhtml.tag('a', img, href="http://www.lisog.org/")
-    xhtml.write_tag_line('p', link)
-
-    xhtml.write_close_tag_line('div') # id="sponsors"
+    xhtml.write_close_tag_line('div') # id="about"
