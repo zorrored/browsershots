@@ -30,7 +30,7 @@ import sys, traceback
 from mod_python import apache
 from shotserver03 import request
 from shotserver03.interface import xhtml
-from shotserver03.segments import metamenu, topmenu, bottom
+from shotserver03.segments import languages, logo, topmenu, bottom
 
 def import_deep(name):
     """
@@ -101,13 +101,10 @@ def handler(req):
         xhtml.write_open_tag_line('body')
         xhtml.write_open_tag_line('div', _id="main")
 
-        metamenu.write()
+        languages.write()
+        logo.write()
         topmenu.write()
-
-        xhtml.write_open_tag_line('div', _class="menu", _id="headline")
-        xhtml.write_tag_line('img', src="/style/logo40.png", _class="right", alt="browsershots.org beta")
         xhtml.write_tag_line('h1', title)
-        xhtml.write_close_tag_line('div') # id="sub"
 
         action_module.body()
 
