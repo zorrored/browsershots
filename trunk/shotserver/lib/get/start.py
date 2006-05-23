@@ -26,7 +26,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
-from shotserver03.segments import recent, inputurl, browsers, sponsors
+from shotserver03.segments import recent, inputurl, about, news, sponsors
 
 def title():
     return "Test your web design in different browsers"
@@ -55,4 +55,7 @@ def body():
         if (parameters['url']):
             url = parameters['url']
     inputurl.write(url)
+
+    about.write()
+    news.write()
     sponsors.write()
