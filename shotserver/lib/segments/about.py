@@ -28,7 +28,7 @@ __author__ = '$Author: johann $'
 from shotserver03.interface import xhtml
 
 def write():
-    xhtml.write_open_tag('div', _id="about")
+    xhtml.write_open_tag_line('div', _id="about")
     xhtml.write_tag_line('h2', "What is this?")
 
     text = ("Browsershots is a free open-source online platform where you can test your web design in different browsers.",
