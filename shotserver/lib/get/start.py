@@ -29,7 +29,7 @@ from shotserver03.interface import xhtml
 from shotserver03.segments import recent, inputurl, browsers, sponsors
 
 def title():
-    return "Test Your Design"
+    return "Test your web design in different browsers"
 
 class UnexpectedFieldName(Exception):
     pass
