@@ -33,12 +33,12 @@ def write():
     xhtml.write_open_tag_line('div', _id="news")
     xhtml.write_tag_line('h2', "Latest News")
 
-    xhtml.write_open_tag('ul')
+    xhtml.write_open_tag_line('ul')
     rss = file('/var/www/browsershots.org/blog/rss.xml').read()
     for item in items(rss):
         title, link = item
         link = xhtml.tag('a', title, href=link)
         xhtml.write_tag_line('li', link)
-    xhtml.write_close_tag('ul')
+    xhtml.write_close_tag_line('ul')
 
     xhtml.write_close_tag_line('div') # id="news"
