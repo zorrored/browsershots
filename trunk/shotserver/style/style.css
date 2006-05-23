@@ -12,6 +12,34 @@ body {
 img { border: none; }
 form { margin: 0; }
 
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1 { font-size: 28px; }
+h1, h2 {
+  clear: left;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  margin: 0;
+}
+
+p { margin: 1ex 0; }
+p.error { color: #F00; }
+p.success { color: #080; }
+p.error, p.success { font-weight: bold; }
+div.traceback {
+  text-align: left;
+  border: 3px solid red;
+  padding: 0 1em;
+}
+
+.top { vertical-align: top; }
+.middle { vertical-align: middle; }
+.bottom { vertical-align: bottom; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.clear { clear: both; }
+.red { color: red; }
+
 div#main {
   width: 764px;
   margin: 0 auto;
@@ -57,16 +85,6 @@ div#bottom a { color: black; }
 
 div#languages { padding: 17px 0; }
 div#logo { padding: 10px 0; }
-p#sponsors {
-  clear: both;
-  padding: 0 0 1ex;
-  margin: 0;
-  color: gray;
-  text-align: right;
-}
-p#sponsors img {
-  margin-left: 1em;
-}
 
 div#recent {
   margin-top: 2ex;
@@ -120,30 +138,13 @@ div#inputurl input#submit {
   font-weight: bold;
 }
 
-a { text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-h1 { font-size: 28px; }
-h1, h2 {
-  clear: left;
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  margin: 0;
+div#about, div#news, div#sponsors {
+  float: left;
+  width: 290px;
+  margin: 0 12px 1em 0;
+  float: left;
 }
-
-p { margin: 1ex 0; }
-p.error { color: #F00; }
-p.success { color: #080; }
-p.error, p.success { font-weight: bold; }
-div.traceback {
-  text-align: left;
-  border: 3px solid red;
-  padding: 0 1em;
+div#sponsors {
+  width: 160px;
+  margin: 0 0 1em 0;
 }
-
-.top { vertical-align: top; }
-.middle { vertical-align: middle; }
-.bottom { vertical-align: bottom; }
-.relative { position: relative; }
-.absolute { position: absolute; }
-.clear { clear: both; }
-.red { color: red; }
