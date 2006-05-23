@@ -29,5 +29,6 @@ from shotserver03.interface import xhtml
 
 def write():
     xhtml.write_open_tag_line('div', _id="logo")
-    xhtml.write_tag_line('img', src="/style/logo40.png", _class="logo", alt="browsershots.org")
+    img = xhtml.tag('img', src="/style/logo40.png", _class="logo", alt="browsershots.org")
+    xhtml.write_tag_line('a', img, href="http://%s/" % req.hostname)
     xhtml.write_close_tag_line('div')

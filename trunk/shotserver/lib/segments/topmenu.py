@@ -34,7 +34,6 @@ def write():
     xhtml.write_tag('li', xhtml.tag('a', 'Screenshots', href="/screenshots/"+req.info.uri.lang),  _class="first")
     xhtml.write_tag('li', xhtml.tag('a', 'Queue', href="/queue/"+req.info.uri.lang))
     xhtml.write_tag('li', xhtml.tag('a', 'Factories', href="/factories/"+req.info.uri.lang))
-    xhtml.write_tag('li', xhtml.tag('a', 'Search', href="/search/"+req.info.uri.lang))
     xhtml.write_close_tag_line('ul') # class="left"
 
     xhtml.write_open_tag('ul', _class="right")
@@ -43,6 +42,7 @@ def write():
 
     link = xhtml.tag('a', 'Mock-up!', href="http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/")
     xhtml.write_tag_line('p', link, _class="right mockup")
+
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="topmenu"
 
