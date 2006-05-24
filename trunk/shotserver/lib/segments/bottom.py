@@ -28,12 +28,13 @@ __author__ = '$Author$'
 from shotserver03.interface import xhtml
 
 def write():
+    xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_open_tag_line('div', _class="menu lightgray", _id="bottom")
 
     xhtml.write_open_tag('ul', _class="left")
-    xhtml.write_tag('li', xhtml.tag('a', 'Contact', href="/trac/wiki/ContactDetails"), _class="first")
-    xhtml.write_tag('li', xhtml.tag('a', 'Terms of Use', href="/trac/wiki/TermsOfUse"))
-    xhtml.write_tag('li', xhtml.tag('a', 'Privacy Policy', href="/trac/wiki/PrivacyPolicy"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Contact', href="http://trac.browsershots.org/wiki/ContactDetails"), _class="first")
+    xhtml.write_tag('li', xhtml.tag('a', 'Terms of Use', href="http://trac.browsershots.org/wiki/TermsOfUse"))
+    xhtml.write_tag('li', xhtml.tag('a', 'Privacy Policy', href="http://trac.browsershots.org/wiki/PrivacyPolicy"))
     xhtml.write_close_tag_line('ul') # class="left"
 
     xhtml.write_open_tag('ul', _class="right")
