@@ -26,6 +26,7 @@ setup(name = 'ShotServer',
                   'style/logo40.png',
                   'style/mfg40.png',
                   'style/lisog40.png',
+                  'style/inputurl.jpg',
                   'style/zoom.js',
                   'style/forms.js'])],
       )
