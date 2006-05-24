@@ -71,8 +71,11 @@ def server_said(errornumber, errorstring, prefix = '', suffix = ''):
     return result
 
 def error_redirect(**params):
-    location = '/?' + urllib.urlencode(params)
-    util.redirect(req, location)
+    params = urllib.urlencode(params)
+    if params:
+        util.redirect(req, '/?' + params)
+    else:
+        util.redirect(req, '/')
 
 port_match = re.compile(r':(\d+)$').search
 def get_port(protocol, server):
@@ -87,6 +90,9 @@ def get_port(protocol, server):
         raise "Protocol %s is not supported." % protocol
 
 def sanity_check_url(url):
+    if not url:
+        error_redirect()
+
     protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
     if not protocol:
         if not url.count('/'):
