@@ -25,7 +25,7 @@ __revision__ = '$Rev: 117 $'
 __date__ = '$Date: 2006-04-08 08:51:18 +0200 (Sat, 08 Apr 2006) $'
 __author__ = '$Author: johann $'
 
-import re
+import re, cgi
 from mod_python import util
 from shotserver03.interface import xhtml
 from shotserver03.segments import browsers
@@ -51,7 +51,7 @@ def request_numeric_to_url():
         return None
     return result['url']
 
-simple_url_match = re.compile(r'^([\w\.,:;\-\_/\?&=]+)$').match
+simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
@@ -73,6 +73,9 @@ def redirect():
 def title():
     return "Website Overview"
 
+def error_message(message):
+    xhtml.write_tag_line('p', message, _class="error")
+
 request_match = re.compile(r'(\w+)\s+/(|intl/[\w\-]+/)website/(\S*)\s+(HTTP/[\d\.]+)$').match
 def body():
     if request_is_numeric():
@@ -80,14 +83,16 @@ def body():
     else:
         match = request_match(req.the_request)
         if match is None:
-            raise "Request does not match: %s" % req.the_request
+            return error_message("Your browser sent a strange request: '%s'." % req.the_request)
         website = match.group(3)
+        match = simple_url_match(website)
+        if match is None:
+            return error_message("The web address seems to be invalid: '%s'." % website)
 
     if not website:
         xhtml.write_tag_line('p', "Unknown website.", _class="error")
     else:
-        website = website.replace('&', '&amp;')
-        link = xhtml.tag('a', website, href=website)
+        link = xhtml.tag('a', cgi.escape(website), href=website)
         xhtml.write_tag_line('p', link)
 
     browsers.write()
