@@ -28,6 +28,7 @@ __author__ = '$Author: johann $'
 import re
 from mod_python import util
 from shotserver03.interface import xhtml
+from shotserver03.segments import browsers
 from shotserver03 import database
 
 def request_is_numeric():
@@ -50,7 +51,7 @@ def request_numeric_to_url():
         return None
     return result['url']
 
-simple_url_match = re.compile(r'^(\w+://\w[\w\.\-\_/]+\w/?)$').match
+simple_url_match = re.compile(r'^([\w\.,:;\-\_/\?&=]+)$').match
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
@@ -70,7 +71,7 @@ def redirect():
     util.redirect(req, location)
 
 def title():
-    return "Website"
+    return "Website Overview"
 
 request_match = re.compile(r'(\w+)\s+/(|intl/[\w\-]+/)website/(\S*)\s+(HTTP/[\d\.]+)$').match
 def body():
@@ -82,10 +83,11 @@ def body():
             raise "Request does not match: %s" % req.the_request
         website = match.group(3)
 
-    xhtml.write_open_tag_line('div')
     if not website:
         xhtml.write_tag_line('p', "Unknown website.", _class="error")
     else:
         website = website.replace('&', '&amp;')
-        xhtml.write_tag_line('p', website)
-    xhtml.write_close_tag_line('div')
+        link = xhtml.tag('a', website, href=website)
+        xhtml.write_tag_line('p', link)
+
+    browsers.write()
