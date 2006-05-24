@@ -116,11 +116,14 @@ th, td {
 div#inputurl {
   margin: 1em 0;
   padding: 8px 20px 12px;
-  background-color: #AAF;
+  background-color: #016;
+  background-image: url(inputurl.jpg);
+  background-repeat: repeat-x;
 }
 div#inputurl p {
-  margin: 0;
+  margin: 0 0 2px;
   font-weight: bold;
+  color: white;
 }
 div#inputurl input#url {
   width: 600px;
