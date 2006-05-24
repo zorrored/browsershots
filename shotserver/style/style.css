@@ -114,28 +114,24 @@ th, td {
 }
 
 div#inputurl {
-  position: relative;
   margin: 1em 0;
-  padding: 10px 20px;
+  padding: 8px 20px 12px;
   background-color: #AAF;
-  height: 3.5em;
 }
 div#inputurl p {
   margin: 0;
   font-weight: bold;
 }
 div#inputurl input#url {
-  position: absolute;
-  left: 20px;
   width: 600px;
   padding-left: 4px;
   padding-right: 4px;
+  margin: 0;
 }
 div#inputurl input#submit {
-  position: absolute;
-  right: 20px;
   width: 100px;
   font-weight: bold;
+  margin: 0 0 0 12px;
 }
 
 div#about, div#news, div#sponsors {
