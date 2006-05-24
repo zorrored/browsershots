@@ -25,13 +25,14 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+import cgi
 from shotserver03.interface import xhtml
 
 def write(url):
     xhtml.write_open_tag_line('form', action="/website/", method="post")
     xhtml.write_open_tag_line('div', _id="inputurl")
     xhtml.write_tag_line('p', "Paste your web address here, starting with http://")
-    quoted_url = url.replace('&', '&amp;')
+    quoted_url = cgi.escape(url, quote = True)
     xhtml.write_tag('input', _type="text", _id="url", _name="url", value=quoted_url, _class="text")
     xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Start", _class="button")
     xhtml.write_close_tag_line('div')
