@@ -3,12 +3,12 @@ RewriteBase /
 
 # Force canonical hostname, without HTTPS.
   RewriteCond %{HTTPS} off
-  RewriteCond %{HTTP_HOST} !^v03.browsershots.org$
+  RewriteCond %{HTTP_HOST} !^v03.browsershots.org(|:80)$
 RewriteRule ^(.*)$ http://v03.browsershots.org/$1 [R,L]
 
 # Force canonical hostname, with HTTPS.
   RewriteCond %{HTTPS} on
-  RewriteCond %{HTTP_HOST} !^v03.browsershots.org$
+  RewriteCond %{HTTP_HOST} !^v03.browsershots.org(|:443)$
 RewriteRule ^(.*)$ https://v03.browsershots.org/$1 [R,L]
 
 # Don't rewrite these.
@@ -16,18 +16,6 @@ RewriteRule ^robots.txt$ - [L]
 RewriteRule ^favicon.ico$ - [L]
 RewriteRule ^style/ - [L]
 RewriteRule ^png/ - [L]
-RewriteRule ^trac/ - [L]
-RewriteRule ^blog/ - [L]
-RewriteRule ^cgi-bin/ - [L]
-RewriteRule ^svn/ - [L]
-
-# Force trailing slash on URL.
-  RewriteCond $1 !/$
-  RewriteCond $1 !^\w\w$
-  RewriteCond $1 !/\w\w$
-  RewriteCond $1 !^\w\w-\w\w$
-  RewriteCond $1 !/\w\w-\w\w$
-RewriteRule ^(.+)$ $1/ [R,L]
 
 # Run shotserver.
 RewriteRule ^shotserver/ - [L]
