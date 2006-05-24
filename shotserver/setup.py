@@ -27,11 +27,5 @@ setup(name = 'ShotServer',
                   'style/mfg40.png',
                   'style/lisog40.png',
                   'style/zoom.js',
-                  'style/forms.js']),
-            ('/usr/share/trac/templates', [
-                  'trac/templates/header.cs',
-                  'trac/templates/footer.cs',
-                  'trac/templates/settings.cs']),
-            ('/usr/share/trac/htdocs/css', [
-                  'trac/htdocs/css/trac.css'])],
+                  'style/forms.js'])],
       )
