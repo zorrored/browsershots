@@ -92,7 +92,8 @@ def body():
     if not website:
         xhtml.write_tag_line('p', "Unknown website.", _class="error")
     else:
-        link = xhtml.tag('a', cgi.escape(website), href=website)
+        website = cgi.escape(website, quote = True)
+        link = xhtml.tag('a', website, href=website)
         xhtml.write_tag_line('p', link)
 
     browsers.write()
