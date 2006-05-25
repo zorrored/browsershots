@@ -31,16 +31,16 @@ def write():
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_open_tag_line('div', _class="menu lightgray", _id="bottom")
 
-    xhtml.write_open_tag('ul', _class="left")
+    xhtml.write_open_tag('ul', _class="float-left")
     xhtml.write_tag('li', xhtml.tag('a', 'Contact', href="http://trac.browsershots.org/wiki/ContactDetails"), _class="first")
     xhtml.write_tag('li', xhtml.tag('a', 'Terms of Use', href="http://trac.browsershots.org/wiki/TermsOfUse"))
     xhtml.write_tag('li', xhtml.tag('a', 'Privacy Policy', href="http://trac.browsershots.org/wiki/PrivacyPolicy"))
-    xhtml.write_close_tag_line('ul') # class="left"
+    xhtml.write_close_tag_line('ul') # class="float-left"
 
-    xhtml.write_open_tag('ul', _class="right")
+    xhtml.write_open_tag('ul', _class="float-right")
     xhtml.write_tag('li', xhtml.tag('a', 'XHTML 1.1', href="http://validator.w3.org/check?uri=referer"), _class="first")
     xhtml.write_tag('li', xhtml.tag('a', 'CSS', href="http://jigsaw.w3.org/css-validator/check/referer"))
-    xhtml.write_close_tag_line('ul') # class="right"
+    xhtml.write_close_tag_line('ul') # class="float-right"
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="bottom"

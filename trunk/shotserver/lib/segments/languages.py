@@ -29,16 +29,16 @@ from shotserver03.interface import xhtml
 
 def write():
     xhtml.write_open_tag_line('form', action="")
-    xhtml.write_open_tag('div', _id="languages", _class="right")
+    xhtml.write_open_tag('div', _id="languages", _class="float-right")
     # xhtml.write_tag_line('input', _type="text")
     # xhtml.write_tag_line('input', _type="submit", value="Search")
 
     xhtml.write_open_tag_line('select', _id="langsel",
         onchange="document.location.href=this.form.langsel.options[this.form.langsel.options.selectedIndex].value")
+    xhtml.write_tag_line('option', 'English', value="en")
+    xhtml.write_tag_line('option', 'English (Canada)', value="en-CA")
     xhtml.write_tag_line('option', 'Deutsch', value="de")
-    xhtml.write_tag_line('option', 'English (American)', value="en-US")
-    xhtml.write_tag_line('option', 'English (British)', value="en-GB")
-    xhtml.write_tag_line('option', 'Português do Brazil', value="pt-BR")
+    xhtml.write_tag_line('option', 'Português (Brazil)', value="pt-BR")
     xhtml.write_tag_line('option', 'Български', value="bg")
     xhtml.write_tag_line('option', '正體中文', value="zh")
     xhtml.write_close_tag_line('select')
