@@ -133,7 +133,8 @@ div.focus {
   font-weight: bold;
 }
 div.focus div.float-left {
-  margin: 8px 0 12px 12px;
+  margin: 8px 0 12px;
+  padding: 0 0 0 12px;
 }
 div#inputurl input#url { width: 584px; }
 div#inputurl input#submit { width: 140px; }
