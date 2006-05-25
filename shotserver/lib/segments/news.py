@@ -28,6 +28,14 @@ __author__ = '$Author: johann $'
 import re
 from shotserver03.interface import xhtml
 
+def cutoff(text, maxlen):
+    if len(text) <= maxlen:
+        return text
+    cut = text.rfind(' ', 0, maxlen)
+    if cut == -1:
+        cut = maxlen - 1
+    return text[:cut] + ' ...'
+
 items = re.compile('<item>\s*<title>(.+?)</title>\s*<link>(http.+?)</link>').findall
 def write():
     xhtml.write_open_tag_line('div', _id="news")
@@ -37,6 +45,7 @@ def write():
     rss = file('/var/www/browsershots.org/blog/rss.xml').read()
     for item in items(rss):
         title, link = item
+        title = cutoff(title, 36)
         link = xhtml.tag('a', title, href=link)
         xhtml.write_tag_line('li', link)
     xhtml.write_close_tag_line('ul')
