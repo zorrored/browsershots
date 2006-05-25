@@ -30,10 +30,19 @@ from shotserver03.interface import xhtml
 
 def write(url):
     xhtml.write_open_tag_line('form', action="/website/", method="post")
-    xhtml.write_open_tag_line('div', _id="inputurl")
-    xhtml.write_tag_line('p', "Paste your web address here, starting with http://")
+    xhtml.write_open_tag_line('div', _class="focus", _id="inputurl")
+
+    xhtml.write_open_tag_line('div', _class="float-left")
+    req.write("Paste your web address here, starting with http://" + '<br />\n')
     quoted_url = cgi.escape(url, quote = True)
     xhtml.write_tag('input', _type="text", _id="url", _name="url", value=quoted_url, _class="text")
+    xhtml.write_close_tag_line('div')
+
+    xhtml.write_open_tag_line('div', _class="float-left")
+    req.write('<br />\n')
     xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Start", _class="button")
     xhtml.write_close_tag_line('div')
+
+    xhtml.write_tag_line('div', '', _class="clear")
+    xhtml.write_close_tag_line('div') # id="inputurl"
     xhtml.write_close_tag_line('form')
