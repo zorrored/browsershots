@@ -33,8 +33,10 @@ def cutoff(text, maxlen):
         return text
     cut = text.rfind(' ', 0, maxlen)
     if cut == -1:
-        cut = maxlen - 1
-    return text[:cut] + ' ...'
+        cut = maxlen
+    else:
+        cut += 1
+    return text[:cut] + '...'
 
 items = re.compile('<item>\s*<title>(.+?)</title>\s*<link>(http.+?)</link>').findall
 def write():
