@@ -6,14 +6,13 @@ body {
   font-size: 80%;
 }
 
-.left { float: left; }
-.right { float: right; }
-
 img { border: none; }
 form { margin: 0; }
 
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
+:link { color: #016; }
+:visited { color: #800; }
 
 h1 { font-size: 28px; }
 h1, h2 {
@@ -32,12 +31,22 @@ div.traceback {
   padding: 0 1em;
 }
 
+.float-left { float: left; }
+.float-right { float: right; }
+
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
+
 .top { vertical-align: top; }
 .middle { vertical-align: middle; }
 .bottom { vertical-align: bottom; }
+
 .relative { position: relative; }
 .absolute { position: absolute; }
+
 .clear { clear: both; }
+.bold { font-weight: bold; }
 .red { color: red; }
 
 div#main {
@@ -79,7 +88,7 @@ div#topmenu p.mockup a {
 }
 div#topmenu { margin: 0 0 1em; }
 div#bottom { margin: 1em 0 0; }
-div#topmenu ul.right li.first { padding-left: 6ex; }
+div#topmenu ul.float-right li.first { padding-left: 6ex; }
 div#topmenu a,
 div#bottom a { color: black; }
 
@@ -113,29 +122,23 @@ th, td {
   padding: 0 1ex 0 0;
 }
 
-div#inputurl {
+input#submit { font-weight: bold; }
+div.focus {
   margin: 1em 0;
-  padding: 8px 20px 12px;
+  width: 764px;
   background-color: #016;
   background-image: url(inputurl.jpg);
   background-repeat: repeat-x;
-}
-div#inputurl p {
-  margin: 0 0 2px;
-  font-weight: bold;
   color: white;
-}
-div#inputurl input#url {
-  width: 600px;
-  padding-left: 4px;
-  padding-right: 4px;
-  margin: 0;
-}
-div#inputurl input#submit {
-  width: 100px;
   font-weight: bold;
-  margin: 0 0 0 12px;
 }
+div.focus div.float-left {
+  margin: 8px 0 12px 12px;
+}
+div#inputurl input#url { width: 584px; }
+div#inputurl input#submit { width: 140px; }
+div#submitjobs select { width: 188px; }
+div#submitjobs input#submit { width: 140px; }
 
 div#about, div#news, div#sponsors {
   float: left;
