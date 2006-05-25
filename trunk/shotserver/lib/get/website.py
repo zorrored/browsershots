@@ -28,7 +28,7 @@ __author__ = '$Author: johann $'
 import re, cgi
 from mod_python import util
 from shotserver03.interface import xhtml
-from shotserver03.segments import browsers
+from shotserver03.segments import submitjobs, browsers
 from shotserver03 import database
 
 def request_is_numeric():
@@ -71,29 +71,33 @@ def redirect():
     util.redirect(req, location)
 
 def title():
-    return "Website Overview"
+    return "Select browsers and configuration"
 
 def error_message(message):
     xhtml.write_tag_line('p', message, _class="error")
 
-request_match = re.compile(r'(\w+)\s+/(|intl/[\w\-]+/)website/(\S*)\s+(HTTP/[\d\.]+)$').match
+request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
 def body():
     if request_is_numeric():
         website = request_numeric_to_url()
     else:
         match = request_match(req.the_request)
-        if match is None:
-            return error_message("Your browser sent a strange request: '%s'." % req.the_request)
-        website = match.group(3)
+        if not match:
+            return error_message("Your browser sent a strange request (%s)." % req.the_request)
+        website = match.group(4)
         match = simple_url_match(website)
-        if match is None:
-            return error_message("The web address seems to be invalid: '%s'." % website)
-
+        if website and not match:
+            return error_message("The web address seems to be invalid (%s)." % website)
     if not website:
-        xhtml.write_tag_line('p', "Unknown website.", _class="error")
-    else:
-        website = cgi.escape(website, quote = True)
-        link = xhtml.tag('a', website, href=website)
-        xhtml.write_tag_line('p', link)
+        return error_message("Website address parameter is missing.")
 
+    #website = cgi.escape(website, quote = True)
+    #link = xhtml.tag('a', website, href=website, _class="ext-link")
+    #xhtml.write_tag_line('p', link, _class="center bold")
+
+    # explain = "This page will show screenshots for the web address above when they get uploaded."
+    # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
+    # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
+
+    submitjobs.write()
     browsers.write()
