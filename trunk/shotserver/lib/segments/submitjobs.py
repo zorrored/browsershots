@@ -47,14 +47,34 @@ def write():
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
-    req.write("Color depth" + '<br />\n')
-    write_select('bits_per_pixel', "any=Don't care|4=4 Bits (16 Colors)|8=8 Bits (256 Colors)|16=16 Bits (High Color)|24=24 Bits (True Color)")
+    req.write("JavaScript" + '<br />\n')
+    write_select('javascript', "any=Don't care|no=Disabled|yes=Enabled|1.3=Version 1.3|1.4=Version 1.4|1.5=Version 1.5|1.6=Version 1.6", 3)
+    xhtml.write_close_tag_line('div')
+
+    xhtml.write_open_tag_line('div', _class="float-left")
+    req.write("Macromedia Flash" + '<br />\n')
+    write_select('flash', "any=Don't care|no=Not Installed|yes=Installed|4=Version 4|5=Version 5|6=Version 6|7=Version 7|8=Version 8", 3)
     xhtml.write_close_tag_line('div')
 
     # If jobs can't be finished soon enough, they will be removed from the queue.
     xhtml.write_open_tag_line('div', _class="float-left")
     req.write("Maximum wait" + '<br />\n')
     write_select('expire_minutes', "15=15 minutes|30=30 minutes|60=1 hour|120=2 hours|240=4 hours", 2)
+    xhtml.write_close_tag_line('div')
+
+    xhtml.write_open_tag_line('div', _class="float-left")
+    req.write("Color depth" + '<br />\n')
+    write_select('bits_per_pixel', "any=Don't care|4=4 Bits (16 Colors)|8=8 Bits (256 Colors)|16=16 Bits (High Color)|24=24 Bits (True Color)")
+    xhtml.write_close_tag_line('div')
+
+    xhtml.write_open_tag_line('div', _class="float-left")
+    req.write("Java" + '<br />\n')
+    write_select('java', "any=Don't care|no=Not Installed|yes=Installed|1.0=Version 1.0|1.1=Version 1.1|1.2=Version 1.2|1.3=Version 1.3|1.4=Version 1.4|5.0=Version 5.0")
+    xhtml.write_close_tag_line('div')
+
+    xhtml.write_open_tag_line('div', _class="float-left")
+    req.write("Media Plugins" + '<br />\n')
+    write_select('media', "any=Don't care|quicktime=Apple Quicktime|wmp=Windows Media Player")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")

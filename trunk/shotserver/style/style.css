@@ -125,6 +125,7 @@ th, td {
 input#submit { font-weight: bold; }
 div.focus {
   margin: 1em 0;
+  padding: 8px 0;
   width: 764px;
   background-color: #016;
   background-image: url(inputurl.jpg);
@@ -133,13 +134,13 @@ div.focus {
   font-weight: bold;
 }
 div.focus div.float-left {
-  margin: 8px 0 12px;
+  margin: 0 0 4px;
   padding: 0 0 0 12px;
 }
 div#inputurl input#url { width: 584px; }
 div#inputurl input#submit { width: 140px; }
-div#submitjobs select { width: 188px; }
-div#submitjobs input#submit { width: 140px; }
+div#submitjobs select { width: 176px; }
+div#submitjobs input#submit { width: 176px; }
 
 div#about, div#news, div#sponsors {
   float: left;
