@@ -27,20 +27,29 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+def write_menu(_class, *items):
+    xhtml.write_open_tag('ul', _class=_class)
+    for index, item in enumerate(items):
+        text, link = item.split('=', 1)
+        if index == 0:
+            xhtml.write_tag('li', xhtml.tag('a', text, href=link, _class="first"))
+        else:
+            xhtml.write_tag('li', xhtml.tag('a', text, href=link))
+    xhtml.write_close_tag_line('ul') # class="float-right"
+
+
 def write():
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_open_tag_line('div', _class="menu lightgray", _id="bottom")
 
-    xhtml.write_open_tag('ul', _class="float-left")
-    xhtml.write_tag('li', xhtml.tag('a', 'Contact', href="http://trac.browsershots.org/wiki/ContactDetails"), _class="first")
-    xhtml.write_tag('li', xhtml.tag('a', 'Terms of Use', href="http://trac.browsershots.org/wiki/TermsOfUse"))
-    xhtml.write_tag('li', xhtml.tag('a', 'Privacy Policy', href="http://trac.browsershots.org/wiki/PrivacyPolicy"))
-    xhtml.write_close_tag_line('ul') # class="float-left"
+    write_menu('float-left',
+               "Contact=http://trac.browsershots.org/wiki/ContactDetails",
+               "Terms of Use=http://trac.browsershots.org/wiki/TermsOfUse",
+               "Privacy Policy=http://trac.browsershots.org/wiki/PrivacyPolicy")
 
-    xhtml.write_open_tag('ul', _class="float-right")
-    xhtml.write_tag('li', xhtml.tag('a', 'XHTML 1.1', href="http://validator.w3.org/check?uri=referer"), _class="first")
-    xhtml.write_tag('li', xhtml.tag('a', 'CSS', href="http://jigsaw.w3.org/css-validator/check/referer"))
-    xhtml.write_close_tag_line('ul') # class="float-right"
+    write_menu('float-right',
+               "XHTML 1.1=http://validator.w3.org/check?uri=referer",
+               "CSS=http://jigsaw.w3.org/css-validator/check/referer")
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="bottom"
