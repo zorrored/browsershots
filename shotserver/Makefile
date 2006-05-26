@@ -3,7 +3,11 @@ test :
 	@python lib/interface/xhtml.py
 
 pylint :
-	@find lib scripts -name "*.py" | xargs pylint --reports=n --max-line-length=120 --enable-similarities=n --parseable=y
+	@find lib scripts -name "*.py" \
+		| xargs pylint --rcfile=conf/pylintrc \
+		| grep -v "Undefined variable 'req'" \
+		| grep -v "Undefined variable 'con'" \
+		| grep -v "Undefined variable 'cur'" \
 
 install : test
 	python setup.py install
