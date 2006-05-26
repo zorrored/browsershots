@@ -64,40 +64,41 @@ def remove_shebang(head):
         head[0] += 1
         head[1].pop(0)
 
+def check_file(filename):
+    blocks = read_blocks(filename)
+    head, docstring, keywords = blocks[:3]
+    remove_shebang(head)
+    if head[1] != ref_head[1]:
+        for offset, line in enumerate(head[1]):
+            if offset >= len(ref_head[1]):
+                raise FormatError(filename, head[0] + offset, "copyright too short")
+            if line != ref_head[1][offset]:
+                raise FormatError(filename, head[0] + offset, "wrong copyright")
+        raise FormatError(filename, head[0] + len(head[1]), "copyright too short")
+    if docstring[1][0].strip() != '"""':
+        raise FormatError(filename, docstring[0], "missing docstring")
+    if docstring[1][-1].strip() != '"""':
+        raise FormatError(filename, docstring[0] + len(docstring[1]) - 1, "missing docstring")
+    if len(docstring[1]) < 3:
+        raise FormatError(filename, docstring[0] + 1, "empty docstring")
+    if not keywords[1][0].startswith("__revision__ = '$Rev:"):
+        raise FormatError(filename, keywords[0], "missing __revision__ = '$Rev:")
+    if not keywords[1][1].startswith("__date__ = '$Date:"):
+        raise FormatError(filename, keywords[0] + 1, "missing __date__ = '$Date:")
+    if not keywords[1][2].startswith("__author__ = '$Author:"):
+        raise FormatError(filename, keywords[0] + 2, "missing __author__ = '$Author:")
+
 reference = read_blocks(sys.argv[0])
 ref_head, ref_docstring, ref_keywords = reference[:3]
 remove_shebang(ref_head)
-error = 0
 
+error = False
 files = sys.argv[1:]
 files.sort()
 for filename in files:
     try:
-        blocks = read_blocks(filename)
-        head, docstring, keywords = blocks[:3]
-        remove_shebang(head)
-        if head[1] != ref_head[1]:
-            for offset, line in enumerate(head[1]):
-                if offset >= len(ref_head[1]):
-                    raise FormatError(filename, head[0] + offset, "copyright too short")
-                if line != ref_head[1][offset]:
-                    raise FormatError(filename, head[0] + offset, "wrong copyright")
-            raise FormatError(filename, head[0] + len(head[1]), "copyright too short")
-        if docstring[1][0].strip() != '"""':
-            raise  FormatError(filename, docstring[0], "missing docstring")
-        if docstring[1][-1].strip() != '"""':
-            raise  FormatError(filename, docstring[0] + len(docstring[1]) - 1, "missing docstring")
-        if len(docstring[1]) < 3:
-            raise  FormatError(filename, docstring[0] + 1, "empty docstring")
-        if not keywords[1][0].startswith("__revision__ = '$Rev:"):
-            raise  FormatError(filename, keywords[0], "missing __revision__ = '$Rev:")
-        if not keywords[1][1].startswith("__date__ = '$Date:"):
-            raise  FormatError(filename, keywords[0] + 1, "missing __date__ = '$Date:")
-        if not keywords[1][2].startswith("__author__ = '$Author:"):
-            raise  FormatError(filename, keywords[0] + 2, "missing __author__ = '$Author:")
-    except FormatError, f:
-        print f.message
-        error = 1
-
+        check_file(filename)
+    except FormatError:
+        error = True
 if error:
     sys.exit(error)
