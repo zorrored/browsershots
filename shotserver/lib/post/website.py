@@ -30,12 +30,18 @@ from mod_python import util
 from shotserver03 import database
 
 class UnexpectedInput(Exception):
+    """Post form input had unexpected fields."""
     pass
 
 class UnsupportedProtocol(Exception):
+    """The specified web address didn't start with http:// or https://."""
     pass
 
 def read_form(form):
+    """
+    Get known fields from post form.
+    Raise UnexpectedInput if field name is not known.
+    """
     url = ''
     for key in form.keys():
         if key == 'url':
@@ -48,7 +54,8 @@ def read_form(form):
 
 def select_or_insert(url):
     """
-    Get the website id of a URL. Insert URL into website table if necessary.
+    Get the website id of a URL.
+    Insert URL into website table if necessary.
     """
     database.connect()
     try:
@@ -62,10 +69,14 @@ def select_or_insert(url):
     finally:
         database.disconnect()
 
-def ucfirst(s):
-    return s[0].upper() + s[1:]
+def ucfirst(text):
+    """Return a copy of the text with the first character changed to uppercase."""
+    return text[0].upper() + text[1:]
 
 def server_said(errornumber, errorstring, prefix = '', suffix = ''):
+    """
+    Return a human-readable error message with the server answer.
+    """
     errorstring = ucfirst(errorstring)
     result = "The server said '%d %s'." % (errornumber, errorstring)
     if prefix:
@@ -75,6 +86,9 @@ def server_said(errornumber, errorstring, prefix = '', suffix = ''):
     return result
 
 def error_redirect(**params):
+    """
+    Redirect back to front page because an error has occurred.
+    """
     params = urllib.urlencode(params)
     if params:
         util.redirect(req, '/?' + params)
@@ -83,6 +97,9 @@ def error_redirect(**params):
 
 port_match = re.compile(r':(\d+)$').search
 def get_port(protocol, server):
+    """
+    Extract the port number from the server part of the URL.
+    """
     match = port_match(server)
     if match:
         return int(match.group(1))
@@ -94,6 +111,9 @@ def get_port(protocol, server):
         raise UnsupportedProtocol(protocol)
 
 def sanity_check_url(url):
+    """
+    Check the URL for obvious errors.
+    """
     if not url:
         error_redirect()
 
@@ -123,6 +143,10 @@ def sanity_check_url(url):
         error_redirect(error = "There must be a slash after the server name. Please try again.", url = url + '/')
 
 def test_head(url):
+    """
+    Test the URL with a HEAD request.
+    If unsuccessful, redirect back to front page with error message.
+    """
     protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
     try:
         if protocol == 'http':
@@ -157,6 +181,11 @@ def test_head(url):
         error_redirect(error = error, url = url)
 
 def redirect():
+    """
+    Insert URL into database.
+    Redirect to overview page on success.
+    Redirect back to front page on error.
+    """
     url = read_form(req.info.form)
     sanity_check_url(url)
     test_head(url)

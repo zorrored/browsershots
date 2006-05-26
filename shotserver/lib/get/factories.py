@@ -29,9 +29,13 @@ from shotserver03.interface import xhtml
 from shotserver03 import database
 
 def title():
+    """Return page title."""
     return "Screenshot Factories"
 
 def body():
+    """
+    Write HTML page content.
+    """
     database.connect()
     try:
         cur.execute("""SELECT factory.name, os.name, distro, major, minor, codename
@@ -43,7 +47,7 @@ def body():
         result = cur.fetchall()
     finally:
         database.disconnect()
-        
+
     xhtml.write_open_tag_line('table')
     for name, os, distro, major, minor, codename in result:
         xhtml.write_open_tag('tr')
