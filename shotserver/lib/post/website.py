@@ -27,7 +27,6 @@ __author__ = '$Author: johann $'
 
 import re, httplib, urllib, urlparse, socket
 from mod_python import util
-from shotserver03.interface import xhtml
 from shotserver03 import database
 
 class InvalidURLError(Exception):
@@ -128,13 +127,15 @@ def test_head(url):
         else:
             raise "Protocol %s is not supported." % protocol
     except httplib.HTTPException, e:
-        error_redirect(error = ' '.join(("Could not open web address.", ucfirst(str(e)) + '.', "Please check for typos.")), url = url)
+        error = ' '.join(("Could not open web address.", ucfirst(str(e)) + '.', "Please check for typos."))
+        error_redirect(error = error, url = url)
 
     if query: path += '?' + query
     try:
         connection.request('HEAD', path)
     except socket.error, (errornumber, errorstring):
-        error_redirect(error = ' '.join(("Could not open web address.", errorstring + '.', "Please check for typos.")), url = url)
+        error = ' '.join(("Could not open web address.", errorstring + '.', "Please check for typos."))
+        error_redirect(error = error, url = url)
 
     response = connection.getresponse()
     if response.status == 200:
@@ -142,9 +143,11 @@ def test_head(url):
     elif response.status in (301, 302):
         redirected = response.getheader('Location')
         if fragment: redirected += '#' + fragment
-        error_redirect(error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again."), url = redirected)
+        error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again.")
+        error_redirect(error = error, url = redirected)
     else:
-        error_redirect(error = server_said(response.status, response.reason, "Unexpected server response."), url = url)
+        error = server_said(response.status, response.reason, "Unexpected server response.")
+        error_redirect(error = error, url = url)
 
 def redirect():
     url = read_form(req.info.form)

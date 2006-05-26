@@ -26,7 +26,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import sys, os
+import sys
 
 class FormatError:
     def __init__(self, filename, lineno, error):
