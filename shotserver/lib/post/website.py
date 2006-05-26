@@ -98,25 +98,25 @@ def sanity_check_url(url):
         if not url.count('/'):
             url += '/'
         suggestion = 'http://' + url.lstrip('/')
-        raise error_redirect(error = "URL must start with 'http://' or 'https://'. Please try again.", url = suggestion)
+        error_redirect(error = "URL must start with 'http://' or 'https://'. Please try again.", url = suggestion)
 
     if protocol not in ('http', 'https'):
-        raise error_redirect(error = "Protocol %s is not supported." % protocol, url = url)
+        error_redirect(error = "Protocol %s is not supported." % protocol, url = url)
     if not server:
-        raise error_redirect(error = "Malformed URL. Please check for typos.", url = url)
+        error_redirect(error = "Malformed URL. Please check for typos.", url = url)
 
     port = get_port(protocol, server)
     if port == 80:
         if protocol != 'http':
-            raise error_redirect(error = "Protocol must be http on port 80.", url = url)
+            error_redirect(error = "Protocol must be http on port 80.", url = url)
     elif port == 443:
         if protocol != 'https':
-            raise error_redirect(error = "Protocol must be https on port 443.", url = url)
+            error_redirect(error = "Protocol must be https on port 443.", url = url)
     elif port < 1024:
-        raise error_redirect(error = "Port %d is not supported." % port, url = url)
+        error_redirect(error = "Port %d is not supported." % port, url = url)
 
     if not path:
-        raise error_redirect(error = "There must be a slash after the server name. Please try again.", url = url + '/')
+        error_redirect(error = "There must be a slash after the server name. Please try again.", url = url + '/')
 
 def test_head(url):
     protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
