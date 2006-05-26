@@ -29,10 +29,16 @@ __author__ = '$Author$'
 import sys
 
 class FormatError:
+    """
+    The Python file does not comply with the Browsershots file formatting standard.
+    """
     def __init__(self, filename, lineno, error):
         self.message = "%s:%d: %s" % (filename, lineno, error)
 
 def read_blocks(filename):
+    """
+    Read a file and split it into blocks by blank lines.
+    """
     blocks = []
     block = []
     start = 1
@@ -60,11 +66,18 @@ def read_blocks(filename):
     return blocks
 
 def remove_shebang(head):
+    """
+    Remove the first line if it is a valid shebang.
+    """
     if head[1][0] == '#! /usr/bin/python\n':
         head[0] += 1
         head[1].pop(0)
 
 def check_file(filename):
+    """
+    Read a Python source file and check it for Browsershots formatting.
+    Raise FormatError if it doesn't comply.
+    """
     blocks = read_blocks(filename)
     head, docstring, keywords = blocks[:3]
     remove_shebang(head)
@@ -88,17 +101,22 @@ def check_file(filename):
     if not keywords[1][2].startswith("__author__ = '$Author:"):
         raise FormatError(filename, keywords[0] + 2, "missing __author__ = '$Author:")
 
+def check_files(files):
+    """
+    Check a list of files.
+    Exit with error code 1 if any files don't comply.
+    """
+    error = False
+    files.sort()
+    for filename in files:
+        try:
+            check_file(filename)
+        except FormatError:
+            error = True
+    if error:
+        sys.exit(1)
+
 reference = read_blocks(sys.argv[0])
 ref_head, ref_docstring, ref_keywords = reference[:3]
 remove_shebang(ref_head)
-
-error = False
-files = sys.argv[1:]
-files.sort()
-for filename in files:
-    try:
-        check_file(filename)
-    except FormatError:
-        error = True
-if error:
-    sys.exit(error)
+check_files(sys.argv[1:])
