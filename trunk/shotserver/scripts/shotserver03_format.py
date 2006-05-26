@@ -61,9 +61,9 @@ def read_blocks(filename):
 
 def remove_shebang(head):
     if head[1][0] == '#! /usr/bin/python\n':
-            head[0] += 1
-            head[1].pop(0)
-            
+        head[0] += 1
+        head[1].pop(0)
+
 reference = read_blocks(sys.argv[0])
 ref_head, ref_docstring, ref_keywords = reference[:3]
 remove_shebang(ref_head)
