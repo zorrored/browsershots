@@ -1,5 +1,10 @@
-test :
-	@find lib scripts -name "*.py" | xargs scripts/shotserver03_format.py
+all : formatting doctest pylint
+	@echo Finished checking $^.
+
+formatting :
+	@find lib scripts -name "*.py" | xargs scripts/shotserver03_formatting.py
+
+doctest :
 	@python lib/interface/xhtml.py
 
 pylint :
