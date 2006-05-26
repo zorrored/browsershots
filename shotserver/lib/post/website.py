@@ -29,7 +29,10 @@ import re, httplib, urllib, urlparse, socket
 from mod_python import util
 from shotserver03 import database
 
-class InvalidURLError(Exception):
+class UnexpectedInput(Exception):
+    pass
+
+class UnsupportedProtocol(Exception):
     pass
 
 def read_form(form):
@@ -40,7 +43,7 @@ def read_form(form):
         elif key == 'submit':
             pass
         else:
-            raise "unexpected input: %s" % key
+            raise UnexpectedInput(key)
     return url
 
 def select_or_insert(url):
@@ -65,8 +68,10 @@ def ucfirst(s):
 def server_said(errornumber, errorstring, prefix = '', suffix = ''):
     errorstring = ucfirst(errorstring)
     result = "The server said '%d %s'." % (errornumber, errorstring)
-    if prefix: result = prefix + ' ' + result
-    if suffix: result = result + ' ' + suffix
+    if prefix:
+        result = prefix + ' ' + result
+    if suffix:
+        result = result + ' ' + suffix
     return result
 
 def error_redirect(**params):
@@ -86,7 +91,7 @@ def get_port(protocol, server):
     elif protocol == 'https':
         return 443
     else:
-        raise "Protocol %s is not supported." % protocol
+        raise UnsupportedProtocol(protocol)
 
 def sanity_check_url(url):
     if not url:
@@ -125,12 +130,13 @@ def test_head(url):
         elif protocol == 'https':
             connection = httplib.HTTPSConnection(server)
         else:
-            raise "Protocol %s is not supported." % protocol
-    except httplib.HTTPException, e:
-        error = ' '.join(("Could not open web address.", ucfirst(str(e)) + '.', "Please check for typos."))
+            raise UnsupportedProtocol(protocol)
+    except httplib.HTTPException, error:
+        error = ' '.join(("Could not open web address.", ucfirst(str(error)) + '.', "Please check for typos."))
         error_redirect(error = error, url = url)
 
-    if query: path += '?' + query
+    if query:
+        path += '?' + query
     try:
         connection.request('HEAD', path)
     except socket.error, (errornumber, errorstring):
@@ -142,7 +148,8 @@ def test_head(url):
         pass # all good
     elif response.status in (301, 302):
         redirected = response.getheader('Location')
-        if fragment: redirected += '#' + fragment
+        if fragment:
+            redirected += '#' + fragment
         error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again.")
         error_redirect(error = error, url = redirected)
     else:
