@@ -3,11 +3,11 @@ test :
 	@python lib/interface/xhtml.py
 
 pylint :
-	@find lib scripts -name "*.py" \
-		| xargs pylint --rcfile=conf/pylintrc \
+	@find lib scripts -name "*.py" | xargs pylint --rcfile=conf/pylintrc \
 		| grep -v "Undefined variable 'req'" \
 		| grep -v "Undefined variable 'con'" \
 		| grep -v "Undefined variable 'cur'" \
+		| grep -v "Not enough public methods" \
 
 install : test
 	python setup.py install
