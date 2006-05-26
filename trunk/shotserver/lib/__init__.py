@@ -44,12 +44,19 @@ def import_deep(name):
     return mod
 
 def action_option(module, key, default):
+    """
+    Get an option from a function in an action module.
+    If the function does not exist, return the default value.
+    """
     if hasattr(module, key):
         return module.__dict__[key]()
     else:
         return default
 
 def negotiate_xml():
+    """
+    Check if the client can handle application/xhtml+xml.
+    """
     if not req.headers_in.has_key('Accept'):
         return True # Send XML to validator.w3.org etc.
     if req.headers_in['Accept'].count('application/xhtml+xml'):
@@ -57,6 +64,9 @@ def negotiate_xml():
     return False # Send text/html to MSIE 6 and 7.
 
 def write_html_head(title):
+    """
+    Send HTTP header and XHTML head.
+    """
     req.content_type = 'text/html; charset=UTF-8'
     xml = negotiate_xml()
     if xml:
@@ -76,7 +86,7 @@ def write_html_head(title):
 
 def handler(req):
     """
-    Process all incoming HTTP requests.
+    Process a HTTP request.
     """
     try:
         __builtins__['req'] = req
@@ -127,7 +137,7 @@ def handler(req):
 
         xhtml.write_open_tag_line('div', _class="traceback")
         xhtml.write_tag_line('p', 'Internal error:', _class="error")
-        trace = ''.join(traceback.format_exception(*sys.exc_info()))
+        trace = ''.join(traceback.format_exc())
         trace = trace.replace('<', '&lt;')
         trace = trace.replace('>', '&gt;')
         xhtml.write_tag_line('pre', trace)
