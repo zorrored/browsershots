@@ -25,7 +25,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import os, random
+import random
 from shotserver03.interface import xhtml
 
 max_thumbs = 12
@@ -42,7 +42,7 @@ def write():
         width = int(width) / 2
         height = int(height) / 2
         style = "right:%dpx;width:%dpx;height:%dpx;margin-right:-30px;z-index:1" % (30 + index * 64, width/2, height/2)
-        img = xhtml.tag('img', src='/'.join(('', 'png', '120',image)), alt="", _class="absolute",
+        img = xhtml.tag('img', src='/'.join(('', 'png', '120', image)), alt="", _class="absolute",
                         onmouseover="larger(this,%d,%d)" % (width, height),
                         onmouseout="smaller(this,%d,%d)" % (width, height),
                         style=style)

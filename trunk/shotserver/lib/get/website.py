@@ -91,7 +91,7 @@ def body():
     if not website:
         return error_message("Website address parameter is missing.")
 
-    #website = cgi.escape(website, quote = True)
+    website = cgi.escape(website, quote = True)
     #link = xhtml.tag('a', website, href=website, _class="ext-link")
     #xhtml.write_tag_line('p', link, _class="center bold")
 

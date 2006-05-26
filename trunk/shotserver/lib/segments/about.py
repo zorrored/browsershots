@@ -31,7 +31,7 @@ def write():
     xhtml.write_open_tag_line('div', _id="about")
     xhtml.write_tag_line('h2', "What is this?")
 
-    text = ("Browsershots is a free open-source online platform where you can test your web design in different browsers.",
+    text = ("Browsershots is a free online platform where you can test your web design in different browsers.",
             "When you submit your web address, it will be added to the job queue.",
             "A number of distributed computers will automatically open your website in their browser.",
             "Then they will make screenshots and upload them to the central server here.")

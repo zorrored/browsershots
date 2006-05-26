@@ -131,7 +131,9 @@ def handler(req):
         trace = trace.replace('<', '&lt;')
         trace = trace.replace('>', '&gt;')
         xhtml.write_tag_line('pre', trace)
-        xhtml.write_tag_line('p', 'If this problem persists, please <a href="mailto:johann@browsershots.org">send a bug report</a>.')
+        message = "If this problem persists, please <a>send a bug report</a>."
+        message.replace('<a>',  '<a href="mailto:johann@browsershots.org">')
+        xhtml.write_tag_line('p', message)
         xhtml.write_close_tag_line('div') # class="traceback"
         if len(xhtml.open_tags) == 2:
             xhtml.write_close_tag_line('body')
