@@ -99,5 +99,7 @@ def body():
     # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
+    xhtml.write_open_tag_line('form', action="/submitjobs/", method="post")
     browsers.write()
     features.write()
+    xhtml.write_close_tag_line('form')
