@@ -146,6 +146,7 @@ div.background div.float-left {
   margin: 0 0 4px;
   padding: 0 0 0 12px;
 }
+div#inputurl { margin: 1em 0; }
 div#inputurl input#url { width: 584px; }
 div#inputurl input#submit { width: 140px; }
 div#browsers div.float-left { width: 136px; }
@@ -168,7 +169,7 @@ div#sponsors {
   margin: 0 0 1em 0;
 }
 div#news ul {
-  margin: 0;
+  margin: 1ex 0;
   padding: 0;
   list-style-type: none;
 }
