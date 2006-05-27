@@ -32,14 +32,23 @@ from shotserver03.segments import browsers, features
 from shotserver03 import database
 
 def request_is_numeric():
+    """
+    Check if the request URI is of the form /website/<decimal>/.
+    """
     if len(req.info.options) != 1:
         return False
     return req.info.options[0].isdigit()
 
 def request_numeric_to_int():
+    """
+    Get integer from request URI.
+    """
     return int(req.info.options[0])
 
 def request_numeric_to_url():
+    """
+    Get the URL from the database.
+    """
     request_int = request_numeric_to_int()
     database.connect()
     try:
@@ -71,13 +80,18 @@ def redirect():
     util.redirect(req, location)
 
 def title():
+    """Page title."""
     return "Select browsers and configuration"
 
 def error_message(message):
+    """Print an error message."""
     xhtml.write_tag_line('p', message, _class="error")
 
 request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
 def body():
+    """
+    Write XHTML body content.
+    """
     if request_is_numeric():
         website = request_numeric_to_url()
     else:
