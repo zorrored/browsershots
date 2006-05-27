@@ -29,6 +29,11 @@ from shotserver03.interface import xhtml
 from shotserver03 import database
 
 def select_browsers(platform, where):
+    """
+    Select available browsers from database.
+    Return a list of XHTML checkbox elements,
+    one for each browser, one for all.
+    """
     cur.execute("""SELECT browser.name, browser_version.major, browser_version.minor
         FROM factory_browser
         JOIN factory USING (factory)
@@ -52,42 +57,34 @@ def select_browsers(platform, where):
             onclick="multiCheck('%s',this.checked)" % platform) + ' ' +
         xhtml.tag('label', '<b>All</b>', _for=code))
     return result
-    
-def write_header(platforms):
-    xhtml.write_open_tag('tr')
-    for platform in platforms:
-        xhtml.write_tag('th', platform)
-    xhtml.write_close_tag_line('tr')
 
-def write_columns(*columns):
-    row = 0
-    while True:
-        cells = []
-        done = True
-        for column in columns:
-            if len(column) > row:
-                cell = column[row]
-                done = False
-            else:
-                cell = ''
-            cells.append(xhtml.tag('td', cell))
-        if done:
-            break
-        xhtml.write_tag_line('tr', ''.join(cells))
-        row += 1
+def write_float(platform, where):
+    """
+    Write browser list for one platform.
+    """
+    browsers = select_browsers(platform.lower(), where)
+    xhtml.write_open_tag_line('div', _class="float-left")
+    xhtml.write_tag('b', platform)
+    xhtml.write_tag_line('br')
+    for browser in browsers:
+        req.write(browser)
+        xhtml.write_tag_line('br')
+    xhtml.write_close_tag_line('div') # id="browsers"
 
 def write():
+    """
+    Write browser selection form.
+    """
+    xhtml.write_open_tag_line('div', _id="browsers", _class="focus")
     database.connect()
     try:
-        linux = select_browsers('linux', "os.name = 'Linux' AND NOT browser.terminal AND NOT os_version.mobile")
-        mac = select_browsers('mac', "os.name = 'Mac OS' AND NOT browser.terminal AND NOT os_version.mobile")
-        windows = select_browsers('windows', "os.name = 'Windows' AND NOT browser.terminal AND NOT os_version.mobile")
-        terminal = select_browsers('terminal', "browser.terminal AND NOT os_version.mobile")
-        mobile = select_browsers('mobile', "os_version.mobile")
+        write_float('Linux', "os.name = 'Linux' AND NOT browser.terminal AND NOT os_version.mobile")
+        write_float('Mac', "os.name = 'Mac OS' AND NOT browser.terminal AND NOT os_version.mobile")
+        write_float('Windows', "os.name = 'Windows' AND NOT browser.terminal AND NOT os_version.mobile")
+        write_float('Terminal', "browser.terminal AND NOT os_version.mobile")
+        write_float('Mobile', "os_version.mobile")
     finally:
         database.disconnect()
-
-    xhtml.write_open_tag_line('table', _id="browsers")
-    write_header('Linux Mac Windows Terminal Mobile'.split())
-    write_columns(linux, mac, windows, terminal, mobile)
-    xhtml.write_close_tag_line('table') # id="browsers"
+    xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Submit Jobs", _class="button")
+    xhtml.write_tag_line('div', '', _class="clear")
+    xhtml.write_close_tag_line('div') # id="browsers"
