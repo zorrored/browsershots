@@ -124,6 +124,7 @@ th, td {
 
 input#submit { font-weight: bold; }
 div.focus {
+  position: relative;
   margin: 1em 0;
   padding: 8px 0;
   width: 764px;
@@ -131,7 +132,6 @@ div.focus {
   background-image: url(inputurl.jpg);
   background-repeat: repeat-x;
   color: white;
-  font-weight: bold;
 }
 div.focus div.float-left {
   margin: 0 0 4px;
@@ -139,6 +139,13 @@ div.focus div.float-left {
 }
 div#inputurl input#url { width: 584px; }
 div#inputurl input#submit { width: 140px; }
+div#browsers div.float-left { width: 136px; }
+div#browsers input#submit {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 176px;
+}
 div#submitjobs select { width: 176px; }
 div#submitjobs input#submit { width: 176px; }
 
