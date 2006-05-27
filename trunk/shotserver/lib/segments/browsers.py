@@ -75,7 +75,7 @@ def write():
     """
     Write browser selection form.
     """
-    xhtml.write_open_tag_line('div', _id="browsers", _class="focus")
+    xhtml.write_open_tag_line('div', _id="browsers", _class="blue background")
     database.connect()
     try:
         write_float('Linux', "os.name = 'Linux' AND NOT browser.terminal AND NOT os_version.mobile")
