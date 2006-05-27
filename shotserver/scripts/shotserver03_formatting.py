@@ -48,6 +48,9 @@ def read_blocks(filename):
         raise FormatError(filename, len(lines), 'no newline before EOF')
     lines.append('')
     for number, line in enumerate(lines):
+        if line.rstrip('\n') != line.rstrip():
+            raise FormatError(filename, number + 1, 'trailing whitespace')
+    for number, line in enumerate(lines):
         stripped = line.strip()
         if stripped == '"""' and not docstring:
             stripped = ''
@@ -111,7 +114,8 @@ def check_files(files):
     for filename in files:
         try:
             check_file(filename)
-        except FormatError:
+        except FormatError, instance:
+            print instance.message
             error = True
     if error:
         sys.exit(1)
