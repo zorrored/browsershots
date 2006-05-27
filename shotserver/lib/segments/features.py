@@ -18,7 +18,7 @@
 # MA 02111-1307, USA.
 
 """
-Submit new jobs to the queue.
+Drop-down boxes for browser features.
 """
 
 __revision__ = '$Rev: 41 $'
@@ -28,6 +28,9 @@ __author__ = '$Author: johann $'
 from shotserver03.interface import xhtml
 
 def write_select(name, options, selected = None):
+    """
+    Write XHTML drop-down input.
+    """
     xhtml.write_open_tag_line('select', _name=name)
     for index, option in enumerate(options.split('|')):
         value, text = option.split('=')
@@ -38,6 +41,9 @@ def write_select(name, options, selected = None):
     xhtml.write_close_tag_line('select')
 
 def write():
+    """
+    Write drop-down boxes for browser features.
+    """
     xhtml.write_open_tag_line('div', _class="gray background", _id="features")
 
     xhtml.write_open_tag_line('div', _class="float-left")
@@ -78,16 +84,15 @@ def write():
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Java")
     xhtml.write_tag_line('br')
-    write_select('java', "any=Don't Care|no=Not Installed|yes=Installed|1.0=Version 1.0|1.1=Version 1.1" +
-                 "|1.2=Version 1.2|1.3=Version 1.3|1.4=Version 1.4|5.0=Version 5.0")
+    write_select('java', "any=Don't Care|no=Not Installed|yes=Installed|blackdown=Blackdown|kaffe=Kaffe|sun=Sun Java" +
+                 "|sun_1.2=Sun Java 1.2|sun_1.3=Sun Java 1.3|sun_1.4=Sun Java 1.4|sun_5.0=Sun Java 5.0")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
-    xhtml.write_tag('b', "Media Plugins")
+    xhtml.write_tag('b', "Media plugins")
     xhtml.write_tag_line('br')
-    write_select('media', "any=Don't Care|quicktime=Apple Quicktime|wmp=Windows Media Player")
+    write_select('media', "any=Don't Care|quicktime=Apple Quicktime|wmp=Windows Media Player|svg=SVG|pdf=PDF")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="features"
-
