@@ -28,7 +28,7 @@ __author__ = '$Author: johann $'
 import re, cgi
 from mod_python import util
 from shotserver03.interface import xhtml
-from shotserver03.segments import submitjobs, browsers
+from shotserver03.segments import browsers, features
 from shotserver03 import database
 
 def request_is_numeric():
@@ -99,5 +99,5 @@ def body():
     # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
-    submitjobs.write()
     browsers.write()
+    features.write()

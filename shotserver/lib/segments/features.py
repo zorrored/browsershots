@@ -28,7 +28,7 @@ __author__ = '$Author: johann $'
 from shotserver03.interface import xhtml
 
 def write_select(name, options, selected = None):
-    xhtml.write_open_tag_line('select')
+    xhtml.write_open_tag_line('select', _name=name)
     for index, option in enumerate(options.split('|')):
         value, text = option.split('=')
         if selected and index == selected - 1:
