@@ -137,8 +137,8 @@ div.blue {
 }
 div.gray {
   margin: 0 0 1em;
-  background-color: #EEE;
-  background-image: url(gra.jpg);
+  background-color: #E4E4E4;
+  background-image: url(gray.jpg);
   background-repeat: repeat-x;
   background-position: bottom left;
 }
