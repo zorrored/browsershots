@@ -123,17 +123,26 @@ th, td {
 }
 
 input#submit { font-weight: bold; }
-div.focus {
+div.background {
   position: relative;
-  margin: 1em 0;
   padding: 8px 0;
   width: 764px;
+}
+div.blue {
+  margin: 1em 0 0;
   background-color: #016;
-  background-image: url(inputurl.jpg);
+  background-image: url(blue.jpg);
   background-repeat: repeat-x;
   color: white;
 }
-div.focus div.float-left {
+div.gray {
+  margin: 0 0 1em;
+  background-color: #EEE;
+  background-image: url(gra.jpg);
+  background-repeat: repeat-x;
+  background-position: bottom left;
+}
+div.background div.float-left {
   margin: 0 0 4px;
   padding: 0 0 0 12px;
 }
@@ -146,8 +155,7 @@ div#browsers input#submit {
   bottom: 12px;
   width: 176px;
 }
-div#submitjobs select { width: 176px; }
-div#submitjobs input#submit { width: 176px; }
+div#features select { width: 176px; }
 
 div#about, div#news, div#sponsors {
   float: left;
