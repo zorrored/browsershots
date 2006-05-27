@@ -114,15 +114,18 @@ def body():
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
     xhtml.write_open_tag_line('form', action="/submitjobs/", method="post")
+    xhtml.write_tag_line('input', _type="hidden", _name="url", value=website)
     browsers.write()
     features.write()
     xhtml.write_close_tag_line('form')
 
     xhtml.write_tag_line('h2', "What is this?")
     xhtml.write_tag_line('p', '\n'.join((
-        "On this page you can select different configurations for your screenshots.",
-        "At the top, check the browsers that you're interested in.",
-        "The drop-down boxes will only allow factories that match your specification.")))
+        "On this page you can choose browser configurations for your screenshots.",
+        "At the top, select the browsers that you're interested in.",
+        "The drop-down boxes let you request special features.")))
     xhtml.write_tag_line('p', '\n'.join((
-        "When you click the submit button, your web address will be added to the queue.",
-        "If your screenshots can't be finished within your maximum wait, they will be ignored.")))
+        "When you click the submit button, your screenshot requests will be added to the queue.",
+        "It will take a while before your screenshots will be uploaded, depending on the length of the queue.",
+        "Some feature combinations are impossible.",
+        "If some of your requests can't be finished within your maximum wait, they will be ignored.")))
