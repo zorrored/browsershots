@@ -30,7 +30,7 @@ from shotserver03.interface import xhtml
 
 def write(url):
     xhtml.write_open_tag_line('form', action="/website/", method="post")
-    xhtml.write_open_tag_line('div', _class="focus", _id="inputurl")
+    xhtml.write_open_tag_line('div', _class="blue background", _id="inputurl")
 
     xhtml.write_open_tag_line('div', _class="float-left")
     req.write("Paste your web address here, starting with http://" + '<br />\n')
