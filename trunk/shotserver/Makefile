@@ -16,7 +16,7 @@ pylint :
 		| grep -v "Not enough public methods" \
 		| grep -v "Used \* or \*\* magic" \
 
-install : test
+install :
 	python setup.py install
 	apache2ctl restart
 
