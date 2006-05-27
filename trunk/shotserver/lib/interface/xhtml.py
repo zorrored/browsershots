@@ -132,13 +132,8 @@ write_close_tag_line = lambda *args: req.write(close_tag(*args) + '\n')
 write_tag_line = lambda *args, **attr: req.write(tag_line(*args, **attr))
 write_tag = lambda *args, **attr: req.write(tag(*args, **attr))
 
-def _test():
-    """
-    Run doctest on this module.
-    """
-    import doctest
-    import xhtml
-    return doctest.testmod(xhtml)
-
 if __name__ == '__main__':
-    _test()
+    import sys, doctest
+    errors, tests = doctest.testmod()
+    if errors:
+        sys.exit(1)
