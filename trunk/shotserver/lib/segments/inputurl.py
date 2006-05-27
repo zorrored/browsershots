@@ -33,7 +33,8 @@ def write(url):
     xhtml.write_open_tag_line('div', _class="blue background", _id="inputurl")
 
     xhtml.write_open_tag_line('div', _class="float-left")
-    req.write("Paste your web address here, starting with http://" + '<br />\n')
+    xhtml.write_tag('b', "Paste your web address here, starting with http://")
+    xhtml.write_tag_line('br')
     quoted_url = cgi.escape(url, quote = True)
     xhtml.write_tag('input', _type="text", _id="url", _name="url", value=quoted_url, _class="text")
     xhtml.write_close_tag_line('div')
