@@ -27,7 +27,10 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
-def write_menu(_class, *items):
+def write_menu(_class, items):
+    """
+    Write XHTML <ul> with menu entries.
+    """
     xhtml.write_open_tag('ul', _class=_class)
     for index, item in enumerate(items):
         text, link = item.split('=', 1)
@@ -39,17 +42,20 @@ def write_menu(_class, *items):
 
 
 def write():
+    """
+    Write bottom menu.
+    """
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_open_tag_line('div', _class="menu lightgray", _id="bottom")
 
-    write_menu('float-left',
-               "Contact=http://trac.browsershots.org/wiki/ContactDetails",
-               "Terms of Use=http://trac.browsershots.org/wiki/TermsOfUse",
-               "Privacy Policy=http://trac.browsershots.org/wiki/PrivacyPolicy")
+    write_menu('float-left', (
+        "Contact=http://trac.browsershots.org/wiki/ContactDetails",
+        "Terms of Use=http://trac.browsershots.org/wiki/TermsOfUse",
+        "Privacy Policy=http://trac.browsershots.org/wiki/PrivacyPolicy"))
 
-    write_menu('float-right',
-               "XHTML 1.1=http://validator.w3.org/check?uri=referer",
-               "CSS=http://jigsaw.w3.org/css-validator/check/referer")
+    write_menu('float-right', (
+        "XHTML 1.1=http://validator.w3.org/check?uri=referer",
+        "CSS=http://jigsaw.w3.org/css-validator/check/referer"))
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="bottom"
