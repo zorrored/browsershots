@@ -1,5 +1,5 @@
 all : formatting doctest pylint
-	@echo Finished checking $^.
+	@echo Checked: $^
 
 formatting :
 	@find lib scripts -name "*.py" | xargs scripts/shotserver03_formatting.py
