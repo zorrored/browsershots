@@ -45,4 +45,3 @@ def write():
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="topmenu"
-

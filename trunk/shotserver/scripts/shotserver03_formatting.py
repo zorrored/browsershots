@@ -46,6 +46,8 @@ def read_blocks(filename):
     lines = file(filename).readlines()
     if not lines[-1].endswith('\n'):
         raise FormatError(filename, len(lines), 'no newline before EOF')
+    if lines[-1].strip() == '':
+        raise FormatError(filename, len(lines), 'blank line before EOF')
     lines.append('')
     for number, line in enumerate(lines):
         if line.rstrip('\n') != line.rstrip():
