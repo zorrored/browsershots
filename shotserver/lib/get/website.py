@@ -103,3 +103,12 @@ def body():
     browsers.write()
     features.write()
     xhtml.write_close_tag_line('form')
+
+    xhtml.write_tag_line('h2', "What is this?")
+    xhtml.write_tag_line('p', '\n'.join((
+        "On this page you can select different configurations for your screenshots.",
+        "At the top, check the browsers that you're interested in.",
+        "The drop-down boxes will only allow factories that match your specification.")))
+    xhtml.write_tag_line('p', '\n'.join((
+        "When you click the submit button, your web address will be added to the queue.",
+        "If your screenshots can't be finished within your maximum wait, they will be ignored.")))
