@@ -29,6 +29,7 @@ __author__ = '$Author$'
 import sys, traceback
 from mod_python import apache
 from shotserver03 import request
+from shotserver03.request import tabledict
 from shotserver03.interface import xhtml
 from shotserver03.segments import languages, logo, topmenu, bottom
 
@@ -91,6 +92,7 @@ def handler(req):
     try:
         __builtins__['req'] = req
         req.info = request.RequestInfo()
+        req.params = tabledict.TableDict()
 
         if req.method == 'POST':
             action_module = import_deep('shotserver03.post.%s' % req.info.action)
@@ -100,10 +102,12 @@ def handler(req):
 
         assert req.method == 'GET' or req.method == 'HEAD'
         action_module = import_deep('shotserver03.get.%s' % req.info.action)
+
+        if hasattr(action_module, 'read_params'):
+            action_module.read_params()
+
         if hasattr(action_module, 'redirect'):
-            if action_module.redirect():
-                req.status = apache.HTTP_MOVED_TEMPORARILY
-                return apache.HTTP_MOVED_TEMPORARILY
+            action_module.redirect()
 
         title = action_option(action_module, 'title', 'Browsershots')
         write_html_head(title)
