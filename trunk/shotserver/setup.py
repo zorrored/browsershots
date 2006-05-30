@@ -21,7 +21,7 @@ setup(name = 'ShotServer',
             'scripts/shotserver03_db_drop_create.sh',
             'scripts/shotserver03_resize.py'],
       data_files = [
-            ('shotserver03/style', [
+            ('share/shotserver03/style', [
                   'style/style.css',
                   'style/logo40.png',
                   'style/mfg40.png',
