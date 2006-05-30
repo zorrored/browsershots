@@ -25,13 +25,14 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from pyPgSQL import PgSQL
+import pgdb
+from shotserver03.database import website, request
 
 def connect():
     """
     Connect to the browsershots database.
     """
-    __builtins__['con'] = PgSQL.connect(database = 'shotserver03')
+    __builtins__['con'] = pgdb.connect(database = 'shotserver03')
     __builtins__['cur'] = con.cursor()
 
 def disconnect():
