@@ -135,7 +135,7 @@ def test_head(url):
         else:
             raise UnsupportedProtocol(protocol)
     except httplib.HTTPException, error:
-        error = ' '.join(("Could not open web address.", ucfirst(str(error)) + '.', "Please check for typos."))
+        error = ' '.join(("Could not open web address.", str(error).capitalize() + '.', "Please check for typos."))
         error_redirect(error = error, url = url)
 
     if query:
