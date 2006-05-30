@@ -30,11 +30,15 @@ from shotserver03.interface import xhtml
 from shotserver03 import database
 
 def write():
+    """
+    Write XHTML table with queued requests for a given website.
+    """
     database.connect()
     try:
         xhtml.write_open_tag('table', _id="queue")
         xhtml.write_table_row("Browser OS Width BPP JavaScript Java Flash Media Submitted Expires".split(), 'th')
-        for browser, major, minor, os, width, bpp, javascript, java, flash, media, submitted, expire in database.request.select_by_website(req.params.website):
+        for request in database.request.select_by_website(req.params.website):
+            browser, major, minor, os, width, bpp, javascript, java, flash, media, submitted, expire = request
             if major is not None:
                 browser += " %d" % major
             if minor is not None:
@@ -45,4 +49,3 @@ def write():
         xhtml.write_close_tag_line('table') # id="queue"
     finally:
         database.disconnect()
-
