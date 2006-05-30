@@ -28,8 +28,11 @@ __author__ = '$Author: johann $'
 import re, cgi
 from mod_python import util
 from shotserver03.interface import xhtml
-from shotserver03.segments import browsers, features
+from shotserver03.segments import queue, browsers, features
 from shotserver03 import database
+
+request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
+simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
 
 def request_is_numeric():
     """
@@ -39,82 +42,77 @@ def request_is_numeric():
         return False
     return req.info.options[0].isdigit()
 
-def request_numeric_to_int():
+def read_params():
     """
-    Get integer from request URI.
+    Read parameters from the request URL.
     """
-    return int(req.info.options[0])
+    if request_is_numeric():
+        website = int(req.info.options[0])
+        database.connect()
+        try:
+            url = database.website.select_url(website)
+        finally:
+            database.disconnect()
+    else:
+        match = request_match(req.the_request)
+        if not match:
+            raise InvalidParameters("Your browser sent a strange request (%s)." % req.the_request)
+        url = match.group(4)
+        match = simple_url_match(url)
+        if url and not match:
+            return InvalidParameters("The web address seems to be invalid (%s)." % url)
+        database.connect()
+        try:
+            website = database.website.select_serial(url)
+        finally:
+            database.disconnect()
+    if url is None:
+        return InvalidParameters("Web address parameter is missing.")
+    req.params.website = website
+    req.params.url = url
+    req.params.simple = simple_url_match(url)
+    req.params.escaped = cgi.escape(url, quote = True)
+    req.params.show_screenshots = False
+    req.params.show_queue = True
 
-def request_numeric_to_url():
-    """
-    Get the URL from the database.
-    """
-    request_int = request_numeric_to_int()
-    database.connect()
-    try:
-        cur.execute("SELECT url FROM website WHERE website = %s", request_int)
-        result = cur.fetchone()
-    finally:
-        database.disconnect()
-    if result is None:
-        return None
-    return result['url']
-
-simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
     """
     if not request_is_numeric():
         return False
-
-    url = request_numeric_to_url()
-    if url is None:
+    if not req.params.simple:
         return False
-
-    match = simple_url_match(url)
-    if match is None:
-        return False
-
-    location = 'http://%s/website/%s' % (req.info.uri.hostname, url)
+    location = 'http://%s/website/%s' % (req.info.uri.hostname, req.params.url)
     util.redirect(req, location)
 
 def title():
-    """Page title."""
-    return "Select browsers and configuration"
+    """
+    Page title.
+    """
+    if req.params.show_screenshots:
+        return "Screenshots"
+    elif req.params.show_queue:
+        return "Request queue"
+    else:
+        return "Select browsers and configuration"
 
-def error_message(message):
-    """Print an error message."""
-    xhtml.write_tag_line('p', message, _class="error")
-
-request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
 def body():
     """
     Write XHTML body content.
     """
-    if request_is_numeric():
-        website = request_numeric_to_url()
-    else:
-        match = request_match(req.the_request)
-        if not match:
-            return error_message("Your browser sent a strange request (%s)." % req.the_request)
-        website = match.group(4)
-        match = simple_url_match(website)
-        if website and not match:
-            return error_message("The web address seems to be invalid (%s)." % website)
-    if not website:
-        return error_message("Website address parameter is missing.")
-
-    website = cgi.escape(website, quote = True)
-    #link = xhtml.tag('a', website, href=website, _class="ext-link")
+    #link = xhtml.tag('a', url, href=escaped, _class="ext-link")
     #xhtml.write_tag_line('p', link, _class="center bold")
 
     # explain = "This page will show screenshots for the web address above when they get uploaded."
     # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
+    if req.params.website is not None:
+        queue.write()
+
     xhtml.write_open_tag_line('form', action="/submitjobs/", method="post")
-    xhtml.write_tag_line('input', _type="hidden", _name="url", value=website)
+    xhtml.write_tag_line('input', _type="hidden", _name="url", value=req.params.escaped)
     browsers.write()
     features.write()
     xhtml.write_close_tag_line('form')
