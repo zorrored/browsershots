@@ -52,32 +52,11 @@ def read_form(form):
             raise UnexpectedInput(key)
     return url
 
-def select_or_insert(url):
-    """
-    Get the website id of a URL.
-    Insert URL into website table if necessary.
-    """
-    database.connect()
-    try:
-        cur.execute("SELECT website FROM website WHERE url=%s", url)
-        row = cur.fetchone()
-        if row is None:
-            cur.execute("INSERT INTO website (url) VALUES (%s)", url)
-            cur.execute("SELECT website FROM website WHERE url=%s", url)
-            row = cur.fetchone()
-        return row['website']
-    finally:
-        database.disconnect()
-
-def ucfirst(text):
-    """Return a copy of the text with the first character changed to uppercase."""
-    return text[0].upper() + text[1:]
-
 def server_said(errornumber, errorstring, prefix = '', suffix = ''):
     """
     Return a human-readable error message with the server answer.
     """
-    errorstring = ucfirst(errorstring)
+    errorstring = errorstring.capitalize()
     result = "The server said '%d %s'." % (errornumber, errorstring)
     if prefix:
         result = prefix + ' ' + result
@@ -189,5 +168,11 @@ def redirect():
     url = read_form(req.info.form)
     sanity_check_url(url)
     test_head(url)
-    website = select_or_insert(url)
+
+    database.connect()
+    try:
+        website = database.website.select_serial(url, insert = True)
+    finally:
+        database.disconnect()
+
     util.redirect(req, '/website/%d/' % website)
