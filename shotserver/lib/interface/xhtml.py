@@ -112,14 +112,21 @@ def multiline_tag(name, data = None, **attributes):
     """
     return tag_line(name, '\n' + data, **attributes)
 
+def write_table_row(cells, element = 'td'):
+    write_open_tag('tr')
+    for cell in cells:
+        write_tag(element, cell)
+    write_close_tag_line('tr')
+
 def text_to_xhtml(text):
     """
     Convert possibly many lines of text to XHTML.
 
-    >>> print text_to_xhtml('example\\na < b'),
-    example<br />
+    >>> print text_to_xhtml('example & test\\na < b'),
+    example &amp; test<br />
     a &lt; b
     """
+    text = text.replace('&', '&amp;')
     text = text.replace('<', '&lt;')
     text = text.replace('>', '&gt;')
     text = text.replace('\n', '<br />\n')
