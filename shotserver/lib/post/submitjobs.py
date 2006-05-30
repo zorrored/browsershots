@@ -28,6 +28,7 @@ __author__ = '$Author: johann $'
 import re, urllib
 from mod_python import util
 from shotserver03 import database
+import shotserver03.database.website
 from shotserver03.interface import xhtml
 
 class UnexpectedInput(Exception):
@@ -69,6 +70,58 @@ def error_redirect(**params):
     else:
         util.redirect(req, '/')
 
+def get_browser_mapping():
+    cur.execute('SELECT browser, name FROM browser')
+    result = {}
+    for browser, name in cur.fetchall():
+        result[name.lower()] = browser
+    return result
+
+def get_os_mapping():
+    cur.execute('SELECT os, name FROM os')
+    result = {}
+    for os, name in cur.fetchall():
+        if name == 'Mac OS':
+            name = 'Mac'
+        result[name.lower()] = os
+    return result
+
+screen_width = {'tiny': 640, 'small': 800, 'medium': 1024, 'large': 1280, 'huge': 1600}
+terminal_width = {'tiny': 50, 'small': 64, 'medium': 80, 'large': 132, 'huge': 168}
+
+def insert_requests(website, browsers, features):
+    browser_int = get_browser_mapping()
+    os_int = get_os_mapping()
+    for platform, browser, major, minor in browsers:
+        request = features.copy()
+        request['website'] = website
+        request['browser'] = browser_int[browser]
+        request['major'] = int(major)
+        request['minor'] = int(minor)
+        request['expire'] = int(features['expire_minutes']) * 60
+
+        if features['bits_per_pixel'] == 'any':
+            request['bpp'] = None
+        else:
+            request['bpp'] = int(features['bits_per_pixel'])
+
+        if platform == 'terminal':
+            request['width'] = terminal_width[features['screen_resolution']]
+            request['os'] = None
+        elif platform == 'mobile':
+            request['width'] = None
+            request['os'] = None
+        else:
+            request['width'] = screen_width[features['screen_resolution']]
+            request['os'] = os_int[platform]
+
+        keys = "website browser major minor os width bpp javascript java flash media expire".split()
+        columns = ', '.join(keys)
+        values = '%(' + ')s, %('.join(keys) + ')s'
+        sql = "INSERT INTO request (%s) VALUES (%s)" % (columns, values)
+        cur.execute(sql, request)
+
+
 def redirect():
     """
     Insert new jobs into queue.
@@ -76,12 +129,17 @@ def redirect():
     Redirect back to overview page on error.
     """
     url, browsers, features = read_form(req.info.form)
-    xhtml.write_tag_line('p', str(url))
-    for browser in browsers:
-        xhtml.write_tag_line('p', str(browser))
-    for key in features.keys():
-        xhtml.write_tag_line('p', '='.join((key, features[key])))
+    database.connect()
+    try:
+        website = database.website.select_serial(url)
+        insert_requests(website, browsers, features)
+    finally:
+        database.disconnect()
+    util.redirect(req, '/website/%d/' % website)
+
+    #for key in features.keys():
+    #    xhtml.write_tag_line('p', '='.join((key, features[key])))
+
     # sanity_check_url(url)
     # test_head(url)
     # website = select_or_insert(url)
-    # util.redirect(req, '/website/%d/' % website)
