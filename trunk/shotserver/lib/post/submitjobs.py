@@ -86,29 +86,26 @@ def insert_requests(website, browsers, features):
         if values[key] is not None:
             values[key] = int(values[key])
     values['expire'] *= 60
-    database.insert('request', "website bpp js java flash media expire".split(), values)
+    database.insert('request', values)
+    request = database.lastval()
 
     browser_int = database.browser.get_name_dict()
     opsys_int = database.opsys.get_name_dict()
 
     for platform, browser, major, minor in browsers:
         values = {}
+        values['request'] = request
         values['browser'] = browser_int[browser]
         values['major'] = int(major)
         values['minor'] = int(minor)
-
         if platform == 'terminal':
             values['width'] = terminal_width[features['width']]
-            values['os'] = None
         elif platform == 'mobile':
             values['width'] = None
-            values['os'] = None
         else:
             values['width'] = screen_width[features['width']]
-            values['os'] = opsys_int[platform]
-
-        keys = "request browser major minor os width bpp js java flash media expire".split()
-        database.insert('request', keys, values)
+            values['opsys'] = opsys_int[platform]
+        database.insert('request_browser', values)
 
 
 def redirect():
@@ -121,6 +118,7 @@ def redirect():
     database.connect()
     try:
         website = database.website.select_serial(url)
+        assert website
         insert_requests(website, browsers, features)
     finally:
         database.disconnect()

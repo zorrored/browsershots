@@ -96,7 +96,7 @@ def sanity_check_url(url):
     if not url:
         error_redirect()
 
-    protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
+    protocol, server, path, dummy, dummy = urlparse.urlsplit(url, '')
     if not protocol:
         if not url.count('/'):
             url += '/'
@@ -142,7 +142,7 @@ def test_head(url):
         path += '?' + query
     try:
         connection.request('HEAD', path)
-    except socket.error, (errornumber, errorstring):
+    except socket.error, (dummy, errorstring):
         error = ' '.join(("Could not open web address.", errorstring + '.', "Please check for typos."))
         error_redirect(error = error, url = url)
 
