@@ -6,6 +6,7 @@ formatting :
 
 doctest :
 	@python lib/interface/xhtml.py
+	@python lib/database/__init__.py
 
 pylint :
 	@find lib scripts -name "*.py" \

@@ -44,3 +44,62 @@ def disconnect():
     con.close()
     del __builtins__['cur']
     del __builtins__['con']
+
+def insert(table, keys, values):
+    """
+    Insert some values into a database table.
+    list keys: The column names that are to be set.
+    dict values: A dictionary that contains the given keys.
+
+    >>> insert('test', ['name', 'value', 'empty'], {'name': 'abc', 'value': 123, 'empty': None, 'dummy': ''})
+    INSERT INTO test (name, value, empty) VALUES ('abc', 123, NULL)
+    """
+    columns = ', '.join(keys)
+    references = '%(' + ')s, %('.join(keys) + ')s'
+    sql = "INSERT INTO %s (%s) VALUES (%s)" % (table, columns, references)
+    cur.execute(sql, values)
+
+class Printer:
+    """Emulate a cursor for use with doctest."""
+    def __init__(self):
+        """Instance initialization."""
+        pass
+    @staticmethod
+    def execute(sql, data):
+        """
+        Print SQL data with a little bit of quoting.
+        Parameter semantics similar to cursor.execute().
+
+        >>> Printer.execute('INSERT INTO test (a, b) VALUES (%(a)s, %(b)s)', {'a': 'ab\\'c%', 'b': 4, 'c': None})
+        INSERT INTO test (a, b) VALUES ('ab\\'c%', 4)
+
+        >>> Printer.execute('SELECT * FROM test WHERE a LIKE %s AND b = %s AND c IS %s', ('ab\\'c%', 4, None))
+        SELECT * FROM test WHERE a LIKE 'ab\\'c%' AND b = 4 AND c IS NULL
+        """
+        if type(data) == dict:
+            copy = data.copy()
+            keys = copy.keys()
+        if type(data) == tuple:
+            data = list(data)
+        if type(data) == list:
+            copy = data[:]
+            keys = range(len(copy))
+        for key in keys:
+            value = copy[key]
+            if type(value) == str:
+                value = value.replace("'", "\\'")
+                value = value.replace('"', '\\"')
+                value = "'%s'" % value
+            elif value is None:
+                value = 'NULL'
+            copy[key] = value
+        if type(copy) == list:
+            copy = tuple(copy)
+        print sql % copy
+
+if __name__ == '__main__':
+    import sys, doctest
+    cur = Printer()
+    errors, tests = doctest.testmod()
+    if errors:
+        sys.exit(1)
