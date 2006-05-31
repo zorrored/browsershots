@@ -28,6 +28,9 @@ __author__ = '$Author: johann $'
 from shotserver03.interface import xhtml
 
 def write():
+    """
+    Write XHTML div for project logo.
+    """
     xhtml.write_open_tag_line('div', _id="logo")
     img = xhtml.tag('img', src="/style/logo40.png", _class="logo", alt="browsershots.org")
     xhtml.write_tag_line('a', img, href="http://%s/" % req.hostname)

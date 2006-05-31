@@ -32,6 +32,7 @@ from shotserver03.segments import screenshots, queue, browsers, features
 from shotserver03 import database
 
 class InvalidParameters(Exception):
+    """The HTTP GET request is invalid."""
     pass
 
 request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match

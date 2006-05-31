@@ -18,7 +18,7 @@
 # MA 02111-1307, USA.
 
 """
-Display some content.
+Display drop-down language selector.
 """
 
 __revision__ = '$Rev: 41 $'
@@ -28,6 +28,9 @@ __author__ = '$Author: johann $'
 from shotserver03.interface import xhtml
 
 def write():
+    """
+    Write XHTML form with drop-down language selector.
+    """
     xhtml.write_open_tag_line('form', action="")
     xhtml.write_open_tag('div', _id="languages", _class="float-right")
     # xhtml.write_tag_line('input', _type="text")

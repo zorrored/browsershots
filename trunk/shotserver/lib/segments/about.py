@@ -28,6 +28,9 @@ __author__ = '$Author: johann $'
 from shotserver03.interface import xhtml
 
 def write():
+    """
+    Write XHTML div with a quick project introduction.
+    """
     xhtml.write_open_tag_line('div', _id="about")
     xhtml.write_tag_line('h2', "What is this?")
 

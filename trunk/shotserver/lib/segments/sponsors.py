@@ -28,6 +28,9 @@ __author__ = '$Author$'
 from shotserver03.interface import xhtml
 
 def write():
+    """
+    Write XHTML div with sponsor logos.
+    """
     xhtml.write_open_tag_line('div', _id="sponsors")
     xhtml.write_tag_line('h2', "Sponsors")
 

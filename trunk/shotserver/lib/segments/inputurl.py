@@ -18,7 +18,7 @@
 # MA 02111-1307, USA.
 
 """
-URL input for submitting new jobs.
+URL input for submitting a new URL.
 """
 
 __revision__ = '$Rev$'
@@ -29,6 +29,9 @@ import cgi
 from shotserver03.interface import xhtml
 
 def write(url):
+    """
+    Write XHTML form for submitting a new URL.
+    """
     xhtml.write_open_tag_line('form', action="/website/", method="post")
     xhtml.write_open_tag_line('div', _class="blue background", _id="inputurl")
 
