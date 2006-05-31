@@ -101,11 +101,15 @@ INSERT INTO website (url) VALUES ('http://foo');
 INSERT INTO website (url) VALUES ('http://bar');
 INSERT INTO website (url) VALUES ('http://baz');
 
-INSERT INTO request (website, browser, major, minor) VALUES (1, 1, 1, 5);
-INSERT INTO request (website, browser, opsys) VALUES (2, 1, 1);
-INSERT INTO request (website, browser) VALUES (1, 2);
-INSERT INTO request (website, browser) VALUES (2, 2);
-INSERT INTO request (website, browser) VALUES (3, 2);
+INSERT INTO request (website) VALUES (1);
+INSERT INTO request (website) VALUES (2);
+INSERT INTO request (website) VALUES (3);
+
+INSERT INTO request_browser (request, browser, major, minor) VALUES (1, 1, 1, 5);
+INSERT INTO request_browser (request, browser, opsys) VALUES (1, 1, 1);
+INSERT INTO request_browser (request, browser) VALUES (1, 2);
+INSERT INTO request_browser (request, browser) VALUES (2, 2);
+INSERT INTO request_browser (request, browser) VALUES (3, 2);
 
 INSERT INTO lock (request, factory) VALUES (1, 1);
 INSERT INTO lock (request, factory) VALUES (3, 2);
