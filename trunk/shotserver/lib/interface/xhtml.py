@@ -160,7 +160,9 @@ def write_tag(*args, **attr):
     req.write(tag(*args, **attr))
 
 class Writer:
-    """Wrapper around sys.stdout.write() for use with doctest."""
+    """
+    Wrapper around sys.stdout.write() for use with doctest.
+    """
     @staticmethod
     def write(text):
         """Write to standard output."""

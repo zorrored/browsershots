@@ -25,6 +25,8 @@ __revision__ = '$Rev: 269 $'
 __date__ = '$Date: 2006-05-31 22:15:32 +0200 (Wed, 31 May 2006) $'
 __author__ = '$Author: johann $'
 
+from shotserver03.interface import xhtml
+
 def cutoff(text, maxlen):
     """
     Shorten a string if necessary, trying to cut at space.
@@ -51,8 +53,47 @@ def cutoff(text, maxlen):
         cut += 1
     return text[:cut] + '...'
 
+def write_table_rows(obj, prefix = ''):
+    """
+    Debug instance variables in XHTML table rows.
+    >>> write_table_rows(req)
+    <tr><th>dummy:</th><td>42</td></tr>
+    """
+    keys = obj.__dict__.keys()
+    keys.sort()
+    for key in keys:
+        value = obj.__dict__[key]
+        if hasattr(value, 'write_table_rows'):
+            value.write_table_rows(prefix + key + '.')
+        else:
+            value = str(value)
+            value = value.replace('<', '&lt;')
+            value = value.replace('>', '&gt;')
+            xhtml.write_tag_line('tr',
+                xhtml.tag('th', prefix + key + ':') +
+                xhtml.tag('td', value))
+
+def write_table(obj):
+    """
+    Debug instance variables with XHTML table.
+    """
+    xhtml.write_open_tag_line('table')
+    write_table_rows(obj)
+    xhtml.write_close_tag_line('table')
+
+class Writer:
+    """
+    Wrapper around sys.stdout.write() for use with doctest.
+    """
+    @staticmethod
+    def write(text):
+        """Write to standard output."""
+        sys.stdout.write(text)
+
 if __name__ == '__main__':
     import sys, doctest
+    __builtins__.req = Writer()
+    req.dummy = 42
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)
