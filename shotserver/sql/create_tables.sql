@@ -70,6 +70,12 @@ factory INT NOT NULL REFERENCES factory,
 width INT NOT NULL,
 height INT NOT NULL);
 
+CREATE TABLE factory_feature (
+factory INT NOT NULL REFERENCES factory,
+name CHAR(8) NOT NULL,
+intval INT,
+strval CHAR(16));
+
 CREATE TABLE screenshot (
 screenshot SERIAL PRIMARY KEY NOT NULL,
 factory INT NOT NULL REFERENCES factory,
@@ -85,20 +91,25 @@ created TIMESTAMP DEFAULT NOW());
 CREATE TABLE request (
 request SERIAL PRIMARY KEY NOT NULL,
 website INT NOT NULL,
+width INT,
+bpp INT,
+js CHAR(4),
+java CHAR(16),
+flash CHAR(16),
+media CHAR(16),
+expire INT,
+created TIMESTAMP DEFAULT NOW(),
+creator INT REFERENCES person);
+
+CREATE TABLE request_browser (
+request INT NOT NULL REFERENCES request,
 browser INT NOT NULL REFERENCES browser,
+browser_version INT,
 major INT,
 minor INT,
 os INT,
-width INT,
-bpp INT,
-javascript CHAR(4),
-java CHAR(8),
-flash CHAR(8),
-media CHAR(8),
-expire INT,
-screenshot INT REFERENCES screenshot,
-created TIMESTAMP DEFAULT NOW(),
-creator INT REFERENCES person);
+os_version INT,
+screenshot INT REFERENCES screenshot);
 
 CREATE TABLE lock (
 request INT NOT NULL REFERENCES request,
