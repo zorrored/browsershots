@@ -84,8 +84,8 @@ def write():
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Java")
     xhtml.write_tag_line('br')
-    write_select('java', "dontcare=Don't Care|no=Not Installed|yes=Installed|blackdown=Blackdown|kaffe=Kaffe|sun=Sun Java" +
-                 "|sun_1.2=Sun Java 1.2|sun_1.3=Sun Java 1.3|sun_1.4=Sun Java 1.4|sun_5.0=Sun Java 5.0")
+    write_select('java', "dontcare=Don't Care|no=Not Installed|yes=Installed|blackdown=Blackdown|kaffe=Kaffe" +
+                 "|sun=Sun Java|sun_1.2=Sun Java 1.2|sun_1.3=Sun Java 1.3|sun_1.4=Sun Java 1.4|sun_5.0=Sun Java 5.0")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
