@@ -28,8 +28,11 @@ __author__ = '$Author: johann $'
 import re, cgi
 from mod_python import util
 from shotserver03.interface import xhtml
-from shotserver03.segments import queue, browsers, features
+from shotserver03.segments import screenshots, queue, browsers, features
 from shotserver03 import database
+
+class InvalidParameters(Exception):
+    pass
 
 request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
 simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
@@ -46,34 +49,30 @@ def read_params():
     """
     Read parameters from the request URL.
     """
-    if request_is_numeric():
-        website = int(req.info.options[0])
-        database.connect()
-        try:
+    database.connect()
+    try:
+        if request_is_numeric():
+            website = int(req.info.options[0])
             url = database.website.select_url(website)
-        finally:
-            database.disconnect()
-    else:
-        match = request_match(req.the_request)
-        if not match:
-            raise InvalidParameters("Your browser sent a strange request (%s)." % req.the_request)
-        url = match.group(4)
-        match = simple_url_match(url)
-        if url and not match:
-            return InvalidParameters("The web address seems to be invalid (%s)." % url)
-        database.connect()
-        try:
+        else:
+            match = request_match(req.the_request)
+            if not match:
+                raise InvalidParameters("Your browser sent a strange request (%s)." % req.the_request)
+            url = match.group(4)
+            match = simple_url_match(url)
+            if url and not match:
+                return InvalidParameters("The web address seems to be invalid (%s)." % url)
             website = database.website.select_serial(url)
-        finally:
-            database.disconnect()
-    if url is None:
-        return InvalidParameters("Web address parameter is missing.")
-    req.params.website = website
-    req.params.url = url
-    req.params.simple = simple_url_match(url)
-    req.params.escaped = cgi.escape(url, quote = True)
-    req.params.show_screenshots = False
-    req.params.show_queue = True
+        if url is None:
+            return InvalidParameters("Web address parameter is missing.")
+        req.params.website = website
+        req.params.url = url
+        req.params.simple = simple_url_match(url)
+        req.params.escaped = cgi.escape(url, quote = True)
+        req.params.show_screenshots = False
+        req.params.show_queue = database.request.select_by_website(website)
+    finally:
+        database.disconnect()
 
 def redirect():
     """
@@ -108,8 +107,14 @@ def body():
     # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
-    if req.params.website is not None:
+    if req.params.show_screenshots:
+        screenshots.write()
+
+    if req.params.show_queue:
         queue.write()
+
+    if req.params.show_screenshots or req.params.show_queue:
+        xhtml.write_tag_line('h2', "Select browsers and configuration")
 
     xhtml.write_open_tag_line('form', action="/submitjobs/", method="post")
     xhtml.write_tag_line('input', _type="hidden", _name="url", value=req.params.escaped)
