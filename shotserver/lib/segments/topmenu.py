@@ -25,23 +25,21 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.interface import xhtml
+from shotserver03.interface import xhtml, menu
 
 def write():
     xhtml.write_open_tag_line('div', _class="menu lightgray", _id="topmenu")
 
-    xhtml.write_open_tag('ul', _class="float-left")
-    xhtml.write_tag('li', xhtml.tag('a', 'Screenshots', href="/screenshots/"+req.info.uri.lang),  _class="first")
-    xhtml.write_tag('li', xhtml.tag('a', 'Queue', href="/queue/"+req.info.uri.lang))
-    xhtml.write_tag('li', xhtml.tag('a', 'Factories', href="/factories/"+req.info.uri.lang))
-    xhtml.write_close_tag_line('ul') # class="float-left"
+    menu.write('float-left', (
+        "Screenshots=/screenshots/",
+        "Queue=/queue/",
+        "Factories=/factories/"))
 
-    xhtml.write_open_tag('ul', _class="float-right")
-    xhtml.write_tag('li', xhtml.tag('a', 'Sign In', href="/signin/"), _class="first")
-    xhtml.write_close_tag_line('ul') # class="float-right"
+    menu.write('float-right', (
+        "Sign In=/signin/", ))
 
-    link = xhtml.tag('a', 'Mock-up!', href="http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/")
-    xhtml.write_tag_line('p', link, _class="float-right mockup")
+    menu.write('float-right mockup', (
+        "Mock-up!=http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/", ))
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="topmenu"
