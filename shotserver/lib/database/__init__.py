@@ -60,11 +60,17 @@ def insert(table, data):
     sql = "INSERT INTO %s (%s) VALUES (%s)" % (table, columns, references)
     cur.execute(sql, data)
 
+def lastval():
+    """
+    Return the value of the last sequence that was increased.
+    Available since PostgreSQL version 8.1.
+    Similar to MySQL's insert_id().
+    """
+    cur.execute("SELECT lastval()")
+    return cur.fetchone()[0]
+
 class Printer:
     """Emulate a cursor for use with doctest."""
-    def __init__(self):
-        """Instance initialization."""
-        pass
     @staticmethod
     def execute(sql, data):
         """
