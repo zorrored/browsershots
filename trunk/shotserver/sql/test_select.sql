@@ -36,6 +36,7 @@ SELECT * FROM browser_stats;
 SELECT website.url, factory.name, browser.name
 FROM lock
 JOIN request USING (request)
+JOIN request_browser USING (request)
 JOIN website USING (website)
 JOIN factory USING (factory)
 JOIN browser USING (browser);
