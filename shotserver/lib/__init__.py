@@ -27,7 +27,6 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import sys, traceback
-from mod_python import apache
 from shotserver03 import request
 from shotserver03.request import tabledict
 from shotserver03.interface import xhtml
@@ -89,6 +88,7 @@ def handler(req):
     """
     Process a HTTP request.
     """
+    from mod_python import apache
     try:
         __builtins__['req'] = req
         req.info = request.RequestInfo()
