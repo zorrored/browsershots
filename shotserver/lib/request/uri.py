@@ -25,19 +25,16 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.request import tabledict
-
 class IncorrectBasepathError(Exception):
     """The given base path does not match the actual URI."""
     pass
 
-class URI(tabledict.TableDict):
+class URI:
     """
     Make request URI more explicit.
     """
 
     def __init__(self, basepath = ''):
-        tabledict.TableDict.__init__(self)
         self.hostname = req.hostname
         self.raw = req.uri
 

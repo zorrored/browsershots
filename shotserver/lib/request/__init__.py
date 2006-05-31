@@ -25,16 +25,15 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.request import tabledict, uri
+from shotserver03.request import uri
 from shotserver03.interface import xhtml
 
-class RequestInfo(tabledict.TableDict):
+class RequestInfo:
     """
     Additional info about a mod_python Apache request object.
     """
 
     def __init__(self, basepath = ''):
-        tabledict.TableDict.__init__(self)
         from mod_python import util
         self.form = util.FieldStorage(req)
         self.uri = uri.URI(basepath)
