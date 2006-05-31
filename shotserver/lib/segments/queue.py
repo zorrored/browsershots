@@ -36,16 +36,31 @@ def write():
     database.connect()
     try:
         xhtml.write_open_tag('table', _id="queue")
-        xhtml.write_table_row("Browser OS Width BPP JavaScript Java Flash Media Submitted Expires".split(), 'th')
+        xhtml.write_table_row("Browser OS Width Submitted Expires Options".split(), 'th')
         for request in database.request.select_by_website(req.params.website):
             browser, major, minor, os, width, bpp, javascript, java, flash, media, submitted, expire = request
             if major is not None:
                 browser += " %d" % major
             if minor is not None:
                 browser += ".%d" % minor
-            xhtml.write_table_row((browser, os, width, bpp, javascript, java, flash, media,
-                                   time.strftime('%H:%M:%S', time.localtime(submitted)),
-                                   time.strftime('%H:%M:%S', time.localtime(submitted + expire))))
+            options = []
+            if bpp is not None:
+                options.append("%d BPP" % bpp)
+            if javascript is not None:
+                options.append("JavaScript")
+            if java is not None:
+                options.append("Java")
+            if flash is not None:
+                options.append("Flash")
+            if media is not None:
+                if media == 'wmp':
+                    options.append(media)
+                else:
+                    options.append("Windows Media Player")
+            xhtml.write_table_row((browser, os, width,
+                                   time.strftime('%H:%M', time.localtime(submitted)),
+                                   time.strftime('%H:%M', time.localtime(submitted + expire)),
+                                   ', '.join(options)))
         xhtml.write_close_tag_line('table') # id="queue"
     finally:
         database.disconnect()
