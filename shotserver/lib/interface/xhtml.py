@@ -113,6 +113,11 @@ def multiline_tag(name, data = None, **attributes):
     return tag_line(name, '\n' + data, **attributes)
 
 def write_table_row(cells, element = 'td'):
+    """
+    Write an XHTML table row.
+    >>> write_table_row(['a', 'b', 'c'], element = 'th')
+    <tr><th>a</th><th>b</th><th>c</th></tr>
+    """
     write_open_tag('tr')
     for cell in cells:
         write_tag(element, cell)
@@ -132,15 +137,43 @@ def text_to_xhtml(text):
     text = text.replace('\n', '<br />\n')
     return text
 
-write_open_tag = lambda *args, **attr: req.write(open_tag(*args, **attr))
-write_open_tag_line = lambda *args, **attr: req.write(open_tag(*args, **attr) + '\n')
-write_close_tag = lambda *args: req.write(close_tag(*args))
-write_close_tag_line = lambda *args: req.write(close_tag(*args) + '\n')
-write_tag_line = lambda *args, **attr: req.write(tag_line(*args, **attr))
-write_tag = lambda *args, **attr: req.write(tag(*args, **attr))
+def write_open_tag(*args, **attr):
+    """Send opening tag to user agent."""
+    req.write(open_tag(*args, **attr))
+
+def write_open_tag_line(*args, **attr):
+    """Send opening tag with newline to user agent."""
+    req.write(open_tag(*args, **attr) + '\n')
+
+def write_close_tag(*args):
+    """Send closing tag to user agent."""
+    req.write(close_tag(*args))
+
+def write_close_tag_line(*args):
+    """Send closing tag with newline to user agent."""
+    req.write(close_tag(*args) + '\n')
+
+def write_tag_line(*args, **attr):
+    """Send tag with newline to user agent."""
+    req.write(tag_line(*args, **attr))
+
+def write_tag(*args, **attr):
+    """Send tag to user agent."""
+    req.write(tag(*args, **attr))
+
+class Writer:
+    """Wrapper around sys.stdout.write() for use with doctest."""
+    def __init__(self):
+        """Instance initialization."""
+        pass
+    @staticmethod
+    def write(text):
+        """Write to standard output."""
+        sys.stdout.write(text)
 
 if __name__ == '__main__':
     import sys, doctest
+    req = Writer()
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)
