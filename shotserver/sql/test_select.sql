@@ -5,25 +5,25 @@ FROM browser JOIN browser_version USING (browser)
 ORDER BY name;
 
 SELECT DISTINCT name, distro, codename, major, minor, manufacturer, mobile
-FROM os JOIN os_version USING (os)
+FROM platform JOIN platform_version USING (platform)
 ORDER BY name;
 
-SELECT factory.name, platform.name, os.name,
-os_version.distro, os_version.codename, os_version.major, os_version.minor,
+SELECT factory.name, architecture.name, platform.name,
+platform_version.distro, platform_version.codename, platform_version.major, platform_version.minor,
 person.name
 FROM factory
+JOIN architecture USING (architecture)
+JOIN platform_version USING (platform_version)
 JOIN platform USING (platform)
-JOIN os_version USING (os_version)
-JOIN os USING (os)
 JOIN person ON factory.creator = person.person
 ORDER BY factory.name;
 
 SELECT factory.name, browser.manufacturer, browser.name,
-browser_version.major, browser_version.minor, browser.terminal, os_version.mobile
+browser_version.major, browser_version.minor, browser.terminal, platform_version.mobile
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN os_version USING (os_version)
-JOIN os USING (os)
+JOIN platform_version USING (platform_version)
+JOIN platform USING (platform)
 JOIN browser_version USING (browser_version)
 JOIN browser USING (browser)
 ORDER BY factory.name;
@@ -41,35 +41,35 @@ JOIN browser USING (browser);
 SELECT DISTINCT browser.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN os_version USING (os_version)
-JOIN os USING (os)
+JOIN platform_version USING (platform_version)
+JOIN platform USING (platform)
 JOIN browser_version USING (browser_version)
 JOIN browser USING (browser)
-WHERE os.name = 'Linux';
+WHERE platform.name = 'Linux';
 
 SELECT DISTINCT browser.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN os_version USING (os_version)
-JOIN os USING (os)
+JOIN platform_version USING (platform_version)
+JOIN platform USING (platform)
 JOIN browser_version USING (browser_version)
 JOIN browser USING (browser)
-WHERE os.name = 'Mac OS';
+WHERE platform.name = 'Mac OS';
 
 SELECT DISTINCT browser.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN os_version USING (os_version)
-JOIN os USING (os)
+JOIN platform_version USING (platform_version)
+JOIN platform USING (platform)
 JOIN browser_version USING (browser_version)
 JOIN browser USING (browser)
-WHERE os.name = 'Windows';
+WHERE platform.name = 'Windows';
 
 SELECT DISTINCT browser.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN os_version USING (os_version)
-JOIN os USING (os)
+JOIN platform_version USING (platform_version)
+JOIN platform USING (platform)
 JOIN browser_version USING (browser_version)
 JOIN browser USING (browser)
 WHERE browser.terminal;
@@ -77,15 +77,15 @@ WHERE browser.terminal;
 SELECT DISTINCT browser.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN os_version USING (os_version)
-JOIN os USING (os)
+JOIN platform_version USING (platform_version)
+JOIN platform USING (platform)
 JOIN browser_version USING (browser_version)
 JOIN browser USING (browser)
-WHERE os_version.mobile;
+WHERE platform_version.mobile;
 
-SELECT factory.name, platform.name, os.name,
-os_version.distro, os_version.codename, os_version.major, os_version.minor, os_version.mobile
+SELECT factory.name, architecture.name, platform.name,
+platform_version.distro, platform_version.codename, platform_version.major, platform_version.minor, platform_version.mobile
 FROM factory
-JOIN platform USING (platform)
-JOIN os_version USING (os_version)
-JOIN os USING (os);
+JOIN architecture USING (architecture)
+JOIN platform_version USING (platform_version)
+JOIN platform USING (platform);
