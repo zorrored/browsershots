@@ -30,7 +30,7 @@ def select_by_website(website):
     Get all jobs for this website.
     """
     sql = []
-    sql.append("SELECT request, width, bpp, js, java, flash, media")
+    sql.append("SELECT request, bpp, js, java, flash, media")
     sql.append(", extract(epoch from request.created)::bigint, expire")
     sql.append("FROM request")
     sql.append("WHERE website=%s")
