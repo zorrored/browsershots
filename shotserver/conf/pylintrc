@@ -59,7 +59,7 @@ evaluation=10.0 - ((float(5 * error + warning + refactor + convention) / stateme
 comment=no
 
 # Include message's id in output
-include-ids=no
+include-ids=yes
 
 
 
