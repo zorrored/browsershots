@@ -10,8 +10,8 @@ name VARCHAR(20),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-CREATE TABLE platform (
-platform SERIAL PRIMARY KEY NOT NULL,
+CREATE TABLE architecture (
+architecture SERIAL PRIMARY KEY NOT NULL,
 name VARCHAR(20),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
@@ -33,16 +33,16 @@ engine INT REFERENCES engine,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-CREATE TABLE os (
-os SERIAL PRIMARY KEY NOT NULL,
+CREATE TABLE platform (
+platform SERIAL PRIMARY KEY NOT NULL,
 name VARCHAR(20) NOT NULL,
 manufacturer VARCHAR(20),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-CREATE TABLE os_version (
-os_version SERIAL PRIMARY KEY NOT NULL,
-os INT NOT NULL REFERENCES os,
+CREATE TABLE platform_version (
+platform_version SERIAL PRIMARY KEY NOT NULL,
+platform INT NOT NULL REFERENCES platform,
 distro VARCHAR(20),
 codename VARCHAR(20),
 major INT,
@@ -54,8 +54,8 @@ creator INT NOT NULL REFERENCES person);
 CREATE TABLE factory (
 factory SERIAL PRIMARY KEY NOT NULL,
 name VARCHAR(20) NOT NULL UNIQUE,
-os_version INT NOT NULL REFERENCES os_version,
-platform INT NOT NULL REFERENCES platform,
+platform_version INT NOT NULL REFERENCES platform_version,
+architecture INT NOT NULL REFERENCES architecture,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person,
 last_poll TIMESTAMP,
@@ -107,8 +107,8 @@ browser INT NOT NULL REFERENCES browser,
 browser_version INT,
 major INT,
 minor INT,
-os INT,
-os_version INT,
+platform INT,
+platform_version INT,
 screenshot INT REFERENCES screenshot);
 
 CREATE TABLE lock (

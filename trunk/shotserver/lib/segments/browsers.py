@@ -37,8 +37,8 @@ def select_browsers(platform, where):
     cur.execute("""SELECT browser.name, browser_version.major, browser_version.minor
         FROM factory_browser
         JOIN factory USING (factory)
-        JOIN os_version USING (os_version)
-        JOIN os USING (os)
+        JOIN platform_version USING (platform_version)
+        JOIN platform USING (platform)
         JOIN browser_version USING (browser_version)
         JOIN browser USING (browser)
         WHERE %s
@@ -78,11 +78,11 @@ def write():
     xhtml.write_open_tag_line('div', _id="browsers", _class="blue background")
     database.connect()
     try:
-        write_float('Linux', "os.name = 'Linux' AND NOT browser.terminal AND NOT os_version.mobile")
-        write_float('Mac', "os.name = 'Mac OS' AND NOT browser.terminal AND NOT os_version.mobile")
-        write_float('Windows', "os.name = 'Windows' AND NOT browser.terminal AND NOT os_version.mobile")
-        write_float('Terminal', "browser.terminal AND NOT os_version.mobile")
-        write_float('Mobile', "os_version.mobile")
+        write_float('Linux', "platform.name = 'Linux' AND NOT browser.terminal AND NOT platform_version.mobile")
+        write_float('Mac', "platform.name = 'Mac OS' AND NOT browser.terminal AND NOT platform_version.mobile")
+        write_float('Windows', "platform.name = 'Windows' AND NOT browser.terminal AND NOT platform_version.mobile")
+        write_float('Terminal', "browser.terminal AND NOT platform_version.mobile")
+        write_float('Mobile', "platform_version.mobile")
     finally:
         database.disconnect()
     xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Submit Jobs", _class="button")

@@ -38,29 +38,29 @@ def body():
     """
     database.connect()
     try:
-        cur.execute("""SELECT factory.name, os.name, distro, major, minor, codename
+        cur.execute("""SELECT factory.name, platform.name, distro, major, minor, codename
             FROM factory
-            JOIN os_version USING (os_version)
-            JOIN os USING (os)
-            ORDER BY os.name, major, minor, factory.name
+            JOIN platform_version USING (platform_version)
+            JOIN platform USING (platform)
+            ORDER BY platform.name, major, minor, factory.name
             """)
         result = cur.fetchall()
     finally:
         database.disconnect()
 
     xhtml.write_open_tag_line('table')
-    for name, os, distro, major, minor, codename in result:
+    for name, platform, distro, major, minor, codename in result:
         xhtml.write_open_tag('tr')
         xhtml.write_tag('td', name)
         if distro is not None:
-            os = '%s %s' % (os, distro)
+            platform = '%s %s' % (platform, distro)
         if major is not None:
             if minor is not None:
-                os = '%s %d.%d' % (os, major, minor)
+                platform = '%s %d.%d' % (platform, major, minor)
             else:
-                os = '%s %d' % (os, major)
+                platform = '%s %d' % (platform, major)
         if codename is not None:
-            os = '%s (%s)' % (os, codename)
-        xhtml.write_tag('td', os)
+            platform = '%s (%s)' % (platform, codename)
+        xhtml.write_tag('td', platform)
         xhtml.write_close_tag_line('tr')
     xhtml.write_close_tag_line('table')
