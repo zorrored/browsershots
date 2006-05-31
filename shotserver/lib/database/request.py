@@ -30,14 +30,11 @@ def select_by_website(website):
     Get all jobs for this website.
     """
     sql = []
-    sql.append("SELECT browser.name, major, minor, os.name, width, bpp, javascript, java, flash, media")
+    sql.append("SELECT request, width, bpp, js, java, flash, media")
     sql.append(", extract(epoch from request.created)::bigint, expire")
     sql.append("FROM request")
-    sql.append("JOIN browser USING (browser)")
-    sql.append("JOIN os USING (os)")
     sql.append("WHERE website=%s")
-    sql.append("ORDER BY browser.name, major, minor, os.name")
-    # sql.append("JOIN media ON media")
+    sql.append("ORDER BY created")
     sql = ' '.join(sql)
     cur.execute(sql, (website, ))
     return cur.fetchall()
