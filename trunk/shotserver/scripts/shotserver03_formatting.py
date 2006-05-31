@@ -44,6 +44,8 @@ def read_blocks(filename):
     start = 1
     docstring = False
     lines = file(filename).readlines()
+    if not lines:
+        raise FormatError(filename, 1, "empty file")
     if not lines[-1].endswith('\n'):
         raise FormatError(filename, len(lines), 'no newline before EOF')
     if lines[-1].strip() == '':
@@ -84,6 +86,9 @@ def check_file(filename):
     Raise FormatError if it doesn't comply.
     """
     blocks = read_blocks(filename)
+    if len(blocks) < 3:
+        lastblock = blocks[-1]
+        raise FormatError(filename, lastblock[0], "missing header, too few paragraphs")
     head, docstring, keywords = blocks[:3]
     remove_shebang(head)
     if head[1] != ref_head[1]:
