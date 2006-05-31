@@ -5,19 +5,21 @@
 DISABLE="R0903,W0142,W0232"
 
 all : formatting doctest pylint
-	@echo Checked: $^
 
 formatting :
+	@echo Checking formatting...
 	@find lib scripts -name "*.py" \
 	    | xargs scripts/shotserver03_formatting.py
 
 doctest :
+	@echo Checking doctest...
 	@python lib/interface/xhtml.py
 	@python lib/interface/menu.py
 	@python lib/interface/human.py
 	@python lib/database/__init__.py
 
 pylint :
+	@echo Checking pylint...
 	@find lib scripts -name "*.py" \
 	    | xargs pylint --rcfile=conf/pylintrc --disable-msg=$(DISABLE) \
 	    | grep -v "Undefined variable 'req'" \
