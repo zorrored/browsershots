@@ -61,7 +61,6 @@ def open_tag(name, **attributes):
     """
     Make an opening tag.
     """
-    global open_tags
     open_tags.append(name)
     attr = attribute_string(**attributes)
     return '<%s%s>' % (name, attr)
@@ -70,7 +69,6 @@ def close_tag(name = None):
     """
     Make a closing tag.
     """
-    global open_tags
     if len(open_tags):
         innermost = open_tags.pop(-1)
         if name is None:
@@ -163,9 +161,6 @@ def write_tag(*args, **attr):
 
 class Writer:
     """Wrapper around sys.stdout.write() for use with doctest."""
-    def __init__(self):
-        """Instance initialization."""
-        pass
     @staticmethod
     def write(text):
         """Write to standard output."""
@@ -173,7 +168,7 @@ class Writer:
 
 if __name__ == '__main__':
     import sys, doctest
-    req = Writer()
+    __builtins__.req = Writer()
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)
