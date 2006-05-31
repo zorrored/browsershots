@@ -18,23 +18,21 @@
 # MA 02111-1307, USA.
 
 """
-Database interface for request table.
+Database interface for platform table.
 """
 
-__revision__ = '$Rev: 117 $'
-__date__ = '$Date: 2006-04-08 08:51:18 +0200 (Sat, 08 Apr 2006) $'
+__revision__ = '$Rev: 259 $'
+__date__ = '$Date: 2006-05-31 17:28:15 +0200 (Wed, 31 May 2006) $'
 __author__ = '$Author: johann $'
 
-def select_by_website(website):
+def get_name_dict():
     """
-    Get all jobs for this website.
+    Get a mapping from lowercase platform name to id (numeric primary key).
     """
-    sql = []
-    sql.append("SELECT request, width, bpp, js, java, flash, media")
-    sql.append(", extract(epoch from request.created)::bigint, expire")
-    sql.append("FROM request")
-    sql.append("WHERE website=%s")
-    sql.append("ORDER BY created")
-    sql = ' '.join(sql)
-    cur.execute(sql, (website, ))
-    return cur.fetchall()
+    cur.execute('SELECT platform, name FROM platform')
+    result = {}
+    for platform, name in cur.fetchall():
+        if name == 'Mac OS':
+            name = 'Mac'
+        result[name.lower()] = platform
+    return result
