@@ -28,15 +28,13 @@ __author__ = '$Author: johann $'
 import re, urllib
 from mod_python import util
 from shotserver03 import database
-import shotserver03.database.website
-from shotserver03.interface import xhtml
 
 class UnexpectedInput(Exception):
     """Post form input had unexpected fields."""
     pass
 
 browser_match = re.compile(r'(\w+)_(\w+)_(\d+)_(\d+)$').match
-feature_keys = 'screen_resolution bits_per_pixel javascript java flash media expire_minutes'.split()
+feature_keys = 'width bpp js java flash media expire'.split()
 def read_form(form):
     """
     Get known fields from post form.
@@ -93,29 +91,34 @@ def insert_requests(website, browsers, features):
     browser_int = get_browser_mapping()
     os_int = get_os_mapping()
     for platform, browser, major, minor in browsers:
-        request = features.copy()
+        request = {}
         request['website'] = website
         request['browser'] = browser_int[browser]
         request['major'] = int(major)
         request['minor'] = int(minor)
-        request['expire'] = int(features['expire_minutes']) * 60
+        request['expire'] = int(features['expire']) * 60
 
-        if features['bits_per_pixel'] == 'any':
-            request['bpp'] = None
-        else:
-            request['bpp'] = int(features['bits_per_pixel'])
+        for key in 'bpp js java flash media'.split():
+            if features[key] == 'dontcare':
+                request[key] = None
+            else:
+                request[key] = features[key]
+
+        for key in 'bpp'.split():
+            if request[key] is not None:
+                request[key] = int(request[key])
 
         if platform == 'terminal':
-            request['width'] = terminal_width[features['screen_resolution']]
+            request['width'] = terminal_width[features['width']]
             request['os'] = None
         elif platform == 'mobile':
             request['width'] = None
             request['os'] = None
         else:
-            request['width'] = screen_width[features['screen_resolution']]
+            request['width'] = screen_width[features['width']]
             request['os'] = os_int[platform]
 
-        keys = "website browser major minor os width bpp javascript java flash media expire".split()
+        keys = "website browser major minor os width bpp js java flash media expire".split()
         columns = ', '.join(keys)
         values = '%(' + ')s, %('.join(keys) + ')s'
         sql = "INSERT INTO request (%s) VALUES (%s)" % (columns, values)
@@ -136,9 +139,6 @@ def redirect():
     finally:
         database.disconnect()
     util.redirect(req, '/website/%d/' % website)
-
-    #for key in features.keys():
-    #    xhtml.write_tag_line('p', '='.join((key, features[key])))
 
     # sanity_check_url(url)
     # test_head(url)
