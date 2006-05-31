@@ -45,19 +45,20 @@ def disconnect():
     del __builtins__['cur']
     del __builtins__['con']
 
-def insert(table, keys, values):
+def insert(table, data):
     """
     Insert some values into a database table.
-    list keys: The column names that are to be set.
-    dict values: A dictionary that contains the given keys.
+    data: A dictionary that contains the given keys.
 
-    >>> insert('test', ['name', 'value', 'empty'], {'name': 'abc', 'value': 123, 'empty': None, 'dummy': ''})
-    INSERT INTO test (name, value, empty) VALUES ('abc', 123, NULL)
+    >>> insert('test', {'name': 'abc', 'value': 123, 'empty': None})
+    INSERT INTO test (empty, name, value) VALUES (NULL, 'abc', 123)
     """
+    keys = data.keys()
+    keys.sort()
     columns = ', '.join(keys)
     references = '%(' + ')s, %('.join(keys) + ')s'
     sql = "INSERT INTO %s (%s) VALUES (%s)" % (table, columns, references)
-    cur.execute(sql, values)
+    cur.execute(sql, data)
 
 class Printer:
     """Emulate a cursor for use with doctest."""
