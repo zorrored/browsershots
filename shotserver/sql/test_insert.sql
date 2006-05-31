@@ -45,32 +45,32 @@ INSERT INTO browser_version (browser, major, minor, creator) VALUES (3, 7, 0, 1)
 INSERT INTO browser_version (browser, major, minor, creator) VALUES (3, 5, 2, 1);
 INSERT INTO browser_version (browser, major, minor, creator) VALUES (3, 5, 5, 1);
 
-INSERT INTO platform (name, creator) VALUES ('Linux', 1);
-INSERT INTO platform (name, manufacturer, creator) VALUES ('Mac OS', 'Apple', 1);
-INSERT INTO platform (name, manufacturer, creator) VALUES ('Windows', 'Microsoft', 1);
-INSERT INTO platform (name, creator) VALUES ('Palm OS', 1);
-INSERT INTO platform (name, creator) VALUES ('Symbian', 1);
-INSERT INTO platform (name, creator) VALUES ('Solaris', 1);
-INSERT INTO platform (name, creator) VALUES ('TOS', 1);
+INSERT INTO opsys (name, creator) VALUES ('Linux', 1);
+INSERT INTO opsys (name, manufacturer, creator) VALUES ('Mac OS', 'Apple', 1);
+INSERT INTO opsys (name, manufacturer, creator) VALUES ('Windows', 'Microsoft', 1);
+INSERT INTO opsys (name, creator) VALUES ('Palm OS', 1);
+INSERT INTO opsys (name, creator) VALUES ('Symbian', 1);
+INSERT INTO opsys (name, creator) VALUES ('Solaris', 1);
+INSERT INTO opsys (name, creator) VALUES ('TOS', 1);
 
-INSERT INTO platform_version (platform, distro, codename, major, minor, creator) VALUES (1, 'Ubuntu', 'Dapper Drake', 6, 4, 1);
-INSERT INTO platform_version (platform, distro, codename, major, minor, creator) VALUES (2, 'X', 'Tiger', 10, 4, 1);
-INSERT INTO platform_version (platform, distro, codename, creator) VALUES (3, 'XP', 'Service Pack 2', 1);
-INSERT INTO platform_version (platform, codename, major, minor, mobile, creator) VALUES (4, 'Cobalt', 6, 1, TRUE, 1);
-INSERT INTO platform_version (platform, major, minor, mobile, creator) VALUES (5, 6, 1, TRUE, 1);
-INSERT INTO platform_version (platform, major, minor, creator) VALUES (6, 5, 8, 1);
-INSERT INTO platform_version (platform, major, minor, creator) VALUES (7, 2, 6, 1);
-INSERT INTO platform_version (platform, distro, codename, major, minor, creator) VALUES (1, 'Debian', 'Sarge', 3, 1, 1);
+INSERT INTO opsys_version (opsys, distro, codename, major, minor, creator) VALUES (1, 'Ubuntu', 'Dapper Drake', 6, 4, 1);
+INSERT INTO opsys_version (opsys, distro, codename, major, minor, creator) VALUES (2, 'X', 'Tiger', 10, 4, 1);
+INSERT INTO opsys_version (opsys, distro, codename, creator) VALUES (3, 'XP', 'Service Pack 2', 1);
+INSERT INTO opsys_version (opsys, codename, major, minor, mobile, creator) VALUES (4, 'Cobalt', 6, 1, TRUE, 1);
+INSERT INTO opsys_version (opsys, major, minor, mobile, creator) VALUES (5, 6, 1, TRUE, 1);
+INSERT INTO opsys_version (opsys, major, minor, creator) VALUES (6, 5, 8, 1);
+INSERT INTO opsys_version (opsys, major, minor, creator) VALUES (7, 2, 6, 1);
+INSERT INTO opsys_version (opsys, distro, codename, major, minor, creator) VALUES (1, 'Debian', 'Sarge', 3, 1, 1);
 
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('tyll', 1, 1, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('runt', 2, 2, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('quad', 3, 1, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('palm', 4, 4, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('7650', 5, 4, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('lara', 6, 3, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('tari', 7, 3, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('azul', 8, 5, 1);
-INSERT INTO factory (name, platform_version, architecture, creator) VALUES ('sven', 3, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('tyll', 1, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('runt', 2, 2, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('quad', 3, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('palm', 4, 4, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('7650', 5, 4, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('lara', 6, 3, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('tari', 7, 3, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('azul', 8, 5, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('sven', 3, 1, 1);
 
 INSERT INTO factory_browser (factory, browser_version) VALUES (1, 1);
 INSERT INTO factory_browser (factory, browser_version) VALUES (1, 10);
@@ -102,7 +102,7 @@ INSERT INTO website (url) VALUES ('http://bar');
 INSERT INTO website (url) VALUES ('http://baz');
 
 INSERT INTO request (website, browser, major, minor) VALUES (1, 1, 1, 5);
-INSERT INTO request (website, browser, platform) VALUES (2, 1, 1);
+INSERT INTO request (website, browser, opsys) VALUES (2, 1, 1);
 INSERT INTO request (website, browser) VALUES (1, 2);
 INSERT INTO request (website, browser) VALUES (2, 2);
 INSERT INTO request (website, browser) VALUES (3, 2);

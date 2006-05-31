@@ -68,61 +68,47 @@ def error_redirect(**params):
     else:
         util.redirect(req, '/')
 
-def get_browser_mapping():
-    cur.execute('SELECT browser, name FROM browser')
-    result = {}
-    for browser, name in cur.fetchall():
-        result[name.lower()] = browser
-    return result
-
-def get_os_mapping():
-    cur.execute('SELECT os, name FROM os')
-    result = {}
-    for os, name in cur.fetchall():
-        if name == 'Mac OS':
-            name = 'Mac'
-        result[name.lower()] = os
-    return result
-
 screen_width = {'tiny': 640, 'small': 800, 'medium': 1024, 'large': 1280, 'huge': 1600}
 terminal_width = {'tiny': 50, 'small': 64, 'medium': 80, 'large': 132, 'huge': 168}
 
 def insert_requests(website, browsers, features):
-    browser_int = get_browser_mapping()
-    os_int = get_os_mapping()
+    """
+    Insert screenshot requests into database.
+    """
+    values = {}
+    values['website'] = website
+    for key in 'bpp js java flash media expire'.split():
+        if features[key] == 'dontcare':
+            values[key] = None
+        else:
+            values[key] = features[key]
+    for key in 'bpp expire'.split():
+        if values[key] is not None:
+            values[key] = int(values[key])
+    values['expire'] *= 60
+    database.insert('request', "website bpp js java flash media expire".split(), values)
+
+    browser_int = database.browser.get_name_dict()
+    opsys_int = database.opsys.get_name_dict()
+
     for platform, browser, major, minor in browsers:
-        request = {}
-        request['website'] = website
-        request['browser'] = browser_int[browser]
-        request['major'] = int(major)
-        request['minor'] = int(minor)
-        request['expire'] = int(features['expire']) * 60
-
-        for key in 'bpp js java flash media'.split():
-            if features[key] == 'dontcare':
-                request[key] = None
-            else:
-                request[key] = features[key]
-
-        for key in 'bpp'.split():
-            if request[key] is not None:
-                request[key] = int(request[key])
+        values = {}
+        values['browser'] = browser_int[browser]
+        values['major'] = int(major)
+        values['minor'] = int(minor)
 
         if platform == 'terminal':
-            request['width'] = terminal_width[features['width']]
-            request['os'] = None
+            values['width'] = terminal_width[features['width']]
+            values['os'] = None
         elif platform == 'mobile':
-            request['width'] = None
-            request['os'] = None
+            values['width'] = None
+            values['os'] = None
         else:
-            request['width'] = screen_width[features['width']]
-            request['os'] = os_int[platform]
+            values['width'] = screen_width[features['width']]
+            values['os'] = opsys_int[platform]
 
-        keys = "website browser major minor os width bpp js java flash media expire".split()
-        columns = ', '.join(keys)
-        values = '%(' + ')s, %('.join(keys) + ')s'
-        sql = "INSERT INTO request (%s) VALUES (%s)" % (columns, values)
-        cur.execute(sql, request)
+        keys = "request browser major minor os width bpp js java flash media expire".split()
+        database.insert('request', keys, values)
 
 
 def redirect():

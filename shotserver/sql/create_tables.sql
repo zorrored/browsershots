@@ -33,16 +33,16 @@ engine INT REFERENCES engine,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-CREATE TABLE platform (
-platform SERIAL PRIMARY KEY NOT NULL,
+CREATE TABLE opsys (
+opsys SERIAL PRIMARY KEY NOT NULL,
 name VARCHAR(20) NOT NULL,
 manufacturer VARCHAR(20),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-CREATE TABLE platform_version (
-platform_version SERIAL PRIMARY KEY NOT NULL,
-platform INT NOT NULL REFERENCES platform,
+CREATE TABLE opsys_version (
+opsys_version SERIAL PRIMARY KEY NOT NULL,
+opsys INT NOT NULL REFERENCES opsys,
 distro VARCHAR(20),
 codename VARCHAR(20),
 major INT,
@@ -54,7 +54,7 @@ creator INT NOT NULL REFERENCES person);
 CREATE TABLE factory (
 factory SERIAL PRIMARY KEY NOT NULL,
 name VARCHAR(20) NOT NULL UNIQUE,
-platform_version INT NOT NULL REFERENCES platform_version,
+opsys_version INT NOT NULL REFERENCES opsys_version,
 architecture INT NOT NULL REFERENCES architecture,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person,
@@ -107,8 +107,8 @@ browser INT NOT NULL REFERENCES browser,
 browser_version INT,
 major INT,
 minor INT,
-platform INT,
-platform_version INT,
+opsys INT,
+opsys_version INT,
 screenshot INT REFERENCES screenshot);
 
 CREATE TABLE lock (

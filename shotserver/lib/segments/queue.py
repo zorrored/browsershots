@@ -38,7 +38,7 @@ def write():
         xhtml.write_open_tag('table', _id="queue")
         xhtml.write_table_row("Browser OS Width Submitted Expires Options".split(), 'th')
         for request in database.request.select_by_website(req.params.website):
-            browser, major, minor, platform, width, bpp, javascript, java, flash, media, submitted, expire = request
+            browser, major, minor, opsys, width, bpp, javascript, java, flash, media, submitted, expire = request
             if major is not None:
                 browser += " %d" % major
             if minor is not None:
@@ -57,7 +57,7 @@ def write():
                     options.append(media)
                 else:
                     options.append("Windows Media Player")
-            xhtml.write_table_row((browser, platform, width,
+            xhtml.write_table_row((browser, opsys, width,
                                    time.strftime('%H:%M', time.localtime(submitted)),
                                    time.strftime('%H:%M', time.localtime(submitted + expire)),
                                    ', '.join(options)))

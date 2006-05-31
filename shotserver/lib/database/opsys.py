@@ -18,7 +18,7 @@
 # MA 02111-1307, USA.
 
 """
-Database interface for platform table.
+Database interface for opsys table.
 """
 
 __revision__ = '$Rev: 259 $'
@@ -27,12 +27,12 @@ __author__ = '$Author: johann $'
 
 def get_name_dict():
     """
-    Get a mapping from lowercase platform name to id (numeric primary key).
+    Get a mapping from lowercase operating system name to id (numeric primary key).
     """
-    cur.execute('SELECT platform, name FROM platform')
+    cur.execute('SELECT opsys, name FROM opsys')
     result = {}
-    for platform, name in cur.fetchall():
+    for opsys, name in cur.fetchall():
         if name == 'Mac OS':
             name = 'Mac'
-        result[name.lower()] = platform
+        result[name.lower()] = opsys
     return result
