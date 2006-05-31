@@ -8,7 +8,7 @@ SELECT DISTINCT name, distro, codename, major, minor, manufacturer, mobile
 FROM os JOIN os_version USING (os)
 ORDER BY name;
 
-SELECT factory.name, platform.name, os.name, 
+SELECT factory.name, platform.name, os.name,
 os_version.distro, os_version.codename, os_version.major, os_version.minor,
 person.name
 FROM factory
