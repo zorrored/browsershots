@@ -18,31 +18,41 @@
 # MA 02111-1307, USA.
 
 """
-Show the latest news headlines from the blog.
+Output formatting for human consumption.
 """
 
-__revision__ = '$Rev: 77 $'
-__date__ = '$Date: 2006-03-29 00:48:25 +0200 (Wed, 29 Mar 2006) $'
+__revision__ = '$Rev: 269 $'
+__date__ = '$Date: 2006-05-31 22:15:32 +0200 (Wed, 31 May 2006) $'
 __author__ = '$Author: johann $'
 
-import re
-from shotserver03.interface import xhtml, human
-
-items = re.compile('<item>\s*<title>(.+?)</title>\s*<link>(http.+?)</link>').findall
-def write():
+def cutoff(text, maxlen):
     """
-    Write XHTML div with latest news headlines.
+    Shorten a string if necessary, trying to cut at space.
+    Up to <maxlen> characters of the original string will be preserved.
+    >>> cutoff('abc', 3)
+    'abc'
+    >>> cutoff('abcd', 3)
+    'abc...'
+    >>> cutoff('a bc', 3)
+    'a ...'
+    >>> cutoff('ab cd', 3)
+    'ab ...'
+    >>> cutoff('abc de', 3)
+    'abc...'
+    >>> cutoff('abcd ef', 3)
+    'abc...'
     """
-    xhtml.write_open_tag_line('div', _id="news")
-    xhtml.write_tag_line('h2', "Latest News")
+    if len(text) <= maxlen:
+        return text
+    cut = text.rfind(' ', 0, maxlen)
+    if cut == -1:
+        cut = maxlen
+    else:
+        cut += 1
+    return text[:cut] + '...'
 
-    xhtml.write_open_tag_line('ul')
-    rss = file('/var/www/browsershots.org/blog/rss.xml').read()
-    for item in items(rss):
-        title, link = item
-        title = human.cutoff(title, 36)
-        link = xhtml.tag('a', title, href=link)
-        xhtml.write_tag_line('li', link)
-    xhtml.write_close_tag_line('ul')
-
-    xhtml.write_close_tag_line('div') # id="news"
+if __name__ == '__main__':
+    import sys, doctest
+    errors, tests = doctest.testmod()
+    if errors:
+        sys.exit(1)
