@@ -28,6 +28,9 @@ __author__ = '$Author$'
 from shotserver03.interface import xhtml
 
 def write():
-    xhtml.write_open_tag('p', _id="sponsors")
+    """
+    Write XHTML.
+    """
+    xhtml.write_open_tag('div', _id="sponsors")
 
-    xhtml.write_close_tag_line('p') # id="sponsors"
+    xhtml.write_close_tag_line('div') # id="sponsors"

@@ -31,6 +31,9 @@ from shotserver03.interface import xhtml
 max_thumbs = 12
 
 def write():
+    """
+    Write XHTML div with recent screenshots.
+    """
     xhtml.write_open_tag_line('div', _id="recent")
 
     lines = file('/var/www/browsershots.org/png/sizes.txt').readlines()

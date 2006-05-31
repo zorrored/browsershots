@@ -29,12 +29,17 @@ from shotserver03.interface import xhtml
 from shotserver03.segments import inputurl, about, news, sponsors
 
 def title():
+    """Page title."""
     return "Test your web design in different browsers"
 
 class UnexpectedFieldName(Exception):
+    """The posted input contained an unexpected field name."""
     pass
 
 def read_form():
+    """
+    Read the posted input.
+    """
     result = {}
     accept_fields = 'error url'.split()
     for name in accept_fields:
@@ -46,7 +51,9 @@ def read_form():
     return result
 
 def body():
-    # xhtml.write_tag_line('p', "<b>Status:</b> A design study, a technology preview, a work in progress.")
+    """
+    Write the front page.
+    """
     url = ''
     if req.info.form:
         parameters = read_form()
