@@ -31,10 +31,6 @@ class TableDict:
     """
     Print instance variables in XHTML table rows.
     """
-
-    def __init__(self):
-        pass
-
     def write_table_rows(self, prefix = ''):
         """
         Debug instance variables in XHTML table rows.
