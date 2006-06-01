@@ -25,10 +25,7 @@ __revision__ = '$Rev: 281 $'
 __date__ = '$Date: 2006-06-01 07:57:09 +0200 (Thu, 01 Jun 2006) $'
 __author__ = '$Author: johann $'
 
-import re
 from shotserver03 import xmlrpc
-
-signature_match = re.compile(r'(\w+)\(([^\)]*)\)\s+=>\s+(\w+)').match
 
 magic_names = {'listMethods': 'list_methods',
                'methodHelp': 'method_help',
@@ -54,10 +51,8 @@ def method_help(module_methodname):
     >>> method_help('system.method_help')
     'Get the help text for an XML-RPC method.'
     """
-    modulename, methodname = xmlrpc.splitname(module_methodname)
-    module, method = xmlrpc.module_method(modulename, methodname)
-    dummy, doc = xmlrpc.split_docstring(methodname, method.__doc__)
-    return doc
+    dummy, method = xmlrpc.module_method(module_methodname)
+    return xmlrpc.split_docstring(method.__doc__)[1]
 
 def method_signature(module_methodname):
     """
@@ -70,20 +65,8 @@ def method_signature(module_methodname):
     >>> method_signature('system.method_signature')
     [['array', 'string']]
     """
-    modulename, methodname = xmlrpc.splitname(module_methodname)
-    module, method = xmlrpc.module_method(modulename, methodname)
-    lines, dummy = xmlrpc.split_docstring(methodname, method.__doc__)
-    signatures = []
-    for line in lines:
-        match = signature_match(line)
-        if match:
-            name, args, result = match.groups()
-            if module_methodname == name or module_methodname.endswith('.' + name):
-                signature = [result]
-                for arg in args.split(','):
-                    signature.append(arg.strip())
-                signatures.append(signature)
-    return signatures
+    dummy, method = xmlrpc.module_method(module_methodname)
+    return xmlrpc.split_docstring(method.__doc__)[0]
 
 if __name__ == '__main__':
     import sys, doctest
