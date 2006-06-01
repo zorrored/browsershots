@@ -27,6 +27,9 @@ __author__ = '$Author: johann $'
 
 import xmlrpclib, re
 
+# A list of sub-modules to export through XML-RPC.
+export_modules = ['system']
+
 def import_deep(name):
     """
     Import a module from some.levels.deep and return the module

@@ -27,6 +27,10 @@ __author__ = '$Author: johann $'
 
 from shotserver03 import xmlrpc
 
+# A list of methods to export through XML-RPC.
+export_methods = ['listMethods', 'methodHelp', 'methodSignature']
+
+# Mapping virtual names to actual functions.
 magic_names = {'listMethods': 'list_methods',
                'methodHelp': 'method_help',
                'methodSignature': 'method_signature'}
@@ -35,10 +39,18 @@ def list_methods():
     """
     list_methods() => array
     List all XML-RPC methods that this server supports.
-    >>> list_methods()
-    ('system.listMethods', 'system.methodHelp', 'system.methodSignature')
+    >>> type(list_methods()) is list
+    True
+    >>> len(list_methods()) > 2
+    True
     """
-    return ('system.listMethods', 'system.methodHelp', 'system.methodSignature')
+    result = []
+    for modulename in xmlrpc.export_modules:
+        module = xmlrpc.import_deep('shotserver03.xmlrpc.' + modulename)
+        assert hasattr(module, 'export_methods')
+        for methodname in module.export_methods:
+            result.append(modulename + '.' + methodname)
+    return result
 
 def method_signature(module_methodname):
     """
