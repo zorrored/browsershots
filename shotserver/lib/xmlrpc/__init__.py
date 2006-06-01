@@ -27,22 +27,6 @@ __author__ = '$Author: johann $'
 
 import xmlrpclib, re
 
-explain_xmlrpc = """\
-Your user agent did not send a valid XML-RPC request.
-Use an XML-RPC client to access this resource.
-The following is an example client in Python.
-
-import sys, xmlrpclib
-url = sys.argv[1]
-server = xmlrpclib.Server(url)
-for method in server.system.listMethods():
-    for signature in server.system.methodSignature(method):
-        signature = ', '.join(signature)
-        print "%s(%s)" % (method, signature)
-    print server.system.methodHelp(method)
-    print
-"""
-
 def import_deep(name):
     """
     Import a module from some.levels.deep and return the module
@@ -116,8 +100,14 @@ def handler(req):
     from mod_python import apache
     data = req.read()
     if not data:
+        explain = (
+            "Your browser does not speak XML-RPC.",
+            "Use an XML-RPC client to access this resource.",
+            "The following is an example client in Python.")
         req.content_type = 'text/plain'
-        req.write(explain_xmlrpc)
+        req.write('\n'.join(explain))
+        req.write('\n\n')
+        req.sendfile('/usr/bin/xmlrpc_help.py')
         return apache.OK
     params, module_methodname = xmlrpclib.loads(data)
     dummy, method = module_method(module_methodname)
