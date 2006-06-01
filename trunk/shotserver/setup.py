@@ -22,6 +22,7 @@ setup(name = 'ShotServer',
       scripts = [
             'scripts/shotserver03_db_drop_create.sh',
             'scripts/shotserver03_resize.py',
+            'scripts/xmlrpc_help.py',
             ],
       data_files = [
             ('share/shotserver03/style', [
