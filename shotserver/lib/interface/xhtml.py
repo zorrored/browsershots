@@ -20,9 +20,9 @@
 """
 XHTML formatting and output.
 
+>>> __builtins__.req = sys.stdout
 >>> print open_tag('a', href = '/'),
 <a href="/">
-
 >>> print close_tag('a'),
 </a>
 """
@@ -159,18 +159,8 @@ def write_tag(*args, **attr):
     """Send tag to user agent."""
     req.write(tag(*args, **attr))
 
-class Writer:
-    """
-    Wrapper around sys.stdout.write() for use with doctest.
-    """
-    @staticmethod
-    def write(text):
-        """Write to standard output."""
-        sys.stdout.write(text)
-
 if __name__ == '__main__':
     import sys, doctest
-    __builtins__.req = Writer()
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)

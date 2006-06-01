@@ -19,6 +19,7 @@
 
 """
 XHTML formatting for simple menus.
+>>> __builtins__.req = sys.stdout
 """
 
 __revision__ = '$Rev: 254 $'
@@ -42,16 +43,8 @@ def write(_class, items):
             xhtml.write_tag('li', xhtml.tag('a', text, href=link))
     xhtml.write_close_tag_line('ul') # class="float-right"
 
-class Writer:
-    """Wrapper around sys.stdout.write() for use with doctest."""
-    @staticmethod
-    def write(text):
-        """Write to standard output."""
-        sys.stdout.write(text)
-
 if __name__ == '__main__':
     import sys, doctest
-    __builtins__.req = Writer()
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)
