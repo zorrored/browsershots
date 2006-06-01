@@ -63,8 +63,8 @@ def write_table_rows(obj, prefix = ''):
     keys.sort()
     for key in keys:
         value = obj.__dict__[key]
-        if hasattr(value, 'write_table_rows'):
-            value.write_table_rows(prefix + key + '.')
+        if hasattr(value, '__dict__'):
+            write_table_rows(value, prefix + key + '.')
         else:
             value = str(value)
             value = value.replace('<', '&lt;')

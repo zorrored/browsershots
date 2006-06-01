@@ -28,8 +28,7 @@ __author__ = '$Author$'
 
 import sys, traceback
 from shotserver03 import request
-from shotserver03.request import tabledict
-from shotserver03.interface import xhtml
+from shotserver03.interface import xhtml, human
 from shotserver03.segments import languages, logo, topmenu, bottom
 
 def import_deep(name):
@@ -92,7 +91,7 @@ def handler(req):
     try:
         __builtins__['req'] = req
         req.info = request.RequestInfo()
-        req.params = tabledict.TableDict()
+        req.params = request.params.Params()
 
         if req.method == 'POST':
             action_module = import_deep('shotserver03.post.%s' % req.info.action)
@@ -122,7 +121,9 @@ def handler(req):
 
         action_module.body()
 
-        # req.info.write_table()
+        # human.write_table(req.info)
+        # human.write_table(req.params)
+
         bottom.write()
 
         xhtml.write_close_tag_line('div') # id="all"
