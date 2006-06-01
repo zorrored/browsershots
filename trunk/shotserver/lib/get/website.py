@@ -118,7 +118,11 @@ def body():
         xhtml.write_tag_line('h2', "Select browsers and configuration")
 
     xhtml.write_open_tag_line('form', action="/submitjobs/", method="post")
-    xhtml.write_tag_line('input', _type="hidden", _name="url", value=req.params.escaped)
+
+    xhtml.write_open_tag('div')
+    xhtml.write_tag('input', _type="hidden", _name="url", value=req.params.escaped)
+    xhtml.write_close_tag_line('div')
+
     browsers.write()
     features.write()
     xhtml.write_close_tag_line('form')
