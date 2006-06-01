@@ -19,6 +19,7 @@
 
 """
 Output formatting for human consumption.
+>>> __builtins__.req = sys.stdout
 """
 
 __revision__ = '$Rev: 269 $'
@@ -56,8 +57,6 @@ def cutoff(text, maxlen):
 def write_table_rows(obj, prefix = ''):
     """
     Debug instance variables in XHTML table rows.
-    >>> write_table_rows(req)
-    <tr><th>dummy:</th><td>42</td></tr>
     """
     keys = obj.__dict__.keys()
     keys.sort()
@@ -73,27 +72,26 @@ def write_table_rows(obj, prefix = ''):
                 xhtml.tag('th', prefix + key + ':') +
                 xhtml.tag('td', value))
 
-def write_table(obj):
+def write_table(obj, prefix = ''):
     """
     Debug instance variables with XHTML table.
+    >>> write_table(p, 'p.')
+    <table>
+    <tr><th>p.name:</th><td>abc</td></tr>
+    <tr><th>p.sub.x:</th><td>42</td></tr>
+    </table>
     """
     xhtml.write_open_tag_line('table')
-    write_table_rows(obj)
+    write_table_rows(obj, prefix)
     xhtml.write_close_tag_line('table')
-
-class Writer:
-    """
-    Wrapper around sys.stdout.write() for use with doctest.
-    """
-    @staticmethod
-    def write(text):
-        """Write to standard output."""
-        sys.stdout.write(text)
 
 if __name__ == '__main__':
     import sys, doctest
-    __builtins__.req = Writer()
-    req.dummy = 42
+    from shotserver03.request import params
+    p = params.Params()
+    p.name = 'abc'
+    p.sub = params.Params()
+    p.sub.x = 42
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)
