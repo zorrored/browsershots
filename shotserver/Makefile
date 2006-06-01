@@ -9,6 +9,7 @@ all : formatting doctest pylint
 formatting :
 	@echo Checking formatting...
 	@find lib scripts -name "*.py" \
+	    | grep -v scripts/xmlrpc_help.py \
 	    | xargs scripts/shotserver03_formatting.py
 
 doctest :
@@ -23,6 +24,7 @@ doctest :
 pylint :
 	@echo Checking pylint...
 	@find lib scripts -name "*.py" \
+	    | grep -v scripts/xmlrpc_help.py \
 	    | xargs pylint --rcfile=conf/pylintrc --disable-msg=$(DISABLE) \
 	    | grep -v "Undefined variable 'req'" \
 	    | grep -v "Undefined variable 'con'" \
