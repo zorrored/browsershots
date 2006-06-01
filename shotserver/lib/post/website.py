@@ -21,9 +21,9 @@
 Insert a new website into the database.
 """
 
-__revision__ = '$Rev: 117 $'
-__date__ = '$Date: 2006-04-08 08:51:18 +0200 (Sat, 08 Apr 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 import re, httplib, urllib, urlparse, socket
 from mod_python import util

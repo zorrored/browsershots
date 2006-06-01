@@ -21,9 +21,9 @@
 Database interface for opsys table.
 """
 
-__revision__ = '$Rev: 259 $'
-__date__ = '$Date: 2006-05-31 17:28:15 +0200 (Wed, 31 May 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 def get_name_dict():
     """

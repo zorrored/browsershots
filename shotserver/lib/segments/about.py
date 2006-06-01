@@ -21,9 +21,9 @@
 Explain the purpose of this project.
 """
 
-__revision__ = '$Rev: 77 $'
-__date__ = '$Date: 2006-03-29 00:48:25 +0200 (Wed, 29 Mar 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 

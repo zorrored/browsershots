@@ -22,9 +22,9 @@ Output formatting for human consumption.
 >>> __builtins__.req = sys.stdout
 """
 
-__revision__ = '$Rev: 269 $'
-__date__ = '$Date: 2006-05-31 22:15:32 +0200 (Wed, 31 May 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 

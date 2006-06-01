@@ -21,9 +21,9 @@
 Show all queued requests for a given website.
 """
 
-__revision__ = '$Rev: 41 $'
-__date__ = '$Date: 2006-03-15 07:46:49 +0100 (Wed, 15 Mar 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 import time
 from shotserver03.interface import xhtml

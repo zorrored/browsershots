@@ -21,9 +21,9 @@
 System methods for introspection.
 """
 
-__revision__ = '$Rev: 281 $'
-__date__ = '$Date: 2006-06-01 07:57:09 +0200 (Thu, 01 Jun 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 from shotserver03 import xmlrpc
 
