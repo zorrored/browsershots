@@ -13,10 +13,12 @@ formatting :
 
 doctest :
 	@echo Checking doctest...
+	@python lib/database/__init__.py
 	@python lib/interface/xhtml.py
 	@python lib/interface/menu.py
 	@python lib/interface/human.py
-	@python lib/database/__init__.py
+	@python lib/xmlrpc/__init__.py
+	@python lib/xmlrpc/system.py
 
 pylint :
 	@echo Checking pylint...

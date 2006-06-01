@@ -27,7 +27,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import sys, traceback
-from shotserver03 import request
+from shotserver03 import request, xmlrpc
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import languages, logo, topmenu, bottom
 
@@ -87,6 +87,9 @@ def handler(req):
     """
     Process a HTTP request.
     """
+    if req.uri == '/shotserver/xmlrpc/':
+        return xmlrpc.handler(req)
+
     from mod_python import apache
     try:
         __builtins__['req'] = req
