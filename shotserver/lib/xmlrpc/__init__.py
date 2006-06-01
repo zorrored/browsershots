@@ -69,24 +69,27 @@ def module_method(module_methodname):
     return module, method
 
 whitespace_match = re.compile(r'\n*([\s\t]*)').match
-signature_match = re.compile(r'(\w+)\(([^\)]*)\)\s+=>\s+(\w+)').match
+signature_match = re.compile(r'(\w+)\(([^\)]*)\)\s+=>\s+(\w+)\s*$').match
 def split_docstring(doc):
     """
     split_docstring(string) => array
-
     Split a docstring into signature lines and documentation.
-    Remove indentation and doctest dialogue.
-
-    >>> split_docstring('split_docstring')
-    (['split_docstring(string) => array'], 'Split a docstring into signature lines and documentation.
-    Remove indentation and doctest dialogue.')
+        Remove first level of docstring indentation.
+        Also skip doctest dialogue.
+    >>> split_docstring(split_docstring.__doc__)[0]
+    [['array', 'string']]
+    >>> print split_docstring(split_docstring.__doc__)[1]
+    Split a docstring into signature lines and documentation.
+        Remove first level of docstring indentation.
+        Also skip doctest dialogue.
     """
+    # Remove indentation.
     whitespace = whitespace_match(doc).group(1)
     if whitespace:
         doc = doc.replace('\n'+whitespace, '\n')
     doc = doc.strip()
     lines = doc.split('\n')
-
+    # Parse signature lines.
     signatures = []
     match = signature_match(lines[0])
     while match:
@@ -97,12 +100,13 @@ def split_docstring(doc):
         signatures.append(signature)
         lines.pop(0)
         match = signature_match(lines[0])
-
+    # Remove doctest dialogue.
     doc = []
-    while lines and not lines[0].startswith('>>>'):
-        doc.append(lines.pop(0))
+    while lines:
+        if lines[0].startswith('>>>'):
+            break
+        doc.append(lines.pop(0).rstrip())
     doc = '\n'.join(doc).strip()
-
     return signatures, doc
 
 def handler(req):
@@ -121,3 +125,9 @@ def handler(req):
     answer = xmlrpclib.dumps((answer, ), methodresponse = True)
     req.write(answer)
     return apache.OK
+
+if __name__ == '__main__':
+    import sys, doctest
+    errors, tests = doctest.testmod()
+    if errors:
+        sys.exit(1)
