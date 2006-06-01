@@ -21,9 +21,9 @@
 Show the project logo.
 """
 
-__revision__ = '$Rev: 161 $'
-__date__ = '$Date: 2006-05-20 22:52:43 +0200 (Sat, 20 May 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 

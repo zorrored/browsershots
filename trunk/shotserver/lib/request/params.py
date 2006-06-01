@@ -21,9 +21,9 @@
 Application parameters from a HTTP request.
 """
 
-__revision__ = '$Rev: 279 $'
-__date__ = '$Date: 2006-05-31 23:30:07 +0200 (Wed, 31 May 2006) $'
-__author__ = '$Author: johann $'
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
 
 class Params:
     """Store request parameters."""
