@@ -87,7 +87,7 @@ def handler(req):
     """
     Process a HTTP request.
     """
-    if req.uri == '/shotserver/xmlrpc/':
+    if req.uri.strip('/') == 'shotserver/xmlrpc':
         return xmlrpc.handler(req)
 
     from mod_python import apache
