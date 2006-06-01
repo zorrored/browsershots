@@ -34,39 +34,33 @@ magic_names = {'listMethods': 'list_methods',
 def list_methods():
     """
     list_methods() => array
-
     List all XML-RPC methods that this server supports.
-
     >>> list_methods()
-    ('system.list_methods', 'system.method_help', 'system.method_signature')
+    ('system.listMethods', 'system.methodHelp', 'system.methodSignature')
     """
-    return ('system.list_methods', 'system.method_help', 'system.method_signature')
-
-def method_help(module_methodname):
-    """
-    method_help(string) => string
-
-    Get the help text for an XML-RPC method.
-
-    >>> method_help('system.method_help')
-    'Get the help text for an XML-RPC method.'
-    """
-    dummy, method = xmlrpc.module_method(module_methodname)
-    return xmlrpc.split_docstring(method.__doc__)[1]
+    return ('system.listMethods', 'system.methodHelp', 'system.methodSignature')
 
 def method_signature(module_methodname):
     """
     method_signature(string) => array
-
     Get all possible signatures for an XML-RPC method. Each signature
     is an array of type names, the first entry of each signature is
     the method's return type.
-
     >>> method_signature('system.method_signature')
     [['array', 'string']]
     """
     dummy, method = xmlrpc.module_method(module_methodname)
     return xmlrpc.split_docstring(method.__doc__)[0]
+
+def method_help(module_methodname):
+    """
+    method_help(string) => string
+    Get the help text for an XML-RPC method.
+    >>> method_help('system.method_help')
+    'Get the help text for an XML-RPC method.'
+    """
+    dummy, method = xmlrpc.module_method(module_methodname)
+    return xmlrpc.split_docstring(method.__doc__)[1]
 
 if __name__ == '__main__':
     import sys, doctest
