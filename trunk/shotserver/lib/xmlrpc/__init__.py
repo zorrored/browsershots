@@ -54,15 +54,12 @@ def import_deep(name):
         mod = getattr(mod, comp)
     return mod
 
-def splitname(module_methodname):
-    """Split the module from a qualified method name."""
-    return module_methodname.rsplit('.', 1)
-
-def module_method(modulename, methodname):
+def module_method(module_methodname):
     """
     Import a module and method by string names.
     If the module has magic names, these will be considered.
     """
+    modulename, methodname = module_methodname.rsplit('.', 1)
     module = import_deep('shotserver03.xmlrpc.%s' % modulename)
     if hasattr(module, 'magic_names'):
         if module.magic_names.has_key(methodname):
@@ -72,7 +69,8 @@ def module_method(modulename, methodname):
     return module, method
 
 whitespace_match = re.compile(r'\n*([\s\t]*)').match
-def split_docstring(methodname, doc):
+signature_match = re.compile(r'(\w+)\(([^\)]*)\)\s+=>\s+(\w+)').match
+def split_docstring(doc):
     """
     split_docstring(string) => array
 
@@ -88,13 +86,23 @@ def split_docstring(methodname, doc):
         doc = doc.replace('\n'+whitespace, '\n')
     doc = doc.strip()
     lines = doc.split('\n')
+
     signatures = []
+    match = signature_match(lines[0])
+    while match:
+        dummy, params, result = match.groups()
+        signature = [result]
+        for param in params.split(','):
+            signature.append(param.strip())
+        signatures.append(signature)
+        lines.pop(0)
+        match = signature_match(lines[0])
+
     doc = []
-    while lines[0].startswith(methodname + '('):
-        signatures.append(lines.pop(0).strip())
     while lines and not lines[0].startswith('>>>'):
         doc.append(lines.pop(0))
     doc = '\n'.join(doc).strip()
+
     return signatures, doc
 
 def handler(req):
@@ -107,9 +115,8 @@ def handler(req):
         req.content_type = 'text/plain'
         req.write(explain_xmlrpc)
         return apache.OK
-    params, methodname = xmlrpclib.loads(data)
-    modulename, methodname = splitname(methodname)
-    module, method = module_method(modulename, methodname)
+    params, module_methodname = xmlrpclib.loads(data)
+    dummy, method = module_method(module_methodname)
     answer = method(*params)
     answer = xmlrpclib.dumps((answer, ), methodresponse = True)
     req.write(answer)
