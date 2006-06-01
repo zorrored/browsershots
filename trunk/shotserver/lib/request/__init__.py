@@ -25,7 +25,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.request import uri
+from shotserver03.request import uri, params
 from shotserver03.interface import xhtml
 
 class RequestInfo:
