@@ -16,10 +16,13 @@ setup(name = 'ShotServer',
             'shotserver03.database',
             'shotserver03.interface',
             'shotserver03.request',
-            'shotserver03.segments'],
+            'shotserver03.segments',
+            'shotserver03.xmlrpc',
+            ],
       scripts = [
             'scripts/shotserver03_db_drop_create.sh',
-            'scripts/shotserver03_resize.py'],
+            'scripts/shotserver03_resize.py',
+            ],
       data_files = [
             ('share/shotserver03/style', [
                   'style/style.css',
@@ -29,5 +32,6 @@ setup(name = 'ShotServer',
                   'style/blue.jpg',
                   'style/gray.jpg',
                   'style/zoom.js',
-                  'style/forms.js'])],
+                  'style/forms.js',
+                  ])],
       )
