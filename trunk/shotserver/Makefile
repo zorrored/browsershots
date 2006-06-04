@@ -2,7 +2,8 @@
 # R0903 - Not enough public methods
 # W0142 - Used * or ** magic
 # W0232 - Class has no __init__ method
-DISABLE="R0903,W0142,W0232"
+# W0622 - Redefining built-in
+DISABLE="R0903,W0142,W0232,W0622"
 
 all : formatting doctest pylint
 
@@ -26,9 +27,6 @@ pylint :
 	@find lib scripts -name "*.py" \
 	    | grep -v scripts/xmlrpc_help.py \
 	    | xargs pylint --rcfile=conf/pylintrc --disable-msg=$(DISABLE) \
-	    | grep -v "Undefined variable 'req'" \
-	    | grep -v "Undefined variable 'con'" \
-	    | grep -v "Undefined variable 'cur'" \
 	    || exit 0
 
 install :
