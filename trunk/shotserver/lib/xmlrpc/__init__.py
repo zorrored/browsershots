@@ -28,7 +28,7 @@ __author__ = '$Author$'
 import xmlrpclib, re
 
 # A list of sub-modules to export through XML-RPC.
-export_modules = ['system']
+export_modules = ['system', 'auth']
 
 def import_deep(name):
     """
@@ -100,6 +100,7 @@ def handler(req):
     """
     Handler for XML-RPC requests.
     """
+    __builtins__['req'] = req
     from mod_python import apache
     data = req.read()
     if not data:
