@@ -110,7 +110,7 @@ argument-rgx=[a-z_][a-z0-9_]*$
 variable-rgx=[a-z_][a-z0-9_]*$
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=os,_
+good-names=os,_,ip
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
@@ -138,7 +138,7 @@ dummy-variables=_,dummy
 
 # List of additional names supposed to be defined in builtins. Remember that you
 # should avoid to define new builtins when possible.
-additional-builtins=
+additional-builtins=req,con,cur
 
 
 
