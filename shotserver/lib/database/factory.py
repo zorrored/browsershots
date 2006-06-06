@@ -34,3 +34,19 @@ def select_serial(name):
     if result is not None:
         return result[0]
     raise KeyError("factory.name=%s" % name)
+
+def select_salt(factory):
+    """
+    Get the password salt for a factory.
+    If there's no factory password, get the factory owner's salt.
+    """
+    sql = []
+    sql.append("SELECT factory.salt, owner.salt")
+    sql.append("FROM factory")
+    sql.append("JOIN person AS owner ON factory.owner = owner.person")
+    sql.append("WHERE factory = %s")
+    cur.execute(' '.join(sql), (factory, ))
+    factory_salt, owner_salt = cur.fetchone()
+    if factory_salt is None:
+        return owner_salt
+    return factory_salt

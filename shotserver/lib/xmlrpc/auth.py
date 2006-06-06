@@ -27,18 +27,44 @@ __author__ = '$Author$'
 
 from shotserver03 import database
 
-export_methods = ['get_nonce']
+export_methods = ['challenge', 'test']
 
-def get_nonce(factory):
+def challenge(factory):
     """
-    get_nonce(string) => string
-    Get a pseudo-random authorization token (128 bits hexadecimal).
-    The first parameter is the name of the factory.
+    challenge(string) => string
+    Parameter:
+    - The name of the factory (string, length max 20).
+    Return value:
+    - Authorization challenge (hex string, length 36).
+      The first 4 characters contain the password salt.
+      The remaining 32 characters contain a random nonce.
     """
     database.connect()
     try:
         factory = database.factory.select_serial(factory)
-        nonce = database.nonce.create_factory_nonce(factory, req.connection.remote_ip)
+        salt = database.factory.select_salt(factory)
+        ip = req.connection.remote_ip
+        nonce = database.nonce.create_factory_nonce(factory, ip)
     finally:
         database.disconnect()
-    return nonce
+    return salt + nonce
+
+def test(factory, crypt):
+    """
+    test(string, string) => string
+    Test factory authentication.
+    Parameters:
+    - The name of the factory (string, length max 20).
+    - Crypted password (hex string, length 32):
+      crypt = md5(md5(salt + password) + nonce)
+    Return value:
+    - String 'OK' or error message.
+    """
+    database.connect()
+    try:
+        factory = database.factory.select_serial(factory)
+        ip = req.connection.remote_ip
+        result = database.nonce.authenticate_factory(factory, ip, crypt)
+    finally:
+        database.disconnect()
+    return result

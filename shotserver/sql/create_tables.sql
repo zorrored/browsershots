@@ -1,28 +1,30 @@
 DROP TABLE person CASCADE;
 CREATE TABLE person (
 person SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) NOT NULL UNIQUE,
+name VARCHAR(20) NOT NULL,
+salt CHAR(4) NOT NULL CHECK (salt ~ '[0-9a-f]{4}'),
+password CHAR(32) NOT NULL CHECK (password ~ '[0-9a-f]{32}'),
 email VARCHAR(60) NOT NULL UNIQUE,
 created TIMESTAMP DEFAULT NOW());
 
 DROP TABLE engine CASCADE;
 CREATE TABLE engine (
 engine SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20),
+name VARCHAR(20) CHECK (name ~ '^\\w+$'),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
 DROP TABLE architecture CASCADE;
 CREATE TABLE architecture (
 architecture SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20),
+name VARCHAR(20) CHECK (name ~ '^\\w+$'),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
 DROP TABLE browser CASCADE;
 CREATE TABLE browser (
 browser SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) NOT NULL UNIQUE,
+name VARCHAR(20) NOT NULL UNIQUE CHECK (name ~ '^\\w+$'),
 manufacturer VARCHAR(20),
 terminal BOOLEAN NOT NULL DEFAULT FALSE,
 created TIMESTAMP DEFAULT NOW(),
@@ -61,13 +63,16 @@ creator INT NOT NULL REFERENCES person);
 DROP TABLE factory CASCADE;
 CREATE TABLE factory (
 factory SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) NOT NULL UNIQUE,
+name VARCHAR(20) NOT NULL UNIQUE CHECK (name ~ '^\\w+$'),
+salt CHAR(4) CHECK (salt ~ '[0-9a-f]{4}'),
+password CHAR(32) CHECK (password ~ '[0-9a-f]{32}'),
+owner INT NOT NULL REFERENCES person,
 opsys_version INT NOT NULL REFERENCES opsys_version,
 architecture INT NOT NULL REFERENCES architecture,
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person,
 last_poll TIMESTAMP,
-last_upload TIMESTAMP);
+last_upload TIMESTAMP,
+created TIMESTAMP DEFAULT NOW(),
+creator INT NOT NULL REFERENCES person);
 
 DROP TABLE factory_browser CASCADE;
 CREATE TABLE factory_browser (
