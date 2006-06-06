@@ -98,16 +98,19 @@ INSERT INTO factory_browser (factory, browser_version) VALUES (9, 8);
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 1024, 768);
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 800, 600);
 
+INSERT INTO factory_feature (factory, name, intval) VALUES (1, 'bpp', 24);
+INSERT INTO factory_feature (factory, name, strval) VALUES (1, 'flash', '7.0 r63');
+
 INSERT INTO website (url) VALUES ('http://foo');
 INSERT INTO website (url) VALUES ('http://bar');
 INSERT INTO website (url) VALUES ('http://baz');
 
-INSERT INTO request (website) VALUES (1);
-INSERT INTO request (website) VALUES (2);
-INSERT INTO request (website) VALUES (3);
+INSERT INTO request (website, expire) VALUES (1, NOW() + '0:30');
+INSERT INTO request (website, expire) VALUES (2, NOW() + '1:00');
+INSERT INTO request (website, expire) VALUES (3, NOW() + '4:00');
 
-INSERT INTO request_browser (request, browser, major, minor) VALUES (1, 1, 1, 5);
-INSERT INTO request_browser (request, browser, opsys) VALUES (1, 1, 1);
+INSERT INTO request_browser (request, browser, major, minor, width) VALUES (1, 1, 1, 5, 1024);
+INSERT INTO request_browser (request, browser, opsys, width) VALUES (1, 1, 1, 1024);
 INSERT INTO request_browser (request, browser) VALUES (1, 2);
 INSERT INTO request_browser (request, browser) VALUES (2, 2);
 INSERT INTO request_browser (request, browser) VALUES (3, 2);

@@ -88,9 +88,12 @@ height INT NOT NULL);
 DROP TABLE factory_feature CASCADE;
 CREATE TABLE factory_feature (
 factory INT NOT NULL REFERENCES factory,
-name CHAR(8) NOT NULL,
+name VARCHAR(16) NOT NULL,
 intval INT,
-strval CHAR(16));
+strval VARCHAR(16),
+CONSTRAINT intval_or_strval CHECK (
+(intval IS NULL AND strval IS NOT NULL) OR
+(strval IS NULL AND intval IS NOT NULL)));
 
 DROP TABLE screenshot CASCADE;
 CREATE TABLE screenshot (
@@ -111,11 +114,11 @@ CREATE TABLE request (
 request SERIAL PRIMARY KEY NOT NULL,
 website INT NOT NULL,
 bpp INT,
-js CHAR(4),
-java CHAR(16),
-flash CHAR(16),
-media CHAR(16),
-expire INT,
+js VARCHAR(16),
+java VARCHAR(16),
+flash VARCHAR(16),
+media VARCHAR(16),
+expire TIMESTAMP,
 created TIMESTAMP DEFAULT NOW(),
 creator INT REFERENCES person);
 
