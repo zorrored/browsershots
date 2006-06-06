@@ -29,12 +29,27 @@ def select_by_website(website):
     """
     Get all jobs for this website.
     """
-    sql = []
-    sql.append("SELECT request, bpp, js, java, flash, media")
-    sql.append(", extract(epoch from request.created)::bigint, expire")
-    sql.append("FROM request")
-    sql.append("WHERE website=%s")
-    sql.append("ORDER BY created")
-    sql = ' '.join(sql)
-    cur.execute(sql, (website, ))
+    cur.execute("""\
+SELECT request, bpp, js, java, flash, media
+, extract(epoch from request.created)::bigint, expire
+FROM request
+WHERE website=%s
+ORDER BY created
+""", (website, ))
     return cur.fetchall()
+
+def match(where):
+    """
+    Get the oldest matching request that isn't expired.
+    """
+    cur.execute("""\
+SELECT url, browser.name, major, minor, width, bpp, js, java, flash, media
+FROM request
+JOIN request_browser USING (request)
+JOIN website USING (website)
+JOIN browser USING (browser)
+WHERE request.expire >= NOW() AND %s
+ORDER BY request.created
+LIMIT 1
+""" % where)
+    return cur.fetchone()
