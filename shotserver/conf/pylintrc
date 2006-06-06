@@ -110,7 +110,7 @@ argument-rgx=[a-z_][a-z0-9_]*$
 variable-rgx=[a-z_][a-z0-9_]*$
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=os,_,ip
+good-names=os,_,ip,js
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
