@@ -1,4 +1,4 @@
-INSERT INTO person (name, email) VALUES ('Johann C. Rocholl', 'jcrocholl@browsershots.org');
+INSERT INTO person (name, salt, password, email) VALUES ('Johann C. Rocholl', 'beef', md5('beefsecret'), 'jcrocholl@browsershots.org');
 
 INSERT INTO architecture (name, creator) VALUES ('i386', 1);
 INSERT INTO architecture (name, creator) VALUES ('PPC', 1);
@@ -62,15 +62,16 @@ INSERT INTO opsys_version (opsys, major, minor, creator) VALUES (6, 5, 8, 1);
 INSERT INTO opsys_version (opsys, major, minor, creator) VALUES (7, 2, 6, 1);
 INSERT INTO opsys_version (opsys, distro, codename, major, minor, creator) VALUES (1, 'Debian', 'Sarge', 3, 1, 1);
 
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('tyll', 1, 1, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('runt', 2, 2, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('quad', 3, 1, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('palm', 4, 4, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('7650', 5, 4, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('lara', 6, 3, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('tari', 7, 3, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('azul', 8, 5, 1);
-INSERT INTO factory (name, opsys_version, architecture, creator) VALUES ('sven', 3, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('tyll', 1, 1, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('runt', 2, 2, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('quad', 3, 1, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('palm', 4, 4, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('7650', 5, 4, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('lara', 6, 3, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('tari', 7, 3, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('azul', 8, 5, 1, 1);
+INSERT INTO factory (name, opsys_version, architecture, creator, owner) VALUES ('sven', 3, 1, 1, 1);
+INSERT INTO factory (name, salt, password, opsys_version, architecture, creator, owner) VALUES ('argo', '1234', md5('1234secret'), 8, 5, 1, 1);
 
 INSERT INTO factory_browser (factory, browser_version) VALUES (1, 1);
 INSERT INTO factory_browser (factory, browser_version) VALUES (1, 10);

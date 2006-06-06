@@ -42,6 +42,31 @@ def create_factory_nonce(factory, ip):
     Make a factory nonce and save it in the database.
     """
     nonce = random_md5()
-    cur.execute("INSERT INTO nonce (nonce, factory, ip) VALUES (%s, %s, %s)",
-                (nonce, factory, ip))
+    cur.execute("INSERT INTO nonce (nonce, factory, ip) VALUES (%s, %s, %s)", (nonce, factory, ip))
     return nonce
+
+def authenticate_factory(factory, ip, crypt):
+    """
+    Authenticate a factory with a crypted password.
+    The crypted password can be created with a nonce:
+    salt = nonce[:4]
+    crypt = md5(md5(salt + password) + nonce)
+    """
+    sql = []
+    sql.append("SELECT nonce FROM nonce")
+    sql.append("JOIN factory USING (factory)")
+    sql.append("JOIN person AS owner ON factory.owner = owner.person")
+    sql.append("WHERE nonce.ip = %s")
+    sql.append("AND (md5(textcat(factory.password, nonce.nonce)) = %s")
+    sql.append("OR md5(textcat(owner.password, nonce.nonce)) = %s)")
+    cur.execute(' '.join(sql), (ip, crypt, crypt))
+    result = cur.fetchone()
+    if result is None:
+        return 'Password mismatch.'
+    else:
+        nonce = result[0]
+        cur.execute("DELETE FROM nonce WHERE nonce = %s", (nonce, ))
+        if cur.rowcount:
+            return 'OK'
+        else:
+            return 'Nonce expired.'
