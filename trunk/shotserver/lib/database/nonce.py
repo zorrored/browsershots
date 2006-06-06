@@ -52,14 +52,14 @@ def authenticate_factory(factory, ip, crypt):
     salt = nonce[:4]
     crypt = md5(md5(salt + password) + nonce)
     """
-    sql = []
-    sql.append("SELECT nonce FROM nonce")
-    sql.append("JOIN factory USING (factory)")
-    sql.append("JOIN person AS owner ON factory.owner = owner.person")
-    sql.append("WHERE nonce.ip = %s")
-    sql.append("AND (md5(textcat(factory.password, nonce.nonce)) = %s")
-    sql.append("OR md5(textcat(owner.password, nonce.nonce)) = %s)")
-    cur.execute(' '.join(sql), (ip, crypt, crypt))
+    cur.execute("""\
+SELECT nonce FROM nonce
+JOIN factory USING (factory)
+JOIN person AS owner ON factory.owner = owner.person
+WHERE nonce.factory = %s AND nonce.ip = %s
+AND (md5(textcat(factory.password, nonce.nonce)) = %s
+OR md5(textcat(owner.password, nonce.nonce)) = %s)
+""", (factory, ip, crypt, crypt))
     result = cur.fetchone()
     if result is None:
         return 'Password mismatch.'
