@@ -32,10 +32,11 @@ export_methods = ['challenge', 'test']
 def challenge(factory):
     """
     challenge(string) => string
+    Generate a random authentication challenge.
     Parameter:
     - The name of the factory (string, length max 20).
     Return value:
-    - Authorization challenge (hex string, length 36).
+    - Authentication challenge (hex string, length 36).
       The first 4 characters contain the password salt.
       The remaining 32 characters contain a random nonce.
     """
@@ -45,9 +46,9 @@ def challenge(factory):
         salt = database.factory.select_salt(factory)
         ip = req.connection.remote_ip
         nonce = database.nonce.create_factory_nonce(factory, ip)
+        return salt + nonce
     finally:
         database.disconnect()
-    return salt + nonce
 
 def test(factory, crypt):
     """
@@ -64,7 +65,6 @@ def test(factory, crypt):
     try:
         factory = database.factory.select_serial(factory)
         ip = req.connection.remote_ip
-        result = database.nonce.authenticate_factory(factory, ip, crypt)
+        return database.nonce.authenticate_factory(factory, ip, crypt)
     finally:
         database.disconnect()
-    return result
