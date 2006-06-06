@@ -40,13 +40,45 @@ def select_salt(factory):
     Get the password salt for a factory.
     If there's no factory password, get the factory owner's salt.
     """
-    sql = []
-    sql.append("SELECT factory.salt, owner.salt")
-    sql.append("FROM factory")
-    sql.append("JOIN person AS owner ON factory.owner = owner.person")
-    sql.append("WHERE factory = %s")
-    cur.execute(' '.join(sql), (factory, ))
+    cur.execute("""\
+SELECT factory.salt, owner.salt
+FROM factory
+JOIN person AS owner ON factory.owner = owner.person
+WHERE factory = %s
+""", (factory, ))
     factory_salt, owner_salt = cur.fetchone()
     if factory_salt is None:
         return owner_salt
     return factory_salt
+
+def features(factory):
+    """
+    Get a WHERE clause that matches jobs for a given factory.
+    """
+    where = []
+    # Match screen resolutions
+    cur.execute("SELECT DISTINCT width FROM factory_screen WHERE factory = %s", (factory, ))
+    alternatives = ['width IS NULL']
+    for row in cur.fetchall():
+        width = row[0]
+        alternatives.append('width = %d' % width)
+    where.append('(%s)' % ' OR '.join(alternatives))
+    # Match factory features
+    cur.execute("SELECT name, intval, strval FROM factory_feature WHERE factory = %s", (factory, ))
+    namedict = {}
+    for name, intval, strval in cur.fetchall():
+        if intval is not None:
+            clause = "%s = %d" % (name, intval)
+        elif strval is not None:
+            clause = "'%s' LIKE %s" % (strval, name)
+        else:
+            continue
+        alternatives = namedict.get(name, [])
+        alternatives.append(clause)
+        namedict[name] = alternatives
+    for name, alternatives in namedict.iteritems():
+        if len(alternatives) == 0:
+            continue
+        alternatives.insert(0, '%s IS NULL' % name)
+        where.append('(%s)' % ' OR '.join(alternatives))
+    return ' AND '.join(where)
