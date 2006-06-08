@@ -33,7 +33,7 @@ def poll(factory, crypt):
     """
     poll(string, string) => array
     Try to find a matching screenshot request for a given factory.
-    If successful, the request will be locked for 5 minutes.
+    If successful, the request will be locked for 3 minutes.
     Parameters:
     - The name of the factory (string, length max 20).
     - Crypted password (hex string, length 32):
@@ -62,13 +62,14 @@ def poll(factory, crypt):
             status = 'No matching request.'
             return status, '', '', 0, 0, '', '', '', ''
         else:
-            major = found.pop(2)
-            minor = found.pop(2)
+            database.lock.attempt(factory, found[0])
+            # found[0] = 'OK'
+            major = found.pop(3)
+            minor = found.pop(3)
             if major:
-                found[1] += ' %d' % major
+                found[2] += ' %d' % major
             if major and minor:
-                found[1] += '.%d' % minor
-            found.insert(0, 'OK')
+                found[2] += '.%d' % minor
             for index in range(3, 5):
                 if found[index] == None:
                     found[index] = 0

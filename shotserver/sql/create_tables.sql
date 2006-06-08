@@ -124,6 +124,7 @@ creator INT REFERENCES person);
 
 DROP TABLE request_browser CASCADE;
 CREATE TABLE request_browser (
+request_browser SERIAL PRIMARY KEY NOT NULL,
 request INT NOT NULL REFERENCES request,
 browser INT NOT NULL REFERENCES browser,
 browser_version INT,
@@ -136,8 +137,15 @@ screenshot INT REFERENCES screenshot);
 
 DROP TABLE lock CASCADE;
 CREATE TABLE lock (
-request INT NOT NULL REFERENCES request,
+request_browser INT NOT NULL UNIQUE REFERENCES request_browser,
 factory INT NOT NULL REFERENCES factory,
+created TIMESTAMP DEFAULT NOW());
+
+DROP TABLE failure CASCADE;
+CREATE TABLE failure (
+request_browser INT NOT NULL REFERENCES request_browser,
+factory INT NOT NULL REFERENCES factory,
+message VARCHAR(160),
 created TIMESTAMP DEFAULT NOW());
 
 DROP TABLE nonce CASCADE;
