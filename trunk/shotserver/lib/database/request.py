@@ -25,6 +25,8 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+from shotserver03.database import options
+
 def select_by_website(website):
     """
     Get all jobs for this website.
@@ -43,13 +45,21 @@ def match(where):
     Get the oldest matching request that isn't expired.
     """
     cur.execute("""\
-SELECT url, browser.name, major, minor, width, bpp, js, java, flash, media
-FROM request
-JOIN request_browser USING (request)
+SELECT request_browser, url, browser.name, major, minor,
+       width, bpp, js, java, flash, media
+FROM request_browser
+JOIN request USING (request)
 JOIN website USING (website)
 JOIN browser USING (browser)
-WHERE request.expire >= NOW() AND %s
+WHERE """ + where + """
+AND request.expire >= NOW()
+AND (NOT EXISTS (SELECT request_browser FROM lock
+                WHERE lock.request_browser = request_browser.request_browser
+                AND NOW() - lock.created <= %s))
+AND (NOT EXISTS (SELECT request_browser FROM failure
+                WHERE failure.request_browser = request_browser.request_browser
+                AND NOW() - failure.created <= %s))
 ORDER BY request.created
 LIMIT 1
-""" % where)
+""", (options.lock_timeout, options.failure_timeout))
     return cur.fetchone()

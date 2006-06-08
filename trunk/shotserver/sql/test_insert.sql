@@ -115,5 +115,4 @@ INSERT INTO request_browser (request, browser) VALUES (1, 2);
 INSERT INTO request_browser (request, browser) VALUES (2, 2);
 INSERT INTO request_browser (request, browser) VALUES (3, 2);
 
-INSERT INTO lock (request, factory) VALUES (1, 1);
-INSERT INTO lock (request, factory) VALUES (3, 2);
+INSERT INTO lock (request_browser, factory) VALUES (1, 1);
