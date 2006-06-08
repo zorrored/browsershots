@@ -112,10 +112,10 @@ def read_options():
             full = True
         else:
             usage("unknown option %s" % option)
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         usage()
     # Normalize path name arguments.
-    repos, backup = sys.argv
+    dummy, repos, backup = sys.argv
     while repos.endswith("/"):
         repos = repos[:-1]
     while backup.endswith("/"):
