@@ -87,55 +87,81 @@ def find_latest(backup, basename):
         match = re_revisions.search(filename)
         if match:
             last = int(match.group(1))
-            if last > latest: latest = last
+            if last > latest:
+                latest = last
     return latest
 
-# Read options from command line
-full = False
-arg0 = sys.argv.pop(0)
-while sys.argv[0].startswith("-"):
-    option = sys.argv.pop(0)
-    if option == "--full":
-        full = True
-    else:
-        raise RuntimeError, "unknown option: " + option
-if len(sys.argv) != 2:
-    raise RuntimeError, "usage: svn_backup.py <repos_path> <backup_dir>"
+def usage(message = None):
+    """
+    Print a usage line (and possibly an error message) and exit with return code 1.
+    """
+    print "usage: %s [--full] <repos_path> <backup_dir>" % os.path.basename(sys.argv[0])
+    if message:
+        print "error:", message
+    sys.exit(1)
 
-# normalize path name arguments
-repos, backup = sys.argv
-while repos.endswith("/"):
-    repos = repos[:-1]
-while backup.endswith("/"):
-    backup = backup[:-1]
+def read_options():
+    """
+    Read options from command line.
+    """
+    full = False
+    # Parse options.
+    while len(sys.argv) > 1 and sys.argv[1].startswith("-"):
+        option = sys.argv.pop(1)
+        if option == "--full":
+            full = True
+        else:
+            usage("unknown option %s" % option)
+    if len(sys.argv) != 2:
+        usage()
+    # Normalize path name arguments.
+    repos, backup = sys.argv
+    while repos.endswith("/"):
+        repos = repos[:-1]
+    while backup.endswith("/"):
+        backup = backup[:-1]
+    return full, repos, backup
 
-# find start and stop revision numbers
-basename = os.path.basename(repos)
-already = find_latest(backup, basename)
-start = already + 1
-stop = int(backticks("svnlook youngest %s" % repos).strip())
-if full:
-    start = 0
-if start > stop:
-    sys.exit(0) # nothing to do
+def find_backup_range(full, repos, backup, basename):
+    """
+    Find start and stop revision numbers.
+    """
+    already = find_latest(backup, basename)
+    start = already + 1
+    stop = int(backticks("svnlook youngest %s" % repos).strip())
+    if full:
+        start = 0
+    return start, stop
 
-# move older version of same file out of the way
-date = backticks("date +%Y-%m-%d").strip()
-outfile = "%s/%s-r%u-r%u.dump.bz2" % (backup, basename, start, stop)
-oldfile = "%s/%s-r%u-r%u.%s.dump.bz2" % (backup, basename, start, stop, date)
-if os.path.exists(outfile):
-    system("mv %s %s" % (outfile, oldfile))
+def run_backup():
+    """
+    Run a subversion backup.
+    """
+    full, repos, backup = read_options()
+    basename = os.path.basename(repos)
+    start, stop = find_backup_range(full, repos, backup, basename)
 
-# build and run subversion backup command
-command = "svnadmin dump --quiet"
-if not full:
-    command += " --incremental"
-command += " --revision %u:%u %s" % (start, stop, repos)
-command += " | bzip2 > %s" % outfile
-system(command)
+    # move older version of same file out of the way
+    date = backticks("date +%Y-%m-%d").strip()
+    outfile = "%s/%s-r%u-r%u.dump.bz2" % (backup, basename, start, stop)
+    oldfile = "%s/%s-r%u-r%u.%s.dump.bz2" % (backup, basename, start, stop, date)
+    if os.path.exists(outfile):
+        system("mv %s %s" % (outfile, oldfile))
 
-# compare and delete old version of same file
-if os.path.exists(oldfile):
-    different = os.system("cmp %s %s" % (outfile, oldfile))
-    if not different:
-        system("rm -f %s" % oldfile)
+    # build and run subversion backup command
+    parts = []
+    parts.append("svnadmin dump --quiet")
+    if not full:
+        parts.append("--incremental")
+    parts.append("--revision %u:%u %s" % (start, stop, repos))
+    parts.append("| bzip2 > %s" % outfile)
+    system(' '.join(parts))
+
+    # compare and delete old version of same file
+    if os.path.exists(oldfile):
+        different = os.system("cmp %s %s" % (outfile, oldfile))
+        if not different:
+            system("rm -f %s" % oldfile)
+
+if __name__ == '__main__':
+    run_backup()
