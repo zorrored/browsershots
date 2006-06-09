@@ -35,22 +35,13 @@ def poll(factory, crypt):
     Try to find a matching screenshot request for a given factory.
 
     Arguments:
-    factory -- the name of the factory (string, length max 20)
-    crypt -- crypted password (hex string, length 32)
+        factory -- the name of the factory (string, length max 20)
+        crypt -- crypted password (hex string, length 32)
 
     Return value:
-    url -- if this doesn't start with http, it's an error message
-    options -- dictionary with requested configuration
-    challenge -- random authentication challenge (salt + nonce)
-
-    If successful, options contains the following keys:
-    browser -- browser name, possibly with version number
-    width -- screen width in pixels
-    bpp -- color depth (bits per pixel)
-    js -- javascript version string
-    java -- java version string
-    flash -- flash version string
-    media -- media player string
+        status -- 'OK' or error message
+        challenge -- random authentication challenge (salt + nonce)
+        options -- dictionary with requested configuration
 
     If successful, the request will be locked for 3 minutes. This is
     to make sure that no requests are processed by two factories at
@@ -58,9 +49,18 @@ def poll(factory, crypt):
     it is possible that somebody else will lock it. In this case, your
     upload will fail.
 
-    The challenge consists of a 4 character salt and a 32 character
-    nonce. The password is encrypted with MD5 as follows:
+    The challenge consists of a salt (4 characters) and a nonce (32
+    characters). The password is encrypted with MD5 as follows:
     crypt = md5(md5(salt + password) + nonce)
+
+    If successful, options contains the following keys:
+        browser -- browser name, possibly with version number
+        width -- screen width in pixels
+        bpp -- color depth (bits per pixel)
+        js -- javascript version string
+        java -- java version string
+        flash -- flash version string
+        media -- media player string
 
     """
     database.connect()
@@ -73,13 +73,14 @@ def poll(factory, crypt):
         where = database.factory.features(factory)
         row = database.request.match(where)
         if row is None:
-            return 'No matching request.', 0, '', {}
+            return 'No matching request.', '', {}
         else:
             request = row[0]
             database.lock.attempt(factory, request)
             salt = database.factory.select_salt(factory)
-            nonce = database.nonce.create_request_nonce(factory, request)
-            options = database.request.options(row)
-            return url, options, challenge
+            nonce = database.nonce.create_request_nonce(request, ip)
+            options = database.request.to_dict(row)
+            challenge = salt + nonce
+            return 'OK', challenge, options
     finally:
         database.disconnect()

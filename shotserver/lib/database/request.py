@@ -46,48 +46,45 @@ def match(where):
     """
     cur.execute("""\
 SELECT request,
-       browser.name, major, minor,
+       browser_group.name, major, minor,
        width, bpp, js, java, flash, media
 FROM request
 JOIN request_group USING (request_group)
 JOIN website USING (website)
 JOIN browser_group USING (browser_group)
 WHERE """ + where + """
-AND request.expire >= NOW()
-AND (NOT EXISTS (SELECT request_browser FROM lock
-                WHERE lock.request_browser = request_browser.request_browser
+AND request_group.expire >= NOW()
+AND (NOT EXISTS (SELECT request FROM lock
+                WHERE lock.request = request.request
                 AND NOW() - lock.created <= %s))
-AND (NOT EXISTS (SELECT request_browser FROM failure
-                WHERE failure.request_browser = request_browser.request_browser
+AND (NOT EXISTS (SELECT request FROM failure
+                WHERE failure.request = request.request
                 AND NOW() - failure.created <= %s))
-ORDER BY request.created
+ORDER BY request_group.created
 LIMIT 1
 """, (options.lock_timeout, options.failure_timeout))
     return cur.fetchone()
 
-def options(row):
+def to_dict(row):
     """
-    Make an option dictionary from a match result row.
+    Make an option dictionary from a result row from the match() function.
     """
-    browser, major, minor, width, bpp, js, java, flash, media = row
-    if major is not None:
-        browser += ' %d' % major
-        if minor is not None:
-            browser += '.%d' % minor
-    options = {}
-    integer_keys = 'width bpp'.split()
-    for key in 'browser width bpp js java flash media'.split():
-        value = locals()[index]
+    keys = 'request browser major minor width bpp js java flash media'.split()
+    integer_keys = 'request major minor width bpp'.split()
+    result = {}
+    for index, key in enumerate(keys):
+        value = row[index]
         if value is None:
             if key in integer_keys:
                 value = 0
             else:
                 value = ''
-        options[key] = value
-    return options
+        result[key] = value
+    return result
 
 def insert_group(values):
     """
+    Insert a request group into the database.
     """
     expire = "NOW() + '0:%02d'" % values['expire']
     cur.execute("""\

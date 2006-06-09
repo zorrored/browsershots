@@ -25,7 +25,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import time
+# import time
 from shotserver03.interface import xhtml
 from shotserver03 import database
 
@@ -35,19 +35,14 @@ def write():
     """
     database.connect()
     try:
-        xhtml.write_open_tag('table', _id="queue")
-        # xhtml.write_table_row("Browser OS Width Submitted Expires Options".split(), 'th')
         for row in database.request.select_by_website(req.params.website):
-            request_group, bpp, javascript, java, flash, media, submitted, expire = row
+            xhtml.write_open_tag('p', _class="queue")
+            group, bpp, js, java, flash, media, submitted, expire = row
 
-            #if major is not None:
-            #    browser += " %d" % major
-            #if minor is not None:
-            #    browser += ".%d" % minor
             options = []
             if bpp is not None:
                 options.append("%d BPP" % bpp)
-            if javascript is not None:
+            if js is not None:
                 options.append("JavaScript")
             if java is not None:
                 options.append("Java")
@@ -55,13 +50,12 @@ def write():
                 options.append("Flash")
             if media is not None:
                 if media == 'wmp':
-                    options.append(media)
-                else:
                     options.append("Windows Media Player")
-            xhtml.write_table_row((#browser, opsys, width,
-                                   time.strftime('%H:%M', time.localtime(submitted)),
-                                   # time.strftime('%H:%M', time.localtime(submitted + expire)),
-                                   ', '.join(options)))
-        xhtml.write_close_tag_line('table') # id="queue"
+                else:
+                    options.append(media)
+            xhtml.write_tag('b', ', '.join(options))
+            # time.strftime('%H:%M', time.localtime(submitted)),
+            # time.strftime('%H:%M', time.localtime(submitted + expire)),
+        xhtml.write_close_tag_line('p') # class="queue"
     finally:
         database.disconnect()
