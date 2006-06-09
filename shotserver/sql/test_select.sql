@@ -2,93 +2,93 @@ SELECT * FROM person;
 
 SELECT name, major, minor, manufacturer, terminal
 FROM browser
-JOIN browser_version USING (browser)
+JOIN browser_group USING (browser_group)
 ORDER BY name;
 
 SELECT DISTINCT name, distro, codename, major, minor, manufacturer, mobile
 FROM opsys
-JOIN opsys_version USING (opsys)
+JOIN opsys_group USING (opsys_group)
 ORDER BY name;
 
-SELECT factory.name, architecture.name, opsys.name,
-opsys_version.distro, opsys_version.codename, opsys_version.major, opsys_version.minor,
+SELECT factory.name, architecture.name, opsys_group.name,
+opsys.distro, opsys.codename, opsys.major, opsys.minor,
 person.name
 FROM factory
 JOIN architecture USING (architecture)
-JOIN opsys_version USING (opsys_version)
 JOIN opsys USING (opsys)
+JOIN opsys_group USING (opsys_group)
 JOIN person ON factory.creator = person.person
 ORDER BY factory.name;
 
-SELECT factory.name, browser.manufacturer, browser.name,
-browser_version.major, browser_version.minor, browser.terminal, opsys_version.mobile
+SELECT factory.name, browser_group.manufacturer, browser_group.name,
+browser.major, browser.minor, browser_group.terminal, opsys.mobile
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN opsys_version USING (opsys_version)
 JOIN opsys USING (opsys)
-JOIN browser_version USING (browser_version)
+JOIN opsys_group USING (opsys_group)
 JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
 ORDER BY factory.name;
 
 SELECT * FROM request;
 SELECT * FROM browser_stats;
 
-SELECT website.url, factory.name, browser.name
+SELECT website.url, factory.name, browser_group.name
 FROM lock
 JOIN request USING (request)
-JOIN request_browser USING (request)
+JOIN request_group USING (request_group)
 JOIN website USING (website)
 JOIN factory USING (factory)
-JOIN browser USING (browser);
+JOIN browser_group USING (browser_group);
 
-SELECT DISTINCT browser.name
+SELECT DISTINCT browser_group.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN opsys_version USING (opsys_version)
 JOIN opsys USING (opsys)
-JOIN browser_version USING (browser_version)
+JOIN opsys_group USING (opsys_group)
 JOIN browser USING (browser)
-WHERE opsys.name = 'Linux';
+JOIN browser_group USING (browser_group)
+WHERE opsys_group.name = 'Linux';
 
-SELECT DISTINCT browser.name
+SELECT DISTINCT browser_group.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN opsys_version USING (opsys_version)
 JOIN opsys USING (opsys)
-JOIN browser_version USING (browser_version)
+JOIN opsys_group USING (opsys_group)
 JOIN browser USING (browser)
-WHERE opsys.name = 'Mac OS';
+JOIN browser_group USING (browser_group)
+WHERE opsys_group.name = 'Mac OS';
 
-SELECT DISTINCT browser.name
+SELECT DISTINCT browser_group.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN opsys_version USING (opsys_version)
 JOIN opsys USING (opsys)
-JOIN browser_version USING (browser_version)
+JOIN opsys_group USING (opsys_group)
 JOIN browser USING (browser)
-WHERE opsys.name = 'Windows';
+JOIN browser_group USING (browser_group)
+WHERE opsys_group.name = 'Windows';
 
-SELECT DISTINCT browser.name
+SELECT DISTINCT browser_group.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN opsys_version USING (opsys_version)
 JOIN opsys USING (opsys)
-JOIN browser_version USING (browser_version)
+JOIN opsys_group USING (opsys_group)
 JOIN browser USING (browser)
-WHERE browser.terminal;
+JOIN browser_group USING (browser_group)
+WHERE browser_group.terminal;
 
-SELECT DISTINCT browser.name
+SELECT DISTINCT browser_group.name
 FROM factory_browser
 JOIN factory USING (factory)
-JOIN opsys_version USING (opsys_version)
 JOIN opsys USING (opsys)
-JOIN browser_version USING (browser_version)
+JOIN opsys_group USING (opsys_group)
 JOIN browser USING (browser)
-WHERE opsys_version.mobile;
+JOIN browser_group USING (browser_group)
+WHERE opsys.mobile;
 
-SELECT factory.name, architecture.name, opsys.name,
-opsys_version.distro, opsys_version.codename, opsys_version.major, opsys_version.minor, opsys_version.mobile
+SELECT factory.name, architecture.name, opsys_group.name,
+opsys.distro, opsys.codename, opsys.major, opsys.minor, opsys.mobile
 FROM factory
 JOIN architecture USING (architecture)
-JOIN opsys_version USING (opsys_version)
-JOIN opsys USING (opsys);
+JOIN opsys USING (opsys)
+JOIN opsys_group USING (opsys_group);
