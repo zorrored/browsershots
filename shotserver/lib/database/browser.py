@@ -29,7 +29,7 @@ def get_name_dict():
     """
     Get a mapping from lowercase browser name to id (numeric primary key).
     """
-    cur.execute('SELECT browser, name FROM browser')
+    cur.execute('SELECT browser_group, name FROM browser_group')
     result = {}
     for browser, name in cur.fetchall():
         result[name.lower()] = browser

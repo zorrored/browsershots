@@ -29,7 +29,7 @@ def get_name_dict():
     """
     Get a mapping from lowercase operating system name to id (numeric primary key).
     """
-    cur.execute('SELECT opsys, name FROM opsys')
+    cur.execute('SELECT opsys_group, name FROM opsys_group')
     result = {}
     for opsys, name in cur.fetchall():
         if name == 'Mac OS':

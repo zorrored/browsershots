@@ -26,7 +26,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import pgdb
-from shotserver03.database import (browser, factory, lock, nonce, opsys, request, website)
+from shotserver03.database import browser, factory, lock, nonce, opsys, request, website
 
 def connect():
     """
@@ -34,6 +34,7 @@ def connect():
     """
     __builtins__['con'] = pgdb.connect(database = 'shotserver03')
     __builtins__['cur'] = con.cursor()
+    cur.lastval = lastval
 
 def disconnect():
     """

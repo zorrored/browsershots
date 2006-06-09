@@ -85,17 +85,15 @@ def insert_requests(website, browsers, features):
     for key in 'bpp expire'.split():
         if values[key] is not None:
             values[key] = int(values[key])
-    values['expire'] *= 60
-    database.insert('request', values)
-    request = database.lastval()
+    request_group = database.request.insert_group(values)
 
     browser_int = database.browser.get_name_dict()
     opsys_int = database.opsys.get_name_dict()
 
     for platform, browser, major, minor in browsers:
         values = {}
-        values['request'] = request
-        values['browser'] = browser_int[browser]
+        values['request_group'] = request_group
+        values['browser_group'] = browser_int[browser]
         values['major'] = int(major)
         values['minor'] = int(minor)
         if platform == 'terminal':
@@ -105,7 +103,7 @@ def insert_requests(website, browsers, features):
         else:
             values['width'] = screen_width[features['width']]
             values['opsys'] = opsys_int[platform]
-        database.insert('request_browser', values)
+        database.insert('request', values)
 
 
 def redirect():
