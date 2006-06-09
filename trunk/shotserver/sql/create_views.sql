@@ -1,7 +1,6 @@
 CREATE VIEW browser_stats AS
-SELECT browser.name, COUNT(*) AS queued
+SELECT browser_group.name, COUNT(*) AS queued
 FROM request
-JOIN request_browser USING (request)
-JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
 WHERE screenshot IS NULL
-GROUP BY browser.name;
+GROUP BY browser_group.name;

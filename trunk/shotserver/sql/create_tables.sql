@@ -21,37 +21,37 @@ name VARCHAR(20) CHECK (name ~ '^\\w+$'),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-DROP TABLE browser CASCADE;
-CREATE TABLE browser (
-browser SERIAL PRIMARY KEY NOT NULL,
+DROP TABLE browser_group CASCADE;
+CREATE TABLE browser_group (
+browser_group SERIAL PRIMARY KEY NOT NULL,
 name VARCHAR(20) NOT NULL UNIQUE CHECK (name ~ '^\\w+$'),
 manufacturer VARCHAR(20),
 terminal BOOLEAN NOT NULL DEFAULT FALSE,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-DROP TABLE browser_version CASCADE;
-CREATE TABLE browser_version (
-browser_version SERIAL PRIMARY KEY NOT NULL,
-browser INT NOT NULL REFERENCES browser,
+DROP TABLE browser CASCADE;
+CREATE TABLE browser (
+browser SERIAL PRIMARY KEY NOT NULL,
+browser_group INT NOT NULL REFERENCES browser_group,
 major INT NOT NULL,
 minor INT,
 engine INT REFERENCES engine,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-DROP TABLE opsys CASCADE;
-CREATE TABLE opsys (
-opsys SERIAL PRIMARY KEY NOT NULL,
+DROP TABLE opsys_group CASCADE;
+CREATE TABLE opsys_group (
+opsys_group SERIAL PRIMARY KEY NOT NULL,
 name VARCHAR(20) NOT NULL,
 manufacturer VARCHAR(20),
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
-DROP TABLE opsys_version CASCADE;
-CREATE TABLE opsys_version (
-opsys_version SERIAL PRIMARY KEY NOT NULL,
-opsys INT NOT NULL REFERENCES opsys,
+DROP TABLE opsys CASCADE;
+CREATE TABLE opsys (
+opsys SERIAL PRIMARY KEY NOT NULL,
+opsys_group INT NOT NULL REFERENCES opsys_group,
 distro VARCHAR(20),
 codename VARCHAR(20),
 major INT,
@@ -67,7 +67,7 @@ name VARCHAR(20) NOT NULL UNIQUE CHECK (name ~ '^\\w+$'),
 salt CHAR(4) CHECK (salt ~ '[0-9a-f]{4}'),
 password CHAR(32) CHECK (password ~ '[0-9a-f]{32}'),
 owner INT NOT NULL REFERENCES person,
-opsys_version INT NOT NULL REFERENCES opsys_version,
+opsys INT NOT NULL REFERENCES opsys,
 architecture INT NOT NULL REFERENCES architecture,
 last_poll TIMESTAMP,
 last_upload TIMESTAMP,
@@ -77,7 +77,7 @@ creator INT NOT NULL REFERENCES person);
 DROP TABLE factory_browser CASCADE;
 CREATE TABLE factory_browser (
 factory INT NOT NULL REFERENCES factory,
-browser_version INT NOT NULL REFERENCES browser_version);
+browser INT NOT NULL REFERENCES browser);
 
 DROP TABLE factory_screen CASCADE;
 CREATE TABLE factory_screen (
@@ -109,9 +109,9 @@ website SERIAL PRIMARY KEY NOT NULL,
 url VARCHAR(255) NOT NULL UNIQUE,
 created TIMESTAMP DEFAULT NOW());
 
-DROP TABLE request CASCADE;
-CREATE TABLE request (
-request SERIAL PRIMARY KEY NOT NULL,
+DROP TABLE request_group CASCADE;
+CREATE TABLE request_group (
+request_group SERIAL PRIMARY KEY NOT NULL,
 website INT NOT NULL,
 bpp INT,
 js VARCHAR(16),
@@ -122,28 +122,28 @@ expire TIMESTAMP,
 created TIMESTAMP DEFAULT NOW(),
 creator INT REFERENCES person);
 
-DROP TABLE request_browser CASCADE;
-CREATE TABLE request_browser (
-request_browser SERIAL PRIMARY KEY NOT NULL,
-request INT NOT NULL REFERENCES request,
-browser INT NOT NULL REFERENCES browser,
-browser_version INT,
+DROP TABLE request CASCADE;
+CREATE TABLE request (
+request SERIAL PRIMARY KEY NOT NULL,
+request_group INT NOT NULL REFERENCES request_group,
+browser_group INT NOT NULL REFERENCES browser_group,
+browser INT,
 major INT,
 minor INT,
 width INT,
+opsys_group INT,
 opsys INT,
-opsys_version INT,
 screenshot INT REFERENCES screenshot);
 
 DROP TABLE lock CASCADE;
 CREATE TABLE lock (
-request_browser INT NOT NULL UNIQUE REFERENCES request_browser,
+request INT NOT NULL UNIQUE REFERENCES request,
 factory INT NOT NULL REFERENCES factory,
 created TIMESTAMP DEFAULT NOW());
 
 DROP TABLE failure CASCADE;
 CREATE TABLE failure (
-request_browser INT NOT NULL REFERENCES request_browser,
+request INT NOT NULL REFERENCES request,
 factory INT NOT NULL REFERENCES factory,
 message VARCHAR(160),
 created TIMESTAMP DEFAULT NOW());
