@@ -140,6 +140,8 @@ def run_backup():
     full, repos, backup = read_options()
     basename = os.path.basename(repos)
     start, stop = find_backup_range(full, repos, backup, basename)
+    if start > stop:
+        return # nothing to do
 
     # move older version of same file out of the way
     date = backticks("date +%Y-%m-%d").strip()
