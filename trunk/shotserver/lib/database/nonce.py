@@ -45,6 +45,14 @@ def create_factory_nonce(factory, ip):
     cur.execute("INSERT INTO nonce (nonce, factory, ip) VALUES (%s, %s, %s)", (nonce, factory, ip))
     return nonce
 
+def create_request_nonce(request, ip):
+    """
+    Make a factory nonce and save it in the database.
+    """
+    nonce = random_md5()
+    cur.execute("INSERT INTO nonce (nonce, request, ip) VALUES (%s, %s, %s)", (nonce, request, ip))
+    return nonce
+
 def authenticate_factory(factory, ip, crypt):
     """
     Authenticate a factory with a crypted password.
