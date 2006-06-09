@@ -27,21 +27,21 @@ __author__ = '$Author$'
 
 import pgdb
 
-def attempt(factory, request_browser):
+def attempt(factory, request):
     """
     Lock a screenshot request to make sure that no other factory is
     working on it.
     """
     con.commit()
     try:
-        cur.execute("INSERT INTO lock VALUES (%s, %s)", (request_browser, factory))
+        cur.execute("INSERT INTO lock VALUES (%s, %s)", (request, factory))
         return True
     except pgdb.DatabaseError: # Try to remove an expired lock.
         con.rollback()
-        cur.execute("SELECT factory FROM lock WHERE request_browser = %s", (request_browser, ))
+        cur.execute("SELECT factory FROM lock WHERE request = %s", (request, ))
         row = cur.fetchone()
         if row is not None:
-            cur.execute("INSERT INTO failure (request_browser, factory) VALUES (%s, %s)",
-                        (request_browser, row[0]))
-            cur.execute("DELETE FROM lock WHERE request_browser = %s", (request_browser, ))
-            cur.execute("INSERT INTO lock VALUES (%s, %s)", (request_browser, factory))
+            cur.execute("INSERT INTO failure (request, factory) VALUES (%s, %s)",
+                        (request, row[0]))
+            cur.execute("DELETE FROM lock WHERE request = %s", (request, ))
+            cur.execute("INSERT INTO lock VALUES (%s, %s)", (request, factory))

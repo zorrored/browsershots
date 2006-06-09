@@ -34,15 +34,17 @@ def select_browsers(platform, where):
     Return a list of XHTML checkbox elements,
     one for each browser, one for all.
     """
-    cur.execute("""SELECT browser.name, browser_version.major, browser_version.minor
-        FROM factory_browser
-        JOIN factory USING (factory)
-        JOIN opsys_version USING (opsys_version)
-        JOIN opsys USING (opsys)
-        JOIN browser_version USING (browser_version)
-        JOIN browser USING (browser)
-        WHERE %s
-        ORDER BY browser.name, browser_version.major, browser_version.minor""" % where)
+    cur.execute("""\
+SELECT browser_group.name, browser.major, browser.minor
+FROM factory_browser
+JOIN factory USING (factory)
+JOIN opsys USING (opsys)
+JOIN opsys_group USING (opsys_group)
+JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
+WHERE %s
+ORDER BY browser_group.name, browser.major, browser.minor
+""" % where)
     result = []
     for row in cur.fetchall():
         browser, major, minor = row
@@ -78,11 +80,11 @@ def write():
     xhtml.write_open_tag_line('div', _id="browsers", _class="blue background")
     database.connect()
     try:
-        write_float('Linux', "opsys.name = 'Linux' AND NOT browser.terminal AND NOT opsys_version.mobile")
-        write_float('Mac', "opsys.name = 'Mac OS' AND NOT browser.terminal AND NOT opsys_version.mobile")
-        write_float('Windows', "opsys.name = 'Windows' AND NOT browser.terminal AND NOT opsys_version.mobile")
-        write_float('Terminal', "browser.terminal AND NOT opsys_version.mobile")
-        write_float('Mobile', "opsys_version.mobile")
+        write_float('Linux', "opsys_group.name = 'Linux' AND NOT browser_group.terminal AND NOT opsys.mobile")
+        write_float('Mac', "opsys_group.name = 'Mac OS' AND NOT browser_group.terminal AND NOT opsys.mobile")
+        write_float('Windows', "opsys_group.name = 'Windows' AND NOT browser_group.terminal AND NOT opsys.mobile")
+        write_float('Terminal', "browser_group.terminal AND NOT opsys.mobile")
+        write_float('Mobile', "opsys.mobile")
     finally:
         database.disconnect()
     xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Submit Jobs", _class="button")

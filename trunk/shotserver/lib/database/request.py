@@ -29,13 +29,13 @@ from shotserver03.database import options
 
 def select_by_website(website):
     """
-    Get all jobs for this website.
+    Get all request groups for this website.
     """
     cur.execute("""\
-SELECT request, bpp, js, java, flash, media
-, extract(epoch from request.created)::bigint, expire
-FROM request
-WHERE website=%s
+SELECT request_group, bpp, js, java, flash, media,
+       extract(epoch from created)::bigint, expire
+FROM request_group
+WHERE website = %s
 ORDER BY created
 """, (website, ))
     return cur.fetchall()
@@ -45,12 +45,13 @@ def match(where):
     Get the oldest matching request that isn't expired.
     """
     cur.execute("""\
-SELECT request_browser, url, browser.name, major, minor,
+SELECT request,
+       browser.name, major, minor,
        width, bpp, js, java, flash, media
-FROM request_browser
-JOIN request USING (request)
+FROM request
+JOIN request_group USING (request_group)
 JOIN website USING (website)
-JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
 WHERE """ + where + """
 AND request.expire >= NOW()
 AND (NOT EXISTS (SELECT request_browser FROM lock
@@ -63,3 +64,34 @@ ORDER BY request.created
 LIMIT 1
 """, (options.lock_timeout, options.failure_timeout))
     return cur.fetchone()
+
+def options(row):
+    """
+    Make an option dictionary from a match result row.
+    """
+    browser, major, minor, width, bpp, js, java, flash, media = row
+    if major is not None:
+        browser += ' %d' % major
+        if minor is not None:
+            browser += '.%d' % minor
+    options = {}
+    integer_keys = 'width bpp'.split()
+    for key in 'browser width bpp js java flash media'.split():
+        value = locals()[index]
+        if value is None:
+            if key in integer_keys:
+                value = 0
+            else:
+                value = ''
+        options[key] = value
+    return options
+
+def insert_group(values):
+    """
+    """
+    expire = "NOW() + '0:%02d'" % values['expire']
+    cur.execute("""\
+INSERT INTO request_group (website, bpp, js, java, flash, media, expire)
+VALUES (%(website)s, %(bpp)s, %(js)s, %(java)s, %(flash)s, %(media)s, """ + expire + """)
+""", values)
+    return cur.lastval()

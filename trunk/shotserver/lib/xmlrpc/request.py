@@ -33,21 +33,35 @@ def poll(factory, crypt):
     """
     poll(string, string) => array
     Try to find a matching screenshot request for a given factory.
-    If successful, the request will be locked for 3 minutes.
-    Parameters:
-    - The name of the factory (string, length max 20).
-    - Crypted password (hex string, length 32):
-      crypt = md5(md5(salt + password) + nonce)
+
+    Arguments:
+    factory -- the name of the factory (string, length max 20)
+    crypt -- crypted password (hex string, length 32)
+
     Return value:
-    - Status: string 'OK' or error message.
-    - URL: website address to be opened in the browser.
-    - Browser name with major and minor version number.
-    - Screen width (pixels).
-    - Color depth (bits per pixel).
-    - JavaScript version string.
-    - Java version string.
-    - Flash version string.
-    - Media Player version string.
+    url -- if this doesn't start with http, it's an error message
+    options -- dictionary with requested configuration
+    challenge -- random authentication challenge (salt + nonce)
+
+    If successful, options contains the following keys:
+    browser -- browser name, possibly with version number
+    width -- screen width in pixels
+    bpp -- color depth (bits per pixel)
+    js -- javascript version string
+    java -- java version string
+    flash -- flash version string
+    media -- media player string
+
+    If successful, the request will be locked for 3 minutes. This is
+    to make sure that no requests are processed by two factories at
+    the same time. If your factory takes longer to process a request,
+    it is possible that somebody else will lock it. In this case, your
+    upload will fail.
+
+    The challenge consists of a 4 character salt and a 32 character
+    nonce. The password is encrypted with MD5 as follows:
+    crypt = md5(md5(salt + password) + nonce)
+
     """
     database.connect()
     try:
@@ -57,25 +71,15 @@ def poll(factory, crypt):
         if status != 'OK':
             return status, '', '', 0, 0, '', '', '', ''
         where = database.factory.features(factory)
-        found = database.request.match(where)
-        if found is None:
-            status = 'No matching request.'
-            return status, '', '', 0, 0, '', '', '', ''
+        row = database.request.match(where)
+        if row is None:
+            return 'No matching request.', 0, '', {}
         else:
-            database.lock.attempt(factory, found[0])
-            # found[0] = 'OK'
-            major = found.pop(3)
-            minor = found.pop(3)
-            if major:
-                found[2] += ' %d' % major
-            if major and minor:
-                found[2] += '.%d' % minor
-            for index in range(3, 5):
-                if found[index] == None:
-                    found[index] = 0
-            for index in range(5, 9):
-                if found[index] == None:
-                    found[index] = ''
-            return found
+            request = row[0]
+            database.lock.attempt(factory, request)
+            salt = database.factory.select_salt(factory)
+            nonce = database.nonce.create_request_nonce(factory, request)
+            options = database.request.options(row)
+            return url, options, challenge
     finally:
         database.disconnect()
