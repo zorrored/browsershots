@@ -154,4 +154,5 @@ nonce CHAR(32) PRIMARY KEY NOT NULL,
 ip CIDR NOT NULL,
 factory INT REFERENCES factory,
 person INT REFERENCES person,
+request INT REFERENCES request,
 created TIMESTAMP DEFAULT NOW());
