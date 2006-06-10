@@ -24,13 +24,15 @@ import time
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
-def optionstring(bpp, js, java, flash, media):
+def optionstring(width, bpp, js, java, flash, media):
     """
     Convert some options to a human-readable string.
     """
     options = []
+    if width is not None:
+        options.append("%d pixels wide" % width)
     if bpp is not None:
-        options.append("%d BPP" % bpp)
+        options.append("%d bits per pixel" % bpp)
     if js is not None:
         options.append("JavaScript")
     if java is not None:
@@ -48,44 +50,58 @@ def optionstring(bpp, js, java, flash, media):
         last = options.pop()
         return ', '.join(options) + ' and ' + last
 
+
+def write_requests(group, opsys_dict):
+    """
+    Write a summary of the queuing requests for a give request group.
+    """
+    requests = database.request.select_by_group(group)
+    platforms = {}
+    for request_row in requests:
+        browser, major, minor, opsys = request_row
+        if opsys is not None:
+            opsys = opsys_dict[opsys]
+        platform = platforms.get(opsys, [])
+        platform.append('%s %d.%d' % (browser, major, minor))
+        platforms[opsys] = platform
+    keys = platforms.keys()
+    keys.sort()
+    if keys[0] is None:
+        keys.append(keys.pop(0))
+    xhtml.write_open_tag_line('ul', _class="queue")
+    for key in keys:
+        if key is None:
+            platform = 'Others'
+        else:
+            platform = str(key)
+        browsers = ', '.join(platforms[key])
+        xhtml.write_tag_line('li', '%s: %s' % (platform, browsers))
+    xhtml.write_close_tag_line('ul')
+
 def write():
     """
     Write XHTML table with queued requests for a given website.
     """
     database.connect()
     try:
+        opsys_dict = database.opsys.get_serial_dict()
         groups = database.request.select_by_website(req.params.website)
         for index, group_row in enumerate(groups):
-            group, bpp, js, java, flash, media, submitted, expire = group_row
+            group, width, bpp, js, java, flash, media, submitted, expire = group_row
 
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
-            if time.time() - submitted < 10 and index == 0:
+            if time.time() - submitted < 30 and index == 0:
                 xhtml.write_open_tag('p', _class="queue success")
+                xhtml.write_tag('b', 'Just submitted')
             else:
                 xhtml.write_open_tag('p', _class="queue")
-
-            xhtml.write_tag('b', 'Requested %s ago' % age)
+                xhtml.write_tag('b', 'Submitted %s ago' % age)
             req.write(', to expire in %s' % remaining)
-            options = optionstring(bpp, js, java, flash, media)
+            options = optionstring(width, bpp, js, java, flash, media)
             if options:
                 req.write(', with ' + options)
-
-            requests = database.request.select_by_group(group)
-            platforms = {}
-            for request_row in requests:
-                browser, major, minor, opsys = request_row
-                platform = platforms.get(opsys, [])
-                platform.append('%s %d.%d' % (browser, major, minor))
-                platforms[opsys] = platform
-            for key, value in platforms.iteritems():
-                xhtml.write_tag_line('br')
-                if key is None:
-                    platform = 'Others'
-                else:
-                    platform = str(key)
-                browsers = ', '.join(value)
-                req.write('\n%s: %s' % (platform, browsers))
             xhtml.write_close_tag_line('p') # class="queue"
+            write_requests(group, opsys_dict)
     finally:
         database.disconnect()

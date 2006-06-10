@@ -31,3 +31,15 @@ def get_name_dict():
             name = 'Mac'
         result[name.lower()] = opsys
     return result
+
+def get_serial_dict():
+    """
+    Get a mapping from id (numeric primary key) to operating system name.
+    """
+    cur.execute('SELECT opsys_group, name FROM opsys_group')
+    result = {}
+    for opsys, name in cur.fetchall():
+        if name == 'Mac OS':
+            name = 'Mac'
+        result[opsys] = name
+    return result

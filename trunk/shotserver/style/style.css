@@ -30,6 +30,8 @@ div.traceback {
   border: 3px solid red;
   padding: 0 1em;
 }
+p.queue { margin-bottom: 0; }
+ul.queue { margin-top: 0; }
 
 .float-left {
   float: left;
