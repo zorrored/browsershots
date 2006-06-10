@@ -34,4 +34,4 @@ install :
 	apache2ctl restart
 
 clean :
-	rm -rf build dist
+	rm -rf build dist *.png *.ppm
