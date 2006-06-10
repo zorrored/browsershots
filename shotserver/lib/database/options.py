@@ -25,3 +25,6 @@ lock_timeout = '0:01:00'
 
 # How long will a failed screenshot be blocked from a factory?
 failure_timeout = '0:01:00'
+
+# How tall can a screenshot be, in pixels?
+max_screenshot_height = 8000

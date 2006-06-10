@@ -116,3 +116,5 @@ INSERT INTO request (request_group, browser_group) VALUES (2, 2);
 INSERT INTO request (request_group, browser_group) VALUES (3, 2);
 
 INSERT INTO lock (request, factory) VALUES (1, 1);
+
+INSERT INTO screenshot (hashkey, factory, width, height) VALUES (md5('hashkey'), 1, 640, 480);

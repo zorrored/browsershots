@@ -103,3 +103,7 @@ INSERT INTO request_group (website, width, bpp, js, java, flash, media, expire)
 VALUES (%(website)s, %(width)s, %(bpp)s, %(js)s, %(java)s, %(flash)s, %(media)s, NOW() + %(expire)s)
 """, values)
     return cur.lastval()
+
+def update_screenshot(request, screenshot):
+    """Set the screenshot for a request."""
+    cur.execute("UPDATE request SET screenshot = %s WHERE request = %s", (screenshot, request))
