@@ -24,6 +24,30 @@ import time
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
+def optionstring(bpp, js, java, flash, media):
+    """
+    Convert some options to a human-readable string.
+    """
+    options = []
+    if bpp is not None:
+        options.append("%d BPP" % bpp)
+    if js is not None:
+        options.append("JavaScript")
+    if java is not None:
+        options.append("Java")
+    if flash is not None:
+        options.append("Flash")
+    if media is not None:
+        if media == 'wmp':
+            options.append("Windows Media Player")
+        else:
+            options.append(media)
+    if len(options) == 1:
+        return options[0]
+    elif len(options) > 1:
+        last = options.pop()
+        return ', '.join(options) + ' and ' + last
+
 def write():
     """
     Write XHTML table with queued requests for a given website.
@@ -34,21 +58,6 @@ def write():
         for index, row in enumerate(rows):
             group, bpp, js, java, flash, media, submitted, expire = row
 
-            options = []
-            if bpp is not None:
-                options.append("%d BPP" % bpp)
-            if js is not None:
-                options.append("JavaScript")
-            if java is not None:
-                options.append("Java")
-            if flash is not None:
-                options.append("Flash")
-            if media is not None:
-                if media == 'wmp':
-                    options.append("Windows Media Player")
-                else:
-                    options.append(media)
-
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
             if time.time() - submitted < 10 and index == 0:
@@ -58,14 +67,10 @@ def write():
 
             xhtml.write_tag('b', 'Requested %s ago' % age)
             req.write(', to expire in %s' % remaining)
-            if len(options) == 1:
-                req.write(', with %s' % options[0])
-                xhtml.write_tag_line('br')
-            elif len(options) > 1:
-                last = options.pop()
-                req.write(', with %s' % ', '.join(options))
-                req.write(' and %s' % last)
-                xhtml.write_tag_line('br')
+            options = optionstring(bpp, js, java, flash, media)
+            if options:
+                req.write(', with ' + options)
+            xhtml.write_tag_line('br')
             xhtml.write_close_tag_line('p') # class="queue"
     finally:
         database.disconnect()
