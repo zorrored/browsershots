@@ -30,7 +30,8 @@ def write():
     """
     database.connect()
     try:
-        for row in database.request.select_by_website(req.params.website):
+        rows = database.request.select_by_website(req.params.website)
+        for index, row in enumerate(rows):
             group, bpp, js, java, flash, media, submitted, expire = row
 
             options = []
@@ -50,7 +51,7 @@ def write():
 
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
-            if time.time() - submitted < 10:
+            if time.time() - submitted < 10 and index == 0:
                 xhtml.write_open_tag('p', _class="queue success")
             else:
                 xhtml.write_open_tag('p', _class="queue")
