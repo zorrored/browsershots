@@ -34,4 +34,4 @@ install :
 	apache2ctl restart
 
 clean :
-	rm -rf build
+	rm -rf build dist
