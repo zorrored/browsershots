@@ -28,10 +28,12 @@ def select_by_website(website):
     """
     cur.execute("""\
 SELECT request_group, bpp, js, java, flash, media,
-       extract(epoch from created)::bigint, expire
+       extract(epoch from created)::bigint,
+       extract(epoch from expire)::bigint
 FROM request_group
 WHERE website = %s
-ORDER BY created
+AND expire > NOW()
+ORDER BY created DESC
 """, (website, ))
     return cur.fetchall()
 

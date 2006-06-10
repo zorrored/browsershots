@@ -80,6 +80,68 @@ def write_table(obj, prefix = ''):
     write_table_rows(obj, prefix)
     xhtml.write_close_tag_line('table')
 
+def timespan(seconds, rounding = "", units = ""):
+    """
+    Format a time span in seconds to human-readable text.
+    Specify rounding = "up" or "down" if you don't want to round correctly.
+
+    >>> timespan(1), timespan(1, units = "long")
+    ('1 s', '1 seconds')
+    >>> timespan(120), timespan(120, units = "long")
+    ('2 min', '2 minutes')
+    >>> timespan(2 * 60 * 60), timespan(2 * 60 * 60, units = "long")
+    ('2 h', '2 hours')
+    >>> timespan(6 * 24 * 60 * 60), timespan(6 * 24 * 60 * 60, units = "long")
+    ('6 d', '6 days')
+    >>> timespan(140 * 24 * 60 * 60), timespan(12096000, units = "long")
+    ('20 w', '20 weeks')
+    >>> timespan(3650 * 24 * 60 * 60), timespan(315360000, units = "long")
+    ('10 y', '10 years')
+
+    >>> timespan(119, rounding = "up"), timespan(119, rounding = "down")
+    ('2 min', '1 min')
+    >>> timespan(120, rounding = "up"), timespan(120, rounding = "down")
+    ('2 min', '2 min')
+    >>> timespan(121, rounding = "up"), timespan(121, rounding = "down")
+    ('3 min', '2 min')
+    """
+    round_add = (3, 12, 30, 182)
+    if rounding == "up":
+        round_add = (6, 23, 59, 364)
+    if rounding == "down":
+        round_add = (0, 0, 0, 0)
+
+    sec_string = "%d s"
+    min_string = "%d min"
+    hour_string = "%d h"
+    day_string = "%d d"
+    week_string = "%d w"
+    year_string = "%d y"
+    if units == "long":
+        sec_string = "%d seconds"
+        min_string = "%d minutes"
+        hour_string = "%d hours"
+        day_string = "%d days"
+        week_string = "%d weeks"
+        year_string = "%d years"
+
+    if seconds < 100:
+        return sec_string % seconds
+    minutes = (seconds + round_add[2]) / 60
+    if minutes < 100:
+        return min_string % minutes
+    hours = (minutes + round_add[2]) / 60
+    if hours < 100:
+        return hour_string % hours
+    days = (hours + round_add[1]) / 24
+    if days < 100:
+        return day_string % days
+    weeks = (days + round_add[0]) / 7
+    if weeks < 100:
+        return week_string % weeks
+    years = (days + round_add[3]) / 365
+    return year_string % years
+
 if __name__ == '__main__':
     import sys, doctest
     from shotserver03.request import params
