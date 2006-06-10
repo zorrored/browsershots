@@ -98,6 +98,7 @@ CONSTRAINT intval_or_strval CHECK (
 DROP TABLE screenshot CASCADE;
 CREATE TABLE screenshot (
 screenshot SERIAL PRIMARY KEY NOT NULL,
+hashkey CHAR(32) UNIQUE NOT NULL CHECK (hashkey ~ '[0-9a-f]{32}'),
 factory INT NOT NULL REFERENCES factory,
 width INT NOT NULL,
 height INT NOT NULL,
@@ -150,7 +151,7 @@ created TIMESTAMP DEFAULT NOW());
 
 DROP TABLE nonce CASCADE;
 CREATE TABLE nonce (
-nonce CHAR(32) PRIMARY KEY NOT NULL,
+nonce CHAR(32) PRIMARY KEY NOT NULL CHECK (nonce ~ '[0-9a-f]{32}'),
 ip CIDR NOT NULL,
 factory INT REFERENCES factory,
 person INT REFERENCES person,
