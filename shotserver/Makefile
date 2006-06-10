@@ -11,7 +11,7 @@ formatting :
 	@echo Checking formatting...
 	@find lib scripts -name "*.py" \
 	    | grep -v scripts/xmlrpc_help.py \
-	    | xargs scripts/shotserver03_formatting.py
+	    | xargs devtools/formatting.py
 
 doctest :
 	@echo Checking doctest...
