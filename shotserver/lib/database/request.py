@@ -34,7 +34,7 @@ SELECT request_group,
 FROM request_group
 WHERE website = %s
 AND expire > NOW()
-ORDER BY created DESC
+ORDER BY created
 """, (website, ))
     return cur.fetchall()
 
@@ -98,9 +98,8 @@ def insert_group(values):
     """
     Insert a request group into the database.
     """
-    expire = "NOW() + '0:%02d'" % values['expire']
     cur.execute("""\
-INSERT INTO request_group (website, bpp, js, java, flash, media, expire)
-VALUES (%(website)s, %(bpp)s, %(js)s, %(java)s, %(flash)s, %(media)s, """ + expire + """)
+INSERT INTO request_group (website, width, bpp, js, java, flash, media, expire)
+VALUES (%(website)s, %(width)s, %(bpp)s, %(js)s, %(java)s, %(flash)s, %(media)s, NOW() + %(expire)s)
 """, values)
     return cur.lastval()
