@@ -31,7 +31,6 @@ def write():
     database.connect()
     try:
         for row in database.request.select_by_website(req.params.website):
-            xhtml.write_open_tag('p', _class="queue")
             group, bpp, js, java, flash, media, submitted, expire = row
 
             options = []
@@ -48,9 +47,15 @@ def write():
                     options.append("Windows Media Player")
                 else:
                     options.append(media)
+
             age = human.timespan(time.time() - submitted, units='long')
-            xhtml.write_tag('b', 'Requested %s ago' % age)
             remaining = human.timespan(expire - time.time(), units='long')
+            if time.time() - submitted < 10:
+                xhtml.write_open_tag('p', _class="queue success")
+            else:
+                xhtml.write_open_tag('p', _class="queue")
+
+            xhtml.write_tag('b', 'Requested %s ago' % age)
             req.write(', to expire in %s' % remaining)
             if len(options) == 1:
                 req.write(', with %s' % options[0])
