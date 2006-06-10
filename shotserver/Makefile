@@ -27,7 +27,7 @@ pylint :
 	@find lib scripts devtools -name "*.py" > check-pylint
 	@echo "Running PyLint on "`wc -l < check-pylint`" files..."
 	@xargs -a check-pylint pylint \
-		--rcfile=conf/pylintrc --disable-msg=$(DISABLE)
+		--rcfile=devtools/pylintrc --disable-msg=$(DISABLE)
 
 install :
 	python setup.py install
