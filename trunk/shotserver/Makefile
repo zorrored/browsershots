@@ -8,26 +8,26 @@ DISABLE="R0903,W0142,W0232,W0622"
 all : formatting doctest pylint
 
 formatting :
-	@echo Checking formatting...
-	@find lib scripts -name "*.py" \
-	    | grep -v scripts/xmlrpc_help.py \
-	    | xargs devtools/formatting.py
+	@find lib -name "*.py" > check-formatting
+	@echo "Checking "`wc -l < check-formatting`" files on formatting..."
+	@xargs -a check-formatting devtools/formatting.py
 
 doctest :
-	@echo Checking doctest...
-	@python lib/database/__init__.py
-	@python lib/interface/xhtml.py
-	@python lib/interface/menu.py
-	@python lib/interface/human.py
-	@python lib/xmlrpc/__init__.py
-	@python lib/xmlrpc/system.py
+	@rm -f check-doctest
+	@echo lib/database/__init__.py >> check-doctest
+	@echo lib/interface/xhtml.py >> check-doctest
+	@echo lib/interface/menu.py >> check-doctest
+	@echo lib/interface/human.py >> check-doctest
+	@echo lib/xmlrpc/__init__.py >> check-doctest
+	@echo lib/xmlrpc/system.py >> check-doctest
+	@echo "Checking "`wc -l < check-doctest`" files with doctest..."
+	@xargs -a check-doctest -n 1 python
 
 pylint :
-	@echo Checking pylint...
-	@find lib scripts -name "*.py" \
-	    | grep -v scripts/xmlrpc_help.py \
-	    | xargs pylint --rcfile=conf/pylintrc --disable-msg=$(DISABLE) \
-	    || exit 0
+	@find lib scripts devtools -name "*.py" > check-pylint
+	@echo "Checking "`wc -l < check-pylint`" files with pylint..."
+	@xargs -a check-pylint pylint \
+		--rcfile=conf/pylintrc --disable-msg=$(DISABLE)
 
 install :
 	python setup.py install
