@@ -51,8 +51,9 @@ def create_request_nonce(request, ip):
 def authenticate_factory(factory, ip, crypt):
     """
     Authenticate a factory with a crypted password.
-    The crypted password can be created with a nonce:
-    salt = nonce[:4]
+    The crypted password can be created with a challenge:
+    salt = challenge[:4]
+    nonce = challenge[4:]
     crypt = md5(md5(salt + password) + nonce)
     """
     cur.execute("""\
@@ -73,3 +74,32 @@ OR md5(textcat(owner.password, nonce.nonce)) = %s)
             return 'OK'
         else:
             return 'Nonce expired.'
+
+def authenticate_request(ip, crypt):
+    """
+    Authenticate a request with a crypted password.
+    The crypted password can be created with a nonce:
+    salt = challenge[:4]
+    nonce = challenge[4:]
+    crypt = md5(md5(salt + password) + nonce)
+    """
+    cur.execute("""\
+SELECT nonce, request FROM nonce
+JOIN request USING (request)
+JOIN lock USING (request)
+JOIN factory ON lock.factory = factory.factory
+JOIN person AS owner ON factory.owner = owner.person
+WHERE nonce.ip = %s
+AND (md5(textcat(factory.password, nonce.nonce)) = %s
+OR md5(textcat(owner.password, nonce.nonce)) = %s)
+""", (ip, crypt, crypt))
+    row = cur.fetchone()
+    if row is None:
+        return 'Password mismatch.', 0
+    else:
+        nonce, request = row
+        cur.execute("DELETE FROM nonce WHERE nonce = %s", (nonce, ))
+        if cur.rowcount:
+            return 'OK', request
+        else:
+            return 'Nonce expired.', 0
