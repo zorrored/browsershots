@@ -163,7 +163,7 @@ def upload(binary, crypt):
         save_upload(binary, hashkey)
 
         width, height, ppmhandle, ppmname = pngtoppm(hashkey)
-        if width != request_width:
+        if request_width is not None and width != request_width:
             return ("Uploaded image width (%d) is different from requested width (%d)."
                     % (width, request_width))
         if height > database.options.max_screenshot_height:
