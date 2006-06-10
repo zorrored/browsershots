@@ -21,7 +21,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 # How long may a factory work on a screenshot request?
-lock_timeout = '0:03:00'
+lock_timeout = '0:01:00'
 
 # How long will a failed screenshot be blocked from a factory?
-failure_timeout = '0:20:00'
+failure_timeout = '0:01:00'
