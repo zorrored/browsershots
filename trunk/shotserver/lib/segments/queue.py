@@ -20,8 +20,8 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-# import time
-from shotserver03.interface import xhtml
+import time
+from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
 def write():
@@ -48,9 +48,18 @@ def write():
                     options.append("Windows Media Player")
                 else:
                     options.append(media)
-            xhtml.write_tag('b', ', '.join(options))
-            # time.strftime('%H:%M', time.localtime(submitted)),
-            # time.strftime('%H:%M', time.localtime(submitted + expire)),
-        xhtml.write_close_tag_line('p') # class="queue"
+            age = human.timespan(time.time() - submitted, units='long')
+            xhtml.write_tag('b', 'Requested %s ago' % age)
+            remaining = human.timespan(expire - time.time(), units='long')
+            req.write(', to expire in %s' % remaining)
+            if len(options) == 1:
+                req.write(', with %s' % options[0])
+                xhtml.write_tag_line('br')
+            elif len(options) > 1:
+                last = options.pop()
+                req.write(', with %s' % ', '.join(options))
+                req.write(' and %s' % last)
+                xhtml.write_tag_line('br')
+            xhtml.write_close_tag_line('p') # class="queue"
     finally:
         database.disconnect()
