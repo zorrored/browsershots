@@ -66,7 +66,7 @@ def write():
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Maximum wait")
     xhtml.write_tag_line('br')
-    write_select('expire', "15=15 minutes|30=30 minutes|60=1 hour|120=2 hours|240=4 hours", 2)
+    write_select('expire', "0:15=15 minutes|0:30=30 minutes|1:00=1 hour|2:00=2 hours|4:00=4 hours", 2)
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
