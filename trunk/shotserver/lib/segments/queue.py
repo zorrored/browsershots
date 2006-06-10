@@ -30,7 +30,7 @@ def optionstring(width, bpp, js, java, flash, media):
     """
     options = []
     if width is not None:
-        options.append("%d pixels wide" % width)
+        options.append("%d pixels screen size" % width)
     if bpp is not None:
         options.append("%d bits per pixel" % bpp)
     if js is not None:
@@ -42,6 +42,8 @@ def optionstring(width, bpp, js, java, flash, media):
     if media is not None:
         if media == 'wmp':
             options.append("Windows Media Player")
+        elif media == 'svg':
+            options.append("Scalable Vector Graphics")
         else:
             options.append(media)
     if len(options) == 1:
@@ -91,9 +93,9 @@ def write():
 
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
-            if time.time() - submitted < 30 and index == 0:
+            if time.time() - submitted < 30 and index == len(groups) - 1:
                 xhtml.write_open_tag('p', _class="queue success")
-                xhtml.write_tag('b', 'Just submitted')
+                xhtml.write_tag('a', xhtml.tag('b', 'Just submitted'), _name="success")
             else:
                 xhtml.write_open_tag('p', _class="queue")
                 xhtml.write_tag('b', 'Submitted %s ago' % age)
