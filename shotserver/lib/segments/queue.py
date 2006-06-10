@@ -54,9 +54,9 @@ def write():
     """
     database.connect()
     try:
-        rows = database.request.select_by_website(req.params.website)
-        for index, row in enumerate(rows):
-            group, bpp, js, java, flash, media, submitted, expire = row
+        groups = database.request.select_by_website(req.params.website)
+        for index, group_row in enumerate(groups):
+            group, bpp, js, java, flash, media, submitted, expire = group_row
 
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
@@ -70,7 +70,22 @@ def write():
             options = optionstring(bpp, js, java, flash, media)
             if options:
                 req.write(', with ' + options)
-            xhtml.write_tag_line('br')
+
+            requests = database.request.select_by_group(group)
+            platforms = {}
+            for request_row in requests:
+                browser, major, minor, opsys = request_row
+                platform = platforms.get(opsys, [])
+                platform.append('%s %d.%d' % (browser, major, minor))
+                platforms[opsys] = platform
+            for key, value in platforms.iteritems():
+                xhtml.write_tag_line('br')
+                if key is None:
+                    platform = 'Others'
+                else:
+                    platform = str(key)
+                browsers = ', '.join(value)
+                req.write('\n%s: %s' % (platform, browsers))
             xhtml.write_close_tag_line('p') # class="queue"
     finally:
         database.disconnect()

@@ -27,7 +27,8 @@ def select_by_website(website):
     Get all request groups for this website.
     """
     cur.execute("""\
-SELECT request_group, bpp, js, java, flash, media,
+SELECT request_group,
+       bpp, js, java, flash, media,
        extract(epoch from created)::bigint,
        extract(epoch from expire)::bigint
 FROM request_group
@@ -35,6 +36,20 @@ WHERE website = %s
 AND expire > NOW()
 ORDER BY created DESC
 """, (website, ))
+    return cur.fetchall()
+
+def select_by_group(group):
+    """
+    Get all requests in a request group.
+    """
+    cur.execute("""\
+SELECT DISTINCT browser_group.name, major, minor, opsys_group
+FROM request
+JOIN browser_group USING (browser_group)
+LEFT JOIN opsys_group USING (opsys_group)
+WHERE request_group = %s
+ORDER BY browser_group.name, major, minor
+""", (group, ))
     return cur.fetchall()
 
 def match(where):
