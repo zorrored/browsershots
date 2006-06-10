@@ -63,21 +63,18 @@ def error_redirect(**params):
     else:
         util.redirect(req, '/')
 
-screen_width = {'tiny': 640, 'small': 800, 'medium': 1024, 'large': 1280, 'huge': 1600}
-terminal_width = {'tiny': 50, 'small': 64, 'medium': 80, 'large': 132, 'huge': 168}
-
 def insert_requests(website, browsers, features):
     """
     Insert screenshot requests into database.
     """
     values = {}
     values['website'] = website
-    for key in 'bpp js java flash media expire'.split():
+    for key in 'width bpp js java flash media expire'.split():
         if features[key] == 'dontcare':
             values[key] = None
         else:
             values[key] = features[key]
-    for key in 'bpp expire'.split():
+    for key in 'width bpp expire'.split():
         if values[key] is not None:
             values[key] = int(values[key])
     request_group = database.request.insert_group(values)
@@ -91,13 +88,8 @@ def insert_requests(website, browsers, features):
         values['browser_group'] = browser_int[browser]
         values['major'] = int(major)
         values['minor'] = int(minor)
-        if platform == 'terminal':
-            values['width'] = terminal_width[features['width']]
-        elif platform == 'mobile':
-            values['width'] = None
-        else:
-            values['width'] = screen_width[features['width']]
-            values['opsys'] = opsys_int[platform]
+        if platform not in ['terminal', 'mobile']:
+            values['opsys_group'] = opsys_int[platform]
         database.insert('request', values)
 
 

@@ -106,11 +106,11 @@ INSERT INTO website (url) VALUES ('http://bar');
 INSERT INTO website (url) VALUES ('http://baz');
 
 INSERT INTO request_group (website, expire) VALUES (1, NOW() + '0:30');
-INSERT INTO request_group (website, expire) VALUES (2, NOW() + '1:00');
-INSERT INTO request_group (website, expire) VALUES (3, NOW() + '4:00');
+INSERT INTO request_group (website, expire, width) VALUES (2, NOW() + '1:00', 800);
+INSERT INTO request_group (website, expire, width) VALUES (3, NOW() + '4:00', 1024);
 
-INSERT INTO request (request_group, browser_group, major, minor, width) VALUES (1, 1, 1, 5, 1024);
-INSERT INTO request (request_group, browser_group, opsys_group, width) VALUES (1, 1, 1, 1024);
+INSERT INTO request (request_group, browser_group, major, minor) VALUES (1, 1, 1, 5);
+INSERT INTO request (request_group, browser_group, opsys_group) VALUES (1, 1, 1);
 INSERT INTO request (request_group, browser_group) VALUES (1, 2);
 INSERT INTO request (request_group, browser_group) VALUES (2, 2);
 INSERT INTO request (request_group, browser_group) VALUES (3, 2);

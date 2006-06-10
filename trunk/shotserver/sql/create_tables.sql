@@ -113,6 +113,7 @@ DROP TABLE request_group CASCADE;
 CREATE TABLE request_group (
 request_group SERIAL PRIMARY KEY NOT NULL,
 website INT NOT NULL,
+width INT,
 bpp INT,
 js VARCHAR(16),
 java VARCHAR(16),
@@ -130,7 +131,6 @@ browser_group INT NOT NULL REFERENCES browser_group,
 browser INT,
 major INT,
 minor INT,
-width INT,
 opsys_group INT,
 opsys INT,
 screenshot INT REFERENCES screenshot);

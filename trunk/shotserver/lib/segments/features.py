@@ -44,22 +44,22 @@ def write():
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Screen resolution")
     xhtml.write_tag_line('br')
-    write_select('width', "tiny=Tiny (640x480)|small=Small (800x600)|medium=Medium (1024x768)" +
-                 "|large=Large (1280x1024)|huge=Huge (1600x1200)", 3)
+    write_select('width', "dontcare=Don't Care|640=Tiny (640x480)|800=Small (800x600)|1024=Medium (1024x768)" +
+                 "|1280=Large (1280x1024)|1600=Huge (1600x1200)")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "JavaScript")
     xhtml.write_tag_line('br')
     write_select('js', "dontcare=Don't Care|no=Disabled|yes=Enabled|1.3=Version 1.3|1.4=Version 1.4|" +
-                 "1.5=Version 1.5|1.6=Version 1.6", 3)
+                 "1.5=Version 1.5|1.6=Version 1.6")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Macromedia Flash")
     xhtml.write_tag_line('br')
     write_select('flash', "dontcare=Don't Care|no=Not Installed|yes=Installed|4=Version 4|5=Version 5|6=Version 6" +
-                 "|7=Version 7|8=Version 8", 3)
+                 "|7=Version 7|8=Version 8")
     xhtml.write_close_tag_line('div')
 
     # If jobs can't be finished soon enough, they will be removed from the queue.
