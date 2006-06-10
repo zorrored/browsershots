@@ -95,7 +95,7 @@ def write():
             remaining = human.timespan(expire - time.time(), units='long')
             if time.time() - submitted < 30 and index == len(groups) - 1:
                 xhtml.write_open_tag('p', _class="queue success")
-                xhtml.write_tag('a', xhtml.tag('b', 'Just submitted'), _name="success")
+                xhtml.write_tag('a', xhtml.tag('b', 'Just submitted'), _id="success")
             else:
                 xhtml.write_open_tag('p', _class="queue")
                 xhtml.write_tag('b', 'Submitted %s ago' % age)
