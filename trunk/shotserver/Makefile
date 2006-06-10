@@ -9,7 +9,7 @@ all : formatting doctest pylint
 
 formatting :
 	@find lib -name "*.py" > check-formatting
-	@echo "Checking "`wc -l < check-formatting`" files on formatting..."
+	@echo "Checking formatting on "`wc -l < check-formatting`" files..."
 	@xargs -a check-formatting devtools/formatting.py
 
 doctest :
@@ -20,12 +20,12 @@ doctest :
 	@echo lib/interface/human.py >> check-doctest
 	@echo lib/xmlrpc/__init__.py >> check-doctest
 	@echo lib/xmlrpc/system.py >> check-doctest
-	@echo "Checking "`wc -l < check-doctest`" files with doctest..."
+	@echo "Running doctest on "`wc -l < check-doctest`" files..."
 	@xargs -a check-doctest -n 1 python
 
 pylint :
 	@find lib scripts devtools -name "*.py" > check-pylint
-	@echo "Checking "`wc -l < check-pylint`" files with pylint..."
+	@echo "Running PyLint on "`wc -l < check-pylint`" files..."
 	@xargs -a check-pylint pylint \
 		--rcfile=conf/pylintrc --disable-msg=$(DISABLE)
 
