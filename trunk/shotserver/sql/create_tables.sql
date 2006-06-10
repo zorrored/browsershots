@@ -88,9 +88,9 @@ height INT NOT NULL);
 DROP TABLE factory_feature CASCADE;
 CREATE TABLE factory_feature (
 factory INT NOT NULL REFERENCES factory,
-name VARCHAR(16) NOT NULL,
+name VARCHAR(20) NOT NULL,
 intval INT,
-strval VARCHAR(16),
+strval VARCHAR(20),
 CONSTRAINT intval_or_strval CHECK (
 (intval IS NULL AND strval IS NOT NULL) OR
 (strval IS NULL AND intval IS NOT NULL)));
@@ -116,10 +116,10 @@ request_group SERIAL PRIMARY KEY NOT NULL,
 website INT NOT NULL,
 width INT,
 bpp INT,
-js VARCHAR(16),
-java VARCHAR(16),
-flash VARCHAR(16),
-media VARCHAR(16),
+js VARCHAR(20),
+java VARCHAR(20),
+flash VARCHAR(20),
+media VARCHAR(20),
 expire TIMESTAMP,
 created TIMESTAMP DEFAULT NOW(),
 creator INT REFERENCES person);
@@ -134,6 +134,7 @@ major INT,
 minor INT,
 opsys_group INT,
 opsys INT,
+useragent VARCHAR(255),
 screenshot INT REFERENCES screenshot);
 
 DROP TABLE lock CASCADE;
@@ -146,7 +147,7 @@ DROP TABLE failure CASCADE;
 CREATE TABLE failure (
 request INT NOT NULL REFERENCES request,
 factory INT NOT NULL REFERENCES factory,
-message VARCHAR(160),
+message VARCHAR(255),
 created TIMESTAMP DEFAULT NOW());
 
 DROP TABLE nonce CASCADE;
