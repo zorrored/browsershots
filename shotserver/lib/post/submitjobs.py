@@ -30,6 +30,7 @@ class UnexpectedInput(Exception):
 
 browser_match = re.compile(r'(\w+)_(\w+)_(\d+)_(\d+)$').match
 feature_keys = 'width bpp js java flash media expire'.split()
+
 def read_form(form):
     """
     Get known fields from post form.
@@ -69,12 +70,12 @@ def insert_requests(website, browsers, features):
     """
     values = {}
     values['website'] = website
-    for key in 'width bpp js java flash media expire'.split():
+    for key in feature_keys:
         if features[key] == 'dontcare':
             values[key] = None
         else:
             values[key] = features[key]
-    for key in 'width bpp expire'.split():
+    for key in 'width bpp'.split():
         if values[key] is not None:
             values[key] = int(values[key])
     request_group = database.request.insert_group(values)
@@ -92,7 +93,6 @@ def insert_requests(website, browsers, features):
             values['opsys_group'] = opsys_int[platform]
         database.insert('request', values)
 
-
 def redirect():
     """
     Insert new jobs into queue.
@@ -107,7 +107,7 @@ def redirect():
         insert_requests(website, browsers, features)
     finally:
         database.disconnect()
-    util.redirect(req, '/website/%d/' % website)
+    util.redirect(req, '/website/%d/#success' % website)
 
     # sanity_check_url(url)
     # test_head(url)
