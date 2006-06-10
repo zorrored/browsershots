@@ -91,8 +91,8 @@ JOIN lock USING (request)
 JOIN factory ON lock.factory = factory.factory
 JOIN person AS owner ON factory.owner = owner.person
 WHERE nonce.ip = %s
-AND (md5(textcat(factory.password, nonce.nonce)) = %s
-OR md5(textcat(owner.password, nonce.nonce)) = %s)
+AND (md5(factory.password || nonce.nonce) = %s
+OR md5(owner.password || nonce.nonce) = %s)
 """, (ip, crypt, crypt))
     row = cur.fetchone()
     if row is None:
@@ -104,3 +104,33 @@ OR md5(textcat(owner.password, nonce.nonce)) = %s)
             return 'OK', request, width, factory
         else:
             return 'Nonce expired.', 0, 0, 0
+
+def authenticate_redirect(ip, crypt):
+    """
+    Authenticate a redirect with a crypted password.
+    The crypted password can be created with a nonce:
+    salt = challenge[:4]
+    nonce = challenge[4:]
+    crypt = md5('redirect' + md5(salt + password) + nonce)
+    """
+    cur.execute("""\
+SELECT url, request FROM nonce
+JOIN request USING (request)
+JOIN request_group USING (request_group)
+JOIN website USING (website)
+JOIN lock USING (request)
+JOIN factory ON lock.factory = factory.factory
+JOIN person AS owner ON factory.owner = owner.person
+WHERE nonce.ip = %s
+AND (md5('redirect' || factory.password || nonce.nonce) = %s
+OR md5('redirect' || owner.password || nonce.nonce) = %s)
+""", (ip, crypt, crypt))
+    row = cur.fetchone()
+    if row is None:
+        return 'Password mismatch.', '', 0
+    else:
+        url, request = row
+        if cur.rowcount:
+            return 'OK', url, request
+        else:
+            return 'Nonce expired.', '', 0
