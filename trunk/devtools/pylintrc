@@ -110,7 +110,7 @@ argument-rgx=[a-z_][a-z0-9_]*$
 variable-rgx=[a-z_][a-z0-9_]*$
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=os,_,x,y,up
+good-names=os,_,ip,js,x,y
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
@@ -138,7 +138,7 @@ dummy-variables=_,dummy
 
 # List of additional names supposed to be defined in builtins. Remember that you
 # should avoid to define new builtins when possible.
-additional-builtins=
+additional-builtins=req,con,cur
 
 
 
@@ -151,7 +151,7 @@ additional-builtins=
 enable-design=yes
 
 # Maximum number of arguments for function / method
-max-args=6
+max-args=5
 
 # Maximum number of locals for function / method body
 max-locals=15
