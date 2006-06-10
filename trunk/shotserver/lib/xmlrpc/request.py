@@ -20,9 +20,10 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+import os, tempfile
 from shotserver03 import database
 
-export_methods = ['poll']
+export_methods = ['poll', 'upload']
 
 def poll(factory, crypt):
     """
@@ -64,7 +65,7 @@ def poll(factory, crypt):
         ip = req.connection.remote_ip
         status = database.nonce.authenticate_factory(factory, ip, crypt)
         if status != 'OK':
-            return status, '', '', 0, 0, '', '', '', ''
+            return status, '', {}
         where = database.factory.features(factory)
         row = database.request.match(where)
         if row is None:
@@ -77,5 +78,44 @@ def poll(factory, crypt):
             options = database.request.to_dict(row)
             challenge = salt + nonce
             return 'OK', challenge, options
+    finally:
+        database.disconnect()
+
+def upload(binary, crypt):
+    """
+    Upload a browser screenshot.
+    """
+    pngpath = '/var/www/browsershots.org/png'
+    database.connect()
+    try:
+        ip = req.connection.remote_ip
+        status, request = database.nonce.authenticate_request(ip, crypt)
+        if status != 'OK':
+            return status
+
+        hashkey = database.nonce.random_md5()
+        prefix = hashkey[:2]
+        fullpath = '%s/full/%s' % (pngpath, prefix)
+        if not os.path.exists(fullpath):
+            os.makedirs(fullpath)
+        pngname = '%s/%s.png' % (fullpath, hashkey)
+        outfile = file(pngname, 'wb')
+        outfile.write(binary.data)
+        outfile.close()
+
+        ppmhandle, ppmname = tempfile.mkstemp()
+        error = os.system('pngtopnm "%s" > "%s"' % (pngname, ppmname))
+        assert not error
+        for width in (200, 400):
+            zoompath = '%s/%d/%s' % (pngpath, width, prefix)
+            if not os.path.exists(zoompath):
+                os.makedirs(zoompath)
+            pngname = '%s/%s.png' % (zoompath, hashkey)
+            error = os.system('pnmscalefixed -width %d "%s" | pnmtopng > "%s"'
+                              % (width, ppmname, pngname))
+            assert not error
+        os.close(ppmhandle)
+        os.unlink(ppmname)
+        return 'OK'
     finally:
         database.disconnect()
