@@ -24,10 +24,11 @@ import time
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
-def optionstring(width, bpp, js, java, flash, media):
+def optionstring(group_row):
     """
     Convert some options to a human-readable string.
     """
+    dummy, width, bpp, js, java, flash, media, dummy, dummy = group_row
     options = []
     if width is not None:
         options.append("%d pixels screen size" % width)
@@ -89,8 +90,8 @@ def write():
         opsys_dict = database.opsys.get_serial_dict()
         groups = database.request.select_by_website(req.params.website)
         for index, group_row in enumerate(groups):
-            group, width, bpp, js, java, flash, media, submitted, expire = group_row
-
+            group = group_row[0]
+            submitted, expire = group_row[-2:]
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
             if time.time() - submitted < 30 and index == len(groups) - 1:
@@ -100,7 +101,7 @@ def write():
                 xhtml.write_open_tag('p', _class="queue")
                 xhtml.write_tag('b', 'Submitted %s ago' % age)
             req.write(', to expire in %s' % remaining)
-            options = optionstring(width, bpp, js, java, flash, media)
+            options = optionstring(group_row)
             if options:
                 req.write(', with ' + options)
             xhtml.write_close_tag_line('p') # class="queue"

@@ -81,6 +81,18 @@ def poll(factory, crypt):
     finally:
         database.disconnect()
 
+def zoom(ppmname, pngpath, prefix, hashkey, width):
+    """
+    Make smaller preview images.
+    """
+    zoompath = '%s/%d/%s' % (pngpath, width, prefix)
+    if not os.path.exists(zoompath):
+        os.makedirs(zoompath)
+    pngname = '%s/%s.png' % (zoompath, hashkey)
+    error = os.system('pnmscalefixed -width %d "%s" | pnmtopng > "%s"'
+                      % (width, ppmname, pngname))
+    return not error
+
 def upload(binary, crypt):
     """
     Upload a browser screenshot.
@@ -106,14 +118,8 @@ def upload(binary, crypt):
         ppmhandle, ppmname = tempfile.mkstemp()
         error = os.system('pngtopnm "%s" > "%s"' % (pngname, ppmname))
         assert not error
-        for width in (200, 400):
-            zoompath = '%s/%d/%s' % (pngpath, width, prefix)
-            if not os.path.exists(zoompath):
-                os.makedirs(zoompath)
-            pngname = '%s/%s.png' % (zoompath, hashkey)
-            error = os.system('pnmscalefixed -width %d "%s" | pnmtopng > "%s"'
-                              % (width, ppmname, pngname))
-            assert not error
+        assert zoom(ppmname, pngpath, prefix, hashkey, 200)
+        assert zoom(ppmname, pngpath, prefix, hashkey, 400)
         os.close(ppmhandle)
         os.unlink(ppmname)
         return 'OK'
