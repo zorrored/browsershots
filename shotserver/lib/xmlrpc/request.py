@@ -170,8 +170,11 @@ def upload(binary, crypt):
             return ("Uploaded image height (%d) is greater than maximum (%d)."
                     % (height, database.options.max_screenshot_height))
 
-        assert zoom(ppmname, hashkey, 200)
-        assert zoom(ppmname, hashkey, 400)
+        assert zoom(ppmname, hashkey, 148)
+        assert zoom(ppmname, hashkey, 184)
+        assert zoom(ppmname, hashkey, 250)
+        assert zoom(ppmname, hashkey, 380)
+        assert zoom(ppmname, hashkey, 456)
         os.close(ppmhandle)
         os.unlink(ppmname)
 

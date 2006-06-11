@@ -65,7 +65,7 @@ def read_params():
         req.params.url = url
         req.params.simple = simple_url_match(url)
         req.params.escaped = cgi.escape(url, quote = True)
-        req.params.show_screenshots = False
+        req.params.show_screenshots = True
         req.params.show_queue = database.request.select_by_website(website)
     finally:
         database.disconnect()
@@ -86,7 +86,7 @@ def title():
     Page title.
     """
     if req.params.show_screenshots:
-        return "Screenshots"
+        return "Recent screenshots"
     elif req.params.show_queue:
         return "Request queue"
     else:
@@ -107,6 +107,8 @@ def body():
         screenshots.write()
 
     if req.params.show_queue:
+        if req.params.show_screenshots:
+            xhtml.write_tag_line('h2', "Request queue")
         queue.write()
 
     if req.params.show_screenshots or req.params.show_queue:
