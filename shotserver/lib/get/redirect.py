@@ -30,9 +30,7 @@ def redirect():
     """
     database.connect()
     try:
-        ip = req.connection.remote_ip
-        crypt = req.info.options[0]
-        row = database.nonce.authenticate_redirect(ip, crypt)
+        row = database.nonce.authenticate_redirect(req.connection.remote_ip, req.info.options[0])
         status, url, request, request_group, request_name, request_major, request_minor = row
         if status == 'OK':
             useragent = req.headers_in.get('User-Agent', '')
