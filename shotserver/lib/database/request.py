@@ -106,7 +106,7 @@ VALUES (%(website)s, %(width)s, %(bpp)s, %(js)s, %(java)s, %(flash)s, %(media)s,
 
 def update_useragent(request, useragent):
     """Set the user-agent for a request."""
-    cur.execute("UPDATE request SET useragent = %s WHERE request = %s", (useragent, request))
+    cur.execute("UPDATE request SET useragent = %s, redirected = NOW() WHERE request = %s", (useragent, request))
 
 def update_screenshot(request, screenshot):
     """Set the screenshot for a request."""

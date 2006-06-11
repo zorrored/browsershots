@@ -141,6 +141,7 @@ minor INT,
 opsys_group INT,
 opsys INT,
 useragent INT REFERENCES useragent,
+redirected TIMESTAMP,
 screenshot INT REFERENCES screenshot);
 
 DROP TABLE lock CASCADE;
