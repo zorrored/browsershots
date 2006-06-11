@@ -40,7 +40,9 @@ def write():
                 xhtml.write_open_tag_line('div', _class="screenshot first")
             else:
                 xhtml.write_open_tag_line('div', _class="screenshot")
-            xhtml.write_tag('img', src="/png/140/%s/%s.png" % (prefix, hashkey))
+            xhtml.write_tag('img',
+                            src="/png/140/%s/%s.png" % (prefix, hashkey),
+                            alt="")
 
             # xhtml.write_tag_line('br')
             # req.write(time.strftime('%b %d %H:%M', time.localtime(created)))
