@@ -25,9 +25,18 @@ def select_recent(website, limit=5):
     Get the most recently uploaded screenshots for a website.
     """
     cur.execute("""\
-SELECT hashkey FROM screenshot
+SELECT hashkey,
+       browser_group.name, browser.major, browser.minor,
+       opsys_group.name,
+       extract(epoch from screenshot.created)::bigint
+FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
+JOIN browser ON browser.browser = screenshot.browser
+JOIN browser_group ON browser_group.browser_group = browser.browser_group
+JOIN factory USING (factory)
+JOIN opsys ON opsys.opsys = factory.opsys
+JOIN opsys_group ON opsys_group.opsys_group = opsys.opsys_group
 WHERE website = %s
 ORDER BY screenshot.created DESC
 LIMIT %s

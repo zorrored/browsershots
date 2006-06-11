@@ -75,36 +75,6 @@ OR md5(textcat(owner.password, nonce.nonce)) = %s)
         else:
             return 'Nonce expired.'
 
-def authenticate_request(ip, crypt):
-    """
-    Authenticate a request with a crypted password.
-    The crypted password can be created with a nonce:
-    salt = challenge[:4]
-    nonce = challenge[4:]
-    crypt = md5(md5(salt + password) + nonce)
-    """
-    cur.execute("""\
-SELECT nonce, request, width, factory.factory FROM nonce
-JOIN request USING (request)
-JOIN request_group USING (request_group)
-JOIN lock USING (request)
-JOIN factory ON lock.factory = factory.factory
-JOIN person AS owner ON factory.owner = owner.person
-WHERE nonce.ip = %s
-AND (md5(factory.password || nonce.nonce) = %s
-OR md5(owner.password || nonce.nonce) = %s)
-""", (ip, crypt, crypt))
-    row = cur.fetchone()
-    if row is None:
-        return 'Password mismatch.', 0, 0, 0
-    else:
-        nonce, request, width, factory = row
-        cur.execute("DELETE FROM nonce WHERE nonce = %s", (nonce, ))
-        if cur.rowcount:
-            return 'OK', request, width, factory
-        else:
-            return 'Nonce expired.', 0, 0, 0
-
 def authenticate_redirect(ip, crypt):
     """
     Authenticate a redirect with a crypted password.
@@ -134,3 +104,33 @@ OR md5('redirect' || owner.password || nonce.nonce) = %s)
             return 'OK', url, request
         else:
             return 'Nonce expired.', '', 0
+
+def authenticate_request(ip, crypt):
+    """
+    Authenticate a request with a crypted password.
+    The crypted password can be created with a nonce:
+    salt = challenge[:4]
+    nonce = challenge[4:]
+    crypt = md5(md5(salt + password) + nonce)
+    """
+    cur.execute("""\
+SELECT nonce, request, width, factory.factory, browser FROM nonce
+JOIN request USING (request)
+JOIN request_group USING (request_group)
+JOIN lock USING (request)
+JOIN factory ON lock.factory = factory.factory
+JOIN person AS owner ON factory.owner = owner.person
+WHERE nonce.ip = %s
+AND (md5(factory.password || nonce.nonce) = %s
+OR md5(owner.password || nonce.nonce) = %s)
+""", (ip, crypt, crypt))
+    row = cur.fetchone()
+    if row is None:
+        return 'Password mismatch.', 0, 0, 0, 0
+    else:
+        nonce, request, width, factory, browser = row
+        cur.execute("DELETE FROM nonce WHERE nonce = %s", (nonce, ))
+        if cur.rowcount:
+            return 'OK', request, width, factory, browser
+        else:
+            return 'Nonce expired.', 0, 0, 0, 0

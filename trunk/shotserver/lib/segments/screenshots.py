@@ -20,7 +20,8 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.interface import xhtml
+import time
+from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
 def write():
@@ -29,11 +30,31 @@ def write():
     """
     database.connect()
     try:
-        xhtml.write_open_tag('div', _id="screenshots")
-        for row in database.screenshot.select_recent(req.params.website):
-            hashkey = row[0]
+        xhtml.write_open_tag_line('div', _id="screenshots")
+        now = time.time()
+        rows = database.screenshot.select_recent(req.params.website)
+        for index, row in enumerate(rows):
+            hashkey, browser, major, minor, platform, created = row
             prefix = hashkey[:2]
-            xhtml.write_tag('img', src="/png/148/%s/%s.png" % (prefix, hashkey))
+            if index == 0:
+                xhtml.write_open_tag_line('div', _class="screenshot first")
+            else:
+                xhtml.write_open_tag_line('div', _class="screenshot")
+            xhtml.write_tag('img', src="/png/140/%s/%s.png" % (prefix, hashkey))
+
+            # xhtml.write_tag_line('br')
+            # req.write(time.strftime('%b %d %H:%M', time.localtime(created)))
+
+            xhtml.write_tag_line('br')
+            browser = database.browser.browser_version(browser, major, minor)
+            req.write('%s on %s' % (browser, platform))
+
+            xhtml.write_tag_line('br')
+            req.write('%s ago' % human.timespan(now - created, units='long'))
+            xhtml.write_tag_line('br')
+
+            xhtml.write_close_tag_line('div') # class="screenshot"
+        xhtml.write_tag_line('div', '', _class="clear")
         xhtml.write_close_tag_line('div') # id="screenshots"
     finally:
         database.disconnect()
