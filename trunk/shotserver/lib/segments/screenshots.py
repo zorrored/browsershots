@@ -51,8 +51,8 @@ def write():
             browser = database.browser.version_string(browser, major, minor)
             req.write('%s on %s' % (browser, platform))
 
-            xhtml.write_tag_line('br')
-            req.write('%s ago' % human.timespan(now - created, units='long'))
+            timespan = human.timespan(now - created, units='long').replace(' ', '&nbsp;')
+            req.write(', %s ago' % timespan)
             xhtml.write_tag_line('br')
 
             xhtml.write_close_tag_line('div') # class="screenshot"
