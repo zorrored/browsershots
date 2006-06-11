@@ -54,11 +54,10 @@ def optionstring(group_row):
         return ', '.join(options) + ' and ' + last
 
 
-def write_requests(group, opsys_dict):
+def write_requests(requests, opsys_dict):
     """
     Write a summary of the queuing requests for a give request group.
     """
-    requests = database.request.select_by_group(group)
     platforms = {}
     for request_row in requests:
         browser, major, minor, opsys = request_row
@@ -95,6 +94,9 @@ def write():
         groups = database.request.select_by_website(req.params.website)
         for index, group_row in enumerate(groups):
             group = group_row[0]
+            requests = database.request.select_by_group(group)
+            if not requests:
+                continue
             submitted, expire = group_row[-2:]
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
@@ -109,6 +111,6 @@ def write():
             if options:
                 req.write(', with ' + options)
             xhtml.write_close_tag_line('p') # class="queue"
-            write_requests(group, opsys_dict)
+            write_requests(requests, opsys_dict)
     finally:
         database.disconnect()

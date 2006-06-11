@@ -48,13 +48,14 @@ FROM request
 JOIN browser_group USING (browser_group)
 LEFT JOIN opsys_group USING (opsys_group)
 WHERE request_group = %s
+AND screenshot IS NULL
 ORDER BY browser_group.name, major, minor
 """, (group, ))
     return cur.fetchall()
 
 def match(where):
     """
-    Get the oldest matching request that isn't expired.
+    Get the oldest matching request from the queue.
     """
     cur.execute("""\
 SELECT request,
@@ -66,6 +67,7 @@ JOIN website USING (website)
 JOIN browser_group USING (browser_group)
 WHERE """ + where + """
 AND request_group.expire >= NOW()
+AND screenshot IS NULL
 AND (NOT EXISTS (SELECT request FROM lock
                 WHERE lock.request = request.request
                 AND NOW() - lock.created <= %s))
