@@ -29,7 +29,8 @@ INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VA
 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.4) Gecko/20060608 Ubuntu/dapper-security Firefox/1.5.0.4', 1);
 INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (2, 2, 0, 2, 'Safari 2.0', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 6, 0, 'MSIE 6.0', 1);
-INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (4, 3, 3, 2, 'Konqueror 3.3', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (4, 3, 4, 2,
+'Mozilla/5.0 (compatible; Konqueror/3.4; Linux) KHTML/3.4.3 (like Gecko) (Kubuntu package 4:3.4.3-0ubuntu2)', 1);
 INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (5, 1, 3, 1, 'Galeon 1.3', 1);
 INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (6, 1, 7, 1, 'Mozilla 1.7.8', 1);
 INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (7, 1, 4, 1, 'Epiphany 1.4', 1);
@@ -99,6 +100,7 @@ INSERT INTO factory_browser (factory, browser) VALUES (9, 19);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 8);
 INSERT INTO factory_browser (factory, browser) VALUES (10, 1);
 INSERT INTO factory_browser (factory, browser) VALUES (11, 16);
+INSERT INTO factory_browser (factory, browser) VALUES (11, 4);
 
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 1024, 768);
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 800, 600);
@@ -111,12 +113,12 @@ INSERT INTO website (url) VALUES ('http://browsershots.org/');
 INSERT INTO website (url) VALUES ('http://slashdot.org/');
 INSERT INTO website (url) VALUES ('http://www.python.org/');
 
-INSERT INTO request_group (website, expire) VALUES (1, NOW() + '0:30');
+INSERT INTO request_group (website, expire) VALUES (1, NOW() + '4:00');
 INSERT INTO request_group (website, expire, width) VALUES (2, NOW() + '1:00', 800);
 INSERT INTO request_group (website, expire, width) VALUES (3, NOW() + '4:00', 1024);
 
 INSERT INTO request (request_group, browser_group, major, minor) VALUES (1, 1, 1, 5);
-INSERT INTO request (request_group, browser_group, opsys_group) VALUES (1, 1, 1);
+INSERT INTO request (request_group, browser_group, opsys_group) VALUES (1, 4, 1);
 INSERT INTO request (request_group, browser_group) VALUES (1, 1);
 INSERT INTO request (request_group, browser_group) VALUES (2, 1);
 INSERT INTO request (request_group, browser_group) VALUES (3, 1);
