@@ -59,6 +59,21 @@ def features(factory):
         alternatives.append('width = %d' % width)
     where.append('(%s)' % ' OR '.join(alternatives))
 
+    # Match browsers names and versions
+    cur.execute("""\
+SELECT DISTINCT browser_group.name, major, minor
+FROM factory_browser
+JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
+WHERE factory = %s
+""", (factory, ))
+    alternatives = []
+    for row in cur.fetchall():
+        alternatives.append("(browser_group.name = '%s'" % row[0]
+                            + " AND (major IS NULL OR major = %d)" % row[1]
+                            + " AND (minor IS NULL OR minor = %d))" % row[2])
+    where.append('(%s)' % ' OR '.join(alternatives))
+
     # Unspecified request options will always match
     namedict = {}
     for name in 'bpp js java flash media'.split():
