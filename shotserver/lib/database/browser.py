@@ -35,7 +35,7 @@ def select_by_useragent(useragent):
     Select the browser with a given User-Agent string.
     """
     cur.execute("""\
-SELECT browser, browser_group.name, major, minor
+SELECT browser, browser_group, browser_group.name, major, minor
 FROM browser
 JOIN browser_group USING (browser_group)
 WHERE useragent = %s

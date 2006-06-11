@@ -57,10 +57,10 @@ def read_params():
             url = match.group(4)
             match = simple_url_match(url)
             if url and not match:
-                return InvalidParameters("The web address seems to be invalid (%s)." % url)
+                raise InvalidParameters("The web address seems to be invalid (%s)." % url)
             website = database.website.select_serial(url)
-        if url is None:
-            return InvalidParameters("Web address parameter is missing.")
+        if not url:
+            raise InvalidParameters("Web address parameter is missing.")
         req.params.website = website
         req.params.url = url
         req.params.simple = simple_url_match(url)
