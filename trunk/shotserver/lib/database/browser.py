@@ -24,8 +24,29 @@ def get_name_dict():
     """
     Get a mapping from lowercase browser name to id (numeric primary key).
     """
-    cur.execute('SELECT browser_group, name FROM browser_group')
+    cur.execute("SELECT browser_group, name FROM browser_group")
     result = {}
     for browser, name in cur.fetchall():
         result[name.lower()] = browser
     return result
+
+def select_by_useragent(useragent):
+    """
+    Select the browser with a given User-Agent string.
+    """
+    cur.execute("SELECT browser FROM browser WHERE useragent = %s", (useragent, ))
+    row = cur.fetchone()
+    if row is not None:
+        return row[0]
+
+def browser_version(browser, major=None, minor=None):
+    """
+    Make a string with browser name and version number.
+    The version number parts will be skipped if None.
+    """
+    result = [browser]
+    if major is not None:
+        result.append(' %d' % major)
+        if minor is not None:
+            result.append('.%d' % minor)
+    return ''.join(result)
