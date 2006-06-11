@@ -32,16 +32,26 @@ def redirect():
     try:
         ip = req.connection.remote_ip
         crypt = req.info.options[0]
-        status, url, request = database.nonce.authenticate_redirect(ip, crypt)
+        row = database.nonce.authenticate_redirect(ip, crypt)
+        status, url, request, request_browser, request_name, request_major, request_minor = row
         if status == 'OK':
             useragent = req.headers_in.get('User-Agent', '')
-            browser = database.browser.select_by_useragent(useragent)
-            if browser is None:
+            row = database.browser.select_by_useragent(useragent)
+            if row is None:
                 req.params.status = "Your browser version is not registered."
                 req.params.extra = useragent
-            else:
-                database.request.update_browser(request, browser)
-                util.redirect(req, url)
+                return
+            browser, name, major, minor = row
+            if ((request_browser is not None and browser != request_browser) or
+                (request_major is not None and major != request_major) or
+                (request_minor is not None and minor != request_minor)):
+                req.params.status = "Browser mismatch."
+                req.params.extra = "Expected %s, got %s." % (
+                    database.browser.version_string(request_name, request_major, request_minor),
+                    database.browser.version_string(name, major, minor))
+                return
+            database.request.update_browser(request, browser)
+            util.redirect(req, url)
         else:
             req.params.status = status
     finally:

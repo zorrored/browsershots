@@ -43,3 +43,17 @@ def get_serial_dict():
             name = 'Mac'
         result[opsys] = name
     return result
+
+def version_string(browser, major=None, minor=None, codename=None):
+    """
+    Make a string with browser name and version number.
+    The version number parts will be skipped if None.
+    """
+    result = [browser]
+    if major is not None:
+        result.append(' %d' % major)
+        if minor is not None:
+            result.append('.%d' % minor)
+    if codename is not None:
+        result.append(' (%s)' % codename)
+    return ''.join(result)

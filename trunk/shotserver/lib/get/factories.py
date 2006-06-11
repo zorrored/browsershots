@@ -49,13 +49,7 @@ def body():
         xhtml.write_tag('td', name)
         if distro is not None:
             opsys = '%s %s' % (opsys, distro)
-        if major is not None:
-            if minor is not None:
-                opsys = '%s %d.%d' % (opsys, major, minor)
-            else:
-                opsys = '%s %d' % (opsys, major)
-        if codename is not None:
-            opsys = '%s (%s)' % (opsys, codename)
+        opsys = database.opsys.version_string(opsys, major, minor, codename)
         xhtml.write_tag('td', opsys)
         xhtml.write_close_tag_line('tr')
     xhtml.write_close_tag_line('table')
