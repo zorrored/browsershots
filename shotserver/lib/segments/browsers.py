@@ -30,7 +30,7 @@ def select_browsers(platform, where):
     one for each browser, one for all.
     """
     cur.execute("""\
-SELECT browser_group.name, browser.major, browser.minor
+SELECT DISTINCT browser_group.name, browser.major, browser.minor
 FROM factory_browser
 JOIN factory USING (factory)
 JOIN opsys USING (opsys)
