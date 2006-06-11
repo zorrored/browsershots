@@ -27,13 +27,15 @@ def select_by_website(website):
     Get all request groups for this website.
     """
     cur.execute("""\
-SELECT request_group,
+SELECT DISTINCT request_group,
        width, bpp, js, java, flash, media,
-       extract(epoch from created)::bigint,
-       extract(epoch from expire)::bigint
+       extract(epoch from created)::bigint AS created,
+       extract(epoch from expire)::bigint AS expire
 FROM request_group
+JOIN request USING (request_group)
 WHERE website = %s
 AND expire > NOW()
+AND screenshot IS NULL
 ORDER BY created
 """, (website, ))
     return cur.fetchall()
