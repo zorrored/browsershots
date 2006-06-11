@@ -41,7 +41,8 @@ INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (12
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (13, 3, 3, 'NetFront 3.3', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (14, 4, 2, 'WebToGo 4.2', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (15, 2, 1, 'EudoraWeb 2.1', 1);
-INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (1, 1, 0, 1, 'Firefox 1.0', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (1, 1, 0, 1,
+'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.13) Gecko/20060418 Firefox/1.0.8 (Ubuntu package 1.0.8)', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 7, 0, 'MSIE 7.0', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 5, 2, 'MSIE 5.2', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 5, 5, 'MSIE 5.5', 1);
@@ -73,6 +74,7 @@ INSERT INTO factory (name, opsys, architecture, creator, owner) VALUES ('tari', 
 INSERT INTO factory (name, opsys, architecture, creator, owner) VALUES ('azul', 8, 5, 1, 1);
 INSERT INTO factory (name, opsys, architecture, creator, owner) VALUES ('sven', 3, 1, 1, 1);
 INSERT INTO factory (name, salt, password, opsys, architecture, creator, owner) VALUES ('argo', '1234', md5('1234secret'), 1, 1, 1, 1);
+INSERT INTO factory (name, salt, password, opsys, architecture, creator, owner) VALUES ('diet', 'deed', md5('deedsecret'), 8, 1, 1, 1);
 
 INSERT INTO factory_browser (factory, browser) VALUES (1, 1);
 INSERT INTO factory_browser (factory, browser) VALUES (1, 10);
@@ -96,6 +98,7 @@ INSERT INTO factory_browser (factory, browser) VALUES (9, 17);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 19);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 8);
 INSERT INTO factory_browser (factory, browser) VALUES (10, 1);
+INSERT INTO factory_browser (factory, browser) VALUES (11, 16);
 
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 1024, 768);
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 800, 600);

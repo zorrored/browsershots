@@ -28,7 +28,7 @@ def select_serial(name):
     result = cur.fetchone()
     if result is not None:
         return result[0]
-    raise KeyError("factory.name=%s" % name)
+    raise KeyError(name)
 
 def select_salt(factory):
     """
