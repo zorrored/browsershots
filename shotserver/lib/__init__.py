@@ -26,6 +26,8 @@ from shotserver03 import request, xmlrpc
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import languages, logo, topmenu, bottom
 
+DEBUG_XML_IN_TITLE = False
+
 def import_deep(name):
     """
     Import a module from some.levels.deep and return the module
@@ -69,10 +71,10 @@ def write_html_head(title):
     req.write(' "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">\n')
     xhtml.write_open_tag_line('html', xmlns="http://www.w3.org/1999/xhtml")
     xhtml.write_open_tag_line('head')
-    if xml:
-        xhtml.write_tag_line('title', '%s - Browsershots' % title)
-    else:
+    if DEBUG_XML_IN_TITLE and not xml:
         xhtml.write_tag_line('title', 'This browser does not understand XML')
+    else:
+        xhtml.write_tag_line('title', '%s - Browsershots' % title)
     xhtml.write_tag_line('link', type="text/css", href="/style/style.css", rel="stylesheet")
     xhtml.write_tag_line('script', '', type="text/javascript", src="/style/zoom.js")
     xhtml.write_tag_line('script', '', type="text/javascript", src="/style/forms.js")
