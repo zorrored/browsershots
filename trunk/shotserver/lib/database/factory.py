@@ -58,9 +58,14 @@ def features(factory):
         width = row[0]
         alternatives.append('width = %d' % width)
     where.append('(%s)' % ' OR '.join(alternatives))
+
+    # Unspecified request options will always match
+    namedict = {}
+    for name in 'bpp js java flash media'.split():
+        namedict[name] = ['%s IS NULL' % name]
+
     # Match factory features
     cur.execute("SELECT name, intval, strval FROM factory_feature WHERE factory = %s", (factory, ))
-    namedict = {}
     for name, intval, strval in cur.fetchall():
         if intval is not None:
             clause = "%s = %d" % (name, intval)
@@ -68,12 +73,7 @@ def features(factory):
             clause = "'%s' LIKE %s" % (strval, name)
         else:
             continue
-        alternatives = namedict.get(name, [])
-        alternatives.append(clause)
-        namedict[name] = alternatives
+        namedict[name].append(clause)
     for name, alternatives in namedict.iteritems():
-        if len(alternatives) == 0:
-            continue
-        alternatives.insert(0, '%s IS NULL' % name)
         where.append('(%s)' % ' OR '.join(alternatives))
     return ' AND '.join(where)
