@@ -155,7 +155,7 @@ def upload(binary, crypt):
     database.connect()
     try:
         ip = req.connection.remote_ip
-        status, request, request_width, factory = database.nonce.authenticate_request(ip, crypt)
+        status, request, request_width, factory, browser = database.nonce.authenticate_request(ip, crypt)
         if status != 'OK':
             return status
 
@@ -170,15 +170,18 @@ def upload(binary, crypt):
             return ("Uploaded image height (%d) is greater than maximum (%d)."
                     % (height, database.options.max_screenshot_height))
 
-        assert zoom(ppmname, hashkey, 148)
-        assert zoom(ppmname, hashkey, 184)
-        assert zoom(ppmname, hashkey, 250)
-        assert zoom(ppmname, hashkey, 380)
-        assert zoom(ppmname, hashkey, 456)
+        assert zoom(ppmname, hashkey, 140) # 5*140 + 4*16 = 764
+        assert zoom(ppmname, hashkey, 180) # 4*180 + 3*14 = 762
+        assert zoom(ppmname, hashkey, 240) # 3*240 + 2*22 = 764
+        assert zoom(ppmname, hashkey, 450) # 3*140 + 2*15
         os.close(ppmhandle)
         os.unlink(ppmname)
 
-        values = {'hashkey': hashkey, 'factory': factory, 'width': width, 'height': height}
+        values = {'hashkey': hashkey,
+                  'factory': factory,
+                  'browser': browser,
+                  'width': width,
+                  'height': height}
         database.insert('screenshot', values)
         database.request.update_screenshot(request, database.lastval())
         return 'OK'

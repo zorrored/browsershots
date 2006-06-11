@@ -74,7 +74,7 @@ def write_requests(requests, opsys_dict):
     keys.sort()
     if keys[0] is None:
         keys.append(keys.pop(0))
-    xhtml.write_open_tag_line('ul', _class="queue")
+    xhtml.write_open_tag_line('ul', _class="up")
     for key in keys:
         if key is None:
             platform = 'Others'
@@ -104,7 +104,7 @@ def write():
                 xhtml.write_open_tag('p', _class="queue success")
                 xhtml.write_tag('a', xhtml.tag('b', 'Just submitted'), _id="success")
             else:
-                xhtml.write_open_tag('p', _class="queue")
+                xhtml.write_open_tag('p')
                 xhtml.write_tag('b', 'Submitted %s ago' % age)
             req.write(', to expire in %s' % remaining)
             options = optionstring(group_row)

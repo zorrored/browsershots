@@ -34,10 +34,14 @@ def redirect():
         crypt = req.info.options[0]
         status, url, request = database.nonce.authenticate_redirect(ip, crypt)
         if status == 'OK':
-            header = req.headers_in.get('User-Agent', '')
-            useragent = database.useragent.select_serial(header, insert=True)
-            database.request.update_useragent(request, useragent)
-            util.redirect(req, url)
+            useragent = req.headers_in.get('User-Agent', '')
+            browser = database.browser.select_by_useragent(useragent)
+            if browser is None:
+                req.params.status = "Your browser version is not registered."
+                req.params.extra = useragent
+            else:
+                database.request.update_browser(request, browser)
+                util.redirect(req, url)
         else:
             req.params.status = status
     finally:
@@ -50,3 +54,5 @@ def title():
 def body():
     """Print error message."""
     xhtml.write_tag('p', req.params.status, _class="error")
+    if hasattr(req.params, 'extra'):
+        xhtml.write_tag('p', req.params.extra)
