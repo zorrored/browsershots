@@ -13,27 +13,23 @@
 # limitations under the License.
 
 """
-Display recent screenshots for a given website.
+Database interface for screenshot table.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.interface import xhtml
-from shotserver03 import database
-
-def write():
+def select_recent(website, limit=5):
     """
-    Write XHTML div with recent screenshots.
+    Get the most recently uploaded screenshots for a website.
     """
-    database.connect()
-    try:
-        xhtml.write_open_tag('div', _id="screenshots")
-        for row in database.screenshot.select_recent(req.params.website):
-            hashkey = row[0]
-            prefix = hashkey[:2]
-            xhtml.write_tag('img', src="/png/148/%s/%s.png" % (prefix, hashkey))
-        xhtml.write_close_tag_line('div') # id="screenshots"
-    finally:
-        database.disconnect()
+    cur.execute("""\
+SELECT hashkey FROM screenshot
+JOIN request USING (screenshot)
+JOIN request_group USING (request_group)
+WHERE website = %s
+ORDER BY screenshot.created DESC
+LIMIT %s
+""", (website, limit))
+    return cur.fetchall()

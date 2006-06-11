@@ -71,7 +71,7 @@ INSERT INTO factory (name, opsys, architecture, creator, owner) VALUES ('lara', 
 INSERT INTO factory (name, opsys, architecture, creator, owner) VALUES ('tari', 7, 3, 1, 1);
 INSERT INTO factory (name, opsys, architecture, creator, owner) VALUES ('azul', 8, 5, 1, 1);
 INSERT INTO factory (name, opsys, architecture, creator, owner) VALUES ('sven', 3, 1, 1, 1);
-INSERT INTO factory (name, salt, password, opsys, architecture, creator, owner) VALUES ('argo', '1234', md5('1234secret'), 8, 5, 1, 1);
+INSERT INTO factory (name, salt, password, opsys, architecture, creator, owner) VALUES ('argo', '1234', md5('1234secret'), 1, 1, 1, 1);
 
 INSERT INTO factory_browser (factory, browser) VALUES (1, 1);
 INSERT INTO factory_browser (factory, browser) VALUES (1, 10);
@@ -94,16 +94,18 @@ INSERT INTO factory_browser (factory, browser) VALUES (8, 16);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 17);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 19);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 8);
+INSERT INTO factory_browser (factory, browser) VALUES (10, 1);
 
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 1024, 768);
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 800, 600);
+INSERT INTO factory_screen (factory, width, height) VALUES (10, 1024, 768);
 
 INSERT INTO factory_feature (factory, name, intval) VALUES (1, 'bpp', 24);
 INSERT INTO factory_feature (factory, name, strval) VALUES (1, 'flash', '7.0 r63');
 
-INSERT INTO website (url) VALUES ('http://foo');
-INSERT INTO website (url) VALUES ('http://bar');
-INSERT INTO website (url) VALUES ('http://baz');
+INSERT INTO website (url) VALUES ('http://browsershots.org/');
+INSERT INTO website (url) VALUES ('http://slashdot.org/');
+INSERT INTO website (url) VALUES ('http://www.python.org/');
 
 INSERT INTO request_group (website, expire) VALUES (1, NOW() + '0:30');
 INSERT INTO request_group (website, expire, width) VALUES (2, NOW() + '1:00', 800);
@@ -111,9 +113,9 @@ INSERT INTO request_group (website, expire, width) VALUES (3, NOW() + '4:00', 10
 
 INSERT INTO request (request_group, browser_group, major, minor) VALUES (1, 1, 1, 5);
 INSERT INTO request (request_group, browser_group, opsys_group) VALUES (1, 1, 1);
-INSERT INTO request (request_group, browser_group) VALUES (1, 2);
-INSERT INTO request (request_group, browser_group) VALUES (2, 2);
-INSERT INTO request (request_group, browser_group) VALUES (3, 2);
+INSERT INTO request (request_group, browser_group) VALUES (1, 1);
+INSERT INTO request (request_group, browser_group) VALUES (2, 1);
+INSERT INTO request (request_group, browser_group) VALUES (3, 1);
 
 INSERT INTO lock (request, factory) VALUES (1, 1);
 
