@@ -48,7 +48,7 @@ def write():
             # req.write(time.strftime('%b %d %H:%M', time.localtime(created)))
 
             xhtml.write_tag_line('br')
-            browser = database.browser.browser_version(browser, major, minor)
+            browser = database.browser.version_string(browser, major, minor)
             req.write('%s on %s' % (browser, platform))
 
             xhtml.write_tag_line('br')

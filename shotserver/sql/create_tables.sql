@@ -33,11 +33,11 @@ creator INT NOT NULL REFERENCES person);
 DROP TABLE browser CASCADE;
 CREATE TABLE browser (
 browser SERIAL PRIMARY KEY NOT NULL,
+useragent VARCHAR(255) NOT NULL UNIQUE,
 browser_group INT NOT NULL REFERENCES browser_group,
 major INT NOT NULL,
 minor INT,
 engine INT REFERENCES engine,
-useragent VARCHAR(255) NOT NULL UNIQUE,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 

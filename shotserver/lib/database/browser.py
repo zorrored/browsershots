@@ -34,12 +34,15 @@ def select_by_useragent(useragent):
     """
     Select the browser with a given User-Agent string.
     """
-    cur.execute("SELECT browser FROM browser WHERE useragent = %s", (useragent, ))
-    row = cur.fetchone()
-    if row is not None:
-        return row[0]
+    cur.execute("""\
+SELECT browser, browser_group.name, major, minor
+FROM browser
+JOIN browser_group USING (browser_group)
+WHERE useragent = %s
+""", (useragent, ))
+    return cur.fetchone()
 
-def browser_version(browser, major=None, minor=None):
+def version_string(browser, major=None, minor=None):
     """
     Make a string with browser name and version number.
     The version number parts will be skipped if None.
