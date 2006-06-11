@@ -158,6 +158,8 @@ def upload(binary, crypt):
         status, request, request_width, factory, browser = database.nonce.authenticate_request(ip, crypt)
         if status != 'OK':
             return status
+        if browser is None:
+            return "The browser has not visited the requested URL."
 
         hashkey = database.nonce.random_md5()
         save_upload(binary, hashkey)
