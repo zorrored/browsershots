@@ -65,7 +65,7 @@ def read_params():
         req.params.url = url
         req.params.simple = simple_url_match(url)
         req.params.escaped = cgi.escape(url, quote = True)
-        req.params.show_screenshots = True
+        req.params.show_screenshots = database.screenshot.select_recent(req.params.website)
         req.params.show_queue = database.request.select_by_website(website)
     finally:
         database.disconnect()
@@ -103,7 +103,7 @@ def body():
     # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
-    xhtml.write_tag('p', 'for ' + req.params.url, _class="up")
+    xhtml.write_tag_line('p', 'for ' + req.params.url, _class="up")
 
     if req.params.show_screenshots:
         screenshots.write()

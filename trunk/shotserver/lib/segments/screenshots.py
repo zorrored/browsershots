@@ -32,7 +32,7 @@ def write():
     try:
         xhtml.write_open_tag_line('div', _id="screenshots")
         now = time.time()
-        rows = database.screenshot.select_recent(req.params.website)
+        rows = req.params.show_screenshots
         for index, row in enumerate(rows):
             hashkey, browser, major, minor, platform, created = row
             prefix = hashkey[:2]

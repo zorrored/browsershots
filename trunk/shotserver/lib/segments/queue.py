@@ -91,7 +91,8 @@ def write():
     database.connect()
     try:
         opsys_dict = database.opsys.get_serial_dict()
-        groups = database.request.select_by_website(req.params.website)
+        groups = req.params.show_queue
+        xhtml.write_open_tag_line('div', _id="queue")
         for index, group_row in enumerate(groups):
             group = group_row[0]
             requests = database.request.select_by_group(group)
@@ -101,7 +102,7 @@ def write():
             age = human.timespan(time.time() - submitted, units='long')
             remaining = human.timespan(expire - time.time(), units='long')
             if time.time() - submitted < 30 and index == len(groups) - 1:
-                xhtml.write_open_tag('p', _class="queue success")
+                xhtml.write_open_tag('p', _class="success")
                 xhtml.write_tag('a', xhtml.tag('b', 'Just submitted'), _id="success")
             else:
                 xhtml.write_open_tag('p')
@@ -110,7 +111,8 @@ def write():
             options = optionstring(group_row)
             if options:
                 req.write(', with ' + options)
-            xhtml.write_close_tag_line('p') # class="queue"
+            xhtml.write_close_tag_line('p')
             write_requests(requests, opsys_dict)
+        xhtml.write_close_tag_line('div') # id="queue"
     finally:
         database.disconnect()
