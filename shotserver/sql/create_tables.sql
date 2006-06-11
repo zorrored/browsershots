@@ -131,11 +131,11 @@ CREATE TABLE request (
 request SERIAL PRIMARY KEY NOT NULL,
 request_group INT NOT NULL REFERENCES request_group,
 browser_group INT NOT NULL REFERENCES browser_group,
-browser INT REFERENCES browser,
 major INT,
 minor INT,
 opsys_group INT REFERENCES opsys_group,
 opsys INT REFERENCES opsys,
+browser INT REFERENCES browser,
 redirected TIMESTAMP,
 screenshot INT REFERENCES screenshot);
 
