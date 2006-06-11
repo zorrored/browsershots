@@ -65,7 +65,11 @@ def write_requests(group, opsys_dict):
         if opsys is not None:
             opsys = opsys_dict[opsys]
         platform = platforms.get(opsys, [])
-        platform.append('%s %d.%d' % (browser, major, minor))
+        if major is not None:
+            browser += ' %d' % major
+            if minor is not None:
+                browser += '.%d' % minor
+        platform.append(browser)
         platforms[opsys] = platform
     keys = platforms.keys()
     keys.sort()
