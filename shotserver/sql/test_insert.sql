@@ -25,25 +25,26 @@ INSERT INTO browser_group (name, creator) VALUES ('NetFront', 1);
 INSERT INTO browser_group (name, creator) VALUES ('WebToGo', 1);
 INSERT INTO browser_group (name, creator) VALUES ('EudoraWeb', 1);
 
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (1, 1, 5, 1, 1);
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (2, 2, 0, 2, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (3, 6, 0, 1);
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (4, 3, 3, 2, 1);
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (5, 1, 3, 1, 1);
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (6, 1, 7, 1, 1);
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (7, 1, 4, 1, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (8, 8, 5, 1);
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (9, 1, 0, 1, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (10, 1, 0, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (11, 2, 8, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (12, 0, 5, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (13, 3, 3, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (14, 4, 2, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (15, 2, 1, 1);
-INSERT INTO browser (browser_group, major, minor, engine, creator) VALUES (1, 1, 0, 1, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (3, 7, 0, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (3, 5, 2, 1);
-INSERT INTO browser (browser_group, major, minor, creator) VALUES (3, 5, 5, 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (1, 1, 5, 1,
+'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.0.4) Gecko/20060608 Ubuntu/dapper-security Firefox/1.5.0.4', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (2, 2, 0, 2, 'Safari 2.0', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 6, 0, 'MSIE 6.0', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (4, 3, 3, 2, 'Konqueror 3.3', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (5, 1, 3, 1, 'Galeon 1.3', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (6, 1, 7, 1, 'Mozilla 1.7.8', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (7, 1, 4, 1, 'Epiphany 1.4', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (8, 8, 5, 'Opera 8.5', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (9, 1, 0, 1, 'Camino 1.0', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (10, 1, 0, 'Links 1.0', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (11, 2, 8, 'Lynx 2.8', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (12, 0, 5, 'W3M 0.5', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (13, 3, 3, 'NetFront 3.3', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (14, 4, 2, 'WebToGo 4.2', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (15, 2, 1, 'EudoraWeb 2.1', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (1, 1, 0, 1, 'Firefox 1.0', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 7, 0, 'MSIE 7.0', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 5, 2, 'MSIE 5.2', 1);
+INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 5, 5, 'MSIE 5.5', 1);
 
 INSERT INTO opsys_group (name, creator) VALUES ('Linux', 1);
 INSERT INTO opsys_group (name, manufacturer, creator) VALUES ('Mac OS', 'Apple', 1);
@@ -119,4 +120,4 @@ INSERT INTO request (request_group, browser_group) VALUES (3, 1);
 
 INSERT INTO lock (request, factory) VALUES (1, 1);
 
-INSERT INTO screenshot (hashkey, factory, width, height) VALUES (md5('hashkey'), 1, 640, 480);
+INSERT INTO screenshot (hashkey, factory, browser, width, height) VALUES (md5('hashkey'), 1, 1, 640, 480);

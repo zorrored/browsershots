@@ -37,6 +37,7 @@ browser_group INT NOT NULL REFERENCES browser_group,
 major INT NOT NULL,
 minor INT,
 engine INT REFERENCES engine,
+useragent VARCHAR(255) NOT NULL UNIQUE,
 created TIMESTAMP DEFAULT NOW(),
 creator INT NOT NULL REFERENCES person);
 
@@ -100,6 +101,7 @@ CREATE TABLE screenshot (
 screenshot SERIAL PRIMARY KEY NOT NULL,
 hashkey CHAR(32) UNIQUE NOT NULL CHECK (hashkey ~ '[0-9a-f]{32}'),
 factory INT NOT NULL REFERENCES factory,
+browser INT NOT NULL REFERENCES browser,
 width INT NOT NULL,
 height INT NOT NULL,
 created TIMESTAMP DEFAULT NOW());
@@ -108,12 +110,6 @@ DROP TABLE website CASCADE;
 CREATE TABLE website (
 website SERIAL PRIMARY KEY NOT NULL,
 url VARCHAR(255) NOT NULL UNIQUE,
-created TIMESTAMP DEFAULT NOW());
-
-DROP TABLE useragent CASCADE;
-CREATE TABLE useragent (
-useragent SERIAL PRIMARY KEY NOT NULL,
-header VARCHAR(255) NOT NULL UNIQUE,
 created TIMESTAMP DEFAULT NOW());
 
 DROP TABLE request_group CASCADE;
@@ -135,12 +131,11 @@ CREATE TABLE request (
 request SERIAL PRIMARY KEY NOT NULL,
 request_group INT NOT NULL REFERENCES request_group,
 browser_group INT NOT NULL REFERENCES browser_group,
-browser INT,
+browser INT REFERENCES browser,
 major INT,
 minor INT,
-opsys_group INT,
-opsys INT,
-useragent INT REFERENCES useragent,
+opsys_group INT REFERENCES opsys_group,
+opsys INT REFERENCES opsys,
 redirected TIMESTAMP,
 screenshot INT REFERENCES screenshot);
 
