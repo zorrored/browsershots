@@ -34,7 +34,8 @@ def redirect():
         crypt = req.info.options[0]
         status, url, request = database.nonce.authenticate_redirect(ip, crypt)
         if status == 'OK':
-            useragent = req.headers_in.get('User-Agent', '')
+            header = req.headers_in.get('User-Agent', '')
+            useragent = database.useragent.select_serial(header, insert=True)
             database.request.update_useragent(request, useragent)
             util.redirect(req, url)
         else:

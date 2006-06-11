@@ -13,36 +13,26 @@
 # limitations under the License.
 
 """
-Database interface for website table.
+Database interface for useragent table.
 """
 
 __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-def select_url(serial):
-    """
-    Get the URL from the database.
-    """
-    cur.execute("SELECT url FROM website WHERE website=%s", (serial, ))
-    result = cur.fetchone()
-    if result is None:
-        return None
-    return result[0]
-
-def select_serial(url, insert = False):
+def select_serial(header, insert = False):
     """
     Get the serial number from the database.
-    If the URL is not found and the insert parameter is set to True,
+    If the useragent is not found and the insert parameter is set to True,
     insert it into database and try again.
     """
-    cur.execute("SELECT website FROM website WHERE url=%s", (url, ))
+    cur.execute("SELECT useragent FROM useragent WHERE header=%s", (header, ))
     result = cur.fetchone()
     if result is not None:
         return result[0]
     if not insert:
         return None
-    cur.execute("INSERT INTO website (url) VALUES (%s)", (url, ))
+    cur.execute("INSERT INTO useragent (header) VALUES (%s)", (header, ))
     cur.execute("SELECT lastval()")
     row = cur.fetchone()
     return row[0]

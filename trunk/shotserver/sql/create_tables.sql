@@ -110,6 +110,12 @@ website SERIAL PRIMARY KEY NOT NULL,
 url VARCHAR(255) NOT NULL UNIQUE,
 created TIMESTAMP DEFAULT NOW());
 
+DROP TABLE useragent CASCADE;
+CREATE TABLE useragent (
+useragent SERIAL PRIMARY KEY NOT NULL,
+header VARCHAR(255) NOT NULL UNIQUE,
+created TIMESTAMP DEFAULT NOW());
+
 DROP TABLE request_group CASCADE;
 CREATE TABLE request_group (
 request_group SERIAL PRIMARY KEY NOT NULL,
@@ -134,7 +140,7 @@ major INT,
 minor INT,
 opsys_group INT,
 opsys INT,
-useragent VARCHAR(255),
+useragent INT REFERENCES useragent,
 screenshot INT REFERENCES screenshot);
 
 DROP TABLE lock CASCADE;

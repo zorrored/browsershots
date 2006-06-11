@@ -21,7 +21,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import pgdb
-from shotserver03.database import browser, factory, lock, nonce, opsys, request, website
+from shotserver03.database import browser, factory, lock, nonce, opsys, request, useragent, website
 
 def connect():
     """
