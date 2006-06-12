@@ -58,7 +58,7 @@ INSERT INTO opsys_group (name, creator) VALUES ('Symbian', 1);
 INSERT INTO opsys_group (name, creator) VALUES ('Solaris', 1);
 INSERT INTO opsys_group (name, creator) VALUES ('TOS', 1);
 
-INSERT INTO opsys (opsys_group, distro, codename, major, minor, creator) VALUES (1, 'Ubuntu', 'Dapper Drake', 6, 4, 1);
+INSERT INTO opsys (opsys_group, distro, codename, major, minor, creator) VALUES (1, 'Ubuntu', 'LTS Dapper Drake', 6, 6, 1);
 INSERT INTO opsys (opsys_group, distro, codename, major, minor, creator) VALUES (2, 'X', 'Tiger', 10, 4, 1);
 INSERT INTO opsys (opsys_group, distro, codename, creator) VALUES (3, 'XP', 'Service Pack 2', 1);
 INSERT INTO opsys (opsys_group, codename, major, minor, mobile, creator) VALUES (4, 'Cobalt', 6, 1, TRUE, 1);
@@ -122,19 +122,16 @@ INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 8);
 INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 16);
 INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 24);
 
-INSERT INTO website (url) VALUES ('http://browsershots.org/');
-INSERT INTO website (url) VALUES ('http://slashdot.org/');
+INSERT INTO website (url) VALUES ('http://v03.browsershots.org/');
 INSERT INTO website (url) VALUES ('http://www.python.org/');
 
 INSERT INTO request_group (website, expire) VALUES (1, NOW() + '4:00');
 INSERT INTO request_group (website, expire, width) VALUES (2, NOW() + '1:00', 800);
-INSERT INTO request_group (website, expire, width) VALUES (3, NOW() + '0:30', 1024);
 
 INSERT INTO request (request_group, browser_group, major, minor) VALUES (1, 1, 1, 5);
 INSERT INTO request (request_group, browser_group, opsys_group) VALUES (1, 4, 1);
-INSERT INTO request (request_group, browser_group) VALUES (1, 1);
 INSERT INTO request (request_group, browser_group) VALUES (2, 1);
-INSERT INTO request (request_group, browser_group) VALUES (3, 1);
+INSERT INTO request (request_group, browser_group) VALUES (2, 4);
 
 INSERT INTO lock (request, factory) VALUES (1, 1);
 
