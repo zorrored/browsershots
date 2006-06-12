@@ -50,7 +50,8 @@ div#queue p { margin-bottom: 0; }
 .bottom { vertical-align: bottom; }
 
 .relative { position: relative; }
-.absolute { position: absolute; }
+.absolute,
+.relative img { position: absolute; }
 .up { margin-top: 0; }
 
 .clear { clear: both; }
