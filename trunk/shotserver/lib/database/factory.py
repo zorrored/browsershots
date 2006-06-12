@@ -52,13 +52,13 @@ def features(factory):
     """
     # Factory options
     cur.execute("""\
-SELECT opsys, opsys_group.name
+SELECT opsys_group.name
 FROM factory
 JOIN opsys USING (opsys)
 JOIN opsys_group USING (opsys_group)
 WHERE factory = %s
 """, (factory, ))
-    opsys, opsys_name = cur.fetchone()
+    opsys_name = cur.fetchone()[0]
     where = ["(opsys_group IS NULL OR opsys_group.name = '%s')" % opsys_name]
 
     # Match browsers names and versions
