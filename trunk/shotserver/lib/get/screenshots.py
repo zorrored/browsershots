@@ -39,16 +39,18 @@ def body():
 
     columns = [0] * 5
     xhtml.write_open_tag_line('div', _id="screenshots", _class="relative")
-    for row in rows:
+    for row_index, row in enumerate(rows):
+        hashkey, width, height, url = row
+        height = height * 140 / width
+        width = 140
+        if row_index > 10 and row_index > len(rows) - 10 and height > 140:
+            continue
         smallest = 0
         minimum = columns[0]
         for index in range(1, 5):
             if columns[index] < minimum:
                 minimum = columns[index]
                 smallest = index
-        hashkey, width, height, url = row
-        height = height * 140 / width
-        width = 140
         left = 156 * smallest
         top = columns[smallest]
         prefix = hashkey[:2]
