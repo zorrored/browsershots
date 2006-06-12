@@ -1,0 +1,146 @@
+#!/usr/bin/env python
+# Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Screenshot factory.
+"""
+
+__revision__ = '$Rev$'
+__date__ = '$Date$'
+__author__ = '$Author$'
+
+import sys, os, time, xmlrpclib, socket
+from shotfactory03.gui import x11
+from md5 import md5
+
+pngfilename = 'browsershot.png'
+
+def crypt_password(challenge, password, prefix = ''):
+    """
+    Encrypt a password for transmission.
+    """
+    salt = challenge[:4]
+    nonce = challenge[4:]
+    crypt = md5(salt + password).hexdigest()
+    crypt = md5(prefix + crypt + nonce).hexdigest()
+    return crypt
+
+def start_vnc_server(options):
+    """
+    Start a VNC server.
+    """
+    width = options['width']
+    if not width:
+        width = 1024
+    if width == 1280:
+        height = 1024
+    else:
+        height = width / 4 * 3
+    bpp = options['bpp']
+    dpi = 90
+    command = ('vncserver :1 -geometry %dx%d -depth %d -dpi %d'
+               % (width, height, bpp, dpi))
+    error = os.system(command)
+    assert not error
+
+def browsershot(server_url, server, factory, password, challenge):
+    """
+    Process a screenshot request and upload the resulting PNG file.
+    """
+    # Ask server for a matching screenshot request
+    crypt = crypt_password(challenge, password)
+    status, challenge, options = server.request.poll(factory, crypt)
+    if status != 'OK':
+        print status
+        return
+    print options
+
+    start_vnc_server(options)
+    gui = x11.X11Gui(display=1)
+
+    # Start browser
+    crypt = crypt_password(challenge, password, 'redirect')
+    url = '%s/redirect/%s' % (server_url, crypt)
+    if options['browser'] == 'Firefox':
+        gui.shell('firefox "%s" &' % url)
+    elif options['browser'] == 'Konqueror':
+        gui.shell('konqueror "%s" &' % url)
+    else:
+        raise RuntimeError("Unsupported browser: %s" % options['browser'])
+    time.sleep(24)
+    gui.maximize()
+    time.sleep(4)
+
+    # Make screenshots
+    if os.path.exists(pngfilename):
+        os.remove(pngfilename)
+    gui.browsershot(pngfilename)
+
+    # Kill VNC server
+    error = os.system('vncserver -kill :1')
+    assert not error
+
+    # Upload PNG file
+    binary = xmlrpclib.Binary(file(pngfilename).read())
+    crypt = crypt_password(challenge, password)
+    response = server.request.upload(binary, crypt)
+    print response
+
+def debug_factory_features(server, factory):
+    """
+    Print the SQL WHERE clause for a given factory.
+    """
+    features = server.factory.features(factory)
+    start = 0
+    nested = 0
+    for index in range(len(features)):
+        if features[index] == '(':
+            nested += 1
+            if nested <= 2 and index > 0:
+                stop = index
+                print features[start:stop].strip()
+                start = stop
+        elif features[index] == ')':
+            nested -= 1
+            if nested == 0 and features[index - 1] == ')':
+                stop = index
+                print features[start:stop].strip()
+                start = stop
+    rest = features[start:].strip()
+    if rest:
+        print rest
+
+def main(server_url, factory):
+    """
+    Main loop for screenshot factory.
+    """
+    server = xmlrpclib.Server(server_url)
+    debug_factory_features(server, factory)
+    password = 'secret'
+    challenge = server.auth.challenge(factory)
+    print challenge
+    browsershot(server_url, server, factory, password, challenge)
+
+def hostname():
+    """Get hostname of local machine."""
+    return socket.gethostname()
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        main('http://v03.browsershots.org', hostname())
+    elif len(sys.argv) == 2:
+        main(sys.argv[1], hostname())
+    else:
+        print "usage: shotfactory [http://v03.browsershots.org]"
