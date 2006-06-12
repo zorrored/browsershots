@@ -65,7 +65,7 @@ def read_params():
         req.params.url = url
         req.params.simple = simple_url_match(url)
         req.params.escaped = cgi.escape(url, quote = True)
-        req.params.show_screenshots = database.screenshot.select_recent(req.params.website)
+        req.params.show_screenshots = database.screenshot.select_recent_website(req.params.website)
         req.params.show_queue = database.request.select_by_website(website)
     finally:
         database.disconnect()
