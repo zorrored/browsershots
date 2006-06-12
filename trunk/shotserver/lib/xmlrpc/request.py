@@ -67,8 +67,9 @@ def poll(factory, crypt):
         status = database.nonce.authenticate_factory(factory, ip, crypt)
         if status != 'OK':
             return status, '', {}
+        database.factory.update_last_poll(factory)
         where = database.factory.features(factory)
-        row = database.request.match(where)
+        row = database.request.select_match(where)
         if row is None:
             return 'No matching request.', '', {}
         else:
@@ -186,6 +187,7 @@ def upload(binary, crypt):
                   'height': height}
         database.insert('screenshot', values)
         database.request.update_screenshot(request, database.lastval())
+        database.factory.update_last_upload(factory)
         return 'OK'
     finally:
         database.disconnect()
