@@ -105,12 +105,22 @@ INSERT INTO factory_browser (factory, browser) VALUES (10, 20);
 INSERT INTO factory_browser (factory, browser) VALUES (11, 4);
 INSERT INTO factory_browser (factory, browser) VALUES (11, 16);
 
-INSERT INTO factory_screen (factory, width, height) VALUES (1, 1024, 768);
-INSERT INTO factory_screen (factory, width, height) VALUES (1, 800, 600);
+INSERT INTO factory_screen (factory, width, height) VALUES (10, 640, 480);
+INSERT INTO factory_screen (factory, width, height) VALUES (10, 800, 600);
 INSERT INTO factory_screen (factory, width, height) VALUES (10, 1024, 768);
+INSERT INTO factory_screen (factory, width, height) VALUES (10, 1280, 1024);
+INSERT INTO factory_screen (factory, width, height) VALUES (10, 1600, 1200);
+INSERT INTO factory_screen (factory, width, height) VALUES (11, 640, 480);
+INSERT INTO factory_screen (factory, width, height) VALUES (11, 800, 600);
+INSERT INTO factory_screen (factory, width, height) VALUES (11, 1024, 768);
+INSERT INTO factory_screen (factory, width, height) VALUES (11, 1280, 1024);
+INSERT INTO factory_screen (factory, width, height) VALUES (11, 1600, 1200);
 
 INSERT INTO factory_feature (factory, name, intval) VALUES (1, 'bpp', 24);
 INSERT INTO factory_feature (factory, name, strval) VALUES (1, 'flash', '7.0 r63');
+INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 8);
+INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 16);
+INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 24);
 
 INSERT INTO website (url) VALUES ('http://browsershots.org/');
 INSERT INTO website (url) VALUES ('http://slashdot.org/');
@@ -118,7 +128,7 @@ INSERT INTO website (url) VALUES ('http://www.python.org/');
 
 INSERT INTO request_group (website, expire) VALUES (1, NOW() + '4:00');
 INSERT INTO request_group (website, expire, width) VALUES (2, NOW() + '1:00', 800);
-INSERT INTO request_group (website, expire, width) VALUES (3, NOW() + '4:00', 1024);
+INSERT INTO request_group (website, expire, width) VALUES (3, NOW() + '0:30', 1024);
 
 INSERT INTO request (request_group, browser_group, major, minor) VALUES (1, 1, 1, 5);
 INSERT INTO request (request_group, browser_group, opsys_group) VALUES (1, 4, 1);
