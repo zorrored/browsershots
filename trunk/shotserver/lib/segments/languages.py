@@ -28,9 +28,7 @@ def write():
     Write XHTML form with drop-down language selector.
     """
     xhtml.write_open_tag_line('form', action="")
-    xhtml.write_open_tag('div', _id="languages", _class="float-right")
-    # xhtml.write_tag_line('input', _type="text")
-    # xhtml.write_tag_line('input', _type="submit", value="Search")
+    xhtml.write_open_tag_line('div', _id="languages", _class="float-right")
 
     xhtml.write_open_tag_line('select', _id="langsel",
         onchange="document.location.href=this.form.langsel.options[this.form.langsel.options.selectedIndex].value")
