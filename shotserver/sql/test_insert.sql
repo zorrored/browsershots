@@ -121,6 +121,9 @@ INSERT INTO factory_feature (factory, name, strval) VALUES (1, 'flash', '7.0 r63
 INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 8);
 INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 16);
 INSERT INTO factory_feature (factory, name, intval) VALUES (10, 'bpp', 24);
+INSERT INTO factory_feature (factory, name, intval) VALUES (11, 'bpp', 8);
+INSERT INTO factory_feature (factory, name, intval) VALUES (11, 'bpp', 16);
+INSERT INTO factory_feature (factory, name, intval) VALUES (11, 'bpp', 24);
 
 INSERT INTO website (url) VALUES ('http://v03.browsershots.org/');
 INSERT INTO website (url) VALUES ('http://www.python.org/');
