@@ -43,7 +43,7 @@ def body():
         hashkey, width, height, url = row
         height = height * 140 / width
         width = 140
-        if row_index > 10 and row_index > len(rows) - 10 and height > 140:
+        if row_index > 5 and height > (len(rows) - row_index) * 28:
             continue
         minimum = min(columns)
         smallest = columns.index(minimum)
