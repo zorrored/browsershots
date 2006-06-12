@@ -20,7 +20,8 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.interface import xhtml
+import time
+from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
 def title():
@@ -33,23 +34,26 @@ def body():
     """
     database.connect()
     try:
-        cur.execute("""SELECT factory.name, opsys.name, distro, major, minor, codename
-            FROM factory
-            JOIN opsys_version USING (opsys_version)
-            JOIN opsys USING (opsys)
-            ORDER BY opsys.name, major, minor, factory.name
-            """)
-        result = cur.fetchall()
+        rows = database.factory.select_active()
     finally:
         database.disconnect()
 
+    now = time.time()
     xhtml.write_open_tag_line('table')
-    for name, opsys, distro, major, minor, codename in result:
+    xhtml.write_table_row(("Name", "Operating System", "Last poll", "Last upload"), element="th")
+    for row in rows:
+        name, opsys, distro, major, minor, codename, last_poll, last_upload = row
         xhtml.write_open_tag('tr')
         xhtml.write_tag('td', name)
-        if distro is not None:
-            opsys = '%s %s' % (opsys, distro)
-        opsys = database.opsys.version_string(opsys, major, minor, codename)
+        opsys = database.opsys.version_string(opsys, distro, major, minor, codename)
         xhtml.write_tag('td', opsys)
+        if last_poll is None:
+            xhtml.write_tag('td', "never")
+        else:
+            xhtml.write_tag('td', human.timespan(now - last_poll))
+        if last_upload is None:
+            xhtml.write_tag('td', "never")
+        else:
+            xhtml.write_tag('td', human.timespan(now - last_upload))
         xhtml.write_close_tag_line('tr')
     xhtml.write_close_tag_line('table')
