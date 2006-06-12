@@ -20,7 +20,22 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-def select_recent(website, limit=5):
+def select_recent(limit=25):
+    """
+    Get the most recently uploaded screenshots.
+    """
+    cur.execute("""\
+SELECT hashkey, screenshot.width, screenshot.height, url
+FROM screenshot
+JOIN request USING (screenshot)
+JOIN request_group USING (request_group)
+JOIN website USING (website)
+ORDER BY screenshot.created DESC
+LIMIT %s
+""", (limit, ))
+    return cur.fetchall()
+
+def select_recent_website(website, limit=5):
     """
     Get the most recently uploaded screenshots for a website.
     """
