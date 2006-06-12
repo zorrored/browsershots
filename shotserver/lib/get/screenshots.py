@@ -45,27 +45,16 @@ def body():
         width = 140
         if row_index > 10 and row_index > len(rows) - 10 and height > 140:
             continue
-        smallest = 0
-        minimum = columns[0]
-        for index in range(1, 5):
-            if columns[index] < minimum:
-                minimum = columns[index]
-                smallest = index
+        minimum = min(columns)
+        smallest = columns.index(minimum)
         left = 156 * smallest
         top = columns[smallest]
-        prefix = hashkey[:2]
-        png_full = '/png/full/%s/%s.png' % (prefix, hashkey)
-        png_140 = '/png/140/%s/%s.png' % (prefix, hashkey)
-        img = xhtml.tag('img', alt="Screenshot of %s" % url, title=url,
-                        src=png_140, width=width, height=height,
-                        style="left:%dpx;top:%dpx;" % (left, top))
         columns[smallest] += height + 16
-        xhtml.write_tag_line('a', img, href=png_full)
-    largest = 0
-    maximum = columns[0]
-    for index in range(1, 5):
-        if columns[index] > maximum:
-            maximum = columns[index]
-            largest = index
-    xhtml.write_tag_line('div', '&nbsp;', style="height:%dpx;" % maximum)
+        prefix = hashkey[:2]
+        img = xhtml.tag('img', alt="Screenshot of %s" % url, title=url,
+                        src='/png/140/%s/%s.png' % (prefix, hashkey),
+                        width=width, height=height,
+                        style="left:%dpx;top:%dpx;" % (left, top))
+        xhtml.write_tag_line('a', img, href='/png/full/%s/%s.png' % (prefix, hashkey))
+    xhtml.write_tag_line('div', '&nbsp;', style="height:%dpx;" % max(columns))
     xhtml.write_close_tag_line('div') # id="screenshots"
