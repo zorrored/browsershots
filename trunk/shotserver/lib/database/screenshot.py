@@ -20,7 +20,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-def select_recent(limit=25):
+def select_recent(limit=50):
     """
     Get the most recently uploaded screenshots.
     """
