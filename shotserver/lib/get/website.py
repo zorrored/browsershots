@@ -143,7 +143,7 @@ def body():
     xhtml.write_tag_line('h2', "What is this?")
     xhtml.write_tag_line('p', '\n'.join((
         "On this page you can choose browser configurations for your screenshots.",
-        "At the top, select the browsers that you're interested in.",
+        "Select your preferred browsers above.",
         "The drop-down boxes let you request special features.")))
     xhtml.write_tag_line('p', '\n'.join((
         "When you click the submit button, your screenshot requests will be added to the queue.",
