@@ -107,11 +107,15 @@ def body():
 
     if req.params.show_screenshots and req.params.show_queue:
         xhtml.write_tag_line('p', '<br />\n'.join(
-            ("This page shows screenshot and queued requests for a single website.",
+            ("This page shows the newest screenshots and queued requests for a single web address.",
+             "You can bookmark this page to check for new screenshots later.")))
+    elif req.params.show_screenshots:
+        xhtml.write_tag_line('p', '<br />\n'.join(
+            ("This page shows the newest screenshots for a single web address.",
              "You can bookmark this page to check for new screenshots later.")))
     elif req.params.show_queue:
         xhtml.write_tag_line('p', '<br />\n'.join(
-            ("This page shows queued requests for a single website.",
+            ("This page shows queued requests for a single web address.",
              "When the first screenshots are uploaded, they will appear here too.",
              "You can bookmark this page to check for screenshots later.")))
 
