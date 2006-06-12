@@ -67,6 +67,7 @@ FROM request
 JOIN request_group USING (request_group)
 JOIN website USING (website)
 JOIN browser_group USING (browser_group)
+LEFT JOIN opsys_group USING (opsys_group)
 WHERE """ + where + """
 AND request_group.expire >= NOW()
 AND screenshot IS NULL
