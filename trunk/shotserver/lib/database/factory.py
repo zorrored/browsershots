@@ -50,14 +50,16 @@ def features(factory):
     """
     Get a WHERE clause that matches jobs for a given factory.
     """
-    where = []
-    # Match screen resolutions
-    cur.execute("SELECT DISTINCT width FROM factory_screen WHERE factory = %s", (factory, ))
-    alternatives = ['width IS NULL']
-    for row in cur.fetchall():
-        width = row[0]
-        alternatives.append('width = %d' % width)
-    where.append('(%s)' % ' OR '.join(alternatives))
+    # Factory options
+    cur.execute("""\
+SELECT opsys, opsys_group.name
+FROM factory
+JOIN opsys USING (opsys)
+JOIN opsys_group USING (opsys_group)
+WHERE factory = %s
+""", (factory, ))
+    opsys, opsys_name = cur.fetchone()
+    where = ["(opsys_group IS NULL OR opsys_group.name = '%s')" % opsys_name]
 
     # Match browsers names and versions
     cur.execute("""\
@@ -72,6 +74,14 @@ WHERE factory = %s
         alternatives.append("(browser_group.name = '%s'" % row[0]
                             + " AND (major IS NULL OR major = %d)" % row[1]
                             + " AND (minor IS NULL OR minor = %d))" % row[2])
+    where.append('(%s)' % ' OR '.join(alternatives))
+
+    # Match screen resolutions
+    cur.execute("SELECT DISTINCT width FROM factory_screen WHERE factory = %s", (factory, ))
+    alternatives = ['width IS NULL']
+    for row in cur.fetchall():
+        width = row[0]
+        alternatives.append('width = %d' % width)
     where.append('(%s)' % ' OR '.join(alternatives))
 
     # Unspecified request options will always match
