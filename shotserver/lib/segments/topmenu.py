@@ -33,11 +33,8 @@ def write():
         "Queue=/queue/",
         "Factories=/factories/"))
 
-    menu.write('float-right', (
-        "Sign In=/signin/", ))
-
     menu.write('float-right mockup', (
-        "Mock-up!=http://browsershots.org/blog/2006/03/15/mock-up-for-browsershots-0-3/", ))
+        "Technology Preview=http://browsershots.org/blog/2006/06/12/technology-preview/", ))
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="topmenu"
