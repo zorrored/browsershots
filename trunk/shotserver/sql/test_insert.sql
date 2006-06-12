@@ -47,6 +47,8 @@ INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VA
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 7, 0, 'MSIE 7.0', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 5, 2, 'MSIE 5.2', 1);
 INSERT INTO browser (browser_group, major, minor, useragent, creator) VALUES (3, 5, 5, 'MSIE 5.5', 1);
+INSERT INTO browser (browser_group, major, minor, engine, useragent, creator) VALUES (4, 3, 5, 2,
+'Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.2 (like Gecko) Kubuntu 6.06 Dapper', 1);
 
 INSERT INTO opsys_group (name, creator) VALUES ('Linux', 1);
 INSERT INTO opsys_group (name, manufacturer, creator) VALUES ('Mac OS', 'Apple', 1);
@@ -99,8 +101,9 @@ INSERT INTO factory_browser (factory, browser) VALUES (9, 17);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 19);
 INSERT INTO factory_browser (factory, browser) VALUES (9, 8);
 INSERT INTO factory_browser (factory, browser) VALUES (10, 1);
-INSERT INTO factory_browser (factory, browser) VALUES (11, 16);
+INSERT INTO factory_browser (factory, browser) VALUES (10, 20);
 INSERT INTO factory_browser (factory, browser) VALUES (11, 4);
+INSERT INTO factory_browser (factory, browser) VALUES (11, 16);
 
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 1024, 768);
 INSERT INTO factory_screen (factory, width, height) VALUES (1, 800, 600);
