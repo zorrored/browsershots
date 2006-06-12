@@ -22,6 +22,20 @@ __author__ = '$Author$'
 
 from shotserver03.database import options
 
+def select_websites():
+    """
+    Get all queuing websites.
+    """
+    cur.execute("""\
+SELECT website, url, extract(epoch from MAX(request_group.created))::bigint AS created
+FROM request_group
+JOIN website USING (website)
+WHERE expire > NOW()
+GROUP BY website, url
+ORDER BY created
+""")
+    return cur.fetchall()
+
 def select_by_website(website):
     """
     Get all request groups for this website.
@@ -55,7 +69,7 @@ ORDER BY browser_group.name, major, minor
 """, (group, ))
     return cur.fetchall()
 
-def match(where):
+def select_match(where):
     """
     Get the oldest matching request from the queue.
     """
