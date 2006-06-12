@@ -102,3 +102,27 @@ WHERE factory = %s
     for name, alternatives in namedict.iteritems():
         where.append('(%s)' % ' OR '.join(alternatives))
     return ' AND '.join(where)
+
+def select_active():
+    """
+    List active factories.
+    """
+    cur.execute("""\
+SELECT factory.name, opsys_group.name, distro, major, minor, codename,
+       extract(epoch from last_poll)::bigint AS last_poll,
+       extract(epoch from last_upload)::bigint AS last_upload
+FROM factory
+JOIN opsys USING (opsys)
+JOIN opsys_group USING (opsys_group)
+WHERE last_poll IS NOT NULL
+ORDER BY last_poll DESC, factory.name
+""")
+    return cur.fetchall()
+
+def update_last_poll(factory):
+    """Set the last poll timestamp to NOW()."""
+    cur.execute("UPDATE factory SET last_poll = NOW() WHERE factory = %s", (factory, ))
+
+def update_last_upload(factory):
+    """Set the last upload timestamp to NOW()."""
+    cur.execute("UPDATE factory SET last_upload = NOW() WHERE factory = %s", (factory, ))
