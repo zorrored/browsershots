@@ -87,7 +87,6 @@ JOIN website USING (website)
 JOIN browser_group USING (browser_group)
 LEFT JOIN opsys_group USING (opsys_group)
 WHERE """ + where + """
-AND request_group.expire >= NOW()
 AND screenshot IS NULL
 AND (NOT EXISTS (SELECT request FROM lock
                 WHERE lock.request = request.request
