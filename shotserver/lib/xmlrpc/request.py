@@ -160,16 +160,25 @@ def zoom(ppmname, hashkey, width):
 
 def upload(binary, crypt):
     """
+    upload(binary, string) => array
     Upload a browser screenshot.
+
+    Arguments:
+    screenshot -- a PNG file (base64 encoded binary data)
+    crypt -- crypted password (hex string, length 32)
+
+    Return value:
+    status -- 'OK' or error message
+    challenge -- random authentication challenge (salt + nonce)
     """
     database.connect()
     try:
         ip = req.connection.remote_ip
         status, request, request_width, factory, browser = database.nonce.authenticate_request(ip, crypt)
         if status != 'OK':
-            return status
+            return status, ''
         if browser is None:
-            return "The browser has not visited the requested URL."
+            return "The browser has not visited the requested URL.", ''
 
         hashkey = database.nonce.random_md5()
         save_upload(binary, hashkey)
@@ -177,10 +186,10 @@ def upload(binary, crypt):
         width, height, ppmhandle, ppmname = pngtoppm(hashkey)
         if request_width is not None and width != request_width:
             return ("Uploaded image width (%d) is different from requested width (%d)."
-                    % (width, request_width))
+                    % (width, request_width)), ''
         if height > database.options.max_screenshot_height:
             return ("Uploaded image height (%d) is greater than maximum (%d)."
-                    % (height, database.options.max_screenshot_height))
+                    % (height, database.options.max_screenshot_height)), ''
 
         assert zoom(ppmname, hashkey, 140) # 5*140 + 4*16 = 764
         assert zoom(ppmname, hashkey, 180) # 4*180 + 3*14 = 762
@@ -197,6 +206,10 @@ def upload(binary, crypt):
         database.insert('screenshot', values)
         database.request.update_screenshot(request, database.lastval())
         database.factory.update_last_upload(factory)
-        return 'OK'
+
+        salt = database.factory.select_salt(factory)
+        nonce = database.nonce.create_factory_nonce(factory, ip)
+        challenge = salt + nonce
+        return 'OK', challenge
     finally:
         database.disconnect()
