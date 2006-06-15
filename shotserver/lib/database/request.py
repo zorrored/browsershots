@@ -73,7 +73,7 @@ ORDER BY browser_group.name, major, minor
 """, (group, ))
     return cur.fetchall()
 
-def select_match(where):
+def select_match(where, order='ASC'):
     """
     Get the oldest matching request from the queue.
     """
@@ -94,7 +94,7 @@ AND (NOT EXISTS (SELECT request FROM lock
 AND (NOT EXISTS (SELECT request FROM failure
                 WHERE failure.request = request.request
                 AND NOW() - failure.created <= %s))
-ORDER BY request_group.created
+ORDER BY request_group.created """ + order + """
 LIMIT 1
 """, (options.lock_timeout, options.failure_timeout))
     return cur.fetchone()
