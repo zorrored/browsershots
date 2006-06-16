@@ -38,18 +38,40 @@ WHERE hashkey = %s
 """, (hashkey, ))
     return cur.fetchone()
 
-def select_recent(limit=50):
+def select_by_serial(serial):
     """
-    Get the most recently uploaded screenshots, one per website.
+    Get info about a screenshot.
     """
     cur.execute("""\
-SELECT DISTINCT ON (website) hashkey, screenshot.width, screenshot.height, url
+SELECT hashkey, factory, screenshot.browser, screenshot.width, screenshot.height, screenshot.created, website, url
 FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
 JOIN website USING (website)
-ORDER BY website, screenshot DESC
-LIMIT %s
+WHERE screenshot = %s
+""", (serial, ))
+    return cur.fetchone()
+
+def select_recent(limit=50):
+    """
+    Get serials of the most recently uploaded screenshots, one per website.
+    """
+    cur.execute("""\
+SELECT hashkey, screenshot.width, screenshot.height, url
+FROM screenshot
+JOIN request USING (screenshot)
+JOIN request_group USING (request_group)
+JOIN website USING (website)
+WHERE screenshot IN (
+    SELECT MAX(screenshot) AS maximum
+    FROM screenshot
+    JOIN request USING (screenshot)
+    JOIN request_group USING (request_group)
+    JOIN website USING (website)
+    GROUP BY website
+    ORDER BY maximum DESC
+    LIMIT %s)
+ORDER BY screenshot DESC
 """, (limit, ))
     return cur.fetchall()
 
