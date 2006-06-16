@@ -74,11 +74,13 @@ def poll(factory, crypt):
         database.factory.update_last_poll(factory)
         where = database.factory.features(factory)
         # Find the oldest non-expired request.
-        row = database.request.select_match(where +
-            " AND request_group.expire >= NOW()")
+        row = database.request.select_match(where
+            + " AND request_group.expire >= NOW()")
         if row is None:
             # Find the youngest expired request.
-            row = database.request.select_match(where, 'DESC')
+            row = database.request.select_match(where
+                + " AND request_group.created >= NOW()-'24:00'::interval",
+                'DESC')
         if row is None:
             return 'No matching request.', '', {}
         else:
