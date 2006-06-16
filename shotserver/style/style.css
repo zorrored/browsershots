@@ -120,14 +120,10 @@ div#browsers input {
   padding: 0;
   margin: 0;
 }
-div#previous {
-  float: left;
-  width: 140px;
-}
-div#medium {
-  float: left;
-  margin: 0 0 0 16px;
-}
+div#prev, div#next, div#medium { float: left; }
+div#prev, div#next { width: 140px; }
+div#medium { width: 450px; }
+div#medium, div#next { margin: 0 0 0 17px; }
 
 table { border-collapse: collapse; }
 th, td {

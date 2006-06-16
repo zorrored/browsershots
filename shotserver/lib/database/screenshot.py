@@ -53,20 +53,22 @@ LIMIT %s
 """, (limit, ))
     return cur.fetchall()
 
-def select_previous(website, screenshot, limit=2):
+def select_prevnext(direction, website, screenshot):
     """
     Get the most recently uploaded screenshots.
     """
+    if direction == 'prev':
+        where = "WHERE website = %s AND screenshot < %s ORDER BY screenshot DESC"
+    elif direction == 'next':
+        where = "WHERE website = %s AND screenshot > %s ORDER BY screenshot ASC"
+    else:
+        return None
     cur.execute("""\
 SELECT hashkey, screenshot.width, screenshot.height
 FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
-WHERE website = %s
-AND screenshot < %s
-ORDER BY screenshot DESC
-LIMIT %s
-""", (website, screenshot, limit, ))
+""" + where, (website, screenshot))
     return cur.fetchall()
 
 def select_recent_website(website, limit=5):
