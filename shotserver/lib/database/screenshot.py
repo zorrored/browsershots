@@ -61,3 +61,14 @@ ORDER BY screenshot.created DESC
 LIMIT %s
 """, (website, limit))
     return cur.fetchall()
+
+def count_uploads_by_factory(factory, timespan='1:00'):
+    """
+    How many uploads per hour?
+    """
+    cur.execute("""\
+SELECT COUNT(*) FROM screenshot
+WHERE factory = %s
+AND created + %s > NOW()
+""", (factory, timespan))
+    return cur.fetchone()[0]
