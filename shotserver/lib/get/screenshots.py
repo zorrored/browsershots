@@ -39,9 +39,12 @@ def read_params():
         try:
             req.params.hashkey = req.info.options[0]
             row = database.screenshot.select_by_hashkey(req.params.hashkey)
-            (req.params.screenshot, req.params.factory, req.params.browser,
-             req.params.width, req.params.height, req.params.created,
-             req.params.website, req.params.url) = row
+            if row is None:
+                req.params.hashkey = None
+            else:
+                (req.params.screenshot, req.params.factory, req.params.browser,
+                 req.params.width, req.params.height, req.params.created,
+                 req.params.website, req.params.url) = row
         finally:
             database.disconnect()
 
