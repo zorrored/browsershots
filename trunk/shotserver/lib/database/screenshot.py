@@ -40,15 +40,15 @@ WHERE hashkey = %s
 
 def select_recent(limit=50):
     """
-    Get the most recently uploaded screenshots.
+    Get the most recently uploaded screenshots, one per website.
     """
     cur.execute("""\
-SELECT hashkey, screenshot.width, screenshot.height, url
+SELECT DISTINCT ON (website) hashkey, screenshot.width, screenshot.height, url
 FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
 JOIN website USING (website)
-ORDER BY screenshot DESC
+ORDER BY website, screenshot DESC
 LIMIT %s
 """, (limit, ))
     return cur.fetchall()
