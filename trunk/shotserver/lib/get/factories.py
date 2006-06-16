@@ -39,25 +39,28 @@ def body():
     database.connect()
     try:
         rows = database.factory.select_active()
+        now = time.time()
+        xhtml.write_open_tag_line('table')
+        xhtml.write_table_row(("Name", "Operating System", "Last poll", "Last upload", "Uploads per hour"), element="th")
+        for row in rows:
+            (factory, name,
+             opsys, distro, major, minor, codename,
+             last_poll, last_upload) = row
+            xhtml.write_open_tag('tr')
+            xhtml.write_tag('td', name)
+            opsys = database.opsys.version_string(opsys, distro, major, minor, codename)
+            xhtml.write_tag('td', opsys)
+            if last_poll is None:
+                xhtml.write_tag('td', "never")
+            else:
+                xhtml.write_tag('td', human.timespan(now - last_poll))
+            if last_upload is None:
+                xhtml.write_tag('td', "never")
+            else:
+                xhtml.write_tag('td', human.timespan(now - last_upload))
+            per_hour = database.screenshot.count_uploads_by_factory(factory)
+            xhtml.write_tag('td', per_hour)
+            xhtml.write_close_tag_line('tr')
+        xhtml.write_close_tag_line('table')
     finally:
         database.disconnect()
-
-    now = time.time()
-    xhtml.write_open_tag_line('table')
-    xhtml.write_table_row(("Name", "Operating System", "Last poll", "Last upload"), element="th")
-    for row in rows:
-        name, opsys, distro, major, minor, codename, last_poll, last_upload = row
-        xhtml.write_open_tag('tr')
-        xhtml.write_tag('td', name)
-        opsys = database.opsys.version_string(opsys, distro, major, minor, codename)
-        xhtml.write_tag('td', opsys)
-        if last_poll is None:
-            xhtml.write_tag('td', "never")
-        else:
-            xhtml.write_tag('td', human.timespan(now - last_poll))
-        if last_upload is None:
-            xhtml.write_tag('td', "never")
-        else:
-            xhtml.write_tag('td', human.timespan(now - last_upload))
-        xhtml.write_close_tag_line('tr')
-    xhtml.write_close_tag_line('table')
