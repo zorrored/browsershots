@@ -24,6 +24,20 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+def select_by_hashkey(hashkey):
+    """
+    Get info about a screenshot.
+    """
+    cur.execute("""\
+SELECT screenshot, factory, screenshot.browser, screenshot.width, screenshot.height, screenshot.created, website, url
+FROM screenshot
+JOIN request USING (screenshot)
+JOIN request_group USING (request_group)
+JOIN website USING (website)
+WHERE hashkey = %s
+""", (hashkey, ))
+    return cur.fetchone()
+
 def select_recent(limit=50):
     """
     Get the most recently uploaded screenshots.
@@ -34,9 +48,25 @@ FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
 JOIN website USING (website)
-ORDER BY screenshot.created DESC
+ORDER BY screenshot DESC
 LIMIT %s
 """, (limit, ))
+    return cur.fetchall()
+
+def select_previous(website, screenshot, limit=2):
+    """
+    Get the most recently uploaded screenshots.
+    """
+    cur.execute("""\
+SELECT hashkey, screenshot.width, screenshot.height
+FROM screenshot
+JOIN request USING (screenshot)
+JOIN request_group USING (request_group)
+WHERE website = %s
+AND screenshot < %s
+ORDER BY screenshot DESC
+LIMIT %s
+""", (website, screenshot, limit, ))
     return cur.fetchall()
 
 def select_recent_website(website, limit=5):
@@ -57,7 +87,7 @@ JOIN factory USING (factory)
 JOIN opsys ON opsys.opsys = factory.opsys
 JOIN opsys_group ON opsys_group.opsys_group = opsys.opsys_group
 WHERE website = %s
-ORDER BY screenshot.created DESC
+ORDER BY screenshot DESC
 LIMIT %s
 """, (website, limit))
     return cur.fetchall()
@@ -69,6 +99,6 @@ def count_uploads_by_factory(factory, timespan='1:00'):
     cur.execute("""\
 SELECT COUNT(*) FROM screenshot
 WHERE factory = %s
-AND created + %s > NOW()
+AND created > NOW()-%s::interval
 """, (factory, timespan))
     return cur.fetchone()[0]

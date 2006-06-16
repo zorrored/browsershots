@@ -17,7 +17,7 @@
 # MA 02111-1307, USA.
 
 """
-Display recent screenshots in a horizontal row.
+Display previous screenshots.
 """
 
 __revision__ = '$Rev$'
@@ -25,37 +25,27 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import random
-from shotserver03.interface import xhtml
 from shotserver03 import database
+from shotserver03.interface import xhtml
 
 def write():
     """
-    Write XHTML div with recent screenshots.
+    Write XHTML div with previous screenshots.
     """
     database.connect()
     try:
-        rows = database.screenshot.select_recent()
+        rows = database.screenshot.select_previous(req.params.website, req.params.screenshot)
     finally:
         database.disconnect()
 
-    columns = [0] * 5
-    xhtml.write_open_tag_line('div', _id="recent", _class="relative")
-    for row_index, row in enumerate(rows):
-        hashkey, width, height, url = row
+    xhtml.write_open_tag_line('div', _id="previous")
+    xhtml.write_tag_line('h2', "Previous")
+    for row in rows:
+        hashkey, width, height = row
         height = height * 140 / width
         width = 140
-        if row_index > 5 and height > (len(rows) - row_index) * 28:
-            continue
-        minimum = min(columns)
-        smallest = columns.index(minimum)
-        left = 156 * smallest
-        top = columns[smallest]
-        columns[smallest] += height + 16
         prefix = hashkey[:2]
-        img = xhtml.tag('img', alt="Screenshot of %s" % url, title=url,
-                        src='/png/140/%s/%s.png' % (prefix, hashkey),
-                        width=width, height=height,
-                        style="left:%dpx;top:%dpx;" % (left, top))
+        img = xhtml.tag('img', src='/png/140/%s/%s.png' % (prefix, hashkey),
+                        width=width, height=height, alt="")
         xhtml.write_tag_line('a', img, href='/screenshots/%s/' % hashkey)
-    xhtml.write_tag_line('div', '&nbsp;', style="height:%dpx;" % max(columns))
-    xhtml.write_close_tag_line('div') # id="recent"
+    xhtml.write_close_tag_line('div') # id="previous"

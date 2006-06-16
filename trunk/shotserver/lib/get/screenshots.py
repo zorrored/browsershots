@@ -25,7 +25,25 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
+from shotserver03.segments import previous, medium, recent
 from shotserver03 import database
+
+def read_params():
+    """
+    Read parameters from the request URL.
+    """
+    if len(req.info.options) == 0:
+        req.params.hashkey = None
+    elif len(req.info.options) == 1:
+        database.connect()
+        try:
+            req.params.hashkey = req.info.options[0]
+            row = database.screenshot.select_by_hashkey(req.params.hashkey)
+            (req.params.screenshot, req.params.factory, req.params.browser,
+             req.params.width, req.params.height, req.params.created,
+             req.params.website, req.params.url) = row
+        finally:
+            database.disconnect()
 
 def title():
     """Return page title."""
@@ -35,30 +53,9 @@ def body():
     """
     Write HTML page content.
     """
-    database.connect()
-    try:
-        rows = database.screenshot.select_recent()
-    finally:
-        database.disconnect()
-
-    columns = [0] * 5
-    xhtml.write_open_tag_line('div', _id="screenshots", _class="relative")
-    for row_index, row in enumerate(rows):
-        hashkey, width, height, url = row
-        height = height * 140 / width
-        width = 140
-        if row_index > 5 and height > (len(rows) - row_index) * 28:
-            continue
-        minimum = min(columns)
-        smallest = columns.index(minimum)
-        left = 156 * smallest
-        top = columns[smallest]
-        columns[smallest] += height + 16
-        prefix = hashkey[:2]
-        img = xhtml.tag('img', alt="Screenshot of %s" % url, title=url,
-                        src='/png/140/%s/%s.png' % (prefix, hashkey),
-                        width=width, height=height,
-                        style="left:%dpx;top:%dpx;" % (left, top))
-        xhtml.write_tag_line('a', img, href='/png/full/%s/%s.png' % (prefix, hashkey))
-    xhtml.write_tag_line('div', '&nbsp;', style="height:%dpx;" % max(columns))
-    xhtml.write_close_tag_line('div') # id="screenshots"
+    if req.params.hashkey:
+        xhtml.write_tag_line('p', xhtml.tag('b', 'for ' + req.params.url), _class="up")
+        previous.write()
+        medium.write()
+    else:
+        recent.write()
