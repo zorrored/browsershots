@@ -114,14 +114,19 @@ div#screenshots div.screenshot {
 div#screenshots div.first { margin-left: 0; }
 
 div#recent {
-  margin-top: 2ex;
-  position: absolute;
-  left: 50%;
-  margin-left: 382px;
+  margin: 1em 0;
 }
 div#browsers input {
   padding: 0;
   margin: 0;
+}
+div#previous {
+  float: left;
+  width: 140px;
+}
+div#medium {
+  float: left;
+  margin: 0 0 0 16px;
 }
 
 table { border-collapse: collapse; }
