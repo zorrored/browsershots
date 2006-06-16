@@ -25,7 +25,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
-from shotserver03.segments import previous, medium, recent
+from shotserver03.segments import prevnext, medium, recent
 from shotserver03 import database
 
 def read_params():
@@ -55,7 +55,8 @@ def body():
     """
     if req.params.hashkey:
         xhtml.write_tag_line('p', xhtml.tag('b', 'for ' + req.params.url), _class="up")
-        previous.write()
+        prevnext.write('prev')
         medium.write()
+        prevnext.write('next')
     else:
         recent.write()
