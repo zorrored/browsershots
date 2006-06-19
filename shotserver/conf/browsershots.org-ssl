@@ -25,7 +25,7 @@
 	RewriteBase /
 
 	# Force canonical hostname.
-	RewriteCond %{HTTP_HOST} !^v03.browsershots.org(|:80)$
+	RewriteCond %{HTTP_HOST} !^v03.browsershots.org(|:443)$
 	RewriteRule ^(.*)$ https://v03.browsershots.org/$1 [R,L]
 
 	# Don't rewrite these.
