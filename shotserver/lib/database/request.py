@@ -88,15 +88,10 @@ JOIN browser_group USING (browser_group)
 LEFT JOIN opsys_group USING (opsys_group)
 WHERE """ + where + """
 AND screenshot IS NULL
-AND (NOT EXISTS (SELECT request FROM lock
-                WHERE lock.request = request.request
-                AND NOW() - lock.created <= %s))
-AND (NOT EXISTS (SELECT request FROM failure
-                WHERE failure.request = request.request
-                AND NOW() - failure.created <= %s))
+AND (locked IS NULL OR NOW() - locked > %s)
 ORDER BY request_group.created """ + order + """
 LIMIT 1
-""", (options.lock_timeout, options.failure_timeout))
+""", (options.lock_timeout, ))
     return cur.fetchone()
 
 def to_dict(row):
@@ -125,6 +120,10 @@ INSERT INTO request_group (website, width, bpp, js, java, flash, media, expire)
 VALUES (%(website)s, %(width)s, %(bpp)s, %(js)s, %(java)s, %(flash)s, %(media)s, NOW() + %(expire)s)
 """, values)
     return cur.lastval()
+
+def update_locked(request, factory):
+    """Set the lock and factory."""
+    cur.execute("UPDATE request SET factory = %s, locked = NOW() WHERE request = %s", (factory, request))
 
 def update_browser(request, browser):
     """Set the browser for a request."""

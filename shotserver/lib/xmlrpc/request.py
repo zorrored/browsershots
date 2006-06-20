@@ -85,7 +85,7 @@ def poll(factory, crypt):
             return 'No matching request.', '', {}
         else:
             request = row[0]
-            database.lock.attempt(factory, request)
+            database.request.update_locked(request, factory)
             salt = database.factory.select_salt(factory)
             nonce = database.nonce.create_request_nonce(request, ip)
             options = database.request.to_dict(row)

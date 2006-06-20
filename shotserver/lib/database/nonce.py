@@ -88,13 +88,13 @@ def authenticate_redirect(ip, crypt):
     crypt = md5('redirect' + md5(salt + password) + nonce)
     """
     cur.execute("""\
-SELECT url, request, browser_group, browser_group.name, major, minor FROM nonce
+SELECT url, request, browser_group, browser_group.name, major, minor
+FROM nonce
 JOIN request USING (request)
 JOIN request_group USING (request_group)
 JOIN browser_group USING (browser_group)
 JOIN website USING (website)
-JOIN lock USING (request)
-JOIN factory ON lock.factory = factory.factory
+JOIN factory ON factory.factory = request.factory
 JOIN person AS owner ON factory.owner = owner.person
 WHERE nonce.ip = %s
 AND (md5('redirect' || factory.password || nonce.nonce) = %s
@@ -116,11 +116,11 @@ def authenticate_request(ip, crypt):
     crypt = md5(md5(salt + password) + nonce)
     """
     cur.execute("""\
-SELECT nonce, request, width, factory.factory, browser FROM nonce
+SELECT nonce, request, width, factory.factory, browser
+FROM nonce
 JOIN request USING (request)
 JOIN request_group USING (request_group)
-JOIN lock USING (request)
-JOIN factory ON lock.factory = factory.factory
+JOIN factory ON factory.factory = request.factory
 JOIN person AS owner ON factory.owner = owner.person
 WHERE nonce.ip = %s
 AND (md5(factory.password || nonce.nonce) = %s

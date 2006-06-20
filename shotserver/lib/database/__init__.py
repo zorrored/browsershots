@@ -26,7 +26,7 @@ __author__ = '$Author$'
 
 import pgdb
 from shotserver03.database import (
-    browser, factory, lock, nonce, opsys, request, screenshot, useragent, website)
+    browser, factory, nonce, opsys, request, screenshot, useragent, website)
 
 def connect():
     """
