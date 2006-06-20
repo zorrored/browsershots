@@ -136,6 +136,4 @@ INSERT INTO request (request_group, browser_group, opsys_group) VALUES (1, 4, 1)
 INSERT INTO request (request_group, browser_group) VALUES (2, 1);
 INSERT INTO request (request_group, browser_group) VALUES (2, 4);
 
-INSERT INTO lock (request, factory) VALUES (1, 1);
-
 INSERT INTO screenshot (hashkey, factory, browser, width, height) VALUES (md5('hashkey'), 1, 1, 640, 480);

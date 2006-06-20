@@ -29,7 +29,9 @@ def select_by_hashkey(hashkey):
     Get info about a screenshot.
     """
     cur.execute("""\
-SELECT screenshot, factory, screenshot.browser, screenshot.width, screenshot.height, screenshot.created, website, url
+SELECT screenshot, screenshot.factory, screenshot.browser,
+       screenshot.width, screenshot.height, screenshot.created,
+       website, url
 FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
@@ -107,7 +109,7 @@ JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
 JOIN browser ON browser.browser = screenshot.browser
 JOIN browser_group ON browser_group.browser_group = browser.browser_group
-JOIN factory USING (factory)
+JOIN factory ON factory.factory = screenshot.factory
 JOIN opsys ON opsys.opsys = factory.opsys
 JOIN opsys_group ON opsys_group.opsys_group = opsys.opsys_group
 WHERE website = %s

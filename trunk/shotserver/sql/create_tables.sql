@@ -135,15 +135,11 @@ major INT,
 minor INT,
 opsys_group INT REFERENCES opsys_group,
 opsys INT REFERENCES opsys,
-browser INT REFERENCES browser,
+locked TIMESTAMP,
+factory INT REFERENCES factory,
 redirected TIMESTAMP,
+browser INT REFERENCES browser,
 screenshot INT REFERENCES screenshot);
-
-DROP TABLE lock CASCADE;
-CREATE TABLE lock (
-request INT NOT NULL UNIQUE REFERENCES request,
-factory INT NOT NULL REFERENCES factory,
-created TIMESTAMP DEFAULT NOW());
 
 DROP TABLE failure CASCADE;
 CREATE TABLE failure (
