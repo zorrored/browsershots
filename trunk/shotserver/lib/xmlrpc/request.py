@@ -141,11 +141,17 @@ def pngtoppm(hashkey):
     pngname = '%s/%s.png' % (fullpath, hashkey)
     ppmhandle, ppmname = tempfile.mkstemp()
     error = os.system('pngtopnm "%s" > "%s"' % (pngname, ppmname))
-    assert not error
+    if error:
+        errorpath = '%s/error/%s' % (pngpath, prefix)
+        if not os.path.exists(errorpath):
+            os.makedirs(errorpath)
+        errorname = '%s/%s.png' % (errorpath, hashkey)
+        os.system('mv %s %s' % (pngname, errorname))
+        return 'Could not decode uploaded PNG file (hashkey %s).' % hashkey, 0, 0, 0, ''
     magic, width, height, maxval = read_ppm_header(file(ppmname))
     assert magic == 'P6'
     assert maxval == 255
-    return width, height, ppmhandle, ppmname
+    return 'OK', width, height, ppmhandle, ppmname
 
 def zoom(ppmname, hashkey, width):
     """
@@ -185,7 +191,9 @@ def upload(binary, crypt):
         hashkey = database.nonce.random_md5()
         save_upload(binary, hashkey)
 
-        width, height, ppmhandle, ppmname = pngtoppm(hashkey)
+        status, width, height, ppmhandle, ppmname = pngtoppm(hashkey)
+        if status != 'OK':
+            return status, ''
         if request_width is not None and width != request_width:
             return ("Uploaded image width (%d) is different from requested width (%d)."
                     % (width, request_width)), ''
