@@ -24,7 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import time
+import time, cgi
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
@@ -49,6 +49,7 @@ def body():
         website, url, submitted = row
         xhtml.write_open_tag('tr')
         xhtml.write_tag('td', human.timespan(now - submitted))
+        url = cgi.escape(url)
         link = xhtml.tag('a', url, href="/website/%s/" % website)
         xhtml.write_tag('td', link)
         xhtml.write_close_tag_line('tr')
