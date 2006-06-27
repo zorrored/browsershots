@@ -107,7 +107,8 @@ def body():
     # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
-    xhtml.write_tag_line('p', xhtml.tag('b', 'for ' + req.params.url), _class="up")
+    bold = xhtml.tag('b', 'for ' + req.params.escaped)
+    xhtml.write_tag_line('p', bold, _class="up")
 
     if req.params.show_screenshots and req.params.show_queue:
         xhtml.write_tag_line('p', '<br />\n'.join(

@@ -24,6 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+import cgi
 from shotserver03.interface import xhtml
 from shotserver03.segments import prevnext, medium, recent
 from shotserver03 import database
@@ -45,6 +46,7 @@ def read_params():
                 (req.params.screenshot, req.params.factory, req.params.browser,
                  req.params.width, req.params.height, req.params.created,
                  req.params.website, req.params.url) = row
+                req.params.escaped = cgi.escape(req.params.url, True)
         finally:
             database.disconnect()
 
@@ -57,7 +59,8 @@ def body():
     Write HTML page content.
     """
     if req.params.hashkey:
-        xhtml.write_tag_line('p', xhtml.tag('b', 'for ' + req.params.url), _class="up")
+        bold = xhtml.tag('b', 'for ' + req.params.escaped)
+        xhtml.write_tag_line('p', bold, _class="up")
         prevnext.write('prev')
         medium.write()
         prevnext.write('next')

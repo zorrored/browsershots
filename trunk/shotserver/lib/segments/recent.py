@@ -24,7 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import random
+import random, cgi
 from shotserver03.interface import xhtml
 from shotserver03 import database
 
@@ -51,6 +51,7 @@ def write():
         left = 156 * smallest
         top = columns[smallest]
         columns[smallest] += height + 16
+        url = cgi.escape(url, quote=True)
         prefix = hashkey[:2]
         img = xhtml.tag('img', alt="Screenshot of %s" % url, title=url,
                         src='/png/140/%s/%s.png' % (prefix, hashkey),
