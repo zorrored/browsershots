@@ -22,6 +22,7 @@ setup(name = 'ShotServer',
             'scripts/shotserver03_resize.py',
             'scripts/shotserver03_db_backup.sh',
             'scripts/shotserver03_trac_backup.sh',
+            'scripts/shotserver03_log_dates.py',
             'scripts/svn_backup.py',
             ],
       data_files = [
