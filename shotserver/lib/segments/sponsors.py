@@ -41,4 +41,8 @@ def write():
     link = xhtml.tag('a', img, href="http://www.lisog.org/")
     xhtml.write_tag_line('p', link)
 
+    img = xhtml.tag('img', src="/style/topalis40.png", alt="Topalis AG", _class="top")
+    link = xhtml.tag('a', img, href="http://www.topalis.com/")
+    xhtml.write_tag_line('p', link)
+
     xhtml.write_close_tag_line('div') # id="sponsors"
