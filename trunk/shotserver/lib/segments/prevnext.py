@@ -24,7 +24,6 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import random
 from math import sqrt
 from shotserver03 import database
 from shotserver03.interface import xhtml
@@ -51,7 +50,7 @@ def write(direction='prev'):
     if len(rows) == 0:
         xhtml.write_tag_line('p', last, _class="up "+inside)
     else:
-        link = href='/screenshots/%s/' % rows[0][0]
+        link = '/screenshots/%s/' % rows[0][0]
         if direction == 'prev':
             link = xhtml.tag('a', "Older", href=link)
             xhtml.write_tag_line('p', link, _class="up bold right")
