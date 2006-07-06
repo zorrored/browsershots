@@ -75,17 +75,19 @@ def remove_shebang(head):
     """
     Remove the first line if it is a valid shebang.
     """
-    if head[1][0] == '#!/usr/bin/env python\n':
-        head[0] += 1
-        head[1].pop(0)
+    if head[1]:
+        if head[1][0] == '#!/usr/bin/env python\n':
+            head[0] += 1
+            head[1].pop(0)
 
 def remove_coding(head):
     """
     Remove the first line if it is a valid shebang.
     """
-    if head[1][0] == '# -*- coding: utf-8 -*-\n':
-        head[0] += 1
-        head[1].pop(0)
+    if head[1]:
+        if head[1][0] == '# -*- coding: utf-8 -*-\n':
+            head[0] += 1
+            head[1].pop(0)
 
 def check_file(filename):
     """
