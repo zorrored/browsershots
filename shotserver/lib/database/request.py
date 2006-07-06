@@ -83,7 +83,6 @@ SELECT request,
        width, bpp, js, java, flash, media
 FROM request
 JOIN request_group USING (request_group)
-JOIN website USING (website)
 JOIN browser_group USING (browser_group)
 LEFT JOIN opsys_group USING (opsys_group)
 WHERE """ + where + """

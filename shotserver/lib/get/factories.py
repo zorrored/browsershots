@@ -41,7 +41,13 @@ def body():
         rows = database.factory.select_active()
         now = time.time()
         xhtml.write_open_tag_line('table')
-        xhtml.write_table_row(("Name", "Operating System", "Last poll", "Last upload", "Uploads per hour"), element="th")
+        xhtml.write_table_row((
+            "Name",
+            "Operating System",
+            "Last poll",
+            "Last upload",
+            "Uploads per hour",
+            ), element="th")
         for row in rows:
             (factory, name,
              opsys, distro, major, minor, codename,
