@@ -9,6 +9,7 @@ all : formatting doctest pylint
 
 formatting :
 	@find lib -name "*.py" > check-formatting
+	@find scripts -name "*.py" >> check-formatting
 	@echo "Checking formatting on "`wc -l < check-formatting`" files..."
 	@xargs -a check-formatting devtools/formatting.py
 
