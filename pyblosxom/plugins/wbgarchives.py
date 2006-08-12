@@ -163,6 +163,7 @@ def cb_filelist(args):
         return
 
     if year.startswith("/"): year = year[1:]
+    if year.endswith("/index.html"): year = year[:-11]
     if year.endswith("/"): year = year[:-1]
     if not year.isdigit() or not len(year) == 4:
         return
@@ -179,8 +180,8 @@ def cb_filelist(args):
 
     items.sort()
     items.reverse()
-    
-    l = "(%(path)s) <a href=\"" + baseurl + "/%(file_path)s.html\">%(title)s</a><br />"
+
+    l = "<a href=\"" + baseurl + "/%(file_path)s.html\">%(title)s</a><br />"
     e = "<tr>\n<td valign=\"top\" align=\"left\">%s</td>\n<td>%s</td></tr>\n"
     d = ""
     m = ""
