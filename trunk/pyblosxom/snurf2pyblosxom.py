@@ -36,6 +36,6 @@ for filename in sys.stdin:
 
     outfile = file(outfilename, 'w')
     outfile.write(title + '\n')
-    outfile.write('#mtime ' + mtime + '\n')
+    outfile.write('#metatime ' + mtime + '\n')
     outfile.write(content + '\n')
     outfile.close()
