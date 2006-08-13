@@ -2,13 +2,6 @@
 
 import sys, os, re, time
 
-months = ["0",
-          "Jan", "Feb", "Mar", "Apr",
-          "May", "Jun", "Jul", "Aug",
-          "Sep", "Oct", "Nov", "Dec"]
-
-wdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-
 split = re.compile(r'(.+/(\d\d\d\d)/(\d\d)/(\d\d)/([^/]+))/content$').match
 for filename in sys.stdin:
     match = split(filename)
@@ -29,8 +22,8 @@ for filename in sys.stdin:
         year, month, day, hour, minute, second, wday, yday, isdst = localtime
     offset = isdst + 1
 
-    pubdate = '%s, %02u %s %04u %02u:%02u:%02u +%02u00' % (
-        wdays[wday], day, months[month], year, hour, minute, second, offset)
+    date = '%04u-%02u-%02uT%02u:%02u:%02uZ' % (
+        year, month, day, hour, minute, second)
 
     content = ''.join(file(path + '/content').readlines()).rstrip()
 
@@ -39,10 +32,10 @@ for filename in sys.stdin:
         os.makedirs(outdir)
 
     outfilename = '%s/%s.txt' % (outdir, entry)
-    print outfilename, pubdate
+    print outfilename, date
 
     outfile = file(outfilename, 'w')
     outfile.write(title + '\n')
-    outfile.write('#pubDate ' + pubdate + '\n')
+    outfile.write('#date ' + date + '\n')
     outfile.write(content + '\n')
     outfile.close()
