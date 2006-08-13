@@ -9,8 +9,8 @@ You can format the output by setting "category_begin", "category_item",
 "category_end" and properties.
 
 Categories exist in a hierarchy.  "category_start" starts the category listing
-and is only used at the very beginning.  The "category_begin" property begins a 
-new category group and the "category_end" property ends that category group.  
+and is only used at the very beginning.  The "category_begin" property begins a
+new category group and the "category_end" property ends that category group.
 The "category_item" property is the template for each category item.  Then
 after all the categories are printed, "category_finish" ends the category
 listing.
@@ -21,7 +21,7 @@ to close a category and <li> for each item:
 py["category_start"] = "<ul>"
 py["category_begin"] = "<li><ul>"
 py["category_item"] = r'<li><a href="%(base_url)s/%(category_urlencoded)sindex">%(category)s</a></li>'
-py["category_end"] = "</li></ul>"
+py["category_end"] = "</ul></li>"
 py["category_finish"] = "</ul>"
 
 
@@ -35,18 +35,18 @@ py["category_item"] = r'%(indent)s<a href="%(base_url)s/%(category_urlencoded)si
 py["category_end"] = ""
 py["category_finish"] = ""
 
-There are no variables available in the category_begin or category_end 
+There are no variables available in the category_begin or category_end
 templates.
 
 Available variables in the category_item template:
 
   variable                 example                      datatype
   ========                 =======                      ========
-  base_url                 http://joe.com/blog/         string
-  fullcategory_urlencoded  'dev/pyblosxom/status/'      string
-  fullcategory             'dev/pyblosxom/status/'      string (urlencoded)
-  category                 'status/'                    string
-  category_urlencoded      'status/'                    string (urlencoed)
+  base_url                 http://joe.com/blog          string
+  fullcategory_urlencoded  'dev/pyblosxom/status'       string
+  fullcategory             'dev/pyblosxom/status'       string (urlencoded)
+  category                 'status'                     string
+  category_urlencoded      'status'                     string (urlencoed)
   flavour                  'html'                       string
   count                    70                           int
   indent                   '&nbsp;&nbsp;&nbsp;&nbsp;'   string
@@ -90,8 +90,8 @@ DEFAULT_FINISH = "</ul>"
 
 def verify_installation(request):
     config = request.getConfiguration()
-    if not config.has_key("category_template"):
-        print "missing optional config property 'category_template' which allows "
+    if not config.has_key("category_item"):
+        print "missing optional config property 'category_item' which allows "
         print "you to specify how the category hierarchy is rendered.  see"
         print "the documentation at the top of the pycategories plugin code "
         print "file for more details."
@@ -121,7 +121,7 @@ class PyblCategories:
         self._baseurl = config.get("base_url", "")
 
         form = self._request.getForm()
-        flavour = (form.has_key('flav') and form['flav'].value or 
+        flavour = (form.has_key('flav') and form['flav'].value or
             config.get('default_flavour', 'html'))
 
         # build the list of all entries in the datadir
@@ -131,7 +131,7 @@ class PyblCategories:
         elist = [mem[len(root)+1:] for mem in elist]
 
         # go through the list of entries and build a map that
-        # maintains a count of how many entries are in each 
+        # maintains a count of how many entries are in each
         # category
         elistmap = {}
         for mem in elist:
@@ -160,7 +160,9 @@ class PyblCategories:
         output = []
         indent = 0
 
-        output.append(start_t)
+        if start_t:
+            output.append(start_t)
+
         # then we generate each item in the list
         for item in clist:
             itemlist = item.split(os.sep)
@@ -176,36 +178,40 @@ class PyblCategories:
                 tab = len(itemlist) * "&nbsp;&nbsp;"
 
             if indent > len(itemlist):
-                for i in range(indent - len(itemlist)):
-                    output.append(end_t)
+                if end_t:
+                    for i in range(indent - len(itemlist)):
+                        output.append(end_t)
 
             elif indent < len(itemlist):
-                for i in range(len(itemlist) - indent):
-                    output.append(begin_t)
+                if begin_t:
+                    for i in range(len(itemlist) - indent):
+                        output.append(begin_t)
 
             # now we build the dict with the values for substitution
-            d = { "base_url":     self._baseurl, 
-                  "fullcategory": item + "/", 
-                  "category":     itemlist[-1] + "/", 
+            d = { "base_url":     self._baseurl,
+                  "fullcategory": item,
+                  "category":     itemlist[-1],
                   "flavour":      flavour,
                   "count":        num,
                   "indent":       tab }
 
-            # this prevents a double / in the root category url
-            if item == "":
-                d["fullcategory"] = item
-
             # this adds urlencoded versions
             d["fullcategory_urlencoded"] = tools.urlencode_text(d["fullcategory"])
             d["category_urlencoded"] = tools.urlencode_text(d["category"])
-            
+
+            # this adds capitalized versions
+            d["category_capitalized"] = d["category"].capitalize()
+
             # and we toss it in the thing
-            output.append(item_t % d)
+            if item:
+                output.append(item_t % d)
 
             indent = len(itemlist)
 
-        output.append(end_t * indent)
-        output.append(finish_t)
+        if end_t:
+            output.append(end_t * indent)
+        if finish_t:
+            output.append(finish_t)
 
         # then we join the list and that's the final string
         self._categories = "\n".join(output)
