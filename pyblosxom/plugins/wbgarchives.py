@@ -5,8 +5,8 @@ the archives list.  It stores the years with links to year summaries
 in the variable $archivelinks.  You should put this variable in either
 your head or foot templates.
 
-When the user clicks on one of the year links (i.e. http://base_url/2004/"), 
-then wbgarchives will display a summary page for that year.  The summary is 
+When the user clicks on one of the year links (i.e. http://base_url/2004/),
+then wbgarchives will display a summary page for that year.  The summary is
 generated using the yearsummarystory.html template for each month in the
 year.  Mine is:
 
@@ -97,7 +97,7 @@ class WbgArchives:
             y = time.strftime("%Y", timetuple)
             m = time.strftime("%m", timetuple)
             d = time.strftime("%d", timetuple)
-            l = "<a href=\"%s/%s/\">%s</a><br />" % (baseurl, y, y)
+            l = "<li><a href=\"/%s/\">%s</a></li>" % (y, y)
 
             if not archives.has_key(y):
                 archives[y] = l
@@ -126,6 +126,7 @@ def new_entry(request, title, body):
     """
     entry = entries.base.EntryBase(request)
 
+    entry['year_month'] = title.replace('-', '/')
     entry['title'] = title
     entry['filename'] = title + "/summary"
     entry['file_path'] = title
@@ -181,10 +182,10 @@ def cb_filelist(args):
     items.sort()
     items.reverse()
 
-    l = "<a href=\"" + baseurl + "/%(file_path)s.html\">%(title)s</a><br />"
-    e = "<tr>\n<td valign=\"top\" align=\"left\">%s</td>\n<td>%s</td></tr>\n"
-    d = ""
-    m = ""
+    l = '<a href="/%(file_path)s.html">%(title)s</a><br />'
+    e = '<tr>\n<td valign="top" align="left">%s</td>\n<td>%s</td></tr>\n'
+    d = ''
+    m = ''
 
     day = []
     month = []
