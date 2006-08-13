@@ -26,6 +26,10 @@ for filename in sys.stdin:
         year, month, day, hour, minute, second)
 
     content = ''.join(file(path + '/content').readlines()).rstrip()
+    content = content.replace('href="/trac/', 'href="http://trac.browsershots.org/')
+    for url in 'queue recent downloads search submit'.split():
+        content = content.replace('href="/%s/' % url,
+                                  'href="http://browsershots.org/%s/' % url)
 
     outdir = 'entries/' + category
     if not os.path.exists(outdir):
