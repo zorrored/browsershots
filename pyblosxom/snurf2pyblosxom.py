@@ -22,7 +22,7 @@ for filename in sys.stdin:
         year, month, day, hour, minute, second, wday, yday, isdst = localtime
     offset = isdst + 1
 
-    date = '%04u-%02u-%02uT%02u:%02u:%02uZ' % (
+    mtime = '%04u-%02u-%02uT%02u:%02u:%02uZ' % (
         year, month, day, hour, minute, second)
 
     content = ''.join(file(path + '/content').readlines()).rstrip()
@@ -32,10 +32,10 @@ for filename in sys.stdin:
         os.makedirs(outdir)
 
     outfilename = '%s/%s.txt' % (outdir, entry)
-    print outfilename, date
+    print outfilename, mtime
 
     outfile = file(outfilename, 'w')
     outfile.write(title + '\n')
-    outfile.write('#date ' + date + '\n')
+    outfile.write('#mtime ' + mtime + '\n')
     outfile.write(content + '\n')
     outfile.close()
