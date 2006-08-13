@@ -1,5 +1,5 @@
 #! /usr/bin/python
-# meta2mtime.py
+# metatime_restore.py
 # Copyright 2006 Johann C. Rocholl <johann@rocholl.net>
 #
 # Permission is hereby granted, free of charge, to any person
@@ -31,19 +31,19 @@
 If a file contains a line like the following, this tool changes the
 filesystem mtime of the file to the saved value.
 
-#date 2006-06-12T16:59:38Z
+#metatime 2006-06-12T16:59:38Z
 """
 
 
 import sys, os, re, time
 
 
-timestamp_match = re.compile(r'#mtime\s+' +
+timestamp_match = re.compile(r'#metatime\s+' +
                              r'(\d{4})-(\d{2})-(\d{2})T' +
                              r'(\d{2}):(\d{2}):(\d{2})Z').match
 
 
-def read_metadata_mtime(filename):
+def read_metatime(filename):
     """
     Read the mtime from an entry's metadata.
     """
@@ -69,10 +69,10 @@ def read_metadata_mtime(filename):
 
 def _main(filenames):
     """
-    Reset mtime to metadata if available.
+    Reset mtime to metatime if available.
     """
     for filename in filenames:
-        mtime = read_metadata_mtime(filename)
+        mtime = read_metatime(filename)
         if mtime is None:
             print "no #mtime in", filename
             continue
