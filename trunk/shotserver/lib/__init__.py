@@ -137,7 +137,7 @@ def handler(req):
     except apache.SERVER_RETURN:
         raise
     except:
-        while len(xhtml.open_tags) > 2:
+        while xhtml.open_tags and xhtml.open_tags[-1] != 'body':
             xhtml.write_close_tag_line()
         if xhtml.open_tags and xhtml.open_tags[-1] == 'head':
             xhtml.write_close_tag_line('head')
