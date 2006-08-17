@@ -15,11 +15,9 @@ class SimpleBlogPlugin(Component):
 
     # IRequestHandler methods
     anonymous_request = True
-    use_template = False
     def match_request(self, req):
         return req.path_info == '/blog'
     def process_request(self, req):
-        req.send_response(200)
-        req.send_header('Content-Type', 'text/plain')
-        req.end_headers()
-        req.write('Mein Blog!')
+        req.hdf['wiki.action'] = 'view'
+        req.hdf['wiki.page_html'] = 'Hallo Welt!'
+        return 'wiki.cs', None
