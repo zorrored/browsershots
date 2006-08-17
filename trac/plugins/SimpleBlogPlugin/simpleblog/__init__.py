@@ -2,6 +2,7 @@ from trac.core import *
 from trac.web import IRequestHandler
 from trac.web.chrome import INavigationContributor
 from trac.wiki.api import WikiSystem
+from trac.wiki.model import WikiPage
 from trac.util import Markup, format_date, format_datetime
 
 class SimpleBlogPlugin(Component):
@@ -19,8 +20,9 @@ class SimpleBlogPlugin(Component):
         return req.path_info == '/blog'
     def process_request(self, req):
         req.hdf['wiki.action'] = 'view'
-        page_html = []
-        for page in WikiSystem(self.env).get_pages():
-            page_html.append(repr(page))
-        req.hdf['wiki.page_html'] = '\n'.join(page_html)
+        entries = []
+        for page in WikiSystem(self.env).get_pages(prefix='Blog'):
+            page = WikiPage(self.env, page)
+            entries.append(page.text)
+        req.hdf['wiki.page_html'] = '\n'.join(entries)
         return 'wiki.cs', None
