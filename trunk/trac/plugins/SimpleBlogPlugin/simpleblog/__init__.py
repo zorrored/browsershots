@@ -6,8 +6,6 @@ from trac.wiki.model import WikiPage
 from trac.wiki.formatter import wiki_to_html
 from trac.util import Markup, format_date, format_datetime
 
-import time
-
 class SimpleBlogPlugin(Component):
     implements(INavigationContributor, IRequestHandler)
 
@@ -33,8 +31,7 @@ class SimpleBlogPlugin(Component):
         page_html = []
         for date, html in entries:
             page_html.append(html)
-            time_tuple = time.localtime(date)
-            human_time = time.strftime('%Y-%m-%d %H:%M:%S', time_tuple)
+            human_time = format_datetime(date)
             page_html.append('<p>%s</p>' % human_time)
         req.hdf['wiki.page_html'] = Markup('\n'.join(page_html))
         return 'wiki.cs', None
