@@ -3,6 +3,7 @@ from trac.web import IRequestHandler
 from trac.web.chrome import INavigationContributor
 from trac.wiki.api import WikiSystem
 from trac.wiki.model import WikiPage
+from trac.wiki.formatter import wiki_to_html
 from trac.util import Markup, format_date, format_datetime
 
 class SimpleBlogPlugin(Component):
@@ -21,8 +22,8 @@ class SimpleBlogPlugin(Component):
     def process_request(self, req):
         req.hdf['wiki.action'] = 'view'
         entries = []
-        for page in WikiSystem(self.env).get_pages(prefix='Blog'):
-            page = WikiPage(self.env, page)
-            entries.append(page.text)
-        req.hdf['wiki.page_html'] = '\n'.join(entries)
+        for page_name in WikiSystem(self.env).get_pages(prefix='Blog'):
+            page = WikiPage(self.env, page_name)
+            entries.append(wiki_to_html(page.text, self.env, req))
+        req.hdf['wiki.page_html'] = Markup('\n'.join(entries))
         return 'wiki.cs', None
