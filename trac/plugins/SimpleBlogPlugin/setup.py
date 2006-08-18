@@ -1,11 +1,14 @@
-from setuptools import find_packages, setup
+from setuptools import setup
 
 setup(
     name='SimpleBlogPlugin',
     version='0.1',
-    packages=find_packages(exclude=['*.tests*']),
-    entry_points = """
-        [trac.plugins]
-        simpleblog = simpleblog
-    """,
+    author='Johann C. Rocholl',
+    author_email='johann@browsershots.org',
+    url='http://www.trac-hacks.org/wiki/SimpleBlogPlugin',
+    description='Simple blogging plugin for Trac',
+    license='BSD',
+    packages=['simpleblog'],
+    package_data = {'simpleblog' : ['templates/*.cs']},
+    entry_points = {'trac.plugins': ['simpleblog = simpleblog']},
 )
