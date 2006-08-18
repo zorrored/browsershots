@@ -4,7 +4,7 @@ from trac.web.chrome import add_link, INavigationContributor, ITemplateProvider
 from trac.wiki.api import WikiSystem
 from trac.wiki.model import WikiPage
 from trac.wiki.formatter import wiki_to_html
-from trac.util import Markup, format_date, format_datetime
+from trac.util import Markup, format_date, format_datetime, http_date
 from pkg_resources import resource_filename
 
 import re
@@ -32,8 +32,6 @@ class SimpleBlogPlugin(Component):
     def process_request(self, req):
         req.hdf['trac.href.blog'] = req.href.blog()
 
-
-        req.hdf['wiki.action'] = 'view'
         entries = []
         for page_name in WikiSystem(self.env).get_pages(prefix='Blog'):
             page = WikiPage(self.env, page_name)
@@ -45,12 +43,16 @@ class SimpleBlogPlugin(Component):
                 title = match.group(1)
                 text = match.group(2)
 
+            description = wiki_to_html(text, self.env, req)
+
             event = {
                 'href': self.env.href.wiki(page_name),
                 'title': title,
-                'description': wiki_to_html(text, self.env, req),
+                'description': description,
+                'escaped': Markup.escape(str(description)),
                 'author': page.author,
                 'date': format_datetime(page.time),
+                'rfcdate': http_date(page.time),
                 }
             entries.append((page.time, event))
         entries.sort()
