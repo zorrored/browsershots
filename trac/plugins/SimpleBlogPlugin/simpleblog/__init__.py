@@ -8,7 +8,8 @@ from trac.util import Markup, format_date, format_datetime, http_date
 from pkg_resources import resource_filename
 
 import re
-title_split_match = re.compile(r'^=+\s+(\S.*\S)\s+=+\s+(.*)$').match
+# title_split_match = re.compile(r'^=+\s+(\S.*\S)\s+=+\s+(.*)$').match
+title_split_match = re.compile(r'^=+\s+([^\n\r=]+?)\s+=+\s+(.+)$', re.DOTALL).match
 
 class SimpleBlogPlugin(Component):
     implements(INavigationContributor, ITemplateProvider, IRequestHandler)
@@ -35,7 +36,7 @@ class SimpleBlogPlugin(Component):
         entries = []
         for page_name in WikiSystem(self.env).get_pages(prefix='Blog'):
             page = WikiPage(self.env, page_name)
-            title = page
+            title = page_name
             text = page.text
 
             match = title_split_match(page.text)
@@ -49,14 +50,19 @@ class SimpleBlogPlugin(Component):
                 'href': self.env.href.wiki(page_name),
                 'title': title,
                 'description': description,
-                'escaped': Markup.escape(str(description)),
+                'escaped': Markup.escape(unicode(description)),
                 'author': page.author,
                 'date': format_datetime(page.time),
                 'rfcdate': http_date(page.time),
                 }
             entries.append((page.time, event))
+
         entries.sort()
         entries.reverse()
+        max_count = 20
+        if len(entries) > max_count:
+            entries = entries[:max_count]
+
         events = []
         for date, event in entries:
             events.append(event)
