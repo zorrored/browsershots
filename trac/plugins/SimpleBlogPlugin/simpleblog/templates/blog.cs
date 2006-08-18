@@ -5,7 +5,7 @@
 <div id="content" class="blog">
 <?cs
 each:event = blog.events ?>
-<h2><a href="<?cs var:event.href ?>"><?cs var:event.title ?></a></h2><?cs
+<h1><a href="<?cs var:event.href ?>"><?cs var:event.title ?></a></h1><?cs
   if:event.description ?><p><?cs
    var:event.description ?></p><?cs
   /if ?><?cs
