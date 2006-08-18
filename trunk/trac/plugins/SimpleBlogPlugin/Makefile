@@ -1,8 +1,8 @@
-.PHONY : clean dist/SimpleBlogPlugin-0.1-py2.4.egg
-
-dist/SimpleBlogPlugin-0.1-py2.4.egg :
+egg :
 	python setup.py bdist_egg
-	sudo cp $@ /var/lib/trac/johann/plugins
+
+install :
+	python setup.py install
 
 clean :
-	rm -rf build dist SimpleBlogPlugin.egg-info
+	rm -rf build dist *.egg-info
