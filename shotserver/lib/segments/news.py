@@ -27,18 +27,21 @@ __author__ = '$Author$'
 import re
 from shotserver03.interface import xhtml, human
 
-items = re.compile('<item>\s*<title>(.+?)</title>\s*<link>(http.+?)</link>').findall
+find_items = re.compile('<item>\s*<title>(.+?)</title>\s*<pubDate>(.+?)</pubDate>\s*<link>(http.+?)</link>').findall
 def write():
     """
     Write XHTML div with latest news headlines.
     """
     xhtml.write_open_tag_line('div', _id="news")
-    xhtml.write_tag_line('h2', "Latest News")
+    xhtml.write_tag_line('h2', xhtml.tag('a', "Latest News", href='http://trac.browsershots.org/blog'))
 
     xhtml.write_open_tag_line('ul')
     rss = file('/var/www/browsershots.org/blog/rss.xml').read()
-    for item in items(rss):
-        title, link = item
+    items = find_items(rss)
+    if len(items) > 10:
+        items = items[:10]
+    for item in items:
+        title, pubdate, link = item
         title = human.cutoff(title, 36)
         link = xhtml.tag('a', title, href=link)
         xhtml.write_tag_line('li', link)
