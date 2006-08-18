@@ -46,16 +46,24 @@ class SimpleBlogPlugin(Component):
 
             description = wiki_to_html(text, self.env, req)
 
+            original = self._get_original_post_info(page_name)
             event = {
                 'href': self.env.href.wiki(page_name),
                 'title': title,
                 'description': description,
                 'escaped': Markup.escape(unicode(description)),
-                'author': page.author,
-                'date': format_datetime(page.time),
-                'rfcdate': http_date(page.time),
+                'date': format_datetime(original.time),
+                'rfcdate': http_date(original.time),
+                'author': original.author,
+                'comment': original.comment,
                 }
-            entries.append((page.time, event))
+            if page.version > 1:
+                event['updated.version'] = page.version
+                event['updated.date'] = format_datetime(page.time)
+                event['updated.rfcdate'] = http_date(page.time)
+                event['updated.author'] = page.author
+                event['updated.comment'] = page.comment
+            entries.append((original.time, event))
 
         entries.sort()
         entries.reverse()
@@ -75,3 +83,10 @@ class SimpleBlogPlugin(Component):
         add_link(req, 'alternate', self.env.href.blog(format='rss'),
                  'RSS Feed', 'application/rss+xml', 'rss')
         return 'blog.cs', None
+
+    def _get_original_post_info(self, page_name):
+        db = self.env.get_db_cnx()
+        cursor = db.cursor()
+        cursor.execute("SELECT time,author,comment,ipnr FROM wiki "
+                       "WHERE name=%s AND version=1", (page_name, ))
+        return cursor.fetchone()

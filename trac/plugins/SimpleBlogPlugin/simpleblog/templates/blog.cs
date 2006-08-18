@@ -5,13 +5,12 @@
 <div id="content" class="blog">
 <?cs
 each:event = blog.events ?>
-<h1><a href="<?cs var:event.href ?>"><?cs var:event.title ?></a></h1><?cs
-  if:event.description ?><p><?cs
-   var:event.description ?></p><?cs
-  /if ?><?cs
-  if:event.date ?><p><?cs
-   var:event.date ?></p><?cs
-  /if ?><?cs
+<h1><a href="<?cs var:event.href ?>"><?cs var:event.title ?></a></h1>
+<p><?cs var:event.description ?></p>
+<p>Posted <?cs var:event.date ?> by <?cs var:event.author ?><?cs
+if:event.comment ?>: <?cs var:event.comment ?><?cs /if ?><?cs
+if:event.updated.date ?><br />Updated <?cs var:event.updated.date ?> by <?cs var:event.updated.author ?><?cs /if ?><?cs
+if:event.updated.comment ?>: <?cs var:event.updated.comment ?><?cs /if ?><?cs
 /each ?>
 
 <div id="help">
