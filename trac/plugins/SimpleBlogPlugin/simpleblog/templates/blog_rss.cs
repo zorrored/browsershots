@@ -24,9 +24,10 @@
     if:event.author.email ?>
      <author><?cs var:event.author.email ?></author><?cs
     /if ?>
-    <pubDate><?cs var:event.date ?></pubDate>
-    <link><?cs var:event.href ?></link>
-    <description><?cs var:event.description ?></description>
+    <pubDate><?cs var:event.rfcdate ?></pubDate>
+    <link><?cs var:base_host ?><?cs var:event.href ?></link>
+    <guid><?cs var:base_host ?><?cs var:event.href ?></guid>
+    <description><?cs var:event.escaped ?></description>
    </item><?cs
   /each ?>
  </channel>
