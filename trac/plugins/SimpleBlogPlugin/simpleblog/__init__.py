@@ -77,6 +77,9 @@ class SimpleBlogPlugin(Component):
                 title = match.group(1)
                 text = match.group(2)
 
+            cutoff = text.find('[[SimpleBlogComment(')
+            if cutoff >= 0:
+                text = text[:cutoff].rstrip()
             description = wiki_to_html(text, self.env, req)
 
             original = self._get_original_post_info(page_name)
