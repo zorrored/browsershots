@@ -1,7 +1,7 @@
 from trac.core import *
 from trac.web import IRequestHandler
 from trac.web.chrome import add_link, INavigationContributor, ITemplateProvider
-from trac.wiki.api import WikiSystem
+from trac.wiki.api import WikiSystem, IWikiMacroProvider
 from trac.wiki.model import WikiPage
 from trac.wiki.formatter import wiki_to_html
 from trac.util import Markup, format_date, format_datetime, http_date
@@ -12,7 +12,8 @@ import re
 title_split_match = re.compile(r'^=+\s+([^\n\r=]+?)\s+=+\s+(.+)$', re.DOTALL).match
 
 class SimpleBlogPlugin(Component):
-    implements(INavigationContributor, ITemplateProvider, IRequestHandler)
+    implements(INavigationContributor, ITemplateProvider,
+               IWikiMacroProvider, IRequestHandler)
 
     # INavigationContributor methods
     def get_active_navigation_item(self, req):
@@ -26,6 +27,26 @@ class SimpleBlogPlugin(Component):
         return [resource_filename(__name__, 'templates')]
     def get_htdocs_dirs(self):
         return []
+
+    # IWikiMacroProvider methods
+    def get_macros(self):
+        yield 'SimpleBlogComment'
+    def get_macro_description(self, name):
+        if name == 'SimpleBlogComment':
+            return 'Format the header of a blog comment for HTML output.'
+    def render_macro(self, req, name, content):
+        if name == 'SimpleBlogComment':
+            comment = {}
+            for key in 'author email ip posted title website'.split():
+                pos = content.find(key + '="')
+                if pos >= 0:
+                    start = pos + len(key) + 2
+                    stop = content.index('"', start)
+                    comment[key] = content[start:stop]
+            return Markup("""</p>
+<h2 style="float: left; margin: 0 1ex 0 -18px;">%(title)s</h2>
+<p style="font-size: smaller; color: gray;">
+(posted %(posted)s by <a href="%(website)s" class="ext-link"><span class="icon">%(author)s</span></a>)""" % comment)
 
     # IRequestHandler methods
     def match_request(self, req):
