@@ -2,7 +2,7 @@
 
 <div id="ctxtnav" class="nav"></div>
 
-<div id="content" class="blog">
+<div id="content" class="wikipage">
 <?cs
 each:event = blog.events ?>
 <h1><a href="<?cs var:event.href ?>"><?cs var:event.title ?></a></h1>
