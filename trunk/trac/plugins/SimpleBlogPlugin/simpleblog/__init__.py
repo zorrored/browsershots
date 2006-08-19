@@ -36,17 +36,29 @@ class SimpleBlogPlugin(Component):
             return 'Format the header of a blog comment for HTML output.'
     def render_macro(self, req, name, content):
         if name == 'SimpleBlogComment':
-            comment = {}
-            for key in 'author email ip posted title website'.split():
-                pos = content.find(key + '="')
-                if pos >= 0:
-                    start = pos + len(key) + 2
-                    stop = content.index('"', start)
-                    comment[key] = content[start:stop]
-            return Markup("""</p>
-<h2 style="float: left; margin: 0 1ex 0 -18px;">%(title)s</h2>
-<p style="font-size: smaller; color: gray;">
-(posted %(posted)s by <a href="%(website)s" class="ext-link"><span class="icon">%(author)s</span></a>)""" % comment)
+            return self._simple_blog_comment(req, content)
+
+    def _simple_blog_comment(self, req, content):
+        comment = {}
+        for key in 'author email ip posted title website'.split():
+            pos = content.find(key + '="')
+            if pos >= 0:
+                start = pos + len(key) + 2
+                stop = content.index('"', start)
+                comment[key] = content[start:stop]
+        if not comment.has_key('title'):
+            comment['title'] = 'Comment'
+        output = ['</p>']
+        output.append('<h2 style="float: left; margin: 0 1ex 0 -18px;">%(title)s</h2>' % comment)
+        output.append('<p style="font-size: smaller; color: gray; padding-top: 2px;">')
+        if comment.has_key('posted'):
+            output.append('posted %(posted)s' % comment)
+        if comment.has_key('author'):
+            if comment.has_key('website'):
+                output.append('by <a href="%(website)s" class="ext-link"><span class="icon">%(author)s</span></a>' % comment)
+            else:
+                output.append('by %(author)s' % comment)
+        return Markup('\n'.join(output))
 
     # IRequestHandler methods
     def match_request(self, req):
