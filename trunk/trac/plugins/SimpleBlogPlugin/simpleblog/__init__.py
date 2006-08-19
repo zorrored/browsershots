@@ -11,6 +11,8 @@ import re
 # title_split_match = re.compile(r'^=+\s+(\S.*\S)\s+=+\s+(.*)$').match
 title_split_match = re.compile(r'^=+\s+([^\n\r=]+?)\s+=+\s+(.+)$', re.DOTALL).match
 
+from md5 import md5
+
 class SimpleBlogPlugin(Component):
     implements(INavigationContributor, ITemplateProvider,
                IWikiMacroProvider, IRequestHandler)
@@ -45,11 +47,22 @@ class SimpleBlogPlugin(Component):
             if pos >= 0:
                 start = pos + len(key) + 2
                 stop = content.index('"', start)
-                comment[key] = content[start:stop]
+                value = content[start:stop].strip()
+                if value:
+                    comment[key] = value
         if not comment.has_key('title'):
             comment['title'] = 'Comment'
         output = ['</p>']
-        output.append('<h2 style="float: left; margin: 0 1ex 0 -18px;">%(title)s</h2>' % comment)
+        output.append('<p style="clear: both;"></p>')
+        if comment.has_key('email'):
+            output.append('<div style="float: left; margin: 0 1em 2px -18px; border-bottom-style: none;">' +
+                          '<a href="http://www.gravatar.com/">' +
+                          '<img src="http://www.gravatar.com/avatar.php?gravatar_id=' + md5(comment['email']).hexdigest() +
+                          '&amp;rating=R&amp;size=40&amp;default=http%3A%2F%2Fv03.browsershots.org%2Fstyle%2Fgravatar40.png"' +
+                          ' alt="Gravatar" width="40" height="40" style="vertical-align: middle;" /></a></div>')
+            output.append('<h2 style="float: left; margin: 0 1ex 0 0;">%(title)s</h2>' % comment)
+        else:
+            output.append('<h2 style="float: left; margin: 0 1ex 0 -18px;">%(title)s</h2>' % comment)
         output.append('<p style="font-size: smaller; color: gray; padding-top: 2px;">')
         if comment.has_key('posted'):
             output.append('posted %(posted)s' % comment)
@@ -77,6 +90,7 @@ class SimpleBlogPlugin(Component):
                 title = match.group(1)
                 text = match.group(2)
 
+            comments = text.count('[[SimpleBlogComment(')
             cutoff = text.find('[[SimpleBlogComment(')
             if cutoff >= 0:
                 text = text[:cutoff].rstrip()
@@ -92,6 +106,7 @@ class SimpleBlogPlugin(Component):
                 'rfcdate': http_date(original.time),
                 'author': original.author,
                 'comment': original.comment,
+                'comments': comments,
                 }
             if page.version > 1:
                 event['updated.version'] = page.version
