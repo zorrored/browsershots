@@ -21,7 +21,7 @@ h1, h2 {
   margin: 0;
 }
 
-p { margin: 1ex 0; }
+p, hr { margin: 1em 0; }
 p.error { color: #F00; }
 p.success { color: #080; }
 p.error, p.success { font-weight: bold; }
@@ -35,10 +35,12 @@ div#queue p { margin-bottom: 0; }
 .float-left {
   float: left;
   display: inline;
+  margin-right: 1em;
 }
 .float-right {
   float: right;
   display: inline;
+  margin-left: 1em;
 }
 
 .left { text-align: left; }

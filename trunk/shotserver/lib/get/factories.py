@@ -26,7 +26,8 @@ __author__ = '$Author$'
 
 import os
 from shotserver03.interface import xhtml, human
-from shotserver03.segments import factory_list, factory_browsers
+from shotserver03.segments import factory_list
+from shotserver03.segments import factory_info, factory_browsers
 from shotserver03 import database as db
 
 def read_params():
@@ -70,6 +71,9 @@ def body():
         xhtml.write_tag_line('p',
             "This page shows the configuration of the screenshot factory %s."
             % xhtml.tag('b', req.params.factory_name))
+        factory_info.write()
+        xhtml.write_tag_line('hr')
+        xhtml.write_tag_line('h2', 'Installed Browsers')
         factory_browsers.write()
     else:
         factory_list.write()
