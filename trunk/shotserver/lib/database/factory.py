@@ -150,7 +150,7 @@ SELECT browser_group.name, major, minor, engine.name, manufacturer
 FROM factory_browser
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
-JOIN engine USING (engine)
+LEFT JOIN engine USING (engine)
 WHERE factory = %s
 ORDER BY browser_group.name, major, minor;
 """, (factory, ))
