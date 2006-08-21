@@ -24,6 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+import os
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import factory_list, factory_browsers
 from shotserver03 import database as db
@@ -57,6 +58,10 @@ def body():
     Write HTML page content.
     """
     if hasattr(req.params, 'factory'):
+        src = '/static/factories/240/%s.jpg' % req.params.factory_name
+        if os.path.exists('/var/www/browsershots.org' + src):
+            img = xhtml.tag('img', src=src)
+            xhtml.write_tag_line('p', img, _class="float-right")
         factory_browsers.write()
     else:
         factory_list.write()
