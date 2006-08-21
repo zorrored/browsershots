@@ -53,15 +53,20 @@ def title():
     else:
         return "Screenshot Factories"
 
+def write_img(name):
+    """Show factory image."""
+    src = '/static/factories/240/%s.jpg' % name
+    if os.path.exists('/var/www/browsershots.org' + src):
+        alt = "Picture of screenshot factory %s." % name
+        img = xhtml.tag('img', src=src, alt=alt)
+        xhtml.write_tag_line('p', img, _class="float-right")
+
 def body():
     """
     Write HTML page content.
     """
     if hasattr(req.params, 'factory'):
-        src = '/static/factories/240/%s.jpg' % req.params.factory_name
-        if os.path.exists('/var/www/browsershots.org' + src):
-            img = xhtml.tag('img', src=src)
-            xhtml.write_tag_line('p', img, _class="float-right")
+        write_img(req.params.factory_name)
         factory_browsers.write()
     else:
         factory_list.write()
