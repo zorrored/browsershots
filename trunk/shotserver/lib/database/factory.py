@@ -146,7 +146,7 @@ def update_last_upload(factory):
 def browsers(factory):
     """Get the browsers that are supported by this factory."""
     cur.execute("""\
-SELECT browser_group.name, major, minor, engine.name, manufacturer
+SELECT browser, browser_group.name, major, minor, engine.name, manufacturer
 FROM factory_browser
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)

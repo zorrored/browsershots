@@ -118,13 +118,19 @@ LIMIT %s
 """, (website, limit))
     return cur.fetchall()
 
-def count_uploads_by_factory(factory, timespan='1:00'):
+def count_uploads(where, args, timespan='1:00'):
     """
-    How many uploads per hour?
+    How many uploads per hour for a factory?
+    How many uploads per hour for a browser?
+    How many uploads per hour for a browser on a factory?
+    How many uploads per day for an operating system?
     """
+    args = list(args)
+    args.append(timespan)
     cur.execute("""\
-SELECT COUNT(*) FROM screenshot
-WHERE factory = %s
+SELECT COUNT(*)
+FROM screenshot
+WHERE """ + where + """
 AND created > NOW()-%s::interval
-""", (factory, timespan))
+""", args)
     return cur.fetchone()[0]
