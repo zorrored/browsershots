@@ -17,7 +17,7 @@
 # MA 02111-1307, USA.
 
 """
-Display browsers that are supported by a factory.
+Display browsers that are installed on a factory.
 """
 
 __revision__ = '$Rev$'
@@ -26,39 +26,44 @@ __author__ = '$Author$'
 
 import time
 from shotserver03.interface import xhtml, human
-from shotserver03 import database
+from shotserver03 import database as db
 
 def write():
     """
-    Write XHTML table with browsers supported by req.params.factory.
+    Write XHTML table with browsers installed on req.params.factory.
     """
-    xhtml.write_tag_line('p',
-        "This page shows the configuration of the screenshot factory %s."
-        % xhtml.tag('b', req.params.factory_name))
-    database.connect()
+    factory = req.params.factory
+    db.connect()
     try:
-        rows = database.factory.browsers(req.params.factory)
+        rows = db.factory.browsers(factory)
         xhtml.write_open_tag_line('table', _id="factory-browser")
         xhtml.write_table_row((
             "Browser",
             "Engine",
-            "Manufacturer",
+            "Maker",
             # "Last poll",
             # "Last upload",
-            # "Uploads per hour",
-            # "Uploads per day",
+            "Uploads<br />per hour",
+            "Uploads<br />per day",
             ), element="th")
         for row in rows:
-            (name, major, minor, engine, manufacturer) = row
+            (browser, name, major, minor, engine, manufacturer) = row
             xhtml.write_open_tag('tr')
             # link = xhtml.tag('a', name, href="/browsers/" + name)
-            browser = database.browser.version_string(name, major, minor)
-            xhtml.write_tag('td', browser)
+            browser_version = db.browser.version_string(name, major, minor)
+            xhtml.write_tag('td', browser_version)
             xhtml.write_tag('td', engine)
             xhtml.write_tag('td', manufacturer)
-            # per_hour = database.screenshot.count_uploads_by_factory(factory)
-            # xhtml.write_tag('td', per_hour)
+
+            per_hour = db.screenshot.count_uploads(
+                'factory=%s AND browser=%s', (factory, browser), '1:00')
+            xhtml.write_tag('td', per_hour)
+
+            per_day = db.screenshot.count_uploads(
+                'factory=%s AND browser=%s', (factory, browser), '24:00')
+            xhtml.write_tag('td', per_day)
+
             xhtml.write_close_tag_line('tr')
         xhtml.write_close_tag_line('table')
     finally:
-        database.disconnect()
+        db.disconnect()

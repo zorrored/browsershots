@@ -67,6 +67,9 @@ def body():
     """
     if hasattr(req.params, 'factory'):
         write_img(req.params.factory_name)
+        xhtml.write_tag_line('p',
+            "This page shows the configuration of the screenshot factory %s."
+            % xhtml.tag('b', req.params.factory_name))
         factory_browsers.write()
     else:
         factory_list.write()

@@ -38,11 +38,12 @@ def write():
         now = time.time()
         xhtml.write_open_tag_line('table', _id="factories")
         xhtml.write_table_row((
-            "Name",
-            "Operating System",
-            "Last poll",
-            "Last upload",
-            "Uploads per hour",
+            "Factory<br />name",
+            "Operating<br />system",
+            "Last<br />poll",
+            "Last<br />upload",
+            "Uploads<br />per hour",
+            "Uploads<br />per day",
             ), element="th")
         for row in rows:
             (factory, name,
@@ -62,8 +63,15 @@ def write():
                 xhtml.write_tag('td', "never")
             else:
                 xhtml.write_tag('td', human.timespan(now - last_upload))
-            per_hour = database.screenshot.count_uploads_by_factory(factory)
+
+            per_hour = database.screenshot.count_uploads(
+                'factory=%s', (factory,), '1:00')
             xhtml.write_tag('td', per_hour)
+
+            per_day = database.screenshot.count_uploads(
+                'factory=%s', (factory,), '24:00')
+            xhtml.write_tag('td', per_day)
+
             xhtml.write_close_tag_line('tr')
         xhtml.write_close_tag_line('table')
     finally:
