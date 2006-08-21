@@ -34,6 +34,16 @@ def select_serial(name):
         return result[0]
     raise KeyError(name)
 
+def select_name(serial):
+    """
+    Get the factory name from the database.
+    """
+    cur.execute("SELECT name FROM factory WHERE factory=%s", (serial, ))
+    result = cur.fetchone()
+    if result is not None:
+        return result[0]
+    raise KeyError(serial)
+
 def select_salt(factory):
     """
     Get the password salt for a factory.
@@ -125,8 +135,23 @@ ORDER BY last_poll DESC, factory.name
 
 def update_last_poll(factory):
     """Set the last poll timestamp to NOW()."""
-    cur.execute("UPDATE factory SET last_poll = NOW() WHERE factory = %s", (factory, ))
+    cur.execute("UPDATE factory SET last_poll = NOW() WHERE factory = %s",
+                (factory, ))
 
 def update_last_upload(factory):
     """Set the last upload timestamp to NOW()."""
-    cur.execute("UPDATE factory SET last_upload = NOW() WHERE factory = %s", (factory, ))
+    cur.execute("UPDATE factory SET last_upload = NOW() WHERE factory = %s",
+                (factory, ))
+
+def browsers(factory):
+    """Get the browsers that are supported by this factory."""
+    cur.execute("""\
+SELECT browser_group.name, major, minor, engine.name, manufacturer
+FROM factory_browser
+JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
+JOIN engine USING (engine)
+WHERE factory = %s
+ORDER BY browser_group.name, major, minor;
+""", (factory, ))
+    return cur.fetchall()

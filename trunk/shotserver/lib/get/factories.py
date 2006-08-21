@@ -24,49 +24,39 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import time
 from shotserver03.interface import xhtml, human
-from shotserver03 import database
+from shotserver03.segments import factory_list, factory_browsers
+from shotserver03 import database as db
+
+def read_params():
+    """
+    Read parameters from the request URL.
+    """
+    if len(req.info.options) == 1:
+        factory = req.info.options[0]
+        db.connect()
+        try:
+            if factory.isdigit():
+                req.params.factory = factory
+                req.params.factory_name = db.factory.select_name(factory)
+            else:
+                req.params.factory_name = factory
+                req.params.factory = db.factory.select_serial(factory)
+        finally:
+            db.disconnect()
 
 def title():
     """Return page title."""
-    return "Screenshot Factories"
+    if hasattr(req.params, 'factory'):
+        return "Screenshot Factory: %s" % req.params.factory_name
+    else:
+        return "Screenshot Factories"
 
 def body():
     """
     Write HTML page content.
     """
-    database.connect()
-    try:
-        rows = database.factory.select_active()
-        now = time.time()
-        xhtml.write_open_tag_line('table')
-        xhtml.write_table_row((
-            "Name",
-            "Operating System",
-            "Last poll",
-            "Last upload",
-            "Uploads per hour",
-            ), element="th")
-        for row in rows:
-            (factory, name,
-             opsys, distro, major, minor, codename,
-             last_poll, last_upload) = row
-            xhtml.write_open_tag('tr')
-            xhtml.write_tag('td', name)
-            opsys = database.opsys.version_string(opsys, distro, major, minor, codename)
-            xhtml.write_tag('td', opsys)
-            if last_poll is None:
-                xhtml.write_tag('td', "never")
-            else:
-                xhtml.write_tag('td', human.timespan(now - last_poll))
-            if last_upload is None:
-                xhtml.write_tag('td', "never")
-            else:
-                xhtml.write_tag('td', human.timespan(now - last_upload))
-            per_hour = database.screenshot.count_uploads_by_factory(factory)
-            xhtml.write_tag('td', per_hour)
-            xhtml.write_close_tag_line('tr')
-        xhtml.write_close_tag_line('table')
-    finally:
-        database.disconnect()
+    if hasattr(req.params, 'factory'):
+        factory_browsers.write()
+    else:
+        factory_list.write()
