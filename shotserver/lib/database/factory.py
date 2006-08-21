@@ -155,3 +155,17 @@ WHERE factory = %s
 ORDER BY browser_group.name, major, minor;
 """, (factory, ))
     return cur.fetchall()
+
+def info(factory):
+    """Get some information about this factory."""
+    cur.execute("""\
+SELECT factory.name, opsys_group.name, distro, major, minor, codename,
+architecture.name, to_char(factory.created, 'YYYY-MM-DD'), person.nickname
+FROM factory
+JOIN opsys USING (opsys)
+JOIN opsys_group USING (opsys_group)
+JOIN architecture USING (architecture)
+JOIN person on person=factory.creator
+WHERE factory = %s
+""", (factory, ))
+    return cur.fetchone()
