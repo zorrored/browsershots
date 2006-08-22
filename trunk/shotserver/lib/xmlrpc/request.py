@@ -55,13 +55,14 @@ def poll(factory, crypt):
     crypt = md5(md5(salt + password) + nonce)
 
     If successful, options contains the following keys:
-        browser -- browser name, possibly with version number
+        browser -- browser name
         width -- screen width in pixels
         bpp -- color depth (bits per pixel)
         js -- javascript version string
         java -- java version string
         flash -- flash version string
         media -- media player string
+        binary -- browser command to run
 
     """
     database.connect()
@@ -89,6 +90,7 @@ def poll(factory, crypt):
             salt = database.factory.select_salt(factory)
             nonce = database.nonce.create_request_nonce(request, ip)
             options = database.request.to_dict(row)
+            options['binary'] = options['browser'].lower()
             challenge = salt + nonce
             return 'OK', challenge, options
     finally:
