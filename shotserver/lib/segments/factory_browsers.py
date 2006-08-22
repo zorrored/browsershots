@@ -33,6 +33,7 @@ def write():
     Write XHTML table with browsers installed on req.params.factory.
     """
     factory = req.params.factory
+    now = time.time()
     db.connect()
     try:
         rows = db.factory_browser.browsers(factory)
@@ -41,27 +42,36 @@ def write():
             "Browser",
             "Engine",
             "Maker",
-            # "Last poll",
-            # "Last upload",
+            "Last<br />upload",
             "Uploads<br />per hour",
             "Uploads<br />per day",
             "Special<br />command",
             ), element="th")
-        for row in rows:
+        for index, row in enumerate(rows):
             (browser, name, major, minor, engine, manufacturer, command) = row
-            xhtml.write_open_tag('tr')
+            xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
             # link = xhtml.tag('a', name, href="/browsers/" + name)
             browser_version = db.browser.version_string(name, major, minor)
             xhtml.write_tag('td', browser_version)
             xhtml.write_tag('td', engine)
             xhtml.write_tag('td', manufacturer)
 
+            last_upload = db.screenshot.last_upload(
+                'factory=%s AND browser=%s', (factory, browser))
+            if last_upload is not None:
+                last_upload = human.timespan(now - last_upload)
+            xhtml.write_tag('td', last_upload)
+
             per_hour = db.screenshot.count_uploads(
                 'factory=%s AND browser=%s', (factory, browser), '1:00')
+            if per_hour == 0:
+                per_hour = None
             xhtml.write_tag('td', per_hour)
 
             per_day = db.screenshot.count_uploads(
                 'factory=%s AND browser=%s', (factory, browser), '24:00')
+            if per_day == 0:
+                per_day = None
             xhtml.write_tag('td', per_day)
 
             xhtml.write_tag('td', command)

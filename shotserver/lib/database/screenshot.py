@@ -121,9 +121,7 @@ LIMIT %s
 def count_uploads(where, args, timespan='1:00'):
     """
     How many uploads per hour for a factory?
-    How many uploads per hour for a browser?
-    How many uploads per hour for a browser on a factory?
-    How many uploads per day for an operating system?
+    How many uploads per day for a browser on a factory?
     """
     args = list(args)
     args.append(timespan)
@@ -134,3 +132,20 @@ WHERE """ + where + """
 AND created > NOW()-%s::interval
 """, args)
     return cur.fetchone()[0]
+
+def last_upload(where, args):
+    """
+    When was the last upload for a browser on a factory?
+    """
+    args = list(args)
+    cur.execute("""\
+SELECT extract(epoch from created)::bigint AS uploaded
+FROM screenshot
+WHERE """ + where + """
+ORDER BY created DESC
+LIMIT 1
+""", args)
+    result = cur.fetchone()
+    if result is not None:
+        result = result[0]
+    return result
