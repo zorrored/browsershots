@@ -89,12 +89,17 @@ def poll(factory, crypt):
             database.request.update_locked(request, factory)
             salt = database.factory.select_salt(factory)
             nonce = database.nonce.create_request_nonce(request, ip)
-            options = database.request.to_dict(row)
-            options['binary'] = options['browser'].lower()
             challenge = salt + nonce
+            options = database.request.to_dict(row)
+            options['command'] = database.factory_browser.get_command(factory,
+                options['browser'], options['major'], options['minor'])
+            if options['command'] is None:
+                options['command'] = options['browser'].lower()
+            options['binary'] = options['command'] # deprecated alias
             return 'OK', challenge, options
     finally:
         database.disconnect()
+
 
 header_match = re.compile(r'(P\d) (\d+) (\d+) (\d+)').match
 def read_ppm_header(infile):
