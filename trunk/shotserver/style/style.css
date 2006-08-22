@@ -132,6 +132,7 @@ th, td {
   text-align: left;
   padding: 0 1ex 0 0;
 }
+.color1 { background-color: #eee; }
 
 input#submit { font-weight: bold; }
 div.background {

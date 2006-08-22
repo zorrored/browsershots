@@ -29,9 +29,12 @@ from shotserver03.interface import xhtml, human
 from shotserver03 import database as db
 
 
-def write_tr_th_td(th, td):
+def write_tr_th_td(th, td, color=None):
     """Write XHTML table row with <th> and <td>."""
-    xhtml.write_open_tag('tr')
+    if color is None:
+        xhtml.write_open_tag('tr')
+    else:
+        xhtml.write_open_tag('tr', _class="color%d" % color)
     xhtml.write_tag('th', th)
     xhtml.write_tag('td', td)
     xhtml.write_close_tag_line('tr')
@@ -47,10 +50,10 @@ def write():
          created, creator) = db.factory.info(req.params.factory)
         xhtml.write_open_tag_line('table', _id="factory-info")
         write_tr_th_td('Operating System', db.opsys.version_string(
-            opsys, distro, major, minor, codename))
-        write_tr_th_td('Architecture', arch)
-        write_tr_th_td('Created', created)
-        write_tr_th_td('Administrator', creator)
+            opsys, distro, major, minor, codename), color=1)
+        write_tr_th_td('Architecture', arch, color=2)
+        write_tr_th_td('Created', created, color=1)
+        write_tr_th_td('Administrator', creator, color=2)
         xhtml.write_close_tag_line('table')
     finally:
         db.disconnect()
