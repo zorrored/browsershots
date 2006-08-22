@@ -39,3 +39,16 @@ AND major = %s AND minor = %s
     if result is None:
         return None
     return result[0]
+
+def browsers(factory):
+    """Get the browsers that are supported by this factory."""
+    cur.execute("""\
+SELECT browser, browser_group.name, major, minor, engine.name, manufacturer, command
+FROM factory_browser
+JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
+LEFT JOIN engine USING (engine)
+WHERE factory = %s
+ORDER BY browser_group.name, major, minor
+""", (factory, ))
+    return cur.fetchall()

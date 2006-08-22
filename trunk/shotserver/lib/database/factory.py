@@ -143,19 +143,6 @@ def update_last_upload(factory):
     cur.execute("UPDATE factory SET last_upload = NOW() WHERE factory = %s",
                 (factory, ))
 
-def browsers(factory):
-    """Get the browsers that are supported by this factory."""
-    cur.execute("""\
-SELECT browser, browser_group.name, major, minor, engine.name, manufacturer
-FROM factory_browser
-JOIN browser USING (browser)
-JOIN browser_group USING (browser_group)
-LEFT JOIN engine USING (engine)
-WHERE factory = %s
-ORDER BY browser_group.name, major, minor;
-""", (factory, ))
-    return cur.fetchall()
-
 def info(factory):
     """Get some information about this factory."""
     cur.execute("""\
