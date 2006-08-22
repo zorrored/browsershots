@@ -80,7 +80,7 @@ def poll(factory, crypt):
         if row is None:
             # Find the youngest expired request.
             row = database.request.select_match(where
-                + " AND request_group.created >= NOW()-'24:00'::interval",
+                + " AND request_group.created >= NOW()-'4:00'::interval",
                 'DESC')
         if row is None:
             return 'No matching request.', '', {}
