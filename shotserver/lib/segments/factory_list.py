@@ -45,31 +45,35 @@ def write():
             "Uploads<br />per hour",
             "Uploads<br />per day",
             ), element="th")
-        for row in rows:
+        for index, row in enumerate(rows):
             (factory, name,
              opsys, distro, major, minor, codename,
              last_poll, last_upload) = row
-            xhtml.write_open_tag('tr')
+            xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
             link = xhtml.tag('a', name, href="/factories/" + name)
             xhtml.write_tag('td', link)
             opsys = database.opsys.version_string(
                 opsys, distro, major, minor, codename)
             xhtml.write_tag('td', opsys)
-            if last_poll is None:
-                xhtml.write_tag('td', "never")
-            else:
-                xhtml.write_tag('td', human.timespan(now - last_poll))
-            if last_upload is None:
-                xhtml.write_tag('td', "never")
-            else:
-                xhtml.write_tag('td', human.timespan(now - last_upload))
+
+            if last_poll is not None:
+                last_poll = human.timespan(now - last_poll)
+            xhtml.write_tag('td', last_poll)
+
+            if last_upload is not None:
+                last_upload = human.timespan(now - last_upload)
+            xhtml.write_tag('td', last_upload)
 
             per_hour = database.screenshot.count_uploads(
                 'factory=%s', (factory,), '1:00')
+            if per_hour == 0:
+                per_hour = None
             xhtml.write_tag('td', per_hour)
 
             per_day = database.screenshot.count_uploads(
                 'factory=%s', (factory,), '24:00')
+            if per_day == 0:
+                per_day = None
             xhtml.write_tag('td', per_day)
 
             xhtml.write_close_tag_line('tr')
