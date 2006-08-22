@@ -35,7 +35,7 @@ def write():
     factory = req.params.factory
     db.connect()
     try:
-        rows = db.factory.browsers(factory)
+        rows = db.factory_browser.browsers(factory)
         xhtml.write_open_tag_line('table', _id="factory-browser")
         xhtml.write_table_row((
             "Browser",
@@ -45,9 +45,10 @@ def write():
             # "Last upload",
             "Uploads<br />per hour",
             "Uploads<br />per day",
+            "Special<br />command",
             ), element="th")
         for row in rows:
-            (browser, name, major, minor, engine, manufacturer) = row
+            (browser, name, major, minor, engine, manufacturer, command) = row
             xhtml.write_open_tag('tr')
             # link = xhtml.tag('a', name, href="/browsers/" + name)
             browser_version = db.browser.version_string(name, major, minor)
@@ -63,6 +64,7 @@ def write():
                 'factory=%s AND browser=%s', (factory, browser), '24:00')
             xhtml.write_tag('td', per_day)
 
+            xhtml.write_tag('td', command)
             xhtml.write_close_tag_line('tr')
         xhtml.write_close_tag_line('table')
     finally:
