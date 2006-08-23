@@ -39,5 +39,6 @@ setup(name = 'ShotServer',
                   'style/gray.jpg',
                   'style/zoom.js',
                   'style/forms.js',
+                  'style/favicon.ico',
                   ])],
       )
