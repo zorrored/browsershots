@@ -32,7 +32,7 @@ class UnexpectedInput(Exception):
     """Post form input had unexpected fields."""
     pass
 
-browser_match = re.compile(r'(\w+)_(\w+)_(\d+)_(\d+)$').match
+browser_match = re.compile(r'(\w+)_([\w\-]+)_(\d+)_(\d+)$').match
 feature_keys = 'width bpp js java flash media expire'.split()
 
 def read_form(form):
