@@ -73,4 +73,6 @@ AND major = %s AND minor = %s
     scroll, override = result
     if override:
         scroll = override
+    if scroll is None:
+        scroll = ''
     return scroll
