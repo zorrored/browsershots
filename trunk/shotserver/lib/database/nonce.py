@@ -79,7 +79,7 @@ OR md5(textcat(owner.password, nonce.nonce)) = %s)
         else:
             return 'Nonce expired.'
 
-def authenticate_redirect(ip, crypt):
+def authenticate_redirect(crypt):
     """
     Authenticate a redirect with a crypted password.
     The crypted password can be created with a nonce:
@@ -96,10 +96,9 @@ JOIN browser_group USING (browser_group)
 JOIN website USING (website)
 JOIN factory ON factory.factory = request.factory
 JOIN person AS owner ON factory.owner = owner.person
-WHERE nonce.ip = %s
-AND (md5('redirect' || factory.password || nonce.nonce) = %s
-OR md5('redirect' || owner.password || nonce.nonce) = %s)
-""", (ip, crypt, crypt))
+WHERE md5('redirect' || factory.password || nonce.nonce) = %s
+OR md5('redirect' || owner.password || nonce.nonce) = %s
+""", (crypt, crypt))
     row = cur.fetchone()
     if row is None:
         return 'Password mismatch.', '', 0, 0, '', 0, 0
