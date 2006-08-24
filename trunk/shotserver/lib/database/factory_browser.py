@@ -36,9 +36,11 @@ AND browser_group.name = %s
 AND major = %s AND minor = %s
     """, (factory, browser, major, minor))
     result = cur.fetchone()
+    if result is not None:
+        result = result[0]
     if result is None:
-        return None
-    return result[0]
+        result = browser.lower()
+    return result
 
 def browsers(factory):
     """Get the browsers that are supported by this factory."""

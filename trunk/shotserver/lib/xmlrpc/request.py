@@ -95,8 +95,6 @@ def poll(factory, crypt):
                 options['browser'], options['major'], options['minor'])
             options['command'] = database.factory_browser.get_command(factory,
                 options['browser'], options['major'], options['minor'])
-            if options['command'] is None:
-                options['command'] = options['browser'].lower()
             return 'OK', challenge, options
     finally:
         database.disconnect()
