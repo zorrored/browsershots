@@ -57,3 +57,20 @@ def version_string(browser, major=None, minor=None):
         if minor is not None:
             result.append('.%d' % minor)
     return ''.join(result)
+
+def get_scroll(browser, major, minor):
+    """Get the name of the browser window for scrolling."""
+    cur.execute("""\
+SELECT browser_group.scroll AS scroll, browser.scroll AS override
+FROM browser
+JOIN browser_group USING (browser_group)
+WHERE browser_group.name = %s
+AND major = %s AND minor = %s
+    """, (browser, major, minor))
+    result = cur.fetchone()
+    if result is None:
+        return ''
+    scroll, override = result
+    if override:
+        scroll = override
+    return scroll
