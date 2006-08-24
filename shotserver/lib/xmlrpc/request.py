@@ -91,11 +91,12 @@ def poll(factory, crypt):
             nonce = database.nonce.create_request_nonce(request, ip)
             challenge = salt + nonce
             options = database.request.to_dict(row)
+            options['scroll'] = database.browser.get_scroll(
+                options['browser'], options['major'], options['minor'])
             options['command'] = database.factory_browser.get_command(factory,
                 options['browser'], options['major'], options['minor'])
             if options['command'] is None:
                 options['command'] = options['browser'].lower()
-            options['binary'] = options['command'] # deprecated alias
             return 'OK', challenge, options
     finally:
         database.disconnect()
