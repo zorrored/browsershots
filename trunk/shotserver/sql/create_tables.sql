@@ -1,158 +1,777 @@
-DROP TABLE person CASCADE;
-CREATE TABLE person (
-person SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) NOT NULL,
-salt CHAR(4) NOT NULL CHECK (salt ~ '[0-9a-f]{4}'),
-password CHAR(32) NOT NULL CHECK (password ~ '[0-9a-f]{32}'),
-email VARCHAR(60) NOT NULL UNIQUE,
-created TIMESTAMP DEFAULT NOW());
+--
+-- PostgreSQL database dump
+--
 
-DROP TABLE engine CASCADE;
-CREATE TABLE engine (
-engine SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) CHECK (name ~ '^\\w+$'),
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person);
+SET client_encoding = 'SQL_ASCII';
+SET check_function_bodies = false;
+SET client_min_messages = warning;
 
-DROP TABLE architecture CASCADE;
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'Standard public schema';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: architecture; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
 CREATE TABLE architecture (
-architecture SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) CHECK (name ~ '^\\w+$'),
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person);
+    architecture serial NOT NULL,
+    name character varying(20),
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL,
+    CONSTRAINT architecture_name_check CHECK (((name)::text ~ E'^\\w+$'::text))
+);
 
-DROP TABLE browser_group CASCADE;
-CREATE TABLE browser_group (
-browser_group SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) NOT NULL UNIQUE CHECK (name ~ '^\\w+$'),
-manufacturer VARCHAR(20),
-terminal BOOLEAN NOT NULL DEFAULT FALSE,
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person);
 
-DROP TABLE browser CASCADE;
+--
+-- Name: browser; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
 CREATE TABLE browser (
-browser SERIAL PRIMARY KEY NOT NULL,
-useragent VARCHAR(255) NOT NULL UNIQUE,
-browser_group INT NOT NULL REFERENCES browser_group,
-major INT NOT NULL,
-minor INT,
-engine INT REFERENCES engine,
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person);
+    browser serial NOT NULL,
+    useragent character varying(255) NOT NULL,
+    browser_group integer NOT NULL,
+    major integer NOT NULL,
+    minor integer,
+    engine integer,
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL,
+    "scroll" character varying(40)
+);
 
-DROP TABLE opsys_group CASCADE;
-CREATE TABLE opsys_group (
-opsys_group SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) NOT NULL,
-manufacturer VARCHAR(20),
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person);
 
-DROP TABLE opsys CASCADE;
-CREATE TABLE opsys (
-opsys SERIAL PRIMARY KEY NOT NULL,
-opsys_group INT NOT NULL REFERENCES opsys_group,
-distro VARCHAR(20),
-codename VARCHAR(20),
-major INT,
-minor INT,
-mobile BOOLEAN NOT NULL DEFAULT FALSE,
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person);
+--
+-- Name: browser_group; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
 
-DROP TABLE factory CASCADE;
-CREATE TABLE factory (
-factory SERIAL PRIMARY KEY NOT NULL,
-name VARCHAR(20) NOT NULL UNIQUE CHECK (name ~ '^\\w+$'),
-salt CHAR(4) CHECK (salt ~ '[0-9a-f]{4}'),
-password CHAR(32) CHECK (password ~ '[0-9a-f]{32}'),
-owner INT NOT NULL REFERENCES person,
-opsys INT NOT NULL REFERENCES opsys,
-architecture INT NOT NULL REFERENCES architecture,
-last_poll TIMESTAMP,
-last_upload TIMESTAMP,
-created TIMESTAMP DEFAULT NOW(),
-creator INT NOT NULL REFERENCES person);
+CREATE TABLE browser_group (
+    browser_group serial NOT NULL,
+    name character varying(20) NOT NULL,
+    manufacturer character varying(20),
+    terminal boolean DEFAULT false NOT NULL,
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL,
+    "scroll" character varying(40),
+    CONSTRAINT browser_group_name_check CHECK (((name)::text ~ E'^[\\w\\-]+$'::text))
+);
 
-DROP TABLE factory_browser CASCADE;
-CREATE TABLE factory_browser (
-factory INT NOT NULL REFERENCES factory,
-browser INT NOT NULL REFERENCES browser);
 
-DROP TABLE factory_screen CASCADE;
-CREATE TABLE factory_screen (
-factory INT NOT NULL REFERENCES factory,
-width INT NOT NULL,
-height INT NOT NULL);
+--
+-- Name: request; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
 
-DROP TABLE factory_feature CASCADE;
-CREATE TABLE factory_feature (
-factory INT NOT NULL REFERENCES factory,
-name VARCHAR(20) NOT NULL,
-intval INT,
-strval VARCHAR(20),
-CONSTRAINT intval_or_strval CHECK (
-(intval IS NULL AND strval IS NOT NULL) OR
-(strval IS NULL AND intval IS NOT NULL)));
-
-DROP TABLE screenshot CASCADE;
-CREATE TABLE screenshot (
-screenshot SERIAL PRIMARY KEY NOT NULL,
-hashkey CHAR(32) UNIQUE NOT NULL CHECK (hashkey ~ '[0-9a-f]{32}'),
-factory INT NOT NULL REFERENCES factory,
-browser INT NOT NULL REFERENCES browser,
-width INT NOT NULL,
-height INT NOT NULL,
-created TIMESTAMP DEFAULT NOW());
-
-DROP TABLE website CASCADE;
-CREATE TABLE website (
-website SERIAL PRIMARY KEY NOT NULL,
-url VARCHAR(255) NOT NULL UNIQUE,
-created TIMESTAMP DEFAULT NOW());
-
-DROP TABLE request_group CASCADE;
-CREATE TABLE request_group (
-request_group SERIAL PRIMARY KEY NOT NULL,
-website INT NOT NULL,
-width INT,
-bpp INT,
-js VARCHAR(20),
-java VARCHAR(20),
-flash VARCHAR(20),
-media VARCHAR(20),
-expire TIMESTAMP,
-created TIMESTAMP DEFAULT NOW(),
-creator INT REFERENCES person);
-
-DROP TABLE request CASCADE;
 CREATE TABLE request (
-request SERIAL PRIMARY KEY NOT NULL,
-request_group INT NOT NULL REFERENCES request_group,
-browser_group INT NOT NULL REFERENCES browser_group,
-major INT,
-minor INT,
-opsys_group INT REFERENCES opsys_group,
-opsys INT REFERENCES opsys,
-locked TIMESTAMP,
-factory INT REFERENCES factory,
-redirected TIMESTAMP,
-browser INT REFERENCES browser,
-screenshot INT REFERENCES screenshot);
+    request serial NOT NULL,
+    request_group integer NOT NULL,
+    browser_group integer NOT NULL,
+    major integer,
+    minor integer,
+    opsys_group integer,
+    opsys integer,
+    browser integer,
+    redirected timestamp without time zone,
+    screenshot integer,
+    locked timestamp without time zone,
+    factory integer
+);
 
-DROP TABLE failure CASCADE;
+
+--
+-- Name: browser_stats; Type: VIEW; Schema: public; Owner: www-data
+--
+
+CREATE VIEW browser_stats AS
+    SELECT browser_group.name, count(*) AS queued FROM (request JOIN browser_group USING (browser_group)) WHERE (request.screenshot IS NULL) GROUP BY browser_group.name;
+
+
+--
+-- Name: engine; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE engine (
+    engine serial NOT NULL,
+    name character varying(20),
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL,
+    CONSTRAINT engine_name_check CHECK (((name)::text ~ E'^\\w+$'::text))
+);
+
+
+--
+-- Name: factory; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE factory (
+    factory serial NOT NULL,
+    name character varying(20) NOT NULL,
+    salt character(4),
+    "password" character(32),
+    "owner" integer NOT NULL,
+    opsys integer NOT NULL,
+    architecture integer NOT NULL,
+    last_poll timestamp without time zone,
+    last_upload timestamp without time zone,
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL,
+    CONSTRAINT factory_name_check CHECK (((name)::text ~ E'^\\w+$'::text)),
+    CONSTRAINT factory_password_check CHECK (("password" ~ '[0-9a-f]{32}'::text)),
+    CONSTRAINT factory_salt_check CHECK ((salt ~ '[0-9a-f]{4}'::text))
+);
+
+
+--
+-- Name: factory_browser; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE factory_browser (
+    factory integer NOT NULL,
+    browser integer NOT NULL,
+    command character varying(20)
+);
+
+
+--
+-- Name: factory_feature; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE factory_feature (
+    factory integer NOT NULL,
+    name character varying(20) NOT NULL,
+    intval integer,
+    strval character varying(20),
+    CONSTRAINT intval_or_strval CHECK ((((intval IS NULL) AND (strval IS NOT NULL)) OR ((strval IS NULL) AND (intval IS NOT NULL))))
+);
+
+
+--
+-- Name: factory_screen; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE factory_screen (
+    factory integer NOT NULL,
+    width integer NOT NULL,
+    height integer NOT NULL
+);
+
+
+--
+-- Name: failure; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
 CREATE TABLE failure (
-request INT NOT NULL REFERENCES request,
-factory INT NOT NULL REFERENCES factory,
-message VARCHAR(255),
-created TIMESTAMP DEFAULT NOW());
+    request integer NOT NULL,
+    factory integer NOT NULL,
+    message character varying(255),
+    created timestamp without time zone DEFAULT now()
+);
 
-DROP TABLE nonce CASCADE;
+
+--
+-- Name: nonce; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
 CREATE TABLE nonce (
-nonce CHAR(32) PRIMARY KEY NOT NULL CHECK (nonce ~ '[0-9a-f]{32}'),
-ip CIDR NOT NULL,
-factory INT REFERENCES factory,
-person INT REFERENCES person,
-request INT REFERENCES request,
-created TIMESTAMP DEFAULT NOW());
+    nonce character(32) NOT NULL,
+    ip cidr NOT NULL,
+    factory integer,
+    person integer,
+    request integer,
+    created timestamp without time zone DEFAULT now(),
+    CONSTRAINT nonce_nonce_check CHECK ((nonce ~ '[0-9a-f]{32}'::text))
+);
+
+
+--
+-- Name: opsys; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE opsys (
+    opsys serial NOT NULL,
+    opsys_group integer NOT NULL,
+    distro character varying(20),
+    codename character varying(20),
+    major integer,
+    minor integer,
+    mobile boolean DEFAULT false NOT NULL,
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL
+);
+
+
+--
+-- Name: opsys_group; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE opsys_group (
+    opsys_group serial NOT NULL,
+    name character varying(20) NOT NULL,
+    manufacturer character varying(20),
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL
+);
+
+
+--
+-- Name: person; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE person (
+    person serial NOT NULL,
+    name character varying(20) NOT NULL,
+    salt character(4) NOT NULL,
+    "password" character(32) NOT NULL,
+    email character varying(60) NOT NULL,
+    created timestamp without time zone DEFAULT now(),
+    nickname character varying(20),
+    CONSTRAINT person_password_check CHECK (("password" ~ '[0-9a-f]{32}'::text)),
+    CONSTRAINT person_salt_check CHECK ((salt ~ '[0-9a-f]{4}'::text))
+);
+
+
+--
+-- Name: request_group; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE request_group (
+    request_group serial NOT NULL,
+    website integer NOT NULL,
+    width integer,
+    bpp integer,
+    js character varying(20),
+    java character varying(20),
+    flash character varying(20),
+    media character varying(20),
+    expire timestamp without time zone,
+    created timestamp without time zone DEFAULT now(),
+    creator integer
+);
+
+
+--
+-- Name: screenshot; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE screenshot (
+    screenshot serial NOT NULL,
+    hashkey character(32) NOT NULL,
+    factory integer NOT NULL,
+    browser integer NOT NULL,
+    width integer NOT NULL,
+    height integer NOT NULL,
+    created timestamp without time zone DEFAULT now(),
+    CONSTRAINT screenshot_hashkey_check CHECK ((hashkey ~ '[0-9a-f]{32}'::text))
+);
+
+
+--
+-- Name: website; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE website (
+    website serial NOT NULL,
+    url character varying(255) NOT NULL,
+    created timestamp without time zone DEFAULT now()
+);
+
+
+--
+-- Name: architecture_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY architecture
+    ADD CONSTRAINT architecture_pkey PRIMARY KEY (architecture);
+
+
+--
+-- Name: browser_group_name_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY browser_group
+    ADD CONSTRAINT browser_group_name_key UNIQUE (name);
+
+
+--
+-- Name: browser_group_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY browser_group
+    ADD CONSTRAINT browser_group_pkey PRIMARY KEY (browser_group);
+
+
+--
+-- Name: browser_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY browser
+    ADD CONSTRAINT browser_pkey PRIMARY KEY (browser);
+
+
+--
+-- Name: browser_useragent_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY browser
+    ADD CONSTRAINT browser_useragent_key UNIQUE (useragent);
+
+
+--
+-- Name: engine_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY engine
+    ADD CONSTRAINT engine_pkey PRIMARY KEY (engine);
+
+
+--
+-- Name: factory_name_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY factory
+    ADD CONSTRAINT factory_name_key UNIQUE (name);
+
+
+--
+-- Name: factory_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY factory
+    ADD CONSTRAINT factory_pkey PRIMARY KEY (factory);
+
+
+--
+-- Name: nonce_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY nonce
+    ADD CONSTRAINT nonce_pkey PRIMARY KEY (nonce);
+
+
+--
+-- Name: opsys_group_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY opsys_group
+    ADD CONSTRAINT opsys_group_pkey PRIMARY KEY (opsys_group);
+
+
+--
+-- Name: opsys_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY opsys
+    ADD CONSTRAINT opsys_pkey PRIMARY KEY (opsys);
+
+
+--
+-- Name: person_email_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY person
+    ADD CONSTRAINT person_email_key UNIQUE (email);
+
+
+--
+-- Name: person_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY person
+    ADD CONSTRAINT person_pkey PRIMARY KEY (person);
+
+
+--
+-- Name: request_group_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY request_group
+    ADD CONSTRAINT request_group_pkey PRIMARY KEY (request_group);
+
+
+--
+-- Name: request_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_pkey PRIMARY KEY (request);
+
+
+--
+-- Name: screenshot_hashkey_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY screenshot
+    ADD CONSTRAINT screenshot_hashkey_key UNIQUE (hashkey);
+
+
+--
+-- Name: screenshot_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY screenshot
+    ADD CONSTRAINT screenshot_pkey PRIMARY KEY (screenshot);
+
+
+--
+-- Name: website_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY website
+    ADD CONSTRAINT website_pkey PRIMARY KEY (website);
+
+
+--
+-- Name: website_url_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY website
+    ADD CONSTRAINT website_url_key UNIQUE (url);
+
+
+--
+-- Name: request_group_bpp; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_group_bpp ON request_group USING btree (bpp);
+
+
+--
+-- Name: request_group_created; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_group_created ON request_group USING btree (created);
+
+
+--
+-- Name: request_group_flash; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_group_flash ON request_group USING btree (flash);
+
+
+--
+-- Name: request_group_java; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_group_java ON request_group USING btree (java);
+
+
+--
+-- Name: request_group_js; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_group_js ON request_group USING btree (js);
+
+
+--
+-- Name: request_group_media; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_group_media ON request_group USING btree (media);
+
+
+--
+-- Name: request_group_width; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_group_width ON request_group USING btree (width);
+
+
+--
+-- Name: request_locked; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_locked ON request USING btree (locked);
+
+
+--
+-- Name: request_screenshot; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_screenshot ON request USING btree (screenshot);
+
+
+--
+-- Name: request_screenshot_null; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_screenshot_null ON request USING btree (screenshot) WHERE (screenshot IS NULL);
+
+
+--
+-- Name: architecture_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY architecture
+    ADD CONSTRAINT architecture_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: browser_browser_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY browser
+    ADD CONSTRAINT browser_browser_group_fkey FOREIGN KEY (browser_group) REFERENCES browser_group(browser_group);
+
+
+--
+-- Name: browser_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY browser
+    ADD CONSTRAINT browser_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: browser_engine_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY browser
+    ADD CONSTRAINT browser_engine_fkey FOREIGN KEY (engine) REFERENCES engine(engine);
+
+
+--
+-- Name: browser_group_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY browser_group
+    ADD CONSTRAINT browser_group_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: engine_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY engine
+    ADD CONSTRAINT engine_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: factory_architecture_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory
+    ADD CONSTRAINT factory_architecture_fkey FOREIGN KEY (architecture) REFERENCES architecture(architecture);
+
+
+--
+-- Name: factory_browser_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_browser
+    ADD CONSTRAINT factory_browser_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
+
+
+--
+-- Name: factory_browser_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_browser
+    ADD CONSTRAINT factory_browser_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
+
+
+--
+-- Name: factory_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory
+    ADD CONSTRAINT factory_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: factory_feature_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_feature
+    ADD CONSTRAINT factory_feature_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
+
+
+--
+-- Name: factory_opsys_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory
+    ADD CONSTRAINT factory_opsys_fkey FOREIGN KEY (opsys) REFERENCES opsys(opsys);
+
+
+--
+-- Name: factory_owner_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory
+    ADD CONSTRAINT factory_owner_fkey FOREIGN KEY ("owner") REFERENCES person(person);
+
+
+--
+-- Name: factory_screen_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_screen
+    ADD CONSTRAINT factory_screen_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
+
+
+--
+-- Name: failure_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY failure
+    ADD CONSTRAINT failure_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
+
+
+--
+-- Name: failure_request_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY failure
+    ADD CONSTRAINT failure_request_fkey FOREIGN KEY (request) REFERENCES request(request);
+
+
+--
+-- Name: nonce_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY nonce
+    ADD CONSTRAINT nonce_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
+
+
+--
+-- Name: nonce_person_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY nonce
+    ADD CONSTRAINT nonce_person_fkey FOREIGN KEY (person) REFERENCES person(person);
+
+
+--
+-- Name: nonce_request_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY nonce
+    ADD CONSTRAINT nonce_request_fkey FOREIGN KEY (request) REFERENCES request(request);
+
+
+--
+-- Name: opsys_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY opsys
+    ADD CONSTRAINT opsys_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: opsys_group_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY opsys_group
+    ADD CONSTRAINT opsys_group_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: opsys_opsys_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY opsys
+    ADD CONSTRAINT opsys_opsys_group_fkey FOREIGN KEY (opsys_group) REFERENCES opsys_group(opsys_group);
+
+
+--
+-- Name: request_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
+
+
+--
+-- Name: request_browser_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_browser_group_fkey FOREIGN KEY (browser_group) REFERENCES browser_group(browser_group);
+
+
+--
+-- Name: request_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
+
+
+--
+-- Name: request_group_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request_group
+    ADD CONSTRAINT request_group_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
+
+
+--
+-- Name: request_opsys_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_opsys_fkey FOREIGN KEY (opsys) REFERENCES opsys(opsys);
+
+
+--
+-- Name: request_opsys_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_opsys_group_fkey FOREIGN KEY (opsys_group) REFERENCES opsys_group(opsys_group);
+
+
+--
+-- Name: request_request_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_request_group_fkey FOREIGN KEY (request_group) REFERENCES request_group(request_group);
+
+
+--
+-- Name: request_screenshot_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_screenshot_fkey FOREIGN KEY (screenshot) REFERENCES screenshot(screenshot);
+
+
+--
+-- Name: screenshot_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY screenshot
+    ADD CONSTRAINT screenshot_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
+
+
+--
+-- Name: screenshot_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY screenshot
+    ADD CONSTRAINT screenshot_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
