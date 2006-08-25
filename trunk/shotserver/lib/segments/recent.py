@@ -34,7 +34,7 @@ def write():
     """
     database.connect()
     try:
-        rows = database.screenshot.select_recent()
+        rows = database.screenshot.select_recent_websites()
     finally:
         database.disconnect()
 
