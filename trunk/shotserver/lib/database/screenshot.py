@@ -100,7 +100,7 @@ JOIN request_group USING (request_group)
 """ + where, (website, screenshot))
     return cur.fetchall()
 
-def select_recent_website(website, limit=5):
+def select_recent(where, args, limit=5):
     """
     Get the most recently uploaded screenshots for a website.
     """
@@ -115,10 +115,9 @@ JOIN browser_group ON browser_group.browser_group = browser.browser_group
 JOIN factory ON factory.factory = screenshot.factory
 JOIN opsys ON opsys.opsys = factory.opsys
 JOIN opsys_group ON opsys_group.opsys_group = opsys.opsys_group
-WHERE website = %s
+WHERE """ + where + """
 ORDER BY screenshot DESC
-LIMIT %s
-""", (website, limit))
+LIMIT """ + str(limit), args)
     return cur.fetchall()
 
 def count_uploads(where, args, timespan='1:00'):
