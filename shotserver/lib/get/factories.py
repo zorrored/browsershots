@@ -27,7 +27,7 @@ __author__ = '$Author$'
 import os
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import factory_list
-from shotserver03.segments import factory_info, factory_browsers
+from shotserver03.segments import factory_info, factory_browsers, screenshots
 from shotserver03 import database as db
 
 def read_params():
@@ -44,6 +44,8 @@ def read_params():
             else:
                 req.params.factory_name = factory
                 req.params.factory = db.factory.select_serial(factory)
+            req.params.show_screenshots = db.screenshot.select_recent(
+                'screenshot.factory = %s', (req.params.factory, ))
         finally:
             db.disconnect()
 
@@ -75,5 +77,9 @@ def body():
         xhtml.write_tag_line('hr')
         xhtml.write_tag_line('h2', 'Installed Browsers')
         factory_browsers.write()
+        if req.params.show_screenshots:
+            xhtml.write_tag_line('hr')
+            xhtml.write_tag_line('h2', 'Recent screenshots')
+            screenshots.write()
     else:
         factory_list.write()
