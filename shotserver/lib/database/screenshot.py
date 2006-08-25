@@ -55,7 +55,7 @@ WHERE screenshot = %s
 """, (serial, ))
     return cur.fetchone()
 
-def select_recent(limit=50):
+def select_recent_websites(limit=50):
     """
     Get serials of the most recently uploaded screenshots, one per website.
     """
