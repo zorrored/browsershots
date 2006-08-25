@@ -45,7 +45,8 @@ def select_by_serial(serial):
     Get info about a screenshot.
     """
     cur.execute("""\
-SELECT hashkey, factory, screenshot.browser, screenshot.width, screenshot.height, screenshot.created, website, url
+SELECT hashkey, factory, screenshot.browser,
+screenshot.width, screenshot.height, screenshot.created, website, url
 FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
@@ -79,12 +80,16 @@ ORDER BY screenshot DESC
 
 def select_prevnext(direction, website, screenshot):
     """
-    Get the most recently uploaded screenshots.
+    Get other screenshots before or after a given screenshot.
     """
     if direction == 'prev':
-        where = "WHERE website = %s AND screenshot < %s ORDER BY screenshot DESC"
+        where = """\
+WHERE website = %s AND screenshot < %s
+ORDER BY screenshot DESC"""
     elif direction == 'next':
-        where = "WHERE website = %s AND screenshot > %s ORDER BY screenshot ASC"
+        where = """\
+WHERE website = %s AND screenshot > %s
+ORDER BY screenshot ASC"""
     else:
         return None
     cur.execute("""\
@@ -100,10 +105,8 @@ def select_recent_website(website, limit=5):
     Get the most recently uploaded screenshots for a website.
     """
     cur.execute("""\
-SELECT hashkey,
-       browser_group.name, browser.major, browser.minor,
-       opsys_group.name,
-       extract(epoch from screenshot.created)::bigint
+SELECT hashkey, browser_group.name, browser.major, browser.minor,
+opsys_group.name, extract(epoch from screenshot.created)::bigint
 FROM screenshot
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
