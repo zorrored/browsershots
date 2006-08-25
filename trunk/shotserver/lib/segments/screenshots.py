@@ -32,35 +32,31 @@ def write():
     """
     Write XHTML div with recent screenshots.
     """
-    database.connect()
-    try:
-        xhtml.write_open_tag_line('div', _id="screenshots")
-        now = time.time()
-        rows = req.params.show_screenshots
-        for index, row in enumerate(rows):
-            hashkey, browser, major, minor, platform, created = row
-            prefix = hashkey[:2]
-            if index == 0:
-                xhtml.write_open_tag_line('div', _class="screenshot first")
-            else:
-                xhtml.write_open_tag_line('div', _class="screenshot")
-            img = xhtml.tag('img', alt="", width="140",
-                            src="/png/140/%s/%s.png" % (prefix, hashkey))
-            xhtml.write_tag('a', img, href="/screenshots/%s/" % hashkey)
+    xhtml.write_open_tag_line('div', _id="screenshots")
+    now = time.time()
+    rows = req.params.show_screenshots
+    for index, row in enumerate(rows):
+        hashkey, browser, major, minor, platform, created = row
+        prefix = hashkey[:2]
+        if index == 0:
+            xhtml.write_open_tag_line('div', _class="screenshot first")
+        else:
+            xhtml.write_open_tag_line('div', _class="screenshot")
+        img = xhtml.tag('img', alt="", width="140",
+                        src="/png/140/%s/%s.png" % (prefix, hashkey))
+        xhtml.write_tag('a', img, href="/screenshots/%s/" % hashkey)
 
-            # xhtml.write_tag_line('br')
-            # req.write(time.strftime('%b %d %H:%M', time.localtime(created)))
+        # xhtml.write_tag_line('br')
+        # req.write(time.strftime('%b %d %H:%M', time.localtime(created)))
 
-            xhtml.write_tag_line('br')
-            browser = database.browser.version_string(browser, major, minor)
-            req.write('%s on %s' % (browser, platform))
+        xhtml.write_tag_line('br')
+        browser = database.browser.version_string(browser, major, minor)
+        req.write('%s on %s' % (browser, platform))
 
-            timespan = human.timespan(now - created, units='long').replace(' ', '&nbsp;')
-            req.write(', %s ago' % timespan)
-            xhtml.write_tag_line('br')
+        timespan = human.timespan(now - created, units='long').replace(' ', '&nbsp;')
+        req.write(', %s ago' % timespan)
+        xhtml.write_tag_line('br')
 
-            xhtml.write_close_tag_line('div') # class="screenshot"
-        xhtml.write_tag_line('div', '', _class="clear")
-        xhtml.write_close_tag_line('div') # id="screenshots"
-    finally:
-        database.disconnect()
+        xhtml.write_close_tag_line('div') # class="screenshot"
+    xhtml.write_tag_line('div', '', _class="clear")
+    xhtml.write_close_tag_line('div') # id="screenshots"
