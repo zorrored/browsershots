@@ -108,7 +108,7 @@ def select_recent(where, args, limit=5):
     Get the most recently uploaded screenshots for a website.
     """
     cur.execute("""\
-SELECT hashkey, browser_group.name, browser.major, browser.minor,
+SELECT hashkey, browser_group.name, browser.version,
 opsys_group.name, extract(epoch from screenshot.created)::bigint
 FROM screenshot
 JOIN request USING (screenshot)

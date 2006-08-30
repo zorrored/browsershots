@@ -112,6 +112,8 @@ div#screenshots div.screenshot {
   width: 140px;
   overflow: hidden;
   margin: 0 0 0 16px;
+  font-size: 80%;
+  color: gray;
 }
 div#screenshots div.first { margin-left: 0; }
 

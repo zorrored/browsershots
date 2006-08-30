@@ -36,7 +36,7 @@ def write():
     now = time.time()
     rows = req.params.show_screenshots
     for index, row in enumerate(rows):
-        hashkey, browser, major, minor, platform, created = row
+        hashkey, browser, version, platform, created = row
         prefix = hashkey[:2]
         if index == 0:
             xhtml.write_open_tag_line('div', _class="screenshot first")
@@ -50,8 +50,7 @@ def write():
         # req.write(time.strftime('%b %d %H:%M', time.localtime(created)))
 
         xhtml.write_tag_line('br')
-        browser = database.browser.version_string(browser, major, minor)
-        req.write('%s on %s' % (browser, platform))
+        req.write('%s %s on %s' % (browser, version, platform))
 
         timespan = human.timespan(now - created, units='long').replace(' ', '&nbsp;')
         req.write(', %s ago' % timespan)
