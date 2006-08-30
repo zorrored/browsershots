@@ -39,12 +39,15 @@ def read_params():
         database.connect()
         try:
             req.params.hashkey = req.info.options[0]
-            row = database.screenshot.select_by_hashkey(req.params.hashkey)
+            req.params.screenshot = database.screenshot.hashkey_to_serial(
+                req.params.hashkey)
+            row = database.screenshot.info(req.params.screenshot)
             if row is None:
                 req.params.hashkey = None
+                req.params.screenshot = None
             else:
-                (req.params.screenshot, req.params.factory, req.params.browser,
-                 req.params.width, req.params.height, req.params.created,
+                (req.params.uploaded, req.params.width, req.params.height,
+                 req.params.browser, req.params.version, req.params.factory,
                  req.params.website, req.params.url) = row
                 req.params.escaped = cgi.escape(req.params.url, True)
         finally:
@@ -52,14 +55,20 @@ def read_params():
 
 def title():
     """Return page title."""
-    return "Recent Screenshots"
+    if req.params.screenshot:
+        return "Screenshot of %s %s" % (
+            req.params.browser, req.params.version)
+    else:
+        return "Recent Screenshots"
 
 def body():
     """
     Write HTML page content.
     """
     if req.params.hashkey:
-        bold = xhtml.tag('b', 'for ' + req.params.escaped)
+        link = xhtml.tag('a', req.params.escaped,
+                         href="/website/%s/" % req.params.website)
+        bold = xhtml.tag('b', 'for ' + link)
         xhtml.write_tag_line('p', bold, _class="up")
         prevnext.write('prev')
         medium.write()
