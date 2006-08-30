@@ -34,7 +34,7 @@ def read_params():
     Read parameters from the request URL.
     """
     if len(req.info.options) == 0:
-        req.params.hashkey = None
+        req.params.screenshot = None
     elif len(req.info.options) == 1:
         database.connect()
         try:
@@ -47,17 +47,24 @@ def read_params():
                 req.params.screenshot = None
             else:
                 (req.params.uploaded, req.params.width, req.params.height,
-                 req.params.browser, req.params.version, req.params.factory,
+                 req.params.browser, req.params.version,
+                 req.params.factory, req.params.os, req.params.distro,
                  req.params.website, req.params.url) = row
                 req.params.escaped = cgi.escape(req.params.url, True)
+                if req.params.distro:
+                    if req.params.os == 'Linux':
+                        req.params.os = req.params.distro + ' ' + req.params.os
+                    else:
+                        req.params.os = req.params.os + ' ' + req.params.distro
         finally:
             database.disconnect()
 
 def title():
     """Return page title."""
     if req.params.screenshot:
-        return "Screenshot of %s %s" % (
-            req.params.browser, req.params.version)
+        os = req.params.os
+        return "Screenshot of %s %s on %s" % (
+            req.params.browser, req.params.version, req.params.os)
     else:
         return "Recent Screenshots"
 
@@ -65,7 +72,7 @@ def body():
     """
     Write HTML page content.
     """
-    if req.params.hashkey:
+    if req.params.screenshot:
         link = xhtml.tag('a', req.params.escaped,
                          href="/website/%s/" % req.params.website)
         bold = xhtml.tag('b', 'for ' + link)
