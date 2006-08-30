@@ -67,7 +67,7 @@ def poll(factory, crypt):
     """
     database.connect()
     try:
-        factory = database.factory.select_serial(factory)
+        factory = database.factory.name_to_serial(factory)
         ip = req.connection.remote_ip
         status = database.nonce.authenticate_factory(factory, ip, crypt)
         if status != 'OK':

@@ -40,10 +40,10 @@ def read_params():
         try:
             if factory.isdigit():
                 req.params.factory = factory
-                req.params.factory_name = db.factory.select_name(factory)
+                req.params.factory_name = db.factory.serial_to_name(factory)
             else:
                 req.params.factory_name = factory
-                req.params.factory = db.factory.select_serial(factory)
+                req.params.factory = db.factory.name_to_serial(factory)
             req.params.show_screenshots = db.screenshot.select_recent(
                 'screenshot.factory = %s', (req.params.factory, ))
         finally:

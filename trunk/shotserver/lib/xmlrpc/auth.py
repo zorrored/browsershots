@@ -41,7 +41,7 @@ def challenge(factory):
     """
     database.connect()
     try:
-        factory = database.factory.select_serial(factory)
+        factory = database.factory.name_to_serial(factory)
         salt = database.factory.select_salt(factory)
         ip = req.connection.remote_ip
         nonce = database.nonce.create_factory_nonce(factory, ip)
