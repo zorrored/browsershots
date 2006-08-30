@@ -24,7 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-def select_serial(name):
+def name_to_serial(name):
     """
     Get the serial number from the database.
     """
@@ -34,7 +34,7 @@ def select_serial(name):
         return result[0]
     raise KeyError(name)
 
-def select_name(serial):
+def serial_to_name(serial):
     """
     Get the factory name from the database.
     """
