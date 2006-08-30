@@ -24,35 +24,38 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-def select_by_hashkey(hashkey):
+def hashkey_to_serial(hashkey):
     """
-    Get info about a screenshot.
+    Get the serial number of a screenshot.
     """
     cur.execute("""\
-SELECT screenshot, screenshot.factory, screenshot.browser,
-       screenshot.width, screenshot.height, screenshot.created,
-       website, url
+SELECT screenshot
 FROM screenshot
-JOIN request USING (screenshot)
-JOIN request_group USING (request_group)
-JOIN website USING (website)
 WHERE hashkey = %s
 """, (hashkey, ))
-    return cur.fetchone()
+    result = cur.fetchone()
+    if result is not None:
+        result = result[0]
+    return result
 
-def select_by_serial(serial):
+def info(screenshot):
     """
-    Get info about a screenshot.
+    Get some info about this screenshot.
     """
     cur.execute("""\
-SELECT hashkey, factory, screenshot.browser,
-screenshot.width, screenshot.height, screenshot.created, website, url
+SELECT extract(epoch from screenshot.created)::bigint AS uploaded,
+screenshot.width, screenshot.height,
+browser_group.name, browser.version,
+factory.name, website, url
 FROM screenshot
+JOIN browser USING (browser)
+JOIN browser_group USING (browser_group)
+JOIN factory USING (factory)
 JOIN request USING (screenshot)
 JOIN request_group USING (request_group)
 JOIN website USING (website)
 WHERE screenshot = %s
-""", (serial, ))
+""", (screenshot, ))
     return cur.fetchone()
 
 def select_recent_websites(limit=50):
@@ -139,7 +142,6 @@ def last_upload(where, args):
     """
     When was the last upload for a browser on a factory?
     """
-    args = list(args)
     cur.execute("""\
 SELECT extract(epoch from created)::bigint AS uploaded
 FROM screenshot
