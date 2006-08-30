@@ -48,21 +48,20 @@ def read_params():
             else:
                 (req.params.uploaded, req.params.width, req.params.height,
                  req.params.browser, req.params.version,
-                 req.params.factory, req.params.os, req.params.distro,
+                 req.params.factory, req.params.os, distro,
                  req.params.website, req.params.url) = row
                 req.params.escaped = cgi.escape(req.params.url, True)
-                if req.params.distro:
+                if distro:
                     if req.params.os == 'Linux':
-                        req.params.os = req.params.distro + ' ' + req.params.os
+                        req.params.os = distro + ' ' + req.params.os
                     else:
-                        req.params.os = req.params.os + ' ' + req.params.distro
+                        req.params.os = req.params.os + ' ' + distro
         finally:
             database.disconnect()
 
 def title():
     """Return page title."""
     if req.params.screenshot:
-        os = req.params.os
         return "Screenshot of %s %s on %s" % (
             req.params.browser, req.params.version, req.params.os)
     else:
