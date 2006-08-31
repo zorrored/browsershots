@@ -48,11 +48,10 @@ def write():
             "Special<br />command",
             ), element="th")
         for index, row in enumerate(rows):
-            (browser, name, major, minor, engine, manufacturer, command) = row
+            (browser, name, version, engine, manufacturer, command) = row
             xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
             # link = xhtml.tag('a', name, href="/browsers/" + name)
-            browser_version = db.browser.version_string(name, major, minor)
-            xhtml.write_tag('td', browser_version)
+            xhtml.write_tag('td', name + ' ' + version)
             xhtml.write_tag('td', engine)
             xhtml.write_tag('td', manufacturer)
 
