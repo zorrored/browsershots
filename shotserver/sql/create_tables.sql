@@ -493,6 +493,13 @@ CREATE INDEX request_locked ON request USING btree (locked);
 
 
 --
+-- Name: request_request_group; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_request_group ON request USING btree (request_group);
+
+
+--
 -- Name: request_screenshot; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
 --
 
@@ -631,7 +638,7 @@ ALTER TABLE ONLY failure
 --
 
 ALTER TABLE ONLY failure
-    ADD CONSTRAINT failure_request_fkey FOREIGN KEY (request) REFERENCES request(request);
+    ADD CONSTRAINT failure_request_fkey FOREIGN KEY (request) REFERENCES request(request) ON DELETE CASCADE;
 
 
 --
