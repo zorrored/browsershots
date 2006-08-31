@@ -75,7 +75,8 @@ def body():
         link = xhtml.tag('a', req.params.escaped,
                          href="/website/%s/" % req.params.website)
         age = human.timespan(time.time() - req.params.uploaded, units='long')
-        bold = xhtml.tag('b', 'for %s (taken %s ago)' % (link, age))
+        age = ('taken %s ago' % age).replace(' ', '&nbsp;')
+        bold = xhtml.tag('b', 'for %s (%s)' % (link, age))
         xhtml.write_tag_line('p', bold, _class="up")
         prevnext.write('prev')
         medium.write()
