@@ -31,7 +31,8 @@ def select_websites():
     Get all queuing websites.
     """
     cur.execute("""\
-SELECT website, url, extract(epoch from MAX(request_group.created))::bigint AS created
+SELECT website, url,
+extract(epoch from MAX(request_group.created))::bigint AS created
 FROM request_group
 JOIN website USING (website)
 WHERE expire > NOW()
@@ -115,19 +116,65 @@ def insert_group(values):
     Insert a request group into the database.
     """
     cur.execute("""\
-INSERT INTO request_group (website, width, bpp, js, java, flash, media, expire)
-VALUES (%(website)s, %(width)s, %(bpp)s, %(js)s, %(java)s, %(flash)s, %(media)s, NOW() + %(expire)s)
+INSERT INTO request_group
+(website, width, bpp, js, java, flash, media, expire)
+VALUES (%(website)s, %(width)s, %(bpp)s,
+%(js)s, %(java)s, %(flash)s, %(media)s, NOW() + %(expire)s)
 """, values)
     return cur.lastval()
 
+def delete_identical(group_values, values):
+    """
+    Avoid duplication: when inserting new requests, first delete
+    identical requests that haven't been locked.
+    """
+    where = []
+    for key in values:
+        value = values[key]
+        if type(value) is int:
+            where.append("%s = %d" % (key, value))
+        else:
+            where.append("%s = '%s'" % (key, value))
+    cur.execute("""\
+DELETE FROM request
+WHERE 
+AND locked IS NULL
+AND request_group IN (
+    SELECT request_group FROM request_group
+    WHERE website = (website)s
+    AND width = %(width)s
+    AND bpp = %(bpp)s
+    AND js = %(js)s
+    AND java = %(java)s
+    AND flash = %(flash)s
+    AND media = %(media)s)
+    """, group_values)
+
+def insert(values):
+    """
+    Insert a new request into the database.
+    """
+    cur.execute("""\
+INSERT INTO request
+(request_group, browser_group, major, minor, opsys_group)
+VALUES
+(%(request_group)s, %(browser_group)s, %(major)s, %(minor)s, %(opsys_group)s)
+""", values)
+
 def update_locked(request, factory):
     """Set the lock and factory."""
-    cur.execute("UPDATE request SET factory = %s, locked = NOW() WHERE request = %s", (factory, request))
+    cur.execute("""\
+UPDATE request SET factory = %s, locked = NOW()
+WHERE request = %s""", (factory, request))
 
 def update_browser(request, browser):
     """Set the browser for a request."""
-    cur.execute("UPDATE request SET browser = %s, redirected = NOW() WHERE request = %s", (browser, request))
+    cur.execute("""\
+UPDATE request SET browser = %s, redirected = NOW()
+WHERE request = %s""", (browser, request))
 
 def update_screenshot(request, screenshot):
     """Set the screenshot for a request."""
-    cur.execute("UPDATE request SET screenshot = %s WHERE request = %s", (screenshot, request))
+    cur.execute("""\
+UPDATE request SET screenshot = %s
+WHERE request = %s""", (screenshot, request))

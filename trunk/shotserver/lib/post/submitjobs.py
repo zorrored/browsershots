@@ -72,17 +72,17 @@ def insert_requests(website, browsers, features):
     """
     Insert screenshot requests into database.
     """
-    values = {}
-    values['website'] = website
+    group_values = {}
+    group_values['website'] = website
     for key in feature_keys:
         if features[key] == 'dontcare':
-            values[key] = None
+            group_values[key] = None
         else:
-            values[key] = features[key]
+            group_values[key] = features[key]
     for key in 'width bpp'.split():
-        if values[key] is not None:
-            values[key] = int(values[key])
-    request_group = database.request.insert_group(values)
+        if group_values[key] is not None:
+            group_values[key] = int(group_values[key])
+    request_group = database.request.insert_group(group_values)
 
     browser_int = database.browser.get_name_dict()
     opsys_int = database.opsys.get_name_dict()
@@ -95,7 +95,8 @@ def insert_requests(website, browsers, features):
         values['minor'] = int(minor)
         if platform not in ['terminal', 'mobile']:
             values['opsys_group'] = opsys_int[platform]
-        database.insert('request', values)
+        # database.request.delete_identical(group_values, values)
+        database.request.insert(values)
 
 def redirect():
     """
