@@ -24,8 +24,8 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import cgi
-from shotserver03.interface import xhtml
+import cgi, time
+from shotserver03.interface import xhtml, human
 from shotserver03.segments import prevnext, medium, recent
 from shotserver03 import database
 
@@ -74,7 +74,8 @@ def body():
     if req.params.screenshot:
         link = xhtml.tag('a', req.params.escaped,
                          href="/website/%s/" % req.params.website)
-        bold = xhtml.tag('b', 'for ' + link)
+        age = human.timespan(time.time() - req.params.uploaded, units='long')
+        bold = xhtml.tag('b', 'for %s (taken %s ago)' % (link, age))
         xhtml.write_tag_line('p', bold, _class="up")
         prevnext.write('prev')
         medium.write()
