@@ -45,7 +45,7 @@ AND major = %s AND minor = %s
 def browsers(factory):
     """Get the browsers that are supported by this factory."""
     cur.execute("""\
-SELECT browser, browser_group.name, major, minor, engine.name, manufacturer, command
+SELECT browser, browser_group.name, version, engine.name, manufacturer, command
 FROM factory_browser
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
