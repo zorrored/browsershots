@@ -123,32 +123,37 @@ VALUES (%(website)s, %(width)s, %(bpp)s,
 """, values)
     return cur.lastval()
 
-def delete_identical(group_values, values):
+def find_identical_groups(values):
+    cur.execute("""\
+SELECT request_group FROM request_group
+WHERE website = %(website)s
+AND (width IS NULL OR width = %(width)s)
+AND (bpp IS NULL OR bpp = %(bpp)s)
+AND (js IS NULL OR js = %(js)s)
+AND (java IS NULL OR java = %(java)s)
+AND (flash IS NULL OR flash = %(flash)s)
+AND (media IS NULL OR media = %(media)s)
+""", values)
+    result = []
+    for row in cur.fetchall():
+        result.append(str(row[0]))
+    return ','.join(result)
+
+def delete_identical(values, groups):
     """
     Avoid duplication: when inserting new requests, first delete
-    identical requests that haven't been locked.
+    identical requests (unless they've been locked). This delete will
+    also cascade to the failure table.
     """
-    where = []
-    for key in values:
-        value = values[key]
-        if type(value) is int:
-            where.append("%s = %d" % (key, value))
-        else:
-            where.append("%s = '%s'" % (key, value))
     cur.execute("""\
 DELETE FROM request
-WHERE 
+WHERE (browser_group IS NULL OR browser_group = %(browser_group)s)
+AND (major IS NULL OR major = %(major)s)
+AND (minor IS NULL OR minor = %(minor)s)
+AND (opsys_group IS NULL OR opsys_group = %(opsys_group)s)
 AND locked IS NULL
-AND request_group IN (
-    SELECT request_group FROM request_group
-    WHERE website = (website)s
-    AND width = %(width)s
-    AND bpp = %(bpp)s
-    AND js = %(js)s
-    AND java = %(java)s
-    AND flash = %(flash)s
-    AND media = %(media)s)
-    """, group_values)
+AND request_group IN (""" + groups + """)
+""", values)
 
 def insert(values):
     """

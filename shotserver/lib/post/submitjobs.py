@@ -82,6 +82,7 @@ def insert_requests(website, browsers, features):
     for key in 'width bpp'.split():
         if group_values[key] is not None:
             group_values[key] = int(group_values[key])
+    old_groups = database.request.find_identical_groups(group_values)
     request_group = database.request.insert_group(group_values)
 
     browser_int = database.browser.get_name_dict()
@@ -93,9 +94,11 @@ def insert_requests(website, browsers, features):
         values['browser_group'] = browser_int[browser]
         values['major'] = int(major)
         values['minor'] = int(minor)
+        values['opsys_group'] = None
         if platform not in ['terminal', 'mobile']:
             values['opsys_group'] = opsys_int[platform]
-        # database.request.delete_identical(group_values, values)
+        if old_groups:
+            database.request.delete_identical(values, old_groups)
         database.request.insert(values)
 
 def redirect():
