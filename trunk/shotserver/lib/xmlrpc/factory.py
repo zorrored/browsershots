@@ -41,7 +41,7 @@ def features(factory):
     """
     database.connect()
     try:
-        factory = database.factory.select_serial(factory)
+        factory = database.factory.name_to_serial(factory)
         return database.factory.features(factory)
     finally:
         database.disconnect()
