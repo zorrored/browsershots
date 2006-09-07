@@ -123,8 +123,9 @@ def select_active():
     """
     cur.execute("""\
 SELECT factory, factory.name, opsys_group.name, distro, major, minor, codename,
-       extract(epoch from last_poll)::bigint AS last_poll,
-       extract(epoch from last_upload)::bigint AS last_upload
+       extract(epoch from last_poll)::bigint AS lastpoll,
+       extract(epoch from last_upload)::bigint AS lastupload,
+       per_hour, per_day
 FROM factory
 JOIN opsys USING (opsys)
 JOIN opsys_group USING (opsys_group)
