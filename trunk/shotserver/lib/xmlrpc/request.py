@@ -74,6 +74,8 @@ def poll(factory, crypt):
             return status, '', {}
         database.factory.update_last_poll(factory)
         where = database.factory.features(factory)
+        if where.count('()'):
+            return 'Factory configuration incomplete.', '', {}
         # Find the oldest non-expired request.
         row = database.request.select_match(where
             + " AND request_group.expire >= NOW()")
