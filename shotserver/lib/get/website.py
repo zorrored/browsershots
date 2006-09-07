@@ -36,6 +36,7 @@ class InvalidParameters(Exception):
 
 request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
 simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
+protocol_match = re.compile(r'^(\w+:)(/+)(.+)$').match
 
 def request_is_numeric():
     """
@@ -44,6 +45,17 @@ def request_is_numeric():
     if len(req.info.options) != 1:
         return False
     return req.info.options[0].isdigit()
+
+def double_slash(url):
+    """
+    Make sure that the URL has a double slash.
+    """
+    match = protocol_match(url)
+    if match:
+        protocol, slashes, rest = match.groups()
+        if slashes != '//':
+            url = protocol + '//' + rest
+    return url
 
 def read_params():
     """
@@ -58,7 +70,7 @@ def read_params():
             match = request_match(req.the_request)
             if not match:
                 raise InvalidParameters("Your browser sent a strange request (%s)." % req.the_request)
-            url = match.group(4)
+            url = double_slash(match.group(4))
             match = simple_url_match(url)
             if url and not match:
                 raise InvalidParameters("The web address seems to be invalid (%s)." % url)
