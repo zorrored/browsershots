@@ -33,7 +33,9 @@ def connect():
     """
     Connect to the browsershots database.
     """
+    assert 'con' not in __builtins__
     __builtins__['con'] = pgdb.connect(database = 'shotserver03')
+    assert 'cur' not in __builtins__
     __builtins__['cur'] = con.cursor()
     cur.lastval = lastval
 
@@ -41,11 +43,13 @@ def disconnect():
     """
     Disconnect from the browsershots database.
     """
-    cur.close()
-    con.commit()
-    con.close()
-    del __builtins__['cur']
-    del __builtins__['con']
+    if 'cur' in __builtins__:
+        cur.close()
+        del __builtins__['cur']
+    if 'con' in __builtins__:
+        con.commit()
+        con.close()
+        del __builtins__['con']
 
 def insert(table, data):
     """

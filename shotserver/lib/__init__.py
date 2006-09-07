@@ -26,7 +26,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import sys, traceback
-from shotserver03 import request, xmlrpc
+from shotserver03 import request, xmlrpc, database
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import languages, logo, topmenu, bottom
 
@@ -133,12 +133,15 @@ def handler(req):
         xhtml.write_close_tag_line('div') # id="all"
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
+        database.disconnect()
         return apache.OK
     except apache.SERVER_RETURN:
+        database.disconnect()
         raise
     except ImportError:
         return apache.HTTP_NOT_FOUND # 404
     except:
+        database.disconnect()
         while xhtml.open_tags and xhtml.open_tags[-1] != 'body':
             xhtml.write_close_tag_line()
         if xhtml.open_tags and xhtml.open_tags[-1] == 'head':
