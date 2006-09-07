@@ -136,6 +136,8 @@ def handler(req):
         return apache.OK
     except apache.SERVER_RETURN:
         raise
+    except ImportError:
+        return apache.HTTP_NOT_FOUND # 404
     except:
         while xhtml.open_tags and xhtml.open_tags[-1] != 'body':
             xhtml.write_close_tag_line()
@@ -157,4 +159,4 @@ def handler(req):
         if len(xhtml.open_tags) == 2:
             xhtml.write_close_tag_line('body')
             xhtml.write_close_tag_line('html')
-        return apache.OK
+        raise
