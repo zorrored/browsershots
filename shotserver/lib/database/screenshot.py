@@ -77,6 +77,7 @@ WHERE screenshot IN (
     JOIN request USING (screenshot)
     JOIN request_group USING (request_group)
     JOIN website USING (website)
+    WHERE screenshot.created>NOW()-'24:00'::interval
     GROUP BY website
     ORDER BY maximum DESC
     LIMIT %s)
