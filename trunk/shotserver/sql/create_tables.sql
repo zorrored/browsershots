@@ -123,6 +123,8 @@ CREATE TABLE factory (
     last_upload timestamp without time zone,
     created timestamp without time zone DEFAULT now(),
     creator integer NOT NULL,
+    per_hour integer,
+    per_day integer,
     CONSTRAINT factory_name_check CHECK (((name)::text ~ E'^\\w+$'::text)),
     CONSTRAINT factory_password_check CHECK (("password" ~ '[0-9a-f]{32}'::text)),
     CONSTRAINT factory_salt_check CHECK ((salt ~ '[0-9a-f]{4}'::text))
@@ -511,6 +513,13 @@ CREATE INDEX request_screenshot ON request USING btree (screenshot);
 --
 
 CREATE INDEX request_screenshot_null ON request USING btree (screenshot) WHERE (screenshot IS NULL);
+
+
+--
+-- Name: screenshot_factory; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX screenshot_factory ON screenshot USING btree (factory);
 
 
 --
