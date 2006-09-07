@@ -516,6 +516,13 @@ CREATE INDEX request_screenshot_null ON request USING btree (screenshot) WHERE (
 
 
 --
+-- Name: screenshot_created; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX screenshot_created ON screenshot USING btree (created);
+
+
+--
 -- Name: screenshot_factory; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
 --
 
