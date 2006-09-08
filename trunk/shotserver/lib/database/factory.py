@@ -122,15 +122,16 @@ def select_active():
     List active factories.
     """
     cur.execute("""\
-SELECT factory, factory.name, opsys_group.name, distro, major, minor, codename,
-       extract(epoch from last_poll)::bigint AS lastpoll,
-       extract(epoch from last_upload)::bigint AS lastupload,
+SELECT factory, factory.name, person.nickname, opsys_group.name, distro, major, minor, codename,
+       extract(epoch from last_poll)::bigint AS last_poll,
+       extract(epoch from last_upload)::bigint AS last_upload,
        per_hour, per_day
 FROM factory
+JOIN person ON (factory.owner = person.person)
 JOIN opsys USING (opsys)
 JOIN opsys_group USING (opsys_group)
 WHERE last_poll IS NOT NULL
-ORDER BY per_day DESC, factory.name
+ORDER BY per_day DESC, last_upload DESC
 """)
     return cur.fetchall()
 
