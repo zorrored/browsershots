@@ -59,6 +59,13 @@ div#queue p { margin-bottom: 0; }
 .clear { clear: both; }
 .bold { font-weight: bold; }
 .red { color: red; }
+.important { font-weight: bold; }
+
+#queue-notice {
+  border: 1px solid red;
+  background-color: #FCC;
+  padding: 1em;
+}
 
 div#main {
   width: 764px;

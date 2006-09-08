@@ -27,7 +27,7 @@ __author__ = '$Author$'
 import re, cgi
 from mod_python import util
 from shotserver03.interface import xhtml
-from shotserver03.segments import screenshots, queue, browsers, features
+from shotserver03.segments import screenshots, queue, browsers, features, queue_notice
 from shotserver03 import database
 
 class InvalidParameters(Exception):
@@ -122,6 +122,8 @@ def body():
 
     bold = xhtml.tag('b', 'for ' + req.params.escaped)
     xhtml.write_tag_line('p', bold, _class="up")
+
+    queue_notice.write()
 
     if req.params.show_screenshots and req.params.show_queue:
         xhtml.write_tag_line('p', '<br />\n'.join(
