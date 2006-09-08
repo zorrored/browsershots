@@ -42,6 +42,7 @@ def write():
     xhtml.write_open_tag_line('table', _id="factories")
     xhtml.write_table_row((
         "Factory<br />name",
+        "Admin",
         "Operating<br />system",
         "Last<br />poll",
         "Last<br />upload",
@@ -49,12 +50,13 @@ def write():
         "Uploads<br />per day",
         ), element="th")
     for index, row in enumerate(rows):
-        (factory, name,
+        (factory, name, owner,
          opsys, distro, major, minor, codename,
          last_poll, last_upload, per_hour, per_day) = row
         xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
         link = xhtml.tag('a', name, href="/factories/" + name)
         xhtml.write_tag('td', link)
+        xhtml.write_tag('td', owner)
         opsys = database.opsys.version_string(
             opsys, distro, major, minor, codename)
         xhtml.write_tag('td', opsys)
