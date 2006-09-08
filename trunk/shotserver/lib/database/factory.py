@@ -122,7 +122,8 @@ def select_active():
     List active factories.
     """
     cur.execute("""\
-SELECT factory, factory.name, person.nickname, opsys_group.name, distro, major, minor, codename,
+SELECT factory, factory.name, person.nickname,
+       opsys_group.name, distro, major, minor, codename,
        extract(epoch from last_poll)::bigint AS last_poll,
        extract(epoch from last_upload)::bigint AS last_upload,
        per_hour, per_day
