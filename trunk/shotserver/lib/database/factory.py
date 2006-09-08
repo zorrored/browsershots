@@ -130,7 +130,7 @@ FROM factory
 JOIN opsys USING (opsys)
 JOIN opsys_group USING (opsys_group)
 WHERE last_poll IS NOT NULL
-ORDER BY last_poll DESC, factory.name
+ORDER BY per_day DESC, factory.name
 """)
     return cur.fetchall()
 
