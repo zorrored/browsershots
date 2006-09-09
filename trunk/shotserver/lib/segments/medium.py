@@ -32,7 +32,7 @@ def write():
     """
     xhtml.write_open_tag_line('div', _id="medium")
     hashkey = req.params.hashkey
-    height = req.params.height * 450 / req.params.width
+    height = (req.params.height*450 + req.params.width/2) / req.params.width
     prefix = hashkey[:2]
     img = xhtml.tag('img', src='/png/450/%s/%s.png' % (prefix, hashkey),
                     width=450, height=height, alt="")
