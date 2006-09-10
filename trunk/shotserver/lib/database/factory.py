@@ -131,7 +131,7 @@ FROM factory
 JOIN person ON (factory.owner = person.person)
 JOIN opsys USING (opsys)
 JOIN opsys_group USING (opsys_group)
-WHERE last_poll IS NOT NULL
+WHERE last_upload>NOW()-'48:00'::interval
 ORDER BY per_day DESC, last_upload DESC
 """)
     return cur.fetchall()
