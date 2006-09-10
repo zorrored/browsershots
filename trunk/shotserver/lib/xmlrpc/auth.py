@@ -41,7 +41,10 @@ def challenge(factory):
     """
     database.connect()
     try:
-        factory = database.factory.name_to_serial(factory)
+        try:
+            factory = database.factory.name_to_serial(factory)
+        except KeyError:
+            return "Unknown factory name '%s'." % factory
         salt = database.factory.select_salt(factory)
         ip = req.connection.remote_ip
         nonce = database.nonce.create_factory_nonce(factory, ip)
@@ -62,7 +65,10 @@ def test(factory, crypt):
     """
     database.connect()
     try:
-        factory = database.factory.name_to_serial(factory)
+        try:
+            factory = database.factory.name_to_serial(factory)
+        except KeyError:
+            return "Unknown factory name '%s'." % factory
         ip = req.connection.remote_ip
         return database.nonce.authenticate_factory(factory, ip, crypt)
     finally:
