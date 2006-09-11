@@ -103,6 +103,8 @@ def write():
     while used < 5:
         columns.sort()
         longest = columns[-1]
+        if longest[0] <= 5:
+            break
         longest[-1] += 1
         longest[0] = len(longest[2]) / longest[-1]
         used += 1
