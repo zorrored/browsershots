@@ -138,13 +138,19 @@ ORDER BY per_day DESC, last_upload DESC
 
 def update_last_poll(factory):
     """Set the last poll timestamp to NOW()."""
-    cur.execute("UPDATE factory SET last_poll = NOW() WHERE factory = %s",
-                (factory, ))
+    cur.execute("""\
+UPDATE factory
+SET last_poll = NOW()
+WHERE factory = %s
+""", (factory, ))
 
 def update_last_upload(factory):
     """Set the last upload timestamp to NOW()."""
-    cur.execute("UPDATE factory SET last_upload = NOW() WHERE factory = %s",
-                (factory, ))
+    cur.execute("""\
+UPDATE factory
+SET last_upload = NOW()
+WHERE factory = %s
+""", (factory, ))
 
 def info(factory):
     """Get some information about this factory."""
