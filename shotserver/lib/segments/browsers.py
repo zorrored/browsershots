@@ -42,6 +42,7 @@ JOIN opsys_group USING (opsys_group)
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
 WHERE %s
+AND factory.last_poll > NOW()-'0:10'::interval
 ORDER BY browser_group.name, browser.major, browser.minor
 """ % where)
     result = []
