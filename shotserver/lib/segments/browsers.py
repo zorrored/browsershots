@@ -42,10 +42,11 @@ def select_browsers(platform, where):
                 onclick="updateMaster('%s')" % platform) + ' ' +
             xhtml.tag('label', '%s %d.%d' % (browser, major, minor), _for=code))
     code = '%s_all' % platform
-    result.append(
-        xhtml.tag('input', _type="checkbox", _id=code, checked="checked",
-            onclick="multiCheck('%s',this.checked)" % platform) + ' ' +
-        xhtml.tag('label', '<b>All</b>', _for=code))
+    if len(result) > 3:
+        result.append(
+            xhtml.tag('input', _type="checkbox", _id=code, checked="checked",
+                      onclick="multiCheck('%s',this.checked)" % platform) + ' ' +
+            xhtml.tag('label', '<b>All</b>', _for=code))
     return result
 
 def write_float(platform, browsers, columns, leftmost):
@@ -57,7 +58,8 @@ def write_float(platform, browsers, columns, leftmost):
         per_column += 1
     for column in range(columns):
         if column == 0 and not leftmost:
-            xhtml.write_open_tag_line('div', class_="float-left", style="border-left: 1px dotted white; padding-bottom: 4px;")
+            xhtml.write_open_tag_line('div', class_="float-left",
+                style="border-left: 1px dotted white; padding-bottom: 8px;")
         else:
             xhtml.write_open_tag_line('div', class_="float-left")
         if column == 0:
@@ -88,15 +90,15 @@ def write():
         database.disconnect()
 
     columns = []
-    if len(linux) > 1:
+    if len(linux):
         columns.append([len(linux), 'Linux', linux, 1])
-    if len(mac) > 1:
+    if len(mac):
         columns.append([len(mac), 'Mac', mac, 1])
-    if len(windows) > 1:
+    if len(windows):
         columns.append([len(windows), 'Windows', windows, 1])
-    if len(terminal) > 1:
+    if len(terminal):
         columns.append([len(terminal), 'Terminal', terminal, 1])
-    if len(mobile) > 1:
+    if len(mobile):
         columns.append([len(mobile), 'Mobile', mobile, 1])
 
     used = len(columns)
