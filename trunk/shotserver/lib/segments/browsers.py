@@ -48,18 +48,26 @@ def select_browsers(platform, where):
         xhtml.tag('label', '<b>All</b>', _for=code))
     return result
 
-def write_float(platform, where):
+def write_float(platform, browsers, columns):
     """
     Write browser list for one platform.
     """
-    browsers = select_browsers(platform.lower(), where)
-    xhtml.write_open_tag_line('div', _class="float-left")
-    xhtml.write_tag('b', platform)
-    xhtml.write_tag_line('br')
-    for browser in browsers:
-        req.write(browser)
+    per_column = len(browsers) / columns
+    if len(browsers) % columns:
+        per_column += 1
+    for column in range(columns):
+        xhtml.write_open_tag_line('div', _class="float-left")
+        if column == 0:
+            xhtml.write_tag('b', platform)
         xhtml.write_tag_line('br')
-    xhtml.write_close_tag_line('div') # id="browsers"
+        start = column * per_column
+        stop = start + per_column
+        if stop > len(browsers):
+            stop = len(browsers)
+        for index in range(start, stop):
+            req.write(browsers[index])
+            xhtml.write_tag_line('br')
+        xhtml.write_close_tag_line('div') # id="browsers"
 
 def write():
     """
@@ -68,13 +76,39 @@ def write():
     xhtml.write_open_tag_line('div', _id="browsers", _class="blue background")
     database.connect()
     try:
-        write_float('Linux', "opsys_group.name = 'Linux' AND NOT browser_group.terminal AND NOT opsys.mobile")
-        write_float('Mac', "opsys_group.name = 'Mac OS' AND NOT browser_group.terminal AND NOT opsys.mobile")
-        write_float('Windows', "opsys_group.name = 'Windows' AND NOT browser_group.terminal AND NOT opsys.mobile")
-        write_float('Terminal', "browser_group.terminal AND NOT opsys.mobile")
-        write_float('Mobile', "opsys.mobile")
+        linux = select_browsers('linux', "opsys_group.name = 'Linux' AND NOT browser_group.terminal AND NOT opsys.mobile")
+        mac = select_browsers('mac', "opsys_group.name = 'Mac OS' AND NOT browser_group.terminal AND NOT opsys.mobile")
+        windows = select_browsers('windows', "opsys_group.name = 'Windows' AND NOT browser_group.terminal AND NOT opsys.mobile")
+        terminal = select_browsers('Terminal', "browser_group.terminal AND NOT opsys.mobile")
+        mobile = select_browsers('Mobile', "opsys.mobile")
     finally:
         database.disconnect()
+
+    columns = []
+    if len(linux) > 1:
+        columns.append([len(linux), 'Linux', linux, 1])
+    if len(mac) > 1:
+        columns.append([len(mac), 'Mac', mac, 1])
+    if len(windows) > 1:
+        columns.append([len(windows), 'Windows', windows, 1])
+    if len(terminal) > 1:
+        columns.append([len(terminal), 'Terminal', terminal, 1])
+    if len(mobile) > 1:
+        columns.append([len(mobile), 'Mobile', mobile, 1])
+
+    used = len(columns)
+    while used < 5:
+        columns.sort()
+        longest = columns[-1]
+        longest[-1] += 1
+        longest[0] = len(longest[2]) / longest[-1]
+        used += 1
+
+    columns.sort()
+    columns.reverse()
+    for column in columns:
+        write_float(column[1], column[2], column[3])
+
     xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Submit Jobs", _class="button")
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="browsers"
