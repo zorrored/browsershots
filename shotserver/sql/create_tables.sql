@@ -138,7 +138,8 @@ CREATE TABLE factory (
 CREATE TABLE factory_browser (
     factory integer NOT NULL,
     browser integer NOT NULL,
-    command character varying(20)
+    command character varying(20),
+    last_upload timestamp without time zone
 );
 
 

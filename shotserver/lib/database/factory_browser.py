@@ -54,3 +54,12 @@ WHERE factory = %s
 ORDER BY browser_group.name, major, minor
 """, (factory, ))
     return cur.fetchall()
+
+def update_last_upload(factory, browser):
+    """Set the last upload timestamp to NOW()."""
+    cur.execute("""\
+UPDATE factory_browser
+SET last_upload = NOW()
+WHERE factory = %s
+AND browser = %s
+""", (factory, browser))

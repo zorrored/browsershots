@@ -226,6 +226,7 @@ def upload(binary, crypt):
         database.insert('screenshot', values)
         database.request.update_screenshot(request, database.lastval())
         database.factory.update_last_upload(factory)
+        database.factory_browser.update_last_upload(factory, browser)
 
         salt = database.factory.select_salt(factory)
         nonce = database.nonce.create_factory_nonce(factory, ip)
