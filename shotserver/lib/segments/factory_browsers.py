@@ -45,7 +45,6 @@ def write():
             "Last<br />upload",
             "Uploads<br />per hour",
             "Uploads<br />per day",
-            "Special<br />command",
             ), element="th")
         for index, row in enumerate(rows):
             (browser, name, version, engine, manufacturer, command) = row
@@ -73,7 +72,6 @@ def write():
                 per_day = None
             xhtml.write_tag('td', per_day)
 
-            xhtml.write_tag('td', command)
             xhtml.write_close_tag_line('tr')
         xhtml.write_close_tag_line('table')
     finally:
