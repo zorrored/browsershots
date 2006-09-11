@@ -48,7 +48,7 @@ def select_browsers(platform, where):
         xhtml.tag('label', '<b>All</b>', _for=code))
     return result
 
-def write_float(platform, browsers, columns):
+def write_float(platform, browsers, columns, leftmost):
     """
     Write browser list for one platform.
     """
@@ -56,7 +56,10 @@ def write_float(platform, browsers, columns):
     if len(browsers) % columns:
         per_column += 1
     for column in range(columns):
-        xhtml.write_open_tag_line('div', _class="float-left")
+        if column == 0 and not leftmost:
+            xhtml.write_open_tag_line('div', class_="float-left", style="border-left: 1px dotted white; padding-bottom: 4px;")
+        else:
+            xhtml.write_open_tag_line('div', class_="float-left")
         if column == 0:
             xhtml.write_tag('b', platform)
         xhtml.write_tag_line('br')
@@ -106,8 +109,10 @@ def write():
 
     columns.sort()
     columns.reverse()
+    leftmost = True
     for column in columns:
-        write_float(column[1], column[2], column[3])
+        write_float(column[1], column[2], column[3], leftmost)
+        leftmost = False
 
     xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Submit Jobs", _class="button")
     xhtml.write_tag_line('div', '', _class="clear")
