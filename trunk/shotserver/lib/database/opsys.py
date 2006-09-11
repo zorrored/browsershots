@@ -61,5 +61,5 @@ def version_string(opsys, distro=None, major=None, minor=None, codename=None):
         if minor is not None:
             result.append('.%d' % minor)
     if codename is not None:
-        result.append(' %s' % codename)
+        result.append(' (%s)' % codename)
     return ''.join(result)
