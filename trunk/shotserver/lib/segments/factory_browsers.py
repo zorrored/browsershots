@@ -36,7 +36,7 @@ def write():
     now = time.time()
     db.connect()
     try:
-        rows = db.factory_browser.browsers(factory)
+        rows = db.factory_browser.factory_browsers(factory)
         xhtml.write_open_tag_line('table', _id="factory-browser")
         xhtml.write_table_row((
             "Browser",
@@ -47,15 +47,14 @@ def write():
             "Uploads<br />per day",
             ), element="th")
         for index, row in enumerate(rows):
-            (browser, name, version, engine, manufacturer, command) = row
+            (browser, name, version, engine, manufacturer,
+             last_upload) = row
             xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
             # link = xhtml.tag('a', name, href="/browsers/" + name)
             xhtml.write_tag('td', name + ' ' + version)
             xhtml.write_tag('td', engine)
             xhtml.write_tag('td', manufacturer)
 
-            last_upload = db.screenshot.last_upload(
-                'factory=%s AND browser=%s', (factory, browser))
             if last_upload is not None:
                 last_upload = human.timespan(now - last_upload)
             xhtml.write_tag('td', last_upload)
