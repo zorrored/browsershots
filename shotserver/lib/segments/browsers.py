@@ -33,20 +33,8 @@ def select_browsers(platform, where):
     Return a list of XHTML checkbox elements,
     one for each browser, one for all.
     """
-    cur.execute("""\
-SELECT DISTINCT browser_group.name, browser.major, browser.minor
-FROM factory_browser
-JOIN factory USING (factory)
-JOIN opsys USING (opsys)
-JOIN opsys_group USING (opsys_group)
-JOIN browser USING (browser)
-JOIN browser_group USING (browser_group)
-WHERE %s
-AND factory.last_poll > NOW()-'0:10'::interval
-ORDER BY browser_group.name, browser.major, browser.minor
-""" % where)
     result = []
-    for row in cur.fetchall():
+    for row in database.factory_browser.active_browsers(where):
         browser, major, minor = row
         code = '%s_%s_%d_%d' % (platform, browser.lower(), major, minor)
         result.append(
