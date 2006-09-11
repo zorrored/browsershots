@@ -229,12 +229,12 @@ CREATE TABLE opsys_group (
 
 CREATE TABLE person (
     person serial NOT NULL,
-    name character varying(20) NOT NULL,
     salt character(4) NOT NULL,
     "password" character(32) NOT NULL,
     email character varying(60) NOT NULL,
     created timestamp without time zone DEFAULT now(),
-    nickname character varying(20),
+    nickname character varying(20) NOT NULL,
+    name character varying(40) NOT NULL,
     CONSTRAINT person_password_check CHECK (("password" ~ '[0-9a-f]{32}'::text)),
     CONSTRAINT person_salt_check CHECK ((salt ~ '[0-9a-f]{4}'::text))
 );
@@ -436,6 +436,27 @@ ALTER TABLE ONLY website
 
 ALTER TABLE ONLY website
     ADD CONSTRAINT website_url_key UNIQUE (url);
+
+
+--
+-- Name: factory_browser_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE UNIQUE INDEX factory_browser_unique ON factory_browser USING btree (factory, browser);
+
+
+--
+-- Name: factory_feature_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE UNIQUE INDEX factory_feature_unique ON factory_feature USING btree (factory, name, intval, strval);
+
+
+--
+-- Name: factory_screen_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE UNIQUE INDEX factory_screen_unique ON factory_screen USING btree (factory, width, height);
 
 
 --
