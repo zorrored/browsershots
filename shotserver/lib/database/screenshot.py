@@ -46,7 +46,7 @@ def info(screenshot):
 SELECT extract(epoch from screenshot.created)::bigint AS uploaded,
 screenshot.width, screenshot.height,
 browser_group.name, browser.version,
-factory.name, opsys_group.name, distro,
+factory.name, opsys_group.name, distro, codename,
 website, url
 FROM screenshot
 JOIN browser USING (browser)

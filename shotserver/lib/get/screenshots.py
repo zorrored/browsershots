@@ -48,14 +48,22 @@ def read_params():
             else:
                 (req.params.uploaded, req.params.width, req.params.height,
                  req.params.browser, req.params.version,
-                 req.params.factory, req.params.os, distro,
+                 req.params.factory, req.params.os, distro, codename,
                  req.params.website, req.params.url) = row
                 req.params.escaped = cgi.escape(req.params.url, True)
                 if distro:
-                    if req.params.os == 'Linux':
-                        req.params.os = distro + ' ' + req.params.os
-                    else:
-                        req.params.os = req.params.os + ' ' + distro
+                    if distro == 'Debian' and codename:
+                        req.params.os = distro + ' ' + codename
+                    if distro == 'Ubuntu' and codename:
+                        req.params.os = distro + ' ' + codename
+                    elif req.params.os == 'Linux' and distro:
+                        req.params.os = distro + ' Linux' # PLD
+                    elif req.params.os == 'Windows' and codename:
+                        req.params.os += ' ' + codename # XP
+                    elif req.params.os == 'Windows' and distro:
+                        req.params.os += ' ' + distro # 98
+                    elif req.params.os == 'Mac OS':
+                        req.params.os += ' ' + distro
         finally:
             database.disconnect()
 
