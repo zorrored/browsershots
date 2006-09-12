@@ -38,7 +38,7 @@ def body():
     """
     database.connect()
     try:
-        rows = database.request.select_websites()
+        rows = database.request.websites_in_queue()
     finally:
         database.disconnect()
 
