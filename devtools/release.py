@@ -5,7 +5,7 @@ import sys, os, re
 
 
 def error(message, code = 1):
-    print message
+    print message.strip()
     sys.exit(code)
 
 
@@ -17,8 +17,10 @@ def shell(command):
 
 
 if len(sys.argv) < 3:
-    print "usage: release.py <version> <packages>"
-    print "example: release.py 0.3-alpha1 shotserver shotfactory"
+    error("""\
+usage: release.py <version> <packages>
+example: release.py 0.3-alpha1 shotserver shotfactory
+""")
 
 
 version = sys.argv[1]
