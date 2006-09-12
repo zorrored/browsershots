@@ -135,6 +135,7 @@ div#prev, div#next, div#medium { float: left; }
 div#prev, div#next { width: 140px; }
 div#medium { width: 450px; }
 div#medium, div#next { margin: 0 0 0 17px; }
+div#prev img, div#next img { margin: 1ex 0; }
 
 table { border-collapse: collapse; }
 th, td {
@@ -171,6 +172,7 @@ div#inputurl { margin: 1em 0; }
 div#inputurl input#url { width: 584px; }
 div#inputurl input#submit { width: 140px; }
 div#browsers div.float-left { width: 136px; }
+div#browsers { position: relative; }
 div#browsers input#submit {
   position: absolute;
   right: 12px;
