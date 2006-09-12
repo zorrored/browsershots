@@ -30,17 +30,14 @@ def write():
     """
     Write XHTML paragraph about queue length.
     """
+    queue_link = xhtml.tag('a', 'queue', href="http://v03.browsershots.org/queue/")
     xhtml.write_open_tag('p', _id="queue-notice")
     req.write('\n'.join((
-        xhtml.tag('span', "Important notice:", class_="important"),
-        xhtml.tag('a', "This project has been dugg recently.",
-                  href="http://trac.browsershots.org/wiki/BlogDuggAgain"),
-        "The screenshot request queue is quite full at the moment.",
-        "Most of your screenshot requests will expire before they can be processed",
-        "(see the maximum wait option at the bottom of this page).",
+        "<b>Important notice:</b> The %s is quite full at the moment." % queue_link,
+        "Some of your screenshot requests will expire before they can be processed.",
+        "See the <b>maximum wait</b> option at the bottom of this page.",
         "Please try again in a few days.",
-        "I'm looking for volunteers to run more screenshot factories.",
-        xhtml.tag('a', "Have a look at the documentation if you want to help.",
-                  href="http://trac.browsershots.org/wiki"),
+        xhtml.tag('a', "I'm looking for volunteers to run more screenshot factories.",
+                  href="http://trac.browsershots.org/wiki/HowToCreateNewShotFactory"),
         )))
     xhtml.write_close_tag_line('p') # id="queue-notice"
