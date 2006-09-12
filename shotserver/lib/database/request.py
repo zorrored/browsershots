@@ -26,7 +26,7 @@ __author__ = '$Author$'
 
 from shotserver03.database import options
 
-def select_websites():
+def websites_in_queue():
     """
     Get all queuing websites.
     """
@@ -34,8 +34,10 @@ def select_websites():
 SELECT website, url,
 extract(epoch from MAX(request_group.created))::bigint AS created
 FROM request_group
+JOIN request USING (request_group)
 JOIN website USING (website)
 WHERE expire > NOW()
+AND screenshot IS NULL
 GROUP BY website, url
 ORDER BY created
 """)
