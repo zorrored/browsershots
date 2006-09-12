@@ -1,0 +1,16 @@
+#! /bin/sh
+
+echo Restoring saved timestamps...
+./metatime_restore.py entries/*/*.txt
+
+echo Clearing cache...
+rm -f cache/*
+
+echo Rendering pages into static HTML...
+/usr/lib/cgi-bin/pyblosxom.cgi --static || exit
+
+echo Removing old files...
+find /var/www/blog.browsershots.org/ -mmin +10 -type f | grep -v /static/ | xargs -r rm
+
+echo Removing empty directories...
+find /var/www/blog.browsershots.org/ -type d | sort -r | xargs -r rmdir --ignore-fail-on-non-empty
