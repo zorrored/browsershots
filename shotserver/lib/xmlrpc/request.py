@@ -29,6 +29,7 @@ from shotserver03 import database
 
 export_methods = ['poll', 'upload']
 pngpath = '/var/www/browsershots.org/png'
+min_upload_kilobytes = 10
 
 def poll(factory, crypt):
     """
@@ -67,8 +68,8 @@ def poll(factory, crypt):
     """
     database.connect()
     try:
-        if  factory == 'disabled':
-            return 'Sorry, your factory is disabled, please check your mail.', '', {}
+        if factory == 'disabled':
+            return 'Sorry, your factory is disabled. Please check your mail.', '', {}
         factory = database.factory.name_to_serial(factory)
         ip = req.connection.remote_ip
         status = database.nonce.authenticate_factory(factory, ip, crypt)
@@ -197,6 +198,10 @@ def upload(binary, crypt):
             return status, ''
         if browser is None:
             return "The browser has not visited the requested URL.", ''
+
+        if len(binary.data) < min_upload_kilobytes * 1024:
+            return ("The uploaded screenshot is too small (less than %d KB)." %
+                    min_upload_kilobytes, '')
 
         hashkey = database.nonce.random_md5()
         save_upload(binary, hashkey)
