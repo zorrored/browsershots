@@ -141,23 +141,29 @@ def test_head(url):
         path += '?' + query
     try:
         headers = {"User-Agent": "Browsershots URL Check"}
-        connection.request('HEAD', path, headers=headers)
+        connection.request('GET', path, headers=headers)
     except socket.error, (dummy, errorstring):
         error = ' '.join(("Could not open web address.", errorstring + '.', "Please check for typos."))
         error_redirect(error = error, url = url)
-
     response = connection.getresponse()
-    if response.status == 200:
-        pass # all good
-    elif response.status in (301, 302):
-        redirected = response.getheader('Location')
-        if fragment:
-            redirected += '#' + fragment
-        error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again.")
-        error_redirect(error = error, url = redirected)
-    else:
-        error = server_said(response.status, response.reason, "Unexpected server response.")
-        error_redirect(error = error, url = url)
+    try:
+        if response.status == 200:
+            pass # all good
+        elif response.status in (301, 302, 303, 307):
+            redirected = response.getheader('Location')
+            if redirected is None:
+                error = server_said(response.status, response.reason, "Your request has been redirected, but no location was specified.")
+                error_redirect(error = error, url = url)
+            if fragment:
+                redirected += '#' + fragment
+            error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again.")
+            error_redirect(error = error, url = redirected)
+        else:
+            error = server_said(response.status, response.reason, "Unexpected server response.")
+            error_redirect(error = error, url = url)
+    finally:
+        connection.close()
+
 
 def redirect():
     """
