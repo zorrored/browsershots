@@ -123,7 +123,7 @@ def body():
     bold = xhtml.tag('b', 'for ' + req.params.escaped)
     xhtml.write_tag_line('p', bold, _class="up")
 
-    # queue_notice.write()
+    queue_notice.write()
 
     if req.params.show_screenshots and req.params.show_queue:
         xhtml.write_tag_line('p', '<br />\n'.join(
