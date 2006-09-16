@@ -1,5 +1,5 @@
 from trac.core import *
-from trac.web import IRequestHandler
+from trac.web import IRequestHandler, IRequestFilter
 from trac.web.chrome import add_link, INavigationContributor, ITemplateProvider
 from trac.wiki.api import WikiSystem, IWikiMacroProvider
 from trac.wiki.model import WikiPage
@@ -9,13 +9,14 @@ from pkg_resources import resource_filename
 
 import re
 # title_split_match = re.compile(r'^=+\s+(\S.*\S)\s+=+\s+(.*)$').match
-title_split_match = re.compile(r'^=+\s+([^\n\r=]+?)\s+=+\s+(.+)$', re.DOTALL).match
+title_split_match = re.compile(r'^\s*=+\s+([^\n\r=]+?)\s+=+\s+(.+)$', re.DOTALL).match
+h1_match = re.compile(r'^\s*(<h1.*?>.*?</h1>)(.*)$', re.DOTALL).match
 
 from md5 import md5
 
 class SimpleBlogPlugin(Component):
     implements(INavigationContributor, ITemplateProvider,
-               IWikiMacroProvider, IRequestHandler)
+               IWikiMacroProvider, IRequestHandler, IRequestFilter)
 
     # INavigationContributor methods
     def get_active_navigation_item(self, req):
@@ -102,10 +103,10 @@ class SimpleBlogPlugin(Component):
                 'title': title,
                 'description': description,
                 'escaped': Markup.escape(unicode(description)),
-                'date': format_datetime(original.time),
-                'rfcdate': http_date(original.time),
-                'author': original.author,
-                'comment': original.comment,
+                'date': format_datetime(original['time']),
+                'rfcdate': http_date(original['time']),
+                'author': original['author'],
+                'comment': original['comment'],
                 'comments': comments,
                 }
             if page.version > 1:
@@ -114,7 +115,7 @@ class SimpleBlogPlugin(Component):
                 event['updated.rfcdate'] = http_date(page.time)
                 event['updated.author'] = page.author
                 event['updated.comment'] = page.comment
-            entries.append((original.time, event))
+            entries.append((original['time'], event))
 
         entries.sort()
         entries.reverse()
@@ -135,9 +136,46 @@ class SimpleBlogPlugin(Component):
                  'RSS Feed', 'application/rss+xml', 'rss')
         return 'blog.cs', None
 
+    # IRequestFilter methods
+    def pre_process_request(self, req, handler):
+        return handler
+    def post_process_request(self, req, template, content_type):
+        # req.hdf['wiki.page_html'] = str(req.hdf)
+        # return (template, content_type)
+        if not (req.hdf and
+                'wiki.action' in req.hdf and
+                req.hdf['wiki.action'] == 'view'):
+            return (template, content_type)
+        if not ('wiki.page_name' in req.hdf and
+                'wiki.page_html' in req.hdf):
+            return (template, content_type)
+        page_name = req.hdf['wiki.page_name']
+        if not page_name.startswith('Blog'):
+            return (template, content_type)
+        match = h1_match(req.hdf['wiki.page_html'])
+        if not match:
+            return (template, content_type)
+        original = self._get_original_post_info(page_name)
+        title, body = match.groups()
+        title = title.rstrip()
+        body = body.lstrip()
+        permalink = '<a href="%s" title="Permalink" style="%s">#</a>' % (
+            '/'.join((req.hdf['base_url'], 'wiki', page_name)),
+            'border-bottom-style: none;')
+        post_info = '<p style="%s">%s | %s | %s</p>' % (
+            'font-size: smaller; color: gray; margin: 0 0 0 -18px;',
+            format_datetime(original['time']),
+            original['author'],
+            permalink)
+        req.hdf['wiki.page_html'] = Markup('\n'.join(
+            (title, post_info, body)))
+        return (template, content_type)
+
     def _get_original_post_info(self, page_name):
         db = self.env.get_db_cnx()
         cursor = db.cursor()
         cursor.execute("SELECT time,author,comment,ipnr FROM wiki "
                        "WHERE name=%s AND version=1", (page_name, ))
-        return cursor.fetchone()
+        values = cursor.fetchone()
+        keys = 'time author comment ipnr'.split()
+        return dict(zip(keys, values))
