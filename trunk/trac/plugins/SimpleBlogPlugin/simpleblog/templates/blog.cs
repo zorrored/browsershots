@@ -7,10 +7,10 @@
 each:event = blog.events ?>
 <h1><a href="<?cs var:event.href ?>"><?cs var:event.title ?></a></h1>
 <p><?cs var:event.description ?></p>
-<p>Posted <?cs var:event.date ?> by <?cs var:event.author ?><?cs
-if:event.comment ?>: <?cs var:event.comment ?><?cs /if ?><?cs
-if:event.updated.date ?><br />Updated <?cs var:event.updated.date ?> by <?cs var:event.updated.author ?><?cs /if ?><?cs
-if:event.updated.comment ?>: <?cs var:event.updated.comment ?><?cs /if ?><?cs
+<p style="font-size: smaller; color: gray; border-top: 1px solid #eee; margin-bottom: 3em;">
+<?cs var:event.date ?> | <?cs var:event.author ?> |
+<a href="<?cs var:event.href ?>" title="permalink" style="border-bottom-style: none;">#</a><?cs
+if:event.comments ?> | <?cs var:event.comments ?> comments<?cs /if ?><?cs
 /each ?>
 
 <div id="help">
