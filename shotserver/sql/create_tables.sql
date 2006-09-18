@@ -38,7 +38,6 @@ CREATE TABLE architecture (
 
 CREATE TABLE browser (
     browser serial NOT NULL,
-    useragent character varying(255) NOT NULL,
     browser_group integer NOT NULL,
     major integer NOT NULL,
     minor integer,
@@ -318,14 +317,6 @@ ALTER TABLE ONLY browser_group
 
 ALTER TABLE ONLY browser
     ADD CONSTRAINT browser_pkey PRIMARY KEY (browser);
-
-
---
--- Name: browser_useragent_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
---
-
-ALTER TABLE ONLY browser
-    ADD CONSTRAINT browser_useragent_key UNIQUE (useragent);
 
 
 --
