@@ -37,11 +37,11 @@ def redirect():
         row = database.nonce.authenticate_redirect(req.info.options[0])
         status, url, request, request_group, request_name, request_major, request_minor = row
         if status == 'OK':
-            useragent = req.headers_in.get('User-Agent', '')
-            row = database.browser.select_by_useragent(useragent)
+            user_agent = req.headers_in.get('User-Agent', '')
+            row = database.browser.select_by_user_agent(user_agent)
             if row is None:
                 req.params.status = "Your browser version is not registered."
-                req.params.extra = useragent
+                req.params.extra = user_agent
                 return
             browser, group, name, major, minor = row
             if ((request_group is not None and group != request_group) or
