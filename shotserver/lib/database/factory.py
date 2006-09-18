@@ -85,7 +85,7 @@ WHERE factory = %s
 """, (factory, ))
     alternatives = []
     for row in cur.fetchall():
-        alternatives.append("(browser.name = '%s'" % row[0]
+        alternatives.append("(browser_group.name = '%s'" % row[0]
                             + " AND (major IS NULL OR major = %d)" % row[1]
                             + " AND (minor IS NULL OR minor = %d))" % row[2])
     where.append('(%s)' % ' OR '.join(alternatives))

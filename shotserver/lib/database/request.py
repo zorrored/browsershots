@@ -66,13 +66,13 @@ def select_by_group(group):
     Get all requests in a request group.
     """
     cur.execute("""\
-SELECT DISTINCT browser.name, major, minor, opsys_group
+SELECT DISTINCT browser_group.name, major, minor, opsys_group
 FROM request
 JOIN browser_group USING (browser_group)
 LEFT JOIN opsys_group USING (opsys_group)
 WHERE request_group = %s
 AND screenshot IS NULL
-ORDER BY browser.name, major, minor
+ORDER BY browser_group.name, major, minor
 """, (group, ))
     return cur.fetchall()
 
@@ -82,7 +82,7 @@ def select_match(where, order='ASC'):
     """
     cur.execute("""\
 SELECT request,
-       browser.name, major, minor,
+       browser_group.name, major, minor,
        width, bpp, js, java, flash, media
 FROM request
 JOIN request_group USING (request_group)
