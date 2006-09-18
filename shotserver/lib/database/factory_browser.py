@@ -32,7 +32,7 @@ FROM factory_browser
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
 WHERE factory = %s
-AND browser_group.name = %s
+AND browser.name = %s
 AND major = %s AND minor = %s
     """, (factory, browser, major, minor))
     result = cur.fetchone()
@@ -45,14 +45,14 @@ AND major = %s AND minor = %s
 def factory_browsers(factory):
     """Get the browsers that are supported by this factory."""
     cur.execute("""\
-SELECT browser, browser_group.name, version, engine.name, manufacturer,
+SELECT browser, browser.name, version, engine.name, manufacturer,
        extract(epoch from last_upload)::bigint AS last_upload
 FROM factory_browser
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
 LEFT JOIN engine USING (engine)
 WHERE factory = %s
-ORDER BY browser_group.name, major, minor
+ORDER BY browser.name, major, minor
 """, (factory, ))
     return cur.fetchall()
 
@@ -67,7 +67,7 @@ AND browser = %s
 
 def active_browsers(where):
     cur.execute("""\
-SELECT DISTINCT browser_group.name, browser.major, browser.minor
+SELECT DISTINCT browser.name, browser.major, browser.minor
 FROM factory_browser
 JOIN factory USING (factory)
 JOIN opsys USING (opsys)
@@ -76,6 +76,6 @@ JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
 WHERE %s
 AND factory.last_poll > NOW()-'0:10'::interval
-ORDER BY browser_group.name, browser.major, browser.minor
+ORDER BY browser.name, browser.major, browser.minor
 """ % where)
     return cur.fetchall()
