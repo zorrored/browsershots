@@ -45,7 +45,8 @@ CREATE TABLE browser (
     created timestamp without time zone DEFAULT now(),
     creator integer NOT NULL,
     "scroll" character varying(40),
-    version character varying(20)
+    version character varying(20),
+    name character varying(20)
 );
 
 

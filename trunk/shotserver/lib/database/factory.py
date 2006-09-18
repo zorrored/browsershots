@@ -77,7 +77,7 @@ WHERE factory = %s
 
     # Match browsers names and versions
     cur.execute("""\
-SELECT DISTINCT browser_group.name, major, minor
+SELECT DISTINCT browser.name, major, minor
 FROM factory_browser
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
@@ -85,7 +85,7 @@ WHERE factory = %s
 """, (factory, ))
     alternatives = []
     for row in cur.fetchall():
-        alternatives.append("(browser_group.name = '%s'" % row[0]
+        alternatives.append("(browser.name = '%s'" % row[0]
                             + " AND (major IS NULL OR major = %d)" % row[1]
                             + " AND (minor IS NULL OR minor = %d))" % row[2])
     where.append('(%s)' % ' OR '.join(alternatives))

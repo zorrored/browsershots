@@ -45,7 +45,7 @@ def info(screenshot):
     cur.execute("""\
 SELECT extract(epoch from screenshot.created)::bigint AS uploaded,
 screenshot.width, screenshot.height,
-browser_group.name, browser.version,
+browser.name, browser.version,
 factory.name, opsys_group.name, distro, codename,
 website, url
 FROM screenshot
@@ -112,7 +112,7 @@ def select_recent(where, args, limit=5):
     Get the most recently uploaded screenshots for a website.
     """
     cur.execute("""\
-SELECT hashkey, browser_group.name, browser.version,
+SELECT hashkey, browser.name, browser.version,
 opsys_group.name, extract(epoch from screenshot.created)::bigint
 FROM screenshot
 JOIN request USING (screenshot)

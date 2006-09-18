@@ -39,7 +39,7 @@ def select_by_user_agent(user_agent):
     Select the browser with a given User-Agent string.
     """
     cur.execute("""\
-SELECT browser, browser_group, browser_group.name, major, minor
+SELECT browser, browser_group, browser.name, major, minor
 FROM browser
 JOIN browser_group USING (browser_group)
 JOIN factory_browser USING (browser)
@@ -65,7 +65,7 @@ def get_scroll(browser, major, minor):
 SELECT browser_group.scroll AS scroll, browser.scroll AS override
 FROM browser
 JOIN browser_group USING (browser_group)
-WHERE browser_group.name = %s
+WHERE browser.name = %s
 AND major = %s AND minor = %s
     """, (browser, major, minor))
     result = cur.fetchone()

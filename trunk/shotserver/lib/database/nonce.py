@@ -88,7 +88,7 @@ def authenticate_redirect(crypt):
     crypt = md5('redirect' + md5(salt + password) + nonce)
     """
     cur.execute("""\
-SELECT url, request, browser_group, browser_group.name, major, minor
+SELECT url, request, browser_group, browser.name, major, minor
 FROM nonce
 JOIN request USING (request)
 JOIN request_group USING (request_group)
