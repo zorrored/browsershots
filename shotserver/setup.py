@@ -26,6 +26,7 @@ setup(name = 'ShotServer',
             'scripts/shotserver03_grep_error_log.sh',
             'scripts/shotserver03_log_dates.py',
             'scripts/shotserver03_apache2_log_backup.sh',
+            'scripts/shotserver03_rm_old_png.py',
             'scripts/svn_backup.py',
             ],
       data_files = [

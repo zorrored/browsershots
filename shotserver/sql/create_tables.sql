@@ -781,7 +781,7 @@ ALTER TABLE ONLY request
 --
 
 ALTER TABLE ONLY request
-    ADD CONSTRAINT request_screenshot_fkey FOREIGN KEY (screenshot) REFERENCES screenshot(screenshot);
+    ADD CONSTRAINT request_screenshot_fkey FOREIGN KEY (screenshot) REFERENCES screenshot(screenshot) ON DELETE CASCADE;
 
 
 --
