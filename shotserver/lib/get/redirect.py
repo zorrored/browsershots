@@ -24,14 +24,18 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+import time
 from mod_python import util
 from shotserver03.interface import xhtml
 from shotserver03 import database
+
+timeout = 10 # seconds
 
 def redirect():
     """
     Save the user-agent string, then redirect to the request URL.
     """
+    start = time.time()
     database.connect()
     try:
         row = database.nonce.authenticate_redirect(req.info.options[0])
@@ -53,6 +57,11 @@ def redirect():
                     database.browser.version_string(name, major, minor))
                 return
             database.request.update_browser(request, browser)
+            if time.time() - start > timeout:
+                database.request.forget_browser(request, browser)
+                req.params.status = "Sorry, the server load is too high."
+                req.params.extra = "Redirect took more than %s seconds." % timeout
+                return
             util.redirect(req, url)
         else:
             req.params.status = status
