@@ -172,16 +172,28 @@ def update_locked(request, factory):
     """Set the lock and factory."""
     cur.execute("""\
 UPDATE request SET factory = %s, locked = NOW()
-WHERE request = %s""", (factory, request))
+WHERE request = %s
+""", (factory, request))
 
 def update_browser(request, browser):
     """Set the browser for a request."""
     cur.execute("""\
 UPDATE request SET browser = %s, redirected = NOW()
-WHERE request = %s""", (browser, request))
+WHERE request = %s
+""", (browser, request))
+
+def forget_browser(request, browser):
+    """Forget the browser for a request."""
+    cur.execute("""\
+UPDATE request SET browser = NULL, redirected = NULL
+WHERE browser = %s
+AND request = %s
+AND screenshot IS NULL
+""", (browser, request))
 
 def update_screenshot(request, screenshot):
     """Set the screenshot for a request."""
     cur.execute("""\
 UPDATE request SET screenshot = %s
-WHERE request = %s""", (screenshot, request))
+WHERE request = %s
+""", (screenshot, request))
