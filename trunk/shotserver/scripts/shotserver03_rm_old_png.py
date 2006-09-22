@@ -12,7 +12,7 @@ from shotserver03 import database as db
 
 png_path = '/var/www/browsershots.org/png'
 subdirs = '140 180 240 450 full'.split()
-timeout = 50 # days
+timeout = 30 # days
 now = time.time()
 expire = now - timeout * 24 * 3600
 
