@@ -82,6 +82,7 @@ FROM factory_browser
 JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
 WHERE factory = %s
+AND factory_browser.disabled IS NULL
 """, (factory, ))
     alternatives = []
     for row in cur.fetchall():
