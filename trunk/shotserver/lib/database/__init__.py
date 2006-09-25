@@ -29,12 +29,12 @@ from shotserver03.database import (
     browser, factory, factory_browser,
     nonce, opsys, request, screenshot, website)
 
-def connect():
+def connect(db_name = 'shotserver03'):
     """
     Connect to the browsershots database.
     """
     assert 'con' not in __builtins__
-    __builtins__['con'] = pgdb.connect(database = 'shotserver03')
+    __builtins__['con'] = pgdb.connect(database=db_name)
     assert 'cur' not in __builtins__
     __builtins__['cur'] = con.cursor()
     cur.lastval = lastval
