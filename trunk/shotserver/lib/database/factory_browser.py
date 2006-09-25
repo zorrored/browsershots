@@ -52,6 +52,7 @@ JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
 LEFT JOIN engine USING (engine)
 WHERE factory = %s
+AND factory_browser.disabled IS NULL
 ORDER BY browser.name, major, minor
 """, (factory, ))
     return cur.fetchall()
@@ -76,6 +77,7 @@ JOIN browser USING (browser)
 JOIN browser_group USING (browser_group)
 WHERE %s
 AND factory.last_poll > NOW()-'0:10'::interval
+AND factory_browser.disabled IS NULL
 ORDER BY browser.name, browser.major, browser.minor
 """ % where)
     return cur.fetchall()
