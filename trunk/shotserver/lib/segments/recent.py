@@ -28,6 +28,16 @@ import cgi
 from shotserver03.interface import xhtml
 from shotserver03 import database
 
+
+offensive_keywords = 'www.farm porn pron p0rn pr0n girls cock'.lower().split()
+def offensive(url):
+    """Return True if url contains a potentially offensive keyword."""
+    url_lower = url.lower()
+    for term in offensive_keywords:
+        if url_lower.count(term):
+            return True
+
+
 def write():
     """
     Write XHTML div with recent screenshots.
@@ -42,6 +52,8 @@ def write():
     xhtml.write_open_tag_line('div', _id="recent", _class="relative")
     for row_index, row in enumerate(rows):
         hashkey, width, height, url = row
+        if offensive(url):
+            continue
         height = height * 140 / width
         width = 140
         if row_index > 5 and height > (len(rows) - row_index) * 28:
