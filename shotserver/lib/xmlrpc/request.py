@@ -151,6 +151,7 @@ def pngtoppm(hashkey):
     fullpath = '%s/full/%s' % (pngpath, prefix)
     pngname = '%s/%s.png' % (fullpath, hashkey)
     ppmhandle, ppmname = tempfile.mkstemp()
+    os.close(ppmhandle)
     error = os.system('pngtopnm "%s" > "%s"' % (pngname, ppmname))
     if error:
         errorpath = '%s/error/%s' % (pngpath, prefix)
@@ -220,7 +221,6 @@ def upload(binary, crypt):
         assert zoom(ppmname, hashkey, 180) # 4*180 + 3*14 = 762
         assert zoom(ppmname, hashkey, 240) # 3*240 + 2*22 = 764
         assert zoom(ppmname, hashkey, 450) # 3*140 + 2*15
-        os.close(ppmhandle)
         os.unlink(ppmname)
 
         values = {'hashkey': hashkey,
