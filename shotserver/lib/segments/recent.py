@@ -29,9 +29,15 @@ from shotserver03.interface import xhtml
 from shotserver03 import database
 
 
-offensive_keywords = 'www.farm porn pron p0rn pr0n girls cock'.lower().split()
+offensive_keywords = """
+www.farm porn pron p0rn pr0n girls chicks babe cock
+""".lower().split()
+
+
 def offensive(url):
-    """Return True if url contains a potentially offensive keyword."""
+    """
+    Return True if url contains a potentially offensive keyword.
+    """
     url_lower = url.lower()
     for term in offensive_keywords:
         if url_lower.count(term):
