@@ -108,7 +108,7 @@ def write():
         if longest[0] <= 5:
             break
         longest[-1] += 1
-        longest[0] = len(longest[2]) / longest[-1]
+        longest[0] = float(len(longest[2])) / longest[-1]
         used += 1
 
     columns.sort()
