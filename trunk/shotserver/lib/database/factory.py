@@ -24,6 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+
 def name_to_serial(name):
     """
     Get the serial number from the database.
@@ -34,6 +35,7 @@ def name_to_serial(name):
         return result[0]
     raise KeyError(name)
 
+
 def serial_to_name(serial):
     """
     Get the factory name from the database.
@@ -43,6 +45,7 @@ def serial_to_name(serial):
     if result is not None:
         return result[0]
     raise KeyError(serial)
+
 
 def select_salt(factory):
     """
@@ -59,6 +62,7 @@ WHERE factory = %s
     if factory_salt is None:
         return owner_salt
     return factory_salt
+
 
 def features(factory):
     """
@@ -92,7 +96,11 @@ AND factory_browser.disabled IS NULL
     where.append('(%s)' % ' OR '.join(alternatives))
 
     # Match screen resolutions
-    cur.execute("SELECT DISTINCT width FROM factory_screen WHERE factory = %s", (factory, ))
+    cur.execute("""
+SELECT DISTINCT width
+FROM factory_screen
+WHERE factory = %s
+""", (factory, ))
     alternatives = ['width IS NULL']
     for row in cur.fetchall():
         width = row[0]
@@ -105,7 +113,11 @@ AND factory_browser.disabled IS NULL
         namedict[name] = ['%s IS NULL' % name]
 
     # Match factory features
-    cur.execute("SELECT name, intval, strval FROM factory_feature WHERE factory = %s", (factory, ))
+    cur.execute("""
+SELECT name, intval, strval
+FROM factory_feature
+WHERE factory = %s
+""", (factory, ))
     for name, intval, strval in cur.fetchall():
         if intval is not None:
             clause = "%s = %d" % (name, intval)
@@ -117,6 +129,7 @@ AND factory_browser.disabled IS NULL
     for name, alternatives in namedict.iteritems():
         where.append('(%s)' % ' OR '.join(alternatives))
     return ' AND '.join(where)
+
 
 def select_active():
     """
@@ -137,6 +150,7 @@ ORDER BY per_day DESC, last_upload DESC
 """)
     return cur.fetchall()
 
+
 def update_last_poll(factory):
     """Set the last poll timestamp to NOW()."""
     cur.execute("""\
@@ -145,6 +159,7 @@ SET last_poll = NOW()
 WHERE factory = %s
 """, (factory, ))
 
+
 def update_last_upload(factory):
     """Set the last upload timestamp to NOW()."""
     cur.execute("""\
@@ -152,6 +167,7 @@ UPDATE factory
 SET last_upload = NOW()
 WHERE factory = %s
 """, (factory, ))
+
 
 def info(factory):
     """Get some information about this factory."""

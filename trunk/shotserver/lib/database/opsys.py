@@ -24,9 +24,11 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+
 def get_name_dict():
     """
-    Get a mapping from lowercase operating system name to id (numeric primary key).
+    Get a mapping from lowercase operating system name to id
+    (numeric primary key).
     """
     cur.execute('SELECT opsys_group, name FROM opsys_group')
     result = {}
@@ -35,6 +37,7 @@ def get_name_dict():
             name = 'Mac'
         result[name.lower()] = opsys
     return result
+
 
 def get_serial_dict():
     """
@@ -47,6 +50,7 @@ def get_serial_dict():
             name = 'Mac'
         result[opsys] = name
     return result
+
 
 def version_string(opsys, distro=None, major=None, minor=None, codename=None):
     """

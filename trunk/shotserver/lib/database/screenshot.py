@@ -24,6 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+
 def hashkey_to_serial(hashkey):
     """
     Get the serial number of a screenshot.
@@ -37,6 +38,7 @@ WHERE hashkey = %s
     if result is not None:
         result = result[0]
     return result
+
 
 def info(screenshot):
     """
@@ -60,6 +62,7 @@ JOIN website USING (website)
 WHERE screenshot = %s
 """, (screenshot, ))
     return cur.fetchone()
+
 
 def select_recent_websites(limit=50):
     """
@@ -85,6 +88,7 @@ ORDER BY screenshot DESC
 """, (limit, ))
     return cur.fetchall()
 
+
 def select_prevnext(direction, website, screenshot):
     """
     Get other screenshots before or after a given screenshot.
@@ -107,6 +111,7 @@ JOIN request_group USING (request_group)
 """ + where, (website, screenshot))
     return cur.fetchall()
 
+
 def select_recent(where, args, limit=5):
     """
     Get the most recently uploaded screenshots for a website.
@@ -127,6 +132,7 @@ ORDER BY screenshot DESC
 LIMIT """ + str(limit), args)
     return cur.fetchall()
 
+
 def count_uploads(where, args, timespan='1:00'):
     """
     How many uploads per hour for a factory?
@@ -141,6 +147,7 @@ WHERE """ + where + """
 AND created > NOW()-%s::interval
 """, args)
     return cur.fetchone()[0]
+
 
 def last_upload(where, args):
     """
