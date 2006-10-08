@@ -25,12 +25,14 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import sys, traceback
+import sys
+import traceback
 from shotserver03 import request, xmlrpc, database
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import languages, logo, topmenu, bottom
 
 DEBUG_XML_IN_TITLE = False
+
 
 def import_deep(name):
     """
@@ -43,6 +45,7 @@ def import_deep(name):
         mod = getattr(mod, comp)
     return mod
 
+
 def action_option(module, key, default):
     """
     Get an option from a function in an action module.
@@ -53,6 +56,7 @@ def action_option(module, key, default):
     else:
         return default
 
+
 def negotiate_xml():
     """
     Check if the client can handle application/xhtml+xml.
@@ -62,6 +66,7 @@ def negotiate_xml():
     if req.headers_in['Accept'].count('application/xhtml+xml'):
         return True # Send XML to all modern browsers.
     return False # Send text/html to MSIE 6 and 7.
+
 
 def write_html_head(title):
     """
@@ -79,10 +84,14 @@ def write_html_head(title):
         xhtml.write_tag_line('title', 'This browser does not understand XML')
     else:
         xhtml.write_tag_line('title', '%s - Browsershots' % title)
-    xhtml.write_tag_line('link', type="text/css", href="/style/style.css", rel="stylesheet")
-    xhtml.write_tag_line('script', '', type="text/javascript", src="/style/zoom.js")
-    xhtml.write_tag_line('script', '', type="text/javascript", src="/style/forms.js")
+    xhtml.write_tag_line('link', type="text/css", rel="stylesheet",
+                         href="/style/style.css")
+    xhtml.write_tag_line('script', '', type="text/javascript",
+                         src="/style/zoom.js")
+    xhtml.write_tag_line('script', '', type="text/javascript",
+                         src="/style/forms.js")
     xhtml.write_close_tag_line('head')
+
 
 def handler(req):
     """
@@ -98,7 +107,8 @@ def handler(req):
         req.params = request.params.Params()
 
         if req.method == 'POST':
-            action_module = import_deep('shotserver03.post.%s' % req.info.action)
+            action_module = import_deep('shotserver03.post.%s' %
+                                        req.info.action)
             assert action_module.redirect()
             req.status = apache.HTTP_MOVED_TEMPORARILY
             return apache.HTTP_MOVED_TEMPORARILY

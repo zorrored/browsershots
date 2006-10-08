@@ -24,6 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+
 def get_name_dict():
     """
     Get a mapping from lowercase browser name to id (numeric primary key).
@@ -47,6 +48,7 @@ WHERE user_agent = %s
 """, (user_agent, ))
     return cur.fetchone()
 
+
 def version_string(browser, major=None, minor=None):
     """
     Make a string with browser name and version number.
@@ -59,6 +61,7 @@ def version_string(browser, major=None, minor=None):
             result.append('.%d' % minor)
     return ''.join(result)
 
+
 def get_scroll(browser, major, minor):
     """Get the name of the browser window for scrolling."""
     cur.execute("""\
@@ -67,7 +70,7 @@ FROM browser
 JOIN browser_group USING (browser_group)
 WHERE browser.name = %s
 AND major = %s AND minor = %s
-    """, (browser, major, minor))
+""", (browser, major, minor))
     result = cur.fetchone()
     if result is None:
         return ''

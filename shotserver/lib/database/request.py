@@ -26,6 +26,7 @@ __author__ = '$Author$'
 
 from shotserver03.database import options
 
+
 def websites_in_queue():
     """
     Get all queuing websites.
@@ -42,6 +43,7 @@ GROUP BY website, url
 ORDER BY created
 """)
     return cur.fetchall()
+
 
 def select_by_website(website):
     """
@@ -61,6 +63,7 @@ ORDER BY created
 """, (website, ))
     return cur.fetchall()
 
+
 def select_by_group(group):
     """
     Get all requests in a request group.
@@ -75,6 +78,7 @@ AND screenshot IS NULL
 ORDER BY browser_group.name, major, minor
 """, (group, ))
     return cur.fetchall()
+
 
 def select_match(where, order='ASC'):
     """
@@ -96,6 +100,7 @@ LIMIT 1
 """, (options.lock_timeout, ))
     return cur.fetchone()
 
+
 def to_dict(row):
     """
     Make an option dictionary from a result row from the match() function.
@@ -113,6 +118,7 @@ def to_dict(row):
         result[key] = value
     return result
 
+
 def insert_group(values):
     """
     Insert a request group into the database.
@@ -124,6 +130,7 @@ VALUES (%(website)s, %(width)s, %(bpp)s,
 %(js)s, %(java)s, %(flash)s, %(media)s, NOW() + %(expire)s)
 """, values)
     return cur.lastval()
+
 
 def find_identical_groups(values):
     cur.execute("""\
@@ -141,6 +148,7 @@ AND (media IS NULL OR media = %(media)s)
         result.append(str(row[0]))
     return ','.join(result)
 
+
 def delete_identical(values, groups):
     """
     Avoid duplication: when inserting new requests, first delete
@@ -157,6 +165,7 @@ AND locked IS NULL
 AND request_group IN (""" + groups + """)
 """, values)
 
+
 def insert(values):
     """
     Insert a new request into the database.
@@ -168,6 +177,7 @@ VALUES
 (%(request_group)s, %(browser_group)s, %(major)s, %(minor)s, %(opsys_group)s)
 """, values)
 
+
 def update_locked(request, factory):
     """Set the lock and factory."""
     cur.execute("""\
@@ -175,20 +185,12 @@ UPDATE request SET factory = %s, locked = NOW()
 WHERE request = %s
 """, (factory, request))
 
+
 def update_browser(request, browser):
     """Set the browser for a request."""
     cur.execute("""\
 UPDATE request SET browser = %s, redirected = NOW()
 WHERE request = %s
-""", (browser, request))
-
-def forget_browser(request, browser):
-    """Forget the browser for a request."""
-    cur.execute("""\
-UPDATE request SET browser = NULL, redirected = NULL
-WHERE browser = %s
-AND request = %s
-AND screenshot IS NULL
 """, (browser, request))
 
 def update_screenshot(request, screenshot):

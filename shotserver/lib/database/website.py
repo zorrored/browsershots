@@ -24,6 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+
 def select_url(serial):
     """
     Get the URL from the database.
@@ -33,6 +34,7 @@ def select_url(serial):
     if result is None:
         return None
     return result[0]
+
 
 def select_serial(url, insert = False):
     """

@@ -24,7 +24,11 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import md5, random, time, os
+import md5
+import random
+import time
+import os
+
 
 def random_md5():
     """
@@ -36,21 +40,30 @@ def random_md5():
     digest.update(os.urandom(16))
     return digest.hexdigest()
 
+
 def create_factory_nonce(factory, ip):
     """
     Make a factory nonce and save it in the database.
     """
     nonce = random_md5()
-    cur.execute("INSERT INTO nonce (nonce, factory, ip) VALUES (%s, %s, %s)", (nonce, factory, ip))
+    cur.execute("""\
+INSERT INTO nonce (nonce, factory, ip)
+VALUES (%s, %s, %s)
+""", (nonce, factory, ip))
     return nonce
+
 
 def create_request_nonce(request, ip):
     """
     Make a factory nonce and save it in the database.
     """
     nonce = random_md5()
-    cur.execute("INSERT INTO nonce (nonce, request, ip) VALUES (%s, %s, %s)", (nonce, request, ip))
+    cur.execute("""\
+INSERT INTO nonce (nonce, request, ip)
+VALUES (%s, %s, %s)
+""", (nonce, request, ip))
     return nonce
+
 
 def authenticate_factory(factory, ip, crypt):
     """
@@ -79,6 +92,7 @@ OR md5(textcat(owner.password, nonce.nonce)) = %s)
         else:
             return 'Nonce expired.'
 
+
 def authenticate_redirect(crypt):
     """
     Authenticate a redirect with a crypted password.
@@ -105,6 +119,7 @@ OR md5('redirect' || owner.password || nonce.nonce) = %s
     else:
         url, request, group, name, major, minor = row
         return 'OK', url, request, group, name, major, minor
+
 
 def authenticate_request(ip, crypt):
     """

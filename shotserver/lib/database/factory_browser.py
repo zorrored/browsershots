@@ -24,6 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+
 def get_command(factory, browser, major, minor):
     """Get a different command from the database, if applicable."""
     cur.execute("""\
@@ -42,6 +43,7 @@ AND major = %s AND minor = %s
         result = browser.lower()
     return result
 
+
 def factory_browsers(factory):
     """Get the browsers that are supported by this factory."""
     cur.execute("""\
@@ -57,6 +59,7 @@ ORDER BY browser.name, major, minor
 """, (factory, ))
     return cur.fetchall()
 
+
 def update_last_upload(factory, browser):
     """Set the last upload timestamp to NOW()."""
     cur.execute("""\
@@ -65,6 +68,7 @@ SET last_upload = NOW()
 WHERE factory = %s
 AND browser = %s
 """, (factory, browser))
+
 
 def active_browsers(where):
     cur.execute("""\

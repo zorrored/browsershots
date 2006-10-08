@@ -25,9 +25,11 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import pgdb
-from shotserver03.database import (
-    browser, factory, factory_browser,
-    nonce, opsys, request, screenshot, website)
+
+from shotserver03.database import browser, factory, factory_browser
+from shotserver03.database import nonce, opsys, request, screenshot
+from shotserver03.database import useragent, website
+
 
 def connect(db_name = 'shotserver03'):
     """
@@ -38,6 +40,7 @@ def connect(db_name = 'shotserver03'):
     assert 'cur' not in __builtins__
     __builtins__['cur'] = con.cursor()
     cur.lastval = lastval
+
 
 def disconnect():
     """
@@ -50,6 +53,7 @@ def disconnect():
         con.commit()
         con.close()
         del __builtins__['con']
+
 
 def insert(table, data):
     """
@@ -66,6 +70,7 @@ def insert(table, data):
     sql = "INSERT INTO %s (%s) VALUES (%s)" % (table, columns, references)
     cur.execute(sql, data)
 
+
 def lastval():
     """
     Return the value of the last sequence that was increased.
@@ -78,16 +83,19 @@ def lastval():
 class Printer:
     """Emulate a cursor for use with doctest."""
     @staticmethod
+
     def execute(sql, data):
         """
         Print SQL data with a little bit of quoting.
         Parameter semantics similar to cursor.execute().
 
-        >>> Printer.execute('INSERT INTO test (a, b) VALUES (%(a)s, %(b)s)', {'a': 'ab\\'c%', 'b': 4, 'c': None})
+        >>> Printer.execute(INSERT INTO test (a, b) VALUES (%(a)s, %(b)s)',
+                            {'a': 'ab\\'c%', 'b': 4, 'c': None})
         INSERT INTO test (a, b) VALUES ('ab\\'c%', 4)
 
-        >>> Printer.execute('SELECT * FROM test WHERE a LIKE %s AND b = %s AND c IS %s', ('ab\\'c%', 4, None))
-        SELECT * FROM test WHERE a LIKE 'ab\\'c%' AND b = 4 AND c IS NULL
+        >>> Printer.execute('SELECT * FROM test a LIKE %s AND c IS %s',
+                            ('ab\\'c%', None))
+        SELECT * FROM test WHERE a LIKE 'ab\\'c%' AND c IS NULL
         """
         if type(data) == dict:
             copy = data.copy()
@@ -111,7 +119,8 @@ class Printer:
         print sql % copy
 
 if __name__ == '__main__':
-    import sys, doctest
+    import sys
+    import doctest
     cur = Printer()
     errors, tests = doctest.testmod()
     if errors:
