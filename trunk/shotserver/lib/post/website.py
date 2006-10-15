@@ -125,6 +125,7 @@ def test_head(url):
     Test the URL with a HEAD request.
     If unsuccessful, redirect back to front page with error message.
     """
+    socket.setdefaulttimeout(10)
     protocol, server, path, query, fragment = urlparse.urlsplit(url, '')
     try:
         if protocol == 'http':
@@ -145,7 +146,13 @@ def test_head(url):
     except socket.error, (dummy, errorstring):
         error = ' '.join(("Could not open web address.", errorstring + '.', "Please check for typos."))
         error_redirect(error = error, url = url)
-    response = connection.getresponse()
+
+    try:
+        response = connection.getresponse()
+    except socket.timeout:
+        error = ' '.join(("Timeout on server (%s)." % server, "Please try again later."))
+        error_redirect(error = error, url = url)
+
     try:
         if response.status == 200:
             pass # all good
