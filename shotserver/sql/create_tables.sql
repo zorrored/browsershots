@@ -82,7 +82,8 @@ CREATE TABLE request (
     redirected timestamp without time zone,
     screenshot integer,
     locked timestamp without time zone,
-    factory integer
+    factory integer,
+    priority integer DEFAULT 0 NOT NULL
 );
 
 
@@ -508,6 +509,13 @@ CREATE INDEX request_group_width ON request_group USING btree (width);
 --
 
 CREATE INDEX request_locked ON request USING btree (locked);
+
+
+--
+-- Name: request_priority; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX request_priority ON request USING btree (priority);
 
 
 --
