@@ -46,7 +46,10 @@ def read_form():
     for field in req.info.form.list:
         if field.name not in accept_fields:
             raise UnexpectedFieldName(field.name)
-        result[field.name] = field.value
+        value = field.value
+        value = value.replace('<', '&lt;')
+        value = value.replace('>', '&gt;')
+        result[field.name] = value
     return result
 
 def body():
