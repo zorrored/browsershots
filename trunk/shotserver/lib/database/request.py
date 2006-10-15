@@ -95,7 +95,7 @@ LEFT JOIN opsys_group USING (opsys_group)
 WHERE """ + where + """
 AND screenshot IS NULL
 AND (locked IS NULL OR NOW() - locked > %s)
-ORDER BY priority, request_group.created """ + order + """
+ORDER BY priority desc, request_group.created """ + order + """
 LIMIT 1
 """, (options.lock_timeout, ))
     return cur.fetchone()
@@ -172,9 +172,9 @@ def insert(values):
     """
     cur.execute("""\
 INSERT INTO request
-(request_group, browser_group, major, minor, opsys_group)
+(request_group, browser_group, major, minor, opsys_group, priority)
 VALUES
-(%(request_group)s, %(browser_group)s, %(major)s, %(minor)s, %(opsys_group)s)
+(%(request_group)s, %(browser_group)s, %(major)s, %(minor)s, %(opsys_group)s, %(priority)s)
 """, values)
 
 

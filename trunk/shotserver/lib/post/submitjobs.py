@@ -98,7 +98,26 @@ def limit_expire(expire):
         minutes = 0
     return '%d:%02d' % (hours, minutes)
 
-def insert_requests(website, browsers, features):
+
+re_url = re.compile(r"http://(www\.|)([\w\.\-]+)")
+def extract_domain(url):
+    """
+    Extract the domain name from a http:// URL, without www prefix.
+
+    >>> extract_domain('http://browsershots.org/submit/')
+    'browsershots.org'
+    >>> extract_domain('http://www.google.com')
+    'google.com'
+    >>> extract_domain('http://test.example.com:8000/')
+    'test.example.com'
+    """
+    match = re_url.match(url)
+    if match is None:
+        raise ValueError(url)
+    return match.group(2)
+
+
+def insert_requests(website, browsers, features, priority):
     """
     Insert screenshot requests into database.
     """
@@ -126,6 +145,7 @@ def insert_requests(website, browsers, features):
         values['major'] = int(major)
         values['minor'] = int(minor)
         values['opsys_group'] = None
+        values['priority'] = priority
         if platform not in ['terminal', 'mobile']:
             values['opsys_group'] = opsys_int[platform]
         if old_groups:
@@ -143,7 +163,9 @@ def redirect():
     try:
         website = database.website.select_serial(url)
         assert website
-        insert_requests(website, browsers, features)
+        domain = extract_domain(url)
+        priority = database.priority_domain.get_priority(domain)
+        insert_requests(website, browsers, features, priority)
     finally:
         database.disconnect()
     from mod_python import util
