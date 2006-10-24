@@ -120,9 +120,9 @@ def sanity_check_url(url):
     if not path:
         error_redirect(error = "There must be a slash after the server name. Please try again.", url = url + '/')
 
-def test_head(url):
+def test_get(url):
     """
-    Test the URL with a HEAD request.
+    Test the URL with a GET request.
     If unsuccessful, redirect back to front page with error message.
     """
     socket.setdefaulttimeout(10)
@@ -135,7 +135,9 @@ def test_head(url):
         else:
             raise UnsupportedProtocol(protocol)
     except httplib.HTTPException, error:
-        error = ' '.join(("Could not open web address.", str(error).capitalize() + '.', "Please check for typos."))
+        error = ' '.join(("Could not open web address.",
+                          str(error).capitalize() + '.',
+                          "Please check for typos."))
         error_redirect(error = error, url = url)
 
     if query:
@@ -144,13 +146,16 @@ def test_head(url):
         headers = {"User-Agent": "Browsershots URL Check"}
         connection.request('GET', path, headers=headers)
     except socket.error, (dummy, errorstring):
-        error = ' '.join(("Could not open web address.", errorstring + '.', "Please check for typos."))
+        error = ' '.join(("Could not open web address.",
+                          errorstring + '.',
+                          "Please check for typos."))
         error_redirect(error = error, url = url)
 
     try:
         response = connection.getresponse()
     except socket.timeout:
-        error = ' '.join(("Timeout on server (%s)." % server, "Please try again later."))
+        error = ' '.join(("Timeout on server (%s)." % server,
+                          "Please try again later."))
         error_redirect(error = error, url = url)
 
     try:
@@ -159,14 +164,19 @@ def test_head(url):
         elif response.status in (301, 302, 303, 307):
             redirected = response.getheader('Location')
             if redirected is None:
-                error = server_said(response.status, response.reason, "Your request has been redirected, but no location was specified.")
+                error = server_said(response.status, response.reason,
+                                    "Your request has been redirected, " +
+                                    "but no location was specified.")
                 error_redirect(error = error, url = url)
             if fragment:
                 redirected += '#' + fragment
-            error = server_said(response.status, response.reason, "Your request has been redirected.", "Please try again.")
+            error = server_said(response.status, response.reason,
+                                "Your request has been redirected.",
+                                "Please try again.")
             error_redirect(error = error, url = redirected)
         else:
-            error = server_said(response.status, response.reason, "Unexpected server response.")
+            error = server_said(response.status, response.reason,
+                                "Unexpected server response.")
             error_redirect(error = error, url = url)
     finally:
         connection.close()
@@ -180,7 +190,7 @@ def redirect():
     """
     url = read_form(req.info.form)
     sanity_check_url(url)
-    test_head(url)
+    test_get(url)
 
     database.connect()
     try:
