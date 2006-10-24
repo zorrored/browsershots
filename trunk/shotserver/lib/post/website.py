@@ -168,6 +168,8 @@ def test_get(url):
                                     "Your request has been redirected, " +
                                     "but no location was specified.")
                 error_redirect(error = error, url = url)
+            if redirected.startswith('/'):
+                redirected = '%s://%s%s' % (protocol, server, redirected)
             if fragment:
                 redirected += '#' + fragment
             error = server_said(response.status, response.reason,
