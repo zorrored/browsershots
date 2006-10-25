@@ -25,6 +25,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import re
+import time
 from shotserver03.interface import xhtml, human
 
 find_items = re.compile('<item>\s*<title>(.+?)</title>\s*<pubDate>(.+?)</pubDate>\s*<link>(http.+?)</link>').findall
@@ -42,9 +43,12 @@ def write():
         items = items[:10]
     for item in items:
         title, pubdate, link = item
+        date = time.strptime(pubdate, '%a, %d %b %Y %H:%M:%S GMT')
+        date = time.strftime('%Y-%m-%d', date)
+        date = xhtml.tag('span', date, class_="news-date")
         title = human.cutoff(title, 36)
         link = xhtml.tag('a', title, href=link)
-        xhtml.write_tag_line('li', link)
+        xhtml.write_tag_line('li', '%s %s' % (link, date))
     xhtml.write_close_tag_line('ul')
 
     xhtml.write_close_tag_line('div') # id="news"
