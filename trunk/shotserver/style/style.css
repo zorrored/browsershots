@@ -200,3 +200,7 @@ div#news li {
   padding: 0;
   margin: 0 0 0 2em;
 }
+.news-date {
+  font-size: 80%;
+  color: grey;
+}
