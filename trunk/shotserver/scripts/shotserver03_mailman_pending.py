@@ -32,6 +32,17 @@ def discard_sender(listname, m, options):
     m.Save()
 
 
+def discard_subject(listname, m, options):
+    messages = m.GetHeldMessageIds()
+    for message in messages:
+        record = m.GetRecord(message)
+        subject = record[2]
+        if subject.count(options.discard_subject):
+            print listname, message, record[2]
+            m.HandleRequest(message, mm_cfg.DISCARD)
+    m.Save()
+
+
 def _main():
     version = '%prog ' + __revision__.strip('$').replace('Rev: ', 'r')
     parser = OptionParser(version=version)
@@ -44,7 +55,15 @@ def _main():
                       type='string', action='store', metavar='<substring>',
                       help="""discard pending messages where the sender
                               address contains <substring>""")
+    parser.add_option('--discard-subject',
+                      type='string', action='store', metavar='<substring>',
+                      help="""discard pending messages where the subject
+                              contains <substring>""")
     (options, args) = parser.parse_args()
+
+    if (options.discard_sender is None and
+        options.discard_subject is None):
+        options.list_messages = True
 
     listnames = Utils.list_names()
     listnames.sort()
@@ -57,7 +76,9 @@ def _main():
         try:
             if options.discard_sender:
                 discard_sender(listname, m, options)
-            else:
+            if options.discard_subject:
+                discard_subject(listname, m, options)
+            if options.list_messages:
                 list_pending(listname, m, options)
         finally:
             m.Unlock()
