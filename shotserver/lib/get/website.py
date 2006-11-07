@@ -61,6 +61,15 @@ def read_params():
     """
     Read parameters from the request URL.
     """
+    req.params.website = None
+    req.params.url = None
+    req.params.simple = None
+    req.params.escaped = None
+    req.params.show_screenshots = None
+    req.params.show_queue = None
+
+    website = None
+    url = None
     database.connect()
     try:
         if request_is_numeric():
@@ -75,15 +84,16 @@ def read_params():
             if url and not match:
                 raise InvalidParameters("The web address seems to be invalid (%s)." % url)
             website = database.website.select_serial(url)
-        if not url:
-            raise InvalidParameters("Web address parameter is missing.")
         req.params.website = website
+        if website:
+            req.params.show_screenshots = database.screenshot.select_recent(
+                'website = %s', (website, ))
+            req.params.show_queue = database.request.select_by_website(website)
         req.params.url = url
-        req.params.simple = simple_url_match(url)
-        req.params.escaped = cgi.escape(url, quote = True)
-        req.params.show_screenshots = database.screenshot.select_recent(
-            'website = %s', (req.params.website, ))
-        req.params.show_queue = database.request.select_by_website(website)
+        if url:
+            req.params.simple = simple_url_match(url)
+            req.params.escaped = cgi.escape(url, quote = True)
+            req.params.linkable = url.replace('?', '%3F').replace('&', '%26')
     finally:
         database.disconnect()
 
@@ -106,8 +116,10 @@ def title():
         return "Recent screenshots"
     elif req.params.show_queue:
         return "Request queue"
-    else:
+    elif req.params.url and req.params.website:
         return "Select browsers and configuration"
+    else:
+        return "Unknown web address"
 
 def body():
     """
@@ -120,8 +132,19 @@ def body():
     # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
     # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
-    bold = xhtml.tag('b', 'for ' + req.params.escaped)
-    xhtml.write_tag_line('p', bold, _class="up")
+    if req.params.url:
+        bold = xhtml.tag('b', 'for ' + req.params.escaped)
+        xhtml.write_tag_line('p', bold, _class="up")
+    else:
+        return
+
+    if not req.params.website:
+        xhtml.write_tag_line('p', '<br />\n'.join((
+            "The requested web address was not found in the database.",
+            xhtml.tag('a', "Please go to the start page to register it first.",
+                      href="/?url=%s" % req.params.linkable),
+            )))
+        return
 
     # queue_notice.write()
 
@@ -153,7 +176,8 @@ def body():
     xhtml.write_open_tag_line('form', action="/submitjobs/", method="post")
 
     xhtml.write_open_tag('div')
-    xhtml.write_tag('input', _type="hidden", _name="url", value=req.params.escaped)
+    xhtml.write_tag('input', _type="hidden", _name="url",
+                    value=req.params.escaped)
     xhtml.write_close_tag_line('div')
 
     browsers.write()
