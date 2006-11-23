@@ -145,10 +145,17 @@ def test_get(url):
     try:
         headers = {"User-Agent": "Browsershots URL Check"}
         connection.request('GET', path, headers=headers)
-    except socket.error, (dummy, errorstring):
-        error = ' '.join(("Could not open web address.",
-                          errorstring + '.',
-                          "Please check for typos."))
+    except socket.error, error:
+        try:
+            (dummy, errorstring) = error.args
+        except:
+            errorstring = str(error)
+        if errorstring:
+            errorstring = errorstring[0].upper() + errorstring[1:]
+        error = ' '.join((
+            "Could not open web address.",
+            errorstring + '.',
+            "Please check for typos."))
         error_redirect(error = error, url = url)
 
     try:
