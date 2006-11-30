@@ -33,16 +33,24 @@ def write():
     xhtml.write_open_tag_line('div', _id="sponsors")
     xhtml.write_tag_line('h2', "Sponsors")
 
-    img = xhtml.tag('img', src="/style/mfg40.png", alt="MFG Stiftung BW", _class="top")
+    img = xhtml.tag('img', src="/style/mfg40.png",
+                    alt="MFG Stiftung BW", _class="top")
     link = xhtml.tag('a', img, href="http://www.mfg.de/stiftung/")
     xhtml.write_tag_line('p', link)
 
-    img = xhtml.tag('img', src="/style/lisog40.png", alt="LiSoG e.V.", _class="top")
+    img = xhtml.tag('img', src="/style/lisog40.png",
+                    alt="LiSoG e.V.", _class="top")
     link = xhtml.tag('a', img, href="http://www.lisog.org/")
     xhtml.write_tag_line('p', link)
 
-    img = xhtml.tag('img', src="/style/topalis40.png", alt="Topalis AG", _class="top")
+    img = xhtml.tag('img', src="/style/topalis40.png",
+                    alt="Topalis AG", _class="top")
     link = xhtml.tag('a', img, href="http://www.topalis.com/")
+    xhtml.write_tag_line('p', link)
+
+    img = xhtml.tag('img', src="/style/brandup40.png",
+                    alt="Brand Up LLC", _class="top")
+    link = xhtml.tag('a', img, href='http://brand-up.com/?utm_source=Browsershots&amp;utm_medium=sponsorship')
     xhtml.write_tag_line('p', link)
 
     xhtml.write_close_tag_line('div') # id="sponsors"
