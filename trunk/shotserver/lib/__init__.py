@@ -141,6 +141,16 @@ def handler(req):
         bottom.write()
 
         xhtml.write_close_tag_line('div') # id="all"
+
+        req.write("""\
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-939486-1";
+urchinTracker();
+</script>
+""")
+
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
         database.disconnect()
