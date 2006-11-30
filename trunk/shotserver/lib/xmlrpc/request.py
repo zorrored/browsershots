@@ -192,6 +192,7 @@ def upload(binary, crypt):
     challenge -- random authentication challenge (salt + nonce)
     """
     database.connect()
+    ppmname = ''
     try:
         ip = req.connection.remote_ip
         status, request, request_width, factory, browser = database.nonce.authenticate_request(ip, crypt)
@@ -221,7 +222,6 @@ def upload(binary, crypt):
         assert zoom(ppmname, hashkey, 180) # 4*180 + 3*14 = 762
         assert zoom(ppmname, hashkey, 240) # 3*240 + 2*22 = 764
         assert zoom(ppmname, hashkey, 450) # 3*140 + 2*15
-        os.unlink(ppmname)
 
         values = {'hashkey': hashkey,
                   'factory': factory,
@@ -238,4 +238,6 @@ def upload(binary, crypt):
         challenge = salt + nonce
         return 'OK', challenge
     finally:
+        if os.path.exists(ppmname):
+            os.unlink(ppmname)
         database.disconnect()
