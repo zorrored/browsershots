@@ -33,6 +33,7 @@ class UnexpectedInput(Exception):
 
 browser_match = re.compile(r'^(\w+)_([\w\-]+)_(\d+)_(\d+)$').match
 expire_match = re.compile(r'^(\d+):(\d\d)$').match
+url_match = re.compile(r'\w+://(www\.|)([\w\.\-]+)').match
 feature_keys = 'width bpp js java flash media expire'.split()
 
 def read_form(form):
@@ -99,7 +100,6 @@ def limit_expire(expire):
     return '%d:%02d' % (hours, minutes)
 
 
-re_url = re.compile(r"http://(www\.|)([\w\.\-]+)")
 def extract_domain(url):
     """
     Extract the domain name from a http:// URL, without www prefix.
@@ -108,10 +108,10 @@ def extract_domain(url):
     'browsershots.org'
     >>> extract_domain('http://www.google.com')
     'google.com'
-    >>> extract_domain('http://test.example.com:8000/')
+    >>> extract_domain('https://test.example.com:8000/')
     'test.example.com'
     """
-    match = re_url.match(url)
+    match = url_match(url)
     if match is None:
         raise ValueError(url)
     return match.group(2)
