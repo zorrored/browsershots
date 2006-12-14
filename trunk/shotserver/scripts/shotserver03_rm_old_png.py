@@ -40,8 +40,6 @@ def find_expired(filelist):
         prefix = filename[:2]
         expired = True
         for subdir in subdirs:
-            if subdir == '140':
-                continue # because of recent dvd image
             path = os.path.join(png_path, subdir, prefix, filename)
             if os.path.exists(path):
                 atime = os.stat(path).st_atime
