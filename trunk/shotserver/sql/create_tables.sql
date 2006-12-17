@@ -245,6 +245,17 @@ CREATE TABLE person (
 
 
 --
+-- Name: priority_domain; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE priority_domain (
+    "domain" character varying(255) NOT NULL,
+    expire timestamp without time zone,
+    priority integer
+);
+
+
+--
 -- Name: request_group; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
 --
 
@@ -384,6 +395,14 @@ ALTER TABLE ONLY person
 
 ALTER TABLE ONLY person
     ADD CONSTRAINT person_pkey PRIMARY KEY (person);
+
+
+--
+-- Name: priority_domain_domain_key; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY priority_domain
+    ADD CONSTRAINT priority_domain_domain_key UNIQUE ("domain");
 
 
 --
