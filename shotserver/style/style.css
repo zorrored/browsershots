@@ -22,9 +22,9 @@ h1, h2 {
 }
 
 p, hr { margin: 1em 0; }
-p.error { color: #F00; }
-p.success { color: #080; }
-p.error, p.success { font-weight: bold; }
+.error { color: #F00; }
+.success { color: #080; }
+.error, .success { font-weight: bold; }
 div.traceback {
   text-align: left;
   border: 3px solid red;
@@ -203,4 +203,7 @@ div#news li {
 .news-date {
   font-size: 80%;
   color: grey;
+}
+.gray {
+  color: gray;
 }
