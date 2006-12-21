@@ -239,6 +239,7 @@ CREATE TABLE person (
     created timestamp without time zone DEFAULT now(),
     nickname character varying(20) NOT NULL,
     name character varying(40) NOT NULL,
+    htpasswd character(37),
     CONSTRAINT person_password_check CHECK (("password" ~ '[0-9a-f]{32}'::text)),
     CONSTRAINT person_salt_check CHECK ((salt ~ '[0-9a-f]{4}'::text))
 );

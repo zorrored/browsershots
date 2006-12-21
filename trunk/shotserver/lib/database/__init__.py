@@ -28,7 +28,7 @@ import pgdb
 
 from shotserver03.database import browser, factory, factory_browser
 from shotserver03.database import nonce, opsys, request, screenshot
-from shotserver03.database import website, priority_domain
+from shotserver03.database import website, priority_domain, person
 
 
 def connect(db_name = 'shotserver03'):
