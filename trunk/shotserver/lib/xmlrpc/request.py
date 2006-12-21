@@ -25,6 +25,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import os, tempfile, re
+from shotserver03.util import md5nonce
 from shotserver03 import database
 
 export_methods = ['poll', 'upload']
@@ -205,7 +206,7 @@ def upload(binary, crypt):
             return ("The uploaded screenshot is too small (less than %d KB)." %
                     min_upload_kilobytes, '')
 
-        hashkey = database.nonce.random_md5()
+        hashkey = md5nonce.random_md5()
         save_upload(binary, hashkey)
 
         status, width, height, ppmhandle, ppmname = pngtoppm(hashkey)
