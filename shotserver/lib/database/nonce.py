@@ -24,28 +24,14 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import md5
-import random
-import time
-import os
-
-
-def random_md5():
-    """
-    Make a random 128bit hexadecimal authentication token.
-    """
-    digest = md5.new()
-    digest.update('%.50f' % random.random())
-    digest.update('%.20f' % time.time())
-    digest.update(os.urandom(16))
-    return digest.hexdigest()
+from shotserver03.util import md5nonce
 
 
 def create_factory_nonce(factory, ip):
     """
     Make a factory nonce and save it in the database.
     """
-    nonce = random_md5()
+    nonce = md5nonce.random_md5()
     cur.execute("""\
 INSERT INTO nonce (nonce, factory, ip)
 VALUES (%s, %s, %s)
@@ -57,7 +43,7 @@ def create_request_nonce(request, ip):
     """
     Make a factory nonce and save it in the database.
     """
-    nonce = random_md5()
+    nonce = md5nonce.random_md5()
     cur.execute("""\
 INSERT INTO nonce (nonce, request, ip)
 VALUES (%s, %s, %s)
