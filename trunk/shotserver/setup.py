@@ -16,6 +16,7 @@ setup(name = 'ShotServer',
             'shotserver03.request',
             'shotserver03.segments',
             'shotserver03.xmlrpc',
+            'shotserver03.util',
             ],
       scripts = [
             'scripts/shotserver03_daily.sh',
