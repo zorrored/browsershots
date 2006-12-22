@@ -26,7 +26,7 @@ __author__ = '$Author$'
 
 import time
 from shotserver03.interface import xhtml, human
-from shotserver03 import database as db
+from shotserver03 import database
 
 def write():
     """
@@ -34,9 +34,9 @@ def write():
     """
     factory = req.params.factory
     now = time.time()
-    db.connect()
+    database.connect()
     try:
-        rows = db.factory_browser.factory_browsers(factory)
+        rows = database.factory_browser.factory_browsers(factory)
         xhtml.write_open_tag_line('table', _id="factory-browser")
         xhtml.write_table_row((
             "Browser",
@@ -59,13 +59,13 @@ def write():
                 last_upload = human.timespan(now - last_upload)
             xhtml.write_tag('td', last_upload)
 
-            per_hour = db.screenshot.count_uploads(
+            per_hour = database.screenshot.count_uploads(
                 'factory=%s AND browser=%s', (factory, browser), '1:00')
             if per_hour == 0:
                 per_hour = None
             xhtml.write_tag('td', per_hour)
 
-            per_day = db.screenshot.count_uploads(
+            per_day = database.screenshot.count_uploads(
                 'factory=%s AND browser=%s', (factory, browser), '24:00')
             if per_day == 0:
                 per_day = None
@@ -74,4 +74,4 @@ def write():
             xhtml.write_close_tag_line('tr')
         xhtml.write_close_tag_line('table')
     finally:
-        db.disconnect()
+        database.disconnect()

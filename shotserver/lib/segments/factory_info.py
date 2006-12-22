@@ -26,7 +26,7 @@ __author__ = '$Author$'
 
 import time
 from shotserver03.interface import xhtml, human
-from shotserver03 import database as db
+from shotserver03 import database
 
 
 def write_tr_th_td(th, td, color=None):
@@ -44,16 +44,16 @@ def write():
     """
     Write XHTML table with browsers installed on req.params.factory.
     """
-    db.connect()
+    database.connect()
     try:
         (name, opsys, distro, major, minor, codename, arch,
-         created, creator) = db.factory.info(req.params.factory)
+         created, creator) = database.factory.info(req.params.factory)
         xhtml.write_open_tag_line('table', _id="factory-info")
-        write_tr_th_td('Operating System', db.opsys.version_string(
+        write_tr_th_td('Operating System', database.opsys.version_string(
             opsys, distro, major, minor, codename), color=1)
         write_tr_th_td('Architecture', arch, color=2)
         write_tr_th_td('Created', created, color=1)
         write_tr_th_td('Administrator', creator, color=2)
         xhtml.write_close_tag_line('table')
     finally:
-        db.disconnect()
+        database.disconnect()
