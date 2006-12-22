@@ -54,6 +54,12 @@ def input_row(fields, key, example, caption=None):
     error = key + '_error'
     if error in fields and fields[error]:
         xhtml.write_tag('td', fields[error], class_="error")
+    elif key == 'password':
+        js = ';'.join((
+            "document.getElementById('pwgen').style.display='block'",
+            "document.getElementById('click').style.display='none'"))
+        link =  xhtml.tag('a', "Click here!", onclick=js, id_="click")
+        xhtml.write_tag('td', link, class_="gray")
     else:
         xhtml.write_tag('td', example, class_="gray")
     xhtml.write_close_tag_line('tr')
@@ -76,16 +82,18 @@ def write_passwords(columns=8, rows=10):
     passwords = commands.getoutput(command).split()
     if len(passwords) != count:
         return
+    xhtml.write_open_tag_line('div', id_="pwgen", style="display:none")
     xhtml.write_tag_line('p',
-        "You may want to use one of these secure random passwords:",
+        "You can use one of these secure random passwords:",
         class_="gray")
     xhtml.write_open_tag_line('table', class_="gray", width="100%")
     for y in range(rows):
-        xhtml.write_open_tag_line('tr')
+        xhtml.write_open_tag('tr')
         for x in range(columns):
             xhtml.write_tag('td', passwords.pop(0))
         xhtml.write_close_tag_line('tr')
     xhtml.write_close_tag_line('table')
+    xhtml.write_close_tag_line('div')
     return passwords
 
 
