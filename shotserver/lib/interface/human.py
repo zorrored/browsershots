@@ -27,6 +27,7 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+
 def cutoff(text, maxlen):
     """
     Shorten a string if necessary, trying to cut at space.
@@ -53,6 +54,7 @@ def cutoff(text, maxlen):
         cut += 1
     return text[:cut] + '...'
 
+
 def write_table_rows(obj, prefix = ''):
     """
     Debug instance variables in XHTML table rows.
@@ -71,6 +73,7 @@ def write_table_rows(obj, prefix = ''):
                 xhtml.tag('th', prefix + key + ':') +
                 xhtml.tag('td', value))
 
+
 def write_table(obj, prefix = ''):
     """
     Debug instance variables with XHTML table.
@@ -83,6 +86,7 @@ def write_table(obj, prefix = ''):
     xhtml.write_open_tag_line('table')
     write_table_rows(obj, prefix)
     xhtml.write_close_tag_line('table')
+
 
 def timespan(seconds, rounding = "", units = ""):
     """
@@ -147,7 +151,8 @@ def timespan(seconds, rounding = "", units = ""):
     return year_string % years
 
 if __name__ == '__main__':
-    import sys, doctest
+    import sys
+    import doctest
     from shotserver03.request import params
     p = params.Params()
     p.name = 'abc'

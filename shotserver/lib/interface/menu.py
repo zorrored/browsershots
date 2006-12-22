@@ -27,23 +27,26 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+
 def write(_class, items):
     """
     Write XHTML <ul> with menu entries.
-    >>> write('testmenu', ('Home=/', 'Test=test.html'))
-    <ul class="testmenu"><li class="first"><a href="/">Home</a></li><li><a href="test.html">Test</a></li></ul>
+    >>> write('testmenu', ('Home=/', ))
+    <ul class="testmenu"><li class="first"><a href="/">Home</a></li></ul>
     """
     xhtml.write_open_tag('ul', _class=_class)
     for index, item in enumerate(items):
         text, link = item.split('=', 1)
         if index == 0:
-            xhtml.write_tag('li', xhtml.tag('a', text, href=link), _class="first")
+            xhtml.write_tag('li', xhtml.tag('a', text, href=link),
+                            class_="first")
         else:
             xhtml.write_tag('li', xhtml.tag('a', text, href=link))
     xhtml.write_close_tag_line('ul') # class="float-right"
 
 if __name__ == '__main__':
-    import sys, doctest
+    import sys
+    import doctest
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)
