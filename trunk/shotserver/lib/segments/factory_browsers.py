@@ -28,6 +28,7 @@ import time
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
+
 def write():
     """
     Write XHTML table with browsers installed on req.params.factory.
