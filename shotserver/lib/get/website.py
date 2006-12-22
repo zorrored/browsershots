@@ -24,19 +24,24 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import re, cgi
+import re
+import cgi
 from mod_python import util
 from shotserver03.interface import xhtml
-from shotserver03.segments import screenshots, queue, browsers, features, queue_notice
+from shotserver03.segments import screenshots, queue, browsers
+from shotserver03.segments import features, queue_notice
 from shotserver03 import database
+
+request_match = re.compile(
+    r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
+simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
+protocol_match = re.compile(r'^(\w+:)(/+)(.+)$').match
+
 
 class InvalidParameters(Exception):
     """The HTTP GET request is invalid."""
     pass
 
-request_match = re.compile(r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
-simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
-protocol_match = re.compile(r'^(\w+:)(/+)(.+)$').match
 
 def request_is_numeric():
     """
@@ -45,6 +50,7 @@ def request_is_numeric():
     if len(req.info.options) != 1:
         return False
     return req.info.options[0].isdigit()
+
 
 def double_slash(url):
     """
@@ -56,6 +62,7 @@ def double_slash(url):
         if slashes != '//':
             url = protocol + '//' + rest
     return url
+
 
 def read_params():
     """
@@ -78,11 +85,14 @@ def read_params():
         else:
             match = request_match(req.the_request)
             if not match:
-                raise InvalidParameters("Your browser sent a strange request (%s)." % req.the_request)
+                raise InvalidParameters(
+                    "Your browser sent a strange request (%s)." %
+                    req.the_request)
             url = double_slash(match.group(4))
             match = simple_url_match(url)
             if url and not match:
-                raise InvalidParameters("The web address seems to be invalid (%s)." % url)
+                raise InvalidParameters(
+                    "The web address seems to be invalid (%s)." % url)
             website = database.website.select_serial(url)
         req.params.website = website
         if website:
@@ -97,6 +107,7 @@ def read_params():
     finally:
         database.disconnect()
 
+
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
@@ -107,6 +118,7 @@ def redirect():
         return False
     location = 'http://%s/website/%s' % (req.info.uri.hostname, req.params.url)
     util.redirect(req, location)
+
 
 def title():
     """
@@ -121,16 +133,13 @@ def title():
     else:
         return "Unknown web address"
 
+
 def body():
     """
     Write XHTML body content.
     """
     #link = xhtml.tag('a', url, href=escaped, _class="ext-link")
     #xhtml.write_tag_line('p', link, _class="center bold")
-
-    # explain = "This page will show screenshots for the web address above when they get uploaded."
-    # bookmark = "To come back later, bookmark this page or simply enter the address on the front page again."
-    # xhtml.write_tag_line('p', '<br />\n'.join((explain, bookmark)))
 
     if req.params.url:
         bold = xhtml.tag('b', 'for ' + req.params.escaped)
@@ -149,18 +158,18 @@ def body():
     # queue_notice.write()
 
     if req.params.show_screenshots and req.params.show_queue:
-        xhtml.write_tag_line('p', '<br />\n'.join(
-            ("This page shows the newest screenshots and queued requests for a single web address.",
-             "You can bookmark this page to check for new screenshots later.")))
+        xhtml.write_tag_line('p', '<br />\n'.join((
+"This page shows the screenshots and requests for a single web address.",
+"You can bookmark this page to check for new screenshots later.")))
     elif req.params.show_screenshots:
-        xhtml.write_tag_line('p', '<br />\n'.join(
-            ("This page shows the newest screenshots for a single web address.",
-             "You can bookmark this page to check for new screenshots later.")))
+        xhtml.write_tag_line('p', '<br />\n'.join((
+"This page shows the newest screenshots for a single web address.",
+"You can bookmark this page to check for new screenshots later.")))
     elif req.params.show_queue:
-        xhtml.write_tag_line('p', '<br />\n'.join(
-            ("This page shows queued requests for a single web address.",
-             "When the first screenshots are uploaded, they will appear here too.",
-             "You can bookmark this page to check for screenshots later.")))
+        xhtml.write_tag_line('p', '<br />\n'.join((
+"This page shows queued requests for a single web address.",
+"When the first screenshots are uploaded, they will appear here too.",
+"You can bookmark this page to check for screenshots later.")))
 
     if req.params.show_screenshots:
         screenshots.write()
@@ -186,11 +195,11 @@ def body():
 
     xhtml.write_tag_line('h2', "What is this?")
     xhtml.write_tag_line('p', '\n'.join((
-        "On this page you can choose browser configurations for your screenshots.",
-        "Select your preferred browsers above.",
-        "The drop-down boxes let you request special features.")))
+"On this page you can choose browser configurations for your screenshots.",
+"Select your preferred browsers above.",
+"The drop-down boxes let you request special features.")))
     xhtml.write_tag_line('p', '\n'.join((
-        "When you click the submit button, your screenshot requests will be added to the queue.",
-        "It will take a while before your screenshots will be uploaded, depending on the length of the queue.",
-        "Some feature combinations are impossible.",
-        "If some of your requests can't be finished within your maximum wait, they will be ignored.")))
+"When you click the submit button, your requests will be added to the queue.",
+"It will take a while before your screenshots will be uploaded.",
+"Some features are not available for all browsers.",
+"Unprocessed screenshots requests will expire after your maximum wait.")))
