@@ -24,10 +24,12 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import cgi, time
+import cgi
+import time
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import prevnext, medium, recent
 from shotserver03 import database
+
 
 def read_params():
     """
@@ -67,6 +69,7 @@ def read_params():
         finally:
             database.disconnect()
 
+
 def title():
     """Return page title."""
     if req.params.screenshot:
@@ -74,6 +77,7 @@ def title():
             req.params.browser, req.params.version, req.params.os)
     else:
         return "Recent Screenshots"
+
 
 def body():
     """

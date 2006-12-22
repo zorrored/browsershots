@@ -24,13 +24,16 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import time, cgi
+import time
+import cgi
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
+
 
 def title():
     """Return page title."""
     return "Screenshot Request Queue"
+
 
 def body():
     """

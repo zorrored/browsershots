@@ -35,6 +35,7 @@ def get_name_dict():
         result[name.lower()] = browser
     return result
 
+
 def select_by_user_agent(user_agent):
     """
     Select the browser with a given User-Agent string.
