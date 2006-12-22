@@ -24,7 +24,8 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import re, urllib
+import re
+import urllib
 from shotserver03 import database
 
 class UnexpectedInput(Exception):
@@ -35,6 +36,7 @@ browser_match = re.compile(r'^(\w+)_([\w\-]+)_(\d+)_(\d+)$').match
 expire_match = re.compile(r'^(\d+):(\d\d)$').match
 url_match = re.compile(r'\w+://(www\.|)([\w\.\-]+)').match
 feature_keys = 'width bpp js java flash media expire'.split()
+
 
 def read_form(form):
     """
@@ -58,6 +60,7 @@ def read_form(form):
         else:
             raise UnexpectedInput(key)
     return url, browsers, features
+
 
 def error_redirect(**params):
     """
@@ -152,6 +155,7 @@ def insert_requests(website, browsers, features, priority):
             database.request.delete_identical(values, old_groups)
         database.request.insert(values)
 
+
 def redirect():
     """
     Insert new jobs into queue.
@@ -176,7 +180,8 @@ def redirect():
     # website = select_or_insert(url)
 
 if __name__ == '__main__':
-    import sys, doctest
+    import sys
+    import doctest
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)

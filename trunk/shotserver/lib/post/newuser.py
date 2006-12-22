@@ -92,6 +92,7 @@ def sanity_check(fields):
             del(fields['repeat'])
             error_redirect(**fields)
 
+
 def redirect():
     """
     Insert new user into database.
