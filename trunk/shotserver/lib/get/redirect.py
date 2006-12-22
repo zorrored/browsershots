@@ -31,6 +31,7 @@ from shotserver03 import database
 
 timeout = 10 # seconds
 
+
 def redirect():
     """
     Save the user-agent string, then redirect to the request URL.
@@ -39,7 +40,8 @@ def redirect():
     database.connect()
     try:
         row = database.nonce.authenticate_redirect(req.info.options[0])
-        status, url, request, request_group, request_name, request_major, request_minor = row
+        (status, url, request, request_group,
+         request_name, request_major, request_minor) = row
         if status == 'OK':
             user_agent = req.headers_in.get('User-Agent', '')
             row = database.browser.select_by_user_agent(user_agent)
@@ -52,15 +54,17 @@ def redirect():
                 (request_major is not None and major != request_major) or
                 (request_minor is not None and minor != request_minor)):
                 req.params.status = "Browser mismatch."
-                req.params.extra = "Expected %s, got %s." % (
-                    database.browser.version_string(request_name, request_major, request_minor),
-                    database.browser.version_string(name, major, minor))
+                expected = database.browser.version_string(
+                        request_name, request_major, request_minor)
+                actual = database.browser.version_string(name, major, minor)
+                req.params.extra = "Expected %s, got %s." % (expected, actual)
                 return
             database.request.update_browser(request, browser)
             if time.time() - start > timeout:
                 database.request.forget_browser(request, browser)
                 req.params.status = "Sorry, the server load is too high."
-                req.params.extra = "Redirect took more than %s seconds." % timeout
+                req.params.extra = "Redirect took more than %s seconds."
+                req.params.extra %= timeout
                 return
             util.redirect(req, url)
         else:
@@ -68,9 +72,11 @@ def redirect():
     finally:
         database.disconnect()
 
+
 def title():
     """Page title."""
     return "Redirect Error"
+
 
 def body():
     """Print error message."""
