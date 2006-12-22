@@ -39,13 +39,16 @@ def title():
 
 
 def input_row(fields, key, example, caption=None):
+    """
+    Write one row in the input form table.
+    """
     if caption is None:
         caption = key.capitalize()
     xhtml.write_open_tag('tr')
     xhtml.write_tag('td', caption)
-    type_='text'
+    type_ = 'text'
     if key in ('password', 'repeat'):
-        type_='password'
+        type_ = 'password'
     value = ''
     if key in fields:
         value = fields[key]
@@ -66,6 +69,10 @@ def input_row(fields, key, example, caption=None):
 
 
 def submit_row(caption=None):
+    """
+    Write the last row in the input form table,
+    with the submit button.
+    """
     if caption is None:
         caption = 'Submit'
     xhtml.write_open_tag('tr')
@@ -77,6 +84,9 @@ def submit_row(caption=None):
 
 
 def write_passwords(columns=8, rows=10):
+    """
+    Write some random passwords from pwgen.
+    """
     count = columns * rows
     command = 'pwgen --numerals --ambiguous --capitalize 8 %d' % count
     passwords = commands.getoutput(command).split()

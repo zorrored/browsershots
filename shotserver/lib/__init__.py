@@ -94,6 +94,9 @@ def write_html_head(title):
 
 
 def google_analytics(https=False):
+    """
+    Load and run urchin.js for Google Analytics.
+    """
     if https:
         req.write('<script src="https://ssl.google-analytics.com/urchin.js" ')
     else:

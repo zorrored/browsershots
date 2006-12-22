@@ -24,8 +24,7 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import time
-from shotserver03.interface import xhtml, human
+from shotserver03.interface import xhtml
 from shotserver03 import database
 
 

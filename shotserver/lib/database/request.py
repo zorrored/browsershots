@@ -133,6 +133,9 @@ VALUES (%(website)s, %(width)s, %(bpp)s,
 
 
 def find_identical_groups(values):
+    """
+    Find request groups with the same options.
+    """
     cur.execute("""\
 SELECT request_group FROM request_group
 WHERE website = %(website)s

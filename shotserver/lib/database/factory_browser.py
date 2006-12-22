@@ -71,6 +71,9 @@ AND browser = %s
 
 
 def active_browsers(where):
+    """
+    Get browsers on active factories.
+    """
     cur.execute("""\
 SELECT DISTINCT browser.name, browser.major, browser.minor
 FROM factory_browser

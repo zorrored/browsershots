@@ -166,7 +166,7 @@ def test_get(url):
     except socket.error, error:
         try:
             (dummy, errorstring) = error.args
-        except:
+        except TypeError:
             errorstring = str(error)
         if errorstring:
             errorstring = errorstring[0].upper() + errorstring[1:]
