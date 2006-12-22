@@ -37,6 +37,7 @@ class ClosingTagMismatch(Exception):
     """
     pass
 
+
 def attribute_string(**attributes):
     """
     Make a XHTML attribute string for an opening tag.
@@ -56,6 +57,7 @@ def attribute_string(**attributes):
         result.insert(0, '')
     return ' '.join(result)
 
+
 def open_tag(name, **attributes):
     """
     Make an opening tag.
@@ -63,6 +65,7 @@ def open_tag(name, **attributes):
     open_tags.append(name)
     attr = attribute_string(**attributes)
     return '<%s%s>' % (name, attr)
+
 
 def close_tag(name = None):
     """
@@ -79,6 +82,7 @@ def close_tag(name = None):
         raise ClosingTagMismatch("no open tag")
     return '</%s>' % name
 
+
 def tag(name, data = None, **attributes):
     """
     >>> print tag('p', 'Test'),
@@ -93,12 +97,14 @@ def tag(name, data = None, **attributes):
     else:
         return '<%s%s>%s</%s>' % (name, attr, data, name)
 
+
 def tag_line(name, data = None, **attributes):
     """
     >>> print tag_line('br'),
     <br />
     """
     return tag(name, data, **attributes) + '\n'
+
 
 def multiline_tag(name, data = None, **attributes):
     """
@@ -108,6 +114,7 @@ def multiline_tag(name, data = None, **attributes):
     </ul>
     """
     return tag_line(name, '\n' + data, **attributes)
+
 
 def write_table_row(cells, element = 'td'):
     """
@@ -119,6 +126,7 @@ def write_table_row(cells, element = 'td'):
     for cell in cells:
         write_tag(element, cell)
     write_close_tag_line('tr')
+
 
 def text_to_xhtml(text):
     """
@@ -134,32 +142,39 @@ def text_to_xhtml(text):
     text = text.replace('\n', '<br />\n')
     return text
 
+
 def write_open_tag(*args, **attr):
     """Send opening tag to user agent."""
     req.write(open_tag(*args, **attr))
+
 
 def write_open_tag_line(*args, **attr):
     """Send opening tag with newline to user agent."""
     req.write(open_tag(*args, **attr) + '\n')
 
+
 def write_close_tag(*args):
     """Send closing tag to user agent."""
     req.write(close_tag(*args))
+
 
 def write_close_tag_line(*args):
     """Send closing tag with newline to user agent."""
     req.write(close_tag(*args) + '\n')
 
+
 def write_tag_line(*args, **attr):
     """Send tag with newline to user agent."""
     req.write(tag_line(*args, **attr))
+
 
 def write_tag(*args, **attr):
     """Send tag to user agent."""
     req.write(tag(*args, **attr))
 
 if __name__ == '__main__':
-    import sys, doctest
+    import sys
+    import doctest
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)
