@@ -26,6 +26,7 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+
 def write_select(name, options, selected = None):
     """
     Write XHTML drop-down input.
@@ -34,10 +35,12 @@ def write_select(name, options, selected = None):
     for index, option in enumerate(options.split('|')):
         value, text = option.split('=')
         if selected and index == selected - 1:
-            xhtml.write_tag_line('option', text, value=value, selected="selected")
+            xhtml.write_tag_line('option', text, value=value,
+                                 selected="selected")
         else:
             xhtml.write_tag_line('option', text, value=value)
     xhtml.write_close_tag_line('select')
+
 
 def write():
     """

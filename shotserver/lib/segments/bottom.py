@@ -26,6 +26,7 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml, menu
 
+
 def write():
     """
     Write bottom menu.

@@ -17,7 +17,8 @@
 # MA 02111-1307, USA.
 
 """
-Display available browsers with major and minor version number, grouped by platform.
+Display available browsers with major and minor version number,
+grouped by platform.
 """
 
 __revision__ = '$Rev$'
@@ -26,6 +27,7 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 from shotserver03 import database
+
 
 def select_browsers(platform, where):
     """
@@ -38,16 +40,20 @@ def select_browsers(platform, where):
         browser, major, minor = row
         code = '%s_%s_%d_%d' % (platform, browser.lower(), major, minor)
         result.append(
-            xhtml.tag('input', _type="checkbox", _id=code, _name=code, checked="checked",
-                onclick="updateMaster('%s')" % platform) + ' ' +
-            xhtml.tag('label', '%s %d.%d' % (browser, major, minor), _for=code))
+            xhtml.tag('input', _type="checkbox", _id=code, _name=code,
+                checked="checked", onclick="updateMaster('%s')" % platform) +
+            ' ' +
+            xhtml.tag('label', '%s %d.%d' % (browser, major, minor),
+                      _for=code))
     code = '%s_all' % platform
     if len(result) > 3:
         result.append(
             xhtml.tag('input', _type="checkbox", _id=code, checked="checked",
-                      onclick="multiCheck('%s',this.checked)" % platform) + ' ' +
+                      onclick="multiCheck('%s',this.checked)" % platform) +
+            ' ' +
             xhtml.tag('label', '<b>All</b>', _for=code))
     return result
+
 
 def write_float(platform, browsers, columns, leftmost):
     """
@@ -74,6 +80,7 @@ def write_float(platform, browsers, columns, leftmost):
             xhtml.write_tag_line('br')
         xhtml.write_close_tag_line('div') # id="browsers"
 
+
 def write():
     """
     Write browser selection form.
@@ -81,10 +88,14 @@ def write():
     xhtml.write_open_tag_line('div', _id="browsers", _class="blue background")
     database.connect()
     try:
-        linux = select_browsers('linux', "opsys_group.name = 'Linux' AND NOT browser_group.terminal AND NOT opsys.mobile")
-        mac = select_browsers('mac', "opsys_group.name = 'Mac OS' AND NOT browser_group.terminal AND NOT opsys.mobile")
-        windows = select_browsers('windows', "opsys_group.name = 'Windows' AND NOT browser_group.terminal AND NOT opsys.mobile")
-        terminal = select_browsers('Terminal', "browser_group.terminal AND NOT opsys.mobile")
+        linux = select_browsers('linux', "opsys_group.name = 'Linux'" +
+            " AND NOT browser_group.terminal AND NOT opsys.mobile")
+        mac = select_browsers('mac', "opsys_group.name = 'Mac OS'" +
+            " AND NOT browser_group.terminal AND NOT opsys.mobile")
+        windows = select_browsers('windows', "opsys_group.name = 'Windows'" +
+            " AND NOT browser_group.terminal AND NOT opsys.mobile")
+        terminal = select_browsers('Terminal', "browser_group.terminal" +
+                                   " AND NOT opsys.mobile")
         mobile = select_browsers('Mobile', "opsys.mobile")
     finally:
         database.disconnect()
@@ -118,6 +129,7 @@ def write():
         write_float(column[1], column[2], column[3], leftmost)
         leftmost = False
 
-    xhtml.write_tag_line('input', _type="submit", _id="submit", _name="submit", value="Submit Jobs", _class="button")
+    xhtml.write_tag_line('input', value="Submit Jobs", _class="button",
+                         _type="submit", _id="submit", _name="submit")
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="browsers"
