@@ -24,7 +24,11 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import re, httplib, urllib, urlparse, socket
+import re
+import httplib
+import urllib
+import urlparse
+import socket
 from mod_python import util
 from shotserver03 import database
 
@@ -35,6 +39,7 @@ class UnexpectedInput(Exception):
 class UnsupportedProtocol(Exception):
     """The specified web address didn't start with http:// or https://."""
     pass
+
 
 def read_form(form):
     """
@@ -51,6 +56,7 @@ def read_form(form):
             raise UnexpectedInput(key)
     return url
 
+
 def server_said(errornumber, errorstring, prefix = '', suffix = ''):
     """
     Return a human-readable error message with the server answer.
@@ -63,6 +69,7 @@ def server_said(errornumber, errorstring, prefix = '', suffix = ''):
         result = result + ' ' + suffix
     return result
 
+
 def error_redirect(**params):
     """
     Redirect back to front page because an error has occurred.
@@ -73,7 +80,10 @@ def error_redirect(**params):
     else:
         util.redirect(req, '/')
 
+
 port_match = re.compile(r':(\d+)$').search
+
+
 def get_port(protocol, server):
     """
     Extract the port number from the server part of the URL.
@@ -88,6 +98,7 @@ def get_port(protocol, server):
     else:
         raise UnsupportedProtocol(protocol)
 
+
 def sanity_check_url(url):
     """
     Check the URL for obvious errors.
@@ -100,25 +111,32 @@ def sanity_check_url(url):
         if not url.count('/'):
             url += '/'
         suggestion = 'http://' + url.lstrip('/')
-        error_redirect(error = "URL must start with 'http://' or 'https://'. Please try again.", url = suggestion)
+        error_redirect(error=' '.join((
+            "URL must start with 'http://' or 'https://'.",
+            "Please try again.")), url=suggestion)
 
     if protocol not in ('http', 'https'):
-        error_redirect(error = "Protocol %s is not supported." % protocol, url = url)
+        error_redirect(error="Protocol %s is not supported." % protocol,
+                       url=url)
     if not server:
-        error_redirect(error = "Malformed URL. Please check for typos.", url = url)
+        error_redirect(error="Malformed URL. Please check for typos.", url=url)
 
     port = get_port(protocol, server)
     if port == 80:
         if protocol != 'http':
-            error_redirect(error = "Protocol must be http on port 80.", url = url)
+            error_redirect(error="Protocol must be http on port 80.", url=url)
     elif port == 443:
         if protocol != 'https':
-            error_redirect(error = "Protocol must be https on port 443.", url = url)
+            error_redirect(error="Protocol must be https on port 443.",
+                           url=url)
     elif port < 1024:
-        error_redirect(error = "Port %d is not supported." % port, url = url)
+        error_redirect(error="Port %d is not supported." % port, url=url)
 
     if not path:
-        error_redirect(error = "There must be a slash after the server name. Please try again.", url = url + '/')
+        error_redirect(error=' '.join((
+            "There must be a slash after the server name.",
+            "Please try again.")), url=url + '/')
+
 
 def test_get(url):
     """
