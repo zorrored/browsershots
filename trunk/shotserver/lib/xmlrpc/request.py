@@ -172,7 +172,7 @@ def pngtoppm(hashkey):
     magic, width, height, maxval = read_ppm_header(file(ppmname))
     assert magic == 'P6'
     assert maxval == 255
-    return 'OK', width, height, ppmhandle, ppmname
+    return 'OK', width, height, ppmname
 
 
 def zoom(ppmname, hashkey, width):
@@ -220,7 +220,7 @@ def upload(binary, crypt):
         hashkey = md5nonce.random_md5()
         save_upload(binary, hashkey)
 
-        status, width, height, ppmhandle, ppmname = pngtoppm(hashkey)
+        status, width, height, ppmname = pngtoppm(hashkey)
         if status != 'OK':
             return status, ''
         if request_width is not None and width != request_width:

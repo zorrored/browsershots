@@ -25,7 +25,7 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 import os
-from shotserver03.interface import xhtml, human
+from shotserver03.interface import xhtml
 from shotserver03.segments import factory_list
 from shotserver03.segments import factory_info, factory_browsers, screenshots
 from shotserver03 import database

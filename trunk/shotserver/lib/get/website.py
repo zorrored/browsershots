@@ -29,7 +29,7 @@ import cgi
 from mod_python import util
 from shotserver03.interface import xhtml
 from shotserver03.segments import screenshots, queue, browsers
-from shotserver03.segments import features, queue_notice
+from shotserver03.segments import features # , queue_notice
 from shotserver03 import database
 
 request_match = re.compile(

@@ -25,10 +25,10 @@ doctest :
 	@xargs -a check-doctest -n 1 python
 
 pylint :
-	@find lib scripts devtools -name "*.py" > check-pylint
+	@find lib scripts -name "*.py" > check-pylint
 	@echo "Running PyLint on "`wc -l < check-pylint`" files..."
 	@xargs -a check-pylint pylint \
-		--rcfile=devtools/pylintrc --disable-msg=$(DISABLE)
+		--rcfile=pylintrc --disable-msg=$(DISABLE)
 
 install :
 	python setup.py install

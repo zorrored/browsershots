@@ -26,7 +26,6 @@ __author__ = '$Author$'
 
 import time
 from shotserver03.interface import xhtml, human
-from shotserver03 import database
 
 
 def write():

@@ -24,8 +24,6 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-from shotserver03.database import options
-
 
 def get_priority(domain):
     """

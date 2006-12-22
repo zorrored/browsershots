@@ -7,10 +7,17 @@
 # can do whatever you want with this stuff. If we meet some day, and you think
 # this stuff is worth it, you can buy me a beer in return.   Poul-Henning Kamp
 
+"""
+MD5 encryption for passwords, compatible with UNIX and Apache.
+"""
+
 import md5
 
 
 def md5crypt(password, salt, magic='$1$'):
+    """
+    Encrypt a password for use with UNIX or Apache (magic $apr1$).
+    """
     m = md5.new()
     m.update(password) # The password first, since that is what is most unknown
     m.update(magic)    # Then our magic string
@@ -55,16 +62,19 @@ def md5crypt(password, salt, magic='$1$'):
                     (3, 9, 15), (4, 10, 5)):
         v = ord(final[a]) << 16 | ord(final[b]) << 8 | ord(final[c])
         for i in range(4):
-            rearranged += itoa64[v & 0x3f]; v >>= 6
+            rearranged += itoa64[v & 0x3f]
+            v >>= 6
     v = ord(final[11])
     for i in range(2):
-        rearranged += itoa64[v & 0x3f]; v >>= 6
+        rearranged += itoa64[v & 0x3f]
+        v >>= 6
 
     return magic + salt + '$' + rearranged
 
 if __name__ == '__main__':
 
     def test(clear_password, the_hash):
+        """Test the md5crypt function against a precomputed hash."""
         magic, salt = the_hash[1:].split('$')[:2]
         magic = '$' + magic + '$'
         return md5crypt(clear_password, salt, magic) == the_hash
