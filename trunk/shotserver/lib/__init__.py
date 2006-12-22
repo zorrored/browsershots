@@ -156,8 +156,7 @@ def handler(req):
         bottom.write()
 
         xhtml.write_close_tag_line('div') # id="all"
-        google_analytics('HTTPS' in req.subprocess_env
-            and req.subprocess_env['HTTPS'] == 'on')
+        google_analytics(req.info.uri.protocol == 'https')
 
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
