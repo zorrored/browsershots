@@ -61,7 +61,7 @@ def negotiate_xml():
     """
     Check if the client can handle application/xhtml+xml.
     """
-    if not req.headers_in.has_key('Accept'):
+    if not 'Accept' in req.headers_in:
         return True # Send XML to validator.w3.org etc.
     if req.headers_in['Accept'].count('application/xhtml+xml'):
         return True # Send XML to all modern browsers.

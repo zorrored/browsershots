@@ -24,7 +24,8 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import re, cgi
+import re
+import cgi
 from mod_python import util
 from shotserver03.interface import xhtml
 from shotserver03.segments import factory_list
@@ -68,6 +69,7 @@ def read_params():
     finally:
         database.disconnect()
 
+
 def redirect():
     """
     Redirect if the website address can be shown in the URL.
@@ -77,11 +79,13 @@ def redirect():
             req.info.uri.protocol, req.info.uri.hostname, req.params.nickname)
         util.redirect(req, location)
 
+
 def title():
     """
     Page title.
     """
     return "Screenshot factories run by %s" % req.params.nickname
+
 
 def body():
     """

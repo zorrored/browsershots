@@ -27,13 +27,16 @@ __author__ = '$Author$'
 from shotserver03.interface import xhtml
 from shotserver03.segments import inputurl, about, news, sponsors
 
-def title():
-    """Page title."""
-    return "Test your web design in different browsers"
 
 class UnexpectedFieldName(Exception):
     """The posted input contained an unexpected field name."""
     pass
+
+
+def title():
+    """Page title."""
+    return "Test your web design in different browsers"
+
 
 def read_form():
     """
@@ -51,6 +54,7 @@ def read_form():
         value = value.replace('>', '&gt;')
         result[field.name] = value
     return result
+
 
 def body():
     """

@@ -43,7 +43,8 @@ def read_params():
             factory = req.info.options[0]
             if factory.isdigit():
                 req.params.factory = factory
-                req.params.factory_name = database.factory.serial_to_name(factory)
+                req.params.factory_name = \
+                    database.factory.serial_to_name(factory)
             else:
                 req.params.factory_name = factory
                 req.params.factory = database.factory.name_to_serial(factory)
