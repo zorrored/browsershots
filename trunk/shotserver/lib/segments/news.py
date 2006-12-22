@@ -28,13 +28,18 @@ import re
 import time
 from shotserver03.interface import xhtml, human
 
-find_items = re.compile('<item>\s*<title>(.+?)</title>\s*<pubDate>(.+?)</pubDate>\s*<link>(http.+?)</link>').findall
+find_items = re.compile(r'<item>\s*<title>(.+?)</title>\s*' +
+                        r'<pubDate>(.+?)</pubDate>\s*' +
+                        r'<link>(http.+?)</link>').findall
+
 def write():
     """
     Write XHTML div with latest news headlines.
     """
     xhtml.write_open_tag_line('div', _id="news")
-    xhtml.write_tag_line('h2', xhtml.tag('a', "Latest News", href='http://trac.browsershots.org/blog'))
+    link = xhtml.tag('a', "Latest News",
+                     href='http://trac.browsershots.org/blog')
+    xhtml.write_tag_line('h2', link)
 
     xhtml.write_open_tag_line('ul')
     rss = file('/var/www/browsershots.org/blog/rss.xml').read()

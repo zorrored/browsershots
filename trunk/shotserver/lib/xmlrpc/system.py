@@ -34,6 +34,7 @@ magic_names = {'listMethods': 'list_methods',
                'methodHelp': 'method_help',
                'methodSignature': 'method_signature'}
 
+
 def list_methods():
     """
     list_methods() => array
@@ -51,6 +52,7 @@ def list_methods():
             result.append(modulename + '.' + methodname)
     return result
 
+
 def method_signature(module_methodname):
     """
     method_signature(string) => array
@@ -63,6 +65,7 @@ def method_signature(module_methodname):
     dummy, method = xmlrpc.module_method(module_methodname)
     return xmlrpc.split_docstring(method.__doc__)[0]
 
+
 def method_help(module_methodname):
     """
     method_help(string) => string
@@ -74,7 +77,8 @@ def method_help(module_methodname):
     return xmlrpc.split_docstring(method.__doc__)[1]
 
 if __name__ == '__main__':
-    import sys, doctest
+    import sys
+    import doctest
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)

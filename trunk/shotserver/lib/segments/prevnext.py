@@ -28,13 +28,15 @@ from math import sqrt
 from shotserver03 import database
 from shotserver03.interface import xhtml
 
+
 def write(direction='prev'):
     """
     Write XHTML div with previous and next screenshot.
     """
     database.connect()
     try:
-        rows = database.screenshot.select_prevnext(direction, req.params.website, req.params.screenshot)
+        rows = database.screenshot.select_prevnext(
+            direction, req.params.website, req.params.screenshot)
     finally:
         database.disconnect()
 
@@ -59,14 +61,16 @@ def write(direction='prev'):
             xhtml.write_tag_line('p', link, _class="up bold left")
         for index, row in enumerate(rows):
             if index == 3:
-                xhtml.write_tag_line('p', '%d more...' % (len(rows) - 3), _class="up")
+                xhtml.write_tag_line('p', '%d more...' %
+                                     (len(rows) - 3), _class="up")
                 break
             hashkey, width, height = row
             zoom = int(1000 / sqrt(index + 1))
             height = height * 140 / width * zoom / 1000
             width = 140 * zoom / 1000
             prefix = hashkey[:2]
-            img = xhtml.tag('img', src='/png/140/%s/%s.png' % (prefix, hashkey),
+            img = xhtml.tag('img',
+                            src='/png/140/%s/%s.png' % (prefix, hashkey),
                             width=width, height=height, alt="")
             xhtml.write_tag('a', img, href='/screenshots/%s/' % hashkey)
             xhtml.write_tag_line('br')

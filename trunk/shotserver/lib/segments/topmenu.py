@@ -26,6 +26,7 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml, menu
 
+
 def write():
     """
     Write XHTML top menu bar.
@@ -35,10 +36,13 @@ def write():
     menu.write('float-left', (
         "Screenshots=/screenshots/",
         "Queue=/queue/",
-        "Factories=/factories/"))
+        "Factories=/factories/",
+        ))
 
     menu.write('float-right mockup', (
-        "Technology Preview=http://browsershots.org/blog/2006/06/12/technology-preview/", ))
+        "Technology Preview=" +
+        "http://browsershots.org/blog/2006/06/12/technology-preview/",
+        ))
 
     xhtml.write_tag_line('div', '', _class="clear")
     xhtml.write_close_tag_line('div') # id="topmenu"

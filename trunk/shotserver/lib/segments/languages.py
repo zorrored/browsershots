@@ -27,17 +27,16 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+
 def write():
     """
     Write XHTML form with drop-down language selector.
     """
     xhtml.write_open_tag_line('form', action="")
     xhtml.write_open_tag_line('div', _id="languages", _class="float-right")
-
-    parts = ("document.location.href='/intl/'",
-             "this.form.langsel.options[this.form.langsel.options.selectedIndex].value",
-             "document.location.pathname")
-    xhtml.write_open_tag_line('select', _id="langsel", onchange='+'.join(parts))
+    xhtml.write_open_tag_line('select', _id="langsel", onchange="""\
+document.location.href='/intl/'+this.form.langsel.options[this.form.\
+langsel.options.selectedIndex].value+document.location.pathname""")
     xhtml.write_tag_line('option', 'English', value="en")
     xhtml.write_tag_line('option', 'English (Canada)', value="en-CA")
     xhtml.write_tag_line('option', 'Deutsch', value="de")

@@ -24,10 +24,12 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import xmlrpclib, re
+import xmlrpclib
+import re
 
 # A list of sub-modules to export through XML-RPC.
 export_modules = ['system', 'auth', 'factory', 'request']
+
 
 def import_deep(name):
     """
@@ -40,6 +42,7 @@ def import_deep(name):
         mod = getattr(mod, comp)
     return mod
 
+
 def module_method(module_methodname):
     """
     Import a module and method by string names.
@@ -48,14 +51,17 @@ def module_method(module_methodname):
     modulename, methodname = module_methodname.rsplit('.', 1)
     module = import_deep('shotserver03.xmlrpc.%s' % modulename)
     if hasattr(module, 'magic_names'):
-        if module.magic_names.has_key(methodname):
+        if methodname in module.magic_names:
             methodname = module.magic_names[methodname]
     assert hasattr(module, methodname)
     method = getattr(module, methodname)
     return module, method
 
+
 whitespace_match = re.compile(r'\n*([\s\t]*)').match
 signature_match = re.compile(r'(\w+)\(([^\)]*)\)\s+=>\s+(\w+)\s*$').match
+
+
 def split_docstring(doc):
     """
     split_docstring(string) => array
@@ -95,6 +101,7 @@ def split_docstring(doc):
     doc = '\n'.join(doc).strip()
     return signatures, doc
 
+
 def handler(req):
     """
     Handler for XML-RPC requests.
@@ -120,7 +127,8 @@ def handler(req):
     return apache.OK
 
 if __name__ == '__main__':
-    import sys, doctest
+    import sys
+    import doctest
     errors, tests = doctest.testmod()
     if errors:
         sys.exit(1)

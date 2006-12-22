@@ -26,18 +26,21 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+
 def write():
     """
     Write XHTML paragraph about queue length.
     """
-    queue_link = xhtml.tag('a', 'queue', href="http://v03.browsershots.org/queue/")
+    queue_link = xhtml.tag('a', '%s',
+        href="http://v03.browsershots.org/queue/")
+    wiki_link =  xhtml.tag('a', '%s',
+        href="http://trac.browsershots.org/wiki/HowToCreateNewShotFactory")
     xhtml.write_open_tag('p', _id="queue-notice")
     req.write('\n'.join((
-        "<b>Important notice:</b> The %s is quite full at the moment." % queue_link,
-        "Some of your screenshot requests will expire before they can be processed.",
-        "See the <b>maximum wait</b> option at the bottom of this page.",
-        "Please try again in a few days.",
-        xhtml.tag('a', "I'm looking for volunteers to run more screenshot factories.",
-                  href="http://trac.browsershots.org/wiki/HowToCreateNewShotFactory"),
-        )))
+"<b>%s</b>" % "Important notice:",
+queue_link % "The queue is quite full at the moment.",
+"Some of your screenshot requests will expire before they can be processed.",
+"Please try again in a few days.",
+"I'm looking for volunteers to run more screenshot factories.",
+wiki_link % "If you want to help, see the wiki for more information.")))
     xhtml.write_close_tag_line('p') # id="queue-notice"

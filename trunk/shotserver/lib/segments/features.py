@@ -51,49 +51,58 @@ def write():
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Screen resolution")
     xhtml.write_tag_line('br')
-    write_select('width', "dontcare=Don't Care|640=Tiny (640x480)|800=Small (800x600)|1024=Medium (1024x768)" +
-                 "|1280=Large (1280x1024)|1600=Huge (1600x1200)")
+    write_select('width',
+        "dontcare=Don't Care|640=Tiny (640x480)|800=Small (800x600)|" +
+        "1024=Medium (1024x768)|1280=Large (1280x1024)|1600=Huge (1600x1200)")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "JavaScript")
     xhtml.write_tag_line('br')
-    write_select('js', "dontcare=Don't Care|no=Disabled|yes=Enabled|1.3=Version 1.3|1.4=Version 1.4|" +
-                 "1.5=Version 1.5|1.6=Version 1.6")
+    write_select('js',
+        "dontcare=Don't Care|no=Disabled|yes=Enabled|1.3=Version 1.3|" +
+        "1.4=Version 1.4|1.5=Version 1.5|1.6=Version 1.6")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Macromedia Flash")
     xhtml.write_tag_line('br')
-    write_select('flash', "dontcare=Don't Care|no=Not Installed|yes=Installed|4=Version 4|5=Version 5|6=Version 6" +
-                 "|7=Version 7|8=Version 8")
+    write_select('flash',
+        "dontcare=Don't Care|no=Not Installed|yes=Installed|4=Version 4|" +
+        "5=Version 5|6=Version 6|7=Version 7|8=Version 8")
     xhtml.write_close_tag_line('div')
 
-    # If jobs can't be finished soon enough, they will be removed from the queue.
+    # If jobs can't be processed, they will be removed from the queue.
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Maximum wait")
     xhtml.write_tag_line('br')
-    write_select('expire', "0:15=15 minutes|0:30=30 minutes|1:00=1 hour|2:00=2 hours|4:00=4 hours", 2)
+    write_select('expire',
+        "0:15=15 minutes|0:30=30 minutes|1:00=1 hour|" +
+        "2:00=2 hours|4:00=4 hours", 2)
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Color depth")
     xhtml.write_tag_line('br')
-    write_select('bpp', "dontcare=Don't Care|4=4 Bits (16 Colors)|8=8 Bits (256 Colors)|" +
-                 "16=16 Bits (High Color)|24=24 Bits (True Color)")
+    write_select('bpp',
+        "dontcare=Don't Care|4=4 Bits (16 Colors)|8=8 Bits (256 Colors)|" +
+        "16=16 Bits (High Color)|24=24 Bits (True Color)")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Java")
     xhtml.write_tag_line('br')
-    write_select('java', "dontcare=Don't Care|no=Not Installed|yes=Installed|blackdown=Blackdown|kaffe=Kaffe" +
-                 "|sun=Sun Java|sun_1.2=Sun Java 1.2|sun_1.3=Sun Java 1.3|sun_1.4=Sun Java 1.4|sun_5.0=Sun Java 5.0")
+    write_select('java',
+        "dontcare=Don't Care|no=Not Installed|yes=Installed|" +
+        "blackdown=Blackdown|kaffe=Kaffe|sun=Sun Java")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_open_tag_line('div', _class="float-left")
     xhtml.write_tag('b', "Media plugins")
     xhtml.write_tag_line('br')
-    write_select('media', "dontcare=Don't Care|quicktime=Apple Quicktime|wmp=Windows Media Player|svg=SVG|pdf=PDF")
+    write_select('media',
+        "dontcare=Don't Care|quicktime=Apple Quicktime|" +
+        "wmp=Windows Media Player|svg=SVG|pdf=PDF")
     xhtml.write_close_tag_line('div')
 
     xhtml.write_tag_line('div', '', _class="clear")
