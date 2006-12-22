@@ -28,6 +28,7 @@ import time
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
+
 def write():
     """
     Write XHTML div with recent screenshots.
@@ -52,7 +53,8 @@ def write():
         xhtml.write_tag_line('br')
         req.write('%s %s on %s' % (browser, version, platform))
 
-        timespan = human.timespan(now - created, units='long').replace(' ', '&nbsp;')
+        timespan = human.timespan(now - created, units='long')
+        timespan = timespan.replace(' ', '&nbsp;')
         req.write(', %s ago' % timespan)
         xhtml.write_tag_line('br')
 

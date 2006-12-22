@@ -26,6 +26,7 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+
 def write():
     """
     Write XHTML div with sponsor logos.
@@ -50,7 +51,8 @@ def write():
 
     img = xhtml.tag('img', src="/style/brandup40.png",
                     alt="Brand Up LLC", _class="top")
-    link = xhtml.tag('a', img, href='http://brand-up.com/?utm_source=Browsershots&amp;utm_medium=sponsorship')
+    link = xhtml.tag('a', img, href=
+"http://brand-up.com/?utm_source=Browsershots&amp;utm_medium=sponsorship")
     xhtml.write_tag_line('p', link)
 
     xhtml.write_close_tag_line('div') # id="sponsors"

@@ -28,6 +28,7 @@ from shotserver03 import database
 
 export_methods = ['challenge', 'test']
 
+
 def challenge(factory):
     """
     challenge(string) => string
@@ -51,6 +52,7 @@ def challenge(factory):
         return salt + nonce
     finally:
         database.disconnect()
+
 
 def test(factory, crypt):
     """

@@ -28,6 +28,7 @@ from shotserver03 import database
 
 export_methods = ['features']
 
+
 def features(factory):
     """
     features(string) => string

@@ -26,6 +26,7 @@ __author__ = '$Author$'
 
 from shotserver03.interface import xhtml
 
+
 def write():
     """
     XHTML div with screenshot preview.

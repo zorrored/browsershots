@@ -28,6 +28,7 @@ import time
 from shotserver03.interface import xhtml, human
 from shotserver03 import database
 
+
 def optionstring(group_row):
     """
     Convert some options to a human-readable string.
@@ -84,6 +85,7 @@ def write_requests(requests, opsys_dict):
         xhtml.write_tag_line('li', '%s: %s' % (platform, browsers))
     xhtml.write_close_tag_line('ul')
 
+
 def write():
     """
     Write XHTML table with queued requests for a given website.
@@ -103,7 +105,8 @@ def write():
             remaining = human.timespan(expire - time.time(), units='long')
             if time.time() - submitted < 30 and index == len(groups) - 1:
                 xhtml.write_open_tag('p', _class="success")
-                xhtml.write_tag('a', xhtml.tag('b', 'Just submitted'), _id="success")
+                xhtml.write_tag('a', xhtml.tag('b', 'Just submitted'),
+                                id_="success")
             else:
                 xhtml.write_open_tag('p')
                 xhtml.write_tag('b', 'Submitted %s ago' % age)
