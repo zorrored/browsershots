@@ -173,8 +173,8 @@ def insert(values):
     cur.execute("""\
 INSERT INTO request
 (request_group, browser_group, major, minor, opsys_group, priority)
-VALUES
-(%(request_group)s, %(browser_group)s, %(major)s, %(minor)s, %(opsys_group)s, %(priority)s)
+VALUES (%(request_group)s, %(browser_group)s, %(major)s, %(minor)s,
+        %(opsys_group)s, %(priority)s)
 """, values)
 
 
@@ -192,6 +192,7 @@ def update_browser(request, browser):
 UPDATE request SET browser = %s, redirected = NOW()
 WHERE request = %s
 """, (browser, request))
+
 
 def update_screenshot(request, screenshot):
     """Set the screenshot for a request."""
