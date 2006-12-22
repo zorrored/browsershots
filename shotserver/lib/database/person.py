@@ -29,11 +29,22 @@ from shotserver03.util import md5nonce
 from shotserver03.util import md5crypt
 
 
-def select_username(serial):
+def select_nickname(serial):
     """
-    Get the username from the database.
+    Get the nickname from the database.
     """
-    cur.execute("SELECT username FROM person WHERE person=%s", (serial, ))
+    cur.execute("SELECT nickname FROM person WHERE person=%s", (serial, ))
+    result = cur.fetchone()
+    if result is None:
+        return None
+    return result[0]
+
+
+def select_serial(nickname):
+    """
+    Get the serial number from the database.
+    """
+    cur.execute("SELECT person FROM person WHERE nickname=%s", (nickname, ))
     result = cur.fetchone()
     if result is None:
         return None

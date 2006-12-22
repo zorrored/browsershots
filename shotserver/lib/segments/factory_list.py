@@ -32,12 +32,6 @@ def write():
     """
     Write XHTML table with factories overview.
     """
-    database.connect()
-    try:
-        rows = database.factory.select_active()
-    finally:
-        database.disconnect()
-
     now = time.time()
     xhtml.write_open_tag_line('table', _id="factories")
     xhtml.write_table_row((
@@ -49,7 +43,7 @@ def write():
         "Uploads<br />per hour",
         "Uploads<br />per day",
         ), element="th")
-    for index, row in enumerate(rows):
+    for index, row in enumerate(req.params.show_factories):
         (factory, name, owner,
          opsys, distro, major, minor, codename,
          last_poll, last_upload, per_hour, per_day) = row

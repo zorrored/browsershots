@@ -28,26 +28,30 @@ import os
 from shotserver03.interface import xhtml, human
 from shotserver03.segments import factory_list
 from shotserver03.segments import factory_info, factory_browsers, screenshots
-from shotserver03 import database as db
+from shotserver03 import database
+
 
 def read_params():
     """
     Read parameters from the request URL.
     """
-    if len(req.info.options) == 1:
-        factory = req.info.options[0]
-        db.connect()
-        try:
+    database.connect()
+    try:
+        if len(req.info.options) == 0:
+            req.params.show_factories = database.factory.select_active()
+        else:
+            factory = req.info.options[0]
             if factory.isdigit():
                 req.params.factory = factory
-                req.params.factory_name = db.factory.serial_to_name(factory)
+                req.params.factory_name = database.factory.serial_to_name(factory)
             else:
                 req.params.factory_name = factory
-                req.params.factory = db.factory.name_to_serial(factory)
-            req.params.show_screenshots = db.screenshot.select_recent(
+                req.params.factory = database.factory.name_to_serial(factory)
+            req.params.show_screenshots = database.screenshot.select_recent(
                 'screenshot.factory = %s', (req.params.factory, ))
-        finally:
-            db.disconnect()
+    finally:
+        database.disconnect()
+
 
 def title():
     """Return page title."""
@@ -56,6 +60,7 @@ def title():
     else:
         return "Screenshot Factories"
 
+
 def write_img(name):
     """Show factory image."""
     src = '/static/factories/240/%s.jpg' % name
@@ -63,6 +68,7 @@ def write_img(name):
         alt = "Picture of screenshot factory %s." % name
         img = xhtml.tag('img', src=src, alt=alt)
         xhtml.write_tag_line('p', img, _class="float-right")
+
 
 def body():
     """
