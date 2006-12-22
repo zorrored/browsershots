@@ -34,6 +34,10 @@ class URI:
     """
 
     def __init__(self, basepath = ''):
+        self.protocol = 'http'
+        if 'HTTPS' in req.subprocess_env:
+            if req.subprocess_env['HTTPS'] == 'on':
+                self.protocol = 'https'
         self.hostname = req.hostname
         self.raw = req.uri
 
