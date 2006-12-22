@@ -93,6 +93,21 @@ def write_html_head(title):
     xhtml.write_close_tag_line('head')
 
 
+def google_analytics(https=False):
+    if https:
+        req.write('<script src="https://ssl.google-analytics.com/urchin.js" ')
+    else:
+        req.write('<script src="http://www.google-analytics.com/urchin.js" ')
+    req.write("""\
+type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-939486-1";
+urchinTracker();
+</script>
+""")
+
+
 def handler(req):
     """
     Process a HTTP request.
@@ -141,15 +156,8 @@ def handler(req):
         bottom.write()
 
         xhtml.write_close_tag_line('div') # id="all"
-
-        req.write("""\
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-_uacct = "UA-939486-1";
-urchinTracker();
-</script>
-""")
+        google_analytics('HTTPS' in req.subprocess_env
+            and req.subprocess_env['HTTPS'] == 'on')
 
         xhtml.write_close_tag_line('body')
         xhtml.write_close_tag_line('html')
