@@ -32,6 +32,7 @@ find_items = re.compile(r'<item>\s*<title>(.+?)</title>\s*' +
                         r'<pubDate>(.+?)</pubDate>\s*' +
                         r'<link>(http.+?)</link>').findall
 
+
 def write():
     """
     Write XHTML div with latest news headlines.
