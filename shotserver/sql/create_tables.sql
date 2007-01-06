@@ -142,7 +142,16 @@ CREATE TABLE factory_browser (
     last_upload timestamp without time zone,
     user_agent character varying(255),
     command character varying(255),
-    disabled timestamp without time zone
+    disabled timestamp without time zone,
+    factory_browser serial NOT NULL,
+    major integer NOT NULL,
+    minor integer NOT NULL,
+    engine integer,
+    browser_group integer,
+    created timestamp without time zone DEFAULT now(),
+    creator integer NOT NULL,
+    version character varying(20) NOT NULL,
+    engine_version character varying(20)
 );
 
 
@@ -240,6 +249,7 @@ CREATE TABLE person (
     nickname character varying(20) NOT NULL,
     name character varying(40) NOT NULL,
     htpasswd character(37),
+    CONSTRAINT person_nickname_check CHECK (((nickname)::text ~ '[a-z][0-9a-z]*'::text)),
     CONSTRAINT person_password_check CHECK (("password" ~ '[0-9a-f]{32}'::text)),
     CONSTRAINT person_salt_check CHECK ((salt ~ '[0-9a-f]{4}'::text))
 );
@@ -340,6 +350,14 @@ ALTER TABLE ONLY browser
 
 ALTER TABLE ONLY engine
     ADD CONSTRAINT engine_pkey PRIMARY KEY (engine);
+
+
+--
+-- Name: factory_browser_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
+--
+
+ALTER TABLE ONLY factory_browser
+    ADD CONSTRAINT factory_browser_pkey PRIMARY KEY (factory_browser);
 
 
 --
@@ -606,6 +624,14 @@ ALTER TABLE ONLY browser
 
 
 --
+-- Name: browser_engine_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_browser
+    ADD CONSTRAINT browser_engine_fkey FOREIGN KEY (engine) REFERENCES engine(engine);
+
+
+--
 -- Name: browser_group_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
 --
 
@@ -635,6 +661,22 @@ ALTER TABLE ONLY factory
 
 ALTER TABLE ONLY factory_browser
     ADD CONSTRAINT factory_browser_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
+
+
+--
+-- Name: factory_browser_browser_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_browser
+    ADD CONSTRAINT factory_browser_browser_group_fkey FOREIGN KEY (browser_group) REFERENCES browser_group(browser_group);
+
+
+--
+-- Name: factory_browser_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_browser
+    ADD CONSTRAINT factory_browser_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
 
 
 --
