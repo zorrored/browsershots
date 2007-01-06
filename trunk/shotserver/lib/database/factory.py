@@ -81,10 +81,9 @@ WHERE factory = %s
 
     # Match browsers names and versions
     cur.execute("""\
-SELECT DISTINCT browser.name, factory_browser.major, factory_browser.minor
+SELECT DISTINCT browser_group.name, major, minor
 FROM factory_browser
-JOIN browser USING (browser)
-JOIN browser_group ON (browser_group.browser_group = factory_browser.browser_group)
+JOIN browser_group USING (browser_group)
 WHERE factory = %s
 AND factory_browser.disabled IS NULL
 """, (factory, ))
