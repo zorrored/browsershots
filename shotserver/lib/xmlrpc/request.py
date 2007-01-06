@@ -204,7 +204,7 @@ def upload(binary, crypt):
     ppmname = ''
     try:
         ip = req.connection.remote_ip
-        status, request, request_width, factory, browser = \
+        status, request, request_width, factory, browser, factory_browser = \
             database.nonce.authenticate_request(ip, crypt)
         if status != 'OK':
             return status, ''
@@ -233,12 +233,7 @@ def upload(binary, crypt):
         assert zoom(ppmname, hashkey, 240) # 3*240 + 2*22 = 764
         assert zoom(ppmname, hashkey, 450) # 3*140 + 2*15
 
-        values = {'hashkey': hashkey,
-                  'factory': factory,
-                  'browser': browser,
-                  'width': width,
-                  'height': height}
-        database.insert('screenshot', values)
+        database.screenshot.insert(hashkey, factory, browser, factory_browser, width, height)
         database.request.update_screenshot(request, database.lastval())
         database.factory.update_last_upload(factory)
         database.factory_browser.update_last_upload(factory, browser)

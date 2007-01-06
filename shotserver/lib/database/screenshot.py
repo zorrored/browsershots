@@ -40,6 +40,17 @@ WHERE hashkey = %s
     return result
 
 
+def insert(hashkey, factory, browser, factory_browser, width, height):
+    """
+    Insert a screenshot into the database.
+    """
+    cur.execute("""\
+INSERT INTO screenshot
+(hashkey, factory, browser, factory_browser, width, height)
+VALUES (%s, %s, %s, %s, %s, %s)
+""", (hashkey, factory, browser, factory_browser, width, height))
+
+
 def info(screenshot):
     """
     Get some info about this screenshot.
