@@ -116,7 +116,7 @@ def authenticate_request(ip, crypt):
     crypt = md5(md5(salt + password) + nonce)
     """
     cur.execute("""\
-SELECT nonce, request, width, factory.factory, browser
+SELECT nonce, request, width, factory.factory, browser, factory_browser
 FROM nonce
 JOIN request USING (request)
 JOIN request_group USING (request_group)
@@ -130,9 +130,9 @@ OR md5(owner.password || nonce.nonce) = %s)
     if row is None:
         return 'Password mismatch.', 0, 0, 0, 0
     else:
-        nonce, request, width, factory, browser = row
+        nonce, request, width, factory, browser, factory_browser = row
         cur.execute("DELETE FROM nonce WHERE nonce = %s", (nonce, ))
         if cur.rowcount:
-            return 'OK', request, width, factory, browser
+            return 'OK', request, width, factory, browser, factory_browser
         else:
             return 'Nonce expired.', 0, 0, 0, 0

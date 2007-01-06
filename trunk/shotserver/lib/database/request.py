@@ -189,12 +189,12 @@ WHERE request = %s
 """, (factory, request))
 
 
-def update_browser(request, browser):
+def update_browser(request, browser, factory_browser):
     """Set the browser for a request."""
     cur.execute("""\
-UPDATE request SET browser = %s, redirected = NOW()
+UPDATE request SET browser = %s, factory_browser = %s, redirected = NOW()
 WHERE request = %s
-""", (browser, request))
+""", (browser, factory_browser, request))
 
 
 def update_screenshot(request, screenshot):

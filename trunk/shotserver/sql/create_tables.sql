@@ -83,7 +83,8 @@ CREATE TABLE request (
     screenshot integer,
     locked timestamp without time zone,
     factory integer,
-    priority integer DEFAULT 0 NOT NULL
+    priority integer DEFAULT 0 NOT NULL,
+    factory_browser integer
 );
 
 
@@ -297,6 +298,7 @@ CREATE TABLE screenshot (
     width integer NOT NULL,
     height integer NOT NULL,
     created timestamp without time zone DEFAULT now(),
+    factory_browser integer,
     CONSTRAINT screenshot_hashkey_check CHECK ((hashkey ~ '[0-9a-f]{32}'::text))
 );
 
@@ -808,6 +810,14 @@ ALTER TABLE ONLY request
 
 
 --
+-- Name: request_factory_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request
+    ADD CONSTRAINT request_factory_browser_fkey FOREIGN KEY (factory_browser) REFERENCES factory_browser(factory_browser);
+
+
+--
 -- Name: request_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
 --
 
@@ -861,6 +871,14 @@ ALTER TABLE ONLY request
 
 ALTER TABLE ONLY screenshot
     ADD CONSTRAINT screenshot_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
+
+
+--
+-- Name: screenshot_factory_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY screenshot
+    ADD CONSTRAINT screenshot_factory_browser_fkey FOREIGN KEY (factory_browser) REFERENCES factory_browser(factory_browser);
 
 
 --
