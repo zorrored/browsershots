@@ -34,7 +34,7 @@ from shotserver03 import database
 
 request_match = re.compile(
     r'(\w+)\s+(/(|intl/[\w\-]+/)website/(\S*))\s+(HTTP/[\d\.]+)$').match
-simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%]+)$').match
+simple_url_match = re.compile(r'^(https?://[\w\.,:;\-\_/\?&=%\[\]]+)$').match
 protocol_match = re.compile(r'^(\w+:)(/+)(.+)$').match
 
 
