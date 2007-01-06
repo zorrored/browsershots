@@ -31,10 +31,10 @@ def get_command(factory, browser, major, minor):
 SELECT command
 FROM factory_browser
 JOIN browser USING (browser)
-JOIN browser_group USING (browser_group)
+JOIN browser_group ON (browser_group.browser_group = factory_browser.browser_group)
 WHERE factory = %s
-AND browser.name = %s
-AND major = %s AND minor = %s
+AND browser_group.name = %s
+AND factory_browser.major = %s AND factory_browser.minor = %s
     """, (factory, browser, major, minor))
     result = cur.fetchone()
     if result is not None:
@@ -51,7 +51,7 @@ SELECT browser, browser.name, version, engine.name, manufacturer,
        extract(epoch from last_upload)::bigint AS last_upload
 FROM factory_browser
 JOIN browser USING (browser)
-JOIN browser_group USING (browser_group)
+JOIN browser_group ON (browser_group.browser_group = factory_browser.browser_group)
 LEFT JOIN engine USING (engine)
 WHERE factory = %s
 AND factory_browser.disabled IS NULL
@@ -75,16 +75,15 @@ def active_browsers(where):
     Get browsers on active factories.
     """
     cur.execute("""\
-SELECT DISTINCT browser.name, browser.major, browser.minor
+SELECT DISTINCT browser_group.name, factory_browser.major, factory_browser.minor
 FROM factory_browser
 JOIN factory USING (factory)
 JOIN opsys USING (opsys)
 JOIN opsys_group USING (opsys_group)
-JOIN browser USING (browser)
-JOIN browser_group USING (browser_group)
+JOIN browser_group ON (browser_group.browser_group = factory_browser.browser_group)
 WHERE %s
 AND factory.last_poll > NOW()-'0:10'::interval
 AND factory_browser.disabled IS NULL
-ORDER BY browser.name, browser.major, browser.minor
+ORDER BY browser_group.name, factory_browser.major, factory_browser.minor
 """ % where)
     return cur.fetchall()

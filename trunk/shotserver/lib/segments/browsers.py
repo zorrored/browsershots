@@ -113,7 +113,7 @@ def write():
         columns.append([len(mobile), 'Mobile', mobile, 1])
 
     used = len(columns)
-    while used < 5:
+    while 0 < used < 5:
         columns.sort()
         longest = columns[-1]
         if longest[0] <= 5:
