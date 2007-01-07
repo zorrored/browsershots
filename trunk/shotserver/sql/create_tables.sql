@@ -78,7 +78,6 @@ CREATE TABLE request (
     minor integer,
     opsys_group integer,
     opsys integer,
-    browser integer,
     redirected timestamp without time zone,
     screenshot integer,
     locked timestamp without time zone,
@@ -294,7 +293,6 @@ CREATE TABLE screenshot (
     screenshot serial NOT NULL,
     hashkey character(32) NOT NULL,
     factory integer NOT NULL,
-    browser integer NOT NULL,
     width integer NOT NULL,
     height integer NOT NULL,
     created timestamp without time zone DEFAULT now(),
@@ -794,14 +792,6 @@ ALTER TABLE ONLY opsys
 
 
 --
--- Name: request_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
---
-
-ALTER TABLE ONLY request
-    ADD CONSTRAINT request_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
-
-
---
 -- Name: request_browser_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
 --
 
@@ -863,14 +853,6 @@ ALTER TABLE ONLY request
 
 ALTER TABLE ONLY request
     ADD CONSTRAINT request_screenshot_fkey FOREIGN KEY (screenshot) REFERENCES screenshot(screenshot) ON DELETE CASCADE;
-
-
---
--- Name: screenshot_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
---
-
-ALTER TABLE ONLY screenshot
-    ADD CONSTRAINT screenshot_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
 
 
 --

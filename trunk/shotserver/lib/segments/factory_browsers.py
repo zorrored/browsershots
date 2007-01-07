@@ -48,7 +48,7 @@ def write():
             "Uploads<br />per day",
             ), element="th")
         for index, row in enumerate(rows):
-            (browser, name, version, engine, manufacturer,
+            (factory_browser, name, version, engine, manufacturer,
              last_upload) = row
             xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
             # link = xhtml.tag('a', name, href="/browsers/" + name)
@@ -61,13 +61,13 @@ def write():
             xhtml.write_tag('td', last_upload)
 
             per_hour = database.screenshot.count_uploads(
-                'factory=%s AND browser=%s', (factory, browser), '1:00')
+                'factory_browser=%s', (factory_browser, ), '1:00')
             if per_hour == 0:
                 per_hour = None
             xhtml.write_tag('td', per_hour)
 
             per_day = database.screenshot.count_uploads(
-                'factory=%s AND browser=%s', (factory, browser), '24:00')
+                'factory_browser=%s', (factory_browser, ), '24:00')
             if per_day == 0:
                 per_day = None
             xhtml.write_tag('td', per_day)

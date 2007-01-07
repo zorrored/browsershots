@@ -46,7 +46,7 @@ AND major = %s AND minor = %s
 def factory_browsers(factory):
     """Get the browsers that are supported by this factory."""
     cur.execute("""\
-SELECT browser, browser_group.name, version, engine.name, manufacturer,
+SELECT factory_browser, browser_group.name, version, engine.name, manufacturer,
        extract(epoch from last_upload)::bigint AS last_upload
 FROM factory_browser
 JOIN browser_group USING (browser_group)
@@ -58,14 +58,13 @@ ORDER BY browser_group.name, major, minor
     return cur.fetchall()
 
 
-def update_last_upload(factory, browser):
+def update_last_upload(factory_browser):
     """Set the last upload timestamp to NOW()."""
     cur.execute("""\
 UPDATE factory_browser
 SET last_upload = NOW()
-WHERE factory = %s
-AND browser = %s
-""", (factory, browser))
+WHERE factory_browser = %s
+""", (factory_browser, ))
 
 
 def active_browsers(where):
