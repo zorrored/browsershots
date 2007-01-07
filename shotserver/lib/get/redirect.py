@@ -50,7 +50,7 @@ def redirect():
                 req.params.status = "Your browser version is not registered."
                 req.params.extra = user_agent
                 return
-            browser, factory_browser, name, major, minor = row
+            factory_browser, name, major, minor = row
             if ((request_name is not None and name != request_name) or
                 (request_major is not None and major != request_major) or
                 (request_minor is not None and minor != request_minor)):
@@ -60,7 +60,7 @@ def redirect():
                 actual = database.browser.version_string(name, major, minor)
                 req.params.extra = "Expected %s, got %s." % (expected, actual)
                 return
-            database.request.update_browser(request, browser, factory_browser)
+            database.request.update_browser(request, factory_browser)
             if time.time() - start > timeout:
                 req.params.status = "Sorry, the server load is too high."
                 req.params.extra = "Redirect took more than %s seconds."

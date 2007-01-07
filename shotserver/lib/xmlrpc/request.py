@@ -204,11 +204,11 @@ def upload(binary, crypt):
     ppmname = ''
     try:
         ip = req.connection.remote_ip
-        status, request, request_width, factory, browser, factory_browser = \
+        status, request, request_width, factory, factory_browser = \
             database.nonce.authenticate_request(ip, crypt)
         if status != 'OK':
             return status, ''
-        if browser is None:
+        if factory_browser is None:
             return "The browser has not visited the requested URL.", ''
 
         if len(binary.data) < min_upload_kilobytes * 1024:
@@ -233,10 +233,10 @@ def upload(binary, crypt):
         assert zoom(ppmname, hashkey, 240) # 3*240 + 2*22 = 764
         assert zoom(ppmname, hashkey, 450) # 3*140 + 2*15
 
-        database.screenshot.insert(hashkey, factory, browser, factory_browser, width, height)
+        database.screenshot.insert(hashkey, factory, factory_browser, width, height)
         database.request.update_screenshot(request, database.lastval())
         database.factory.update_last_upload(factory)
-        database.factory_browser.update_last_upload(factory, browser)
+        database.factory_browser.update_last_upload(factory_browser)
 
         salt = database.factory.select_salt(factory)
         nonce = database.nonce.create_factory_nonce(factory, ip)
