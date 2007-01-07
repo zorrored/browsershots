@@ -36,16 +36,17 @@ def get_name_dict():
     return result
 
 
-def select_by_user_agent(user_agent):
+def select_by_user_agent(factory, user_agent):
     """
     Select the browser with a given User-Agent string.
     """
     cur.execute("""\
-SELECT browser, factory_browser, browser_group, browser_group.name, major, minor
+SELECT browser, factory_browser, browser_group.name, major, minor
 FROM factory_browser
 JOIN browser_group USING (browser_group)
-WHERE user_agent = %s
-""", (user_agent, ))
+WHERE factory = %s
+AND user_agent = %s
+""", (factory, user_agent, ))
     return cur.fetchone()
 
 

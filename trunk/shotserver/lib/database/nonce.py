@@ -88,7 +88,7 @@ def authenticate_redirect(crypt):
     crypt = md5('redirect' + md5(salt + password) + nonce)
     """
     cur.execute("""\
-SELECT url, request, browser_group, browser_group.name, major, minor
+SELECT url, request, browser_group.name, major, minor, request.factory
 FROM nonce
 JOIN request USING (request)
 JOIN request_group USING (request_group)
@@ -101,10 +101,10 @@ OR md5('redirect' || owner.password || nonce.nonce) = %s
 """, (crypt, crypt))
     row = cur.fetchone()
     if row is None:
-        return 'Password mismatch.', '', 0, 0, '', 0, 0
+        return 'Password mismatch.', '', 0, '', 0, 0, 0
     else:
-        url, request, group, name, major, minor = row
-        return 'OK', url, request, group, name, major, minor
+        url, request, name, major, minor, factory = row
+        return 'OK', url, request, name, major, minor, factory
 
 
 def authenticate_request(ip, crypt):
