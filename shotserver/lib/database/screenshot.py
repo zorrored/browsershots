@@ -58,13 +58,13 @@ def info(screenshot):
     cur.execute("""\
 SELECT extract(epoch from screenshot.created)::bigint AS uploaded,
 screenshot.width, screenshot.height,
-browser.name, browser.version,
+browser_group.name, factory_browser.version,
 factory.name, opsys_group.name, distro, codename,
 website, url
 FROM screenshot
-JOIN browser USING (browser)
-JOIN browser_group USING (browser_group)
 JOIN factory USING (factory)
+JOIN factory_browser USING (factory_browser)
+JOIN browser_group USING (browser_group)
 JOIN opsys USING (opsys)
 JOIN opsys_group USING (opsys_group)
 JOIN request USING (screenshot)
