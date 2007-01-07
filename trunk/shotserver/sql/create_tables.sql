@@ -33,24 +33,6 @@ CREATE TABLE architecture (
 
 
 --
--- Name: browser; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
---
-
-CREATE TABLE browser (
-    browser serial NOT NULL,
-    browser_group integer NOT NULL,
-    major integer NOT NULL,
-    minor integer,
-    engine integer,
-    created timestamp without time zone DEFAULT now(),
-    creator integer NOT NULL,
-    "scroll" character varying(40),
-    version character varying(20),
-    name character varying(20)
-);
-
-
---
 -- Name: browser_group; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
 --
 
@@ -138,7 +120,6 @@ CREATE TABLE factory (
 
 CREATE TABLE factory_browser (
     factory integer NOT NULL,
-    browser integer NOT NULL,
     last_upload timestamp without time zone,
     user_agent character varying(255),
     command character varying(255),
@@ -337,14 +318,6 @@ ALTER TABLE ONLY browser_group
 
 
 --
--- Name: browser_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
---
-
-ALTER TABLE ONLY browser
-    ADD CONSTRAINT browser_pkey PRIMARY KEY (browser);
-
-
---
 -- Name: engine_pkey; Type: CONSTRAINT; Schema: public; Owner: www-data; Tablespace: 
 --
 
@@ -473,13 +446,6 @@ ALTER TABLE ONLY website
 
 
 --
--- Name: factory_browser_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
---
-
-CREATE UNIQUE INDEX factory_browser_unique ON factory_browser USING btree (factory, browser);
-
-
---
 -- Name: factory_feature_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
 --
 
@@ -600,30 +566,6 @@ ALTER TABLE ONLY architecture
 
 
 --
--- Name: browser_browser_group_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
---
-
-ALTER TABLE ONLY browser
-    ADD CONSTRAINT browser_browser_group_fkey FOREIGN KEY (browser_group) REFERENCES browser_group(browser_group);
-
-
---
--- Name: browser_creator_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
---
-
-ALTER TABLE ONLY browser
-    ADD CONSTRAINT browser_creator_fkey FOREIGN KEY (creator) REFERENCES person(person);
-
-
---
--- Name: browser_engine_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
---
-
-ALTER TABLE ONLY browser
-    ADD CONSTRAINT browser_engine_fkey FOREIGN KEY (engine) REFERENCES engine(engine);
-
-
---
 -- Name: browser_engine_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
 --
 
@@ -653,14 +595,6 @@ ALTER TABLE ONLY engine
 
 ALTER TABLE ONLY factory
     ADD CONSTRAINT factory_architecture_fkey FOREIGN KEY (architecture) REFERENCES architecture(architecture);
-
-
---
--- Name: factory_browser_browser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
---
-
-ALTER TABLE ONLY factory_browser
-    ADD CONSTRAINT factory_browser_browser_fkey FOREIGN KEY (browser) REFERENCES browser(browser);
 
 
 --
