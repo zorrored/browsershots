@@ -128,7 +128,7 @@ CREATE TABLE factory_browser (
     major integer NOT NULL,
     minor integer NOT NULL,
     engine integer,
-    browser_group integer,
+    browser_group integer NOT NULL,
     created timestamp without time zone DEFAULT now(),
     creator integer NOT NULL,
     version character varying(20) NOT NULL,
