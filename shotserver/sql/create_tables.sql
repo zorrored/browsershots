@@ -446,6 +446,13 @@ ALTER TABLE ONLY website
 
 
 --
+-- Name: factory_browser_major_minor_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE UNIQUE INDEX factory_browser_major_minor_unique ON factory_browser USING btree (factory, browser_group, major, minor);
+
+
+--
 -- Name: factory_feature_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
 --
 
