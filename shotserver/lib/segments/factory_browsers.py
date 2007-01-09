@@ -49,7 +49,7 @@ def write():
             ), element="th")
         for index, row in enumerate(rows):
             (factory_browser, name, version, engine, manufacturer,
-             last_upload) = row
+             last_upload, disabled) = row
             xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
             # link = xhtml.tag('a', name, href="/browsers/" + name)
             xhtml.write_tag('td', name + ' ' + version)
@@ -71,6 +71,9 @@ def write():
             if per_day == 0:
                 per_day = None
             xhtml.write_tag('td', per_day)
+
+            if disabled:
+                xhtml.write_tag('td', '(disabled)')
 
             xhtml.write_close_tag_line('tr')
         xhtml.write_close_tag_line('table')
