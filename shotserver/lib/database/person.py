@@ -56,10 +56,12 @@ def insert(fields):
     Insert a new user into the database.
     """
     salt = md5nonce.random_md5()
+    salt4 = salt[:4]
+    salt8 = salt[-8:]
     password = fields['password']
-    fields['salt'] = salt[:4]
-    fields['password'] = md5.md5(salt + password).hexdigest()
-    fields['htpasswd'] = md5crypt.md5crypt(password, salt[-8:], '$apr1$')
+    fields['salt'] = salt4
+    fields['password'] = md5.md5(salt4 + password).hexdigest()
+    fields['htpasswd'] = md5crypt.md5crypt(password, salt8, '$apr1$')
     cur.execute("""\
 INSERT INTO person
 (name, email, nickname, salt, password, htpasswd)
