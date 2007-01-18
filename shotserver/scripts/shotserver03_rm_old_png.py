@@ -12,7 +12,7 @@ from shotserver03 import database as db
 
 png_path = '/var/www/browsershots.org/png'
 subdirs = '140 180 240 450 full'.split()
-timeout = 14 # days
+timeout = 10 # days
 now = time.time()
 expire = now - timeout * 24 * 3600
 
@@ -21,7 +21,7 @@ def database_delete(filename, counter):
     hashkey = filename[:32]
     cur.execute('DELETE FROM screenshot WHERE hashkey = %s', (hashkey, ))
     if cur.rowcount:
-        counter['rows'] += 1
+        counter['rows'] += cur.rowcount
         # print hashkey, 'deleted from database'
 
 
@@ -51,6 +51,8 @@ def find_expired(filelist):
         if expired:
             database_delete(filename, counter)
             files_delete(filename, counter)
+    if counter['rows']:
+        con.commit()
     return counter
 
 
