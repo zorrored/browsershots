@@ -3,3 +3,4 @@
 echo "DELETE FROM nonce WHERE created < NOW()-'24:00'::interval" | psql shotserver03
 echo "DELETE FROM request WHERE request IN (SELECT request FROM request JOIN request_group USING (request_group) WHERE created < NOW()-'24:00'::interval AND locked IS NULL)" | psql shotserver03
 echo "DELETE FROM request_group WHERE created < NOW()-'24:00'::interval AND NOT EXISTS (SELECT request FROM request WHERE request.request_group = request_group.request_group)" | psql shotserver03
+echo "VACUUM ANALYZE;" | psql shotserver03
