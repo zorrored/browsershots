@@ -467,6 +467,13 @@ CREATE UNIQUE INDEX factory_screen_unique ON factory_screen USING btree (factory
 
 
 --
+-- Name: nonce_request; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE INDEX nonce_request ON nonce USING btree (request) WHERE (request IS NOT NULL);
+
+
+--
 -- Name: request_group_bpp; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
 --
 
