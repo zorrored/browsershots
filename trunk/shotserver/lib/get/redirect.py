@@ -39,7 +39,12 @@ def redirect():
     start = time.time()
     database.connect()
     try:
-        row = database.nonce.authenticate_redirect(req.info.options[0])
+        crypt = req.info.options[0]
+        if len(req.info.options) > 1 and req.info.options[1].isdigit():
+            request = int(req.info.options[1])
+            row = database.nonce.authenticate_redirect(crypt, request)
+        else:
+            row = database.nonce.authenticate_redirect(crypt)
         (status, url,
          request, request_name, request_major, request_minor,
          factory) = row
