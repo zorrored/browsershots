@@ -46,7 +46,9 @@ AND major = %s AND minor = %s
 def factory_browsers(factory):
     """Get the browsers that are supported by this factory."""
     cur.execute("""\
-SELECT factory_browser, browser_group.name, version, engine.name, manufacturer,
+SELECT factory_browser, browser_group.name, version,
+       engine.name, engine_version,
+       manufacturer, command,
        extract(epoch from last_upload)::bigint AS last_upload,
        extract(epoch from disabled)::bigint AS disabled
 FROM factory_browser
