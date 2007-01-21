@@ -132,7 +132,10 @@ CREATE TABLE factory_browser (
     created timestamp without time zone DEFAULT now(),
     creator integer NOT NULL,
     version character varying(20) NOT NULL,
-    engine_version character varying(20)
+    engine_version character varying(20),
+    CONSTRAINT user_agent_engine_version CHECK (((user_agent)::text ~ (engine_version)::text)),
+    CONSTRAINT user_agent_version CHECK ((((user_agent)::text ~ (version)::text) OR ((user_agent)::text ~ 'Safari'::text))),
+    CONSTRAINT version_major_minor CHECK (((version)::text ~ (((major)::text || '.0?'::text) || (minor)::text)))
 );
 
 
