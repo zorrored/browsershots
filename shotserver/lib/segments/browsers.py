@@ -29,28 +29,57 @@ from shotserver03.interface import xhtml
 from shotserver03 import database
 
 
+def is_old_version(browser, major, minor, rows):
+    """
+    Check if there is a newer version of the same browser. If there
+    is, then this old version will not be selected by default, except
+    for the few browsers in the first line of this function.
+    """
+    if browser in 'Firefox MSIE Safari SeaMonkey Epiphany'.split():
+        return False
+    for row in rows:
+        if (row[0] != browser):
+            continue
+        if (row[1] < major):
+            continue
+        if (row[1] == major and row[2] <= minor):
+            continue
+        return True
+
+
 def select_browsers(platform, where):
     """
-    Select available browsers from database.
-    Return a list of XHTML checkbox elements,
-    one for each browser, one for all.
+    Select available browsers from database. Return a list of XHTML
+    checkbox elements, one for each browser, one for all browsers
+    together. Old versions of most browsers are unselected by default.
     """
     result = []
-    for row in database.factory_browser.active_browsers(where):
+    rows = database.factory_browser.active_browsers(where)
+    all_checked = True
+    for row in rows:
         browser, major, minor = row
         code = '%s_%s_%d_%d' % (platform, browser.lower(), major, minor)
-        result.append(
-            xhtml.tag('input', _type="checkbox", _id=code, _name=code,
-                checked="checked", onclick="updateMaster('%s')" % platform) +
-            ' ' +
+        if is_old_version(browser, major, minor, rows):
+            checkbox = xhtml.tag('input', _type="checkbox", _id=code,
+                _name=code, onclick="updateMaster('%s')" % platform)
+            all_checked = False
+        else:
+            checkbox = xhtml.tag('input', _type="checkbox", _id=code,
+                _name=code, onclick="updateMaster('%s')" % platform,
+                checked="checked")
+        result.append(checkbox + ' ' +
             xhtml.tag('label', '%s %d.%d' % (browser, major, minor),
                       _for=code))
     code = '%s_all' % platform
+    if all_checked:
+        checkbox = xhtml.tag('input', _type="checkbox", _id=code,
+            onclick="multiCheck('%s',this.checked)" % platform,
+            checked="checked")
+    else:
+        checkbox = xhtml.tag('input', _type="checkbox", _id=code,
+            onclick="multiCheck('%s',this.checked)" % platform)
     if len(result) > 3:
-        result.append(
-            xhtml.tag('input', _type="checkbox", _id=code, checked="checked",
-                      onclick="multiCheck('%s',this.checked)" % platform) +
-            ' ' +
+        result.append(checkbox + ' ' +
             xhtml.tag('label', '<b>All</b>', _for=code))
     return result
 
