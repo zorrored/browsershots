@@ -46,14 +46,22 @@ def write():
             "Last<br />upload",
             "Uploads<br />per hour",
             "Uploads<br />per day",
+            "",
             ), element="th")
         for index, row in enumerate(rows):
-            (factory_browser, name, version, engine, manufacturer,
-             last_upload, disabled) = row
-            xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
+            (factory_browser, name, version, engine, engine_version,
+             manufacturer, command, last_upload, disabled) = row
+            if disabled:
+                xhtml.write_open_tag('tr',
+                                     _class="color%d gray" % (index % 2 + 1))
+            else:
+                xhtml.write_open_tag('tr', _class="color%d" % (index % 2 + 1))
             # link = xhtml.tag('a', name, href="/browsers/" + name)
             xhtml.write_tag('td', name + ' ' + version)
-            xhtml.write_tag('td', engine)
+            if engine_version:
+                xhtml.write_tag('td', engine + ' ' + engine_version)
+            else:
+                xhtml.write_tag('td', engine)
             xhtml.write_tag('td', manufacturer)
 
             if last_upload is not None:
@@ -74,6 +82,10 @@ def write():
 
             if disabled:
                 xhtml.write_tag('td', '(disabled)')
+            elif command:
+                xhtml.write_tag('td', command)
+            else:
+                xhtml.write_tag('td', '')
 
             xhtml.write_close_tag_line('tr')
         xhtml.write_close_tag_line('table')
