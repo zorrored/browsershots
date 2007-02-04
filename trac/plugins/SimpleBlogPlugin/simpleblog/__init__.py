@@ -1,10 +1,10 @@
 from trac.core import *
 from trac.web import IRequestHandler, IRequestFilter
 from trac.web.chrome import add_link, INavigationContributor, ITemplateProvider
-from trac.wiki.api import WikiSystem, Context, IWikiMacroProvider
+from trac.wiki.api import WikiSystem, IWikiMacroProvider
 from trac.wiki.model import WikiPage
-from trac.util import Markup, format_date, format_datetime
-from trac.util.datefmt import http_date, localtz
+from trac.wiki.formatter import wiki_to_html
+from trac.util import Markup, format_date, format_datetime, http_date
 from pkg_resources import resource_filename
 
 import re
@@ -13,7 +13,6 @@ title_split_match = re.compile(r'^\s*=+\s+([^\n\r=]+?)\s+=+\s+(.+)$', re.DOTALL)
 h1_match = re.compile(r'^\s*(<h1.*?>.*?</h1>)(.*)$', re.DOTALL).match
 
 from md5 import md5
-from datetime import datetime
 
 class SimpleBlogPlugin(Component):
     implements(INavigationContributor, ITemplateProvider,
@@ -96,8 +95,7 @@ class SimpleBlogPlugin(Component):
             cutoff = text.find('[[SimpleBlogComment(')
             if cutoff >= 0:
                 text = text[:cutoff].rstrip()
-            context = Context(self.env, req)
-            description = context.wiki_to_html(text)
+            description = wiki_to_html(text, self.env, req)
 
             original = self._get_original_post_info(page_name)
             event = {
@@ -106,8 +104,7 @@ class SimpleBlogPlugin(Component):
                 'description': description,
                 'escaped': Markup.escape(unicode(description)),
                 'date': format_datetime(original['time']),
-                'rfcdate': http_date(datetime.fromtimestamp(
-                    original['time'], localtz)),
+                'rfcdate': http_date(original['time']),
                 'author': original['author'],
                 'comment': original['comment'],
                 'comments': comments,
@@ -115,9 +112,7 @@ class SimpleBlogPlugin(Component):
             if page.version > 1:
                 event['updated.version'] = page.version
                 event['updated.date'] = format_datetime(page.time)
-                event['updated.rfcdate'] = str(page.time)
-                #http_date(datetime.fromtimestamp(
-                #    float(page.time), localtz))
+                event['updated.rfcdate'] = http_date(page.time)
                 event['updated.author'] = page.author
                 event['updated.comment'] = page.comment
             entries.append((original['time'], event))
