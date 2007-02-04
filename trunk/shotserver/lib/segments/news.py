@@ -28,9 +28,11 @@ import re
 import time
 from shotserver03.interface import xhtml, human
 
-find_items = re.compile(r'<item>\s*<title>(.+?)</title>\s*' +
+find_items = re.compile(r'<item>\s*' +
+                        r'<title>(.+?)</title>\s*' +
                         r'<pubDate>(.+?)</pubDate>\s*' +
-                        r'<link>(http.+?)</link>').findall
+                        r'<link>(http.+?)</link>',
+                        re.IGNORECASE).findall
 
 
 def write():
@@ -58,3 +60,12 @@ def write():
     xhtml.write_close_tag_line('ul')
 
     xhtml.write_close_tag_line('div') # id="news"
+
+
+if __name__ == '__main__':
+    import sys
+    class writer:
+        def __init__(self):
+            self.write = sys.stdout.write
+    __builtins__.req = writer()
+    write()
