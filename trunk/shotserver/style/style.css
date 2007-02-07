@@ -4,6 +4,8 @@ body {
   text-align: center;
   font-family: Verdana, Arial, sans-serif;
   font-size: 80%;
+  color: black;
+  background-color: white;
 }
 
 img { border: none; }
