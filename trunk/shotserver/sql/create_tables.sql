@@ -115,6 +115,16 @@ CREATE TABLE factory (
 
 
 --
+-- Name: factory_bpp; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE TABLE factory_bpp (
+    factory integer NOT NULL,
+    bpp integer NOT NULL
+);
+
+
+--
 -- Name: factory_browser; Type: TABLE; Schema: public; Owner: www-data; Tablespace: 
 --
 
@@ -133,6 +143,9 @@ CREATE TABLE factory_browser (
     creator integer NOT NULL,
     version character varying(20) NOT NULL,
     engine_version character varying(20),
+    java character varying(10),
+    js character varying(10),
+    flash character varying(10),
     CONSTRAINT user_agent_engine_version CHECK (((user_agent)::text ~ (engine_version)::text)),
     CONSTRAINT user_agent_version CHECK ((((user_agent)::text ~ (version)::text) OR ((user_agent)::text ~ 'Safari'::text))),
     CONSTRAINT version_major_minor CHECK (((version)::text ~ (((major)::text || '.0?'::text) || (minor)::text)))
@@ -449,6 +462,13 @@ ALTER TABLE ONLY website
 
 
 --
+-- Name: factory_bpp_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
+--
+
+CREATE UNIQUE INDEX factory_bpp_unique ON factory_bpp USING btree (factory, bpp);
+
+
+--
 -- Name: factory_browser_major_minor_unique; Type: INDEX; Schema: public; Owner: www-data; Tablespace: 
 --
 
@@ -612,6 +632,14 @@ ALTER TABLE ONLY engine
 
 ALTER TABLE ONLY factory
     ADD CONSTRAINT factory_architecture_fkey FOREIGN KEY (architecture) REFERENCES architecture(architecture);
+
+
+--
+-- Name: factory_bpp_factory_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY factory_bpp
+    ADD CONSTRAINT factory_bpp_factory_fkey FOREIGN KEY (factory) REFERENCES factory(factory);
 
 
 --
