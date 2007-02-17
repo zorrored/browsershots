@@ -30,7 +30,7 @@ from shotserver03 import database
 
 
 offensive_keywords = """
-www.farm porn pron p0rn pr0n boys girls chicks babe cock
+www.farmse porn pron p0rn pr0n boys girls chicks babe cock xxx
 """.lower().split()
 
 
