@@ -52,7 +52,11 @@ __revision__ = '$Rev: 706 $'
 __date__ = '$Date: 2005-08-21 09:37:54 +0200 (Sun, 21 Aug 2005) $'
 __author__ = '$Author: johann $'
 
-import os, sys, glob, re
+import os
+import sys
+import glob
+import re
+
 
 def system(command, debug = False):
     """
@@ -62,7 +66,8 @@ def system(command, debug = False):
         print command
     err = os.system(command)
     if err:
-        raise RuntimeError, "%s failed with exit code %d" % (command, err)
+        raise RuntimeError("%s failed with exit code %d" % (command, err))
+
 
 def backticks(command):
     """
@@ -72,8 +77,9 @@ def backticks(command):
     output = child.read()
     err = child.close()
     if err:
-        raise RuntimeError, "%s failed with exit code %d" % (command, err)
+        raise RuntimeError("%s failed with exit code %d" % (command, err))
     return output
+
 
 def find_latest(backup, basename):
     """
@@ -90,6 +96,7 @@ def find_latest(backup, basename):
                 latest = last
     return latest
 
+
 def usage(message = None):
     """
     Print a usage line (and possibly an error message) and exit with return code 1.
@@ -98,6 +105,7 @@ def usage(message = None):
     if message:
         print "error:", message
     sys.exit(1)
+
 
 def read_options():
     """
@@ -121,6 +129,7 @@ def read_options():
         backup = backup[:-1]
     return full, repos, backup
 
+
 def find_backup_range(full, repos, backup, basename):
     """
     Find start and stop revision numbers.
@@ -131,6 +140,7 @@ def find_backup_range(full, repos, backup, basename):
     if full:
         start = 0
     return start, stop
+
 
 def run_backup():
     """
@@ -163,6 +173,7 @@ def run_backup():
         different = os.system("cmp %s %s" % (outfile, oldfile))
         if not different:
             system("rm -f %s" % oldfile)
+
 
 if __name__ == '__main__':
     run_backup()

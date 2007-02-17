@@ -47,10 +47,10 @@ def factory_browsers(factory):
     """Get the browsers that are supported by this factory."""
     cur.execute("""\
 SELECT factory_browser, browser_group.name, version,
-       engine.name, engine_version,
-       manufacturer, command,
-       extract(epoch from last_upload)::bigint AS last_upload,
-       extract(epoch from disabled)::bigint AS disabled
+engine.name, engine_version,
+manufacturer, command,
+extract(epoch from last_upload)::bigint AS last_upload,
+extract(epoch from disabled)::bigint AS disabled
 FROM factory_browser
 JOIN browser_group USING (browser_group)
 LEFT JOIN engine USING (engine)
@@ -74,7 +74,8 @@ def active_browsers(where):
     Get browsers on active factories.
     """
     cur.execute("""\
-SELECT DISTINCT browser_group.name, factory_browser.major, factory_browser.minor
+SELECT DISTINCT browser_group.name,
+factory_browser.major, factory_browser.minor
 FROM factory_browser
 JOIN factory USING (factory)
 JOIN opsys USING (opsys)
