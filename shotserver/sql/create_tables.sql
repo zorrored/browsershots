@@ -108,7 +108,7 @@ CREATE TABLE factory (
     creator integer NOT NULL,
     per_hour integer,
     per_day integer,
-    CONSTRAINT factory_name_check CHECK (((name)::text ~ E'^\\w+$'::text)),
+    CONSTRAINT factory_name_check CHECK (((name)::text ~ '^[a-z][a-z0-9_-]+[a-z0-9]$'::text)),
     CONSTRAINT factory_password_check CHECK (("password" ~ '[0-9a-f]{32}'::text)),
     CONSTRAINT factory_salt_check CHECK ((salt ~ '[0-9a-f]{4}'::text))
 );
