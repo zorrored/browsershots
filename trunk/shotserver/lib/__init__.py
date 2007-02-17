@@ -90,9 +90,8 @@ def write_html_head(title):
                          src="/style/zoom.js")
     xhtml.write_tag_line('script', '', type="text/javascript",
                          src="/style/forms.js")
-    req.write("""\
-<meta name="verify-v1" content="gqd9KWCCzoBsvkG2YjB2wkPzq57FwLCH/jZF8hinW24=" />
-""")
+    xhtml.write_tag_line('meta', _name="verify-v1",
+        content="gqd9KWCCzoBsvkG2YjB2wkPzq57FwLCH/jZF8hinW24=")
     xhtml.write_close_tag_line('head')
 
 
