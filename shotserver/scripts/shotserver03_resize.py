@@ -28,7 +28,9 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import sys, os
+import sys
+import os
+
 
 def zoom(filename, width):
     """
@@ -47,12 +49,11 @@ def zoom(filename, width):
     print command
     result = os.system(command)
     if result:
-        raise RuntimeError, "failed with exit code %d" % result
+        raise RuntimeError("failed with exit code %d" % result)
+
 
 output_width = int(sys.argv[1])
-
 if not os.path.isdir(str(output_width)):
     os.mkdir(str(output_width))
-
 for input_filename in sys.argv[2:]:
     zoom(input_filename, output_width)

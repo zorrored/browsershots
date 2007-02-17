@@ -35,7 +35,10 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
-import sys, os, time, re
+import sys
+import os
+import time
+import re
 
 re_filename = re.compile(r'^(.+\.log)\.\d+\.(gz)$')
 for filename in sys.argv[1:]:

@@ -1,14 +1,12 @@
 #! /usr/bin/python
 
-
 """
 Delete screenshots that haven't been accessed in a long time.
 """
 
-
-import os, time
+import os
+import time
 from shotserver03 import database as db
-
 
 png_path = '/var/www/browsershots.org/png'
 subdirs = '140 180 240 450 full'.split()

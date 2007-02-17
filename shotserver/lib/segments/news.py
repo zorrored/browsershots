@@ -64,8 +64,12 @@ def write():
 
 if __name__ == '__main__':
     import sys
+
     class writer:
+        """Simple writer class for testing from command line."""
+
         def __init__(self):
             self.write = sys.stdout.write
+
     __builtins__.req = writer()
     write()

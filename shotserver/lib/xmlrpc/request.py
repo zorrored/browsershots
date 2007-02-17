@@ -73,7 +73,11 @@ def poll(factory, crypt):
     database.connect()
     try:
         if factory == 'disabled':
-            return 'Sorry, your factory is disabled. Please check your mail.', '', {}
+            sorry = ' '.join((
+                "Sorry, your factory is disabled.",
+                "Please check your mail.",
+                ))
+            return sorry, '', {}
         factory = database.factory.name_to_serial(factory)
         ip = req.connection.remote_ip
         status = database.nonce.authenticate_factory(factory, ip, crypt)
@@ -233,7 +237,8 @@ def upload(binary, crypt):
         assert zoom(ppmname, hashkey, 240) # 3*240 + 2*22 = 764
         assert zoom(ppmname, hashkey, 450) # 3*140 + 2*15
 
-        database.screenshot.insert(hashkey, factory, factory_browser, width, height)
+        database.screenshot.insert(
+            hashkey, factory, factory_browser, width, height)
         database.request.update_screenshot(request, database.lastval())
         database.factory.update_last_upload(factory)
         database.factory_browser.update_last_upload(factory_browser)
