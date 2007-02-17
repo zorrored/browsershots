@@ -34,8 +34,7 @@ def files_delete(filename, counter):
             # print path, 'deleted'
 
 
-def find_expired(filelist):
-    counter = {'files': 0, 'rows': 0}
+def find_expired(filelist, counter):
     for filename in filelist:
         prefix = filename[:2]
         expired = True
@@ -53,11 +52,11 @@ def find_expired(filelist):
             files_delete(filename, counter)
     if counter['rows']:
         con.commit()
-    return counter
 
 
 db.connect()
 try:
+    counter = {'files': 0, 'rows': 0}
     for index in range(256):
         prefix = '%02x' % index
         filelist = ()
@@ -67,9 +66,10 @@ try:
                 candidate = os.listdir(path)
                 if len(candidate) > len(filelist):
                     filelist = candidate
-        counter = find_expired(filelist)
-        if counter['rows'] or counter['files']:
-            print '%s: deleted %s database rows and %s files' % (
-                prefix, counter['rows'], counter['files'])
+        find_expired(filelist, counter)
+        print prefix
+    if counter['rows'] or counter['files']:
+        print 'deleted %s database rows and %s files' % (
+            counter['rows'], counter['files'])
 finally:
     db.disconnect()
