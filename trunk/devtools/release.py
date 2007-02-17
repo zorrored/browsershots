@@ -1,7 +1,9 @@
 #! /usr/bin/python
 
 
-import sys, os, re
+import sys
+import os
+import re
 
 
 def error(message, code = 1):
