@@ -27,12 +27,16 @@ __author__ = '$Author$'
 
 import sys
 
+
 class FormatError:
     """
-    The Python file does not comply with the Browsershots file formatting standard.
+    The Python file does not comply with the Browsershots file
+    formatting standard.
     """
+
     def __init__(self, filename, lineno, error):
         self.message = "%s:%d: %s" % (filename, lineno, error)
+
 
 def read_blocks(filename):
     """
@@ -71,6 +75,7 @@ def read_blocks(filename):
             docstring = False
     return blocks
 
+
 def remove_shebang(head):
     """
     Remove the first line if it is a valid shebang.
@@ -79,6 +84,7 @@ def remove_shebang(head):
         if head[1][0] == '#!/usr/bin/env python\n':
             head[0] += 1
             head[1].pop(0)
+
 
 def remove_coding(head):
     """
@@ -89,6 +95,7 @@ def remove_coding(head):
             head[0] += 1
             head[1].pop(0)
 
+
 def check_file(filename):
     """
     Read a Python source file and check it for Browsershots formatting.
@@ -97,29 +104,38 @@ def check_file(filename):
     blocks = read_blocks(filename)
     if len(blocks) < 3:
         lastblock = blocks[-1]
-        raise FormatError(filename, lastblock[0], "missing header, too few paragraphs")
+        raise FormatError(filename, lastblock[0],
+                          "missing header, too few paragraphs")
     head, docstring, keywords = blocks[:3]
     remove_shebang(head)
     remove_coding(head)
     if head[1] != ref_head[1]:
         for offset, line in enumerate(head[1]):
             if offset >= len(ref_head[1]):
-                raise FormatError(filename, head[0] + offset, "copyright too short")
+                raise FormatError(filename, head[0] + offset,
+                                  "copyright too short")
             if line != ref_head[1][offset]:
-                raise FormatError(filename, head[0] + offset, "wrong copyright")
-        raise FormatError(filename, head[0] + len(head[1]), "copyright too short")
+                raise FormatError(filename, head[0] + offset,
+                                  "wrong copyright")
+        raise FormatError(filename, head[0] + len(head[1]),
+                          "copyright too short")
     if docstring[1][0].strip() != '"""':
         raise FormatError(filename, docstring[0], "missing docstring")
     if docstring[1][-1].strip() != '"""':
-        raise FormatError(filename, docstring[0] + len(docstring[1]) - 1, "missing docstring")
+        raise FormatError(filename, docstring[0] + len(docstring[1]) - 1,
+                          "missing docstring")
     if len(docstring[1]) < 3:
         raise FormatError(filename, docstring[0] + 1, "empty docstring")
     if not keywords[1][0].startswith("__revision__ = '$Rev:"):
-        raise FormatError(filename, keywords[0], "missing __revision__ = '$Rev:")
+        raise FormatError(filename, keywords[0],
+                          "missing __revision__ = '$Rev:")
     if not keywords[1][1].startswith("__date__ = '$Date:"):
-        raise FormatError(filename, keywords[0] + 1, "missing __date__ = '$Date:")
+        raise FormatError(filename, keywords[0] + 1,
+                          "missing __date__ = '$Date:")
     if not keywords[1][2].startswith("__author__ = '$Author:"):
-        raise FormatError(filename, keywords[0] + 2, "missing __author__ = '$Author:")
+        raise FormatError(filename, keywords[0] + 2,
+                          "missing __author__ = '$Author:")
+
 
 def check_files(files):
     """
@@ -136,6 +152,7 @@ def check_files(files):
             error = True
     if error:
         sys.exit(1)
+
 
 reference = read_blocks(sys.argv[0])
 ref_head, ref_docstring, ref_keywords = reference[:3]
