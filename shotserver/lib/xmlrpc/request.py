@@ -73,7 +73,7 @@ def poll(factory, crypt):
     database.connect()
     try:
         if factory == 'disabled':
-            return 'Sorry, your factory is disabled.', '', {}
+            return 'Sorry, your factory is disabled. Please check your mail.', '', {}
         factory = database.factory.name_to_serial(factory)
         ip = req.connection.remote_ip
         status = database.nonce.authenticate_factory(factory, ip, crypt)
