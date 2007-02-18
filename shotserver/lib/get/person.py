@@ -25,7 +25,6 @@ __date__ = '$Date$'
 __author__ = '$Author$'
 
 from mod_python import util
-from shotserver03.interface import xhtml
 from shotserver03.segments import factory_list
 from shotserver03 import database
 
