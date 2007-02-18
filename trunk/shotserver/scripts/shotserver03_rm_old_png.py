@@ -65,7 +65,7 @@ try:
                 if len(candidate) > len(filelist):
                     filelist = candidate
         find_expired(filelist, counter)
-        print prefix
+        # print prefix
     if counter['rows'] or counter['files']:
         print 'deleted %s database rows and %s files' % (
             counter['rows'], counter['files'])
