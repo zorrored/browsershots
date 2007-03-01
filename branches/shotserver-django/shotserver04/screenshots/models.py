@@ -10,5 +10,9 @@ class Screenshot(models.Model):
     browser = models.ForeignKey(Browser)
     width = models.IntegerField()
     height = models.IntegerField()
-    def __str__(self): return self.hashkey
-    class Admin: pass
+
+    def __str__(self):
+        return self.hashkey
+
+    class Admin:
+        pass
