@@ -77,4 +77,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'shotserver04.factories',
+    'shotserver04.browsers',
+    'shotserver04.requests',
+    'shotserver04.screenshots',
 )
