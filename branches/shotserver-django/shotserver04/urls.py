@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^shotserver04/', include('shotserver04.foo.urls')),
+    (r'^factories/$', 'shotserver04.factories.views.index'),
     (r'^admin/', include('django.contrib.admin.urls')),
 )
