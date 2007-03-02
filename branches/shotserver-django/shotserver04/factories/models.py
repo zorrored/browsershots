@@ -41,10 +41,10 @@ class Factory(models.Model):
     operatingsystem = models.ForeignKey(
         OperatingSystem,
         verbose_name='operating system')
-    last_poll = models.DateTimeField(null=True)
-    last_upload = models.DateTimeField(null=True)
-    uploads_per_hour = models.IntegerField(null=True)
-    uploads_per_day = models.IntegerField(null=True)
+    last_poll = models.DateTimeField(blank=True, null=True)
+    last_upload = models.DateTimeField(blank=True, null=True)
+    uploads_per_hour = models.IntegerField(blank=True, null=True)
+    uploads_per_day = models.IntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
