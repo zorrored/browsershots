@@ -1,8 +1,21 @@
 {% extends "base.html" %}
+
 {% block title %}Screenshot Factories{% endblock %}
+
 {% block content %}
 <h1>Screenshot Factories</h1>
+<table>
+<tr>
+<th>Factory</th>
+<th>Operating system</th>
+<th>Hardware architecture</th>
+</tr>
 {% for factory in factory_list %}
-<p>{{ factory.name }}</p>
+<tr>
+<td><a href="{{ factory.name }}/">{{ factory.name }}</a></td>
+<td>{{ factory.operatingsystem }}</td>
+<td>{{ factory.architecture }}</td>
+</tr>
 {% endfor %}
+</table>
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Screenshot Factory {{ factory_name }}{% endblock %}
+
+{% block content %}
+<h1>Screenshot Factory {{ factory_name }}</h1>
+<table>
+<tr>
+<th>Browser</th>
+<th>Engine</th>
+</tr>
+{% for browser in browser_list %}
+<tr>
+<td>{{ browser }}</td>
+<td>{{ browser.engine }}{{ browser.engine_version }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
