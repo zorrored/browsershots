@@ -28,12 +28,24 @@ class OperatingSystem(models.Model):
 
 
 class Factory(models.Model):
-    name = models.CharField(maxlength=30)
-    admin = models.ForeignKey(User, verbose_name='administrator')
-    architecture = models.CharField('hardware architecture', maxlength=30)
+    name = models.CharField(
+        maxlength=30,
+        help_text='hostname (lowercase)')
+    admin = models.ForeignKey(
+        User,
+        verbose_name='administrator')
+    architecture = models.CharField(
+        'hardware architecture',
+        maxlength=30,
+        help_text='CPU type (e.g. i386 or PPC)')
     operatingsystem = models.ForeignKey(
-        OperatingSystem, verbose_name='operating system')
-    created = models.DateTimeField('date created', auto_now_add=True)
+        OperatingSystem,
+        verbose_name='operating system')
+    last_poll = models.DateTimeField(null=True)
+    last_upload = models.DateTimeField(null=True)
+    uploads_per_hour = models.IntegerField(null=True)
+    uploads_per_day = models.IntegerField(null=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
