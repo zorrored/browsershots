@@ -20,8 +20,8 @@
 <td><a href="{{ factory.get_absolute_url }}">{{ factory.name }}</a></td>
 <td>{{ factory.operatingsystem }}</td>
 <td>{{ factory.architecture }}</td>
-<td>{% if factory.last_poll %}{{ factory.last_poll }}{% endif %}</td>
-<td>{% if factory.last_upload %}{{ factory.last_upload }}{% endif %}</td>
+<td>{% age factory.last_poll %}</td>
+<td>{% age factory.last_upload %}</td>
 <td>{% if factory.uploads_per_hour %}{{ factory.uploads_per_hour }}{% endif %}</td>
 <td>{% if factory.uploads_per_day %}{{ factory.uploads_per_day }}{% endif %}</td>
 </tr>
