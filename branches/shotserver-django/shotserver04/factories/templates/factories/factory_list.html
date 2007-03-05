@@ -14,7 +14,7 @@
 <th>Uploads<br />per hour</th>
 <th>Uploads<br />per day</th>
 </tr>
-{% for factory in factory_list %}
+{% for factory in object_list %}
 <tr>
 <td><a href="{{ factory.name }}/">{{ factory.name }}</a></td>
 <td>{{ factory.operatingsystem }}</td>
@@ -26,4 +26,15 @@
 </tr>
 {% endfor %}
 </table>
+{% if is_paginated %}
+<p>
+{% if has_previous %}
+<a href="/factories/page{{ previous }}/">Previous</a>
+{% endif %}
+Page {{ page }} of {{ pages }}
+{% if has_next %}
+<a href="/factories/page{{ next }}/">Next</a>
+{% endif %}
+</p>
+{% endif %}
 {% endblock %}
