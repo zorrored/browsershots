@@ -58,6 +58,9 @@ class Factory(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return '/factories/%s/' % self.name
+
     class Admin:
         fields = (
             (None, {'fields': ('name', 'admin')}),

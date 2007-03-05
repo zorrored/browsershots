@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load shotserver04_utils %}
 
 {% block title %}Screenshot Factories{% endblock %}
 
@@ -16,7 +17,7 @@
 </tr>
 {% for factory in object_list %}
 <tr>
-<td><a href="/factories/{{ factory.name }}/">{{ factory.name }}</a></td>
+<td><a href="{{ factory.get_absolute_url }}">{{ factory.name }}</a></td>
 <td>{{ factory.operatingsystem }}</td>
 <td>{{ factory.architecture }}</td>
 <td>{% if factory.last_poll %}{{ factory.last_poll }}{% endif %}</td>
