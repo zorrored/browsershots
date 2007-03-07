@@ -28,6 +28,7 @@ class OperatingSystem(models.Model):
     distro = models.CharField('distribution', maxlength=30)
     version = models.CharField('version number', maxlength=30)
     codename = models.CharField(maxlength=30, null=True)
+    mobile = models.BooleanField()
 
     def __str__(self):
         return '%s %s %s (%s)' % (self.operatingsystemgroup.name,
@@ -38,8 +39,7 @@ class OperatingSystem(models.Model):
 
 
 class Factory(models.Model):
-    name = models.CharField(
-        maxlength=30,
+    name = models.SlugField(
         help_text='Hostname (lowercase)')
     admin = models.ForeignKey(User,
         verbose_name='administrator')
@@ -101,3 +101,17 @@ class BitsPerPixel(models.Model):
 
     class Meta:
         unique_together = (('factory', 'bits_per_pixel'), )
+
+
+class Nonce(models.Model):
+    factory = models.ForeignKey(Factory)
+    hashkey = models.CharField(maxlength=32)
+    ip = models.IPAddressField()
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class Failure(models.Model):
+    factory = models.ForeignKey(Factory)
+    request = models.ForeignKey('Request')
+    message = models.CharField(maxlength=1200)
+    logged = models.DateTimeField(auto_now_add=True)
