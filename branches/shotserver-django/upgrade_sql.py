@@ -157,8 +157,9 @@ def convert(old_table, new_table, old_columns, mapping):
                 if old_column == 'owner':
                     new_value = '1'
                 if old_table == 'factory_browser' and old_column == 'disabled':
-                    new_value = 'f'
-                    if new_value != r'\N':
+                    if new_value == r'\N':
+                        new_value = 'f'
+                    else:
                         new_value = 't'
                 if new_value == r'\N' and \
                        old_column in old_string_remove_null:
