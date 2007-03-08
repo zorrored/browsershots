@@ -13,6 +13,7 @@ class Website(models.Model):
 
     class Admin:
         list_display = ('url', 'submitted')
+        search_fields = ('url', )
 
 
 class RequestGroup(models.Model):
