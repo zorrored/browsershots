@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from shotserver04.factories.models import OperatingSystemGroup
-from shotserver04.browsers.models import BrowserGroup
+from shotserver04.factories.models import OperatingSystemGroup, Factory
+from shotserver04.browsers.models import BrowserGroup, Browser
 
 
 class Website(models.Model):
