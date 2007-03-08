@@ -78,5 +78,4 @@ INSTALLED_APPS = (
     'shotserver04.factories',
     'shotserver04.browsers',
     'shotserver04.requests',
-    'shotserver04.screenshots',
 )
