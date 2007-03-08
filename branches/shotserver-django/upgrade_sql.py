@@ -41,6 +41,14 @@ old_string_remove_null = (
     'engine_version',
     )
 
+table_limits = {
+    'request_group': 100,
+    'request': 1000,
+    'screenshot': 100,
+    'nonce': 100,
+    }
+
+
 def guess_new_table(old_table, models):
     if old_table.startswith('factory_'):
         old_table = old_table[len('factory_'):]
@@ -132,19 +140,14 @@ def convert(old_table, new_table, old_columns, mapping):
         if index not in include:
             print >> sys.stderr, "        ignoring %s at index %s" % (
                 column, index)
-    outfilename = 'sql/%s.sql' % new_table
-    outfile = open(outfilename, 'w')
-    outfile.write("COPY %s (%s) FROM stdin;\n" %
-                  (new_table, ', '.join(new_columns)))
+    rows = []
     while True:
         line = sys.stdin.readline()
         if not line:
             break
         line = line.rstrip('\n')
         if line == r'\.':
-            outfile.write(line + '\n')
-            outfile.close()
-            return
+            break
         old_values = line.split('\t')
         assert len(old_values) == len(old_columns)
         new_values = []
@@ -165,7 +168,23 @@ def convert(old_table, new_table, old_columns, mapping):
                        old_column in old_string_remove_null:
                     new_value = '""'
             new_values.append(new_value)
-        outfile.write('\t'.join(new_values) + '\n')
+        sort_value = new_values[0]
+        if sort_value.isdigit():
+            sort_value = int(sort_value)
+        rows.append((sort_value, '\t'.join(new_values)))
+    rows.sort()
+    if old_table in table_limits and len(rows) > table_limits[old_table]:
+        rows = rows[-table_limits[old_table]:]
+    rows.insert(0, (0,
+        "COPY %s (%s) FROM stdin;" % (new_table, ', '.join(new_columns))))
+    rows.append((0, r'\.'))
+    # Write SQL to file
+    outfilename = 'sql/%s.sql' % new_table
+    outfile = open(outfilename, 'w')
+    for sort_value, row in rows:
+        outfile.write(row)
+        outfile.write('\n')
+    outfile.close()
 
 
 def debug_model(model, columns):
