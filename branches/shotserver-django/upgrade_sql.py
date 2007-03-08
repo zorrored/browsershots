@@ -13,21 +13,24 @@ old_table_mapping = {
     }
 
 new_column_mapping = {
-    'browser': 'factory_browser',
+    'browser_id': 'factory_browser',
     'maker': 'manufacturer',
-    'admin': 'owner',
-    'operating_system': 'opsys',
-    'operating_system_group': 'opsys_group',
+    'admin_id': 'owner',
+    'operating_system_id': 'opsys',
+    'operating_system_group_id': 'opsys_group',
     'uploads_per_hour': 'per_hour',
     'uploads_per_day': 'per_day',
     'logged': 'created',
     'uploaded': 'created',
     'submitted': 'created',
-    'submitted_by': 'creator',
+    'submitter_id': 'creator',
     'bits_per_pixel': 'bpp',
     'javascript': 'js',
     }
 
+old_string_null = (
+    'manufacturer',
+    )
 
 def guess_new_table(old_table, models):
     if old_table.startswith('factory_'):
@@ -37,7 +40,7 @@ def guess_new_table(old_table, models):
     old_table = old_table.replace('_', '')
     if old_table in old_table_mapping:
         old_table = old_table_mapping[old_table]
-    if old_table in ('feature', 'person', 'prioritydomain'):
+    if old_table in ('feature', 'person', 'prioritydomain', 'failure'):
         return None
     for model in models:
         if model.endswith('_' + old_table):
@@ -56,13 +59,16 @@ def guess_mapping(old_table, new_table, old_columns, new_columns):
             old_column = new_column_mapping[new_column]
         elif new_column in old_columns:
             old_column = new_column
+        elif new_column.endswith('_id') and \
+                 new_column[:-3] in old_columns:
+            old_column = new_column[:-3]
         if old_column:
             mapping.append((old_column, new_column))
     return mapping
 
 
 def load_columns(model):
-    return [field.name for field in model._meta.fields]
+    return [field.attname for field in model._meta.fields]
 
 
 def load_module(appname):
@@ -96,30 +102,42 @@ def split_column_names(text):
     return result
 
 
-def change_pair(mapping, old_column, new_column):
-    for index in range(len(mapping) - 1, 0, -1):
-        if mapping[index][0] == old_column:
-            mapping[index] == (old_column, new_column)
-
-
-def remove_pair(mapping, old_column):
-    for index in range(len(mapping) - 1, 0, -1):
-        if mapping[index][0] == old_column:
-            del mapping[index]
-
-
 def convert(old_table, new_table, old_columns, mapping):
     print >> sys.stderr, new_table, "(was %s)" % old_table
     include = []
+    new_columns = []
     for old_column, new_column in mapping:
         index = old_columns.index(old_column)
         print >> sys.stderr, '   ', new_column, "(was %s at index %d)" % (
             old_column, index)
         include.append(index)
+        new_columns.append(new_column)
     for index, column in enumerate(old_columns):
         if index not in include:
             print >> sys.stderr, "        ignoring %s at index %d" % (
                 column, index)
+    print "COPY %s (%s) FROM stdin;" % (new_table, ', '.join(new_columns))
+    while True:
+        line = sys.stdin.readline()
+        if not line:
+            break
+        line = line.rstrip('\n')
+        if line == r'\.':
+            print line
+            print
+            break
+        old_values = line.split('\t')
+        assert len(old_values) == len(old_columns)
+        new_values = []
+        for index in include:
+            new_value = old_values[index]
+            if old_columns[index] == 'owner':
+                new_value = '1'
+            if old_columns in old_string_null:
+                if new_value == r'\N':
+                    new_value = '""'
+            new_values.append(new_value)
+        print '\t'.join(new_values)
 
 
 def debug_model(model, columns):
