@@ -1,11 +1,10 @@
 #!/usr/bin/python
 
 import sys
+import os
 import re
 import glob
 
-model_match = re.compile(r'class (\S+)\(models\.Model\):').match
-column_match = re.compile(r'\s+(\S+) = models\..+(Field|Key)\(').match
 copy_match = re.compile(r'COPY (\S+) \((.+)\) FROM stdin;').match
 
 old_table_mapping = {
@@ -62,36 +61,30 @@ def guess_mapping(old_table, new_table, old_columns, new_columns):
     return mapping
 
 
-def load_model_columns(infile):
-    columns = ['id']
-    while True:
-        line = infile.readline()
-        if line.strip() == '':
-            break
-        match = column_match(line)
-        if match:
-            columns.append(match.group(1))
-    return columns
+def load_columns(model):
+    return [field.name for field in models._meta.fields]
 
 
-def load_model_file(appname, infile):
+def load_module(appname):
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
+    module = __import__('shotserver04.%s.models' % appname,
+                        globals(), locals(), [''])
     models = {}
-    while True:
-        line = infile.readline()
-        if line == '':
-            break # EOF
-        match = model_match(line)
-        if match:
-            name = appname + '_' + match.group(1).lower()
-            models[name] = load_model_columns(infile)
+    for name, model in module.__dict__.iteritems():
+        if not repr(model).startswith("<class '%s.models.'" % appname):
+            continue
+        table_name = appname + '_' + name.lower()
+        models[table_name] = load_model_columns(model)
     return models
 
 
 def load_models():
     models = {}
-    for filename in glob.glob('shotserver04/*/models.py'):
-        appname = filename.split('/')[1]
-        models.update(load_model_file(appname, file(filename)))
+    from shotserver04 import settings
+    for app in settings.INSTALLED_APPS:
+        if app.startswith('shotserver04.'):
+            appname = app.split('.')[1]
+            models.update(load_module(appname))
     return models
 
 
