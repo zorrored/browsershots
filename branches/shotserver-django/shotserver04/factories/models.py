@@ -11,6 +11,9 @@ class Architecture(models.Model):
     class Admin:
         pass
 
+    class Meta:
+        ordering = ('name', )
+
 
 class OperatingSystemGroup(models.Model):
     name = models.CharField(maxlength=30)
@@ -21,6 +24,9 @@ class OperatingSystemGroup(models.Model):
 
     class Admin:
         list_display = ('name', 'maker')
+
+    class Meta:
+        ordering = ('name', )
 
 
 class OperatingSystem(models.Model):
@@ -38,6 +44,10 @@ class OperatingSystem(models.Model):
     class Admin:
         list_display = ('operating_system_group', 'distro', 'version',
                         'codename', 'mobile')
+        list_filter = ('operating_system_group', )
+
+    class Meta:
+        ordering = ('codename', )
 
 
 class Factory(models.Model):
@@ -77,6 +87,7 @@ class Factory(models.Model):
         date_hierarchy = 'created'
 
     class Meta:
+        ordering = ('name', )
         verbose_name_plural = 'factories'
 
 
@@ -94,6 +105,7 @@ class ScreenSize(models.Model):
         list_filter = ('factory', )
 
     class Meta:
+        ordering = ('width', )
         unique_together = (('factory', 'width', 'height'), )
 
 
@@ -110,6 +122,7 @@ class BitsPerPixel(models.Model):
         list_filter = ('factory', )
 
     class Meta:
+        ordering = ('bits_per_pixel', )
         unique_together = (('factory', 'bits_per_pixel'), )
 
 
@@ -119,6 +132,13 @@ class Nonce(models.Model):
     ip = models.IPAddressField()
     created = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.hashkey
+
     class Admin:
-        list_display = ('hashkey', 'factory', 'ip', 'created')
+        list_display = ('hashkey', 'ip', 'created', 'factory')
+        list_filter = ('factory', )
         date_hierarchy = 'created'
+
+    class Meta:
+        ordering = ('hashkey', )

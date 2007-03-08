@@ -13,6 +13,9 @@ class Engine(models.Model):
         list_display = ('name', 'maker')
         search_fields = ('name', 'maker')
 
+    class Meta:
+        ordering = ('name', )
+
 
 class BrowserGroup(models.Model):
     name = models.CharField(maxlength=30)
@@ -25,6 +28,9 @@ class BrowserGroup(models.Model):
     class Admin:
         list_display = ('name', 'maker')
         search_fields = ('name', 'maker')
+
+    class Meta:
+        ordering = ('name', )
 
 
 class Browser(models.Model):
@@ -62,3 +68,6 @@ class Browser(models.Model):
         list_filter = ('factory', 'browser_group')
         search_fields = ('user_agent', 'command',
                          'javascript', 'java', 'flash')
+
+    class Meta:
+        ordering = ('user_agent', )
