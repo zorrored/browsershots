@@ -109,7 +109,7 @@ class ScreenSize(models.Model):
         unique_together = (('factory', 'width', 'height'), )
 
 
-class BitsPerPixel(models.Model):
+class ColorDepth(models.Model):
     factory = models.ForeignKey(Factory,
         edit_inline=models.TABULAR, num_in_admin=3)
     bits_per_pixel = models.IntegerField(core=True)

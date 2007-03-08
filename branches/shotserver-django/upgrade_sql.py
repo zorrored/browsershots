@@ -9,7 +9,7 @@ copy_match = re.compile(r'COPY (\S+) \((.+)\) FROM stdin;').match
 
 old_table_mapping = {
     'screen': 'screensize',
-    'bpp': 'bitsperpixel',
+    'bpp': 'colordepth',
     }
 
 new_column_mapping = {

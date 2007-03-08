@@ -24,7 +24,7 @@ psql shotserver04 < sql/factories_operatingsystemgroup.sql
 psql shotserver04 < sql/factories_operatingsystem.sql
 psql shotserver04 < sql/factories_factory.sql
 psql shotserver04 < sql/factories_screensize.sql
-psql shotserver04 < sql/factories_bitsperpixel.sql
+psql shotserver04 < sql/factories_colordepth.sql
 
 # Load browsers from sql directory
 psql shotserver04 < sql/browsers_engine.sql
