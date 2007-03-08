@@ -17,20 +17,20 @@ class Website(models.Model):
 
 class RequestGroup(models.Model):
     website = models.ForeignKey(Website)
-    width = models.IntegerField('screen width')
+    width = models.IntegerField('screen width', null=True, blank=True)
     bits_per_pixel = models.IntegerField(null=True, blank=True)
-    javascript = models.CharField(maxlength=20, null=True, blank=True)
-    java = models.CharField(maxlength=20, null=True, blank=True)
-    flash = models.CharField(maxlength=20, null=True, blank=True)
+    javascript = models.CharField(maxlength=20, blank=True)
+    java = models.CharField(maxlength=20, blank=True)
+    flash = models.CharField(maxlength=20, blank=True)
+    submitter = models.ForeignKey(User, blank=True, null=True)
     submitted = models.DateTimeField(auto_now_add=True)
-    submitter = models.ForeignKey(User, null=True)
     expire = models.DateTimeField()
 
     def __str__(self):
         return self.website.url
 
     class Admin:
-        list_display = ('website', 'width', 'submitted')
+        list_display = ('website', 'width', 'javascript', 'java', 'flash')
 
 
 class Request(models.Model):
