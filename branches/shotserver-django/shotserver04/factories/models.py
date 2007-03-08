@@ -25,10 +25,11 @@ class OperatingSystemGroup(models.Model):
 
 class OperatingSystem(models.Model):
     operating_system_group = models.ForeignKey(OperatingSystemGroup)
-    distro = models.CharField('distribution', maxlength=30)
-    version = models.CharField('version number', maxlength=30)
-    codename = models.CharField(maxlength=30, null=True)
-    mobile = models.BooleanField()
+    distro = models.CharField('distribution', maxlength=30, blank=True)
+    version = models.CharField('version number', maxlength=30, blank=True)
+    codename = models.CharField(maxlength=30, blank=True)
+    mobile = models.BooleanField(
+        help_text='mobile device (e.g. cell phone or PDA)')
 
     def __str__(self):
         return '%s %s %s (%s)' % (self.operating_system_group.name,
@@ -39,15 +40,12 @@ class OperatingSystem(models.Model):
 
 
 class Factory(models.Model):
-    name = models.SlugField(
-        help_text='Hostname (lowercase)')
-    admin = models.ForeignKey(User,
-        verbose_name='administrator')
+    name = models.SlugField(help_text='Hostname (lowercase)')
+    admin = models.ForeignKey(User, verbose_name='administrator')
     architecture = models.ForeignKey(Architecture,
         verbose_name='hardware architecture',
         help_text='CPU type (e.g. i386 or PPC)')
-    operating_system = models.ForeignKey(
-        OperatingSystem,
+    operating_system = models.ForeignKey(OperatingSystem,
         verbose_name='operating system')
     last_poll = models.DateTimeField(blank=True, null=True)
     last_upload = models.DateTimeField(blank=True, null=True)

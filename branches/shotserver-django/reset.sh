@@ -20,3 +20,6 @@ python shotserver04/manage.py syncdb $APPS
 
 # Load data from sql directory
 psql shotserver04 < sql/factories_architecture.sql
+psql shotserver04 < sql/factories_operatingsystemgroup.sql
+psql shotserver04 < sql/factories_operatingsystem.sql
+psql shotserver04 < sql/factories_factory.sql

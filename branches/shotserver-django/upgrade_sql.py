@@ -27,10 +27,13 @@ new_column_mapping = {
     'bits_per_pixel': 'bpp',
     'javascript': 'js',
     'hashkey': 'nonce',
+    'version': 'major.minor',
     }
 
-old_string_null = (
+old_string_remove_null = (
     'manufacturer',
+    'distro',
+    'codename',
     )
 
 def guess_new_table(old_table, models):
@@ -59,6 +62,8 @@ def guess_mapping(old_table, new_table, old_columns, new_columns):
         elif new_column in new_column_mapping and \
                  new_column_mapping[new_column] in old_columns:
             old_column = new_column_mapping[new_column]
+        elif old_table == 'opsys' and new_column == 'version':
+            old_column = 'major.minor'
         elif new_column in old_columns:
             old_column = new_column
         elif new_column.endswith('_id') and \
@@ -109,14 +114,18 @@ def convert(old_table, new_table, old_columns, mapping):
     include = []
     new_columns = []
     for old_column, new_column in mapping:
-        index = old_columns.index(old_column)
-        print >> sys.stderr, '   ', new_column, "(was %s at index %d)" % (
+        if old_column == 'major.minor':
+            index = (old_columns.index('major'),
+                     old_columns.index('minor'))
+        else:
+            index = old_columns.index(old_column)
+        print >> sys.stderr, '   ', new_column, "(was %s at index %s)" % (
             old_column, index)
         include.append(index)
         new_columns.append(new_column)
     for index, column in enumerate(old_columns):
         if index not in include:
-            print >> sys.stderr, "        ignoring %s at index %d" % (
+            print >> sys.stderr, "        ignoring %s at index %s" % (
                 column, index)
     outfilename = 'sql/%s.sql' % new_table
     outfile = open(outfilename, 'w')
@@ -135,11 +144,15 @@ def convert(old_table, new_table, old_columns, mapping):
         assert len(old_values) == len(old_columns)
         new_values = []
         for index in include:
-            new_value = old_values[index]
-            if old_columns[index] == 'owner':
-                new_value = '1'
-            if old_columns in old_string_null:
-                if new_value == r'\N':
+            if isinstance(index, tuple):
+                new_value = '.'.join([str(old_values[i]) for i in index])
+            else:
+                old_column = old_columns[index]
+                new_value = old_values[index]
+                if old_column == 'owner':
+                    new_value = '1'
+                if new_value == r'\N' and \
+                       old_column in old_string_remove_null:
                     new_value = '""'
             new_values.append(new_value)
         outfile.write('\t'.join(new_values) + '\n')
@@ -151,7 +164,7 @@ def debug_model(model, columns):
         print '   ', column
 
 
-def _main():
+def _main(tables):
     models = load_models()
     # for model, columns in models:
     #     debug_model(model, columns)
@@ -162,6 +175,8 @@ def _main():
         match = copy_match(line)
         if match:
             old_table = match.group(1)
+            if tables and old_table not in tables:
+                continue
             old_columns = split_column_names(match.group(2))
             new_table = guess_new_table(old_table, models)
             if not new_table:
@@ -174,4 +189,4 @@ def _main():
 
 
 if __name__ == '__main__':
-    _main()
+    _main(sys.argv)
