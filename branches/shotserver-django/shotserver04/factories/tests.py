@@ -64,25 +64,23 @@ class FactoriesTestCase(TestCase):
 
     def testFactoryCreateDuplicate(self):
         self.assertRaises(IntegrityError, Factory.objects.create,
-            name='factory',
-            admin=self.user,
-            architecture=self.architecture,
-            operating_system=self.operating_system)
+                          name='factory', admin=self.user,
+                          architecture=self.architecture,
+                          operating_system=self.operating_system)
         transaction.rollback()
 
     def testFactoryCreateEmpty(self):
         self.assertRaises(IntegrityError, Factory.objects.create,
-            admin=self.user,
-            architecture=self.architecture,
-            operating_system=self.operating_system)
+                          admin=self.user,
+                          architecture=self.architecture,
+                          operating_system=self.operating_system)
         transaction.rollback()
 
     def testFactoryCreateInvalid(self):
         self.assertRaises(IntegrityError, Factory.objects.create,
-            name='-',
-            admin=self.user,
-            architecture=self.architecture,
-            operating_system=self.operating_system)
+                          name='-', admin=self.user,
+                          architecture=self.architecture,
+                          operating_system=self.operating_system)
         transaction.rollback()
 
     def testScreenSize(self):
@@ -95,6 +93,16 @@ class FactoriesTestCase(TestCase):
         self.assertEqual(len(queryset.filter(width__gt=800)), 1)
         self.assertEqual(len(queryset.filter(width__lt=800)), 1)
 
+    def testScreenSizeDuplicate(self):
+        self.assertRaises(IntegrityError, ScreenSize.objects.create,
+                          factory=self.factory, width=800, height=600)
+        transaction.rollback()
+
     def testColorDepth(self):
         queryset = self.factory.colordepth_set
         self.assertEqual(len(queryset.all()), 2)
+
+    def testColorDepthDuplicate(self):
+        self.assertRaises(IntegrityError, ColorDepth.objects.create,
+                          factory=self.factory, bits_per_pixel=24)
+        transaction.rollback()
