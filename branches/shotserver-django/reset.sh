@@ -30,3 +30,8 @@ psql shotserver04 < sql/factories_bitsperpixel.sql
 psql shotserver04 < sql/browsers_engine.sql
 psql shotserver04 < sql/browsers_browsergroup.sql
 psql shotserver04 < sql/browsers_browser.sql
+
+# Load requests from sql directory
+psql shotserver04 < sql/requests_website.sql
+psql shotserver04 < sql/requests_requestgroup.sql
+psql shotserver04 < sql/requests_request.sql
