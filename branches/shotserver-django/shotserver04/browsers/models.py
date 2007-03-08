@@ -11,6 +11,7 @@ class Engine(models.Model):
 
     class Admin:
         list_display = ('name', 'maker')
+        search_fields = ('name', 'maker')
 
 
 class BrowserGroup(models.Model):
@@ -23,6 +24,7 @@ class BrowserGroup(models.Model):
 
     class Admin:
         list_display = ('name', 'maker')
+        search_fields = ('name', 'maker')
 
 
 class Browser(models.Model):
@@ -58,3 +60,5 @@ class Browser(models.Model):
             )
         list_display = ('browser_group', 'version', 'command', 'factory')
         list_filter = ('factory', 'browser_group')
+        search_fields = ('user_agent', 'command',
+                         'javascript', 'java', 'flash')

@@ -20,7 +20,7 @@ class OperatingSystemGroup(models.Model):
         return self.name
 
     class Admin:
-        pass
+        list_display = ('name', 'maker')
 
 
 class OperatingSystem(models.Model):
@@ -65,7 +65,16 @@ class Factory(models.Model):
             (None, {'fields': ('name', 'admin')}),
             ('Platform', {'fields': ('architecture', 'operating_system')}),
             )
-        list_display = ('name', 'operating_system', 'architecture')
+        search_fields = (
+            'name',
+            'operating_system__operating_system_group__name',
+            'operating_system__codename',
+            'operating_system__version',
+            'operating_system__distro',
+            'architecture__name',
+            )
+        list_display = ('name', 'operating_system', 'architecture', 'created')
+        date_hierarchy = 'created'
 
     class Meta:
         verbose_name_plural = 'factories'
@@ -81,7 +90,8 @@ class ScreenSize(models.Model):
         return '%dx%d' % (self.width, self.height)
 
     class Admin:
-        list_display = ('factory', 'width', 'height')
+        list_display = ('width', 'height', 'factory')
+        list_filter = ('factory', )
 
     class Meta:
         unique_together = (('factory', 'width', 'height'), )
@@ -96,7 +106,8 @@ class BitsPerPixel(models.Model):
         return '%d' % self.bits_per_pixel
 
     class Admin:
-        list_display = ('factory', 'bits_per_pixel')
+        list_display = ('bits_per_pixel', 'factory')
+        list_filter = ('factory', )
 
     class Meta:
         unique_together = (('factory', 'bits_per_pixel'), )
@@ -107,3 +118,7 @@ class Nonce(models.Model):
     hashkey = models.SlugField(maxlength=32)
     ip = models.IPAddressField()
     created = models.DateTimeField(auto_now_add=True)
+
+    class Admin:
+        list_display = ('hashkey', 'factory', 'ip', 'created')
+        date_hierarchy = 'created'

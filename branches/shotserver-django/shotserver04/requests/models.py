@@ -9,11 +9,15 @@ class Website(models.Model):
     submitted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.url
+        if len(self.url) > 60:
+            return self.url[:56] + '...'
+        else:
+            return self.url
 
     class Admin:
-        list_display = ('url', 'submitted')
+        list_display = ('__str__', 'submitted')
         search_fields = ('url', )
+        date_hierarchy = 'submitted'
 
 
 class RequestGroup(models.Model):
@@ -28,10 +32,12 @@ class RequestGroup(models.Model):
     expire = models.DateTimeField()
 
     def __str__(self):
-        return self.website.url
+        return str(self.website)
 
     class Admin:
-        list_display = ('website', 'width', 'javascript', 'java', 'flash')
+        list_display = ('__str__', 'width', 'javascript', 'java', 'flash')
+        search_fields = ('website__url', )
+        date_hierarchy = 'submitted'
 
 
 class Request(models.Model):
@@ -69,3 +75,4 @@ class Screenshot(models.Model):
     class Admin:
         list_display = ('hashkey', 'factory', 'browser',
                         'width', 'height', 'locked')
+        date_hierarchy = 'locked'
