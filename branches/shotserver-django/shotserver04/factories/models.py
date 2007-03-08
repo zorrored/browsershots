@@ -24,7 +24,7 @@ class OperatingSystemGroup(models.Model):
 
 
 class OperatingSystem(models.Model):
-    operatingsystemgroup = models.ForeignKey(OperatingSystemGroup)
+    operating_system_group = models.ForeignKey(OperatingSystemGroup)
     distro = models.CharField('distribution', maxlength=30)
     version = models.CharField('version number', maxlength=30)
     codename = models.CharField(maxlength=30, null=True)
@@ -46,7 +46,7 @@ class Factory(models.Model):
     architecture = models.ForeignKey(Architecture,
         verbose_name='hardware architecture',
         help_text='CPU type (e.g. i386 or PPC)')
-    operatingsystem = models.ForeignKey(
+    operating_system = models.ForeignKey(
         OperatingSystem,
         verbose_name='operating system')
     last_poll = models.DateTimeField(blank=True, null=True)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from shotserver04.factories.models import OperatingSystemGroup
 from shotserver04.browsers.models import BrowserGroup
 
@@ -17,7 +18,13 @@ class Website(models.Model):
 class RequestGroup(models.Model):
     website = models.ForeignKey(Website)
     width = models.IntegerField('screen width')
+    bits_per_pixel = models.IntegerField(null=True, blank=True)
+    javascript = models.CharField(maxlength=20, null=True, blank=True)
+    java = models.CharField(maxlength=20, null=True, blank=True)
+    flash = models.CharField(maxlength=20, null=True, blank=True)
     submitted = models.DateTimeField(auto_now_add=True)
+    submitted_by = models.ForeignKey(User, null=True)
+    expire = models.DateTimeField()
 
     def __str__(self):
         return self.website.url
@@ -27,12 +34,12 @@ class RequestGroup(models.Model):
 
 
 class Request(models.Model):
-    requestgroup = models.ForeignKey(
+    request_group = models.ForeignKey(
         RequestGroup, verbose_name='request group')
-    operatingsystemgroup = models.ForeignKey(
+    operating_system_group = models.ForeignKey(
         OperatingSystemGroup, verbose_name='operating system',
         blank=True, null=True)
-    browsergroup = models.ForeignKey(
+    browser_group = models.ForeignKey(
         BrowserGroup, verbose_name='browser')
     major = models.IntegerField('major', blank=True, null=True)
     minor = models.IntegerField('minor', blank=True, null=True)

@@ -17,14 +17,16 @@ new_column_mapping = {
     'browser': 'factory_browser',
     'maker': 'manufacturer',
     'admin': 'owner',
-    'operatingsystem': 'opsys',
-    'operatingsystemgroup': 'opsys_group',
-    'requestgroup': 'request_group',
-    'browsergroup': 'browser_group',
+    'operating_system': 'opsys',
+    'operating_system_group': 'opsys_group',
     'uploads_per_hour': 'per_hour',
     'uploads_per_day': 'per_day',
     'logged': 'created',
     'uploaded': 'created',
+    'submitted': 'created',
+    'submitted_by': 'creator',
+    'bits_per_pixel': 'bpp',
+    'javascript': 'js',
     }
 
 
