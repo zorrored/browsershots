@@ -105,6 +105,6 @@ class BitsPerPixel(models.Model):
 
 class Nonce(models.Model):
     factory = models.ForeignKey(Factory)
-    hashkey = models.CharField(maxlength=32)
+    hashkey = models.SlugField(maxlength=32)
     ip = models.IPAddressField()
     created = models.DateTimeField(auto_now_add=True)

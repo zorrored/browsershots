@@ -5,7 +5,7 @@ from shotserver04.browsers.models import BrowserGroup, Browser
 
 
 class Website(models.Model):
-    url = models.URLField('URL', verify_exists=False)
+    url = models.URLField('URL', maxlength=400, verify_exists=False)
     submitted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
