@@ -62,19 +62,19 @@ def guess_mapping(old_table, new_table, old_columns, new_columns):
 
 
 def load_columns(model):
-    return [field.name for field in models._meta.fields]
+    return [field.name for field in model._meta.fields]
 
 
 def load_module(appname):
     os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
-    module = __import__('shotserver04.%s.models' % appname,
-                        globals(), locals(), [''])
+    module_name = 'shotserver04.%s.models' % appname
+    module = __import__(module_name, globals(), locals(), [''])
     models = {}
     for name, model in module.__dict__.iteritems():
-        if not repr(model).startswith("<class '%s.models.'" % appname):
+        if not repr(model).startswith("<class '%s." % module_name):
             continue
         table_name = appname + '_' + name.lower()
-        models[table_name] = load_model_columns(model)
+        models[table_name] = load_columns(model)
     return models
 
 
