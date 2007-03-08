@@ -153,7 +153,11 @@ def convert(old_table, new_table, old_columns, mapping):
         new_values = []
         for index in include:
             if isinstance(index, tuple):
-                new_value = '.'.join([str(old_values[i]) for i in index])
+                new_value = []
+                for i in index:
+                    if old_values[i] != r'\N':
+                        new_value.append(old_values[i])
+                new_value = '.'.join(new_value)
             else:
                 old_column = old_columns[index]
                 new_value = old_values[index]
@@ -166,7 +170,7 @@ def convert(old_table, new_table, old_columns, mapping):
                         new_value = 't'
                 if new_value == r'\N' and \
                        old_column in old_string_remove_null:
-                    new_value = '""'
+                    new_value = ''
             new_values.append(new_value)
         sort_value = new_values[0]
         if sort_value.isdigit():
