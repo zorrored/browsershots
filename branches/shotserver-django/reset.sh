@@ -18,8 +18,15 @@ psql shotserver04
 # Create all tables from Django models.
 python shotserver04/manage.py syncdb $APPS
 
-# Load data from sql directory
+# Load factories from sql directory
 psql shotserver04 < sql/factories_architecture.sql
 psql shotserver04 < sql/factories_operatingsystemgroup.sql
 psql shotserver04 < sql/factories_operatingsystem.sql
 psql shotserver04 < sql/factories_factory.sql
+psql shotserver04 < sql/factories_screensize.sql
+psql shotserver04 < sql/factories_bitsperpixel.sql
+
+# Load browsers from sql directory
+psql shotserver04 < sql/browsers_engine.sql
+psql shotserver04 < sql/browsers_browsergroup.sql
+psql shotserver04 < sql/browsers_browser.sql

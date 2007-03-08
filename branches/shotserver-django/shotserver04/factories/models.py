@@ -14,7 +14,7 @@ class Architecture(models.Model):
 
 class OperatingSystemGroup(models.Model):
     name = models.CharField(maxlength=30)
-    maker = models.CharField(maxlength=30, blank=True, null=True)
+    maker = models.CharField(maxlength=30, blank=True)
 
     def __str__(self):
         return self.name

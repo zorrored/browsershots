@@ -34,6 +34,11 @@ old_string_remove_null = (
     'manufacturer',
     'distro',
     'codename',
+    'js',
+    'java',
+    'flash',
+    'command',
+    'engine_version',
     )
 
 def guess_new_table(old_table, models):
@@ -151,6 +156,10 @@ def convert(old_table, new_table, old_columns, mapping):
                 new_value = old_values[index]
                 if old_column == 'owner':
                     new_value = '1'
+                if old_table == 'factory_browser' and old_column == 'disabled':
+                    new_value = 'f'
+                    if new_value != r'\N':
+                        new_value = 't'
                 if new_value == r'\N' and \
                        old_column in old_string_remove_null:
                     new_value = '""'
@@ -168,6 +177,7 @@ def _main(tables):
     models = load_models()
     # for model, columns in models:
     #     debug_model(model, columns)
+    converted = 0
     while True:
         line = sys.stdin.readline()
         if line == '':
@@ -186,7 +196,11 @@ def _main(tables):
             mapping = guess_mapping(old_table, new_table,
                                     old_columns, new_columns)
             convert(old_table, new_table, old_columns, mapping)
+            if old_table in tables:
+                converted += 1
+                if converted == len(tables):
+                    return
 
 
 if __name__ == '__main__':
-    _main(sys.argv)
+    _main(sys.argv[1:])

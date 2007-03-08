@@ -30,15 +30,15 @@ class Browser(models.Model):
     user_agent = models.CharField(maxlength=200, core=True)
     browser_group = models.ForeignKey(BrowserGroup)
     version = models.CharField(maxlength=20)
-    major = models.IntegerField('major version number')
-    minor = models.IntegerField('minor version number')
-    engine = models.ForeignKey(Engine, null=True)
-    engine_version = models.CharField(maxlength=20, null=True)
-    javascript = models.CharField(maxlength=20, null=True)
-    java = models.CharField(maxlength=20, null=True)
-    flash = models.CharField(maxlength=20, null=True)
-    command = models.CharField(maxlength=80, null=True)
-    disabled = models.DateTimeField(blank=True, null=True)
+    major = models.IntegerField()
+    minor = models.IntegerField()
+    engine = models.ForeignKey(Engine, blank=True, null=True)
+    engine_version = models.CharField(maxlength=20, blank=True)
+    javascript = models.CharField(maxlength=20, blank=True)
+    java = models.CharField(maxlength=20, blank=True)
+    flash = models.CharField(maxlength=20, blank=True)
+    command = models.CharField(maxlength=80, blank=True)
+    disabled = models.BooleanField()
     last_upload = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
@@ -46,10 +46,15 @@ class Browser(models.Model):
 
     class Admin:
         fields = (
-            (None, {'fields': ('factory', 'user_agent',
-                               ('browser_group', 'version', 'major', 'minor'),
-                               ('engine', 'engine_version'),
-                               )}),
+            (None, {'fields': (
+            'factory',
+            'user_agent',
+            ('browser_group', 'command'),
+            ('version', 'major', 'minor'),
+            ('engine', 'engine_version'),
+            ('javascript', 'java', 'flash'),
+            'disabled',
+            )}),
             )
         list_display = ('factory', 'browser_group', 'version')
         list_display_links = ('browser_group', 'version')
