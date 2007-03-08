@@ -17,3 +17,6 @@ psql shotserver04
 
 # Create all tables from Django models.
 python shotserver04/manage.py syncdb $APPS
+
+# Load data from sql directory
+psql shotserver04 < sql/factories_architecture.sql

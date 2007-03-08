@@ -26,6 +26,7 @@ new_column_mapping = {
     'submitter_id': 'creator',
     'bits_per_pixel': 'bpp',
     'javascript': 'js',
+    'hashkey': 'nonce',
     }
 
 old_string_null = (
@@ -52,7 +53,8 @@ def guess_mapping(old_table, new_table, old_columns, new_columns):
     mapping = []
     for new_column in new_columns:
         old_column = None
-        if new_column == 'id' and old_table in old_columns:
+        if new_column == 'id' and old_table in old_columns and \
+               old_table != 'nonce':
             old_column = old_table
         elif new_column in new_column_mapping and \
                  new_column_mapping[new_column] in old_columns:
@@ -116,16 +118,19 @@ def convert(old_table, new_table, old_columns, mapping):
         if index not in include:
             print >> sys.stderr, "        ignoring %s at index %d" % (
                 column, index)
-    print "COPY %s (%s) FROM stdin;" % (new_table, ', '.join(new_columns))
+    outfilename = 'sql/%s.sql' % new_table
+    outfile = open(outfilename, 'w')
+    outfile.write("COPY %s (%s) FROM stdin;\n" %
+                  (new_table, ', '.join(new_columns)))
     while True:
         line = sys.stdin.readline()
         if not line:
             break
         line = line.rstrip('\n')
         if line == r'\.':
-            print line
-            print
-            break
+            outfile.write(line + '\n')
+            outfile.close()
+            return
         old_values = line.split('\t')
         assert len(old_values) == len(old_columns)
         new_values = []
@@ -137,7 +142,7 @@ def convert(old_table, new_table, old_columns, mapping):
                 if new_value == r'\N':
                     new_value = '""'
             new_values.append(new_value)
-        print '\t'.join(new_values)
+        outfile.write('\t'.join(new_values) + '\n')
 
 
 def debug_model(model, columns):
