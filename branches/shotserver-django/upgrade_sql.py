@@ -178,6 +178,13 @@ def convert(old_table, new_table, old_columns, mapping):
     rows.insert(0, (0,
         "COPY %s (%s) FROM stdin;" % (new_table, ', '.join(new_columns))))
     rows.append((0, r'\.'))
+    rows.append((0, ''))
+    if 'id' in new_columns:
+        rows.append((0, ' '.join((
+            "SELECT '%s' AS table_name, " % new_table,
+            "setval('%s_id_seq'," % new_table,
+            "(SELECT max(id) FROM %s)) as pkey_max;" % new_table,
+            ))))
     # Write SQL to file
     outfilename = 'sql/%s.sql' % new_table
     outfile = open(outfilename, 'w')
