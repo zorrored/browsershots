@@ -12,7 +12,7 @@ class Website(models.Model):
         return self.url
 
     class Admin:
-        list_display = ('url', 'created')
+        list_display = ('url', 'submitted')
 
 
 class RequestGroup(models.Model):
@@ -23,44 +23,43 @@ class RequestGroup(models.Model):
     java = models.CharField(maxlength=20, null=True, blank=True)
     flash = models.CharField(maxlength=20, null=True, blank=True)
     submitted = models.DateTimeField(auto_now_add=True)
-    submitted_by = models.ForeignKey(User, null=True)
+    submitter = models.ForeignKey(User, null=True)
     expire = models.DateTimeField()
 
     def __str__(self):
         return self.website.url
 
     class Admin:
-        list_display = ('website', 'width', 'created')
+        list_display = ('website', 'width', 'submitted')
 
 
 class Request(models.Model):
-    request_group = models.ForeignKey(
-        RequestGroup, verbose_name='request group')
-    operating_system_group = models.ForeignKey(
-        OperatingSystemGroup, verbose_name='operating system',
+    request_group = models.ForeignKey(RequestGroup)
+    operating_system_group = models.ForeignKey(OperatingSystemGroup,
         blank=True, null=True)
-    browser_group = models.ForeignKey(
-        BrowserGroup, verbose_name='browser')
+    browser_group = models.ForeignKey(BrowserGroup)
     major = models.IntegerField('major', blank=True, null=True)
     minor = models.IntegerField('minor', blank=True, null=True)
 
     def __str__(self):
-        return '%s %d.%d' % (self.browsergroup.name, self.major, self.minor)
+        return '%s %d.%d' % (self.browser_group.name, self.major, self.minor)
 
     class Admin:
-        list_display = ('browsergroup', 'major', 'minor',
-                        'operatingsystemgroup')
+        list_display = ('browser_group', 'major', 'minor',
+                        'operating_system_group')
 
 
 class Screenshot(models.Model):
-    hashkey = models.CharField(maxlength=32)
+    hashkey = models.SlugField(maxlength=32)
     request = models.ForeignKey(Request)
     factory = models.ForeignKey(Factory)
     browser = models.ForeignKey(Browser, null=True, blank=True)
     width = models.IntegerField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
+    message = models.CharField(maxlength=400)
     locked = models.DateTimeField(auto_now_add=True)
     redirected = models.DateTimeField(null=True, blank=True)
+    failed = models.DateTimeField(null=True, blank=True)
     uploaded = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

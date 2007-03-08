@@ -14,7 +14,7 @@ class Architecture(models.Model):
 
 class OperatingSystemGroup(models.Model):
     name = models.CharField(maxlength=30)
-    maker = models.CharField(maxlength=30)
+    maker = models.CharField(maxlength=30, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class OperatingSystem(models.Model):
     mobile = models.BooleanField()
 
     def __str__(self):
-        return '%s %s %s (%s)' % (self.operatingsystemgroup.name,
+        return '%s %s %s (%s)' % (self.operating_system_group.name,
                                   self.distro, self.version, self.codename)
 
     class Admin:
@@ -64,9 +64,9 @@ class Factory(models.Model):
     class Admin:
         fields = (
             (None, {'fields': ('name', 'admin')}),
-            ('Platform', {'fields': ('architecture', 'operatingsystem')}),
+            ('Platform', {'fields': ('architecture', 'operating_system')}),
             )
-        list_display = ('name', 'operatingsystem', 'architecture')
+        list_display = ('name', 'operating_system', 'architecture')
 
     class Meta:
         verbose_name_plural = 'factories'
@@ -108,10 +108,3 @@ class Nonce(models.Model):
     hashkey = models.CharField(maxlength=32)
     ip = models.IPAddressField()
     created = models.DateTimeField(auto_now_add=True)
-
-
-class Failure(models.Model):
-    factory = models.ForeignKey(Factory)
-    request = models.ForeignKey('Request')
-    message = models.CharField(maxlength=1200)
-    logged = models.DateTimeField(auto_now_add=True)
