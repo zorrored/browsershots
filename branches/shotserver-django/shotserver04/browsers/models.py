@@ -4,7 +4,7 @@ from shotserver04.factories.models import Factory
 
 class Engine(models.Model):
     name = models.CharField(maxlength=30)
-    maker = models.CharField(maxlength=30, blank=True, null=True)
+    maker = models.CharField(maxlength=30, blank=True)
 
     def __str__(self):
         return self.name
@@ -15,7 +15,7 @@ class Engine(models.Model):
 
 class BrowserGroup(models.Model):
     name = models.CharField(maxlength=30)
-    maker = models.CharField(maxlength=30, blank=True, null=True)
+    maker = models.CharField(maxlength=30, blank=True)
     terminal = models.BooleanField()
 
     def __str__(self):
@@ -27,7 +27,7 @@ class BrowserGroup(models.Model):
 
 class Browser(models.Model):
     factory = models.ForeignKey(Factory)
-    user_agent = models.CharField(maxlength=200, core=True)
+    user_agent = models.CharField(maxlength=200)
     browser_group = models.ForeignKey(BrowserGroup)
     version = models.CharField(maxlength=20)
     major = models.IntegerField()
