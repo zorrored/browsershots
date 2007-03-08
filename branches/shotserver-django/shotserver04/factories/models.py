@@ -36,7 +36,8 @@ class OperatingSystem(models.Model):
                                   self.distro, self.version, self.codename)
 
     class Admin:
-        pass
+        list_display = ('operating_system_group', 'distro', 'version',
+                        'codename', 'mobile')
 
 
 class Factory(models.Model):

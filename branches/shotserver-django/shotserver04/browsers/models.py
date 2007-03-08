@@ -56,6 +56,5 @@ class Browser(models.Model):
             'disabled',
             )}),
             )
-        list_display = ('factory', 'browser_group', 'version', 'command')
-        list_display_links = ('browser_group', 'version')
+        list_display = ('browser_group', 'version', 'command', 'factory')
         list_filter = ('factory', 'browser_group')
