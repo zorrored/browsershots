@@ -136,6 +136,8 @@ def convert(old_table, new_table, old_columns, mapping):
             old_column, index)
         include.append(index)
         new_columns.append(new_column)
+    if old_table == 'engine':
+        new_columns.append('maker')
     for index, column in enumerate(old_columns):
         if index not in include:
             print >> sys.stderr, "        ignoring %s at index %s" % (
@@ -172,6 +174,8 @@ def convert(old_table, new_table, old_columns, mapping):
                        old_column in old_string_remove_null:
                     new_value = ''
             new_values.append(new_value)
+        if old_table == 'engine':
+            new_values.append('')
         sort_value = new_values[0]
         if sort_value.isdigit():
             sort_value = int(sort_value)
