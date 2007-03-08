@@ -51,7 +51,7 @@ class OperatingSystem(models.Model):
 
 
 class Factory(models.Model):
-    name = models.SlugField(help_text='Hostname (lowercase)')
+    name = models.SlugField(unique=True, help_text='Hostname (lowercase)')
     admin = models.ForeignKey(User, verbose_name='administrator')
     architecture = models.ForeignKey(Architecture,
         verbose_name='hardware architecture',
