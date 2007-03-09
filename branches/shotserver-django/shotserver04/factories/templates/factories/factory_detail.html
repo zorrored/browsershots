@@ -1,40 +1,65 @@
 {% extends "base.html" %}
+{% load shotserver04_utils %}
 
 {% block title %}Screenshot Factory {{ factory.name }}{% endblock %}
 
 {% block content %}
 <h1>Screenshot Factory {{ factory.name }}</h1>
 
-<table>
+{% if browser_list %}
+<table style="clear: both;">
 <thead>
 <tr>
 <th>Browser</th>
 <th>Engine</th>
-<th>Command</th>
+<th>Javascript</th>
+<th>Java</th>
+<th>Flash</th>
+<th>Last<br />upload</th>
 </tr>
 </thead>
 <tbody>
 {% for browser in browser_list %}
-<tr class="{% cycle row1,row2 %}{% if browser.disabled %} disabled{% endif%}">
+<tr class="{% cycle row1,row2 %}{% if browser.disabled %} disabled{% endif%}"
+title="{{ browser.user_agent }}">
 <td>{{ browser }}</td>
-<td>{{ browser.engine }} {{ browser.engine_version }}</td>
-<td>{{ browser.command }}</td>
+<td>{% if browser.engine %}{{ browser.engine }}{% endif %}
+{{ browser.engine_version }}</td>
+<td>{{ browser.javascript }}</td>
+<td>{{ browser.java }}</td>
+<td>{{ browser.flash }}</td>
+<td>{% age browser.last_upload %}</td>
 </tr>
 {% endfor %}
 </tbody>
 </table>
+{% else %}
+<p>No browsers.</p>
+{% endif %}
 
+<div style="float: left; margin: 1em 2em 1em 0;">
 <h2>Screen sizes</h2>
+{% if screensize_list %}
 <ul>
 {% for screensize in screensize_list %}
 <li>{{ screensize }}</li>
 {% endfor %}
 </ul>
+{% else %}
+<p>Default only.</p>
+{% endif %}
+</div>
 
+<div style="float: left; margin: 1em 2em 1em 0;">
 <h2>Color depths</h2>
+{% if colordepth_list %}
 <ul>
 {% for colordepth in colordepth_list %}
 <li>{{ colordepth }} bits per pixel</li>
 {% endfor %}
 </ul>
+{% else %}
+<p>Default only.</p>
+{% endif %}
+</div>
 {% endblock %}
