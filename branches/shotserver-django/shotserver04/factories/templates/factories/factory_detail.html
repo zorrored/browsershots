@@ -4,16 +4,37 @@
 
 {% block content %}
 <h1>Screenshot Factory {{ factory.name }}</h1>
+
 <table>
+<thead>
 <tr>
 <th>Browser</th>
 <th>Engine</th>
+<th>Command</th>
 </tr>
+</thead>
+<tbody>
 {% for browser in browser_list %}
-<tr>
+<tr class="{% cycle row1,row2 %}{% if browser.disabled %} disabled{% endif%}">
 <td>{{ browser }}</td>
-<td>{{ browser.engine }}{{ browser.engine_version }}</td>
+<td>{{ browser.engine }} {{ browser.engine_version }}</td>
+<td>{{ browser.command }}</td>
 </tr>
 {% endfor %}
+</tbody>
 </table>
+
+<h2>Screen sizes</h2>
+<ul>
+{% for screensize in screensize_list %}
+<li>{{ screensize }}</li>
+{% endfor %}
+</ul>
+
+<h2>Color depths</h2>
+<ul>
+{% for colordepth in colordepth_list %}
+<li>{{ colordepth }} bits per pixel</li>
+{% endfor %}
+</ul>
 {% endblock %}
