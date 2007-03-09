@@ -3,20 +3,23 @@
 
 {% block title %}Screenshot Factories{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="/media/css/changelists.css" />
+{% endblock %}
+
 {% block content %}
 <h1>Screenshot Factories</h1>
 <table>
+<thead>
 <tr>
-<th>Factory</th>
-<th>Operating<br />system</th>
-<th>CPU</th>
-<th>Last<br />poll</th>
-<th>Last<br />upload</th>
-<th>Uploads<br />per hour</th>
-<th>Uploads<br />per day</th>
+{% for header in header_list %}
+<th{{ header.class_attrib }}><a href="{{ header.url }}">{{ header.text }}</a></th>
+{% endfor %}
 </tr>
-{% for factory in object_list %}
-<tr>
+</thead>
+<tbody>
+{% for factory in factory_list %}
+<tr class="{% cycle row1,row2 %}">
 <td><a href="{{ factory.get_absolute_url }}">{{ factory.name }}</a></td>
 <td>{{ factory.operatingsystem }}</td>
 <td>{{ factory.architecture }}</td>
@@ -26,6 +29,7 @@
 <td>{% if factory.uploads_per_day %}{{ factory.uploads_per_day }}{% endif %}</td>
 </tr>
 {% endfor %}
+</tbody>
 </table>
 {% if is_paginated %}
 <p>
