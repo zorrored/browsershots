@@ -16,13 +16,10 @@ FACTORY_LIST_COLUMNS = (
 
 def factory_list(request):
     order = request.GET.get('order', '')
-    order_column = order
+    if order.lstrip('-') not in FACTORY_LIST_COLUMNS:
+        order = '-uploads_per_day'
+    order_column = order.lstrip('-')
     descending = order.startswith('-')
-    if descending:
-        order_column = order[1:]
-    if order_column not in FACTORY_LIST_COLUMNS:
-        order = order_column = 'name'
-        descending = False
     header_list = []
     for column in FACTORY_LIST_COLUMNS:
         text = column.replace('_', ' ').replace(' ', '<br />', 1)
@@ -40,7 +37,7 @@ def factory_list(request):
         header_list.append({'text': text,
                             'url': url,
                             'class_attrib': class_attrib})
-    factory_list = list(Factory.objects.order_by(order))
+    factory_list = list(Factory.objects.order_by(order, 'name'))
     return render_to_response('factories/factory_list.html', locals())
 
 
