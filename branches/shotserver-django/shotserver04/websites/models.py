@@ -1,8 +1,16 @@
 from django.db import models
+from django.core import validators
+
+
+def hasSlashAfterHostname(field_data, all_data):
+    if field_data.count('/') < 3:
+        raise validators.ValidationError(
+            "Missing slash after the hostname.")
 
 
 class Website(models.Model):
-    url = models.URLField('URL', maxlength=400, verify_exists=False)
+    url = models.URLField('URL', unique=True,
+        validator_list=[hasSlashAfterHostname])
     submitted = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
