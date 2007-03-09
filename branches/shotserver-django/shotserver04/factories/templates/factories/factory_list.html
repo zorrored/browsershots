@@ -17,7 +17,7 @@
 {% for factory in factory_list %}
 <tr class="{% cycle row1,row2 %}">
 <td><a href="{{ factory.get_absolute_url }}">{{ factory.name }}</a></td>
-<td>{{ factory.operatingsystem }}</td>
+<td>{{ factory.operating_system }}</td>
 <td>{{ factory.architecture }}</td>
 <td>{% age factory.last_poll %}</td>
 <td>{% age factory.last_upload %}</td>
