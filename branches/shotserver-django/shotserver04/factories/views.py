@@ -3,14 +3,14 @@ from django.http import Http404
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 
-FACTORY_LIST_HEADERS = (
-    ('name', "Factory"),
-    ('operating_system', "Operating<br />system"),
-    ('architecture', "CPU"),
-    ('last_poll', "Last<br />poll"),
-    ('last_upload', "Last<br />upload"),
-    ('uploads_per_hour', "Uploads<br />per hour"),
-    ('uploads_per_day', "Uploads<br />per day"),
+FACTORY_LIST_COLUMNS = (
+    'name',
+    'operating_system',
+    'architecture',
+    'last_poll',
+    'last_upload',
+    'uploads_per_hour',
+    'uploads_per_day',
 )
 
 
@@ -20,12 +20,12 @@ def factory_list(request):
     descending = order.startswith('-')
     if descending:
         order_column = order[1:]
-    if not order_column in [x[0] for x in FACTORY_LIST_HEADERS]:
-        order = 'name'
-        order_column = 'name'
+    if order_column not in FACTORY_LIST_COLUMNS:
+        order = order_column = 'name'
         descending = False
     header_list = []
-    for column, text in FACTORY_LIST_HEADERS:
+    for column in FACTORY_LIST_COLUMNS:
+        text = column.replace('_', ' ').replace(' ', '<br />', 1)
         class_attrib = ''
         if column == order_column:
             found = True
