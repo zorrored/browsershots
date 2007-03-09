@@ -8,7 +8,7 @@
 # changing the database models. If you want to keep your data, use
 # pg_dump before you run this script, then reload from the dump file.
 
-APPS="factories browsers requests"
+APPS="factories browsers websites requests screenshots"
 
 # Drop all tables, with cascade.
 python shotserver04/manage.py sqlclear $APPS | \
@@ -31,7 +31,9 @@ psql shotserver04 < sql/browsers_engine.sql
 psql shotserver04 < sql/browsers_browsergroup.sql
 psql shotserver04 < sql/browsers_browser.sql
 
+# Load websites from sql directory
+psql shotserver04 < sql/websites_website.sql
+
 # Load requests from sql directory
-psql shotserver04 < sql/requests_website.sql
 psql shotserver04 < sql/requests_requestgroup.sql
 psql shotserver04 < sql/requests_request.sql

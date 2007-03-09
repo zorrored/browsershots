@@ -92,9 +92,12 @@ def load_columns(model):
 
 
 def load_module(appname):
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
     module_name = 'shotserver04.%s.models' % appname
-    module = __import__(module_name, globals(), locals(), [''])
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
+    try:
+        module = __import__(module_name, globals(), locals(), [''])
+    except ImportError:
+        return {}
     models = {}
     for name, model in module.__dict__.iteritems():
         if not repr(model).startswith("<class '%s." % module_name):

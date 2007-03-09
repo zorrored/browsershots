@@ -1,23 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from shotserver04.websites.models import Website
 from shotserver04.factories.models import OperatingSystemGroup, Factory
-from shotserver04.browsers.models import BrowserGroup, Browser
-
-
-class Website(models.Model):
-    url = models.URLField('URL', maxlength=400, verify_exists=False)
-    submitted = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        if len(self.url) > 60:
-            return self.url[:56] + '...'
-        else:
-            return self.url
-
-    class Admin:
-        list_display = ('__str__', 'submitted')
-        search_fields = ('url', )
-        date_hierarchy = 'submitted'
+from shotserver04.browsers.models import BrowserGroup
 
 
 class RequestGroup(models.Model):
@@ -54,25 +39,3 @@ class Request(models.Model):
     class Admin:
         list_display = ('browser_group', 'major', 'minor',
                         'operating_system_group')
-
-
-class Screenshot(models.Model):
-    hashkey = models.SlugField(maxlength=32)
-    request = models.ForeignKey(Request)
-    factory = models.ForeignKey(Factory)
-    browser = models.ForeignKey(Browser, null=True, blank=True)
-    width = models.IntegerField(null=True, blank=True)
-    height = models.IntegerField(null=True, blank=True)
-    message = models.CharField(maxlength=400)
-    locked = models.DateTimeField(auto_now_add=True)
-    redirected = models.DateTimeField(null=True, blank=True)
-    failed = models.DateTimeField(null=True, blank=True)
-    uploaded = models.DateTimeField(null=True, blank=True)
-
-    def __str__(self):
-        return self.hashkey
-
-    class Admin:
-        list_display = ('hashkey', 'factory', 'browser',
-                        'width', 'height', 'locked')
-        date_hierarchy = 'locked'
