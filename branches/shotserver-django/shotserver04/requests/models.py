@@ -6,7 +6,7 @@ from shotserver04.browsers.models import BrowserGroup
 
 
 class RequestGroup(models.Model):
-    website = models.ForeignKey(Website)
+    website = models.ForeignKey(Website, raw_id_admin=True)
     width = models.IntegerField('screen width', null=True, blank=True)
     bits_per_pixel = models.IntegerField(null=True, blank=True)
     javascript = models.CharField(maxlength=20, blank=True)
@@ -20,13 +20,22 @@ class RequestGroup(models.Model):
         return str(self.website)
 
     class Admin:
+        fields = (
+            (None, {'fields': (
+            'website',
+            ('width', 'bits_per_pixel'),
+            ('javascript', 'java', 'flash'),
+            'submitter',
+            'expire',
+            )}),
+            )
         list_display = ('__str__', 'width', 'javascript', 'java', 'flash')
         search_fields = ('website__url', )
         date_hierarchy = 'submitted'
 
 
 class Request(models.Model):
-    request_group = models.ForeignKey(RequestGroup)
+    request_group = models.ForeignKey(RequestGroup, raw_id_admin=True)
     operating_system_group = models.ForeignKey(OperatingSystemGroup,
         blank=True, null=True)
     browser_group = models.ForeignKey(BrowserGroup)
@@ -37,5 +46,12 @@ class Request(models.Model):
         return '%s %d.%d' % (self.browser_group.name, self.major, self.minor)
 
     class Admin:
+        fields = (
+            (None, {'fields': (
+            'request_group',
+            'operating_system_group',
+            ('browser_group', 'major', 'minor'),
+            )}),
+            )
         list_display = ('browser_group', 'major', 'minor',
                         'operating_system_group')
