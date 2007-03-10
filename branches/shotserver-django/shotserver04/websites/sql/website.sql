@@ -1,3 +1,3 @@
 ALTER TABLE websites_website
 ADD CONSTRAINT websites_website_url_check
-CHECK (url ~ '^https?://[a-z0-9_\.\-]*/');
+CHECK (url ~ '^https?://[a-z0-9_\\.\\-]+\\.[a-z0-9]+/\\S*$');
