@@ -14,5 +14,7 @@ def load_app_patterns(prefix, ignore=()):
 
 urlpatterns = patterns('',
     (r'^admin/', include('django.contrib.admin.urls')),
+    (r'^(?P<website_url>https?://\S+)$',
+         'shotserver04.websites.views.website_detail'),
     *load_app_patterns('shotserver04.', ignore=['common'])
     )
