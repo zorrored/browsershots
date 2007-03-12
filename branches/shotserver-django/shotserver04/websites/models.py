@@ -9,7 +9,7 @@ def hasSlashAfterHostname(field_data, all_data):
 
 
 class Website(models.Model):
-    url = models.URLField('URL', unique=True,
+    url = models.URLField('URL', maxlength=400, unique=True,
         validator_list=[hasSlashAfterHostname])
     submitted = models.DateTimeField(auto_now_add=True)
 

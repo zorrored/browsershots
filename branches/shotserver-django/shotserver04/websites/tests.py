@@ -1,4 +1,4 @@
-from psycopg import IntegrityError
+from psycopg import IntegrityError, ProgrammingError
 from unittest import TestCase
 from django.db import transaction
 from shotserver04.websites.models import Website
@@ -92,8 +92,10 @@ class UrlTestCase(TestCase):
     def testValidJ(self): self.assertValid('htTps://browsershots.org/')
     def testValidK(self): self.assertValid('httPs://browsershots.org/')
     def testValidL(self): self.assertValid('httpS://browsershots.org/')
-    def testValidM(self): self.assertValid('http://123.123.123.123/')
-    def testValidN(self): self.assertValid('http://123.123.123.123/test/')
+    def testValidM(self): self.assertValid('http://1234567890:12345/')
+    def testValidm(self): self.assertValid('http://1234567890:12345/123')
+    def testValidN(self): self.assertValid('http://123.123.123.123/')
+    def testValidn(self): self.assertValid('http://123.123.123.123/test/')
     def testValidO(self):
         self.assertValid('http://browsershots.org/index.html')
     def testValidP(self):
@@ -104,3 +106,21 @@ class UrlTestCase(TestCase):
         self.assertValid('http://browsershots.org/?url=http://example.com/')
     def testValidS(self):
         self.assertValid('https://trac.browsershots.org/blog?format=rss')
+
+    def testMaxLength(self, length=400):
+        try:
+            website = Website.objects.create(url='http://browsershots.org/' +
+                'x' * (length - len('http://browsershots.org/')))
+            website.delete()
+        except ProgrammingError:
+            transaction.rollback()
+            self.fail('could not create URL with %d characters' % length)
+
+    def testTooLong(self, length=401):
+        try:
+            website = Website.objects.create(url='http://browsershots.org/' +
+                'x' * (length - len('http://browsershots.org/')))
+            website.delete()
+            self.fail('created URL with %d characters' % length)
+        except ProgrammingError:
+            transaction.rollback()
