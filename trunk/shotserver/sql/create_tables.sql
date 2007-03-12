@@ -803,6 +803,14 @@ ALTER TABLE ONLY request_group
 
 
 --
+-- Name: request_group_website_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
+--
+
+ALTER TABLE ONLY request_group
+    ADD CONSTRAINT request_group_website_fkey FOREIGN KEY (website) REFERENCES website(website);
+
+
+--
 -- Name: request_opsys_fkey; Type: FK CONSTRAINT; Schema: public; Owner: www-data
 --
 
