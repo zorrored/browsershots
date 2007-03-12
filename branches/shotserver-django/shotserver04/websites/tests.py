@@ -42,9 +42,9 @@ class UrlTestCase(TestCase):
         self.assertEqual(Website.objects.filter(url=url).count(), 0)
         try:
             website = Website.objects.create(url=url)
-            website.save()
             transaction.commit()
         except IntegrityError:
+            transaction.rollback()
             self.fail("valid URL raised IntegrityError: '%s'" % url)
         self.assertEqual(Website.objects.filter(url=url).count(), 1)
         website.delete()
@@ -63,17 +63,36 @@ class UrlTestCase(TestCase):
     def testInvalidJ(self): self.assertInvalid('htp://browsershots.org/')
     def testInvalidK(self): self.assertInvalid('http//browsershots.org/')
     def testInvalidL(self): self.assertInvalid('http:/browsershots.org/')
-    def testInvalidM(self): self.assertInvalid('http://browsershots.org')
-    def testInvalidN(self): self.assertInvalid('http://browsershots.org/ ')
-    def testInvalidO(self): self.assertInvalid(' http://browsershots.org/')
+    def testInvalidM(self): self.assertInvalid('HTTP://browsershots.org/')
+    def testInvalidm(self): self.assertInvalid('http://browsershots.org:abc/')
+    def testInvalidN(self): self.assertInvalid('http://browsershots.org')
+    def testInvalidO(self): self.assertInvalid('http://browsershots..org/')
+    def testInvalidP(self): self.assertInvalid('http://browsershots.org/ ')
+    def testInvalidQ(self): self.assertInvalid('http://.browsershots.org/')
+    def testInvalidR(self): self.assertInvalid(' http://browsershots.org/')
+    def testInvalidS(self): self.assertInvalid('http://1.2.3/')
+    def testInvalidT(self): self.assertInvalid('http://1.2.3.4.5/')
+    def testInvalidU(self): self.assertInvalid('http://1234.123.123.123/')
+    def testInvalidV(self): self.assertInvalid('http://123.1234.123.123/')
+    def testInvalidW(self): self.assertInvalid('http://123.123.1234.123/')
+    def testInvalidX(self): self.assertInvalid('http://123.123.123.1234/')
+    def testInvalidx(self): self.assertInvalid('http://123.123.123.123:abc/')
 
-    def testValidA(self):
-        self.assertValid('http://browsershots.org/')
-    def testValidB(self):
-        self.assertValid('http://browsershots.org/http://example.com/')
-    def testValidC(self):
+    def testValidA(self): self.assertValid('http://browsershots.org/')
+    def testValida(self): self.assertValid('http://browsershots.org:80/')
+    def testValidB(self): self.assertValid('https://browsershots.org/')
+    def testValidb(self): self.assertValid('https://browsershots.org:443/')
+    def testValidC(self): self.assertValid('http://www.browsershots.org/')
+    def testValidD(self): self.assertValid('http://svn.browsershots.org/')
+    def testValidE(self): self.assertValid('http://123.123.123.123/')
+    def testValidF(self): self.assertValid('http://123.123.123.123/test/')
+    def testValidG(self):
+        self.assertValid('http://browsershots.org/index.html')
+    def testValidH(self):
         self.assertValid('http://browsershots.org/robots.txt')
-    def testValidD(self):
+    def testValidI(self):
+        self.assertValid('http://browsershots.org/http://example.com/')
+    def testValidJ(self):
         self.assertValid('http://browsershots.org/?url=http://example.com/')
-    def testValidE(self):
-        self.assertValid('https://browsershots.org/')
+    def testValidK(self):
+        self.assertValid('https://trac.browsershots.org/blog?format=rss')
