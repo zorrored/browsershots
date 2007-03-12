@@ -182,6 +182,12 @@ def convert(old_table, new_table, old_columns, mapping):
         sort_value = new_values[0]
         if sort_value.isdigit():
             sort_value = int(sort_value)
+        if old_table == 'website':
+            url = new_values[1]
+            if url.count('\\'): continue
+            if url.count(' '): continue
+            if url.count('./'): continue
+            if url.count('_/'): continue
         rows.append((sort_value, '\t'.join(new_values)))
     rows.sort()
     if old_table in table_limits and len(rows) > table_limits[old_table]:
