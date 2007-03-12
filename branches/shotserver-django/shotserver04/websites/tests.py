@@ -63,8 +63,7 @@ class UrlTestCase(TestCase):
     def testInvalidJ(self): self.assertInvalid('htp://browsershots.org/')
     def testInvalidK(self): self.assertInvalid('http//browsershots.org/')
     def testInvalidL(self): self.assertInvalid('http:/browsershots.org/')
-    def testInvalidM(self): self.assertInvalid('HTTP://browsershots.org/')
-    def testInvalidm(self): self.assertInvalid('http://browsershots.org:abc/')
+    def testInvalidM(self): self.assertInvalid('http://browsershots.org:abc/')
     def testInvalidN(self): self.assertInvalid('http://browsershots.org')
     def testInvalidO(self): self.assertInvalid('http://browsershots..org/')
     def testInvalidP(self): self.assertInvalid('http://browsershots.org/ ')
@@ -84,15 +83,24 @@ class UrlTestCase(TestCase):
     def testValidb(self): self.assertValid('https://browsershots.org:443/')
     def testValidC(self): self.assertValid('http://www.browsershots.org/')
     def testValidD(self): self.assertValid('http://svn.browsershots.org/')
-    def testValidE(self): self.assertValid('http://123.123.123.123/')
-    def testValidF(self): self.assertValid('http://123.123.123.123/test/')
-    def testValidG(self):
+    def testValidE(self): self.assertValid('http://BrowserShots.org/')
+    def testValidF(self): self.assertValid('http://WWW.BROWSERSHOTS.ORG/')
+    def testValidf(self): self.assertValid('hTtP://WwW.BroWSersHotS.oRg/')
+    def testValidG(self): self.assertValid('HTTP://BROWSERSHOTS.ORG/')
+    def testValidH(self): self.assertValid('Https://browsershots.org/')
+    def testValidI(self): self.assertValid('hTtps://browsershots.org/')
+    def testValidJ(self): self.assertValid('htTps://browsershots.org/')
+    def testValidK(self): self.assertValid('httPs://browsershots.org/')
+    def testValidL(self): self.assertValid('httpS://browsershots.org/')
+    def testValidM(self): self.assertValid('http://123.123.123.123/')
+    def testValidN(self): self.assertValid('http://123.123.123.123/test/')
+    def testValidO(self):
         self.assertValid('http://browsershots.org/index.html')
-    def testValidH(self):
+    def testValidP(self):
         self.assertValid('http://browsershots.org/robots.txt')
-    def testValidI(self):
+    def testValidQ(self):
         self.assertValid('http://browsershots.org/http://example.com/')
-    def testValidJ(self):
+    def testValidR(self):
         self.assertValid('http://browsershots.org/?url=http://example.com/')
-    def testValidK(self):
+    def testValidS(self):
         self.assertValid('https://trac.browsershots.org/blog?format=rss')
