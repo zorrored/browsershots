@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load common_tags %}
+
+{% block title %}Website Overview{% endblock %}
+
+{% block content %}
+<h1>Website Overview</h1>
+<p>for {{ website_url }}{% if website %} (submitted {% age website.submitted %} ago){% endif %}</p>
+
+{% for request_group in website.requestgroup_set.all %}
+<p>{% age request_group.submitted %}</p>
+{% endfor %}
+{% endblock %}
