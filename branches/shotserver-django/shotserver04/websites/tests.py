@@ -76,6 +76,8 @@ class UrlTestCase(TestCase):
     def testInvalidW(self): self.assertInvalid('http://123.123.1234.123/')
     def testInvalidX(self): self.assertInvalid('http://123.123.123.1234/')
     def testInvalidx(self): self.assertInvalid('http://123.123.123.123:abc/')
+    def testInvalidY(self): self.assertInvalid('http://0x12.0x45.0x9a.0xfg/')
+    def testInvalidy(self): self.assertInvalid('http://0x123.0x45.0x9a.0xef/')
 
     def testValidA(self): self.assertValid('http://browsershots.org/')
     def testValida(self): self.assertValid('http://browsershots.org:80/')
@@ -94,11 +96,13 @@ class UrlTestCase(TestCase):
     def testValidL(self): self.assertValid('httpS://browsershots.org/')
     def testValidM(self): self.assertValid('http://1234567890:12345/')
     def testValidm(self): self.assertValid('http://1234567890:12345/123')
-    def testValidN(self): self.assertValid('http://123.123.123.123/')
-    def testValidn(self): self.assertValid('http://123.123.123.123/test/')
-    def testValidO(self):
-        self.assertValid('http://browsershots.org/index.html')
+    def testValidN(self): self.assertValid('http://0x12.0x45.0x9a.0xef/')
+    def testValidn(self): self.assertValid('http://0x12.0x45.0x9a.0xef:80/')
+    def testValidO(self): self.assertValid('http://123.123.123.123/')
+    def testValido(self): self.assertValid('http://123.123.123.123/test/')
     def testValidP(self):
+        self.assertValid('http://browsershots.org/index.html')
+    def testValidp(self):
         self.assertValid('http://browsershots.org/robots.txt')
     def testValidQ(self):
         self.assertValid('http://browsershots.org/http://example.com/')
