@@ -42,10 +42,10 @@ old_string_remove_null = (
     )
 
 table_limits = {
-    'request_group': 100,
-    'request': 1000,
-    'screenshot': 100,
-    'nonce': 100,
+#    'request_group': 100,
+#    'request': 1000,
+#    'screenshot': 100,
+#    'nonce': 100,
     }
 
 
@@ -173,6 +173,11 @@ def convert(old_table, new_table, old_columns, mapping):
                         new_value = 'f'
                     else:
                         new_value = 't'
+                if old_table == 'website' and old_column == 'url':
+                    new_value = new_value.replace('\\', '_')
+                    new_value = new_value.replace(' ', '_')
+                    new_value = new_value.replace('./', 'm/')
+                    new_value = new_value.replace('_/', 'm/')
                 if new_value == r'\N' and \
                        old_column in old_string_remove_null:
                     new_value = ''
@@ -182,12 +187,6 @@ def convert(old_table, new_table, old_columns, mapping):
         sort_value = new_values[0]
         if sort_value.isdigit():
             sort_value = int(sort_value)
-        if old_table == 'website':
-            url = new_values[1]
-            if url.count('\\'): continue
-            if url.count(' '): continue
-            if url.count('./'): continue
-            if url.count('_/'): continue
         rows.append((sort_value, '\t'.join(new_values)))
     rows.sort()
     if old_table in table_limits and len(rows) > table_limits[old_table]:
