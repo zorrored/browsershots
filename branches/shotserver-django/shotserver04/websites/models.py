@@ -19,6 +19,9 @@ class Website(models.Model):
         else:
             return self.url
 
+    def get_absolute_url(self):
+        return '/' + self.url
+
     class Admin:
         list_display = ('__str__', 'submitted')
         search_fields = ('url', )
