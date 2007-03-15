@@ -40,7 +40,7 @@ class Browser(models.Model):
     version = models.CharField(maxlength=20)
     major = models.IntegerField()
     minor = models.IntegerField()
-    engine = models.ForeignKey(Engine, blank=True, null=True)
+    engine = models.ForeignKey(Engine, blank=True)
     engine_version = models.CharField(maxlength=20, blank=True)
     javascript = models.CharField(maxlength=20, blank=True)
     java = models.CharField(maxlength=20, blank=True)
