@@ -5,8 +5,8 @@ from shotserver04.browsers.models import Browser
 
 
 class Screenshot(models.Model):
-    hashkey = models.SlugField(maxlength=32)
-    request = models.ForeignKey(Request, raw_id_admin=True)
+    hashkey = models.SlugField(maxlength=32, unique=True)
+    request = models.ForeignKey(Request, raw_id_admin=True, null=True)
     factory = models.ForeignKey(Factory, raw_id_admin=True)
     browser = models.ForeignKey(Browser, raw_id_admin=True,
                                 null=True, blank=True)
@@ -32,4 +32,3 @@ class Screenshot(models.Model):
             )
         list_display = ('hashkey', 'factory', 'browser',
                         'width', 'height', 'locked')
-        date_hierarchy = 'locked'
