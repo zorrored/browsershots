@@ -8,5 +8,18 @@
 </head>
 <body>
 {% block content %}{% endblock %}
+{% if query_list %}
+<h2 style="clear: both;">Database queries</h2>
+<table>
+<thead>
+<tr><th>Time</th><th>SQL</th></tr>
+</thead>
+<tbody>
+{% for query in query_list %}
+<tr class="{% cycle row1,row2 %}"><td>{{ query.time }}</td><td>{{ query.sql }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
 </body>
 </html>
