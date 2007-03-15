@@ -128,7 +128,7 @@ class ColorDepth(models.Model):
 
 class Nonce(models.Model):
     factory = models.ForeignKey(Factory)
-    hashkey = models.SlugField(maxlength=32)
+    hashkey = models.SlugField(maxlength=32, unique=True)
     ip = models.IPAddressField()
     created = models.DateTimeField(auto_now_add=True)
 

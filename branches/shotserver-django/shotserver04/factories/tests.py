@@ -1,10 +1,10 @@
-from psycopg import IntegrityError
+from psycopg import IntegrityError, ProgrammingError, DatabaseError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User
 from shotserver04.factories.models import (
     Factory, Architecture, ScreenSize, ColorDepth,
-    OperatingSystemGroup, OperatingSystem)
+    OperatingSystemGroup, OperatingSystem, Nonce)
 
 
 class FactoriesTestCase(TestCase):
@@ -31,7 +31,6 @@ class FactoriesTestCase(TestCase):
             factory=self.factory, bits_per_pixel=16)
         self.depth_24 = ColorDepth.objects.create(
             factory=self.factory, bits_per_pixel=24)
-        transaction.commit()
 
     def tearDown(self):
         self.depth_16.delete()
@@ -44,44 +43,52 @@ class FactoriesTestCase(TestCase):
         self.operating_system_group.delete()
         self.architecture.delete()
         self.user.delete()
-        transaction.commit()
 
     def testFactoryName(self):
         self.factory.name = 'factory'
         self.factory.save()
-        transaction.commit()
         self.assertEqual(len(Factory.objects.filter(name='factory')), 1)
 
     def testFactoryNameEmpty(self):
-        self.factory.name = ''
-        self.assertRaises(IntegrityError, self.factory.save)
-        transaction.rollback()
+        try:
+            self.factory.name = ''
+            self.assertRaises(IntegrityError, self.factory.save)
+        finally:
+            transaction.rollback()
 
     def testFactoryNameInvalid(self):
-        self.factory.name = '-'
-        self.assertRaises(IntegrityError, self.factory.save)
-        transaction.rollback()
+        try:
+            self.factory.name = '-'
+            self.assertRaises(IntegrityError, self.factory.save)
+        finally:
+            transaction.rollback()
 
     def testFactoryCreateDuplicate(self):
-        self.assertRaises(IntegrityError, Factory.objects.create,
-                          name='factory', admin=self.user,
-                          architecture=self.architecture,
-                          operating_system=self.operating_system)
-        transaction.rollback()
+        try:
+            self.assertRaises(IntegrityError, Factory.objects.create,
+                              name='factory', admin=self.user,
+                              architecture=self.architecture,
+                              operating_system=self.operating_system)
+        finally:
+            transaction.rollback()
 
     def testFactoryCreateEmpty(self):
-        self.assertRaises(IntegrityError, Factory.objects.create,
-                          admin=self.user,
-                          architecture=self.architecture,
-                          operating_system=self.operating_system)
-        transaction.rollback()
+        try:
+            self.assertRaises(IntegrityError, Factory.objects.create,
+                              admin=self.user,
+                              architecture=self.architecture,
+                              operating_system=self.operating_system)
+        finally:
+            transaction.rollback()
 
     def testFactoryCreateInvalid(self):
-        self.assertRaises(IntegrityError, Factory.objects.create,
-                          name='-', admin=self.user,
-                          architecture=self.architecture,
-                          operating_system=self.operating_system)
-        transaction.rollback()
+        try:
+            self.assertRaises(IntegrityError, Factory.objects.create,
+                              name='-', admin=self.user,
+                              architecture=self.architecture,
+                              operating_system=self.operating_system)
+        finally:
+            transaction.rollback()
 
     def testScreenSize(self):
         queryset = self.factory.screensize_set
@@ -94,15 +101,120 @@ class FactoriesTestCase(TestCase):
         self.assertEqual(len(queryset.filter(width__lt=800)), 1)
 
     def testScreenSizeDuplicate(self):
-        self.assertRaises(IntegrityError, ScreenSize.objects.create,
-                          factory=self.factory, width=800, height=600)
-        transaction.rollback()
+        try:
+            self.assertRaises(IntegrityError, ScreenSize.objects.create,
+                              factory=self.factory, width=800, height=600)
+        finally:
+            transaction.rollback()
 
     def testColorDepth(self):
         queryset = self.factory.colordepth_set
         self.assertEqual(len(queryset.all()), 2)
 
     def testColorDepthDuplicate(self):
-        self.assertRaises(IntegrityError, ColorDepth.objects.create,
-                          factory=self.factory, bits_per_pixel=24)
-        transaction.rollback()
+        try:
+            self.assertRaises(IntegrityError, ColorDepth.objects.create,
+                              factory=self.factory, bits_per_pixel=24)
+        finally:
+            transaction.rollback()
+
+    def assertNonceValid(self, hashkey):
+        try:
+            try:
+                nonce = Nonce.objects.create(factory=self.factory,
+                    hashkey=hashkey, ip='127.0.0.1')
+                nonce.delete()
+            except (IntegrityError, ProgrammingError):
+                self.fail("could not create nonce with valid hashkey '%s'" %
+                          hashkey)
+        finally:
+            transaction.rollback()
+
+    def assertNonceInvalid(self, hashkey):
+        try:
+            try:
+                nonce = Nonce.objects.create(factory=self.factory,
+                    hashkey=hashkey, ip='127.0.0.1')
+                nonce.save()
+                nonce.delete()
+                self.fail("created nonce with invalid hashkey '%s'" % hashkey)
+            except (IntegrityError, ProgrammingError):
+                pass
+        finally:
+            transaction.rollback()
+
+    def testNonceValidA(self):
+        self.assertNonceValid('12345678901234567890123456789012')
+    def testNonceValidB(self):
+        self.assertNonceValid('a234b6789012c4567d90123e56789f12')
+    def testNonceValidC(self):
+        self.assertNonceValid('0a234b6789012c4567d90123e56789ff')
+
+    def testNonceInvalidA(self):
+        self.assertNonceInvalid('1234567890123456789012345678901')
+    def testNonceInvalidB(self):
+        self.assertNonceInvalid('a234b6789012c4567d90123e56789f123')
+    def testNonceInvalidC(self):
+        self.assertNonceInvalid('0a234b6789012c4567d90123e56789fg')
+
+    def testNonceDuplicate(self):
+        try:
+            hashkey = '0123456789abcdef' * 2
+            nonce = Nonce.objects.create(hashkey=hashkey,
+                factory=self.factory, ip='127.0.0.1')
+            self.assertRaises(IntegrityError, Nonce.objects.create,
+                hashkey=hashkey, factory=self.factory, ip='127.0.0.1')
+        finally:
+            transaction.rollback()
+
+
+class ForeignKeyTestCase(TestCase):
+
+    def testInvalidArchitecture(self):
+        try:
+            self.assertRaises(DatabaseError, Factory.objects.create,
+                              architecture_id=-1)
+        finally:
+            transaction.rollback()
+
+    def testInvalidOperatingSystemGroup(self):
+        try:
+            self.assertRaises(DatabaseError, OperatingSystem.objects.create,
+                              operating_system_group_id=-1)
+        finally:
+            transaction.rollback()
+
+    def testInvalidOperatingSystem(self):
+        try:
+            self.assertRaises(DatabaseError, Factory.objects.create,
+                              operating_system_id=-1)
+        finally:
+            transaction.rollback()
+
+    def testInvalidAdmin(self):
+        try:
+            self.assertRaises(DatabaseError, Factory.objects.create,
+                              admin_id=-1)
+        finally:
+            transaction.rollback()
+
+    def testInvalidFactoryForScreenSize(self):
+        try:
+            self.assertRaises(DatabaseError, ScreenSize.objects.create,
+                              factory_id=-1, width=800, height=600)
+        finally:
+            transaction.rollback()
+
+    def testInvalidFactoryForColorDepth(self):
+        try:
+            self.assertRaises(DatabaseError, ColorDepth.objects.create,
+                              factory_id=-1, bits_per_pixel=24)
+        finally:
+            transaction.rollback()
+
+    def testInvalidFactoryForNonce(self):
+        try:
+            self.assertRaises(DatabaseError, Nonce.objects.create,
+                              factory_id=-1)
+        finally:
+            transaction.rollback()
