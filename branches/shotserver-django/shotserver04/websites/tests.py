@@ -8,24 +8,22 @@ class WebsitesTestCase(TestCase):
 
     def setUp(self):
         self.website = Website.objects.create(url='http://browsershots.org/')
-        self.website.save()
-        transaction.commit()
 
     def tearDown(self):
         self.website.delete()
-        transaction.commit()
 
     def testChangeURL(self):
         self.website.url = 'https://browsershots.org/websites/'
         self.website.save()
-        transaction.commit()
         self.assertEqual(len(Website.objects.filter(
             url__contains='browsershots.org')), 1)
 
     def testCreateDuplicate(self):
-        self.assertRaises(IntegrityError, Website.objects.create,
-                          url='http://browsershots.org/')
-        transaction.rollback()
+        try:
+            self.assertRaises(IntegrityError, Website.objects.create,
+                              url='http://browsershots.org/')
+        finally:
+            transaction.rollback()
 
 
 class UrlTestCase(TestCase):
@@ -42,13 +40,11 @@ class UrlTestCase(TestCase):
         self.assertEqual(Website.objects.filter(url=url).count(), 0)
         try:
             website = Website.objects.create(url=url)
-            transaction.commit()
         except IntegrityError:
             transaction.rollback()
             self.fail("valid URL raised IntegrityError: '%s'" % url)
         self.assertEqual(Website.objects.filter(url=url).count(), 1)
         website.delete()
-        transaction.commit()
         self.assertEqual(Website.objects.filter(url=url).count(), 0)
 
     def testInvalidA(self): self.assertInvalid('')
