@@ -6,6 +6,7 @@ import re
 import glob
 
 copy_match = re.compile(r'COPY (\S+) \((.+)\) FROM stdin;').match
+safari_match = re.compile(r'Safari/((\d+)\.(\d+))').search
 
 old_table_mapping = {
     'screen': 'screensize',
@@ -21,6 +22,8 @@ new_column_mapping = {
     'uploads_per_hour': 'per_hour',
     'uploads_per_day': 'per_day',
     'logged': 'created',
+    'locked': 'created',
+    'redirected': 'created',
     'uploaded': 'created',
     'submitted': 'created',
     'submitter_id': 'creator',
@@ -141,6 +144,8 @@ def convert(old_table, new_table, old_columns, mapping):
         new_columns.append(new_column)
     if old_table == 'engine':
         new_columns.append('maker')
+    if old_table == 'screenshot':
+        new_columns.append('message')
     for index, column in enumerate(old_columns):
         if index not in include:
             print >> sys.stderr, "        ignoring %s at index %s" % (
@@ -173,6 +178,9 @@ def convert(old_table, new_table, old_columns, mapping):
                         new_value = 'f'
                     else:
                         new_value = 't'
+                if old_table == 'factory_browser' and old_column == 'engine':
+                    if new_value == r'\N':
+                        new_value = '1'
                 if old_table == 'website' and old_column == 'url':
                     new_value = new_value.replace('\\', '_')
                     new_value = new_value.replace(' ', '_')
@@ -182,8 +190,14 @@ def convert(old_table, new_table, old_columns, mapping):
                        old_column in old_string_remove_null:
                     new_value = ''
             new_values.append(new_value)
-        if old_table == 'engine':
+        if old_table in ('engine', 'screenshot'):
             new_values.append('')
+        if old_table == 'factory_browser':
+            match = safari_match(new_values[2])
+            if match:
+                new_values[new_columns.index('version')] = match.group(1)
+                new_values[new_columns.index('major')] = match.group(2)
+                new_values[new_columns.index('minor')] = match.group(3)
         sort_value = new_values[0]
         if sort_value.isdigit():
             sort_value = int(sort_value)
