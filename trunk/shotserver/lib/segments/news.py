@@ -24,10 +24,12 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+import os
 import re
 import time
 from shotserver03.interface import xhtml, human
 
+rss_filename = '/var/www/browsershots.org/blog/rss.xml'
 find_items = re.compile(r'<item>\s*' +
                         r'<title>(.+?)</title>\s*' +
                         r'<pubDate>(.+?)</pubDate>\s*' +
@@ -44,8 +46,13 @@ def write():
                      href='http://trac.browsershots.org/blog')
     xhtml.write_tag_line('h2', link)
 
+    if not os.path.exists(rss_filename):
+        xhtml.write_tag('p', 'File %s not found.' % rss_filename)
+        xhtml.write_close_tag_line('div') # id="news"
+        return
+
     xhtml.write_open_tag_line('ul')
-    rss = file('/var/www/browsershots.org/blog/rss.xml').read()
+    rss = file(rss_filename).read()
     items = find_items(rss)
     if len(items) > 10:
         items = items[:10]
