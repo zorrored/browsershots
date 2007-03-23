@@ -10,13 +10,6 @@ class URLForm(forms.Form):
 
 
 class OptionsForm(forms.Form):
-    maximum_wait = forms.ChoiceField(initial=30, choices=(
-        (15, "15 minutes"),
-        (30, "30 minutes"),
-        (60, "1 hour"),
-        (120, "2 hours"),
-        (240, "4 hours"),
-        ))
     screen_size = forms.ChoiceField(initial='any', choices=(
         ('any', "Don't Care"),
         (640, "640x480"),
@@ -52,6 +45,13 @@ class OptionsForm(forms.Form):
         (8, "Version 8"),
         (9, "Version 9"),
         ))
+    maximum_wait = forms.ChoiceField(initial=30, choices=(
+        (15, "15 minutes"),
+        (30, "30 minutes"),
+        (60, "1 hour"),
+        (120, "2 hours"),
+        (240, "4 hours"),
+        ))
 
 
 class BrowserForm(forms.BaseForm):
@@ -76,7 +76,7 @@ class BrowserForm(forms.BaseForm):
                 if browser.minor is not None:
                     name += '.' + str(browser.minor)
             code = (os + ' ' + name).lower()
-            code = code.replace(' ', '-').replace('.', '-')
+            code = code.replace(' ', '_').replace('.', '_')
             self.fields[code] = forms.BooleanField(
                 label=name, initial=code in data and 'on' in data[code])
 
