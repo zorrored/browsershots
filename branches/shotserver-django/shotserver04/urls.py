@@ -13,6 +13,7 @@ def load_app_patterns(prefix, ignore=()):
 
 
 urlpatterns = patterns('',
+    (r'^$', 'shotserver04.common.views.start'),
     (r'^admin/', include('django.contrib.admin.urls')),
     (r'^(?P<website_url>https?://\S+)$',
          'shotserver04.websites.views.website_detail'),
