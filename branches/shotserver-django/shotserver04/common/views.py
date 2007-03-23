@@ -69,16 +69,24 @@ class BrowserForm(forms.BaseForm):
         active_browsers = os_browsers.extra(
             where=['"factories_factory"."last_poll" > NOW() - %s::interval'],
             params=['31d'])
+        field_dict = {}
         for browser in active_browsers:
-            name = browser.browser_group.name
+            label = browser.browser_group.name
             if browser.major is not None:
-                name += ' ' + str(browser.major)
+                label += ' ' + str(browser.major)
                 if browser.minor is not None:
-                    name += '.' + str(browser.minor)
-            code = (os + ' ' + name).lower()
-            code = code.replace(' ', '_').replace('.', '_')
-            self.fields[code] = forms.BooleanField(
-                label=name, initial=code in data and 'on' in data[code])
+                    label += '.' + str(browser.minor)
+            name = (os + ' ' + label).lower()
+            name = name.replace(' ', '_').replace('.', '_')
+            if name in field_dict:
+                continue
+            initial = data is None or (name in data and 'on' in data[name])
+            field = forms.BooleanField(label=label, initial=initial)
+            field_dict[name] = field
+        field_names = field_dict.keys()
+        field_names.sort()
+        for name in field_names:
+            self.fields[name] = field_dict[name]
 
     def __unicode__(self):
         fields = list(self.fields)
