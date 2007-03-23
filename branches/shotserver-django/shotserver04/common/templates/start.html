@@ -18,13 +18,22 @@
 <input class="button" id="submit" name="submit" type="submit" value="Start" />
 </div>
 
-<div class="gray background" id="browsers">
-<table>
-{{ browser_form }}
-</table>
+<div class="gray background" id="browsers linux" style="float:left">
+<h2>Linux</h2>
+{{ linux_browsers }}
 </div>
 
-<div class="gray background" id="options">
+<div class="gray background" id="browsers windows" style="float:left">
+<h2>Windows</h2>
+{{ windows_browsers }}
+</div>
+
+<div class="gray background" id="browsers mac" style="float:left">
+<h2>Mac</h2>
+{{ mac_browsers }}
+</div>
+
+<div class="gray background" id="options" style="clear:both">
 <table>
 {{ options_form }}
 </table>
