@@ -90,8 +90,9 @@ class BrowserForm(forms.BaseForm):
                 if not fields:
                     break
                 field = fields.pop(0)
-                output.append(unicode(self[field]) + ' ' +
-                              self[field].label + '<br />')
+                output.append(unicode(self[field]) +
+                    ' <label for="id_%s">%s</label><br />' % (
+                    field, self[field].label))
             output.append('</div>')
         return u'\n'.join(output)
 
