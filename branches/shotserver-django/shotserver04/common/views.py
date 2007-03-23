@@ -85,7 +85,7 @@ class BrowserForm(forms.BaseForm):
         fields_per_part = (len(fields) + self.parts - 1) / self.parts
         output = []
         for part in range(self.parts):
-            output.append('<div style="width:10em;float:left">')
+            output.append('<div style="width:12em;float:left">')
             for index in range(fields_per_part):
                 if not fields:
                     break

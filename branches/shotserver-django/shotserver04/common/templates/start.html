@@ -18,26 +18,53 @@
 <input class="button" id="submit" name="submit" type="submit" value="Start" />
 </div>
 
-<div class="gray background" id="browsers linux" style="float:left">
+<div class="gray background">
+<div id="browsers linux" style="float:left">
 <h2>Linux</h2>
 {{ linux_browsers }}
 </div>
 
-<div class="gray background" id="browsers windows" style="float:left">
+<div id="browsers windows" style="float:left">
 <h2>Windows</h2>
 {{ windows_browsers }}
 </div>
 
-<div class="gray background" id="browsers mac" style="float:left">
+<div id="browsers mac" style="float:left">
 <h2>Mac</h2>
 {{ mac_browsers }}
 </div>
-
-<div class="gray background" id="options" style="clear:both">
-<table>
-{{ options_form }}
-</table>
 </div>
 
+<div class="gray background" style="clear:both">
+<div id="options" style="float:left; width:12em">
+<h2>Screen size</h2>
+<p>{{ options_form.screen_size }}</p>
+</div>
+
+<div id="options" style="float:left; width:12em">
+<h2>Color depth</h2>
+<p>{{ options_form.color_depth }}</p>
+</div>
+
+<div id="options" style="float:left; width:12em">
+<h2>Javascript</h2>
+<p>{{ options_form.javascript }}</p>
+</div>
+
+<div id="options" style="float:left; width:12em">
+<h2>Java</h2>
+<p>{{ options_form.java }}</p>
+</div>
+
+<div id="options" style="float:left; width:12em">
+<h2>Flash</h2>
+<p>{{ options_form.flash }}</p>
+</div>
+
+<div id="options" style="float:left; width:12em">
+<h2>Maximum wait</h2>
+<p>{{ options_form.maximum_wait }}</p>
+</div>
+</div>
 </form>
 {% endblock %}
