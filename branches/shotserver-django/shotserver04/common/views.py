@@ -61,7 +61,6 @@ class BrowserForm(forms.BaseForm):
 
     def __init__(self, os, data=None):
         forms.BaseForm.__init__(self)
-        self.data = data
         self.parts = 1
         browsers = Browser.objects.select_related()
         os_browsers = browsers.filter(
@@ -76,13 +75,14 @@ class BrowserForm(forms.BaseForm):
                 name += ' ' + str(browser.major)
                 if browser.minor is not None:
                     name += '.' + str(browser.minor)
-            code = name.lower().replace(' ', '-').replace('.', '-')
-            self.fields[code] = forms.BooleanField(label=name)
+            code = (os + ' ' + name).lower()
+            code = code.replace(' ', '-').replace('.', '-')
+            self.fields[code] = forms.BooleanField(
+                label=name, initial=code in data and 'on' in data[code])
 
     def __unicode__(self):
         fields = list(self.fields)
         fields_per_part = (len(fields) + self.parts - 1) / self.parts
-        print len(fields), self.parts, fields_per_part
         output = []
         for part in range(self.parts):
             output.append('<div style="width:10em;float:left">')
@@ -91,7 +91,7 @@ class BrowserForm(forms.BaseForm):
                     break
                 field = fields.pop(0)
                 output.append(unicode(self[field]) + ' ' +
-                              self[field].label + '<br />\n')
+                              self[field].label + '<br />')
             output.append('</div>')
         return u'\n'.join(output)
 
