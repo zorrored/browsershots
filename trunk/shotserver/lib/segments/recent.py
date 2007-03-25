@@ -31,6 +31,7 @@ from shotserver03 import database
 
 offensive_keywords = """
 www.farmse porn pron p0rn pr0n boys girls chicks babe cock xxx
+nude nudist naked bitcafe
 """.lower().split()
 
 
