@@ -19,3 +19,13 @@ urlpatterns = patterns('',
          'shotserver04.websites.views.website_detail'),
     *load_app_patterns('shotserver04.', ignore=['common'])
     )
+
+if settings.DEBUG:
+    import os
+    local_path = os.path.normpath(os.path.dirname(__file__))
+    static_path = os.path.join(local_path, 'common', 'static')
+    # Serve CSS and image files from common/static
+    urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+         {'document_root': static_path}),
+        )
