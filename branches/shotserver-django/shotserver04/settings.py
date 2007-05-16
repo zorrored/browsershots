@@ -81,4 +81,5 @@ INSTALLED_APPS = (
     'shotserver04.websites',
     'shotserver04.requests',
     'shotserver04.screenshots',
+    'shotserver04.xmlrpc',
 )
