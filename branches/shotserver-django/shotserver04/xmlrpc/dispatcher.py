@@ -37,8 +37,11 @@ def first_parameter(values):
             return 'float', values[index:]
         else:
             return 'int', values[index:]
-    else:
-        return 'unknown', values
+    words = values.split(',')
+    first_word = words[0].strip()
+    if first_word in ('True', 'False'):
+        return 'bool', values[len(words[0]):]
+    return 'unknown', values
 
 
 def parse_types(values, separators=','):
@@ -78,6 +81,8 @@ class SignatureDispatcher(SimpleXMLRPCDispatcher):
         lines = method.__doc__.split('\n')
         while lines and lines[0].strip() == '':
             lines.pop(0)
+        if not lines:
+            return 'empty docstring'
         first_line = lines[0].strip()
         match = signature_match(first_line)
         if not match:
