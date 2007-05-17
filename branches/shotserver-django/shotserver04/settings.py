@@ -77,6 +77,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'shotserver04.common',
     'shotserver04.factories',
+    'shotserver04.nonces',
     'shotserver04.browsers',
     'shotserver04.websites',
     'shotserver04.requests',
