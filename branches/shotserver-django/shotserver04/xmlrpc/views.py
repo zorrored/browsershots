@@ -1,8 +1,6 @@
-import types
-from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
 from django.http import HttpResponse
 from shotserver04 import settings
-
+from shotserver04.xmlrpc.dispatcher import SignatureDispatcher
 
 def xmlrpc(request):
     response = HttpResponse()
@@ -12,7 +10,7 @@ def xmlrpc(request):
     return response
 
 
-dispatcher = SimpleXMLRPCDispatcher()
+dispatcher = SignatureDispatcher()
 dispatcher.register_introspection_functions()
 for app in settings.INSTALLED_APPS:
     try:
