@@ -20,6 +20,6 @@ for app in settings.INSTALLED_APPS:
     except ImportError:
         continue
     for name, item in module.__dict__.items():
-        if isinstance(item, types.FunctionType):
+        if callable(item):
             function_name = '%s.%s' % (app.split('.')[-1], name)
             dispatcher.register_function(item, function_name)
