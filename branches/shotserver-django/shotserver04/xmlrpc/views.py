@@ -1,6 +1,8 @@
+import sys
 from django.http import HttpResponse
 from shotserver04 import settings
 from shotserver04.xmlrpc.dispatcher import SignatureDispatcher
+
 
 def xmlrpc(request):
     response = HttpResponse()
@@ -10,8 +12,13 @@ def xmlrpc(request):
     return response
 
 
-dispatcher = SignatureDispatcher()
+if sys.version_info[0:2] <= (2, 4):
+    dispatcher = SignatureDispatcher()
+else:
+    dispatcher = SignatureDispatcher(allow_none=False, encoding=None)
 dispatcher.register_introspection_functions()
+
+
 for app in settings.INSTALLED_APPS:
     try:
         module = __import__(app + '.xmlrpc', globals(), locals(), ['xmlrpc'])
