@@ -7,7 +7,7 @@ from shotserver04.xmlrpc.dispatcher import SignatureDispatcher
 def xmlrpc(request):
     response = HttpResponse()
     if len(request.POST):
-        response.write(dispatcher._marshaled_dispatch(request.raw_post_data))
+        response.write(dispatcher._dispatch_request(request))
     response['Content-length'] = str(len(response.content))
     return response
 

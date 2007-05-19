@@ -1,4 +1,6 @@
 import re
+import sys
+import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
 
 signature_match = re.compile(r'^([\w\.]+)\((.*?)\)\s*=>\s*(.*)$').match
@@ -93,6 +95,25 @@ class SignatureDispatcher(SimpleXMLRPCDispatcher):
         result_types, rest = parse_types(result)
         params_types, rest = parse_types(params)
         return [result_types + params_types]
+
+    def _dispatch_request(self, request):
+        try:
+            params, method = xmlrpclib.loads(request.raw_post_data)
+            try:
+                func = self.funcs[method]
+            except KeyError:
+                raise Exception('method "%s" is not supported' % method)
+            response = (func(request, *params), )
+            response = xmlrpclib.dumps(response, methodresponse=True,
+                allow_none=self.allow_none, encoding=self.encoding)
+        except xmlrpclib.Fault, fault:
+            response = xmlrpclib.dumps(fault,
+                allow_none=self.allow_none, encoding=self.encoding)
+        except:
+            response = xmlrpclib.dumps(
+                xmlrpclib.Fault(1, "%s:%s" % (sys.exc_type, sys.exc_value)),
+                allow_none=self.allow_none, encoding=self.encoding)
+        return response
 
 
 if __name__ == '__main__':
