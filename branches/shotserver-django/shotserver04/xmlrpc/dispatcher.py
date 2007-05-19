@@ -1,7 +1,8 @@
+# Inspired by SimpleXMLRPCServer.py by Brian Quinlan (brian@sweetapp.com).
+
 import re
 import sys
 import xmlrpclib
-from SimpleXMLRPCServer import SimpleXMLRPCDispatcher
 
 signature_match = re.compile(r'^([\w\.]+)\((.*?)\)\s*=>\s*(.*)$').match
 
@@ -68,9 +69,38 @@ def parse_types(values, separators=','):
             return types, values
 
 
-class SignatureDispatcher(SimpleXMLRPCDispatcher):
+class Dispatcher:
 
-    def system_methodSignature(self, method_name):
+    def __init__(self, allow_none=False, encoding=None):
+        self.funcs = {
+            'system.listMethods' : self.system_listMethods,
+            'system.methodSignature' : self.system_methodSignature,
+            'system.methodHelp' : self.system_methodHelp,
+            'system.multicall' : self.system_multicall,
+            }
+        self.allow_none = allow_none
+        self.encoding = encoding
+
+    def register_function(self, function, name = None):
+        """Registers a function to respond to XML-RPC requests.
+
+        The optional name argument can be used to set a Unicode name
+        for the function.
+        """
+        if name is None:
+            name = function.__name__
+            self.funcs[name] = function
+
+    def system_listMethods(self, request):
+        """system.listMethods() => ['add', 'subtract', 'multiply']
+
+        Returns a list of the methods supported by the server.
+        """
+        methods = self.funcs.keys()
+        methods.sort()
+        return methods
+
+    def system_methodSignature(self, request, method_name):
         """system.methodSignature('add') => [['double', 'int', 'int']]
 
         Returns a list describing the possible signatures of the method.
@@ -96,14 +126,43 @@ class SignatureDispatcher(SimpleXMLRPCDispatcher):
         params_types, rest = parse_types(params)
         return [result_types + params_types]
 
-    def _dispatch_request(self, request):
+    def system_methodHelp(self, request, method_name):
+        """system.methodHelp('add') => "Adds two integers together"
+
+        Returns a string containing documentation for the specified method.
+        """
+        if not self.funcs.has_key(method_name):
+            return 'method not found'
+        method = self.funcs[method_name]
+        return method.__doc__
+
+    def system_multicall(self, request, call_list):
+        """system.multicall([{'methodName': 'add', 'params': [2, 2]}]) => [[4]]
+
+        Allows the caller to package multiple XML-RPC calls into a single
+        request.
+
+        See http://www.xmlrpc.com/discuss/msgReader$1208
+        """
+        results = []
+        for call in call_list:
+            method = call['methodName']
+            params = call['params']
+            result = self.dispatch(method, request, params)
+            results.append([result])
+        return results
+
+    def dispatch(self, method, request, params):
         try:
-            params, method = xmlrpclib.loads(request.raw_post_data)
-            try:
-                func = self.funcs[method]
-            except KeyError:
-                raise Exception('method "%s" is not supported' % method)
-            response = (func(request, *params), )
+            func = self.funcs[method]
+        except KeyError:
+            raise Exception('method "%s" is not supported' % method)
+        response = func(request, *params)
+        response = (response, )
+
+    def dispatch_and_marshal(self, method, request, params):
+        try:
+            response = self.dispatch(method, request, params)
             response = xmlrpclib.dumps(response, methodresponse=True,
                 allow_none=self.allow_none, encoding=self.encoding)
         except xmlrpclib.Fault, fault:
@@ -114,6 +173,11 @@ class SignatureDispatcher(SimpleXMLRPCDispatcher):
                 xmlrpclib.Fault(1, "%s:%s" % (sys.exc_type, sys.exc_value)),
                 allow_none=self.allow_none, encoding=self.encoding)
         return response
+
+
+    def dispatch_request(self, request):
+        params, method = xmlrpclib.loads(request.raw_post_data)
+        return self.dispatch_and_marshal(method, request, params)
 
 
 if __name__ == '__main__':
