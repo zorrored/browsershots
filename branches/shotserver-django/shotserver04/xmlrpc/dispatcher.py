@@ -89,7 +89,7 @@ class Dispatcher:
         """
         if name is None:
             name = function.__name__
-            self.funcs[name] = function
+        self.funcs[name] = function
 
     def system_listMethods(self, request):
         """system.listMethods() => ['add', 'subtract', 'multiply']
