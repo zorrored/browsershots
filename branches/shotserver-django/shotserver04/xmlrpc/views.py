@@ -1,4 +1,5 @@
 import sys
+import types
 from django.http import HttpResponse
 from shotserver04 import settings
 from shotserver04.xmlrpc.dispatcher import Dispatcher
@@ -11,7 +12,6 @@ def xmlrpc(request):
     response['Content-length'] = str(len(response.content))
     return response
 
-function_type = type(xmlrpc)
 dispatcher = Dispatcher()
 for app in settings.INSTALLED_APPS:
     try:
@@ -19,6 +19,9 @@ for app in settings.INSTALLED_APPS:
     except ImportError:
         continue
     for name, item in module.__dict__.items():
-        if isinstance(item, function_type):
+        if isinstance(item, types.FunctionType):
             function_name = '%s.%s' % (app.split('.')[-1], name)
+            print function_name
             dispatcher.register_function(item, function_name)
+        else:
+            print app, name, type(item)
