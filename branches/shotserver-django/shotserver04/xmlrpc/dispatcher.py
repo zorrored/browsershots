@@ -158,7 +158,7 @@ class Dispatcher:
         except KeyError:
             raise Exception('method "%s" is not supported' % method)
         response = func(request, *params)
-        response = (response, )
+        return (response, )
 
     def dispatch_and_marshal(self, method, request, params):
         try:
