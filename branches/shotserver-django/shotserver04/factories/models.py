@@ -65,6 +65,28 @@ class Factory(models.Model):
     uploads_per_day = models.IntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
+    class Admin:
+        fields = (
+            (None, {'fields': ('name', 'admin')}),
+            ('Platform', {'fields': ('architecture', 'operating_system')}),
+            )
+        search_fields = (
+            'name',
+            'operating_system__operating_system_group__name',
+            'operating_system__codename',
+            'operating_system__version',
+            'operating_system__distro',
+            'architecture__name',
+            )
+        list_display = ('name', 'operating_system', 'architecture',
+                        'last_poll', 'last_upload', 'uploads_per_day',
+                        'created')
+        date_hierarchy = 'created'
+
+    class Meta:
+        ordering = ('name', )
+        verbose_name_plural = 'factories'
+
     def __str__(self):
         return self.name
 
@@ -107,26 +129,6 @@ class Factory(models.Model):
         for colordepth in self.colordepth_set.all():
             q |= Q(request_group__bits_per_pixel=colordepth.bits_per_pixel)
         return q
-
-    class Admin:
-        fields = (
-            (None, {'fields': ('name', 'admin')}),
-            ('Platform', {'fields': ('architecture', 'operating_system')}),
-            )
-        search_fields = (
-            'name',
-            'operating_system__operating_system_group__name',
-            'operating_system__codename',
-            'operating_system__version',
-            'operating_system__distro',
-            'architecture__name',
-            )
-        list_display = ('name', 'operating_system', 'architecture', 'created')
-        date_hierarchy = 'created'
-
-    class Meta:
-        ordering = ('name', )
-        verbose_name_plural = 'factories'
 
 
 class ScreenSize(models.Model):
