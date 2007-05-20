@@ -5,10 +5,12 @@
 
 {% block content %}
 <h1>{{ method_name }}</h1>
-<pre style="font-weight: bold">
+<pre class="signature">
 {{ signature }}
 </pre>
+{% if docstring %}
 <pre>
 {{ docstring }}
 </pre>
+{% endif %}
 {% endblock %}
