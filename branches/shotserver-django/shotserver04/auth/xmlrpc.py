@@ -1,6 +1,6 @@
 from shotserver04.auth.models import Nonce
 from shotserver04.factories.models import Factory
-from shotserver04.auth import crypto
+from shotserver04.auth import crypto, util
 
 
 def challenge(request, factory_name):
@@ -19,22 +19,10 @@ def challenge(request, factory_name):
     return hashkey, algo, salt
 
 
-def test(request, factory_name, attempt):
+def test(request, factory_name, crypted_password):
     """
-    auth.test('factory', 'crypt0123456789abcdef') => 'OK'
+    auth.test('factory', 'crypt') => 'OK'
     """
     factory = Factory.objects.get(name=factory_name)
     ip = request.META['REMOTE_ADDR']
-    password = factory.admin.password
-    if password.count('$'):
-        algo, salt, crypt = password.split('$')
-    else:
-        algo, salt, crypt = 'md5', '', password
-    matches = Nonce.objects.filter(ip=ip).extra(
-        where=["MD5('%s' || hashkey) = '%s'" % (crypt, attempt)])
-    if len(matches) == 0:
-        return 'Password mismatch'
-    elif len(matches) > 1:
-        return 'Crypt hash collision'
-    matches[0].delete()
-    return 'OK'
+    return util.verify(factory, ip, crypted_password)
