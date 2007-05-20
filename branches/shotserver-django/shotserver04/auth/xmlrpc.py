@@ -7,7 +7,7 @@ def challenge(request, factory_name):
     """
     auth.challenge('factory') => ['nonce0123456789abcdef', 'sha1', 'salt123']
     """
-    factory = Factory.objects.filter(name=factory_name)[0]
+    factory = Factory.objects.get(name=factory_name)
     hashkey = crypto.random_md5()
     ip = request.META['REMOTE_ADDR']
     Nonce.objects.create(factory=factory, hashkey=hashkey, ip=ip)
@@ -23,7 +23,7 @@ def test(request, factory_name, attempt):
     """
     auth.test('factory', 'crypt0123456789abcdef') => 'OK'
     """
-    factory = Factory.objects.filter(name=factory_name)[0]
+    factory = Factory.objects.get(name=factory_name)
     ip = request.META['REMOTE_ADDR']
     password = factory.admin.password
     if password.count('$'):
