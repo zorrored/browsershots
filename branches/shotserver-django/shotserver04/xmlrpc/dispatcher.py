@@ -134,7 +134,9 @@ class Dispatcher:
         if not self.funcs.has_key(method_name):
             return 'method not found'
         method = self.funcs[method_name]
-        return method.__doc__
+        lines = method.__doc__.split('\n')
+        lines = [line.strip() for line in lines]
+        return '\n'.join(lines).strip()
 
     def system_multicall(self, request, call_list):
         """system.multicall([{'methodName': 'add', 'params': [2, 2]}]) => [[4]]
