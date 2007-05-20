@@ -70,6 +70,49 @@ class Factory(models.Model):
     def get_absolute_url(self):
         return '/factories/%s/' % self.name
 
+    def features_sql(self):
+        return ' AND '.join((
+            self.operating_system_group_sql(),
+            self.operating_system_sql(),
+            self.browsers_sql(),
+            self.screensizes_sql(),
+            self.colordepths_sql(),
+            ))
+
+    def operating_system_group_sql(self):
+        return (
+            '(operating_system_group IS NULL OR' +
+            ' operating_system_group = %d)' %
+            self.operating_system.operating_system_group.id)
+
+    def operating_system_sql(self):
+        return (
+            '(operating_system IS NULL OR' +
+            ' operating_system = %d)' % self.operating_system.id)
+
+    def browsers_sql(self):
+        disjunction = []
+        # browsers = Browser.objects.select_related().filter(factory=self)
+        for browser in self.browser_set.all():
+            disjunction.append('(%s)' % ' AND '.join((
+                'browser_group = %d' % browser.browser_group.id,
+                '(major IS NULL OR major = %d)' % browser.major,
+                '(minor IS NULL OR minor = %d)' % browser.minor,
+                )))
+        return '(%s)' % ' OR '.join(disjunction)
+
+    def screensizes_sql(self):
+        disjunction = ['screensize IS NULL']
+        for screensize in self.screensize_set.all():
+            disjunction.append('screensize = %d' % screensize.width)
+        return '(%s)' % ' OR '.join(disjunction)
+
+    def colordepths_sql(self):
+        disjunction = ['colordepth IS NULL']
+        for colordepth in self.colordepth_set.all():
+            disjunction.append('colordepth = %d' % colordepth.bits_per_pixel)
+        return '(%s)' % ' OR '.join(disjunction)
+
     class Admin:
         fields = (
             (None, {'fields': ('name', 'admin')}),
