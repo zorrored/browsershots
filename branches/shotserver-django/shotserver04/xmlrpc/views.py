@@ -1,16 +1,38 @@
 import sys
 import types
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+from django.shortcuts import render_to_response
 from shotserver04 import settings
 from shotserver04.xmlrpc.dispatcher import Dispatcher
 
 
 def xmlrpc(request):
-    response = HttpResponse()
     if len(request.POST):
+        response = HttpResponse()
         response.write(dispatcher.dispatch_request(request))
-    response['Content-length'] = str(len(response.content))
-    return response
+        response['Content-length'] = str(len(response.content))
+        return response
+    else:
+        method_list = dispatcher.system_listMethods(request)
+        return render_to_response('xmlrpc/method_list.html', locals())
+
+
+def method_help(request, method_name):
+    if len(request.POST):
+        raise Http404 # Don't POST here, only GET documentation
+    if method_name not in dispatcher.system_listMethods(request):
+        raise Http404 # Method not found
+    docstring = dispatcher.system_methodHelp(request, method_name)
+    if docstring.startswith(method_name):
+        lines = docstring.split('\n')
+        signature = lines[0]
+        docstring = '\n'.join(lines[1:]).strip()
+    else:
+        signature = dispatcher.system_methodSignature(request, method_name)
+        result = signature[0]
+        params = signature[1:]
+        signature = '%s(%s) => %s' % (method_name, params, result)
+    return render_to_response('xmlrpc/method_help.html', locals())
 
 
 dispatcher = Dispatcher()

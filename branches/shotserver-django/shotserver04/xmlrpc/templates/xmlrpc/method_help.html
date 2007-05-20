@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load common_tags %}
+
+{% block title %}{{ method_name }} - XML-RPC Method Help{% endblock %}
+
+{% block content %}
+<h1>{{ method_name }}</h1>
+<pre style="font-weight: bold">
+{{ signature }}
+</pre>
+<pre>
+{{ docstring }}
+</pre>
+{% endblock %}
