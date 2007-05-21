@@ -15,20 +15,27 @@
 </div>
 
 <div class="gray background" style="clear:both">
+
+{% if windows_browsers.fields %}
 <div class="browsers linux" style="float:left">
 <h2>Linux</h2>
 {{ linux_browsers }}
 </div>
+{% endif %}
 
+{% if windows_browsers.fields %}
 <div class="browsers windows" style="float:left">
 <h2>Windows</h2>
 {{ windows_browsers }}
 </div>
+{% endif %}
 
+{% if mac_browsers.fields %}
 <div class="browsers mac" style="float:left">
 <h2>Mac</h2>
 {{ mac_browsers }}
 </div>
+{% endif %}
 </div>
 
 <div class="gray background" style="clear:both">
