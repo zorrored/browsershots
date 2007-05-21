@@ -73,10 +73,10 @@ class Dispatcher:
 
     def __init__(self, allow_none=False, encoding=None):
         self.funcs = {
-            'system.listMethods' : self.system_listMethods,
-            'system.methodSignature' : self.system_methodSignature,
-            'system.methodHelp' : self.system_methodHelp,
-            'system.multicall' : self.system_multicall,
+            'system.listMethods': self.system_listMethods,
+            'system.methodSignature': self.system_methodSignature,
+            'system.methodHelp': self.system_methodHelp,
+            'system.multicall': self.system_multicall,
             }
         self.allow_none = allow_none
         self.encoding = encoding
@@ -107,7 +107,7 @@ class Dispatcher:
         In the above example, the add method takes two integers as
         arguments and returns a double result.
         """
-        if not self.funcs.has_key(method_name):
+        if method_name not in self.funcs:
             return 'method not found'
         method = self.funcs[method_name]
         lines = method.__doc__.split('\n')
