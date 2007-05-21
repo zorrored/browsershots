@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load common_tags %}
+
+{% block title %}Debug View{% endblock %}
+
+{% block content %}
+<h1>Submitting new screenshot requests</h1>
+
+<pre>
+url_form.is_valid: {{ url_form.is_valid }}
+options_form.is_valid: {{ options_form.is_valid }}
+linux_browsers.is_valid: {{ linux_browsers.is_valid }}
+windows_browsers.is_valid: {{ windows_browsers.is_valid }}
+mac_browsers.is_valid: {{ mac_browsers.is_valid }}
+</pre>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import connection
+from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
 from shotserver04.factories.models import Factory
@@ -118,6 +119,10 @@ def start(request):
         linux_browsers = BrowserForm('Linux')
         windows_browsers = BrowserForm('Windows')
         mac_browsers = BrowserForm('Mac OS')
-    linux_browsers.parts = 4
-    query_list = connection.queries
-    return render_to_response('start.html', locals())
+    if not (url_form.is_valid() and options_form.is_valid()):
+        linux_browsers.parts = 2
+        query_list = connection.queries
+        return render_to_response('start.html', locals())
+    # Submit new screenshot requests
+    return render_to_response('debug.html', locals())
+    return HttpResponseRedirect('/' + url_form.cleaned_data['url'])
