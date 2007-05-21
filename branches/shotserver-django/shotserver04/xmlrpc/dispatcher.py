@@ -131,7 +131,7 @@ class Dispatcher:
 
         Returns a string containing documentation for the specified method.
         """
-        if not self.funcs.has_key(method_name):
+        if method_name not in self.funcs:
             return 'method not found'
         method = self.funcs[method_name]
         lines = method.__doc__.split('\n')
@@ -175,7 +175,6 @@ class Dispatcher:
                 xmlrpclib.Fault(1, "%s:%s" % (sys.exc_type, sys.exc_value)),
                 allow_none=self.allow_none, encoding=self.encoding)
         return response
-
 
     def dispatch_request(self, request):
         params, method = xmlrpclib.loads(request.raw_post_data)
