@@ -20,7 +20,10 @@ class Website(models.Model):
             return self.url
 
     def get_absolute_url(self):
-        return '/' + self.url
+        if self.url.count('#'):
+            return '/websites/%d/' % self.id
+        else:
+            return '/' + self.url
 
     class Admin:
         list_display = ('__str__', 'submitted')

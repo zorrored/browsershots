@@ -1,6 +1,6 @@
 from django.db import connection
 from django.http import Http404
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.websites.models import Website
 
 
@@ -19,9 +19,11 @@ def website_list(request):
 
 
 def website_detail(request, website_url):
-    try:
-        website = Website.objects.get(url=website_url)
-    except Website.DoesNotExist:
-        website = None
+    website = get_object_or_404(Website, url=website_url)
+    query_list = connection.queries
+    return render_to_response('websites/website_detail.html', locals())
+
+def website_numeric(request, website_id):
+    website = get_object_or_404(Website, id=website_id)
     query_list = connection.queries
     return render_to_response('websites/website_detail.html', locals())
