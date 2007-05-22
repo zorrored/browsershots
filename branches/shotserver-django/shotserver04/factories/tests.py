@@ -2,7 +2,8 @@ from psycopg import IntegrityError, ProgrammingError, DatabaseError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User
-from shotserver04.platforms.models import Architecture, OperatingSystem
+from shotserver04.platforms.models import Architecture
+from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 
 
@@ -11,10 +12,9 @@ class FactoriesTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create()
         self.architecture = Architecture.objects.create()
-        self.operating_system_group = OperatingSystemGroup.objects.create()
+        self.platform = Platform.objects.create()
         self.operating_system = OperatingSystem.objects.create(
-            operating_system_group=self.operating_system_group,
-            mobile=False)
+            platform=self.platform)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
@@ -39,7 +39,7 @@ class FactoriesTestCase(TestCase):
         self.size_1024.delete()
         self.factory.delete()
         self.operating_system.delete()
-        self.operating_system_group.delete()
+        self.platform.delete()
         self.architecture.delete()
         self.user.delete()
 
@@ -127,10 +127,10 @@ class ForeignKeyTestCase(TestCase):
         finally:
             transaction.rollback()
 
-    def testInvalidOperatingSystemGroup(self):
+    def testInvalidPlatform(self):
         try:
             self.assertRaises(DatabaseError, OperatingSystem.objects.create,
-                              operating_system_group_id=-1)
+                              platform_id=-1)
         finally:
             transaction.rollback()
 

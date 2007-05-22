@@ -3,7 +3,8 @@ from psycopg import IntegrityError, ProgrammingError, DatabaseError
 from django.db import transaction
 from django.contrib.auth.models import User
 from shotserver04.nonces.models import Nonce
-from shotserver04.platforms.models import Architecture, OperatingSystem
+from shotserver04.platforms.models import Architecture
+from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory
 
 
@@ -12,10 +13,9 @@ class NonceTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create()
         self.architecture = Architecture.objects.create()
-        self.operating_system_group = OperatingSystemGroup.objects.create()
+        self.platform = Platform.objects.create()
         self.operating_system = OperatingSystem.objects.create(
-            operating_system_group=self.operating_system_group,
-            mobile=False)
+            platform=self.platform)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
@@ -25,7 +25,7 @@ class NonceTestCase(TestCase):
     def tearDown(self):
         self.factory.delete()
         self.operating_system.delete()
-        self.operating_system_group.delete()
+        self.platform.delete()
         self.architecture.delete()
         self.user.delete()
 
