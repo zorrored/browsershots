@@ -149,8 +149,8 @@ def start(request):
             create_os_requests(request_group, 'Windows', windows_browsers) +
             create_os_requests(request_group, 'Mac OS', mac_browsers)
             )
-        return render_to_response('debug.html', locals())
-        return HttpResponseRedirect('/' + url_form.cleaned_data['url'])
+        # return render_to_response('debug.html', locals())
+        return HttpResponseRedirect(website.get_absolute_url())
     else:
         # Show HTML form
         linux_browsers.parts = 2
