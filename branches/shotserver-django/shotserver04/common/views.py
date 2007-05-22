@@ -61,7 +61,7 @@ class BrowserForm(forms.BaseForm):
     base_fields = forms.forms.SortedDictFromList()
 
     def __init__(self, os, data=None):
-        forms.BaseForm.__init__(self)
+        forms.BaseForm.__init__(self, data)
         self.parts = 1
         browsers = Browser.objects.select_related()
         os_browsers = browsers.filter(
