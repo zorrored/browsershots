@@ -63,12 +63,12 @@ class BrowserForm(forms.BaseForm):
     errors = {}
     base_fields = forms.forms.SortedDictFromList()
 
-    def __init__(self, os, data=None):
+    def __init__(self, os_name, data=None):
         forms.BaseForm.__init__(self, data)
         self.parts = 1
         browsers = Browser.objects.select_related()
         os_browsers = browsers.filter(
-            factory__operating_system__operating_system_group__name=os,
+            factory__operating_system__operating_system_group__name=os_name,
             disabled=False)
         active_browsers = os_browsers.extra(
             where=['"factories_factory"."last_poll" > NOW() - %s::interval'],
@@ -80,8 +80,12 @@ class BrowserForm(forms.BaseForm):
                 label += ' ' + str(browser.major)
                 if browser.minor is not None:
                     label += '.' + str(browser.minor)
-            name = (os + ' ' + label).lower()
-            name = name.replace(' ', '_').replace('.', '_')
+            name = '_'.join((
+                os_name.lower().replace(' ', '-'),
+                browser.browser_group.name.lower().replace(' ', '-'),
+                str(browser.major),
+                str(browser.minor),
+                ))
             if name in field_dict:
                 continue
             initial = data is None or (name in data and 'on' in data[name])
@@ -155,15 +159,15 @@ def start(request):
 
 
 def create_os_requests(request_group, os_name, browser_form):
-    os_groups = OperatingSystemGroup.objects.filter(name=os_name)
-    if not len(os_groups):
-        return []
-    os_group = os_groups[0]
+    os_group = OperatingSystemGroup.objects.get(name=os_name)
+    os_name_lower = os_group.name.lower().replace(' ', '-')
     result = []
     for name in browser_form.fields:
-        os_name, browser_name, major, minor = name.split('_')
-        assert os_group.name.lower().startswith(os_name)
-        browser_group = BrowserGroup.objects.get(name__iexact=browser_name)
+        first_part, browser_name, major, minor = name.split('_')
+        if first_part != os_name_lower:
+            continue
+        browser_group = BrowserGroup.objects.get(
+            name__iexact=browser_name.replace('-', ' '))
         result.append(Request.objects.create(
             request_group=request_group,
             operating_system_group=os_group,
