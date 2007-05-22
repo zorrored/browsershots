@@ -21,4 +21,17 @@ linux_browsers.is_valid: {{ linux_browsers.is_valid }}
 windows_browsers.is_valid: {{ windows_browsers.is_valid }}
 mac_browsers.is_valid: {{ mac_browsers.is_valid }}
 </pre>
+
+<pre>
+url: {{ url }}
+website: {{ website.id }}
+request_group: {{ request_group.id }}
+maximum wait: {{ minutes }} minutes
+</pre>
+
+<pre>
+{% for request in request_list %}
+{{ request }}
+{% endfor %}
+</pre>
 {% endblock %}
