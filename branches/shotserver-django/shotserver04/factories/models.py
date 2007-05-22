@@ -14,8 +14,8 @@ class Factory(models.Model):
         verbose_name='operating system')
     last_poll = models.DateTimeField(blank=True, null=True)
     last_upload = models.DateTimeField(blank=True, null=True)
-    uploads_per_hour = models.IntegerField(blank=True, default=0)
-    uploads_per_day = models.IntegerField(blank=True, default=0)
+    uploads_per_hour = models.IntegerField(blank=True, null=True)
+    uploads_per_day = models.IntegerField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Admin:
