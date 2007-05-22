@@ -2,8 +2,8 @@ from django.db import connection
 from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
-from shotserver04.factories.models import Factory
-from shotserver04.browsers.models import Browser
+from shotserver04.factories.models import OperatingSystemGroup, Factory
+from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.websites.models import Website
 from shotserver04.requests.models import RequestGroup, Request
 from datetime import datetime, timedelta
@@ -140,6 +140,19 @@ def start(request):
             flash=options_form.cleaned_data['flash'],
             expire=expire,
             )
+        request_list = []
+        linux=OperatingSystemGroup.objects.get(name='Linux')
+        for name in linux_browsers.fields:
+            os_name, browser_name, major, minor = name.split('_')
+            assert os_name == 'linux'
+            browser_group = BrowserGroup.objects.get(name__iexact=browser_name)
+            request_list.append(Request.objects.create(
+                request_group=request_group,
+                operating_system_group=linux,
+                browser_group=browser_group,
+                major=try_int(major),
+                minor=try_int(minor),
+                ))
         return render_to_response('debug.html', locals())
         return HttpResponseRedirect('/' + url_form.cleaned_data['url'])
     else:
