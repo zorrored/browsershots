@@ -5,9 +5,14 @@
 
 {% block content %}
 <h1>Website Overview</h1>
-<p>for {{ website_url }}{% if website %} (submitted {% age website.submitted %} ago){% endif %}</p>
+<p>for {{ website.url }} (first submitted {% age website.submitted %} ago)</p>
 
 {% for request_group in website.requestgroup_set.all %}
-<p>{% age request_group.submitted %}</p>
+<h2>{% age request_group.submitted %}</h2>
+<p>
+{% for request in request_group.request_set.all %}
+{{ request }}<br />
+{% endfor%}
+</p>
 {% endfor %}
 {% endblock %}
