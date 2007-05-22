@@ -5,7 +5,7 @@ from shotserver04.factories.models import Factory
 
 def challenge(request, factory_name):
     """
-    auth.challenge('factory') => ['nonce0123456789abcdef', 'sha1', 'salt123']
+    nonces.challenge('factory') => ['nonce0123456789abcdef', 'sha1', 'salt']
     """
     factory = Factory.objects.get(name=factory_name)
     hashkey = crypto.random_md5()
@@ -19,9 +19,9 @@ def challenge(request, factory_name):
     return hashkey, algo, salt
 
 
-def test(request, factory_name, crypted_password):
+def checkPassword(request, factory_name, crypted_password):
     """
-    auth.test('factory', 'crypt') => 'OK'
+    nonces.checkPassword('factory', 'crypt') => 'OK'
     """
     factory = Factory.objects.get(name=factory_name)
     ip = request.META['REMOTE_ADDR']
