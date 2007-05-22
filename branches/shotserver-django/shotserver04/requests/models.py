@@ -43,7 +43,9 @@ class Request(models.Model):
     minor = models.IntegerField('minor', blank=True, null=True)
 
     def __str__(self):
-        return '%s %d.%d' % (self.browser_group.name, self.major, self.minor)
+        return '%s %d.%d on %s' % (
+            self.browser_group.name, self.major, self.minor,
+            self.operating_system_group.name)
 
     class Admin:
         fields = (
