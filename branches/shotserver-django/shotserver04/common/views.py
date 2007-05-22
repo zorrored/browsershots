@@ -66,13 +66,13 @@ class BrowserForm(forms.BaseForm):
 
     def __init__(self, platform, data=None):
         forms.BaseForm.__init__(self, data)
+        self.platform = platform
         self.parts = 1
-        browsers = Browser.objects.select_related()
-        platform_browsers = browsers.filter(
-            factory__operating_system__platform__name=platform,
+        platform_browsers = Browser.objects.filter(
+            factory__operating_system__platform=platform,
             disabled=False)
         active_browsers = platform_browsers.extra(
-            where=['"factories_factory"."last_poll" > NOW() - %s::interval'],
+            where=['"browsers_browser__factory"."last_poll" > NOW() - %s::interval'],
             params=['31d'])
         field_dict = {}
         for browser in active_browsers:
@@ -82,7 +82,7 @@ class BrowserForm(forms.BaseForm):
                 if browser.minor is not None:
                     label += '.' + str(browser.minor)
             name = '_'.join((
-                platform.lower().replace(' ', '-'),
+                platform.name.lower().replace(' ', '-'),
                 browser.browser_group.name.lower().replace(' ', '-'),
                 str(browser.major),
                 str(browser.minor),
@@ -118,13 +118,12 @@ def start(request):
     post = request.POST or None
     url_form = URLForm(post)
     options_form = OptionsForm(post)
-    linux_browsers = BrowserForm('Linux', post)
-    windows_browsers = BrowserForm('Windows', post)
-    mac_browsers = BrowserForm('Mac OS', post)
-    # Validate all forms
-    valid_post = (url_form.is_valid() and options_form.is_valid() and
-        linux_browsers.is_valid() and windows_browsers.is_valid() and
-        mac_browsers.is_valid())
+    valid_post = url_form.is_valid() and options_form.is_valid()
+    browser_forms = []
+    for platform in Platform.objects.all():
+        browser_form = BrowserForm(platform, post)
+        browser_forms.append(browser_form)
+        valid_post = valid_post and browser_form.is_valid()
     if valid_post:
         # Submit URL
         url=url_form.cleaned_data['url']
@@ -145,22 +144,18 @@ def start(request):
             flash=options_form.cleaned_data['flash'],
             expire=expire,
             )
-        request_list = (
-            create_platform_requests(request_group, 'Linux', linux_browsers) +
-            create_platform_requests(request_group, 'Windows', windows_browsers) +
-            create_platform_requests(request_group, 'Mac OS', mac_browsers)
-            )
+        for browser_form in browser_forms:
+            create_platform_requests(
+                request_group, browser_form.platform, browser_form)
         # return render_to_response('debug.html', locals())
         return HttpResponseRedirect(website.get_absolute_url())
     else:
         # Show HTML form
-        linux_browsers.parts = 2
         query_list = connection.queries
         return render_to_response('start.html', locals())
 
 
-def create_platform_requests(request_group, platform_name, browser_form):
-    platform = Platform.objects.get(name=platform_name)
+def create_platform_requests(request_group, platform, browser_form):
     platform_lower = platform.name.lower().replace(' ', '-')
     result = []
     for name in browser_form.fields:
