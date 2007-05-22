@@ -127,13 +127,6 @@ class ForeignKeyTestCase(TestCase):
         finally:
             transaction.rollback()
 
-    def testInvalidPlatform(self):
-        try:
-            self.assertRaises(DatabaseError, OperatingSystem.objects.create,
-                              platform_id=-1)
-        finally:
-            transaction.rollback()
-
     def testInvalidOperatingSystem(self):
         try:
             self.assertRaises(DatabaseError, Factory.objects.create,
