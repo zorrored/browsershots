@@ -140,19 +140,11 @@ def start(request):
             flash=options_form.cleaned_data['flash'],
             expire=expire,
             )
-        request_list = []
-        linux=OperatingSystemGroup.objects.get(name='Linux')
-        for name in linux_browsers.fields:
-            os_name, browser_name, major, minor = name.split('_')
-            assert os_name == 'linux'
-            browser_group = BrowserGroup.objects.get(name__iexact=browser_name)
-            request_list.append(Request.objects.create(
-                request_group=request_group,
-                operating_system_group=linux,
-                browser_group=browser_group,
-                major=try_int(major),
-                minor=try_int(minor),
-                ))
+        request_list = (
+            create_os_requests(request_group, 'Linux', linux_browsers) +
+            create_os_requests(request_group, 'Windows', windows_browsers) +
+            create_os_requests(request_group, 'Mac OS', mac_browsers)
+            )
         return render_to_response('debug.html', locals())
         return HttpResponseRedirect('/' + url_form.cleaned_data['url'])
     else:
@@ -160,6 +152,27 @@ def start(request):
         linux_browsers.parts = 2
         query_list = connection.queries
         return render_to_response('start.html', locals())
+
+
+def create_os_requests(request_group, os_name, browser_form):
+    os_groups = OperatingSystemGroup.objects.filter(name=os_name)
+    if not len(os_groups):
+        return []
+    os_group = os_groups[0]
+    result = []
+    for name in browser_form.fields:
+        os_name, browser_name, major, minor = name.split('_')
+        assert os_group.name.lower().startswith(os_name)
+        browser_group = BrowserGroup.objects.get(name__iexact=browser_name)
+        result.append(Request.objects.create(
+            request_group=request_group,
+            operating_system_group=os_group,
+            browser_group=browser_group,
+            major=try_int(major),
+            minor=try_int(minor),
+            ))
+    return result
+
 
 def try_int(value):
     if value.isdigit():
