@@ -4,6 +4,9 @@ from django import newforms as forms
 from django.shortcuts import render_to_response
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
+from shotserver04.websites.models import Website
+from shotserver04.requests.models import RequestGroup, Request
+from datetime import datetime, timedelta
 
 
 class URLForm(forms.Form):
@@ -118,7 +121,25 @@ def start(request):
         linux_browsers.is_valid() and windows_browsers.is_valid() and
         mac_browsers.is_valid())
     if valid_post:
-        # Submit new screenshot requests
+        # Submit URL
+        url=url_form.cleaned_data['url']
+        if url.count('/') == 2:
+            url += '/' # Trailing slash
+        website, created = Website.objects.get_or_create(url=url)
+        # Calculate expiration timeout
+        minutes = int(options_form.cleaned_data['maximum_wait'])
+        timeout = timedelta(0, minutes * 60, 0)
+        expire = datetime.now() + timeout
+        # Submit request group
+        request_group = RequestGroup.objects.create(
+            website=website,
+            width=try_int(options_form.cleaned_data['screen_size']),
+            bits_per_pixel=try_int(options_form.cleaned_data['color_depth']),
+            javascript=options_form.cleaned_data['javascript'],
+            java=options_form.cleaned_data['java'],
+            flash=options_form.cleaned_data['flash'],
+            expire=expire,
+            )
         return render_to_response('debug.html', locals())
         return HttpResponseRedirect('/' + url_form.cleaned_data['url'])
     else:
@@ -126,3 +147,7 @@ def start(request):
         linux_browsers.parts = 2
         query_list = connection.queries
         return render_to_response('start.html', locals())
+
+def try_int(value):
+    if value.isdigit():
+        return int(value)
