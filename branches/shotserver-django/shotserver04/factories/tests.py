@@ -2,9 +2,8 @@ from psycopg import IntegrityError, ProgrammingError, DatabaseError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User
-from shotserver04.factories.models import (
-    Factory, Architecture, ScreenSize, ColorDepth,
-    OperatingSystemGroup, OperatingSystem)
+from shotserver04.platforms.models import Architecture, OperatingSystem
+from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 
 
 class FactoriesTestCase(TestCase):
