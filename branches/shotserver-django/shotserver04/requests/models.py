@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from shotserver04.websites.models import Website
-from shotserver04.factories.models import OperatingSystemGroup, Factory
+from shotserver04.platforms.models import Platform
+from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup
 
 
@@ -36,8 +37,7 @@ class RequestGroup(models.Model):
 
 class Request(models.Model):
     request_group = models.ForeignKey(RequestGroup, raw_id_admin=True)
-    operating_system_group = models.ForeignKey(OperatingSystemGroup,
-        blank=True, null=True)
+    platform = models.ForeignKey(Platform, blank=True, null=True)
     browser_group = models.ForeignKey(BrowserGroup)
     major = models.IntegerField('major', blank=True, null=True)
     minor = models.IntegerField('minor', blank=True, null=True)
@@ -45,15 +45,14 @@ class Request(models.Model):
     def __str__(self):
         return '%s %d.%d on %s' % (
             self.browser_group.name, self.major, self.minor,
-            self.operating_system_group.name)
+            self.platform.name)
 
     class Admin:
         fields = (
             (None, {'fields': (
             'request_group',
-            'operating_system_group',
+            'platform',
             ('browser_group', 'major', 'minor'),
             )}),
             )
-        list_display = ('browser_group', 'major', 'minor',
-                        'operating_system_group')
+        list_display = ('browser_group', 'major', 'minor', 'platform')

@@ -1,54 +1,7 @@
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
-
-
-class Architecture(models.Model):
-    name = models.CharField(maxlength=30)
-
-    def __str__(self):
-        return self.name
-
-    class Admin:
-        pass
-
-    class Meta:
-        ordering = ('name', )
-
-
-class OperatingSystemGroup(models.Model):
-    name = models.CharField(maxlength=30)
-    maker = models.CharField(maxlength=30, blank=True)
-
-    def __str__(self):
-        return self.name
-
-    class Admin:
-        list_display = ('name', 'maker')
-
-    class Meta:
-        ordering = ('name', )
-
-
-class OperatingSystem(models.Model):
-    operating_system_group = models.ForeignKey(OperatingSystemGroup)
-    distro = models.CharField('distribution', maxlength=30, blank=True)
-    version = models.CharField('version number', maxlength=30, blank=True)
-    codename = models.CharField(maxlength=30, blank=True)
-    mobile = models.BooleanField(
-        help_text='mobile device (e.g. cell phone or PDA)')
-
-    def __str__(self):
-        return '%s %s %s (%s)' % (self.operating_system_group.name,
-                                  self.distro, self.version, self.codename)
-
-    class Admin:
-        list_display = ('operating_system_group', 'distro', 'version',
-                        'codename', 'mobile')
-        list_filter = ('operating_system_group', )
-
-    class Meta:
-        ordering = ('codename', )
+from shotserver04.platforms.models import Architecture, OperatingSystem
 
 
 class Factory(models.Model):
@@ -61,8 +14,8 @@ class Factory(models.Model):
         verbose_name='operating system')
     last_poll = models.DateTimeField(blank=True, null=True)
     last_upload = models.DateTimeField(blank=True, null=True)
-    uploads_per_hour = models.IntegerField(blank=True, null=True)
-    uploads_per_day = models.IntegerField(blank=True, null=True)
+    uploads_per_hour = models.IntegerField(blank=True, default=0)
+    uploads_per_day = models.IntegerField(blank=True, default=0)
     created = models.DateTimeField(auto_now_add=True)
 
     class Admin:
@@ -72,7 +25,8 @@ class Factory(models.Model):
             )
         search_fields = (
             'name',
-            'operating_system__operating_system_group__name',
+            'platform__name',
+            'operating_system__name',
             'operating_system__codename',
             'operating_system__version',
             'operating_system__distro',
@@ -94,16 +48,14 @@ class Factory(models.Model):
         return '/factories/%s/' % self.name
 
     def features_q(self):
-        return (self.operating_system_group_q() &
-                # self.operating_system_q() &
+        return (self.platform_q() &
                 self.browsers_q() &
                 self.screensizes_q() &
                 self.colordepths_q())
 
-    def operating_system_group_q(self):
-        return (Q(operating_system_group=None) |
-                Q(operating_system_group__id=
-                  self.operating_system.operating_system_group.id))
+    def platform_q(self):
+        return (Q(platform=None) |
+                Q(platform__id=self.operating_system.platform.id))
 
     def operating_system_q(self):
         return (Q(operating_system=None) |
