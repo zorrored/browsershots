@@ -8,12 +8,8 @@ def verify(factory, ip, input):
         algo, salt, crypt = password.split('$')
     else:
         algo, salt, crypt = 'md5', '', password
-    nonces = Nonce.objects
-    nonces = nonces.filter(factory=factory)
-    nonces = nonces.filter(ip=ip)
-    nonces = nonces.extra(
-        where=["MD5(%s || hashkey) = %s"],
-        params=[crypt, input])
+    nonces = Nonce.objects.filter(factory=factory, ip=ip).extra(
+        where=["MD5(%s || hashkey) = %s"], params=[crypt, input])
     if len(nonces) == 0:
         return 'Password mismatch'
     if len(nonces) > 1:
