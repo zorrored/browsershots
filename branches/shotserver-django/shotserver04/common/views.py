@@ -107,22 +107,22 @@ class BrowserForm(forms.BaseForm):
 
 
 def start(request):
-    if request.POST:
-        url_form = URLForm(request.POST)
-        options_form = OptionsForm(request.POST)
-        linux_browsers = BrowserForm('Linux', request.POST)
-        windows_browsers = BrowserForm('Windows', request.POST)
-        mac_browsers = BrowserForm('Mac OS', request.POST)
+    post = request.POST or None
+    url_form = URLForm(post)
+    options_form = OptionsForm(post)
+    linux_browsers = BrowserForm('Linux', post)
+    windows_browsers = BrowserForm('Windows', post)
+    mac_browsers = BrowserForm('Mac OS', post)
+    # Validate all forms
+    valid_post = (url_form.is_valid() and options_form.is_valid() and
+        linux_browsers.is_valid() and windows_browsers.is_valid() and
+        mac_browsers.is_valid())
+    if valid_post:
+        # Submit new screenshot requests
+        return render_to_response('debug.html', locals())
+        return HttpResponseRedirect('/' + url_form.cleaned_data['url'])
     else:
-        url_form = URLForm()
-        options_form = OptionsForm()
-        linux_browsers = BrowserForm('Linux')
-        windows_browsers = BrowserForm('Windows')
-        mac_browsers = BrowserForm('Mac OS')
-    if not (url_form.is_valid() and options_form.is_valid()):
+        # Show HTML form
         linux_browsers.parts = 2
         query_list = connection.queries
         return render_to_response('start.html', locals())
-    # Submit new screenshot requests
-    return render_to_response('debug.html', locals())
-    return HttpResponseRedirect('/' + url_form.cleaned_data['url'])
