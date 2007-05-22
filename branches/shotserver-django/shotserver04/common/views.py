@@ -2,7 +2,8 @@ from django.db import connection
 from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
-from shotserver04.factories.models import OperatingSystemGroup, Factory
+from shotserver04.platforms.models import Platform
+from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.websites.models import Website
 from shotserver04.requests.models import RequestGroup, Request
@@ -63,14 +64,14 @@ class BrowserForm(forms.BaseForm):
     errors = {}
     base_fields = forms.forms.SortedDictFromList()
 
-    def __init__(self, os_name, data=None):
+    def __init__(self, platform, data=None):
         forms.BaseForm.__init__(self, data)
         self.parts = 1
         browsers = Browser.objects.select_related()
-        os_browsers = browsers.filter(
-            factory__operating_system__operating_system_group__name=os_name,
+        platform_browsers = browsers.filter(
+            factory__operating_system__platform__name=platform,
             disabled=False)
-        active_browsers = os_browsers.extra(
+        active_browsers = platform_browsers.extra(
             where=['"factories_factory"."last_poll" > NOW() - %s::interval'],
             params=['31d'])
         field_dict = {}
@@ -81,7 +82,7 @@ class BrowserForm(forms.BaseForm):
                 if browser.minor is not None:
                     label += '.' + str(browser.minor)
             name = '_'.join((
-                os_name.lower().replace(' ', '-'),
+                platform.lower().replace(' ', '-'),
                 browser.browser_group.name.lower().replace(' ', '-'),
                 str(browser.major),
                 str(browser.minor),
@@ -145,9 +146,9 @@ def start(request):
             expire=expire,
             )
         request_list = (
-            create_os_requests(request_group, 'Linux', linux_browsers) +
-            create_os_requests(request_group, 'Windows', windows_browsers) +
-            create_os_requests(request_group, 'Mac OS', mac_browsers)
+            create_platform_requests(request_group, 'Linux', linux_browsers) +
+            create_platform_requests(request_group, 'Windows', windows_browsers) +
+            create_platform_requests(request_group, 'Mac OS', mac_browsers)
             )
         # return render_to_response('debug.html', locals())
         return HttpResponseRedirect(website.get_absolute_url())
@@ -158,19 +159,19 @@ def start(request):
         return render_to_response('start.html', locals())
 
 
-def create_os_requests(request_group, os_name, browser_form):
-    os_group = OperatingSystemGroup.objects.get(name=os_name)
-    os_name_lower = os_group.name.lower().replace(' ', '-')
+def create_platform_requests(request_group, platform_name, browser_form):
+    platform = Platform.objects.get(name=platform_name)
+    platform_lower = platform.name.lower().replace(' ', '-')
     result = []
     for name in browser_form.fields:
         first_part, browser_name, major, minor = name.split('_')
-        if first_part != os_name_lower:
+        if first_part != platform_lower:
             continue
         browser_group = BrowserGroup.objects.get(
             name__iexact=browser_name.replace('-', ' '))
         result.append(Request.objects.create(
             request_group=request_group,
-            operating_system_group=os_group,
+            platform=platform,
             browser_group=browser_group,
             major=try_int(major),
             minor=try_int(minor),
