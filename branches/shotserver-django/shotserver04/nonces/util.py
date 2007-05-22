@@ -1,5 +1,5 @@
-from shotserver04.auth.models import Nonce
 from datetime import datetime, timedelta
+from shotserver04.nonces.models import Nonce
 
 
 def verify(factory, ip, input):

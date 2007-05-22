@@ -2,7 +2,7 @@ from unittest import TestCase
 from psycopg import IntegrityError, ProgrammingError, DatabaseError
 from django.db import transaction
 from django.contrib.auth.models import User
-from shotserver04.auth.models import Nonce
+from shotserver04.nonces.models import Nonce
 from shotserver04.platforms.models import Architecture, OperatingSystem
 from shotserver04.factories.models import Factory
 

@@ -1,6 +1,6 @@
-from shotserver04.auth.models import Nonce
+from shotserver04.nonces import crypto, util
+from shotserver04.nonces.models import Nonce
 from shotserver04.factories.models import Factory
-from shotserver04.auth import crypto, util
 
 
 def challenge(request, factory_name):
