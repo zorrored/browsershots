@@ -8,15 +8,24 @@ from shotserver04.browsers.models import BrowserGroup
 
 
 class RequestGroup(models.Model):
-    website = models.ForeignKey(Website, raw_id_admin=True)
-    width = models.IntegerField('screen width', null=True, blank=True)
-    bits_per_pixel = models.IntegerField(null=True, blank=True)
-    javascript = models.CharField(maxlength=20, blank=True)
-    java = models.CharField(maxlength=20, blank=True)
-    flash = models.CharField(maxlength=20, blank=True)
-    submitter = models.ForeignKey(User, blank=True, null=True)
-    submitted = models.DateTimeField(auto_now_add=True)
-    expire = models.DateTimeField()
+    website = models.ForeignKey(Website,
+        verbose_name=_('website'), raw_id_admin=True)
+    width = models.IntegerField(
+        _('screen width'), null=True, blank=True)
+    bits_per_pixel = models.IntegerField(
+        _('bits per pixel'), null=True, blank=True)
+    javascript = models.CharField(
+        _('javascript'), maxlength=20, blank=True)
+    java = models.CharField(
+        _('java'), maxlength=20, blank=True)
+    flash = models.CharField(
+        _('flash'), maxlength=20, blank=True)
+    submitter = models.ForeignKey(User,
+        verbose_name=_('submitter'),  blank=True, null=True)
+    submitted = models.DateTimeField(
+        _('submitted'), auto_now_add=True)
+    expire = models.DateTimeField(
+        _('expire'))
 
     class Admin:
         fields = (
@@ -41,11 +50,16 @@ class RequestGroup(models.Model):
 
 
 class Request(models.Model):
-    request_group = models.ForeignKey(RequestGroup, raw_id_admin=True)
-    platform = models.ForeignKey(Platform, blank=True, null=True)
-    browser_group = models.ForeignKey(BrowserGroup)
-    major = models.IntegerField('major', blank=True, null=True)
-    minor = models.IntegerField('minor', blank=True, null=True)
+    request_group = models.ForeignKey(RequestGroup,
+        verbose_name=_('request group'),  raw_id_admin=True)
+    platform = models.ForeignKey(Platform,
+        verbose_name=_('platform'),  blank=True, null=True)
+    browser_group = models.ForeignKey(BrowserGroup,
+        verbose_name=_('browser group'))
+    major = models.IntegerField(
+        _('major'), blank=True, null=True)
+    minor = models.IntegerField(
+        _('minor'), blank=True, null=True)
 
     class Admin:
         fields = (

@@ -6,7 +6,8 @@ from shotserver04.platforms.models import Architecture, OperatingSystem
 
 
 class Factory(models.Model):
-    name = models.SlugField(unique=True,
+    name = models.SlugField(
+        _('name'), unique=True,
         help_text=_('Hostname (lowercase)'))
     admin = models.ForeignKey(User,
         verbose_name=_('administrator'))
@@ -16,15 +17,15 @@ class Factory(models.Model):
     operating_system = models.ForeignKey(OperatingSystem,
         verbose_name=_('operating system'))
     last_poll = models.DateTimeField(
-        _("last poll"), blank=True, null=True)
+        _('last poll'), blank=True, null=True)
     last_upload = models.DateTimeField(
-        _("last upload"), blank=True, null=True)
+        _('last upload'), blank=True, null=True)
     uploads_per_hour = models.IntegerField(
-        _("uploads per hour"), blank=True, null=True)
+        _('uploads per hour'), blank=True, null=True)
     uploads_per_day = models.IntegerField(
-        _("uploads per day"), blank=True, null=True)
+        _('uploads per day'), blank=True, null=True)
     created = models.DateTimeField(
-        _("created"), auto_now_add=True)
+        _('created'), auto_now_add=True)
 
     class Admin:
         fields = (
@@ -94,9 +95,12 @@ class Factory(models.Model):
 
 class ScreenSize(models.Model):
     factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'),
         edit_inline=models.TABULAR, num_in_admin=3)
-    width = models.IntegerField(core=True)
-    height = models.IntegerField(core=True)
+    width = models.IntegerField(
+        _('width'), core=True)
+    height = models.IntegerField(
+        _('height'), core=True)
 
     def __str__(self):
         return '%dx%d' % (self.width, self.height)
@@ -114,8 +118,10 @@ class ScreenSize(models.Model):
 
 class ColorDepth(models.Model):
     factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'),
         edit_inline=models.TABULAR, num_in_admin=3)
-    bits_per_pixel = models.IntegerField(core=True)
+    bits_per_pixel = models.IntegerField(
+        _('bits per pixel'), core=True)
 
     def __str__(self):
         return '%d' % self.bits_per_pixel

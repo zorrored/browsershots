@@ -4,10 +4,14 @@ from shotserver04.factories.models import Factory
 
 
 class Nonce(models.Model):
-    factory = models.ForeignKey(Factory)
-    hashkey = models.SlugField(maxlength=32, unique=True)
-    ip = models.IPAddressField()
-    created = models.DateTimeField(auto_now_add=True)
+    factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'))
+    hashkey = models.SlugField(
+        _('hashkey'), maxlength=32, unique=True)
+    ip = models.IPAddressField(
+        _('IP address'))
+    created = models.DateTimeField(
+        _('created'), auto_now_add=True)
 
     def __str__(self):
         return self.hashkey

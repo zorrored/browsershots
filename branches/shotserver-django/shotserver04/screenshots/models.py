@@ -6,18 +6,28 @@ from shotserver04.browsers.models import Browser
 
 
 class Screenshot(models.Model):
-    hashkey = models.SlugField(maxlength=32, unique=True)
-    request = models.ForeignKey(Request, raw_id_admin=True, null=True)
-    factory = models.ForeignKey(Factory, raw_id_admin=True)
-    browser = models.ForeignKey(Browser, raw_id_admin=True,
-                                null=True, blank=True)
-    width = models.IntegerField(null=True, blank=True)
-    height = models.IntegerField(null=True, blank=True)
-    message = models.CharField('error message', maxlength=400, blank=True)
-    locked = models.DateTimeField(auto_now_add=True)
-    redirected = models.DateTimeField(null=True, blank=True)
-    failed = models.DateTimeField(null=True, blank=True)
-    uploaded = models.DateTimeField(null=True, blank=True)
+    hashkey = models.SlugField(
+        _('hashkey'), maxlength=32, unique=True)
+    request = models.ForeignKey(Request,
+        verbose_name=_('request'), raw_id_admin=True, null=True, blank=True)
+    factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'), raw_id_admin=True)
+    browser = models.ForeignKey(Browser,
+        verbose_name=_('browser'), raw_id_admin=True, null=True, blank=True)
+    width = models.IntegerField(
+        _('width'), null=True, blank=True)
+    height = models.IntegerField(
+        _('height'), null=True, blank=True)
+    message = models.CharField(
+        _('error message'), maxlength=400, blank=True)
+    locked = models.DateTimeField(
+        _('locked'), auto_now_add=True)
+    redirected = models.DateTimeField(
+        _('redirected'), null=True, blank=True)
+    failed = models.DateTimeField(
+        _('failed'), null=True, blank=True)
+    uploaded = models.DateTimeField(
+        _('uploaded'), null=True, blank=True)
 
     def __str__(self):
         return self.hashkey

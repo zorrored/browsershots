@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 15:40+0200\n"
+"POT-Creation-Date: 2007-05-23 17:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <i18n@browsershots.org>\n"
@@ -15,67 +15,85 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: factories/models.py:10
+#: factories/models.py:10 platforms/models.py:7 platforms/models.py:28
+#: platforms/models.py:51
+msgid "name"
+msgstr "name"
+
+#: factories/models.py:11
 msgid "Hostname (lowercase)"
 msgstr "Hostname (in Kleinbuchstaben)"
 
-#: factories/models.py:12
+#: factories/models.py:13
 msgid "administrator"
 msgstr "Administrator"
 
-#: factories/models.py:14
+#: factories/models.py:15
 msgid "hardware architecture"
 msgstr "Hardware-Architektur"
 
-#: factories/models.py:15
+#: factories/models.py:16
 msgid "CPU type (e.g. i686 or PPC)"
 msgstr "CPU-Typ (z.B. i686 oder PPC)"
 
-#: factories/models.py:17 platforms/models.py:36
+#: factories/models.py:18 platforms/models.py:44
 msgid "operating system"
 msgstr "Betriebssystem"
 
-#: factories/models.py:19
+#: factories/models.py:20
 msgid "last poll"
 msgstr "letzte Anfrage"
 
-#: factories/models.py:21
+#: factories/models.py:22
 msgid "last upload"
 msgstr "letzter Upload"
 
-#: factories/models.py:23
+#: factories/models.py:24
 msgid "uploads per hour"
 msgstr "Uploads pro Stunde"
 
-#: factories/models.py:25
+#: factories/models.py:26
 msgid "uploads per day"
 msgstr "Uploads pro Tag"
 
-#: factories/models.py:27
+#: factories/models.py:28 nonces/models.py:14
 msgid "created"
 msgstr "erstellt"
 
-#: factories/models.py:49
+#: factories/models.py:50 factories/models.py:98 factories/models.py:121
+#: screenshots/models.py:14 nonces/models.py:8
 msgid "factory"
 msgstr "Fabrik"
 
-#: factories/models.py:50
+#: factories/models.py:51
 msgid "factories"
 msgstr "Fabriken"
 
-#: factories/models.py:109
+#: factories/models.py:101 screenshots/models.py:18
+msgid "width"
+msgstr "Breite"
+
+#: factories/models.py:103 screenshots/models.py:20
+msgid "height"
+msgstr "Höhe"
+
+#: factories/models.py:113
 msgid "screen size"
 msgstr "Bildschirmgröße"
 
-#: factories/models.py:110
+#: factories/models.py:114
 msgid "screen sizes"
 msgstr "Bildschirmgrößen"
 
-#: factories/models.py:128
+#: factories/models.py:124 requests/models.py:16
+msgid "bits per pixel"
+msgstr "Bits pro Pixel"
+
+#: factories/models.py:134
 msgid "color depth"
 msgstr "Farbtiefe"
 
-#: factories/models.py:129
+#: factories/models.py:135
 msgid "color depths"
 msgstr "Farbtiefen"
 
@@ -143,19 +161,67 @@ msgstr "Farbtiefen"
 msgid "Test your web design in different browsers"
 msgstr "Teste dein Webdesign in verschiedenen Browsern"
 
-#: requests/models.py:36
+#: requests/models.py:12 websites/models.py:25
+msgid "website"
+msgstr "Webseite"
+
+#: requests/models.py:14
+msgid "screen width"
+msgstr "Bildschirmbreite"
+
+#: requests/models.py:18
+msgid "javascript"
+msgstr "Javascript"
+
+#: requests/models.py:20
+msgid "java"
+msgstr "Java"
+
+#: requests/models.py:22
+msgid "flash"
+msgstr "Flash"
+
+#: requests/models.py:24
+msgid "submitter"
+msgstr "Auftraggeber"
+
+#: requests/models.py:26 websites/models.py:17
+msgid "submitted"
+msgstr "eingetragen"
+
+#: requests/models.py:28
+msgid "expire"
+msgstr "Ablaufzeit"
+
+#: requests/models.py:45 requests/models.py:54
 msgid "request group"
 msgstr "Auftragsgruppe"
 
-#: requests/models.py:37
+#: requests/models.py:46
 msgid "request groups"
 msgstr "Auftragsgruppen"
 
-#: requests/models.py:61
+#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
+msgid "platform"
+msgstr "Plattform"
+
+#: requests/models.py:58 browsers/models.py:36
+msgid "browser group"
+msgstr "Browsergruppe"
+
+#: requests/models.py:60
+msgid "major"
+msgstr "Hauptversion"
+
+#: requests/models.py:62
+msgid "minor"
+msgstr "Unterversion"
+
+#: requests/models.py:75 screenshots/models.py:12
 msgid "request"
 msgstr "Auftrag"
 
-#: requests/models.py:62
+#: requests/models.py:76
 msgid "requests"
 msgstr "Aufträge"
 
@@ -167,31 +233,55 @@ msgstr "Fehlender Slash nach dem Hostnamen."
 msgid "URL"
 msgstr "URL"
 
-#: websites/models.py:17
-msgid "submitted"
-msgstr "eingetragen"
-
-#: websites/models.py:25
-msgid "website"
-msgstr "Webseite"
-
 #: websites/models.py:26
 msgid "websites"
 msgstr "Webseiten"
 
-#: screenshots/models.py:38
+#: screenshots/models.py:10 nonces/models.py:10
+msgid "hashkey"
+msgstr "Hash-Schlüssel"
+
+#: screenshots/models.py:16 browsers/models.py:78
+msgid "browser"
+msgstr "Browser"
+
+#: screenshots/models.py:22
+msgid "error message"
+msgstr "Fehlermeldung"
+
+#: screenshots/models.py:24
+msgid "locked"
+msgstr "gesperrt"
+
+#: screenshots/models.py:26
+msgid "redirected"
+msgstr "umgeleitet"
+
+#: screenshots/models.py:28
+msgid "failed"
+msgstr "fehlgeschlagen"
+
+#: screenshots/models.py:30
+msgid "uploaded"
+msgstr "hochgeladen"
+
+#: screenshots/models.py:48
 msgid "screenshot"
 msgstr "Screenshot"
 
-#: screenshots/models.py:39
+#: screenshots/models.py:49
 msgid "screenshots"
 msgstr "Screenshots"
 
-#: nonces/models.py:21
+#: nonces/models.py:12
+msgid "IP address"
+msgstr "IP-Adresse"
+
+#: nonces/models.py:25
 msgid "nonce"
 msgstr "Nonce"
 
-#: nonces/models.py:22
+#: nonces/models.py:26
 msgid "nonces"
 msgstr "Nonces"
 
@@ -203,38 +293,42 @@ msgstr "Engine"
 msgid "engines"
 msgstr "Engines"
 
-#: browsers/models.py:36
-msgid "browser group"
-msgstr "Browsergruppe"
-
 #: browsers/models.py:37
 msgid "browser groups"
 msgstr "Browsergruppen"
-
-#: browsers/models.py:78
-msgid "browser"
-msgstr "Browser"
 
 #: browsers/models.py:79
 msgid "browsers"
 msgstr "Browser"
 
-#: platforms/models.py:16
-msgid "platform"
-msgstr "Plattform"
+#: platforms/models.py:10
+msgid "order"
+msgstr "Position"
 
-#: platforms/models.py:17
+#: platforms/models.py:20
 msgid "platforms"
 msgstr "Plattformen"
 
-#: platforms/models.py:37
+#: platforms/models.py:30
+msgid "version"
+msgstr "Version"
+
+#: platforms/models.py:32
+msgid "codename"
+msgstr "Codename"
+
+#: platforms/models.py:34
+msgid "maker"
+msgstr "Hersteller"
+
+#: platforms/models.py:45
 msgid "operating systems"
 msgstr "Betriebssysteme"
 
-#: platforms/models.py:51
+#: platforms/models.py:60
 msgid "architecture"
 msgstr "Architektur"
 
-#: platforms/models.py:52
+#: platforms/models.py:61
 msgid "architectures"
 msgstr "Architekturen"
