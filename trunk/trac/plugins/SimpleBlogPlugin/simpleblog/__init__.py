@@ -76,7 +76,7 @@ class SimpleBlogPlugin(Component):
 
     # IRequestHandler methods
     def match_request(self, req):
-        return req.path_info == '/blog'
+        return req.path_info.rstrip('/') == '/blog'
     def process_request(self, req):
         req.hdf['trac.href.blog'] = req.href.blog()
 
