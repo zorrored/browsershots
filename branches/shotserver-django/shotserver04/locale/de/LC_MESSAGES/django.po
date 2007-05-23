@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 13:01+0200\n"
+"POT-Creation-Date: 2007-05-23 15:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <i18n@browsershots.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: factories/models.py:10
 msgid "Hostname (lowercase)"
-msgstr ""
+msgstr "Hostname (in Kleinbuchstaben)"
 
 #: factories/models.py:12
 msgid "administrator"
@@ -29,9 +29,9 @@ msgstr "Hardware-Architektur"
 
 #: factories/models.py:15
 msgid "CPU type (e.g. i686 or PPC)"
-msgstr ""
+msgstr "CPU-Typ (z.B. i686 oder PPC)"
 
-#: factories/models.py:17
+#: factories/models.py:17 platforms/models.py:36
 msgid "operating system"
 msgstr "Betriebssystem"
 
@@ -79,34 +79,6 @@ msgstr "Farbtiefe"
 msgid "color depths"
 msgstr "Farbtiefen"
 
-#: factories/views.py:8
-msgid "Name"
-msgstr "Name"
-
-#: factories/views.py:9
-msgid "Operating<br />system"
-msgstr "Betriebs-<br />system"
-
-#: factories/views.py:10
-msgid "Architecture"
-msgstr "Architektur"
-
-#: factories/views.py:11
-msgid "Last<br />poll"
-msgstr "Letzte<br />Anfrage"
-
-#: factories/views.py:12 factories/templates/factories/factory_detail.html:19
-msgid "Last<br />upload"
-msgstr "Letzter<br />Upload"
-
-#: factories/views.py:13
-msgid "Uploads<br />per hour"
-msgstr "Uploads<br />pro Stunde"
-
-#: factories/views.py:14
-msgid "Uploads<br />per day"
-msgstr "Uploads<br />pro Tag"
-
 #: factories/templates/factories/factory_list.html:5
 #: factories/templates/factories/factory_list.html:8
 msgid "Screenshot Factories"
@@ -145,6 +117,10 @@ msgstr "Java"
 #: factories/templates/factories/factory_detail.html:18
 msgid "Flash"
 msgstr "Flash"
+
+#: factories/templates/factories/factory_detail.html:19
+msgid "Last<br />upload"
+msgstr "Letzter<br />Upload"
 
 #: factories/templates/factories/factory_detail.html:38
 msgid "No browsers."
@@ -210,3 +186,55 @@ msgstr "Screenshot"
 #: screenshots/models.py:39
 msgid "screenshots"
 msgstr "Screenshots"
+
+#: nonces/models.py:21
+msgid "nonce"
+msgstr "Nonce"
+
+#: nonces/models.py:22
+msgid "nonces"
+msgstr "Nonces"
+
+#: browsers/models.py:18
+msgid "engine"
+msgstr "Engine"
+
+#: browsers/models.py:19
+msgid "engines"
+msgstr "Engines"
+
+#: browsers/models.py:36
+msgid "browser group"
+msgstr "Browsergruppe"
+
+#: browsers/models.py:37
+msgid "browser groups"
+msgstr "Browsergruppen"
+
+#: browsers/models.py:78
+msgid "browser"
+msgstr "Browser"
+
+#: browsers/models.py:79
+msgid "browsers"
+msgstr "Browser"
+
+#: platforms/models.py:16
+msgid "platform"
+msgstr "Plattform"
+
+#: platforms/models.py:17
+msgid "platforms"
+msgstr "Plattformen"
+
+#: platforms/models.py:37
+msgid "operating systems"
+msgstr "Betriebssysteme"
+
+#: platforms/models.py:51
+msgid "architecture"
+msgstr "Architektur"
+
+#: platforms/models.py:52
+msgid "architectures"
+msgstr "Architekturen"
