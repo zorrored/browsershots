@@ -1,17 +1,29 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from django.core import validators
 
 
 def hasSlashAfterHostname(field_data, all_data):
     if field_data.count('/') < 3:
         raise validators.ValidationError(
-            "Missing slash after the hostname.")
+            _("Missing slash after the hostname."))
 
 
 class Website(models.Model):
-    url = models.URLField('URL', maxlength=400, unique=True,
+    url = models.URLField(
+        _('URL'), maxlength=400, unique=True,
         validator_list=[hasSlashAfterHostname])
-    submitted = models.DateTimeField(auto_now_add=True)
+    submitted = models.DateTimeField(
+        _('submitted'), auto_now_add=True)
+
+    class Admin:
+        list_display = ('__str__', 'submitted')
+        search_fields = ('url', )
+        date_hierarchy = 'submitted'
+
+    class Meta:
+        verbose_name = _('website')
+        verbose_name_plural = _('websites')
 
     def __str__(self):
         if len(self.url) > 60:
@@ -24,8 +36,3 @@ class Website(models.Model):
             return '/websites/%d/' % self.id
         else:
             return '/' + self.url
-
-    class Admin:
-        list_display = ('__str__', 'submitted')
-        search_fields = ('url', )
-        date_hierarchy = 'submitted'

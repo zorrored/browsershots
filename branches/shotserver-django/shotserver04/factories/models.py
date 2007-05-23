@@ -106,6 +106,8 @@ class ScreenSize(models.Model):
         list_filter = ('factory', )
 
     class Meta:
+        verbose_name = _('screen size')
+        verbose_name_plural = _('screen sizes')
         ordering = ('width', )
         unique_together = (('factory', 'width', 'height'), )
 
@@ -123,5 +125,7 @@ class ColorDepth(models.Model):
         list_filter = ('factory', )
 
     class Meta:
+        verbose_name = _('color depth')
+        verbose_name_plural = _('color depths')
         ordering = ('bits_per_pixel', )
         unique_together = (('factory', 'bits_per_pixel'), )

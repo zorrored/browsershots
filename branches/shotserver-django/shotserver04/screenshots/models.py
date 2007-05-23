@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from shotserver04.requests.models import Request
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
@@ -32,3 +33,7 @@ class Screenshot(models.Model):
             )
         list_display = ('hashkey', 'factory', 'browser',
                         'width', 'height', 'locked')
+
+    class Meta:
+        verbose_name = _('screenshot')
+        verbose_name_plural = _('screenshots')
