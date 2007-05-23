@@ -1,22 +1,30 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from django.db.models import Q
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture, OperatingSystem
 
 
 class Factory(models.Model):
-    name = models.SlugField(unique=True, help_text='Hostname (lowercase)')
-    admin = models.ForeignKey(User, verbose_name='administrator')
+    name = models.SlugField(unique=True,
+        help_text=_('Hostname (lowercase)'))
+    admin = models.ForeignKey(User,
+        verbose_name=_('administrator'))
     architecture = models.ForeignKey(Architecture,
-        verbose_name='hardware architecture',
-        help_text='CPU type (e.g. i386 or PPC)')
+        verbose_name=_('hardware architecture'),
+        help_text=_('CPU type (e.g. i686 or PPC)'))
     operating_system = models.ForeignKey(OperatingSystem,
-        verbose_name='operating system')
-    last_poll = models.DateTimeField(blank=True, null=True)
-    last_upload = models.DateTimeField(blank=True, null=True)
-    uploads_per_hour = models.IntegerField(blank=True, null=True)
-    uploads_per_day = models.IntegerField(blank=True, null=True)
-    created = models.DateTimeField(auto_now_add=True)
+        verbose_name=_('operating system'))
+    last_poll = models.DateTimeField(
+        _("last poll"), blank=True, null=True)
+    last_upload = models.DateTimeField(
+        _("last upload"), blank=True, null=True)
+    uploads_per_hour = models.IntegerField(
+        _("uploads per hour"), blank=True, null=True)
+    uploads_per_day = models.IntegerField(
+        _("uploads per day"), blank=True, null=True)
+    created = models.DateTimeField(
+        _("created"), auto_now_add=True)
 
     class Admin:
         fields = (
@@ -38,8 +46,9 @@ class Factory(models.Model):
         date_hierarchy = 'created'
 
     class Meta:
+        verbose_name = _('factory')
+        verbose_name_plural = _('factories')
         ordering = ('name', )
-        verbose_name_plural = 'factories'
 
     def __str__(self):
         return self.name
