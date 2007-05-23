@@ -1,105 +1,106 @@
 # Shotserver
 # Copyright (C) 2005 Johann C. Rocholl
 # This file is distributed under the GNU GPL.
-# Johann C. Rocholl <johann@browsershots.org>, 2005.
+# Daniele Florio <daniele.florio@inwind.it>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: johann@browsershots.org\n"
 "POT-Creation-Date: 2005-08-11 22:02+0200\n"
-"PO-Revision-Date: 2006-09-10 22:52+0000\n"
-"First-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
+"PO-Revision-Date: 2007-04-14 15:56+0000\n"
+"First-Translator: Daniele Florio, http://www.gizax.it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
+"Last-Translator: Matteo Piotto <piotto@gmail.com>\n"
+"X-Rosetta-Export-Date: 2007-05-23 19:38:08+0000\n"
 
 #: __init__.py:45
 msgid "Home"
-msgstr "Home"
+msgstr "Pagina iniziale"
 
 #: __init__.py:46
 msgid "Docs"
-msgstr "Dokumentation"
+msgstr "Documenti"
 
 #: __init__.py:47
 msgid "Downloads"
-msgstr "Downloads"
+msgstr "File Scaricati"
 
 #: __init__.py:48 __init__.py:49
 msgid "Screenshots"
-msgstr "Screenshots"
+msgstr "Schermate"
 
 #: __init__.py:50
 msgid "Screenshot"
-msgstr "Screenshot"
+msgstr "Schermata"
 
 #: __init__.py:51 actions/submit.py:411
 msgid "Submit"
-msgstr "Abschicken"
+msgstr "Invia"
 
 #: __init__.py:52
 msgid "Queue"
-msgstr "Warteschlange"
+msgstr "Coda"
 
 #: __init__.py:53 actions/search.py:149
 msgid "Search"
-msgstr "Suche"
+msgstr "Ricerca"
 
 #: __init__.py:57
 msgid "Recent screenshots"
-msgstr "Aktuelle Screenshots"
+msgstr "Screenshots recenti"
 
 #: __init__.py:58
 msgid "Screenshots by URL"
-msgstr "Screenshots nach URL"
+msgstr "Screenshots da URL"
 
 #: __init__.py:59
 msgid "Complete job"
-msgstr "Fertiggestellter Auftrag"
+msgstr "Richieste completate"
 
 #: __init__.py:60
 msgid "Submit your website"
-msgstr "Trage deine Website ein"
+msgstr "Invia il tuo sito"
 
 #: __init__.py:61
 msgid "Job queue"
-msgstr "Warteschlange"
+msgstr "Richieste in coda"
 
 #: __init__.py:62
 msgid "Search jobs"
-msgstr "Suche Jobs"
+msgstr "Ricerca richiesta"
 
 #: __init__.py:66
 #, python-format
 msgid "%d sec auto refresh."
-msgstr "Autorefresh alle %d s."
+msgstr "%d sec di auto aggiornamento"
 
 #: actions/job.py:44 actions/website.py:131
 msgid "This entry is no longer available."
-msgstr "Dieser Eintrag ist nicht mehr verfügbar."
+msgstr "Questa richiesta non è più disponibile"
 
 #: actions/job.py:76
 msgid "Click to see the full-size original screenshots."
-msgstr "Anklicken zeigt die Original-Screenshots in voller Größe."
+msgstr "Clicca per vedere l'immagine nelle dimensioni reali."
 
 #: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
 #: actions/website.py:150
 msgid "No screenshots were uploaded recently."
-msgstr "Keine aktuellen Screenshots."
+msgstr "Nessuno screenshots caricato recentemente."
 
 #: actions/poll.py:148 actions/upload.py:176
 msgid "Error: "
-msgstr "Fehler: "
+msgstr "Errore: "
 
 #: actions/poll.py:156
 msgid "Error: Bad username/password."
-msgstr "Fehler: Benutzer/Passwort inkorrekt."
+msgstr "Errore: Username o password errati."
 
 #: actions/poll.py:163
 msgid "No matching job at this time."
-msgstr "Momentan kein passender Auftrag."
+msgstr "Nessuna richiesta corrispondente a questo momento."
 
 #. Screenshot factory descriptions on
 #: actions/queue.py:86 actions/website.py:45
@@ -108,250 +109,250 @@ msgstr "Browser"
 
 #: actions/queue.py:86
 msgid "Resolution"
-msgstr "Auflösung"
+msgstr "Risoluzione"
 
 #: actions/queue.py:86
 msgid "Time"
-msgstr "Zeit"
+msgstr "Tempo"
 
 #: actions/queue.py:86 actions/search.py:74
 msgid "URL"
-msgstr "URL"
+msgstr "Indirizzo URL"
 
 #: actions/queue.py:92
 #, python-format
 msgid "There are %d jobs in the queue."
-msgstr "In der Warteschlange befinden sich %d Aufträge."
+msgstr "Ci sono %d richieste in coda."
 
 #: actions/queue.py:98
 #, python-format
 msgid "%d jobs were processed in the last hour."
-msgstr "In der letzten Stunde wurden %d Aufträge verarbeitet."
+msgstr "%d richieste processate nell'ultima ora."
 
 #: actions/queue.py:100
 #, python-format
 msgid "If you submit a job now, it will be finished in %s."
-msgstr "Wenn man jetzt einen Auftrag einträgt, wird er in %s fertig sein."
+msgstr "Se invii la richiesta ora, sarà terminata in %s."
 
 #: actions/queue.py:113
 msgid "The job queue is empty."
-msgstr "Die Warteschlange ist leer."
+msgstr "La coda di richiesta è vuota."
 
 #: actions/queue.py:116
 msgid "Go ahead and submit your URL."
-msgstr "Hier kannst du deine Website eintragen."
+msgstr "Vai avanti e invia il tuo URL."
 
 #: actions/recent.py:105
 msgid "This page will auto-reload every 60 seconds."
-msgstr "Diese Seite wird automatisch alle 60 Sekunden neu geladen."
+msgstr "Questa pagina sarà automaticamente ricaricata ogni 60 secondi."
 
 #: actions/recent.py:108
 #, python-format
 msgid "Try %sfull screen mode%s and press F11."
-msgstr "Probiere auch den %sVollbild-Modus%s und drücke F11."
+msgstr "Prova il %smodo full screen%s e premi F11."
 
 #: actions/recent.py:112
 msgid "Click to see more screenshots of the same web site."
-msgstr "Anklicken zeigt weitere Screenshots von der gleichen Website."
+msgstr "Clicca per vedere altri screenshots dello stesso sito web."
 
 #: actions/search.py:74
 msgid "Count"
-msgstr "Anzahl"
+msgstr "Conteggio"
 
 #: actions/search.py:78
 #, python-format
 msgid "Another %d matching URLs are not shown."
-msgstr "Weitere %d URLs werden nicht angezeigt."
+msgstr "Gli altri %d URLs corrispondenti non vengono mostrati."
 
 #: actions/search.py:109
 msgid "Queued"
-msgstr "in der Warteschlange"
+msgstr "In coda"
 
 #: actions/search.py:110
 msgid "Finished"
-msgstr "Fertig"
+msgstr "Terminato"
 
 #: actions/search.py:112
 msgid "No matching jobs."
-msgstr "Keine passenden Aufträge."
+msgstr "Nessuna richiesta corrispondente."
 
 #: actions/search.py:120 actions/submit.py:299
 msgid "Please enter your URL."
-msgstr "Bitte URL eingeben."
+msgstr "Per favore inserisci il tuo URL."
 
 #: actions/search.py:122
 msgid "URL must not be shorter than 3 characters."
-msgstr "URL muss mindestens 3 Buchstaben lang sein."
+msgstr "L'URL non deve essere più corto di 3 caratteri."
 
 #: actions/search.py:124 actions/submit.py:301
 msgid "URL must not be longer than 255 characters."
-msgstr "URL darf nicht länger als 255 Buchstaben sein."
+msgstr "L'URL non deve essere più corto di 3 caratteri."
 
 #: actions/search.py:126 actions/submit.py:305
 msgid "URL must not contain spaces."
-msgstr "URL darf keine Leerzeichen enthalten."
+msgstr "L'URL non deve contenere spazi."
 
 #: actions/search.py:128 actions/submit.py:307
 msgid "URL must not contain quotes."
-msgstr "URL darf keine Anführungszeichen enthalten."
+msgstr "L'URL non deve contenere virgolette."
 
 #: actions/search.py:142
 msgid "Enter a part of your web address to find your jobs."
-msgstr "Gib einen Teil deiner Webadresse ein, um deine Aufträge zu finden."
+msgstr ""
+"Inserisci una parte del tuo indirizzo web per trovare la tua richiesta."
 
 #: actions/search.py:152 actions/submit.py:415
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "Annulla"
 
 #: actions/start.py:33
 #, python-format
 msgid "Logo design by %s."
-msgstr "Logo-Design von %s."
+msgstr "Design del logo di %s"
 
 #: actions/start.py:34
 msgid "Free screenshots of your web design in different browsers."
-msgstr ""
-"Kostenlose Screenshots von deinem Webdesign in verschiedenen Browsern."
+msgstr "Schermate gratuite del tuo web design in differenti browser"
 
 #: actions/start.py:56
 msgid "Help"
-msgstr "Hilfe"
+msgstr "Guida"
 
 #: actions/start.py:59
 msgid "Options"
-msgstr "Optionen"
+msgstr "Opzioni"
 
 #: actions/start.py:61 actions/submit.py:395
 msgid "Enter your web address."
-msgstr "Gib deine Webadresse ein."
+msgstr "Inserisci il tuo indirizzo web."
 
 #: actions/start.py:80
 msgid "Make Screenshots"
-msgstr "Screenshots erstellen"
+msgstr "Crea schermata"
 
 #: actions/start.py:88
 msgid "Find Results"
-msgstr "Ergebnisse anzeigen"
+msgstr "Risultati della ricerca"
 
 #: actions/submit.py:63
 msgid "Browser name<br />and version"
-msgstr "Browsername<br />und -version"
+msgstr "Nome e versione<br>del browser"
 
 #: actions/submit.py:64
 msgid "Rendering<br />engine"
-msgstr "Darstellungs-<br />engine"
+msgstr "Motore<br>di rendering"
 
 #: actions/submit.py:65
 msgid "Operating<br />system"
-msgstr "Betriebs-<br />system"
+msgstr "Sistema<br>operativo"
 
 #: actions/submit.py:66
 msgid "Last<br />poll"
-msgstr "Letzte<br />Anfrage"
+msgstr "Ultima<br>indagine"
 
 #: actions/submit.py:67
 msgid "Last<br />upload"
-msgstr "Letzter<br />Screenshot"
+msgstr "Ultimo<br>upload"
 
 #: actions/submit.py:100
 msgid "No active screenshot factories."
-msgstr "Keine aktiven Screenshot-Fabriken."
+msgstr "Nessun fabbricatore di screenshot attivo."
 
 #: actions/submit.py:137
 msgid "Top-down"
-msgstr "Vom Anfang abwärts"
+msgstr "Su e giù"
 
 #: actions/submit.py:138 actions/submit.py:144
 msgid "pages"
-msgstr "Seiten"
+msgstr "pagine"
 
 #: actions/submit.py:143
 msgid "Bottom-up"
-msgstr "Vom Ende aufwärts"
+msgstr "Giù e su"
 
 #: actions/submit.py:261
 msgid "The following jobs were added to the queue:"
-msgstr "Die folgenden Aufträge wurden der Warteschlange hinzugefügt:"
+msgstr "Le seguenti richieste sono state aggiunte alla coda:"
 
 #: actions/submit.py:264
 msgid "The following jobs were already in the queue:"
-msgstr "Die folgenden Aufträge waren bereits in der Warteschlange:"
+msgstr "Le seguenti richieste sono già nella coda:"
 
 #: actions/submit.py:303
 msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URL muss mit <span class=\"uncolor\">http://</span> beginnen."
+msgstr "L'URL deve iniziare con <span class=\"uncolor\">http://</span>."
 
 #: actions/submit.py:309
 msgid "URL must not contain HTML tags."
-msgstr "URL darf keine HTML-Tags enthalten."
+msgstr "L'URL non deve contenere tag HTML."
 
 #: actions/submit.py:313
 msgid "URL seems to be invalid."
-msgstr "URL scheint ungültig zu sein."
+msgstr "L'URL non è corretto."
 
 #: actions/submit.py:318
 #, python-format
 msgid "Domain name %s is blacklisted."
-msgstr "Der Domain-Name %s ist gesperrt."
+msgstr "Il dominio %s è stato bloccato."
 
 #: actions/submit.py:328
 #, python-format
 msgid "The queue already contains %d jobs for this domain."
-msgstr "Die Warteschlange enthält bereits %d Aufträge für diese Domain."
+msgstr "La coda contiene già %d lavori per questo dominio"
 
 #: actions/submit.py:330
 msgid "Please wait until some of these jobs are finished."
-msgstr "Bitte warten, bis einige dieser Aufträge fertig sind."
+msgstr "Si prega di attendere la conclusione di questi lavori"
 
 #: actions/submit.py:333
 #, python-format
 msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "In den letzten 7 Tagen gab es %d Aufträge für diese Domain."
+msgstr "Ci sono %d lavori per questo dominio negli ultimi 7 giorni."
 
 #: actions/submit.py:335
 msgid "Please reduce your usage a little,"
-msgstr "Bitte den Gebrauch etwas einschränken,"
+msgstr "Si prega di ridurre il proprio utilizzo,"
 
 #: actions/submit.py:336
 msgid "or make a donation to help pay the bandwidth."
-msgstr "oder mit einer Spende helfen, die Bandbreite zu bezahlen."
+msgstr "oppure di donare qualcosa per pagare la banda."
 
 #: actions/submit.py:341
 #, python-format
 msgid "Domain name %s could not be found."
-msgstr "Der Domain-Name %s wurde nicht gefunden."
+msgstr "Il nome di dominio %s non è stato trovato."
 
 #: actions/submit.py:348
 msgid "Please select at least one browser."
-msgstr "Bitte mindestens einen Browser auswählen."
+msgstr "Per favore seleziona almeno un browser."
 
 #: actions/submit.py:355
 msgid "Please select at least one screen resolution."
-msgstr "Bitte mindestens eine Bildschirmauflösung wählen."
+msgstr "Per favore seleziona almeno una risoluzione dello schermo."
 
 #: actions/submit.py:398
 msgid "Select the browsers that you would like to test."
-msgstr "Wähle Browser zum Testen aus."
+msgstr "Seleziona i browsers che vuoi testare."
 
 #: actions/submit.py:401
 msgid "Select one or more screen resolutions."
-msgstr "Wähle eine oder mehrere Bildschirmauflösungen."
+msgstr "Seleziona uno o più risoluzioni dello schermo."
 
 #: actions/submit.py:404
 msgid "Select pages for scrolling."
-msgstr "Wieviele Seiten scrollen?"
+msgstr "Seleziona le pagine da scorrere."
 
 #: actions/upload.py:182
 msgid "Upload successful."
-msgstr "Upload erfolgreich."
+msgstr "Caricamento effettuato."
 
 #: actions/website.py:46
 msgid "Engine"
-msgstr "Engine"
+msgstr "Motore"
 
 #: actions/website.py:47
 msgid "Language"
-msgstr "Sprache"
+msgstr "Linguaggio"
 
 #: actions/website.py:48
 msgid "JavaScript"
@@ -363,8 +364,11 @@ msgstr "Hardware"
 
 #: actions/website.py:50
 msgid "OS"
-msgstr "Betriebssystem"
+msgstr "Sistema operativo"
 
 #: actions/website.py:147
 msgid "Click to see a larger preview."
-msgstr "Anklicken für größere Vorschau."
+msgstr "Clicca per vedere un'antemprima più grande."
+
+#~ msgid "No screenshot factories are currently active."
+#~ msgstr "Nessun fabbricatore di screenshots attiva al momento."

@@ -1,357 +1,356 @@
 # Shotserver
 # Copyright (C) 2005 Johann C. Rocholl
 # This file is distributed under the GNU GPL.
-# Johann C. Rocholl <johann@browsershots.org>, 2005.
+# Refly Kaplin <refly@refly.net>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: johann@browsershots.org\n"
 "POT-Creation-Date: 2005-08-11 22:02+0200\n"
-"PO-Revision-Date: 2006-09-10 22:52+0000\n"
-"First-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
+"PO-Revision-Date: 2006-05-27 13:29+0000\n"
+"First-Translator: Refly Kaplin <refly@refly.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
+"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
 
 #: __init__.py:45
 msgid "Home"
-msgstr "Home"
+msgstr "首頁"
 
 #: __init__.py:46
 msgid "Docs"
-msgstr "Dokumentation"
+msgstr "文件"
 
 #: __init__.py:47
 msgid "Downloads"
-msgstr "Downloads"
+msgstr "下載"
 
 #: __init__.py:48 __init__.py:49
 msgid "Screenshots"
-msgstr "Screenshots"
+msgstr "螢幕截圖"
 
 #: __init__.py:50
 msgid "Screenshot"
-msgstr "Screenshot"
+msgstr "螢幕截圖"
 
 #: __init__.py:51 actions/submit.py:411
 msgid "Submit"
-msgstr "Abschicken"
+msgstr "送出"
 
 #: __init__.py:52
 msgid "Queue"
-msgstr "Warteschlange"
+msgstr "排程中的"
 
 #: __init__.py:53 actions/search.py:149
 msgid "Search"
-msgstr "Suche"
+msgstr "搜尋"
 
 #: __init__.py:57
 msgid "Recent screenshots"
-msgstr "Aktuelle Screenshots"
+msgstr "最新擷取的網站圖片"
 
 #: __init__.py:58
 msgid "Screenshots by URL"
-msgstr "Screenshots nach URL"
+msgstr "依照網址排列"
 
 #: __init__.py:59
 msgid "Complete job"
-msgstr "Fertiggestellter Auftrag"
+msgstr "完成的工作"
 
 #: __init__.py:60
 msgid "Submit your website"
-msgstr "Trage deine Website ein"
+msgstr "加入您的網站網址"
 
 #: __init__.py:61
 msgid "Job queue"
-msgstr "Warteschlange"
+msgstr "排程中的擷取工作"
 
 #: __init__.py:62
 msgid "Search jobs"
-msgstr "Suche Jobs"
+msgstr "搜尋工作"
 
 #: __init__.py:66
 #, python-format
 msgid "%d sec auto refresh."
-msgstr "Autorefresh alle %d s."
+msgstr "每%d秒自動更新。"
 
 #: actions/job.py:44 actions/website.py:131
 msgid "This entry is no longer available."
-msgstr "Dieser Eintrag ist nicht mehr verfügbar."
+msgstr "很抱歉，這筆資料不存在。"
 
 #: actions/job.py:76
 msgid "Click to see the full-size original screenshots."
-msgstr "Anklicken zeigt die Original-Screenshots in voller Größe."
+msgstr "按下圖片可瀏覽全尺吋螢幕擷取畫面。"
 
 #: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
 #: actions/website.py:150
 msgid "No screenshots were uploaded recently."
-msgstr "Keine aktuellen Screenshots."
+msgstr "最近沒有新上傳的螢幕擷取畫面。"
 
 #: actions/poll.py:148 actions/upload.py:176
 msgid "Error: "
-msgstr "Fehler: "
+msgstr "錯誤： "
 
 #: actions/poll.py:156
 msgid "Error: Bad username/password."
-msgstr "Fehler: Benutzer/Passwort inkorrekt."
+msgstr "錯誤：帳號或密碼不正確。"
 
 #: actions/poll.py:163
 msgid "No matching job at this time."
-msgstr "Momentan kein passender Auftrag."
+msgstr "目前沒有吻合的排程工作。"
 
 #. Screenshot factory descriptions on
 #: actions/queue.py:86 actions/website.py:45
 msgid "Browser"
-msgstr "Browser"
+msgstr "瀏覽器"
 
 #: actions/queue.py:86
 msgid "Resolution"
-msgstr "Auflösung"
+msgstr "解析度"
 
 #: actions/queue.py:86
 msgid "Time"
-msgstr "Zeit"
+msgstr "時間"
 
 #: actions/queue.py:86 actions/search.py:74
 msgid "URL"
-msgstr "URL"
+msgstr "網址"
 
 #: actions/queue.py:92
 #, python-format
 msgid "There are %d jobs in the queue."
-msgstr "In der Warteschlange befinden sich %d Aufträge."
+msgstr "目前共有 %d 個工作排程中。"
 
 #: actions/queue.py:98
 #, python-format
 msgid "%d jobs were processed in the last hour."
-msgstr "In der letzten Stunde wurden %d Aufträge verarbeitet."
+msgstr "過去一小時中已進行了 %d 個工作。"
 
 #: actions/queue.py:100
 #, python-format
 msgid "If you submit a job now, it will be finished in %s."
-msgstr "Wenn man jetzt einen Auftrag einträgt, wird er in %s fertig sein."
+msgstr "您如果現在建立一個工作的話，將會在 %s 後完成。"
 
 #: actions/queue.py:113
 msgid "The job queue is empty."
-msgstr "Die Warteschlange ist leer."
+msgstr "目前沒有任何工作排程。"
 
 #: actions/queue.py:116
 msgid "Go ahead and submit your URL."
-msgstr "Hier kannst du deine Website eintragen."
+msgstr "趕緊送出您網站的網址。"
 
 #: actions/recent.py:105
 msgid "This page will auto-reload every 60 seconds."
-msgstr "Diese Seite wird automatisch alle 60 Sekunden neu geladen."
+msgstr "本頁面每60秒會自動更新一次。"
 
 #: actions/recent.py:108
 #, python-format
 msgid "Try %sfull screen mode%s and press F11."
-msgstr "Probiere auch den %sVollbild-Modus%s und drücke F11."
+msgstr "您可以開啟本站的 %s全螢幕模式%s，並按下瀏覽器的F11以將瀏覽器也切換到全螢幕模式以便檢視。"
 
 #: actions/recent.py:112
 msgid "Click to see more screenshots of the same web site."
-msgstr "Anklicken zeigt weitere Screenshots von der gleichen Website."
+msgstr "按下圖片可檢視該網站的更多擷取畫面。"
 
 #: actions/search.py:74
 msgid "Count"
-msgstr "Anzahl"
+msgstr "次數"
 
 #: actions/search.py:78
 #, python-format
 msgid "Another %d matching URLs are not shown."
-msgstr "Weitere %d URLs werden nicht angezeigt."
+msgstr "其餘 %d 個相同的網址將不顯示出來。"
 
 #: actions/search.py:109
 msgid "Queued"
-msgstr "in der Warteschlange"
+msgstr "排程中"
 
 #: actions/search.py:110
 msgid "Finished"
-msgstr "Fertig"
+msgstr "完成"
 
 #: actions/search.py:112
 msgid "No matching jobs."
-msgstr "Keine passenden Aufträge."
+msgstr "沒有符合的工作。"
 
 #: actions/search.py:120 actions/submit.py:299
 msgid "Please enter your URL."
-msgstr "Bitte URL eingeben."
+msgstr "請輸入網址。"
 
 #: actions/search.py:122
 msgid "URL must not be shorter than 3 characters."
-msgstr "URL muss mindestens 3 Buchstaben lang sein."
+msgstr "網址不能短於三個字元。"
 
 #: actions/search.py:124 actions/submit.py:301
 msgid "URL must not be longer than 255 characters."
-msgstr "URL darf nicht länger als 255 Buchstaben sein."
+msgstr "網址不能長於255個字元。"
 
 #: actions/search.py:126 actions/submit.py:305
 msgid "URL must not contain spaces."
-msgstr "URL darf keine Leerzeichen enthalten."
+msgstr "網址不能包含空白"
 
 #: actions/search.py:128 actions/submit.py:307
 msgid "URL must not contain quotes."
-msgstr "URL darf keine Anführungszeichen enthalten."
+msgstr "網址不能包含引號"
 
 #: actions/search.py:142
 msgid "Enter a part of your web address to find your jobs."
-msgstr "Gib einen Teil deiner Webadresse ein, um deine Aufträge zu finden."
+msgstr "請輸入您的網址以搜尋擷取工作"
 
 #: actions/search.py:152 actions/submit.py:415
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "清除"
 
 #: actions/start.py:33
 #, python-format
 msgid "Logo design by %s."
-msgstr "Logo-Design von %s."
+msgstr "Logo 設計: %s"
 
 #: actions/start.py:34
 msgid "Free screenshots of your web design in different browsers."
-msgstr ""
-"Kostenlose Screenshots von deinem Webdesign in verschiedenen Browsern."
+msgstr "免費替您擷取網站在各種瀏覽器中顯示的畫面。"
 
 #: actions/start.py:56
 msgid "Help"
-msgstr "Hilfe"
+msgstr "說明"
 
 #: actions/start.py:59
 msgid "Options"
-msgstr "Optionen"
+msgstr "選項"
 
 #: actions/start.py:61 actions/submit.py:395
 msgid "Enter your web address."
-msgstr "Gib deine Webadresse ein."
+msgstr "請輸入您網站的網址。"
 
 #: actions/start.py:80
 msgid "Make Screenshots"
-msgstr "Screenshots erstellen"
+msgstr "擷取螢幕"
 
 #: actions/start.py:88
 msgid "Find Results"
-msgstr "Ergebnisse anzeigen"
+msgstr "搜尋結果"
 
 #: actions/submit.py:63
 msgid "Browser name<br />and version"
-msgstr "Browsername<br />und -version"
+msgstr "瀏覽器名稱<br />以及版本"
 
 #: actions/submit.py:64
 msgid "Rendering<br />engine"
-msgstr "Darstellungs-<br />engine"
+msgstr "瀏覽器<br />核心"
 
 #: actions/submit.py:65
 msgid "Operating<br />system"
-msgstr "Betriebs-<br />system"
+msgstr "作業<br />系統"
 
 #: actions/submit.py:66
 msgid "Last<br />poll"
-msgstr "Letzte<br />Anfrage"
+msgstr "最後<br />投票"
 
 #: actions/submit.py:67
 msgid "Last<br />upload"
-msgstr "Letzter<br />Screenshot"
+msgstr "最後<br />更新"
 
 #: actions/submit.py:100
 msgid "No active screenshot factories."
-msgstr "Keine aktiven Screenshot-Fabriken."
+msgstr "沒有進行中的工作"
 
 #: actions/submit.py:137
 msgid "Top-down"
-msgstr "Vom Anfang abwärts"
+msgstr "從上到下"
 
 #: actions/submit.py:138 actions/submit.py:144
 msgid "pages"
-msgstr "Seiten"
+msgstr "頁"
 
 #: actions/submit.py:143
 msgid "Bottom-up"
-msgstr "Vom Ende aufwärts"
+msgstr "從下到上"
 
 #: actions/submit.py:261
 msgid "The following jobs were added to the queue:"
-msgstr "Die folgenden Aufträge wurden der Warteschlange hinzugefügt:"
+msgstr "以下的工作已加入排程當中："
 
 #: actions/submit.py:264
 msgid "The following jobs were already in the queue:"
-msgstr "Die folgenden Aufträge waren bereits in der Warteschlange:"
+msgstr "以下的工作原本就在排程當中："
 
 #: actions/submit.py:303
 msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URL muss mit <span class=\"uncolor\">http://</span> beginnen."
+msgstr "網址必須以<span class=\"uncolor\">http://</span>開始"
 
 #: actions/submit.py:309
 msgid "URL must not contain HTML tags."
-msgstr "URL darf keine HTML-Tags enthalten."
+msgstr "網址當中不能包含有HTML標籤"
 
 #: actions/submit.py:313
 msgid "URL seems to be invalid."
-msgstr "URL scheint ungültig zu sein."
+msgstr "網址不合法"
 
 #: actions/submit.py:318
 #, python-format
 msgid "Domain name %s is blacklisted."
-msgstr "Der Domain-Name %s ist gesperrt."
+msgstr "網址 %s 在黑名單當中"
 
 #: actions/submit.py:328
 #, python-format
 msgid "The queue already contains %d jobs for this domain."
-msgstr "Die Warteschlange enthält bereits %d Aufträge für diese Domain."
+msgstr "排程當中已經包含了 %d 個這個網域的工作了"
 
 #: actions/submit.py:330
 msgid "Please wait until some of these jobs are finished."
-msgstr "Bitte warten, bis einige dieser Aufträge fertig sind."
+msgstr "請等待工作完成"
 
 #: actions/submit.py:333
 #, python-format
 msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "In den letzten 7 Tagen gab es %d Aufträge für diese Domain."
+msgstr "過去七天中已經有 %d 個此網域的工作了"
 
 #: actions/submit.py:335
 msgid "Please reduce your usage a little,"
-msgstr "Bitte den Gebrauch etwas einschränken,"
+msgstr "請您稍稍減少您的用量，"
 
 #: actions/submit.py:336
 msgid "or make a donation to help pay the bandwidth."
-msgstr "oder mit einer Spende helfen, die Bandbreite zu bezahlen."
+msgstr "或捐助我們負擔頻寬費用。"
 
 #: actions/submit.py:341
 #, python-format
 msgid "Domain name %s could not be found."
-msgstr "Der Domain-Name %s wurde nicht gefunden."
+msgstr "找不到 %s 網域"
 
 #: actions/submit.py:348
 msgid "Please select at least one browser."
-msgstr "Bitte mindestens einen Browser auswählen."
+msgstr "請選擇至少一個瀏覽器"
 
 #: actions/submit.py:355
 msgid "Please select at least one screen resolution."
-msgstr "Bitte mindestens eine Bildschirmauflösung wählen."
+msgstr "請選擇至少一個螢幕解析度"
 
 #: actions/submit.py:398
 msgid "Select the browsers that you would like to test."
-msgstr "Wähle Browser zum Testen aus."
+msgstr "請選擇您想測試的瀏覽器"
 
 #: actions/submit.py:401
 msgid "Select one or more screen resolutions."
-msgstr "Wähle eine oder mehrere Bildschirmauflösungen."
+msgstr "請選擇一到多種螢幕解析度"
 
 #: actions/submit.py:404
 msgid "Select pages for scrolling."
-msgstr "Wieviele Seiten scrollen?"
+msgstr "請選擇螢幕捲動方式"
 
 #: actions/upload.py:182
 msgid "Upload successful."
-msgstr "Upload erfolgreich."
+msgstr "上傳成功"
 
 #: actions/website.py:46
 msgid "Engine"
-msgstr "Engine"
+msgstr "核心"
 
 #: actions/website.py:47
 msgid "Language"
-msgstr "Sprache"
+msgstr "語言"
 
 #: actions/website.py:48
 msgid "JavaScript"
@@ -359,12 +358,12 @@ msgstr "JavaScript"
 
 #: actions/website.py:49
 msgid "Hardware"
-msgstr "Hardware"
+msgstr "硬體"
 
 #: actions/website.py:50
 msgid "OS"
-msgstr "Betriebssystem"
+msgstr "作業系統"
 
 #: actions/website.py:147
 msgid "Click to see a larger preview."
-msgstr "Anklicken für größere Vorschau."
+msgstr "按下可檢視較大的預覽圖片"

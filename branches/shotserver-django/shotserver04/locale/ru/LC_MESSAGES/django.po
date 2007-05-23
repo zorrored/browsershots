@@ -1,118 +1,118 @@
 # Shotserver
 # Copyright (C) 2005 Johann C. Rocholl
 # This file is distributed under the GNU GPL.
-# Johann C. Rocholl <johann@browsershots.org>, 2005.
+# Артем Калимулов <kalimulov@gmail.com>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: johann@browsershots.org\n"
 "POT-Creation-Date: 2005-08-11 22:02+0200\n"
-"PO-Revision-Date: 2006-09-10 22:52+0000\n"
-"First-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
+"PO-Revision-Date: 2006-05-23 12:27+0000\n"
+"First-Translator: Артем Калимулов, http://unique.com.ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
+"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
 
 #: __init__.py:45
 msgid "Home"
-msgstr "Home"
+msgstr "Главная"
 
 #: __init__.py:46
 msgid "Docs"
-msgstr "Dokumentation"
+msgstr "Доки"
 
 #: __init__.py:47
 msgid "Downloads"
-msgstr "Downloads"
+msgstr "Загрузки"
 
 #: __init__.py:48 __init__.py:49
 msgid "Screenshots"
-msgstr "Screenshots"
+msgstr "Скриншоты"
 
 #: __init__.py:50
 msgid "Screenshot"
-msgstr "Screenshot"
+msgstr "Скриншот"
 
 #: __init__.py:51 actions/submit.py:411
 msgid "Submit"
-msgstr "Abschicken"
+msgstr "Отправить"
 
 #: __init__.py:52
 msgid "Queue"
-msgstr "Warteschlange"
+msgstr "Очередь"
 
 #: __init__.py:53 actions/search.py:149
 msgid "Search"
-msgstr "Suche"
+msgstr "Поиск"
 
 #: __init__.py:57
 msgid "Recent screenshots"
-msgstr "Aktuelle Screenshots"
+msgstr "Последние выполненные задания"
 
 #: __init__.py:58
 msgid "Screenshots by URL"
-msgstr "Screenshots nach URL"
+msgstr "Скриншоты по URL"
 
 #: __init__.py:59
 msgid "Complete job"
-msgstr "Fertiggestellter Auftrag"
+msgstr "Задание выполнено"
 
 #: __init__.py:60
 msgid "Submit your website"
-msgstr "Trage deine Website ein"
+msgstr "Настройка параметров обработки"
 
 #: __init__.py:61
 msgid "Job queue"
-msgstr "Warteschlange"
+msgstr "Очередь заданий"
 
 #: __init__.py:62
 msgid "Search jobs"
-msgstr "Suche Jobs"
+msgstr "Поиск заданий"
 
 #: __init__.py:66
 #, python-format
 msgid "%d sec auto refresh."
-msgstr "Autorefresh alle %d s."
+msgstr "Автообновление через %d секунд."
 
 #: actions/job.py:44 actions/website.py:131
 msgid "This entry is no longer available."
-msgstr "Dieser Eintrag ist nicht mehr verfügbar."
+msgstr "Данная запись более недоступна."
 
 #: actions/job.py:76
 msgid "Click to see the full-size original screenshots."
-msgstr "Anklicken zeigt die Original-Screenshots in voller Größe."
+msgstr "Кликните, чтобы увидеть полноразмерный скриншот."
 
 #: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
 #: actions/website.py:150
 msgid "No screenshots were uploaded recently."
-msgstr "Keine aktuellen Screenshots."
+msgstr "В последнее время скриншотов не загружалось."
 
 #: actions/poll.py:148 actions/upload.py:176
 msgid "Error: "
-msgstr "Fehler: "
+msgstr "Ошибка: "
 
 #: actions/poll.py:156
 msgid "Error: Bad username/password."
-msgstr "Fehler: Benutzer/Passwort inkorrekt."
+msgstr "Ошибка: Неправильное имя пользователя/пароль."
 
 #: actions/poll.py:163
 msgid "No matching job at this time."
-msgstr "Momentan kein passender Auftrag."
+msgstr "Подходящее задание отстутствует."
 
 #. Screenshot factory descriptions on
 #: actions/queue.py:86 actions/website.py:45
 msgid "Browser"
-msgstr "Browser"
+msgstr "Браузер"
 
 #: actions/queue.py:86
 msgid "Resolution"
-msgstr "Auflösung"
+msgstr "Экран"
 
 #: actions/queue.py:86
 msgid "Time"
-msgstr "Zeit"
+msgstr "Время"
 
 #: actions/queue.py:86 actions/search.py:74
 msgid "URL"
@@ -121,237 +121,238 @@ msgstr "URL"
 #: actions/queue.py:92
 #, python-format
 msgid "There are %d jobs in the queue."
-msgstr "In der Warteschlange befinden sich %d Aufträge."
+msgstr "Заданий в очереди - %d."
 
 #: actions/queue.py:98
 #, python-format
 msgid "%d jobs were processed in the last hour."
-msgstr "In der letzten Stunde wurden %d Aufträge verarbeitet."
+msgstr "За прошедший час обработано заданий - %d."
 
 #: actions/queue.py:100
 #, python-format
 msgid "If you submit a job now, it will be finished in %s."
-msgstr "Wenn man jetzt einen Auftrag einträgt, wird er in %s fertig sein."
+msgstr "Добавленное Вами задание будет выполнено через %s."
 
 #: actions/queue.py:113
 msgid "The job queue is empty."
-msgstr "Die Warteschlange ist leer."
+msgstr "Очередь заданий пуста."
 
 #: actions/queue.py:116
 msgid "Go ahead and submit your URL."
-msgstr "Hier kannst du deine Website eintragen."
+msgstr "Введите Ваш адрес (URL)."
 
 #: actions/recent.py:105
 msgid "This page will auto-reload every 60 seconds."
-msgstr "Diese Seite wird automatisch alle 60 Sekunden neu geladen."
+msgstr "Данная страница автоматически обновляется каждую минуту."
 
 #: actions/recent.py:108
 #, python-format
 msgid "Try %sfull screen mode%s and press F11."
-msgstr "Probiere auch den %sVollbild-Modus%s und drücke F11."
+msgstr "%sПолноэкранная версия%s этой страницы. Для просмотра нажмите F11."
 
 #: actions/recent.py:112
 msgid "Click to see more screenshots of the same web site."
-msgstr "Anklicken zeigt weitere Screenshots von der gleichen Website."
+msgstr ""
+"Кликните на изображении для просмотра остальных скриншотов выбранного сайта."
 
 #: actions/search.py:74
 msgid "Count"
-msgstr "Anzahl"
+msgstr "Заданий"
 
 #: actions/search.py:78
 #, python-format
 msgid "Another %d matching URLs are not shown."
-msgstr "Weitere %d URLs werden nicht angezeigt."
+msgstr "Еще скринштов: %d."
 
 #: actions/search.py:109
 msgid "Queued"
-msgstr "in der Warteschlange"
+msgstr "В очереди"
 
 #: actions/search.py:110
 msgid "Finished"
-msgstr "Fertig"
+msgstr "Выполено"
 
 #: actions/search.py:112
 msgid "No matching jobs."
-msgstr "Keine passenden Aufträge."
+msgstr "Подходящих заданий не найдено."
 
 #: actions/search.py:120 actions/submit.py:299
 msgid "Please enter your URL."
-msgstr "Bitte URL eingeben."
+msgstr "Пожалуйста, введите адрес (URL)."
 
 #: actions/search.py:122
 msgid "URL must not be shorter than 3 characters."
-msgstr "URL muss mindestens 3 Buchstaben lang sein."
+msgstr "Адрес не может быть короче 3 символов."
 
 #: actions/search.py:124 actions/submit.py:301
 msgid "URL must not be longer than 255 characters."
-msgstr "URL darf nicht länger als 255 Buchstaben sein."
+msgstr "Адрес не может быть длиннее 255 символов."
 
 #: actions/search.py:126 actions/submit.py:305
 msgid "URL must not contain spaces."
-msgstr "URL darf keine Leerzeichen enthalten."
+msgstr "В адресе не должно содержаться пробелов."
 
 #: actions/search.py:128 actions/submit.py:307
 msgid "URL must not contain quotes."
-msgstr "URL darf keine Anführungszeichen enthalten."
+msgstr "В адресе не должно содержаться кавычек."
 
 #: actions/search.py:142
 msgid "Enter a part of your web address to find your jobs."
-msgstr "Gib einen Teil deiner Webadresse ein, um deine Aufträge zu finden."
+msgstr "Введите часть адреса для поиска задания."
 
 #: actions/search.py:152 actions/submit.py:415
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "Сброс"
 
 #: actions/start.py:33
 #, python-format
 msgid "Logo design by %s."
-msgstr "Logo-Design von %s."
+msgstr "Дизайн логотипа - %s."
 
 #: actions/start.py:34
 msgid "Free screenshots of your web design in different browsers."
-msgstr ""
-"Kostenlose Screenshots von deinem Webdesign in verschiedenen Browsern."
+msgstr "Бесплатные скриншоты вашего сайта в разных браузерах."
 
 #: actions/start.py:56
 msgid "Help"
-msgstr "Hilfe"
+msgstr "Помощь"
 
 #: actions/start.py:59
 msgid "Options"
-msgstr "Optionen"
+msgstr "Настройки"
 
 #: actions/start.py:61 actions/submit.py:395
 msgid "Enter your web address."
-msgstr "Gib deine Webadresse ein."
+msgstr "Введите адрес вебсайта."
 
 #: actions/start.py:80
 msgid "Make Screenshots"
-msgstr "Screenshots erstellen"
+msgstr "Сделать скриншоты"
 
 #: actions/start.py:88
 msgid "Find Results"
-msgstr "Ergebnisse anzeigen"
+msgstr "Поиск результата"
 
 #: actions/submit.py:63
 msgid "Browser name<br />and version"
-msgstr "Browsername<br />und -version"
+msgstr "Версия<br />браузера"
 
 #: actions/submit.py:64
 msgid "Rendering<br />engine"
-msgstr "Darstellungs-<br />engine"
+msgstr "Движок<br />прорисовки"
 
 #: actions/submit.py:65
 msgid "Operating<br />system"
-msgstr "Betriebs-<br />system"
+msgstr "Операционная<br />система"
 
 #: actions/submit.py:66
 msgid "Last<br />poll"
-msgstr "Letzte<br />Anfrage"
+msgstr "Последний<br />опрос"
 
 #: actions/submit.py:67
 msgid "Last<br />upload"
-msgstr "Letzter<br />Screenshot"
+msgstr "Последняя<br />загрузка"
 
 #: actions/submit.py:100
 msgid "No active screenshot factories."
-msgstr "Keine aktiven Screenshot-Fabriken."
+msgstr "Временно недоступно."
 
 #: actions/submit.py:137
 msgid "Top-down"
-msgstr "Vom Anfang abwärts"
+msgstr "Сверху-вниз"
 
 #: actions/submit.py:138 actions/submit.py:144
 msgid "pages"
-msgstr "Seiten"
+msgstr "страниц"
 
 #: actions/submit.py:143
 msgid "Bottom-up"
-msgstr "Vom Ende aufwärts"
+msgstr "Снизу-Вверх"
 
 #: actions/submit.py:261
 msgid "The following jobs were added to the queue:"
-msgstr "Die folgenden Aufträge wurden der Warteschlange hinzugefügt:"
+msgstr "В очередь добавлены следующие задания:"
 
 #: actions/submit.py:264
 msgid "The following jobs were already in the queue:"
-msgstr "Die folgenden Aufträge waren bereits in der Warteschlange:"
+msgstr "Следующие задания уже стоят в очереди:"
 
 #: actions/submit.py:303
 msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URL muss mit <span class=\"uncolor\">http://</span> beginnen."
+msgstr "Адрес должен начинаться с <span class=\"uncolor\">http://</span>."
 
 #: actions/submit.py:309
 msgid "URL must not contain HTML tags."
-msgstr "URL darf keine HTML-Tags enthalten."
+msgstr "В адресе не должно содержаться тегов HTML."
 
 #: actions/submit.py:313
 msgid "URL seems to be invalid."
-msgstr "URL scheint ungültig zu sein."
+msgstr "Неправильный адрес."
 
 #: actions/submit.py:318
 #, python-format
 msgid "Domain name %s is blacklisted."
-msgstr "Der Domain-Name %s ist gesperrt."
+msgstr "%s - адрес заблокирован."
 
 #: actions/submit.py:328
 #, python-format
 msgid "The queue already contains %d jobs for this domain."
-msgstr "Die Warteschlange enthält bereits %d Aufträge für diese Domain."
+msgstr "В очереди уже %d заданий для данного домена."
 
 #: actions/submit.py:330
 msgid "Please wait until some of these jobs are finished."
-msgstr "Bitte warten, bis einige dieser Aufträge fertig sind."
+msgstr ""
+"Пожалуйста, подождите пока некоторые из этих заданий не будут выполнены."
 
 #: actions/submit.py:333
 #, python-format
 msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "In den letzten 7 Tagen gab es %d Aufträge für diese Domain."
+msgstr "За последнюю неделю этот адрес тестировался %d раз."
 
 #: actions/submit.py:335
 msgid "Please reduce your usage a little,"
-msgstr "Bitte den Gebrauch etwas einschränken,"
+msgstr "Пожалуйста, уменьшите ваши запросы,"
 
 #: actions/submit.py:336
 msgid "or make a donation to help pay the bandwidth."
-msgstr "oder mit einer Spende helfen, die Bandbreite zu bezahlen."
+msgstr "или проспонсируйте оплату дополнительного траффика."
 
 #: actions/submit.py:341
 #, python-format
 msgid "Domain name %s could not be found."
-msgstr "Der Domain-Name %s wurde nicht gefunden."
+msgstr "Адрес %s не найден."
 
 #: actions/submit.py:348
 msgid "Please select at least one browser."
-msgstr "Bitte mindestens einen Browser auswählen."
+msgstr "Пожалуйста, отметьте хотя бы один браузер."
 
 #: actions/submit.py:355
 msgid "Please select at least one screen resolution."
-msgstr "Bitte mindestens eine Bildschirmauflösung wählen."
+msgstr "Пожалуйста, выберете разрешение экрана."
 
 #: actions/submit.py:398
 msgid "Select the browsers that you would like to test."
-msgstr "Wähle Browser zum Testen aus."
+msgstr "Отметьте браузеры, в которых вы хотели бы протестировать Ваш сайт."
 
 #: actions/submit.py:401
 msgid "Select one or more screen resolutions."
-msgstr "Wähle eine oder mehrere Bildschirmauflösungen."
+msgstr "Выбирете варианты разрешения."
 
 #: actions/submit.py:404
 msgid "Select pages for scrolling."
-msgstr "Wieviele Seiten scrollen?"
+msgstr "Количествово пролистываемых экранов."
 
 #: actions/upload.py:182
 msgid "Upload successful."
-msgstr "Upload erfolgreich."
+msgstr "Загрузка завершена."
 
 #: actions/website.py:46
 msgid "Engine"
-msgstr "Engine"
+msgstr "Движок"
 
 #: actions/website.py:47
 msgid "Language"
-msgstr "Sprache"
+msgstr "Язык"
 
 #: actions/website.py:48
 msgid "JavaScript"
@@ -359,12 +360,12 @@ msgstr "JavaScript"
 
 #: actions/website.py:49
 msgid "Hardware"
-msgstr "Hardware"
+msgstr "Оборудование"
 
 #: actions/website.py:50
 msgid "OS"
-msgstr "Betriebssystem"
+msgstr "ОС"
 
 #: actions/website.py:147
 msgid "Click to see a larger preview."
-msgstr "Anklicken für größere Vorschau."
+msgstr "Увеличить"

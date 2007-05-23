@@ -1,357 +1,359 @@
 # Shotserver
 # Copyright (C) 2005 Johann C. Rocholl
 # This file is distributed under the GNU GPL.
-# Johann C. Rocholl <johann@browsershots.org>, 2005.
+# 3ARRANO <3arrano@3arrano.com>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: johann@browsershots.org\n"
 "POT-Creation-Date: 2005-08-11 22:02+0200\n"
-"PO-Revision-Date: 2006-09-10 22:52+0000\n"
-"First-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
+"PO-Revision-Date: 2007-04-18 07:40+0000\n"
+"First-Translator: 3ARRANO, http://www.3arrano.com\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
+"X-Poedit-Language: Euskara\n"
+"X-Poedit-Country: Euskal Herria\n"
+"Last-Translator: Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>\n"
+"X-Rosetta-Export-Date: 2007-05-23 19:38:11+0000\n"
 
 #: __init__.py:45
 msgid "Home"
-msgstr "Home"
+msgstr "Hasierako Orria"
 
 #: __init__.py:46
 msgid "Docs"
-msgstr "Dokumentation"
+msgstr "Dokumentuak"
 
 #: __init__.py:47
 msgid "Downloads"
-msgstr "Downloads"
+msgstr "Deskargak"
 
 #: __init__.py:48 __init__.py:49
 msgid "Screenshots"
-msgstr "Screenshots"
+msgstr "Argazkiak"
 
 #: __init__.py:50
 msgid "Screenshot"
-msgstr "Screenshot"
+msgstr "Argazkia"
 
 #: __init__.py:51 actions/submit.py:411
 msgid "Submit"
-msgstr "Abschicken"
+msgstr "Bidali"
 
 #: __init__.py:52
 msgid "Queue"
-msgstr "Warteschlange"
+msgstr "Ilara"
 
 #: __init__.py:53 actions/search.py:149
 msgid "Search"
-msgstr "Suche"
+msgstr "Bilatu"
 
 #: __init__.py:57
 msgid "Recent screenshots"
-msgstr "Aktuelle Screenshots"
+msgstr "Azken argazkiak"
 
 #: __init__.py:58
 msgid "Screenshots by URL"
-msgstr "Screenshots nach URL"
+msgstr "URLaren argazkiak"
 
 #: __init__.py:59
 msgid "Complete job"
-msgstr "Fertiggestellter Auftrag"
+msgstr "Lan burutua"
 
 #: __init__.py:60
 msgid "Submit your website"
-msgstr "Trage deine Website ein"
+msgstr "Bidali zure webgunea"
 
 #: __init__.py:61
 msgid "Job queue"
-msgstr "Warteschlange"
+msgstr "Lan ilara"
 
 #: __init__.py:62
 msgid "Search jobs"
-msgstr "Suche Jobs"
+msgstr "Bilatu lanak"
 
 #: __init__.py:66
 #, python-format
 msgid "%d sec auto refresh."
-msgstr "Autorefresh alle %d s."
+msgstr "%d segunduro automatikoki berritu"
 
 #: actions/job.py:44 actions/website.py:131
 msgid "This entry is no longer available."
-msgstr "Dieser Eintrag ist nicht mehr verfügbar."
+msgstr "Sarrera hau jada ez dago eskuragarri."
 
 #: actions/job.py:76
 msgid "Click to see the full-size original screenshots."
-msgstr "Anklicken zeigt die Original-Screenshots in voller Größe."
+msgstr "Klikatu argazkia jatorrizko neurriarekin ikusteko."
 
 #: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
 #: actions/website.py:150
 msgid "No screenshots were uploaded recently."
-msgstr "Keine aktuellen Screenshots."
+msgstr "Azkenaldian ez da argazkirik igo."
 
 #: actions/poll.py:148 actions/upload.py:176
 msgid "Error: "
-msgstr "Fehler: "
+msgstr "Akatsa: "
 
 #: actions/poll.py:156
 msgid "Error: Bad username/password."
-msgstr "Fehler: Benutzer/Passwort inkorrekt."
+msgstr "Akatsa: Erabiltzaile/pasahitz okerra."
 
 #: actions/poll.py:163
 msgid "No matching job at this time."
-msgstr "Momentan kein passender Auftrag."
+msgstr "Ez da lanik aurkitu oraingo honetan."
 
 #. Screenshot factory descriptions on
 #: actions/queue.py:86 actions/website.py:45
 msgid "Browser"
-msgstr "Browser"
+msgstr "Nabigatzailea"
 
 #: actions/queue.py:86
 msgid "Resolution"
-msgstr "Auflösung"
+msgstr "Bereizmena"
 
 #: actions/queue.py:86
 msgid "Time"
-msgstr "Zeit"
+msgstr "Denbora"
 
 #: actions/queue.py:86 actions/search.py:74
 msgid "URL"
-msgstr "URL"
+msgstr "URLa"
 
 #: actions/queue.py:92
 #, python-format
 msgid "There are %d jobs in the queue."
-msgstr "In der Warteschlange befinden sich %d Aufträge."
+msgstr "%d lan daude ilaran."
 
 #: actions/queue.py:98
 #, python-format
 msgid "%d jobs were processed in the last hour."
-msgstr "In der letzten Stunde wurden %d Aufträge verarbeitet."
+msgstr "Azkeneko ordubetean %d lan tratatu dira."
 
 #: actions/queue.py:100
 #, python-format
 msgid "If you submit a job now, it will be finished in %s."
-msgstr "Wenn man jetzt einen Auftrag einträgt, wird er in %s fertig sein."
+msgstr "Orain lan bat bidaltzen baduzu, %sean burutuko da."
 
 #: actions/queue.py:113
 msgid "The job queue is empty."
-msgstr "Die Warteschlange ist leer."
+msgstr "Lan ilara hutsik dago."
 
 #: actions/queue.py:116
 msgid "Go ahead and submit your URL."
-msgstr "Hier kannst du deine Website eintragen."
+msgstr "Egin aurrera eta bidali zure URLa."
 
 #: actions/recent.py:105
 msgid "This page will auto-reload every 60 seconds."
-msgstr "Diese Seite wird automatisch alle 60 Sekunden neu geladen."
+msgstr "Orri hau automatikoki berrituko da 60 segunduro."
 
 #: actions/recent.py:108
 #, python-format
 msgid "Try %sfull screen mode%s and press F11."
-msgstr "Probiere auch den %sVollbild-Modus%s und drücke F11."
+msgstr "Frogatu %spantaila osoko era%s eta sakatu F11."
 
 #: actions/recent.py:112
 msgid "Click to see more screenshots of the same web site."
-msgstr "Anklicken zeigt weitere Screenshots von der gleichen Website."
+msgstr "Klikatu argazkietan webgune beraren argazki gehiago ikusteko."
 
 #: actions/search.py:74
 msgid "Count"
-msgstr "Anzahl"
+msgstr "Kopurua"
 
 #: actions/search.py:78
 #, python-format
 msgid "Another %d matching URLs are not shown."
-msgstr "Weitere %d URLs werden nicht angezeigt."
+msgstr "Aurkitu diren beste %d URL ez daude ikusgai."
 
 #: actions/search.py:109
 msgid "Queued"
-msgstr "in der Warteschlange"
+msgstr "Ilaran"
 
 #: actions/search.py:110
 msgid "Finished"
-msgstr "Fertig"
+msgstr "Burututa"
 
 #: actions/search.py:112
 msgid "No matching jobs."
-msgstr "Keine passenden Aufträge."
+msgstr "Ez da lanik aurkitu."
 
 #: actions/search.py:120 actions/submit.py:299
 msgid "Please enter your URL."
-msgstr "Bitte URL eingeben."
+msgstr "Sartu zure URLa."
 
 #: actions/search.py:122
 msgid "URL must not be shorter than 3 characters."
-msgstr "URL muss mindestens 3 Buchstaben lang sein."
+msgstr "URLak ezin ditu 3 karakteretik behera eduki."
 
 #: actions/search.py:124 actions/submit.py:301
 msgid "URL must not be longer than 255 characters."
-msgstr "URL darf nicht länger als 255 Buchstaben sein."
+msgstr "URLak ezin ditu 255 karakteretik gora eduki."
 
 #: actions/search.py:126 actions/submit.py:305
 msgid "URL must not contain spaces."
-msgstr "URL darf keine Leerzeichen enthalten."
+msgstr "URLak ezin du hutsunerik eduki."
 
 #: actions/search.py:128 actions/submit.py:307
 msgid "URL must not contain quotes."
-msgstr "URL darf keine Anführungszeichen enthalten."
+msgstr "URLak ezin du kakotxik eduki."
 
 #: actions/search.py:142
 msgid "Enter a part of your web address to find your jobs."
-msgstr "Gib einen Teil deiner Webadresse ein, um deine Aufträge zu finden."
+msgstr "Sartu zure web helbidearen zati bat zure lanak bilatzeko."
 
 #: actions/search.py:152 actions/submit.py:415
 msgid "Reset"
-msgstr "Zurücksetzen"
+msgstr "Berrezarri"
 
 #: actions/start.py:33
 #, python-format
 msgid "Logo design by %s."
-msgstr "Logo-Design von %s."
+msgstr "Logoaren diseinua: %s"
 
 #: actions/start.py:34
 msgid "Free screenshots of your web design in different browsers."
-msgstr ""
-"Kostenlose Screenshots von deinem Webdesign in verschiedenen Browsern."
+msgstr "Zure web diseinuaren osoko argazkiak nabigatzaile ezberdinetan."
 
 #: actions/start.py:56
 msgid "Help"
-msgstr "Hilfe"
+msgstr "Laguntza"
 
 #: actions/start.py:59
 msgid "Options"
-msgstr "Optionen"
+msgstr "Aukerak"
 
 #: actions/start.py:61 actions/submit.py:395
 msgid "Enter your web address."
-msgstr "Gib deine Webadresse ein."
+msgstr "Sartu zure web helbidea."
 
 #: actions/start.py:80
 msgid "Make Screenshots"
-msgstr "Screenshots erstellen"
+msgstr "Argazkiak Egin"
 
 #: actions/start.py:88
 msgid "Find Results"
-msgstr "Ergebnisse anzeigen"
+msgstr "Emaitzak Bilatu"
 
 #: actions/submit.py:63
 msgid "Browser name<br />and version"
-msgstr "Browsername<br />und -version"
+msgstr "Nabigatzaile izena<br />eta bertsioa"
 
 #: actions/submit.py:64
 msgid "Rendering<br />engine"
-msgstr "Darstellungs-<br />engine"
+msgstr "Motore<br />rendegilea"
 
 #: actions/submit.py:65
 msgid "Operating<br />system"
-msgstr "Betriebs-<br />system"
+msgstr "Sistema<br />eragilea"
 
 #: actions/submit.py:66
 msgid "Last<br />poll"
-msgstr "Letzte<br />Anfrage"
+msgstr "Azken<br />bozketa"
 
 #: actions/submit.py:67
 msgid "Last<br />upload"
-msgstr "Letzter<br />Screenshot"
+msgstr "Azken<br />igoera"
 
 #: actions/submit.py:100
 msgid "No active screenshot factories."
-msgstr "Keine aktiven Screenshot-Fabriken."
+msgstr "Ez dago argazkigilerik martxan."
 
 #: actions/submit.py:137
 msgid "Top-down"
-msgstr "Vom Anfang abwärts"
+msgstr "Goitik-behera"
 
 #: actions/submit.py:138 actions/submit.py:144
 msgid "pages"
-msgstr "Seiten"
+msgstr "orri"
 
 #: actions/submit.py:143
 msgid "Bottom-up"
-msgstr "Vom Ende aufwärts"
+msgstr "Behetik-gora"
 
 #: actions/submit.py:261
 msgid "The following jobs were added to the queue:"
-msgstr "Die folgenden Aufträge wurden der Warteschlange hinzugefügt:"
+msgstr "Honako lan hauek gehitu dira ilarara:"
 
 #: actions/submit.py:264
 msgid "The following jobs were already in the queue:"
-msgstr "Die folgenden Aufträge waren bereits in der Warteschlange:"
+msgstr "Honako lan hauek zeuden lehendik ilaran:"
 
 #: actions/submit.py:303
 msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URL muss mit <span class=\"uncolor\">http://</span> beginnen."
+msgstr "URLa <span class=\"uncolor\">http://</span>rekin hasi behar da."
 
 #: actions/submit.py:309
 msgid "URL must not contain HTML tags."
-msgstr "URL darf keine HTML-Tags enthalten."
+msgstr "URLak ezin du HTML etiketarik eduki."
 
 #: actions/submit.py:313
 msgid "URL seems to be invalid."
-msgstr "URL scheint ungültig zu sein."
+msgstr "URLak baliogabea dirudi."
 
 #: actions/submit.py:318
 #, python-format
 msgid "Domain name %s is blacklisted."
-msgstr "Der Domain-Name %s ist gesperrt."
+msgstr "%s domeinu izena zerrenda beltzean dago."
 
 #: actions/submit.py:328
 #, python-format
 msgid "The queue already contains %d jobs for this domain."
-msgstr "Die Warteschlange enthält bereits %d Aufträge für diese Domain."
+msgstr "Ilarak dagoeneko %d lan ditu domeinu horrentzat."
 
 #: actions/submit.py:330
 msgid "Please wait until some of these jobs are finished."
-msgstr "Bitte warten, bis einige dieser Aufträge fertig sind."
+msgstr "Itxaron lan hauetariko batzuk burutu arte."
 
 #: actions/submit.py:333
 #, python-format
 msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "In den letzten 7 Tagen gab es %d Aufträge für diese Domain."
+msgstr "Azken 7 egunetan %d lan egon dira domeinu horrentzat."
 
 #: actions/submit.py:335
 msgid "Please reduce your usage a little,"
-msgstr "Bitte den Gebrauch etwas einschränken,"
+msgstr "Murriztu erabilera pittin bat, edo eman"
 
 #: actions/submit.py:336
 msgid "or make a donation to help pay the bandwidth."
-msgstr "oder mit einer Spende helfen, die Bandbreite zu bezahlen."
+msgstr "dirulaguntza bat banda zabala ordaintzen laguntzeko."
 
 #: actions/submit.py:341
 #, python-format
 msgid "Domain name %s could not be found."
-msgstr "Der Domain-Name %s wurde nicht gefunden."
+msgstr "%s domeinu izena ezin izan da aurkitu."
 
 #: actions/submit.py:348
 msgid "Please select at least one browser."
-msgstr "Bitte mindestens einen Browser auswählen."
+msgstr "Aukeratu gutxienez nabigatzaile bat."
 
 #: actions/submit.py:355
 msgid "Please select at least one screen resolution."
-msgstr "Bitte mindestens eine Bildschirmauflösung wählen."
+msgstr "Aukeratu gutxienez pantailarentzako bereizmen bat."
 
 #: actions/submit.py:398
 msgid "Select the browsers that you would like to test."
-msgstr "Wähle Browser zum Testen aus."
+msgstr "Aukeratu frogatu nahi dituzun nabigatzaileak."
 
 #: actions/submit.py:401
 msgid "Select one or more screen resolutions."
-msgstr "Wähle eine oder mehrere Bildschirmauflösungen."
+msgstr "Aukeratu pantailarentzako bereizmen bat edo gehiago."
 
 #: actions/submit.py:404
 msgid "Select pages for scrolling."
-msgstr "Wieviele Seiten scrollen?"
+msgstr "Aukeratu scrollingerako orri kopurua."
 
 #: actions/upload.py:182
 msgid "Upload successful."
-msgstr "Upload erfolgreich."
+msgstr "Igoera arrakastatsua."
 
 #: actions/website.py:46
 msgid "Engine"
-msgstr "Engine"
+msgstr "Motorea"
 
 #: actions/website.py:47
 msgid "Language"
-msgstr "Sprache"
+msgstr "Hizkuntza"
 
 #: actions/website.py:48
 msgid "JavaScript"
@@ -359,12 +361,12 @@ msgstr "JavaScript"
 
 #: actions/website.py:49
 msgid "Hardware"
-msgstr "Hardware"
+msgstr "Hardwarea"
 
 #: actions/website.py:50
 msgid "OS"
-msgstr "Betriebssystem"
+msgstr "Sistema"
 
 #: actions/website.py:147
 msgid "Click to see a larger preview."
-msgstr "Anklicken für größere Vorschau."
+msgstr "Klikatu aurrebista handiagoa ikusteko."
