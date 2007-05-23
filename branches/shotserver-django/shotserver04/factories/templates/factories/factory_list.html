@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load common_tags %}
 
-{% block title %}Screenshot Factories{% endblock %}
+{% block title %}{% trans "Screenshot Factories" %}{% endblock %}
 
 {% block content %}
-<h1>Screenshot Factories</h1>
+<h1>{% trans "Screenshot Factories" %}</h1>
 <table>
 <thead>
 <tr>
@@ -30,11 +31,11 @@
 {% if is_paginated %}
 <p>
 {% if has_previous %}
-<a href="/factories/page{{ previous }}/">Previous</a>
+<a href="/factories/page{{ previous }}/">{% trans "Previous" %}</a>
 {% endif %}
 Page {{ page }} of {{ pages }}
 {% if has_next %}
-<a href="/factories/page{{ next }}/">Next</a>
+<a href="/factories/page{{ next }}/">{% trans "Next" %}</a>
 {% endif %}
 </p>
 {% endif %}

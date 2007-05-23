@@ -1,21 +1,22 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load common_tags %}
 
-{% block title %}Screenshot Factory {{ factory.name }}{% endblock %}
+{% block title %}{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-<h1>Screenshot Factory {{ factory.name }}</h1>
+<h1>{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}</h1>
 
 {% if browser_list %}
 <table style="clear: both;">
 <thead>
 <tr>
-<th>Browser</th>
-<th>Engine</th>
-<th>Javascript</th>
-<th>Java</th>
-<th>Flash</th>
-<th>Last<br />upload</th>
+<th>{% trans "Browser" %}</th>
+<th>{% trans "Engine" %}</th>
+<th>{% trans "Javascript" %}</th>
+<th>{% trans "Java" %}</th>
+<th>{% trans "Flash" %}</th>
+<th>{% trans "Last<br />upload" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -34,11 +35,11 @@ title="{{ browser.user_agent }}">
 </tbody>
 </table>
 {% else %}
-<p>No browsers.</p>
+<p>{% trans "No browsers." %}</p>
 {% endif %}
 
 <div style="float: left; margin: 0 2em 0 0;">
-<h2>Screen sizes</h2>
+<h2>{% trans "Screen sizes" %}</h2>
 {% if screensize_list %}
 <ul>
 {% for screensize in screensize_list %}
@@ -46,12 +47,12 @@ title="{{ browser.user_agent }}">
 {% endfor %}
 </ul>
 {% else %}
-<p>Default only.</p>
+<p>{% trans "Default only." %}</p>
 {% endif %}
 </div>
 
 <div style="float: left; margin: 0 2em 0 0;">
-<h2>Color depths</h2>
+<h2>{% trans "Color depths" %}</h2>
 {% if colordepth_list %}
 <ul>
 {% for colordepth in colordepth_list %}
@@ -59,7 +60,7 @@ title="{{ browser.user_agent }}">
 {% endfor %}
 </ul>
 {% else %}
-<p>Default only.</p>
+<p>{% trans "Default only." %}</p>
 {% endif %}
 </div>
 {% endblock %}

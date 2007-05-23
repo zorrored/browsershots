@@ -5,13 +5,13 @@ from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 
 FACTORY_LIST_COLUMNS = (
-    'name',
-    'operating_system',
-    'architecture',
-    'last_poll',
-    'last_upload',
-    'uploads_per_hour',
-    'uploads_per_day',
+    ('name', _('Name')),
+    ('operating_system', _('Operating<br />system')),
+    ('architecture', _('Architecture')),
+    ('last_poll', _('Last<br />poll')),
+    ('last_upload', _('Last<br />upload')),
+    ('uploads_per_hour', _('Uploads<br />per hour')),
+    ('uploads_per_day', _('Uploads<br />per day')),
 )
 
 
@@ -22,8 +22,7 @@ def factory_list(request):
     order_column = order.lstrip('-')
     descending = order.startswith('-')
     header_list = []
-    for column in FACTORY_LIST_COLUMNS:
-        text = column.replace('_', ' ').replace(' ', '<br />', 1)
+    for column, text in FACTORY_LIST_COLUMNS:
         class_attrib = ''
         if column == order_column:
             found = True

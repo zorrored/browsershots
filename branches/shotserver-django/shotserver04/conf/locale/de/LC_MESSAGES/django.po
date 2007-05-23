@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shotserver 0.4-alpha1\n"
+"Report-Msgid-Bugs-To: johann@browsershots.org\n"
+"POT-Creation-Date: 2007-05-23 11:18+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
+"Language-Team: German <i18n@browsershots.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: factories/views.py:8
+msgid "Name"
+msgstr ""
+
+#: factories/views.py:9
+msgid "Operating<br />system"
+msgstr "Betriebs-<br />system"
+
+#: factories/views.py:10
+msgid "Architecture"
+msgstr "Architektur"
+
+#: factories/views.py:11
+msgid "Last<br />poll"
+msgstr "Letzte<br />Anfrage"
+
+#: factories/views.py:12 factories/templates/factories/factory_detail.html:19
+msgid "Last<br />upload"
+msgstr "Letzter<br />Upload"
+
+#: factories/views.py:13
+msgid "Uploads<br />per hour"
+msgstr "Uploads<br />pro Stunde"
+
+#: factories/views.py:14
+msgid "Uploads<br />per day"
+msgstr "Uploads<br />pro Tag"
+
+#: factories/templates/factories/factory_list.html:5
+#: factories/templates/factories/factory_list.html:8
+msgid "Screenshot Factories"
+msgstr "Screenshot-Fabriken"
+
+#: factories/templates/factories/factory_list.html:34
+msgid "Previous"
+msgstr "Zurück"
+
+#: factories/templates/factories/factory_list.html:38
+msgid "Next"
+msgstr "Weiter"
+
+#: factories/templates/factories/factory_detail.html:5
+#: factories/templates/factories/factory_detail.html:8
+#, python-format
+msgid "Screenshot Factory %(name)s"
+msgstr "Screenshot-Fabrik %(name)s"
+
+#: factories/templates/factories/factory_detail.html:14
+msgid "Browser"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:15
+msgid "Engine"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:16
+msgid "Javascript"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:17
+msgid "Java"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:18
+msgid "Flash"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:38
+msgid "No browsers."
+msgstr "Keine Browser."
+
+#: factories/templates/factories/factory_detail.html:42
+msgid "Screen sizes"
+msgstr "Bildschirmgrößen"
+
+#: factories/templates/factories/factory_detail.html:50
+#: factories/templates/factories/factory_detail.html:63
+msgid "Default only."
+msgstr "Nur Voreinstellung."
+
+#: factories/templates/factories/factory_detail.html:55
+msgid "Color depths"
+msgstr "Farbtiefen"
