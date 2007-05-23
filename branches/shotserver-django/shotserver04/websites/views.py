@@ -23,6 +23,7 @@ def website_detail(request, website_url):
     query_list = connection.queries
     return render_to_response('websites/website_detail.html', locals())
 
+
 def website_numeric(request, website_id):
     website = get_object_or_404(Website, id=website_id)
     query_list = connection.queries
