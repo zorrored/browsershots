@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 22:18+0200\n"
+"POT-Creation-Date: 2007-05-23 22:37+0200\n"
 "PO-Revision-Date: 2006-09-10 22:52+0000\n"
 "Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
 "MIME-Version: 1.0\n"
@@ -18,108 +18,103 @@ msgstr ""
 #: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
 #: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
 msgid "name"
-msgstr ""
+msgstr "Name"
 
 #: factories/models.py:11
 msgid "Hostname (lowercase)"
-msgstr ""
+msgstr "Hostname (in Kleinbuchstaben)"
 
 #: factories/models.py:13
 msgid "administrator"
-msgstr ""
+msgstr "Administrator"
 
 #: factories/models.py:15
 msgid "hardware architecture"
-msgstr ""
+msgstr "Hardware-Architektur"
 
 #: factories/models.py:16
 msgid "CPU type (e.g. i686 or PPC)"
-msgstr ""
+msgstr "CPU-Typ (z.B. i686 oder PPC)"
 
 #: factories/models.py:18 platforms/models.py:44
-#, fuzzy
 msgid "operating system"
-msgstr "Betriebs-<br />system"
+msgstr "Betriebssystem"
 
 #: factories/models.py:20
-#, fuzzy
 msgid "last poll"
-msgstr "Letzte<br />Anfrage"
+msgstr "letzte Anfrage"
 
 #: factories/models.py:22 browsers/models.py:74
-#, fuzzy
 msgid "last upload"
-msgstr "Letzter<br />Screenshot"
+msgstr "letzter Upload"
 
 #: factories/models.py:24
 msgid "uploads per hour"
-msgstr ""
+msgstr "Uploads pro Stunde"
 
 #: factories/models.py:26
 msgid "uploads per day"
-msgstr ""
+msgstr "Uploads pro Tag"
 
 #: factories/models.py:28 nonces/models.py:14
 msgid "created"
-msgstr ""
+msgstr "erstellt"
 
 #: factories/models.py:50 factories/models.py:98 factories/models.py:121
 #: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
 msgid "factory"
-msgstr ""
+msgstr "Fabrik"
 
 #: factories/models.py:51
 msgid "factories"
-msgstr ""
+msgstr "Fabriken"
 
 #: factories/models.py:101 screenshots/models.py:18
 msgid "width"
-msgstr ""
+msgstr "Breite"
 
 #: factories/models.py:103 screenshots/models.py:20
 msgid "height"
-msgstr ""
+msgstr "Höhe"
 
 #: factories/models.py:113
 msgid "screen size"
-msgstr ""
+msgstr "Bildschirmgröße"
 
 #: factories/models.py:114
-#, fuzzy
 msgid "screen sizes"
-msgstr "Screenshots"
+msgstr "Bildschirmgrößen"
 
 #: factories/models.py:124 requests/models.py:16
 msgid "bits per pixel"
-msgstr ""
+msgstr "Bits pro Pixel"
 
 #: factories/models.py:134
 msgid "color depth"
-msgstr ""
+msgstr "Farbtiefe"
 
 #: factories/models.py:135
 msgid "color depths"
-msgstr ""
+msgstr "Farbtiefen"
 
 #: factories/templates/factories/factory_list.html:5
 #: factories/templates/factories/factory_list.html:8
-#, fuzzy
 msgid "Screenshot Factories"
-msgstr "Screenshots"
+msgstr "Screenshot-Fabriken"
 
 #: factories/templates/factories/factory_list.html:34
 msgid "Previous"
-msgstr ""
+msgstr "Zurück"
 
 #: factories/templates/factories/factory_list.html:38
 msgid "Next"
-msgstr ""
+msgstr "Weiter"
 
 #: factories/templates/factories/factory_detail.html:5
 #: factories/templates/factories/factory_detail.html:8
 #, python-format
 msgid "Screenshot Factory %(name)s"
-msgstr ""
+msgstr "Screenshot-Fabrik %(name)s"
 
 #: factories/templates/factories/factory_detail.html:14
 msgid "Browser"
@@ -131,54 +126,49 @@ msgstr "Engine"
 
 #: factories/templates/factories/factory_detail.html:16 requests/models.py:18
 #: browsers/models.py:64
-#, fuzzy
 msgid "Javascript"
-msgstr "JavaScript"
+msgstr "Javascript"
 
 #: factories/templates/factories/factory_detail.html:17 requests/models.py:20
 #: browsers/models.py:66
 msgid "Java"
-msgstr ""
+msgstr "Java"
 
 #: factories/templates/factories/factory_detail.html:18 requests/models.py:22
 #: browsers/models.py:68
 msgid "Flash"
-msgstr ""
+msgstr "Flash"
 
 #: factories/templates/factories/factory_detail.html:19
 msgid "Last<br />upload"
-msgstr "Letzter<br />Screenshot"
+msgstr "Letzter<br />Upload"
 
 #: factories/templates/factories/factory_detail.html:38
-#, fuzzy
 msgid "No browsers."
-msgstr "Browser"
+msgstr "Keine Browser."
 
 #: factories/templates/factories/factory_detail.html:42
-#, fuzzy
 msgid "Screen sizes"
-msgstr "Screenshots"
+msgstr "Bildschirmgrößen"
 
 #: factories/templates/factories/factory_detail.html:50
 #: factories/templates/factories/factory_detail.html:63
 msgid "Default only."
-msgstr ""
+msgstr "Nur Voreinstellung."
 
 #: factories/templates/factories/factory_detail.html:55
 msgid "Color depths"
-msgstr ""
+msgstr "Farbtiefen"
 
 #: common/templates/start.html:5 common/templates/start.html.py:8
-#, fuzzy
 msgid "Test your web design in different browsers"
-msgstr "Kostenlose Screenshots von deinem Webdesign in verschiedenen Browsern."
+msgstr "Teste dein Webdesign in verschiedenen Browsern"
 
 #: common/templates/base.html:27
 msgid "Home"
 msgstr "Home"
 
 #: common/templates/base.html:28
-#, fuzzy
 msgid "Screenshots"
 msgstr "Screenshots"
 
@@ -187,86 +177,80 @@ msgid "Queue"
 msgstr "Warteschlange"
 
 #: common/templates/base.html:30
-#, fuzzy
 msgid "Factories"
-msgstr "Screenshots"
+msgstr "Fabriken"
 
 #: common/templates/base.html:31
 msgid "Search"
 msgstr "Suche"
 
 #: common/templates/base.html:32
-#, fuzzy
 msgid "Download"
-msgstr "Downloads"
+msgstr "Download"
 
 #: common/templates/base.html:33
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentation"
 
 #: common/templates/base.html:34
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: requests/models.py:12 websites/models.py:25
 msgid "website"
-msgstr ""
+msgstr "Webseite"
 
 #: requests/models.py:14
 msgid "screen width"
-msgstr ""
+msgstr "Bildschirmbreite"
 
 #: requests/models.py:24
-#, fuzzy
 msgid "submitter"
-msgstr "Abschicken"
+msgstr "Auftraggeber"
 
 #: requests/models.py:26 websites/models.py:17
-#, fuzzy
 msgid "submitted"
-msgstr "Abschicken"
+msgstr "eingetragen"
 
 #: requests/models.py:28
 msgid "expire"
-msgstr ""
+msgstr "Ablaufzeit"
 
 #: requests/models.py:45 requests/models.py:54
 msgid "request group"
-msgstr ""
+msgstr "Auftragsgruppe"
 
 #: requests/models.py:46
 msgid "request groups"
-msgstr ""
+msgstr "Auftragsgruppen"
 
 #: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
 msgid "platform"
-msgstr ""
+msgstr "Plattform"
 
 #: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
-#, fuzzy
 msgid "browser group"
-msgstr "Browser"
+msgstr "Browsergruppe"
 
 #: requests/models.py:60 browsers/models.py:56
 msgid "major"
-msgstr ""
+msgstr "Hauptversion"
 
 #: requests/models.py:62 browsers/models.py:58
 msgid "minor"
-msgstr ""
+msgstr "Unterversion"
 
 #: requests/models.py:75 screenshots/models.py:12
 msgid "request"
-msgstr ""
+msgstr "Auftrag"
 
 #: requests/models.py:76
-#, fuzzy
 msgid "requests"
-msgstr "Screenshots"
+msgstr "Aufträge"
 
 #: websites/models.py:9
 msgid "Missing slash after the hostname."
-msgstr ""
+msgstr "Fehlender Slash nach dem Hostnamen."
 
 #: websites/models.py:14
 msgid "URL"
@@ -274,139 +258,131 @@ msgstr "URL"
 
 #: websites/models.py:26
 msgid "websites"
-msgstr ""
+msgstr "Webseiten"
 
 #: screenshots/models.py:10 nonces/models.py:10
 msgid "hashkey"
-msgstr ""
+msgstr "Hash-Schlüssel"
 
 #: screenshots/models.py:16 browsers/models.py:97
-#, fuzzy
 msgid "browser"
 msgstr "Browser"
 
 #: screenshots/models.py:22
 msgid "error message"
-msgstr ""
+msgstr "Fehlermeldung"
 
 #: screenshots/models.py:24
 msgid "locked"
-msgstr ""
+msgstr "gesperrt"
 
 #: screenshots/models.py:26
 msgid "redirected"
-msgstr ""
+msgstr "umgeleitet"
 
 #: screenshots/models.py:28
 msgid "failed"
-msgstr ""
+msgstr "fehlgeschlagen"
 
 #: screenshots/models.py:30
 msgid "uploaded"
-msgstr ""
+msgstr "hochgeladen"
 
 #: screenshots/models.py:48
-#, fuzzy
 msgid "screenshot"
 msgstr "Screenshot"
 
 #: screenshots/models.py:49
-#, fuzzy
 msgid "screenshots"
 msgstr "Screenshots"
 
 #: nonces/models.py:12
 msgid "IP address"
-msgstr ""
+msgstr "IP-Adresse"
 
 #: nonces/models.py:25
 msgid "nonce"
-msgstr ""
+msgstr "Nonce"
 
 #: nonces/models.py:26
-#, fuzzy
 msgid "nonces"
-msgstr "Dokumentation"
+msgstr "Nonces"
 
 #: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
 msgid "maker"
-msgstr ""
+msgstr "Hersteller"
 
 #: browsers/models.py:20 browsers/models.py:60
-#, fuzzy
 msgid "engine"
 msgstr "Engine"
 
 #: browsers/models.py:21
-#, fuzzy
 msgid "engines"
-msgstr "Engine"
+msgstr "Engines"
 
 #: browsers/models.py:31
 msgid "terminal"
-msgstr ""
+msgstr "Terminal"
 
 #: browsers/models.py:31
 msgid "Is this a text-mode browser?"
-msgstr ""
+msgstr "Ist dies ein Textmodus-Browser?"
 
 #: browsers/models.py:42
 msgid "browser groups"
-msgstr ""
+msgstr "Browsergruppen"
 
 #: browsers/models.py:50
 msgid "user agent"
-msgstr ""
+msgstr "User-Agent"
 
 #: browsers/models.py:54 platforms/models.py:30
 msgid "version"
-msgstr ""
+msgstr "Version"
 
 #: browsers/models.py:62
 msgid "engine version"
-msgstr ""
+msgstr "Engine-Version"
 
 #: browsers/models.py:70
 msgid "command"
-msgstr ""
+msgstr "Kommando"
 
 #: browsers/models.py:72
 msgid "disabled"
-msgstr ""
+msgstr "deaktiviert"
 
 #: browsers/models.py:72
 msgid "Is this browser inactive?"
-msgstr ""
+msgstr "Ist dieser Browser inaktiv?"
 
 #: browsers/models.py:98
-#, fuzzy
 msgid "browsers"
 msgstr "Browser"
 
 #: platforms/models.py:10
 msgid "order"
-msgstr ""
+msgstr "Position"
 
 #: platforms/models.py:20
 msgid "platforms"
-msgstr ""
+msgstr "Plattformen"
 
 #: platforms/models.py:32
 msgid "codename"
-msgstr ""
+msgstr "Codename"
 
 #: platforms/models.py:45
-#, fuzzy
 msgid "operating systems"
-msgstr "Betriebs-<br />system"
+msgstr "Betriebssysteme"
 
 #: platforms/models.py:60
 msgid "architecture"
-msgstr ""
+msgstr "Architektur"
 
 #: platforms/models.py:61
 msgid "architectures"
-msgstr ""
+msgstr "Architekturen"
 
 #~ msgid "Recent screenshots"
 #~ msgstr "Aktuelle Screenshots"
@@ -530,12 +506,6 @@ msgstr ""
 
 #~ msgid "Find Results"
 #~ msgstr "Ergebnisse anzeigen"
-
-#~ msgid "Browser name<br />and version"
-#~ msgstr "Browsername<br />und -version"
-
-#~ msgid "Rendering<br />engine"
-#~ msgstr "Darstellungs-<br />engine"
 
 #~ msgid "No active screenshot factories."
 #~ msgstr "Keine aktiven Screenshot-Fabriken."
