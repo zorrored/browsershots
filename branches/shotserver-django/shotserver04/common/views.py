@@ -72,8 +72,8 @@ class BrowserForm(forms.BaseForm):
             factory__operating_system__platform=platform,
             disabled=False)
         active_browsers = platform_browsers.extra(
-            where=['"browsers_browser__factory"."last_poll" > NOW() - %s::interval'],
-            params=['31d'])
+            where=['"browsers_browser__factory"."last_poll"' +
+                   ' > NOW() - %s::interval'], params=['31d'])
         field_dict = {}
         for browser in active_browsers:
             label = browser.browser_group.name
