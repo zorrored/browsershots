@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Platform(models.Model):
@@ -12,6 +13,8 @@ class Platform(models.Model):
         pass
 
     class Meta:
+        verbose_name = _('platform')
+        verbose_name_plural = _('platforms')
         ordering = ('order', 'name')
 
 
@@ -30,6 +33,8 @@ class OperatingSystem(models.Model):
         list_filter = ('platform', )
 
     class Meta:
+        verbose_name = _('operating system')
+        verbose_name_plural = _('operating systems')
         ordering = ('name', 'version')
 
 
@@ -43,4 +48,6 @@ class Architecture(models.Model):
         pass
 
     class Meta:
+        verbose_name = _('architecture')
+        verbose_name_plural = _('architectures')
         ordering = ('name', )

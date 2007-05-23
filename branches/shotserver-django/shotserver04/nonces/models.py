@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from shotserver04.factories.models import Factory
 
 
@@ -17,4 +18,6 @@ class Nonce(models.Model):
         date_hierarchy = 'created'
 
     class Meta:
-        ordering = ('hashkey', )
+        verbose_name = _('nonce')
+        verbose_name_plural = _('nonces')
+        ordering = ('created', 'hashkey')

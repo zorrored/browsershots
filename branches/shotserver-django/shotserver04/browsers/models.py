@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from shotserver04.factories.models import Factory
 
 
@@ -14,6 +15,8 @@ class Engine(models.Model):
         search_fields = ('name', 'maker')
 
     class Meta:
+        verbose_name = _('engine')
+        verbose_name_plural = _('engines')
         ordering = ('name', )
 
 
@@ -30,6 +33,8 @@ class BrowserGroup(models.Model):
         search_fields = ('name', 'maker')
 
     class Meta:
+        verbose_name = _('browser group')
+        verbose_name_plural = _('browser groups')
         ordering = ('name', )
 
 
@@ -70,4 +75,6 @@ class Browser(models.Model):
                          'javascript', 'java', 'flash')
 
     class Meta:
+        verbose_name = _('browser')
+        verbose_name_plural = _('browsers')
         ordering = ('user_agent', )
