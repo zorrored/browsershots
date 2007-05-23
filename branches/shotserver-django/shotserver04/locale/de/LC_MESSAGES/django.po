@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 12:50+0200\n"
+"POT-Creation-Date: 2007-05-23 13:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <i18n@browsershots.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: factories/models.py:12
 msgid "administrator"
-msgstr ""
+msgstr "Administrator"
 
 #: factories/models.py:14
 msgid "hardware architecture"
@@ -63,9 +63,25 @@ msgstr "Fabrik"
 msgid "factories"
 msgstr "Fabriken"
 
+#: factories/models.py:109
+msgid "screen size"
+msgstr "Bildschirmgröße"
+
+#: factories/models.py:110
+msgid "screen sizes"
+msgstr "Bildschirmgrößen"
+
+#: factories/models.py:128
+msgid "color depth"
+msgstr "Farbtiefe"
+
+#: factories/models.py:129
+msgid "color depths"
+msgstr "Farbtiefen"
+
 #: factories/views.py:8
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: factories/views.py:9
 msgid "Operating<br />system"
@@ -112,23 +128,23 @@ msgstr "Screenshot-Fabrik %(name)s"
 
 #: factories/templates/factories/factory_detail.html:14
 msgid "Browser"
-msgstr ""
+msgstr "Browser"
 
 #: factories/templates/factories/factory_detail.html:15
 msgid "Engine"
-msgstr ""
+msgstr "Engine"
 
 #: factories/templates/factories/factory_detail.html:16
 msgid "Javascript"
-msgstr ""
+msgstr "Javascript"
 
 #: factories/templates/factories/factory_detail.html:17
 msgid "Java"
-msgstr ""
+msgstr "Java"
 
 #: factories/templates/factories/factory_detail.html:18
 msgid "Flash"
-msgstr ""
+msgstr "Flash"
 
 #: factories/templates/factories/factory_detail.html:38
 msgid "No browsers."
@@ -146,3 +162,51 @@ msgstr "Nur Voreinstellung."
 #: factories/templates/factories/factory_detail.html:55
 msgid "Color depths"
 msgstr "Farbtiefen"
+
+#: common/templates/start.html:5 common/templates/start.html.py:8
+msgid "Test your web design in different browsers"
+msgstr "Teste dein Webdesign in verschiedenen Browsern"
+
+#: requests/models.py:36
+msgid "request group"
+msgstr "Auftragsgruppe"
+
+#: requests/models.py:37
+msgid "request groups"
+msgstr "Auftragsgruppen"
+
+#: requests/models.py:61
+msgid "request"
+msgstr "Auftrag"
+
+#: requests/models.py:62
+msgid "requests"
+msgstr "Aufträge"
+
+#: websites/models.py:9
+msgid "Missing slash after the hostname."
+msgstr "Fehlender Slash nach dem Hostnamen."
+
+#: websites/models.py:14
+msgid "URL"
+msgstr "URL"
+
+#: websites/models.py:17
+msgid "submitted"
+msgstr "eingetragen"
+
+#: websites/models.py:25
+msgid "website"
+msgstr "Webseite"
+
+#: websites/models.py:26
+msgid "websites"
+msgstr "Webseiten"
+
+#: screenshots/models.py:38
+msgid "screenshot"
+msgstr "Screenshot"
+
+#: screenshots/models.py:39
+msgid "screenshots"
+msgstr "Screenshots"
