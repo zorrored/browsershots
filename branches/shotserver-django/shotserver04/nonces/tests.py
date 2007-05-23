@@ -54,19 +54,21 @@ class NonceTestCase(TestCase):
         finally:
             transaction.rollback()
 
-    def testNonceValidA(self):
-        self.assertNonceValid('12345678901234567890123456789012')
-    def testNonceValidB(self):
-        self.assertNonceValid('a234b6789012c4567d90123e56789f12')
-    def testNonceValidC(self):
-        self.assertNonceValid('0a234b6789012c4567d90123e56789ff')
+    def testValidNonces(self):
+        for nonce in [
+            '12345678901234567890123456789012',
+            'a234b6789012c4567d90123e56789f12',
+            '0a234b6789012c4567d90123e56789ff',
+            ]:
+            self.assertNonceValid(nonce)
 
-    def testNonceInvalidA(self):
-        self.assertNonceInvalid('1234567890123456789012345678901')
-    def testNonceInvalidB(self):
-        self.assertNonceInvalid('a234b6789012c4567d90123e56789f123')
-    def testNonceInvalidC(self):
-        self.assertNonceInvalid('0a234b6789012c4567d90123e56789fg')
+    def testInvalidNonces(self):
+        for nonce in [
+            '1234567890123456789012345678901',
+            'a234b6789012c4567d90123e56789f123',
+            '0a234b6789012c4567d90123e56789fg',
+            ]:
+            self.assertNonceInvalid(nonce)
 
     def testNonceDuplicate(self):
         try:
