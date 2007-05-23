@@ -6,367 +6,614 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
-"Report-Msgid-Bugs-To: johann@browsershots.org\n"
-"POT-Creation-Date: 2005-08-11 22:02+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-23 22:18+0200\n"
 "PO-Revision-Date: 2007-04-18 07:40+0000\n"
-"First-Translator: 3ARRANO, http://www.3arrano.com\n"
+"Last-Translator: Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"First-Translator: 3ARRANO, http://www.3arrano.com\n"
 "X-Poedit-Language: Euskara\n"
 "X-Poedit-Country: Euskal Herria\n"
-"Last-Translator: Mikel Pascual Aldabaldetreku <mikel.paskual@gmail.com>\n"
 "X-Rosetta-Export-Date: 2007-05-23 19:38:11+0000\n"
 
-#: __init__.py:45
-msgid "Home"
-msgstr "Hasierako Orria"
+#: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
+#: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
+msgid "name"
+msgstr ""
 
-#: __init__.py:46
-msgid "Docs"
-msgstr "Dokumentuak"
+#: factories/models.py:11
+msgid "Hostname (lowercase)"
+msgstr ""
 
-#: __init__.py:47
-msgid "Downloads"
-msgstr "Deskargak"
+#: factories/models.py:13
+msgid "administrator"
+msgstr ""
 
-#: __init__.py:48 __init__.py:49
-msgid "Screenshots"
+#: factories/models.py:15
+msgid "hardware architecture"
+msgstr ""
+
+#: factories/models.py:16
+msgid "CPU type (e.g. i686 or PPC)"
+msgstr ""
+
+#: factories/models.py:18 platforms/models.py:44
+#, fuzzy
+msgid "operating system"
+msgstr "Sistema<br />eragilea"
+
+#: factories/models.py:20
+#, fuzzy
+msgid "last poll"
+msgstr "Azken<br />bozketa"
+
+#: factories/models.py:22 browsers/models.py:74
+#, fuzzy
+msgid "last upload"
+msgstr "Azken<br />igoera"
+
+#: factories/models.py:24
+msgid "uploads per hour"
+msgstr ""
+
+#: factories/models.py:26
+msgid "uploads per day"
+msgstr ""
+
+#: factories/models.py:28 nonces/models.py:14
+msgid "created"
+msgstr ""
+
+#: factories/models.py:50 factories/models.py:98 factories/models.py:121
+#: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
+msgid "factory"
+msgstr ""
+
+#: factories/models.py:51
+msgid "factories"
+msgstr ""
+
+#: factories/models.py:101 screenshots/models.py:18
+msgid "width"
+msgstr ""
+
+#: factories/models.py:103 screenshots/models.py:20
+msgid "height"
+msgstr ""
+
+#: factories/models.py:113
+msgid "screen size"
+msgstr ""
+
+#: factories/models.py:114
+#, fuzzy
+msgid "screen sizes"
 msgstr "Argazkiak"
 
-#: __init__.py:50
-msgid "Screenshot"
-msgstr "Argazkia"
+#: factories/models.py:124 requests/models.py:16
+msgid "bits per pixel"
+msgstr ""
 
-#: __init__.py:51 actions/submit.py:411
-msgid "Submit"
-msgstr "Bidali"
+#: factories/models.py:134
+msgid "color depth"
+msgstr ""
 
-#: __init__.py:52
-msgid "Queue"
-msgstr "Ilara"
+#: factories/models.py:135
+msgid "color depths"
+msgstr ""
 
-#: __init__.py:53 actions/search.py:149
-msgid "Search"
-msgstr "Bilatu"
+#: factories/templates/factories/factory_list.html:5
+#: factories/templates/factories/factory_list.html:8
+#, fuzzy
+msgid "Screenshot Factories"
+msgstr "Argazkiak"
 
-#: __init__.py:57
-msgid "Recent screenshots"
-msgstr "Azken argazkiak"
+#: factories/templates/factories/factory_list.html:34
+msgid "Previous"
+msgstr ""
 
-#: __init__.py:58
-msgid "Screenshots by URL"
-msgstr "URLaren argazkiak"
+#: factories/templates/factories/factory_list.html:38
+msgid "Next"
+msgstr ""
 
-#: __init__.py:59
-msgid "Complete job"
-msgstr "Lan burutua"
-
-#: __init__.py:60
-msgid "Submit your website"
-msgstr "Bidali zure webgunea"
-
-#: __init__.py:61
-msgid "Job queue"
-msgstr "Lan ilara"
-
-#: __init__.py:62
-msgid "Search jobs"
-msgstr "Bilatu lanak"
-
-#: __init__.py:66
+#: factories/templates/factories/factory_detail.html:5
+#: factories/templates/factories/factory_detail.html:8
 #, python-format
-msgid "%d sec auto refresh."
-msgstr "%d segunduro automatikoki berritu"
+msgid "Screenshot Factory %(name)s"
+msgstr ""
 
-#: actions/job.py:44 actions/website.py:131
-msgid "This entry is no longer available."
-msgstr "Sarrera hau jada ez dago eskuragarri."
-
-#: actions/job.py:76
-msgid "Click to see the full-size original screenshots."
-msgstr "Klikatu argazkia jatorrizko neurriarekin ikusteko."
-
-#: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
-#: actions/website.py:150
-msgid "No screenshots were uploaded recently."
-msgstr "Azkenaldian ez da argazkirik igo."
-
-#: actions/poll.py:148 actions/upload.py:176
-msgid "Error: "
-msgstr "Akatsa: "
-
-#: actions/poll.py:156
-msgid "Error: Bad username/password."
-msgstr "Akatsa: Erabiltzaile/pasahitz okerra."
-
-#: actions/poll.py:163
-msgid "No matching job at this time."
-msgstr "Ez da lanik aurkitu oraingo honetan."
-
-#. Screenshot factory descriptions on
-#: actions/queue.py:86 actions/website.py:45
+#: factories/templates/factories/factory_detail.html:14
 msgid "Browser"
 msgstr "Nabigatzailea"
 
-#: actions/queue.py:86
-msgid "Resolution"
-msgstr "Bereizmena"
-
-#: actions/queue.py:86
-msgid "Time"
-msgstr "Denbora"
-
-#: actions/queue.py:86 actions/search.py:74
-msgid "URL"
-msgstr "URLa"
-
-#: actions/queue.py:92
-#, python-format
-msgid "There are %d jobs in the queue."
-msgstr "%d lan daude ilaran."
-
-#: actions/queue.py:98
-#, python-format
-msgid "%d jobs were processed in the last hour."
-msgstr "Azkeneko ordubetean %d lan tratatu dira."
-
-#: actions/queue.py:100
-#, python-format
-msgid "If you submit a job now, it will be finished in %s."
-msgstr "Orain lan bat bidaltzen baduzu, %sean burutuko da."
-
-#: actions/queue.py:113
-msgid "The job queue is empty."
-msgstr "Lan ilara hutsik dago."
-
-#: actions/queue.py:116
-msgid "Go ahead and submit your URL."
-msgstr "Egin aurrera eta bidali zure URLa."
-
-#: actions/recent.py:105
-msgid "This page will auto-reload every 60 seconds."
-msgstr "Orri hau automatikoki berrituko da 60 segunduro."
-
-#: actions/recent.py:108
-#, python-format
-msgid "Try %sfull screen mode%s and press F11."
-msgstr "Frogatu %spantaila osoko era%s eta sakatu F11."
-
-#: actions/recent.py:112
-msgid "Click to see more screenshots of the same web site."
-msgstr "Klikatu argazkietan webgune beraren argazki gehiago ikusteko."
-
-#: actions/search.py:74
-msgid "Count"
-msgstr "Kopurua"
-
-#: actions/search.py:78
-#, python-format
-msgid "Another %d matching URLs are not shown."
-msgstr "Aurkitu diren beste %d URL ez daude ikusgai."
-
-#: actions/search.py:109
-msgid "Queued"
-msgstr "Ilaran"
-
-#: actions/search.py:110
-msgid "Finished"
-msgstr "Burututa"
-
-#: actions/search.py:112
-msgid "No matching jobs."
-msgstr "Ez da lanik aurkitu."
-
-#: actions/search.py:120 actions/submit.py:299
-msgid "Please enter your URL."
-msgstr "Sartu zure URLa."
-
-#: actions/search.py:122
-msgid "URL must not be shorter than 3 characters."
-msgstr "URLak ezin ditu 3 karakteretik behera eduki."
-
-#: actions/search.py:124 actions/submit.py:301
-msgid "URL must not be longer than 255 characters."
-msgstr "URLak ezin ditu 255 karakteretik gora eduki."
-
-#: actions/search.py:126 actions/submit.py:305
-msgid "URL must not contain spaces."
-msgstr "URLak ezin du hutsunerik eduki."
-
-#: actions/search.py:128 actions/submit.py:307
-msgid "URL must not contain quotes."
-msgstr "URLak ezin du kakotxik eduki."
-
-#: actions/search.py:142
-msgid "Enter a part of your web address to find your jobs."
-msgstr "Sartu zure web helbidearen zati bat zure lanak bilatzeko."
-
-#: actions/search.py:152 actions/submit.py:415
-msgid "Reset"
-msgstr "Berrezarri"
-
-#: actions/start.py:33
-#, python-format
-msgid "Logo design by %s."
-msgstr "Logoaren diseinua: %s"
-
-#: actions/start.py:34
-msgid "Free screenshots of your web design in different browsers."
-msgstr "Zure web diseinuaren osoko argazkiak nabigatzaile ezberdinetan."
-
-#: actions/start.py:56
-msgid "Help"
-msgstr "Laguntza"
-
-#: actions/start.py:59
-msgid "Options"
-msgstr "Aukerak"
-
-#: actions/start.py:61 actions/submit.py:395
-msgid "Enter your web address."
-msgstr "Sartu zure web helbidea."
-
-#: actions/start.py:80
-msgid "Make Screenshots"
-msgstr "Argazkiak Egin"
-
-#: actions/start.py:88
-msgid "Find Results"
-msgstr "Emaitzak Bilatu"
-
-#: actions/submit.py:63
-msgid "Browser name<br />and version"
-msgstr "Nabigatzaile izena<br />eta bertsioa"
-
-#: actions/submit.py:64
-msgid "Rendering<br />engine"
-msgstr "Motore<br />rendegilea"
-
-#: actions/submit.py:65
-msgid "Operating<br />system"
-msgstr "Sistema<br />eragilea"
-
-#: actions/submit.py:66
-msgid "Last<br />poll"
-msgstr "Azken<br />bozketa"
-
-#: actions/submit.py:67
-msgid "Last<br />upload"
-msgstr "Azken<br />igoera"
-
-#: actions/submit.py:100
-msgid "No active screenshot factories."
-msgstr "Ez dago argazkigilerik martxan."
-
-#: actions/submit.py:137
-msgid "Top-down"
-msgstr "Goitik-behera"
-
-#: actions/submit.py:138 actions/submit.py:144
-msgid "pages"
-msgstr "orri"
-
-#: actions/submit.py:143
-msgid "Bottom-up"
-msgstr "Behetik-gora"
-
-#: actions/submit.py:261
-msgid "The following jobs were added to the queue:"
-msgstr "Honako lan hauek gehitu dira ilarara:"
-
-#: actions/submit.py:264
-msgid "The following jobs were already in the queue:"
-msgstr "Honako lan hauek zeuden lehendik ilaran:"
-
-#: actions/submit.py:303
-msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URLa <span class=\"uncolor\">http://</span>rekin hasi behar da."
-
-#: actions/submit.py:309
-msgid "URL must not contain HTML tags."
-msgstr "URLak ezin du HTML etiketarik eduki."
-
-#: actions/submit.py:313
-msgid "URL seems to be invalid."
-msgstr "URLak baliogabea dirudi."
-
-#: actions/submit.py:318
-#, python-format
-msgid "Domain name %s is blacklisted."
-msgstr "%s domeinu izena zerrenda beltzean dago."
-
-#: actions/submit.py:328
-#, python-format
-msgid "The queue already contains %d jobs for this domain."
-msgstr "Ilarak dagoeneko %d lan ditu domeinu horrentzat."
-
-#: actions/submit.py:330
-msgid "Please wait until some of these jobs are finished."
-msgstr "Itxaron lan hauetariko batzuk burutu arte."
-
-#: actions/submit.py:333
-#, python-format
-msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "Azken 7 egunetan %d lan egon dira domeinu horrentzat."
-
-#: actions/submit.py:335
-msgid "Please reduce your usage a little,"
-msgstr "Murriztu erabilera pittin bat, edo eman"
-
-#: actions/submit.py:336
-msgid "or make a donation to help pay the bandwidth."
-msgstr "dirulaguntza bat banda zabala ordaintzen laguntzeko."
-
-#: actions/submit.py:341
-#, python-format
-msgid "Domain name %s could not be found."
-msgstr "%s domeinu izena ezin izan da aurkitu."
-
-#: actions/submit.py:348
-msgid "Please select at least one browser."
-msgstr "Aukeratu gutxienez nabigatzaile bat."
-
-#: actions/submit.py:355
-msgid "Please select at least one screen resolution."
-msgstr "Aukeratu gutxienez pantailarentzako bereizmen bat."
-
-#: actions/submit.py:398
-msgid "Select the browsers that you would like to test."
-msgstr "Aukeratu frogatu nahi dituzun nabigatzaileak."
-
-#: actions/submit.py:401
-msgid "Select one or more screen resolutions."
-msgstr "Aukeratu pantailarentzako bereizmen bat edo gehiago."
-
-#: actions/submit.py:404
-msgid "Select pages for scrolling."
-msgstr "Aukeratu scrollingerako orri kopurua."
-
-#: actions/upload.py:182
-msgid "Upload successful."
-msgstr "Igoera arrakastatsua."
-
-#: actions/website.py:46
+#: factories/templates/factories/factory_detail.html:15
 msgid "Engine"
 msgstr "Motorea"
 
-#: actions/website.py:47
-msgid "Language"
-msgstr "Hizkuntza"
-
-#: actions/website.py:48
-msgid "JavaScript"
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
+#: browsers/models.py:64
+#, fuzzy
+msgid "Javascript"
 msgstr "JavaScript"
 
-#: actions/website.py:49
-msgid "Hardware"
-msgstr "Hardwarea"
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
+#: browsers/models.py:66
+msgid "Java"
+msgstr ""
 
-#: actions/website.py:50
-msgid "OS"
-msgstr "Sistema"
+#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
+#: browsers/models.py:68
+msgid "Flash"
+msgstr ""
 
-#: actions/website.py:147
-msgid "Click to see a larger preview."
-msgstr "Klikatu aurrebista handiagoa ikusteko."
+#: factories/templates/factories/factory_detail.html:19
+msgid "Last<br />upload"
+msgstr "Azken<br />igoera"
+
+#: factories/templates/factories/factory_detail.html:38
+#, fuzzy
+msgid "No browsers."
+msgstr "Nabigatzailea"
+
+#: factories/templates/factories/factory_detail.html:42
+#, fuzzy
+msgid "Screen sizes"
+msgstr "Argazkiak"
+
+#: factories/templates/factories/factory_detail.html:50
+#: factories/templates/factories/factory_detail.html:63
+msgid "Default only."
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:55
+msgid "Color depths"
+msgstr ""
+
+#: common/templates/start.html:5 common/templates/start.html.py:8
+#, fuzzy
+msgid "Test your web design in different browsers"
+msgstr "Zure web diseinuaren osoko argazkiak nabigatzaile ezberdinetan."
+
+#: common/templates/base.html:27
+msgid "Home"
+msgstr "Hasierako Orria"
+
+#: common/templates/base.html:28
+#, fuzzy
+msgid "Screenshots"
+msgstr "Argazkiak"
+
+#: common/templates/base.html:29
+msgid "Queue"
+msgstr "Ilara"
+
+#: common/templates/base.html:30
+#, fuzzy
+msgid "Factories"
+msgstr "Argazkiak"
+
+#: common/templates/base.html:31
+msgid "Search"
+msgstr "Bilatu"
+
+#: common/templates/base.html:32
+#, fuzzy
+msgid "Download"
+msgstr "Deskargak"
+
+#: common/templates/base.html:33
+msgid "Documentation"
+msgstr ""
+
+#: common/templates/base.html:34
+msgid "Blog"
+msgstr ""
+
+#: requests/models.py:12 websites/models.py:25
+msgid "website"
+msgstr ""
+
+#: requests/models.py:14
+msgid "screen width"
+msgstr ""
+
+#: requests/models.py:24
+#, fuzzy
+msgid "submitter"
+msgstr "Bidali"
+
+#: requests/models.py:26 websites/models.py:17
+#, fuzzy
+msgid "submitted"
+msgstr "Bidali"
+
+#: requests/models.py:28
+msgid "expire"
+msgstr ""
+
+#: requests/models.py:45 requests/models.py:54
+msgid "request group"
+msgstr ""
+
+#: requests/models.py:46
+msgid "request groups"
+msgstr ""
+
+#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
+msgid "platform"
+msgstr ""
+
+#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
+#, fuzzy
+msgid "browser group"
+msgstr "Nabigatzailea"
+
+#: requests/models.py:60 browsers/models.py:56
+msgid "major"
+msgstr ""
+
+#: requests/models.py:62 browsers/models.py:58
+msgid "minor"
+msgstr ""
+
+#: requests/models.py:75 screenshots/models.py:12
+msgid "request"
+msgstr ""
+
+#: requests/models.py:76
+#, fuzzy
+msgid "requests"
+msgstr "Argazkiak"
+
+#: websites/models.py:9
+msgid "Missing slash after the hostname."
+msgstr ""
+
+#: websites/models.py:14
+msgid "URL"
+msgstr "URLa"
+
+#: websites/models.py:26
+msgid "websites"
+msgstr ""
+
+#: screenshots/models.py:10 nonces/models.py:10
+msgid "hashkey"
+msgstr ""
+
+#: screenshots/models.py:16 browsers/models.py:97
+#, fuzzy
+msgid "browser"
+msgstr "Nabigatzailea"
+
+#: screenshots/models.py:22
+msgid "error message"
+msgstr ""
+
+#: screenshots/models.py:24
+msgid "locked"
+msgstr ""
+
+#: screenshots/models.py:26
+msgid "redirected"
+msgstr ""
+
+#: screenshots/models.py:28
+msgid "failed"
+msgstr ""
+
+#: screenshots/models.py:30
+msgid "uploaded"
+msgstr ""
+
+#: screenshots/models.py:48
+#, fuzzy
+msgid "screenshot"
+msgstr "Argazkia"
+
+#: screenshots/models.py:49
+#, fuzzy
+msgid "screenshots"
+msgstr "Argazkiak"
+
+#: nonces/models.py:12
+msgid "IP address"
+msgstr ""
+
+#: nonces/models.py:25
+msgid "nonce"
+msgstr ""
+
+#: nonces/models.py:26
+#, fuzzy
+msgid "nonces"
+msgstr "Dokumentuak"
+
+#: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
+msgid "maker"
+msgstr ""
+
+#: browsers/models.py:20 browsers/models.py:60
+#, fuzzy
+msgid "engine"
+msgstr "Motorea"
+
+#: browsers/models.py:21
+#, fuzzy
+msgid "engines"
+msgstr "Motorea"
+
+#: browsers/models.py:31
+msgid "terminal"
+msgstr ""
+
+#: browsers/models.py:31
+msgid "Is this a text-mode browser?"
+msgstr ""
+
+#: browsers/models.py:42
+msgid "browser groups"
+msgstr ""
+
+#: browsers/models.py:50
+msgid "user agent"
+msgstr ""
+
+#: browsers/models.py:54 platforms/models.py:30
+msgid "version"
+msgstr ""
+
+#: browsers/models.py:62
+msgid "engine version"
+msgstr ""
+
+#: browsers/models.py:70
+msgid "command"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "disabled"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "Is this browser inactive?"
+msgstr ""
+
+#: browsers/models.py:98
+#, fuzzy
+msgid "browsers"
+msgstr "Nabigatzailea"
+
+#: platforms/models.py:10
+msgid "order"
+msgstr ""
+
+#: platforms/models.py:20
+msgid "platforms"
+msgstr ""
+
+#: platforms/models.py:32
+msgid "codename"
+msgstr ""
+
+#: platforms/models.py:45
+#, fuzzy
+msgid "operating systems"
+msgstr "Sistema<br />eragilea"
+
+#: platforms/models.py:60
+msgid "architecture"
+msgstr ""
+
+#: platforms/models.py:61
+msgid "architectures"
+msgstr ""
+
+#~ msgid "Recent screenshots"
+#~ msgstr "Azken argazkiak"
+
+#~ msgid "Screenshots by URL"
+#~ msgstr "URLaren argazkiak"
+
+#~ msgid "Complete job"
+#~ msgstr "Lan burutua"
+
+#~ msgid "Submit your website"
+#~ msgstr "Bidali zure webgunea"
+
+#~ msgid "Job queue"
+#~ msgstr "Lan ilara"
+
+#~ msgid "Search jobs"
+#~ msgstr "Bilatu lanak"
+
+#~ msgid "%d sec auto refresh."
+#~ msgstr "%d segunduro automatikoki berritu"
+
+#~ msgid "This entry is no longer available."
+#~ msgstr "Sarrera hau jada ez dago eskuragarri."
+
+#~ msgid "Click to see the full-size original screenshots."
+#~ msgstr "Klikatu argazkia jatorrizko neurriarekin ikusteko."
+
+#~ msgid "No screenshots were uploaded recently."
+#~ msgstr "Azkenaldian ez da argazkirik igo."
+
+#~ msgid "Error: "
+#~ msgstr "Akatsa: "
+
+#~ msgid "Error: Bad username/password."
+#~ msgstr "Akatsa: Erabiltzaile/pasahitz okerra."
+
+#~ msgid "No matching job at this time."
+#~ msgstr "Ez da lanik aurkitu oraingo honetan."
+
+#~ msgid "Resolution"
+#~ msgstr "Bereizmena"
+
+#~ msgid "Time"
+#~ msgstr "Denbora"
+
+#~ msgid "There are %d jobs in the queue."
+#~ msgstr "%d lan daude ilaran."
+
+#~ msgid "%d jobs were processed in the last hour."
+#~ msgstr "Azkeneko ordubetean %d lan tratatu dira."
+
+#~ msgid "If you submit a job now, it will be finished in %s."
+#~ msgstr "Orain lan bat bidaltzen baduzu, %sean burutuko da."
+
+#~ msgid "The job queue is empty."
+#~ msgstr "Lan ilara hutsik dago."
+
+#~ msgid "Go ahead and submit your URL."
+#~ msgstr "Egin aurrera eta bidali zure URLa."
+
+#~ msgid "This page will auto-reload every 60 seconds."
+#~ msgstr "Orri hau automatikoki berrituko da 60 segunduro."
+
+#~ msgid "Try %sfull screen mode%s and press F11."
+#~ msgstr "Frogatu %spantaila osoko era%s eta sakatu F11."
+
+#~ msgid "Click to see more screenshots of the same web site."
+#~ msgstr "Klikatu argazkietan webgune beraren argazki gehiago ikusteko."
+
+#~ msgid "Count"
+#~ msgstr "Kopurua"
+
+#~ msgid "Another %d matching URLs are not shown."
+#~ msgstr "Aurkitu diren beste %d URL ez daude ikusgai."
+
+#~ msgid "Queued"
+#~ msgstr "Ilaran"
+
+#~ msgid "Finished"
+#~ msgstr "Burututa"
+
+#~ msgid "No matching jobs."
+#~ msgstr "Ez da lanik aurkitu."
+
+#~ msgid "Please enter your URL."
+#~ msgstr "Sartu zure URLa."
+
+#~ msgid "URL must not be shorter than 3 characters."
+#~ msgstr "URLak ezin ditu 3 karakteretik behera eduki."
+
+#~ msgid "URL must not be longer than 255 characters."
+#~ msgstr "URLak ezin ditu 255 karakteretik gora eduki."
+
+#~ msgid "URL must not contain spaces."
+#~ msgstr "URLak ezin du hutsunerik eduki."
+
+#~ msgid "URL must not contain quotes."
+#~ msgstr "URLak ezin du kakotxik eduki."
+
+#~ msgid "Enter a part of your web address to find your jobs."
+#~ msgstr "Sartu zure web helbidearen zati bat zure lanak bilatzeko."
+
+#~ msgid "Reset"
+#~ msgstr "Berrezarri"
+
+#~ msgid "Logo design by %s."
+#~ msgstr "Logoaren diseinua: %s"
+
+#~ msgid "Help"
+#~ msgstr "Laguntza"
+
+#~ msgid "Options"
+#~ msgstr "Aukerak"
+
+#~ msgid "Enter your web address."
+#~ msgstr "Sartu zure web helbidea."
+
+#~ msgid "Make Screenshots"
+#~ msgstr "Argazkiak Egin"
+
+#~ msgid "Find Results"
+#~ msgstr "Emaitzak Bilatu"
+
+#~ msgid "Browser name<br />and version"
+#~ msgstr "Nabigatzaile izena<br />eta bertsioa"
+
+#~ msgid "Rendering<br />engine"
+#~ msgstr "Motore<br />rendegilea"
+
+#~ msgid "No active screenshot factories."
+#~ msgstr "Ez dago argazkigilerik martxan."
+
+#~ msgid "Top-down"
+#~ msgstr "Goitik-behera"
+
+#~ msgid "pages"
+#~ msgstr "orri"
+
+#~ msgid "Bottom-up"
+#~ msgstr "Behetik-gora"
+
+#~ msgid "The following jobs were added to the queue:"
+#~ msgstr "Honako lan hauek gehitu dira ilarara:"
+
+#~ msgid "The following jobs were already in the queue:"
+#~ msgstr "Honako lan hauek zeuden lehendik ilaran:"
+
+#~ msgid "URL must start with <span class=\"uncolor\">http://</span>."
+#~ msgstr "URLa <span class=\"uncolor\">http://</span>rekin hasi behar da."
+
+#~ msgid "URL must not contain HTML tags."
+#~ msgstr "URLak ezin du HTML etiketarik eduki."
+
+#~ msgid "URL seems to be invalid."
+#~ msgstr "URLak baliogabea dirudi."
+
+#~ msgid "Domain name %s is blacklisted."
+#~ msgstr "%s domeinu izena zerrenda beltzean dago."
+
+#~ msgid "The queue already contains %d jobs for this domain."
+#~ msgstr "Ilarak dagoeneko %d lan ditu domeinu horrentzat."
+
+#~ msgid "Please wait until some of these jobs are finished."
+#~ msgstr "Itxaron lan hauetariko batzuk burutu arte."
+
+#~ msgid "There were %d jobs for this domain in the last 7 days."
+#~ msgstr "Azken 7 egunetan %d lan egon dira domeinu horrentzat."
+
+#~ msgid "Please reduce your usage a little,"
+#~ msgstr "Murriztu erabilera pittin bat, edo eman"
+
+#~ msgid "or make a donation to help pay the bandwidth."
+#~ msgstr "dirulaguntza bat banda zabala ordaintzen laguntzeko."
+
+#~ msgid "Domain name %s could not be found."
+#~ msgstr "%s domeinu izena ezin izan da aurkitu."
+
+#~ msgid "Please select at least one browser."
+#~ msgstr "Aukeratu gutxienez nabigatzaile bat."
+
+#~ msgid "Please select at least one screen resolution."
+#~ msgstr "Aukeratu gutxienez pantailarentzako bereizmen bat."
+
+#~ msgid "Select the browsers that you would like to test."
+#~ msgstr "Aukeratu frogatu nahi dituzun nabigatzaileak."
+
+#~ msgid "Select one or more screen resolutions."
+#~ msgstr "Aukeratu pantailarentzako bereizmen bat edo gehiago."
+
+#~ msgid "Select pages for scrolling."
+#~ msgstr "Aukeratu scrollingerako orri kopurua."
+
+#~ msgid "Upload successful."
+#~ msgstr "Igoera arrakastatsua."
+
+#~ msgid "Language"
+#~ msgstr "Hizkuntza"
+
+#~ msgid "Hardware"
+#~ msgstr "Hardwarea"
+
+#~ msgid "OS"
+#~ msgstr "Sistema"
+
+#~ msgid "Click to see a larger preview."
+#~ msgstr "Klikatu aurrebista handiagoa ikusteko."

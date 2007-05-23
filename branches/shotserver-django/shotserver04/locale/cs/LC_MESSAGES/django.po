@@ -6,364 +6,611 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
-"Report-Msgid-Bugs-To: johann@browsershots.org\n"
-"POT-Creation-Date: 2005-08-11 22:02+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-23 22:18+0200\n"
 "PO-Revision-Date: 2006-05-23 12:27+0000\n"
-"First-Translator: Martin Smrt <martin@martinsmrt.com>\n"
+"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
+"First-Translator: Martin Smrt <martin@martinsmrt.com>\n"
 
-#: __init__.py:45
-msgid "Home"
-msgstr "Domů"
+#: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
+#: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
+msgid "name"
+msgstr ""
 
-#: __init__.py:46
-msgid "Docs"
-msgstr "Dokumenty"
+#: factories/models.py:11
+msgid "Hostname (lowercase)"
+msgstr ""
 
-#: __init__.py:47
-msgid "Downloads"
-msgstr "Ke stažení"
+#: factories/models.py:13
+msgid "administrator"
+msgstr ""
 
-#: __init__.py:48 __init__.py:49
-msgid "Screenshots"
+#: factories/models.py:15
+msgid "hardware architecture"
+msgstr ""
+
+#: factories/models.py:16
+msgid "CPU type (e.g. i686 or PPC)"
+msgstr ""
+
+#: factories/models.py:18 platforms/models.py:44
+#, fuzzy
+msgid "operating system"
+msgstr "Operační<br />systém"
+
+#: factories/models.py:20
+#, fuzzy
+msgid "last poll"
+msgstr "Poslední<br />zpracování"
+
+#: factories/models.py:22 browsers/models.py:74
+#, fuzzy
+msgid "last upload"
+msgstr "Poslední<br />upload"
+
+#: factories/models.py:24
+msgid "uploads per hour"
+msgstr ""
+
+#: factories/models.py:26
+msgid "uploads per day"
+msgstr ""
+
+#: factories/models.py:28 nonces/models.py:14
+msgid "created"
+msgstr ""
+
+#: factories/models.py:50 factories/models.py:98 factories/models.py:121
+#: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
+msgid "factory"
+msgstr ""
+
+#: factories/models.py:51
+msgid "factories"
+msgstr ""
+
+#: factories/models.py:101 screenshots/models.py:18
+msgid "width"
+msgstr ""
+
+#: factories/models.py:103 screenshots/models.py:20
+msgid "height"
+msgstr ""
+
+#: factories/models.py:113
+msgid "screen size"
+msgstr ""
+
+#: factories/models.py:114
+#, fuzzy
+msgid "screen sizes"
 msgstr "Screenshoty"
 
-#: __init__.py:50
-msgid "Screenshot"
-msgstr "Screenshot"
+#: factories/models.py:124 requests/models.py:16
+msgid "bits per pixel"
+msgstr ""
 
-#: __init__.py:51 actions/submit.py:411
-msgid "Submit"
-msgstr "Odeslat"
+#: factories/models.py:134
+msgid "color depth"
+msgstr ""
 
-#: __init__.py:52
-msgid "Queue"
-msgstr "Fronta"
+#: factories/models.py:135
+msgid "color depths"
+msgstr ""
 
-#: __init__.py:53 actions/search.py:149
-msgid "Search"
-msgstr "Hledat"
+#: factories/templates/factories/factory_list.html:5
+#: factories/templates/factories/factory_list.html:8
+#, fuzzy
+msgid "Screenshot Factories"
+msgstr "Screenshoty"
 
-#: __init__.py:57
-msgid "Recent screenshots"
-msgstr "Poslední screenshoty"
+#: factories/templates/factories/factory_list.html:34
+msgid "Previous"
+msgstr ""
 
-#: __init__.py:58
-msgid "Screenshots by URL"
-msgstr "Screenshoty podle URL"
+#: factories/templates/factories/factory_list.html:38
+msgid "Next"
+msgstr ""
 
-#: __init__.py:59
-msgid "Complete job"
-msgstr "Dokončený úkol"
-
-#: __init__.py:60
-msgid "Submit your website"
-msgstr "Přidejte svoji stránku"
-
-#: __init__.py:61
-msgid "Job queue"
-msgstr "Fronta úkolů"
-
-#: __init__.py:62
-msgid "Search jobs"
-msgstr "Prohledat úkoly"
-
-#: __init__.py:66
+#: factories/templates/factories/factory_detail.html:5
+#: factories/templates/factories/factory_detail.html:8
 #, python-format
-msgid "%d sec auto refresh."
-msgstr "automatické obnovení po %d sekundách."
+msgid "Screenshot Factory %(name)s"
+msgstr ""
 
-#: actions/job.py:44 actions/website.py:131
-msgid "This entry is no longer available."
-msgstr "Tento záznam již není k dispozici."
-
-#: actions/job.py:76
-msgid "Click to see the full-size original screenshots."
-msgstr "Klikněte pro zobrazení screenshotů v plné velikosti."
-
-#: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
-#: actions/website.py:150
-msgid "No screenshots were uploaded recently."
-msgstr "V poslední době nebyly přidány žádné screenshoty"
-
-#: actions/poll.py:148 actions/upload.py:176
-msgid "Error: "
-msgstr "Chyba: "
-
-#: actions/poll.py:156
-msgid "Error: Bad username/password."
-msgstr "Chyba: Špatné přihlašovací údaje"
-
-#: actions/poll.py:163
-msgid "No matching job at this time."
-msgstr "V tuto chvíli nejsou žádné odpovídající záznamy."
-
-#. Screenshot factory descriptions on
-#: actions/queue.py:86 actions/website.py:45
+#: factories/templates/factories/factory_detail.html:14
 msgid "Browser"
 msgstr "Prohlížeč"
 
-#: actions/queue.py:86
-msgid "Resolution"
-msgstr "Rozličení"
-
-#: actions/queue.py:86
-msgid "Time"
-msgstr "Čas"
-
-#: actions/queue.py:86 actions/search.py:74
-msgid "URL"
-msgstr "URL"
-
-#: actions/queue.py:92
-#, python-format
-msgid "There are %d jobs in the queue."
-msgstr "Ve frontě je %d úkolů."
-
-#: actions/queue.py:98
-#, python-format
-msgid "%d jobs were processed in the last hour."
-msgstr "Za poslední hodinu bylo zpracováno %d úkolů."
-
-#: actions/queue.py:100
-#, python-format
-msgid "If you submit a job now, it will be finished in %s."
-msgstr "Pokud teď zadáte nový úkol, bude zpracován za %s"
-
-#: actions/queue.py:113
-msgid "The job queue is empty."
-msgstr "Fronta úkolů je prázdná."
-
-#: actions/queue.py:116
-msgid "Go ahead and submit your URL."
-msgstr "Přidejte svoji stránku."
-
-#: actions/recent.py:105
-msgid "This page will auto-reload every 60 seconds."
-msgstr "Tato stránka se obnovuje každých 60 sekund."
-
-#: actions/recent.py:108
-#, python-format
-msgid "Try %sfull screen mode%s and press F11."
-msgstr "Vyzkoušejte %szobrazení pro celou obrazovku%s a stiskněte F11."
-
-#: actions/recent.py:112
-msgid "Click to see more screenshots of the same web site."
-msgstr "Klikněte pro zobrazení dalších screenshotů této stránky."
-
-#: actions/search.py:74
-msgid "Count"
-msgstr "Počet"
-
-#: actions/search.py:78
-#, python-format
-msgid "Another %d matching URLs are not shown."
-msgstr "Nezobrazuji dalších %d odpovídajících URL."
-
-#: actions/search.py:109
-msgid "Queued"
-msgstr "Přidáno do fronty"
-
-#: actions/search.py:110
-msgid "Finished"
-msgstr "Hotovo"
-
-#: actions/search.py:112
-msgid "No matching jobs."
-msgstr "Žádné odpovídající úkoly"
-
-#: actions/search.py:120 actions/submit.py:299
-msgid "Please enter your URL."
-msgstr "Zadejte prosím svoji URL."
-
-#: actions/search.py:122
-msgid "URL must not be shorter than 3 characters."
-msgstr "URL nesmí být kratší než 3 znaky."
-
-#: actions/search.py:124 actions/submit.py:301
-msgid "URL must not be longer than 255 characters."
-msgstr "URL nesmí být delší než 255 znaků."
-
-#: actions/search.py:126 actions/submit.py:305
-msgid "URL must not contain spaces."
-msgstr "URL nesmí obsahovat mezery."
-
-#: actions/search.py:128 actions/submit.py:307
-msgid "URL must not contain quotes."
-msgstr "URL nesmí obsahovat uvozovky."
-
-#: actions/search.py:142
-msgid "Enter a part of your web address to find your jobs."
-msgstr "Zadejte část svojí webové adresy pro nalezení úkolů."
-
-#: actions/search.py:152 actions/submit.py:415
-msgid "Reset"
-msgstr "Vymazat"
-
-#: actions/start.py:33
-#, python-format
-msgid "Logo design by %s."
-msgstr "Design loga: %s"
-
-#: actions/start.py:34
-msgid "Free screenshots of your web design in different browsers."
-msgstr "Screenshoty vašeho web designu v různých prohlížečích, zdarma."
-
-#: actions/start.py:56
-msgid "Help"
-msgstr "Nápověda"
-
-#: actions/start.py:59
-msgid "Options"
-msgstr "Možnosti"
-
-#: actions/start.py:61 actions/submit.py:395
-msgid "Enter your web address."
-msgstr "Zadejte svoji webovou adresu."
-
-#: actions/start.py:80
-msgid "Make Screenshots"
-msgstr "Vytvořit screenshoty"
-
-#: actions/start.py:88
-msgid "Find Results"
-msgstr "Najít výsledky"
-
-#: actions/submit.py:63
-msgid "Browser name<br />and version"
-msgstr "Jméno prohlížeče<br />a verze"
-
-#: actions/submit.py:64
-msgid "Rendering<br />engine"
-msgstr "Renderovací<br />engine"
-
-#: actions/submit.py:65
-msgid "Operating<br />system"
-msgstr "Operační<br />systém"
-
-#: actions/submit.py:66
-msgid "Last<br />poll"
-msgstr "Poslední<br />zpracování"
-
-#: actions/submit.py:67
-msgid "Last<br />upload"
-msgstr "Poslední<br />upload"
-
-#: actions/submit.py:100
-msgid "No active screenshot factories."
-msgstr "Žádné aktivní stroje."
-
-#: actions/submit.py:137
-msgid "Top-down"
-msgstr "Zhora dolů"
-
-#: actions/submit.py:138 actions/submit.py:144
-msgid "pages"
-msgstr "stránek"
-
-#: actions/submit.py:143
-msgid "Bottom-up"
-msgstr "Zdola nahoru"
-
-#: actions/submit.py:261
-msgid "The following jobs were added to the queue:"
-msgstr "Následující ukoly byly přídány do fronty:"
-
-#: actions/submit.py:264
-msgid "The following jobs were already in the queue:"
-msgstr "Následující úkoly již byly ve frontě:"
-
-#: actions/submit.py:303
-msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URL musí začínat na <span class=\"uncolor\">http://</span>."
-
-#: actions/submit.py:309
-msgid "URL must not contain HTML tags."
-msgstr "URL nesmí obsahovat HTML tagy."
-
-#: actions/submit.py:313
-msgid "URL seems to be invalid."
-msgstr "URL je zřejmě neplatné."
-
-#: actions/submit.py:318
-#, python-format
-msgid "Domain name %s is blacklisted."
-msgstr "Doména %s je zablokována."
-
-#: actions/submit.py:328
-#, python-format
-msgid "The queue already contains %d jobs for this domain."
-msgstr "Fronta již obsahuje %d úkolů pro tuto doménu"
-
-#: actions/submit.py:330
-msgid "Please wait until some of these jobs are finished."
-msgstr "Počkejte prosím, dokud nebud některé z těchto úkolů dokončeny."
-
-#: actions/submit.py:333
-#, python-format
-msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "Za posledních 7 dní bylo %d úkolů pro tuto doménu."
-
-#: actions/submit.py:335
-msgid "Please reduce your usage a little,"
-msgstr "Použivejte prosím naši službu méně,"
-
-#: actions/submit.py:336
-msgid "or make a donation to help pay the bandwidth."
-msgstr "nebo přispějte na zaplacení přenosové kapacity."
-
-#: actions/submit.py:341
-#, python-format
-msgid "Domain name %s could not be found."
-msgstr "Doména %s nebyla nalezena"
-
-#: actions/submit.py:348
-msgid "Please select at least one browser."
-msgstr "Vyberte prosím alespoň jeden prohlížeč."
-
-#: actions/submit.py:355
-msgid "Please select at least one screen resolution."
-msgstr "Vyberte prosím alespoň jedno rozlišení."
-
-#: actions/submit.py:398
-msgid "Select the browsers that you would like to test."
-msgstr "Vyberte prohližeče, které chcete vyzkoušet."
-
-#: actions/submit.py:401
-msgid "Select one or more screen resolutions."
-msgstr "Vyberte jedno nebo více rozlišení."
-
-#: actions/submit.py:404
-msgid "Select pages for scrolling."
-msgstr "Vyberte stránky pro scrollování."
-
-#: actions/upload.py:182
-msgid "Upload successful."
-msgstr "Úspěšně nahráno."
-
-#: actions/website.py:46
+#: factories/templates/factories/factory_detail.html:15
 msgid "Engine"
 msgstr "Engine"
 
-#: actions/website.py:47
-msgid "Language"
-msgstr "Jazyk"
-
-#: actions/website.py:48
-msgid "JavaScript"
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
+#: browsers/models.py:64
+#, fuzzy
+msgid "Javascript"
 msgstr "JavaScript"
 
-#: actions/website.py:49
-msgid "Hardware"
-msgstr "Hardware"
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
+#: browsers/models.py:66
+msgid "Java"
+msgstr ""
 
-#: actions/website.py:50
-msgid "OS"
-msgstr "OS"
+#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
+#: browsers/models.py:68
+msgid "Flash"
+msgstr ""
 
-#: actions/website.py:147
-msgid "Click to see a larger preview."
-msgstr "Klikněte pro zobrazení většího náhledu."
+#: factories/templates/factories/factory_detail.html:19
+msgid "Last<br />upload"
+msgstr "Poslední<br />upload"
+
+#: factories/templates/factories/factory_detail.html:38
+#, fuzzy
+msgid "No browsers."
+msgstr "Prohlížeč"
+
+#: factories/templates/factories/factory_detail.html:42
+#, fuzzy
+msgid "Screen sizes"
+msgstr "Screenshoty"
+
+#: factories/templates/factories/factory_detail.html:50
+#: factories/templates/factories/factory_detail.html:63
+msgid "Default only."
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:55
+msgid "Color depths"
+msgstr ""
+
+#: common/templates/start.html:5 common/templates/start.html.py:8
+#, fuzzy
+msgid "Test your web design in different browsers"
+msgstr "Screenshoty vašeho web designu v různých prohlížečích, zdarma."
+
+#: common/templates/base.html:27
+msgid "Home"
+msgstr "Domů"
+
+#: common/templates/base.html:28
+#, fuzzy
+msgid "Screenshots"
+msgstr "Screenshoty"
+
+#: common/templates/base.html:29
+msgid "Queue"
+msgstr "Fronta"
+
+#: common/templates/base.html:30
+#, fuzzy
+msgid "Factories"
+msgstr "Screenshoty"
+
+#: common/templates/base.html:31
+msgid "Search"
+msgstr "Hledat"
+
+#: common/templates/base.html:32
+#, fuzzy
+msgid "Download"
+msgstr "Ke stažení"
+
+#: common/templates/base.html:33
+msgid "Documentation"
+msgstr ""
+
+#: common/templates/base.html:34
+msgid "Blog"
+msgstr ""
+
+#: requests/models.py:12 websites/models.py:25
+msgid "website"
+msgstr ""
+
+#: requests/models.py:14
+msgid "screen width"
+msgstr ""
+
+#: requests/models.py:24
+#, fuzzy
+msgid "submitter"
+msgstr "Odeslat"
+
+#: requests/models.py:26 websites/models.py:17
+#, fuzzy
+msgid "submitted"
+msgstr "Odeslat"
+
+#: requests/models.py:28
+msgid "expire"
+msgstr ""
+
+#: requests/models.py:45 requests/models.py:54
+msgid "request group"
+msgstr ""
+
+#: requests/models.py:46
+msgid "request groups"
+msgstr ""
+
+#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
+msgid "platform"
+msgstr ""
+
+#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
+#, fuzzy
+msgid "browser group"
+msgstr "Prohlížeč"
+
+#: requests/models.py:60 browsers/models.py:56
+msgid "major"
+msgstr ""
+
+#: requests/models.py:62 browsers/models.py:58
+msgid "minor"
+msgstr ""
+
+#: requests/models.py:75 screenshots/models.py:12
+msgid "request"
+msgstr ""
+
+#: requests/models.py:76
+#, fuzzy
+msgid "requests"
+msgstr "Screenshoty"
+
+#: websites/models.py:9
+msgid "Missing slash after the hostname."
+msgstr ""
+
+#: websites/models.py:14
+msgid "URL"
+msgstr "URL"
+
+#: websites/models.py:26
+msgid "websites"
+msgstr ""
+
+#: screenshots/models.py:10 nonces/models.py:10
+msgid "hashkey"
+msgstr ""
+
+#: screenshots/models.py:16 browsers/models.py:97
+#, fuzzy
+msgid "browser"
+msgstr "Prohlížeč"
+
+#: screenshots/models.py:22
+msgid "error message"
+msgstr ""
+
+#: screenshots/models.py:24
+msgid "locked"
+msgstr ""
+
+#: screenshots/models.py:26
+msgid "redirected"
+msgstr ""
+
+#: screenshots/models.py:28
+msgid "failed"
+msgstr ""
+
+#: screenshots/models.py:30
+msgid "uploaded"
+msgstr ""
+
+#: screenshots/models.py:48
+#, fuzzy
+msgid "screenshot"
+msgstr "Screenshot"
+
+#: screenshots/models.py:49
+#, fuzzy
+msgid "screenshots"
+msgstr "Screenshoty"
+
+#: nonces/models.py:12
+msgid "IP address"
+msgstr ""
+
+#: nonces/models.py:25
+msgid "nonce"
+msgstr ""
+
+#: nonces/models.py:26
+#, fuzzy
+msgid "nonces"
+msgstr "Dokumenty"
+
+#: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
+msgid "maker"
+msgstr ""
+
+#: browsers/models.py:20 browsers/models.py:60
+#, fuzzy
+msgid "engine"
+msgstr "Engine"
+
+#: browsers/models.py:21
+#, fuzzy
+msgid "engines"
+msgstr "Engine"
+
+#: browsers/models.py:31
+msgid "terminal"
+msgstr ""
+
+#: browsers/models.py:31
+msgid "Is this a text-mode browser?"
+msgstr ""
+
+#: browsers/models.py:42
+msgid "browser groups"
+msgstr ""
+
+#: browsers/models.py:50
+msgid "user agent"
+msgstr ""
+
+#: browsers/models.py:54 platforms/models.py:30
+msgid "version"
+msgstr ""
+
+#: browsers/models.py:62
+msgid "engine version"
+msgstr ""
+
+#: browsers/models.py:70
+msgid "command"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "disabled"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "Is this browser inactive?"
+msgstr ""
+
+#: browsers/models.py:98
+#, fuzzy
+msgid "browsers"
+msgstr "Prohlížeč"
+
+#: platforms/models.py:10
+msgid "order"
+msgstr ""
+
+#: platforms/models.py:20
+msgid "platforms"
+msgstr ""
+
+#: platforms/models.py:32
+msgid "codename"
+msgstr ""
+
+#: platforms/models.py:45
+#, fuzzy
+msgid "operating systems"
+msgstr "Operační<br />systém"
+
+#: platforms/models.py:60
+msgid "architecture"
+msgstr ""
+
+#: platforms/models.py:61
+msgid "architectures"
+msgstr ""
+
+#~ msgid "Recent screenshots"
+#~ msgstr "Poslední screenshoty"
+
+#~ msgid "Screenshots by URL"
+#~ msgstr "Screenshoty podle URL"
+
+#~ msgid "Complete job"
+#~ msgstr "Dokončený úkol"
+
+#~ msgid "Submit your website"
+#~ msgstr "Přidejte svoji stránku"
+
+#~ msgid "Job queue"
+#~ msgstr "Fronta úkolů"
+
+#~ msgid "Search jobs"
+#~ msgstr "Prohledat úkoly"
+
+#~ msgid "%d sec auto refresh."
+#~ msgstr "automatické obnovení po %d sekundách."
+
+#~ msgid "This entry is no longer available."
+#~ msgstr "Tento záznam již není k dispozici."
+
+#~ msgid "Click to see the full-size original screenshots."
+#~ msgstr "Klikněte pro zobrazení screenshotů v plné velikosti."
+
+#~ msgid "No screenshots were uploaded recently."
+#~ msgstr "V poslední době nebyly přidány žádné screenshoty"
+
+#~ msgid "Error: "
+#~ msgstr "Chyba: "
+
+#~ msgid "Error: Bad username/password."
+#~ msgstr "Chyba: Špatné přihlašovací údaje"
+
+#~ msgid "No matching job at this time."
+#~ msgstr "V tuto chvíli nejsou žádné odpovídající záznamy."
+
+#~ msgid "Resolution"
+#~ msgstr "Rozličení"
+
+#~ msgid "Time"
+#~ msgstr "Čas"
+
+#~ msgid "There are %d jobs in the queue."
+#~ msgstr "Ve frontě je %d úkolů."
+
+#~ msgid "%d jobs were processed in the last hour."
+#~ msgstr "Za poslední hodinu bylo zpracováno %d úkolů."
+
+#~ msgid "If you submit a job now, it will be finished in %s."
+#~ msgstr "Pokud teď zadáte nový úkol, bude zpracován za %s"
+
+#~ msgid "The job queue is empty."
+#~ msgstr "Fronta úkolů je prázdná."
+
+#~ msgid "Go ahead and submit your URL."
+#~ msgstr "Přidejte svoji stránku."
+
+#~ msgid "This page will auto-reload every 60 seconds."
+#~ msgstr "Tato stránka se obnovuje každých 60 sekund."
+
+#~ msgid "Try %sfull screen mode%s and press F11."
+#~ msgstr "Vyzkoušejte %szobrazení pro celou obrazovku%s a stiskněte F11."
+
+#~ msgid "Click to see more screenshots of the same web site."
+#~ msgstr "Klikněte pro zobrazení dalších screenshotů této stránky."
+
+#~ msgid "Count"
+#~ msgstr "Počet"
+
+#~ msgid "Another %d matching URLs are not shown."
+#~ msgstr "Nezobrazuji dalších %d odpovídajících URL."
+
+#~ msgid "Queued"
+#~ msgstr "Přidáno do fronty"
+
+#~ msgid "Finished"
+#~ msgstr "Hotovo"
+
+#~ msgid "No matching jobs."
+#~ msgstr "Žádné odpovídající úkoly"
+
+#~ msgid "Please enter your URL."
+#~ msgstr "Zadejte prosím svoji URL."
+
+#~ msgid "URL must not be shorter than 3 characters."
+#~ msgstr "URL nesmí být kratší než 3 znaky."
+
+#~ msgid "URL must not be longer than 255 characters."
+#~ msgstr "URL nesmí být delší než 255 znaků."
+
+#~ msgid "URL must not contain spaces."
+#~ msgstr "URL nesmí obsahovat mezery."
+
+#~ msgid "URL must not contain quotes."
+#~ msgstr "URL nesmí obsahovat uvozovky."
+
+#~ msgid "Enter a part of your web address to find your jobs."
+#~ msgstr "Zadejte část svojí webové adresy pro nalezení úkolů."
+
+#~ msgid "Reset"
+#~ msgstr "Vymazat"
+
+#~ msgid "Logo design by %s."
+#~ msgstr "Design loga: %s"
+
+#~ msgid "Help"
+#~ msgstr "Nápověda"
+
+#~ msgid "Options"
+#~ msgstr "Možnosti"
+
+#~ msgid "Enter your web address."
+#~ msgstr "Zadejte svoji webovou adresu."
+
+#~ msgid "Make Screenshots"
+#~ msgstr "Vytvořit screenshoty"
+
+#~ msgid "Find Results"
+#~ msgstr "Najít výsledky"
+
+#~ msgid "Browser name<br />and version"
+#~ msgstr "Jméno prohlížeče<br />a verze"
+
+#~ msgid "Rendering<br />engine"
+#~ msgstr "Renderovací<br />engine"
+
+#~ msgid "No active screenshot factories."
+#~ msgstr "Žádné aktivní stroje."
+
+#~ msgid "Top-down"
+#~ msgstr "Zhora dolů"
+
+#~ msgid "pages"
+#~ msgstr "stránek"
+
+#~ msgid "Bottom-up"
+#~ msgstr "Zdola nahoru"
+
+#~ msgid "The following jobs were added to the queue:"
+#~ msgstr "Následující ukoly byly přídány do fronty:"
+
+#~ msgid "The following jobs were already in the queue:"
+#~ msgstr "Následující úkoly již byly ve frontě:"
+
+#~ msgid "URL must start with <span class=\"uncolor\">http://</span>."
+#~ msgstr "URL musí začínat na <span class=\"uncolor\">http://</span>."
+
+#~ msgid "URL must not contain HTML tags."
+#~ msgstr "URL nesmí obsahovat HTML tagy."
+
+#~ msgid "URL seems to be invalid."
+#~ msgstr "URL je zřejmě neplatné."
+
+#~ msgid "Domain name %s is blacklisted."
+#~ msgstr "Doména %s je zablokována."
+
+#~ msgid "The queue already contains %d jobs for this domain."
+#~ msgstr "Fronta již obsahuje %d úkolů pro tuto doménu"
+
+#~ msgid "Please wait until some of these jobs are finished."
+#~ msgstr "Počkejte prosím, dokud nebud některé z těchto úkolů dokončeny."
+
+#~ msgid "There were %d jobs for this domain in the last 7 days."
+#~ msgstr "Za posledních 7 dní bylo %d úkolů pro tuto doménu."
+
+#~ msgid "Please reduce your usage a little,"
+#~ msgstr "Použivejte prosím naši službu méně,"
+
+#~ msgid "or make a donation to help pay the bandwidth."
+#~ msgstr "nebo přispějte na zaplacení přenosové kapacity."
+
+#~ msgid "Domain name %s could not be found."
+#~ msgstr "Doména %s nebyla nalezena"
+
+#~ msgid "Please select at least one browser."
+#~ msgstr "Vyberte prosím alespoň jeden prohlížeč."
+
+#~ msgid "Please select at least one screen resolution."
+#~ msgstr "Vyberte prosím alespoň jedno rozlišení."
+
+#~ msgid "Select the browsers that you would like to test."
+#~ msgstr "Vyberte prohližeče, které chcete vyzkoušet."
+
+#~ msgid "Select one or more screen resolutions."
+#~ msgstr "Vyberte jedno nebo více rozlišení."
+
+#~ msgid "Select pages for scrolling."
+#~ msgstr "Vyberte stránky pro scrollování."
+
+#~ msgid "Upload successful."
+#~ msgstr "Úspěšně nahráno."
+
+#~ msgid "Language"
+#~ msgstr "Jazyk"
+
+#~ msgid "Hardware"
+#~ msgstr "Hardware"
+
+#~ msgid "OS"
+#~ msgstr "OS"
+
+#~ msgid "Click to see a larger preview."
+#~ msgstr "Klikněte pro zobrazení většího náhledu."

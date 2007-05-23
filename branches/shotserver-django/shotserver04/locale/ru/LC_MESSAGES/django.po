@@ -6,366 +6,614 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
-"Report-Msgid-Bugs-To: johann@browsershots.org\n"
-"POT-Creation-Date: 2005-08-11 22:02+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-23 22:19+0200\n"
 "PO-Revision-Date: 2006-05-23 12:27+0000\n"
-"First-Translator: Артем Калимулов, http://unique.com.ru\n"
+"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
+"First-Translator: Артем Калимулов, http://unique.com.ru\n"
 
-#: __init__.py:45
-msgid "Home"
-msgstr "Главная"
+#: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
+#: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
+msgid "name"
+msgstr ""
 
-#: __init__.py:46
-msgid "Docs"
-msgstr "Доки"
+#: factories/models.py:11
+msgid "Hostname (lowercase)"
+msgstr ""
 
-#: __init__.py:47
-msgid "Downloads"
-msgstr "Загрузки"
+#: factories/models.py:13
+msgid "administrator"
+msgstr ""
 
-#: __init__.py:48 __init__.py:49
-msgid "Screenshots"
+#: factories/models.py:15
+msgid "hardware architecture"
+msgstr ""
+
+#: factories/models.py:16
+msgid "CPU type (e.g. i686 or PPC)"
+msgstr ""
+
+#: factories/models.py:18 platforms/models.py:44
+#, fuzzy
+msgid "operating system"
+msgstr "Операционная<br />система"
+
+#: factories/models.py:20
+#, fuzzy
+msgid "last poll"
+msgstr "Последний<br />опрос"
+
+#: factories/models.py:22 browsers/models.py:74
+#, fuzzy
+msgid "last upload"
+msgstr "Последняя<br />загрузка"
+
+#: factories/models.py:24
+msgid "uploads per hour"
+msgstr ""
+
+#: factories/models.py:26
+msgid "uploads per day"
+msgstr ""
+
+#: factories/models.py:28 nonces/models.py:14
+msgid "created"
+msgstr ""
+
+#: factories/models.py:50 factories/models.py:98 factories/models.py:121
+#: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
+msgid "factory"
+msgstr ""
+
+#: factories/models.py:51
+msgid "factories"
+msgstr ""
+
+#: factories/models.py:101 screenshots/models.py:18
+msgid "width"
+msgstr ""
+
+#: factories/models.py:103 screenshots/models.py:20
+msgid "height"
+msgstr ""
+
+#: factories/models.py:113
+msgid "screen size"
+msgstr ""
+
+#: factories/models.py:114
+#, fuzzy
+msgid "screen sizes"
 msgstr "Скриншоты"
 
-#: __init__.py:50
-msgid "Screenshot"
-msgstr "Скриншот"
+#: factories/models.py:124 requests/models.py:16
+msgid "bits per pixel"
+msgstr ""
 
-#: __init__.py:51 actions/submit.py:411
-msgid "Submit"
-msgstr "Отправить"
+#: factories/models.py:134
+msgid "color depth"
+msgstr ""
 
-#: __init__.py:52
-msgid "Queue"
-msgstr "Очередь"
+#: factories/models.py:135
+msgid "color depths"
+msgstr ""
 
-#: __init__.py:53 actions/search.py:149
-msgid "Search"
-msgstr "Поиск"
+#: factories/templates/factories/factory_list.html:5
+#: factories/templates/factories/factory_list.html:8
+#, fuzzy
+msgid "Screenshot Factories"
+msgstr "Скриншоты"
 
-#: __init__.py:57
-msgid "Recent screenshots"
-msgstr "Последние выполненные задания"
+#: factories/templates/factories/factory_list.html:34
+msgid "Previous"
+msgstr ""
 
-#: __init__.py:58
-msgid "Screenshots by URL"
-msgstr "Скриншоты по URL"
+#: factories/templates/factories/factory_list.html:38
+msgid "Next"
+msgstr ""
 
-#: __init__.py:59
-msgid "Complete job"
-msgstr "Задание выполнено"
-
-#: __init__.py:60
-msgid "Submit your website"
-msgstr "Настройка параметров обработки"
-
-#: __init__.py:61
-msgid "Job queue"
-msgstr "Очередь заданий"
-
-#: __init__.py:62
-msgid "Search jobs"
-msgstr "Поиск заданий"
-
-#: __init__.py:66
+#: factories/templates/factories/factory_detail.html:5
+#: factories/templates/factories/factory_detail.html:8
 #, python-format
-msgid "%d sec auto refresh."
-msgstr "Автообновление через %d секунд."
+msgid "Screenshot Factory %(name)s"
+msgstr ""
 
-#: actions/job.py:44 actions/website.py:131
-msgid "This entry is no longer available."
-msgstr "Данная запись более недоступна."
-
-#: actions/job.py:76
-msgid "Click to see the full-size original screenshots."
-msgstr "Кликните, чтобы увидеть полноразмерный скриншот."
-
-#: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
-#: actions/website.py:150
-msgid "No screenshots were uploaded recently."
-msgstr "В последнее время скриншотов не загружалось."
-
-#: actions/poll.py:148 actions/upload.py:176
-msgid "Error: "
-msgstr "Ошибка: "
-
-#: actions/poll.py:156
-msgid "Error: Bad username/password."
-msgstr "Ошибка: Неправильное имя пользователя/пароль."
-
-#: actions/poll.py:163
-msgid "No matching job at this time."
-msgstr "Подходящее задание отстутствует."
-
-#. Screenshot factory descriptions on
-#: actions/queue.py:86 actions/website.py:45
+#: factories/templates/factories/factory_detail.html:14
 msgid "Browser"
 msgstr "Браузер"
 
-#: actions/queue.py:86
-msgid "Resolution"
-msgstr "Экран"
-
-#: actions/queue.py:86
-msgid "Time"
-msgstr "Время"
-
-#: actions/queue.py:86 actions/search.py:74
-msgid "URL"
-msgstr "URL"
-
-#: actions/queue.py:92
-#, python-format
-msgid "There are %d jobs in the queue."
-msgstr "Заданий в очереди - %d."
-
-#: actions/queue.py:98
-#, python-format
-msgid "%d jobs were processed in the last hour."
-msgstr "За прошедший час обработано заданий - %d."
-
-#: actions/queue.py:100
-#, python-format
-msgid "If you submit a job now, it will be finished in %s."
-msgstr "Добавленное Вами задание будет выполнено через %s."
-
-#: actions/queue.py:113
-msgid "The job queue is empty."
-msgstr "Очередь заданий пуста."
-
-#: actions/queue.py:116
-msgid "Go ahead and submit your URL."
-msgstr "Введите Ваш адрес (URL)."
-
-#: actions/recent.py:105
-msgid "This page will auto-reload every 60 seconds."
-msgstr "Данная страница автоматически обновляется каждую минуту."
-
-#: actions/recent.py:108
-#, python-format
-msgid "Try %sfull screen mode%s and press F11."
-msgstr "%sПолноэкранная версия%s этой страницы. Для просмотра нажмите F11."
-
-#: actions/recent.py:112
-msgid "Click to see more screenshots of the same web site."
-msgstr ""
-"Кликните на изображении для просмотра остальных скриншотов выбранного сайта."
-
-#: actions/search.py:74
-msgid "Count"
-msgstr "Заданий"
-
-#: actions/search.py:78
-#, python-format
-msgid "Another %d matching URLs are not shown."
-msgstr "Еще скринштов: %d."
-
-#: actions/search.py:109
-msgid "Queued"
-msgstr "В очереди"
-
-#: actions/search.py:110
-msgid "Finished"
-msgstr "Выполено"
-
-#: actions/search.py:112
-msgid "No matching jobs."
-msgstr "Подходящих заданий не найдено."
-
-#: actions/search.py:120 actions/submit.py:299
-msgid "Please enter your URL."
-msgstr "Пожалуйста, введите адрес (URL)."
-
-#: actions/search.py:122
-msgid "URL must not be shorter than 3 characters."
-msgstr "Адрес не может быть короче 3 символов."
-
-#: actions/search.py:124 actions/submit.py:301
-msgid "URL must not be longer than 255 characters."
-msgstr "Адрес не может быть длиннее 255 символов."
-
-#: actions/search.py:126 actions/submit.py:305
-msgid "URL must not contain spaces."
-msgstr "В адресе не должно содержаться пробелов."
-
-#: actions/search.py:128 actions/submit.py:307
-msgid "URL must not contain quotes."
-msgstr "В адресе не должно содержаться кавычек."
-
-#: actions/search.py:142
-msgid "Enter a part of your web address to find your jobs."
-msgstr "Введите часть адреса для поиска задания."
-
-#: actions/search.py:152 actions/submit.py:415
-msgid "Reset"
-msgstr "Сброс"
-
-#: actions/start.py:33
-#, python-format
-msgid "Logo design by %s."
-msgstr "Дизайн логотипа - %s."
-
-#: actions/start.py:34
-msgid "Free screenshots of your web design in different browsers."
-msgstr "Бесплатные скриншоты вашего сайта в разных браузерах."
-
-#: actions/start.py:56
-msgid "Help"
-msgstr "Помощь"
-
-#: actions/start.py:59
-msgid "Options"
-msgstr "Настройки"
-
-#: actions/start.py:61 actions/submit.py:395
-msgid "Enter your web address."
-msgstr "Введите адрес вебсайта."
-
-#: actions/start.py:80
-msgid "Make Screenshots"
-msgstr "Сделать скриншоты"
-
-#: actions/start.py:88
-msgid "Find Results"
-msgstr "Поиск результата"
-
-#: actions/submit.py:63
-msgid "Browser name<br />and version"
-msgstr "Версия<br />браузера"
-
-#: actions/submit.py:64
-msgid "Rendering<br />engine"
-msgstr "Движок<br />прорисовки"
-
-#: actions/submit.py:65
-msgid "Operating<br />system"
-msgstr "Операционная<br />система"
-
-#: actions/submit.py:66
-msgid "Last<br />poll"
-msgstr "Последний<br />опрос"
-
-#: actions/submit.py:67
-msgid "Last<br />upload"
-msgstr "Последняя<br />загрузка"
-
-#: actions/submit.py:100
-msgid "No active screenshot factories."
-msgstr "Временно недоступно."
-
-#: actions/submit.py:137
-msgid "Top-down"
-msgstr "Сверху-вниз"
-
-#: actions/submit.py:138 actions/submit.py:144
-msgid "pages"
-msgstr "страниц"
-
-#: actions/submit.py:143
-msgid "Bottom-up"
-msgstr "Снизу-Вверх"
-
-#: actions/submit.py:261
-msgid "The following jobs were added to the queue:"
-msgstr "В очередь добавлены следующие задания:"
-
-#: actions/submit.py:264
-msgid "The following jobs were already in the queue:"
-msgstr "Следующие задания уже стоят в очереди:"
-
-#: actions/submit.py:303
-msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "Адрес должен начинаться с <span class=\"uncolor\">http://</span>."
-
-#: actions/submit.py:309
-msgid "URL must not contain HTML tags."
-msgstr "В адресе не должно содержаться тегов HTML."
-
-#: actions/submit.py:313
-msgid "URL seems to be invalid."
-msgstr "Неправильный адрес."
-
-#: actions/submit.py:318
-#, python-format
-msgid "Domain name %s is blacklisted."
-msgstr "%s - адрес заблокирован."
-
-#: actions/submit.py:328
-#, python-format
-msgid "The queue already contains %d jobs for this domain."
-msgstr "В очереди уже %d заданий для данного домена."
-
-#: actions/submit.py:330
-msgid "Please wait until some of these jobs are finished."
-msgstr ""
-"Пожалуйста, подождите пока некоторые из этих заданий не будут выполнены."
-
-#: actions/submit.py:333
-#, python-format
-msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "За последнюю неделю этот адрес тестировался %d раз."
-
-#: actions/submit.py:335
-msgid "Please reduce your usage a little,"
-msgstr "Пожалуйста, уменьшите ваши запросы,"
-
-#: actions/submit.py:336
-msgid "or make a donation to help pay the bandwidth."
-msgstr "или проспонсируйте оплату дополнительного траффика."
-
-#: actions/submit.py:341
-#, python-format
-msgid "Domain name %s could not be found."
-msgstr "Адрес %s не найден."
-
-#: actions/submit.py:348
-msgid "Please select at least one browser."
-msgstr "Пожалуйста, отметьте хотя бы один браузер."
-
-#: actions/submit.py:355
-msgid "Please select at least one screen resolution."
-msgstr "Пожалуйста, выберете разрешение экрана."
-
-#: actions/submit.py:398
-msgid "Select the browsers that you would like to test."
-msgstr "Отметьте браузеры, в которых вы хотели бы протестировать Ваш сайт."
-
-#: actions/submit.py:401
-msgid "Select one or more screen resolutions."
-msgstr "Выбирете варианты разрешения."
-
-#: actions/submit.py:404
-msgid "Select pages for scrolling."
-msgstr "Количествово пролистываемых экранов."
-
-#: actions/upload.py:182
-msgid "Upload successful."
-msgstr "Загрузка завершена."
-
-#: actions/website.py:46
+#: factories/templates/factories/factory_detail.html:15
 msgid "Engine"
 msgstr "Движок"
 
-#: actions/website.py:47
-msgid "Language"
-msgstr "Язык"
-
-#: actions/website.py:48
-msgid "JavaScript"
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
+#: browsers/models.py:64
+#, fuzzy
+msgid "Javascript"
 msgstr "JavaScript"
 
-#: actions/website.py:49
-msgid "Hardware"
-msgstr "Оборудование"
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
+#: browsers/models.py:66
+msgid "Java"
+msgstr ""
 
-#: actions/website.py:50
-msgid "OS"
-msgstr "ОС"
+#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
+#: browsers/models.py:68
+msgid "Flash"
+msgstr ""
 
-#: actions/website.py:147
-msgid "Click to see a larger preview."
-msgstr "Увеличить"
+#: factories/templates/factories/factory_detail.html:19
+msgid "Last<br />upload"
+msgstr "Последняя<br />загрузка"
+
+#: factories/templates/factories/factory_detail.html:38
+#, fuzzy
+msgid "No browsers."
+msgstr "Браузер"
+
+#: factories/templates/factories/factory_detail.html:42
+#, fuzzy
+msgid "Screen sizes"
+msgstr "Скриншоты"
+
+#: factories/templates/factories/factory_detail.html:50
+#: factories/templates/factories/factory_detail.html:63
+msgid "Default only."
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:55
+msgid "Color depths"
+msgstr ""
+
+#: common/templates/start.html:5 common/templates/start.html.py:8
+#, fuzzy
+msgid "Test your web design in different browsers"
+msgstr "Бесплатные скриншоты вашего сайта в разных браузерах."
+
+#: common/templates/base.html:27
+msgid "Home"
+msgstr "Главная"
+
+#: common/templates/base.html:28
+#, fuzzy
+msgid "Screenshots"
+msgstr "Скриншоты"
+
+#: common/templates/base.html:29
+msgid "Queue"
+msgstr "Очередь"
+
+#: common/templates/base.html:30
+#, fuzzy
+msgid "Factories"
+msgstr "Скриншоты"
+
+#: common/templates/base.html:31
+msgid "Search"
+msgstr "Поиск"
+
+#: common/templates/base.html:32
+#, fuzzy
+msgid "Download"
+msgstr "Загрузки"
+
+#: common/templates/base.html:33
+msgid "Documentation"
+msgstr ""
+
+#: common/templates/base.html:34
+msgid "Blog"
+msgstr ""
+
+#: requests/models.py:12 websites/models.py:25
+msgid "website"
+msgstr ""
+
+#: requests/models.py:14
+msgid "screen width"
+msgstr ""
+
+#: requests/models.py:24
+#, fuzzy
+msgid "submitter"
+msgstr "Отправить"
+
+#: requests/models.py:26 websites/models.py:17
+#, fuzzy
+msgid "submitted"
+msgstr "Отправить"
+
+#: requests/models.py:28
+msgid "expire"
+msgstr ""
+
+#: requests/models.py:45 requests/models.py:54
+msgid "request group"
+msgstr ""
+
+#: requests/models.py:46
+msgid "request groups"
+msgstr ""
+
+#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
+msgid "platform"
+msgstr ""
+
+#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
+#, fuzzy
+msgid "browser group"
+msgstr "Браузер"
+
+#: requests/models.py:60 browsers/models.py:56
+msgid "major"
+msgstr ""
+
+#: requests/models.py:62 browsers/models.py:58
+msgid "minor"
+msgstr ""
+
+#: requests/models.py:75 screenshots/models.py:12
+msgid "request"
+msgstr ""
+
+#: requests/models.py:76
+#, fuzzy
+msgid "requests"
+msgstr "Скриншоты"
+
+#: websites/models.py:9
+msgid "Missing slash after the hostname."
+msgstr ""
+
+#: websites/models.py:14
+msgid "URL"
+msgstr "URL"
+
+#: websites/models.py:26
+msgid "websites"
+msgstr ""
+
+#: screenshots/models.py:10 nonces/models.py:10
+msgid "hashkey"
+msgstr ""
+
+#: screenshots/models.py:16 browsers/models.py:97
+#, fuzzy
+msgid "browser"
+msgstr "Браузер"
+
+#: screenshots/models.py:22
+msgid "error message"
+msgstr ""
+
+#: screenshots/models.py:24
+msgid "locked"
+msgstr ""
+
+#: screenshots/models.py:26
+msgid "redirected"
+msgstr ""
+
+#: screenshots/models.py:28
+msgid "failed"
+msgstr ""
+
+#: screenshots/models.py:30
+msgid "uploaded"
+msgstr ""
+
+#: screenshots/models.py:48
+#, fuzzy
+msgid "screenshot"
+msgstr "Скриншот"
+
+#: screenshots/models.py:49
+#, fuzzy
+msgid "screenshots"
+msgstr "Скриншоты"
+
+#: nonces/models.py:12
+msgid "IP address"
+msgstr ""
+
+#: nonces/models.py:25
+msgid "nonce"
+msgstr ""
+
+#: nonces/models.py:26
+#, fuzzy
+msgid "nonces"
+msgstr "Доки"
+
+#: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
+msgid "maker"
+msgstr ""
+
+#: browsers/models.py:20 browsers/models.py:60
+#, fuzzy
+msgid "engine"
+msgstr "Движок"
+
+#: browsers/models.py:21
+#, fuzzy
+msgid "engines"
+msgstr "Движок"
+
+#: browsers/models.py:31
+msgid "terminal"
+msgstr ""
+
+#: browsers/models.py:31
+msgid "Is this a text-mode browser?"
+msgstr ""
+
+#: browsers/models.py:42
+msgid "browser groups"
+msgstr ""
+
+#: browsers/models.py:50
+msgid "user agent"
+msgstr ""
+
+#: browsers/models.py:54 platforms/models.py:30
+msgid "version"
+msgstr ""
+
+#: browsers/models.py:62
+msgid "engine version"
+msgstr ""
+
+#: browsers/models.py:70
+msgid "command"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "disabled"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "Is this browser inactive?"
+msgstr ""
+
+#: browsers/models.py:98
+#, fuzzy
+msgid "browsers"
+msgstr "Браузер"
+
+#: platforms/models.py:10
+msgid "order"
+msgstr ""
+
+#: platforms/models.py:20
+msgid "platforms"
+msgstr ""
+
+#: platforms/models.py:32
+msgid "codename"
+msgstr ""
+
+#: platforms/models.py:45
+#, fuzzy
+msgid "operating systems"
+msgstr "Операционная<br />система"
+
+#: platforms/models.py:60
+msgid "architecture"
+msgstr ""
+
+#: platforms/models.py:61
+msgid "architectures"
+msgstr ""
+
+#~ msgid "Recent screenshots"
+#~ msgstr "Последние выполненные задания"
+
+#~ msgid "Screenshots by URL"
+#~ msgstr "Скриншоты по URL"
+
+#~ msgid "Complete job"
+#~ msgstr "Задание выполнено"
+
+#~ msgid "Submit your website"
+#~ msgstr "Настройка параметров обработки"
+
+#~ msgid "Job queue"
+#~ msgstr "Очередь заданий"
+
+#~ msgid "Search jobs"
+#~ msgstr "Поиск заданий"
+
+#~ msgid "%d sec auto refresh."
+#~ msgstr "Автообновление через %d секунд."
+
+#~ msgid "This entry is no longer available."
+#~ msgstr "Данная запись более недоступна."
+
+#~ msgid "Click to see the full-size original screenshots."
+#~ msgstr "Кликните, чтобы увидеть полноразмерный скриншот."
+
+#~ msgid "No screenshots were uploaded recently."
+#~ msgstr "В последнее время скриншотов не загружалось."
+
+#~ msgid "Error: "
+#~ msgstr "Ошибка: "
+
+#~ msgid "Error: Bad username/password."
+#~ msgstr "Ошибка: Неправильное имя пользователя/пароль."
+
+#~ msgid "No matching job at this time."
+#~ msgstr "Подходящее задание отстутствует."
+
+#~ msgid "Resolution"
+#~ msgstr "Экран"
+
+#~ msgid "Time"
+#~ msgstr "Время"
+
+#~ msgid "There are %d jobs in the queue."
+#~ msgstr "Заданий в очереди - %d."
+
+#~ msgid "%d jobs were processed in the last hour."
+#~ msgstr "За прошедший час обработано заданий - %d."
+
+#~ msgid "If you submit a job now, it will be finished in %s."
+#~ msgstr "Добавленное Вами задание будет выполнено через %s."
+
+#~ msgid "The job queue is empty."
+#~ msgstr "Очередь заданий пуста."
+
+#~ msgid "Go ahead and submit your URL."
+#~ msgstr "Введите Ваш адрес (URL)."
+
+#~ msgid "This page will auto-reload every 60 seconds."
+#~ msgstr "Данная страница автоматически обновляется каждую минуту."
+
+#~ msgid "Try %sfull screen mode%s and press F11."
+#~ msgstr "%sПолноэкранная версия%s этой страницы. Для просмотра нажмите F11."
+
+#~ msgid "Click to see more screenshots of the same web site."
+#~ msgstr ""
+#~ "Кликните на изображении для просмотра остальных скриншотов выбранного "
+#~ "сайта."
+
+#~ msgid "Count"
+#~ msgstr "Заданий"
+
+#~ msgid "Another %d matching URLs are not shown."
+#~ msgstr "Еще скринштов: %d."
+
+#~ msgid "Queued"
+#~ msgstr "В очереди"
+
+#~ msgid "Finished"
+#~ msgstr "Выполено"
+
+#~ msgid "No matching jobs."
+#~ msgstr "Подходящих заданий не найдено."
+
+#~ msgid "Please enter your URL."
+#~ msgstr "Пожалуйста, введите адрес (URL)."
+
+#~ msgid "URL must not be shorter than 3 characters."
+#~ msgstr "Адрес не может быть короче 3 символов."
+
+#~ msgid "URL must not be longer than 255 characters."
+#~ msgstr "Адрес не может быть длиннее 255 символов."
+
+#~ msgid "URL must not contain spaces."
+#~ msgstr "В адресе не должно содержаться пробелов."
+
+#~ msgid "URL must not contain quotes."
+#~ msgstr "В адресе не должно содержаться кавычек."
+
+#~ msgid "Enter a part of your web address to find your jobs."
+#~ msgstr "Введите часть адреса для поиска задания."
+
+#~ msgid "Reset"
+#~ msgstr "Сброс"
+
+#~ msgid "Logo design by %s."
+#~ msgstr "Дизайн логотипа - %s."
+
+#~ msgid "Help"
+#~ msgstr "Помощь"
+
+#~ msgid "Options"
+#~ msgstr "Настройки"
+
+#~ msgid "Enter your web address."
+#~ msgstr "Введите адрес вебсайта."
+
+#~ msgid "Make Screenshots"
+#~ msgstr "Сделать скриншоты"
+
+#~ msgid "Find Results"
+#~ msgstr "Поиск результата"
+
+#~ msgid "Browser name<br />and version"
+#~ msgstr "Версия<br />браузера"
+
+#~ msgid "Rendering<br />engine"
+#~ msgstr "Движок<br />прорисовки"
+
+#~ msgid "No active screenshot factories."
+#~ msgstr "Временно недоступно."
+
+#~ msgid "Top-down"
+#~ msgstr "Сверху-вниз"
+
+#~ msgid "pages"
+#~ msgstr "страниц"
+
+#~ msgid "Bottom-up"
+#~ msgstr "Снизу-Вверх"
+
+#~ msgid "The following jobs were added to the queue:"
+#~ msgstr "В очередь добавлены следующие задания:"
+
+#~ msgid "The following jobs were already in the queue:"
+#~ msgstr "Следующие задания уже стоят в очереди:"
+
+#~ msgid "URL must start with <span class=\"uncolor\">http://</span>."
+#~ msgstr "Адрес должен начинаться с <span class=\"uncolor\">http://</span>."
+
+#~ msgid "URL must not contain HTML tags."
+#~ msgstr "В адресе не должно содержаться тегов HTML."
+
+#~ msgid "URL seems to be invalid."
+#~ msgstr "Неправильный адрес."
+
+#~ msgid "Domain name %s is blacklisted."
+#~ msgstr "%s - адрес заблокирован."
+
+#~ msgid "The queue already contains %d jobs for this domain."
+#~ msgstr "В очереди уже %d заданий для данного домена."
+
+#~ msgid "Please wait until some of these jobs are finished."
+#~ msgstr ""
+#~ "Пожалуйста, подождите пока некоторые из этих заданий не будут выполнены."
+
+#~ msgid "There were %d jobs for this domain in the last 7 days."
+#~ msgstr "За последнюю неделю этот адрес тестировался %d раз."
+
+#~ msgid "Please reduce your usage a little,"
+#~ msgstr "Пожалуйста, уменьшите ваши запросы,"
+
+#~ msgid "or make a donation to help pay the bandwidth."
+#~ msgstr "или проспонсируйте оплату дополнительного траффика."
+
+#~ msgid "Domain name %s could not be found."
+#~ msgstr "Адрес %s не найден."
+
+#~ msgid "Please select at least one browser."
+#~ msgstr "Пожалуйста, отметьте хотя бы один браузер."
+
+#~ msgid "Please select at least one screen resolution."
+#~ msgstr "Пожалуйста, выберете разрешение экрана."
+
+#~ msgid "Select the browsers that you would like to test."
+#~ msgstr "Отметьте браузеры, в которых вы хотели бы протестировать Ваш сайт."
+
+#~ msgid "Select one or more screen resolutions."
+#~ msgstr "Выбирете варианты разрешения."
+
+#~ msgid "Select pages for scrolling."
+#~ msgstr "Количествово пролистываемых экранов."
+
+#~ msgid "Upload successful."
+#~ msgstr "Загрузка завершена."
+
+#~ msgid "Language"
+#~ msgstr "Язык"
+
+#~ msgid "Hardware"
+#~ msgstr "Оборудование"
+
+#~ msgid "OS"
+#~ msgstr "ОС"
+
+#~ msgid "Click to see a larger preview."
+#~ msgstr "Увеличить"

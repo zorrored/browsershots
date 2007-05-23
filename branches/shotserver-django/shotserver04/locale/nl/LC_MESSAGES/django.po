@@ -6,364 +6,611 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
-"Report-Msgid-Bugs-To: johann@browsershots.org\n"
-"POT-Creation-Date: 2005-08-11 22:02+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-23 22:19+0200\n"
 "PO-Revision-Date: 2006-09-08 11:50+0000\n"
-"First-Translator: Koko Alberti <Koko.Alberti@ns.nl>\n"
+"Last-Translator: Killercow <janklopper@innerheight.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Killercow <janklopper@innerheight.com>\n"
+"First-Translator: Koko Alberti <Koko.Alberti@ns.nl>\n"
 
-#: __init__.py:45
-msgid "Home"
-msgstr "Home"
+#: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
+#: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
+msgid "name"
+msgstr ""
 
-#: __init__.py:46
-msgid "Docs"
-msgstr "Documentatie"
+#: factories/models.py:11
+msgid "Hostname (lowercase)"
+msgstr ""
 
-#: __init__.py:47
-msgid "Downloads"
-msgstr "Downloads"
+#: factories/models.py:13
+msgid "administrator"
+msgstr ""
 
-#: __init__.py:48 __init__.py:49
-msgid "Screenshots"
+#: factories/models.py:15
+msgid "hardware architecture"
+msgstr ""
+
+#: factories/models.py:16
+msgid "CPU type (e.g. i686 or PPC)"
+msgstr ""
+
+#: factories/models.py:18 platforms/models.py:44
+#, fuzzy
+msgid "operating system"
+msgstr "Besturings<br />systeem"
+
+#: factories/models.py:20
+#, fuzzy
+msgid "last poll"
+msgstr "Laatste<br />aanvraag"
+
+#: factories/models.py:22 browsers/models.py:74
+#, fuzzy
+msgid "last upload"
+msgstr "Laatste<br />upload"
+
+#: factories/models.py:24
+msgid "uploads per hour"
+msgstr ""
+
+#: factories/models.py:26
+msgid "uploads per day"
+msgstr ""
+
+#: factories/models.py:28 nonces/models.py:14
+msgid "created"
+msgstr ""
+
+#: factories/models.py:50 factories/models.py:98 factories/models.py:121
+#: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
+msgid "factory"
+msgstr ""
+
+#: factories/models.py:51
+msgid "factories"
+msgstr ""
+
+#: factories/models.py:101 screenshots/models.py:18
+msgid "width"
+msgstr ""
+
+#: factories/models.py:103 screenshots/models.py:20
+msgid "height"
+msgstr ""
+
+#: factories/models.py:113
+msgid "screen size"
+msgstr ""
+
+#: factories/models.py:114
+#, fuzzy
+msgid "screen sizes"
 msgstr "Schermafdrukken"
 
-#: __init__.py:50
-msgid "Screenshot"
-msgstr "Schermafdruk"
+#: factories/models.py:124 requests/models.py:16
+msgid "bits per pixel"
+msgstr ""
 
-#: __init__.py:51 actions/submit.py:411
-msgid "Submit"
-msgstr "Versturen"
+#: factories/models.py:134
+msgid "color depth"
+msgstr ""
 
-#: __init__.py:52
-msgid "Queue"
-msgstr "Wachtrij"
+#: factories/models.py:135
+msgid "color depths"
+msgstr ""
 
-#: __init__.py:53 actions/search.py:149
-msgid "Search"
-msgstr "Zoek"
+#: factories/templates/factories/factory_list.html:5
+#: factories/templates/factories/factory_list.html:8
+#, fuzzy
+msgid "Screenshot Factories"
+msgstr "Schermafdrukken"
 
-#: __init__.py:57
-msgid "Recent screenshots"
-msgstr "Recente screenshots"
+#: factories/templates/factories/factory_list.html:34
+msgid "Previous"
+msgstr ""
 
-#: __init__.py:58
-msgid "Screenshots by URL"
-msgstr "Screenshots per URL"
+#: factories/templates/factories/factory_list.html:38
+msgid "Next"
+msgstr ""
 
-#: __init__.py:59
-msgid "Complete job"
-msgstr "Complete opdracht"
-
-#: __init__.py:60
-msgid "Submit your website"
-msgstr "Voeg uw website toe"
-
-#: __init__.py:61
-msgid "Job queue"
-msgstr "Lijst met opdrachten"
-
-#: __init__.py:62
-msgid "Search jobs"
-msgstr "Zoek opdrachten"
-
-#: __init__.py:66
+#: factories/templates/factories/factory_detail.html:5
+#: factories/templates/factories/factory_detail.html:8
 #, python-format
-msgid "%d sec auto refresh."
-msgstr "Automatische verversing na %d sec."
+msgid "Screenshot Factory %(name)s"
+msgstr ""
 
-#: actions/job.py:44 actions/website.py:131
-msgid "This entry is no longer available."
-msgstr "Deze opdracht is niet langer beschikbaar."
-
-#: actions/job.py:76
-msgid "Click to see the full-size original screenshots."
-msgstr "Klik om de schermafdruk op volledige grootte te bekijken."
-
-#: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
-#: actions/website.py:150
-msgid "No screenshots were uploaded recently."
-msgstr "Er zijn recentelijk geen screenshots ge-upload."
-
-#: actions/poll.py:148 actions/upload.py:176
-msgid "Error: "
-msgstr "Fout: "
-
-#: actions/poll.py:156
-msgid "Error: Bad username/password."
-msgstr "Fout: Incorrecte gebruikersnaam/wachtwoord."
-
-#: actions/poll.py:163
-msgid "No matching job at this time."
-msgstr "Op dit moment geen passende opdracht."
-
-#. Screenshot factory descriptions on
-#: actions/queue.py:86 actions/website.py:45
+#: factories/templates/factories/factory_detail.html:14
 msgid "Browser"
 msgstr "Brower"
 
-#: actions/queue.py:86
-msgid "Resolution"
-msgstr "Resolutie"
-
-#: actions/queue.py:86
-msgid "Time"
-msgstr "Tijd"
-
-#: actions/queue.py:86 actions/search.py:74
-msgid "URL"
-msgstr "URL"
-
-#: actions/queue.py:92
-#, python-format
-msgid "There are %d jobs in the queue."
-msgstr "Er staan %d opdrachten in de wachtrij."
-
-#: actions/queue.py:98
-#, python-format
-msgid "%d jobs were processed in the last hour."
-msgstr "In het laatste uur zijn er %d opdrachten verwerkt."
-
-#: actions/queue.py:100
-#, python-format
-msgid "If you submit a job now, it will be finished in %s."
-msgstr "Als u nu een opdracht verstuurd, zal deze over %s klaar zijn."
-
-#: actions/queue.py:113
-msgid "The job queue is empty."
-msgstr "De wachtrij is leeg."
-
-#: actions/queue.py:116
-msgid "Go ahead and submit your URL."
-msgstr "Voer uw URL in."
-
-#: actions/recent.py:105
-msgid "This page will auto-reload every 60 seconds."
-msgstr "Deze pagina zal elke 60 seconden automatisch verversen."
-
-#: actions/recent.py:108
-#, python-format
-msgid "Try %sfull screen mode%s and press F11."
-msgstr "Probeer %svolledig scherm%s , op druk F11."
-
-#: actions/recent.py:112
-msgid "Click to see more screenshots of the same web site."
-msgstr "Klik om meer screenshots van dezelfde website te bekijken."
-
-#: actions/search.py:74
-msgid "Count"
-msgstr "Aantal"
-
-#: actions/search.py:78
-#, python-format
-msgid "Another %d matching URLs are not shown."
-msgstr "Andere %d URLs worden niet getoond."
-
-#: actions/search.py:109
-msgid "Queued"
-msgstr "In de wachtrij"
-
-#: actions/search.py:110
-msgid "Finished"
-msgstr "Voltooid"
-
-#: actions/search.py:112
-msgid "No matching jobs."
-msgstr "Geen opdrachten gevonden."
-
-#: actions/search.py:120 actions/submit.py:299
-msgid "Please enter your URL."
-msgstr "Voer uw URL in."
-
-#: actions/search.py:122
-msgid "URL must not be shorter than 3 characters."
-msgstr "URL mag niet korter zijn dan 3 karakters."
-
-#: actions/search.py:124 actions/submit.py:301
-msgid "URL must not be longer than 255 characters."
-msgstr "URL mag niet alnger zijn dan 255 karakters."
-
-#: actions/search.py:126 actions/submit.py:305
-msgid "URL must not contain spaces."
-msgstr "URL mag geen spaties bevatten."
-
-#: actions/search.py:128 actions/submit.py:307
-msgid "URL must not contain quotes."
-msgstr "URL mag geen aanhalingstekens bevatten."
-
-#: actions/search.py:142
-msgid "Enter a part of your web address to find your jobs."
-msgstr "Voer een deel van de URL in om uw opdrachten te vinden."
-
-#: actions/search.py:152 actions/submit.py:415
-msgid "Reset"
-msgstr "Beginwaarde"
-
-#: actions/start.py:33
-#, python-format
-msgid "Logo design by %s."
-msgstr "Logo ontwerp door %s."
-
-#: actions/start.py:34
-msgid "Free screenshots of your web design in different browsers."
-msgstr "Gratis screenshots van uw website in andere browsers."
-
-#: actions/start.py:56
-msgid "Help"
-msgstr "Help"
-
-#: actions/start.py:59
-msgid "Options"
-msgstr "Opties"
-
-#: actions/start.py:61 actions/submit.py:395
-msgid "Enter your web address."
-msgstr "Voer uw web adres in."
-
-#: actions/start.py:80
-msgid "Make Screenshots"
-msgstr "Screenshots maken"
-
-#: actions/start.py:88
-msgid "Find Results"
-msgstr "Resultaten zoeken"
-
-#: actions/submit.py:63
-msgid "Browser name<br />and version"
-msgstr "Browser naam<br />en versie"
-
-#: actions/submit.py:64
-msgid "Rendering<br />engine"
-msgstr "Render<br />engine"
-
-#: actions/submit.py:65
-msgid "Operating<br />system"
-msgstr "Besturings<br />systeem"
-
-#: actions/submit.py:66
-msgid "Last<br />poll"
-msgstr "Laatste<br />aanvraag"
-
-#: actions/submit.py:67
-msgid "Last<br />upload"
-msgstr "Laatste<br />upload"
-
-#: actions/submit.py:100
-msgid "No active screenshot factories."
-msgstr "Geen geactiveerde screenshot fabrieken."
-
-#: actions/submit.py:137
-msgid "Top-down"
-msgstr "Van boven naar beneden"
-
-#: actions/submit.py:138 actions/submit.py:144
-msgid "pages"
-msgstr "pagina's"
-
-#: actions/submit.py:143
-msgid "Bottom-up"
-msgstr "Van onder naar boven"
-
-#: actions/submit.py:261
-msgid "The following jobs were added to the queue:"
-msgstr "De volgende opdrachten zijn aan de wachtrij toegevoegd:"
-
-#: actions/submit.py:264
-msgid "The following jobs were already in the queue:"
-msgstr "De volgende opdrachten stonden al in de wachtrij:"
-
-#: actions/submit.py:303
-msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URL moet beginnen met <span class=\"uncolor\">http://</span>."
-
-#: actions/submit.py:309
-msgid "URL must not contain HTML tags."
-msgstr "URL mag geen HTML tags bevatten."
-
-#: actions/submit.py:313
-msgid "URL seems to be invalid."
-msgstr "URL is ongeldig."
-
-#: actions/submit.py:318
-#, python-format
-msgid "Domain name %s is blacklisted."
-msgstr "Domein naam %s staat op de zwarte lijst"
-
-#: actions/submit.py:328
-#, python-format
-msgid "The queue already contains %d jobs for this domain."
-msgstr "De wachtrij bevat al %d opdrachten voor dit domein."
-
-#: actions/submit.py:330
-msgid "Please wait until some of these jobs are finished."
-msgstr "Wacht a.u.b. tot enkele van deze opdrachten zijn voltooid."
-
-#: actions/submit.py:333
-#, python-format
-msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "Er waren %d opdrachten voor dit domein in de laaste 7 dagen."
-
-#: actions/submit.py:335
-msgid "Please reduce your usage a little,"
-msgstr "Probeer a.u.b. uw gebruik iets te verminderen,"
-
-#: actions/submit.py:336
-msgid "or make a donation to help pay the bandwidth."
-msgstr "of maak een donatie om voor bandbreedte te helpen betalen."
-
-#: actions/submit.py:341
-#, python-format
-msgid "Domain name %s could not be found."
-msgstr "Domeinnaam %s kon niet gevonden worden."
-
-#: actions/submit.py:348
-msgid "Please select at least one browser."
-msgstr "Selecteer minimaal een browser."
-
-#: actions/submit.py:355
-msgid "Please select at least one screen resolution."
-msgstr "Selecteer minimaal een schermresolutie."
-
-#: actions/submit.py:398
-msgid "Select the browsers that you would like to test."
-msgstr "Selecteer de browsers waarop u wilt testen."
-
-#: actions/submit.py:401
-msgid "Select one or more screen resolutions."
-msgstr "Selecteer een of meerdere schermresoluties."
-
-#: actions/submit.py:404
-msgid "Select pages for scrolling."
-msgstr "Selecteer pages om te scrollen."
-
-#: actions/upload.py:182
-msgid "Upload successful."
-msgstr "Upload voltooid."
-
-#: actions/website.py:46
+#: factories/templates/factories/factory_detail.html:15
 msgid "Engine"
 msgstr "Engine"
 
-#: actions/website.py:47
-msgid "Language"
-msgstr "Taal"
-
-#: actions/website.py:48
-msgid "JavaScript"
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
+#: browsers/models.py:64
+#, fuzzy
+msgid "Javascript"
 msgstr "JavaScript"
 
-#: actions/website.py:49
-msgid "Hardware"
-msgstr "Hardware"
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
+#: browsers/models.py:66
+msgid "Java"
+msgstr ""
 
-#: actions/website.py:50
-msgid "OS"
-msgstr "OS"
+#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
+#: browsers/models.py:68
+msgid "Flash"
+msgstr ""
 
-#: actions/website.py:147
-msgid "Click to see a larger preview."
-msgstr "Klik om een groter voorbeeld te bekijken."
+#: factories/templates/factories/factory_detail.html:19
+msgid "Last<br />upload"
+msgstr "Laatste<br />upload"
+
+#: factories/templates/factories/factory_detail.html:38
+#, fuzzy
+msgid "No browsers."
+msgstr "Brower"
+
+#: factories/templates/factories/factory_detail.html:42
+#, fuzzy
+msgid "Screen sizes"
+msgstr "Schermafdrukken"
+
+#: factories/templates/factories/factory_detail.html:50
+#: factories/templates/factories/factory_detail.html:63
+msgid "Default only."
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:55
+msgid "Color depths"
+msgstr ""
+
+#: common/templates/start.html:5 common/templates/start.html.py:8
+#, fuzzy
+msgid "Test your web design in different browsers"
+msgstr "Gratis screenshots van uw website in andere browsers."
+
+#: common/templates/base.html:27
+msgid "Home"
+msgstr "Home"
+
+#: common/templates/base.html:28
+#, fuzzy
+msgid "Screenshots"
+msgstr "Schermafdrukken"
+
+#: common/templates/base.html:29
+msgid "Queue"
+msgstr "Wachtrij"
+
+#: common/templates/base.html:30
+#, fuzzy
+msgid "Factories"
+msgstr "Schermafdrukken"
+
+#: common/templates/base.html:31
+msgid "Search"
+msgstr "Zoek"
+
+#: common/templates/base.html:32
+#, fuzzy
+msgid "Download"
+msgstr "Downloads"
+
+#: common/templates/base.html:33
+msgid "Documentation"
+msgstr ""
+
+#: common/templates/base.html:34
+msgid "Blog"
+msgstr ""
+
+#: requests/models.py:12 websites/models.py:25
+msgid "website"
+msgstr ""
+
+#: requests/models.py:14
+msgid "screen width"
+msgstr ""
+
+#: requests/models.py:24
+#, fuzzy
+msgid "submitter"
+msgstr "Versturen"
+
+#: requests/models.py:26 websites/models.py:17
+#, fuzzy
+msgid "submitted"
+msgstr "Versturen"
+
+#: requests/models.py:28
+msgid "expire"
+msgstr ""
+
+#: requests/models.py:45 requests/models.py:54
+msgid "request group"
+msgstr ""
+
+#: requests/models.py:46
+msgid "request groups"
+msgstr ""
+
+#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
+msgid "platform"
+msgstr ""
+
+#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
+#, fuzzy
+msgid "browser group"
+msgstr "Brower"
+
+#: requests/models.py:60 browsers/models.py:56
+msgid "major"
+msgstr ""
+
+#: requests/models.py:62 browsers/models.py:58
+msgid "minor"
+msgstr ""
+
+#: requests/models.py:75 screenshots/models.py:12
+msgid "request"
+msgstr ""
+
+#: requests/models.py:76
+#, fuzzy
+msgid "requests"
+msgstr "Schermafdrukken"
+
+#: websites/models.py:9
+msgid "Missing slash after the hostname."
+msgstr ""
+
+#: websites/models.py:14
+msgid "URL"
+msgstr "URL"
+
+#: websites/models.py:26
+msgid "websites"
+msgstr ""
+
+#: screenshots/models.py:10 nonces/models.py:10
+msgid "hashkey"
+msgstr ""
+
+#: screenshots/models.py:16 browsers/models.py:97
+#, fuzzy
+msgid "browser"
+msgstr "Brower"
+
+#: screenshots/models.py:22
+msgid "error message"
+msgstr ""
+
+#: screenshots/models.py:24
+msgid "locked"
+msgstr ""
+
+#: screenshots/models.py:26
+msgid "redirected"
+msgstr ""
+
+#: screenshots/models.py:28
+msgid "failed"
+msgstr ""
+
+#: screenshots/models.py:30
+msgid "uploaded"
+msgstr ""
+
+#: screenshots/models.py:48
+#, fuzzy
+msgid "screenshot"
+msgstr "Schermafdruk"
+
+#: screenshots/models.py:49
+#, fuzzy
+msgid "screenshots"
+msgstr "Schermafdrukken"
+
+#: nonces/models.py:12
+msgid "IP address"
+msgstr ""
+
+#: nonces/models.py:25
+msgid "nonce"
+msgstr ""
+
+#: nonces/models.py:26
+#, fuzzy
+msgid "nonces"
+msgstr "Documentatie"
+
+#: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
+msgid "maker"
+msgstr ""
+
+#: browsers/models.py:20 browsers/models.py:60
+#, fuzzy
+msgid "engine"
+msgstr "Engine"
+
+#: browsers/models.py:21
+#, fuzzy
+msgid "engines"
+msgstr "Engine"
+
+#: browsers/models.py:31
+msgid "terminal"
+msgstr ""
+
+#: browsers/models.py:31
+msgid "Is this a text-mode browser?"
+msgstr ""
+
+#: browsers/models.py:42
+msgid "browser groups"
+msgstr ""
+
+#: browsers/models.py:50
+msgid "user agent"
+msgstr ""
+
+#: browsers/models.py:54 platforms/models.py:30
+msgid "version"
+msgstr ""
+
+#: browsers/models.py:62
+msgid "engine version"
+msgstr ""
+
+#: browsers/models.py:70
+msgid "command"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "disabled"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "Is this browser inactive?"
+msgstr ""
+
+#: browsers/models.py:98
+#, fuzzy
+msgid "browsers"
+msgstr "Brower"
+
+#: platforms/models.py:10
+msgid "order"
+msgstr ""
+
+#: platforms/models.py:20
+msgid "platforms"
+msgstr ""
+
+#: platforms/models.py:32
+msgid "codename"
+msgstr ""
+
+#: platforms/models.py:45
+#, fuzzy
+msgid "operating systems"
+msgstr "Besturings<br />systeem"
+
+#: platforms/models.py:60
+msgid "architecture"
+msgstr ""
+
+#: platforms/models.py:61
+msgid "architectures"
+msgstr ""
+
+#~ msgid "Recent screenshots"
+#~ msgstr "Recente screenshots"
+
+#~ msgid "Screenshots by URL"
+#~ msgstr "Screenshots per URL"
+
+#~ msgid "Complete job"
+#~ msgstr "Complete opdracht"
+
+#~ msgid "Submit your website"
+#~ msgstr "Voeg uw website toe"
+
+#~ msgid "Job queue"
+#~ msgstr "Lijst met opdrachten"
+
+#~ msgid "Search jobs"
+#~ msgstr "Zoek opdrachten"
+
+#~ msgid "%d sec auto refresh."
+#~ msgstr "Automatische verversing na %d sec."
+
+#~ msgid "This entry is no longer available."
+#~ msgstr "Deze opdracht is niet langer beschikbaar."
+
+#~ msgid "Click to see the full-size original screenshots."
+#~ msgstr "Klik om de schermafdruk op volledige grootte te bekijken."
+
+#~ msgid "No screenshots were uploaded recently."
+#~ msgstr "Er zijn recentelijk geen screenshots ge-upload."
+
+#~ msgid "Error: "
+#~ msgstr "Fout: "
+
+#~ msgid "Error: Bad username/password."
+#~ msgstr "Fout: Incorrecte gebruikersnaam/wachtwoord."
+
+#~ msgid "No matching job at this time."
+#~ msgstr "Op dit moment geen passende opdracht."
+
+#~ msgid "Resolution"
+#~ msgstr "Resolutie"
+
+#~ msgid "Time"
+#~ msgstr "Tijd"
+
+#~ msgid "There are %d jobs in the queue."
+#~ msgstr "Er staan %d opdrachten in de wachtrij."
+
+#~ msgid "%d jobs were processed in the last hour."
+#~ msgstr "In het laatste uur zijn er %d opdrachten verwerkt."
+
+#~ msgid "If you submit a job now, it will be finished in %s."
+#~ msgstr "Als u nu een opdracht verstuurd, zal deze over %s klaar zijn."
+
+#~ msgid "The job queue is empty."
+#~ msgstr "De wachtrij is leeg."
+
+#~ msgid "Go ahead and submit your URL."
+#~ msgstr "Voer uw URL in."
+
+#~ msgid "This page will auto-reload every 60 seconds."
+#~ msgstr "Deze pagina zal elke 60 seconden automatisch verversen."
+
+#~ msgid "Try %sfull screen mode%s and press F11."
+#~ msgstr "Probeer %svolledig scherm%s , op druk F11."
+
+#~ msgid "Click to see more screenshots of the same web site."
+#~ msgstr "Klik om meer screenshots van dezelfde website te bekijken."
+
+#~ msgid "Count"
+#~ msgstr "Aantal"
+
+#~ msgid "Another %d matching URLs are not shown."
+#~ msgstr "Andere %d URLs worden niet getoond."
+
+#~ msgid "Queued"
+#~ msgstr "In de wachtrij"
+
+#~ msgid "Finished"
+#~ msgstr "Voltooid"
+
+#~ msgid "No matching jobs."
+#~ msgstr "Geen opdrachten gevonden."
+
+#~ msgid "Please enter your URL."
+#~ msgstr "Voer uw URL in."
+
+#~ msgid "URL must not be shorter than 3 characters."
+#~ msgstr "URL mag niet korter zijn dan 3 karakters."
+
+#~ msgid "URL must not be longer than 255 characters."
+#~ msgstr "URL mag niet alnger zijn dan 255 karakters."
+
+#~ msgid "URL must not contain spaces."
+#~ msgstr "URL mag geen spaties bevatten."
+
+#~ msgid "URL must not contain quotes."
+#~ msgstr "URL mag geen aanhalingstekens bevatten."
+
+#~ msgid "Enter a part of your web address to find your jobs."
+#~ msgstr "Voer een deel van de URL in om uw opdrachten te vinden."
+
+#~ msgid "Reset"
+#~ msgstr "Beginwaarde"
+
+#~ msgid "Logo design by %s."
+#~ msgstr "Logo ontwerp door %s."
+
+#~ msgid "Help"
+#~ msgstr "Help"
+
+#~ msgid "Options"
+#~ msgstr "Opties"
+
+#~ msgid "Enter your web address."
+#~ msgstr "Voer uw web adres in."
+
+#~ msgid "Make Screenshots"
+#~ msgstr "Screenshots maken"
+
+#~ msgid "Find Results"
+#~ msgstr "Resultaten zoeken"
+
+#~ msgid "Browser name<br />and version"
+#~ msgstr "Browser naam<br />en versie"
+
+#~ msgid "Rendering<br />engine"
+#~ msgstr "Render<br />engine"
+
+#~ msgid "No active screenshot factories."
+#~ msgstr "Geen geactiveerde screenshot fabrieken."
+
+#~ msgid "Top-down"
+#~ msgstr "Van boven naar beneden"
+
+#~ msgid "pages"
+#~ msgstr "pagina's"
+
+#~ msgid "Bottom-up"
+#~ msgstr "Van onder naar boven"
+
+#~ msgid "The following jobs were added to the queue:"
+#~ msgstr "De volgende opdrachten zijn aan de wachtrij toegevoegd:"
+
+#~ msgid "The following jobs were already in the queue:"
+#~ msgstr "De volgende opdrachten stonden al in de wachtrij:"
+
+#~ msgid "URL must start with <span class=\"uncolor\">http://</span>."
+#~ msgstr "URL moet beginnen met <span class=\"uncolor\">http://</span>."
+
+#~ msgid "URL must not contain HTML tags."
+#~ msgstr "URL mag geen HTML tags bevatten."
+
+#~ msgid "URL seems to be invalid."
+#~ msgstr "URL is ongeldig."
+
+#~ msgid "Domain name %s is blacklisted."
+#~ msgstr "Domein naam %s staat op de zwarte lijst"
+
+#~ msgid "The queue already contains %d jobs for this domain."
+#~ msgstr "De wachtrij bevat al %d opdrachten voor dit domein."
+
+#~ msgid "Please wait until some of these jobs are finished."
+#~ msgstr "Wacht a.u.b. tot enkele van deze opdrachten zijn voltooid."
+
+#~ msgid "There were %d jobs for this domain in the last 7 days."
+#~ msgstr "Er waren %d opdrachten voor dit domein in de laaste 7 dagen."
+
+#~ msgid "Please reduce your usage a little,"
+#~ msgstr "Probeer a.u.b. uw gebruik iets te verminderen,"
+
+#~ msgid "or make a donation to help pay the bandwidth."
+#~ msgstr "of maak een donatie om voor bandbreedte te helpen betalen."
+
+#~ msgid "Domain name %s could not be found."
+#~ msgstr "Domeinnaam %s kon niet gevonden worden."
+
+#~ msgid "Please select at least one browser."
+#~ msgstr "Selecteer minimaal een browser."
+
+#~ msgid "Please select at least one screen resolution."
+#~ msgstr "Selecteer minimaal een schermresolutie."
+
+#~ msgid "Select the browsers that you would like to test."
+#~ msgstr "Selecteer de browsers waarop u wilt testen."
+
+#~ msgid "Select one or more screen resolutions."
+#~ msgstr "Selecteer een of meerdere schermresoluties."
+
+#~ msgid "Select pages for scrolling."
+#~ msgstr "Selecteer pages om te scrollen."
+
+#~ msgid "Upload successful."
+#~ msgstr "Upload voltooid."
+
+#~ msgid "Language"
+#~ msgstr "Taal"
+
+#~ msgid "Hardware"
+#~ msgstr "Hardware"
+
+#~ msgid "OS"
+#~ msgstr "OS"
+
+#~ msgid "Click to see a larger preview."
+#~ msgstr "Klik om een groter voorbeeld te bekijken."

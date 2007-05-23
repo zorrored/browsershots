@@ -6,367 +6,622 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
-"Report-Msgid-Bugs-To: johann@browsershots.org\n"
-"POT-Creation-Date: 2005-08-11 22:02+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-23 22:19+0200\n"
 "PO-Revision-Date: 2006-05-23 12:27+0000\n"
-"First-Translator: 高木 正弘, mailto:m-takagi@users.sourceforge.net\n"
+"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
+"First-Translator: 高木 正弘, mailto:m-takagi@users.sourceforge.net\n"
 
-#: __init__.py:45
-msgid "Home"
-msgstr "ホーム"
+#: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
+#: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
+msgid "name"
+msgstr ""
 
-#: __init__.py:46
-msgid "Docs"
-msgstr "ドキュメント"
+#: factories/models.py:11
+msgid "Hostname (lowercase)"
+msgstr ""
 
-#: __init__.py:47
-msgid "Downloads"
-msgstr "ダウンロード"
+#: factories/models.py:13
+msgid "administrator"
+msgstr ""
 
-#: __init__.py:48 __init__.py:49
-msgid "Screenshots"
+#: factories/models.py:15
+msgid "hardware architecture"
+msgstr ""
+
+#: factories/models.py:16
+msgid "CPU type (e.g. i686 or PPC)"
+msgstr ""
+
+#: factories/models.py:18 platforms/models.py:44
+#, fuzzy
+msgid "operating system"
+msgstr "オペレーティング<br />システム"
+
+#: factories/models.py:20
+#, fuzzy
+msgid "last poll"
+msgstr "直近の<br />登録"
+
+#: factories/models.py:22 browsers/models.py:74
+#, fuzzy
+msgid "last upload"
+msgstr "直近の<br />アップロード"
+
+#: factories/models.py:24
+#, fuzzy
+msgid "uploads per hour"
+msgstr "1 日あたりの<br />アップロード数"
+
+#: factories/models.py:26
+#, fuzzy
+msgid "uploads per day"
+msgstr "1 日あたりの<br />アップロード数"
+
+#: factories/models.py:28 nonces/models.py:14
+msgid "created"
+msgstr ""
+
+#: factories/models.py:50 factories/models.py:98 factories/models.py:121
+#: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
+msgid "factory"
+msgstr ""
+
+#: factories/models.py:51
+msgid "factories"
+msgstr ""
+
+#: factories/models.py:101 screenshots/models.py:18
+msgid "width"
+msgstr ""
+
+#: factories/models.py:103 screenshots/models.py:20
+msgid "height"
+msgstr ""
+
+#: factories/models.py:113
+msgid "screen size"
+msgstr ""
+
+#: factories/models.py:114
+#, fuzzy
+msgid "screen sizes"
 msgstr "スクリーンショット"
 
-#: __init__.py:50
-msgid "Screenshot"
+#: factories/models.py:124 requests/models.py:16
+msgid "bits per pixel"
+msgstr ""
+
+#: factories/models.py:134
+msgid "color depth"
+msgstr ""
+
+#: factories/models.py:135
+msgid "color depths"
+msgstr ""
+
+#: factories/templates/factories/factory_list.html:5
+#: factories/templates/factories/factory_list.html:8
+#, fuzzy
+msgid "Screenshot Factories"
 msgstr "スクリーンショット"
 
-#: __init__.py:51 actions/submit.py:411
-msgid "Submit"
-msgstr "送信"
+#: factories/templates/factories/factory_list.html:34
+msgid "Previous"
+msgstr ""
 
-#: __init__.py:52
-msgid "Queue"
-msgstr "キュー"
+#: factories/templates/factories/factory_list.html:38
+msgid "Next"
+msgstr ""
 
-#: __init__.py:53 actions/search.py:149
-msgid "Search"
-msgstr "検索"
-
-#: __init__.py:57
-msgid "Recent screenshots"
-msgstr "最近のスクリーンショット"
-
-#: __init__.py:58
-msgid "Screenshots by URL"
-msgstr "スクリーンショットのURL"
-
-#: __init__.py:59
-msgid "Complete job"
-msgstr "ジョブの完了"
-
-#: __init__.py:60
-msgid "Submit your website"
-msgstr "Web サイトの登録"
-
-#: __init__.py:61
-msgid "Job queue"
-msgstr "ジョブのキュー"
-
-#: __init__.py:62
-msgid "Search jobs"
-msgstr "ジョブの検索"
-
-#: __init__.py:66
+#: factories/templates/factories/factory_detail.html:5
+#: factories/templates/factories/factory_detail.html:8
 #, python-format
-msgid "%d sec auto refresh."
-msgstr "%d 秒で自動リフレッシュします。"
+msgid "Screenshot Factory %(name)s"
+msgstr ""
 
-#: actions/job.py:44 actions/website.py:131
-msgid "This entry is no longer available."
-msgstr "このエントリは使用できません。"
-
-#: actions/job.py:76
-msgid "Click to see the full-size original screenshots."
-msgstr "クリックすると、元の大きさのスクリーンショットが表示されます。"
-
-#: actions/job.py:79 actions/queue.py:95 actions/recent.py:115
-#: actions/website.py:150
-msgid "No screenshots were uploaded recently."
-msgstr "最近アップロードされたスクリーンショットはありません。"
-
-#: actions/poll.py:148 actions/upload.py:176
-msgid "Error: "
-msgstr "エラー: "
-
-#: actions/poll.py:156
-msgid "Error: Bad username/password."
-msgstr "エラー: ユーザ名あるいはパスワードが違います。"
-
-#: actions/poll.py:163
-msgid "No matching job at this time."
-msgstr "現在、条件に一致するジョブはありません。"
-
-#. Screenshot factory descriptions on
-#: actions/queue.py:86 actions/website.py:45
+#: factories/templates/factories/factory_detail.html:14
 msgid "Browser"
 msgstr "ブラウザ"
 
-#: actions/queue.py:86
-msgid "Resolution"
-msgstr "解像度"
-
-#: actions/queue.py:86
-msgid "Time"
-msgstr "時刻"
-
-#: actions/queue.py:86 actions/search.py:74
-msgid "URL"
-msgstr "URL"
-
-#: actions/queue.py:92
-#, python-format
-msgid "There are %d jobs in the queue."
-msgstr "%d 件のジョブがキューに登録されています。"
-
-#: actions/queue.py:98
-#, python-format
-msgid "%d jobs were processed in the last hour."
-msgstr "過去 1 時間で %d 件のジョブが実行されました。"
-
-#: actions/queue.py:100
-#, python-format
-msgid "If you submit a job now, it will be finished in %s."
-msgstr "いまジョブを登録すると、%s で完了するでしょう。"
-
-#: actions/queue.py:113
-msgid "The job queue is empty."
-msgstr "ジョブのキューは、空です。"
-
-#: actions/queue.py:116
-msgid "Go ahead and submit your URL."
-msgstr "あなたの URL を登録しましょう。"
-
-#: actions/recent.py:105
-msgid "This page will auto-reload every 60 seconds."
-msgstr "このページは 60 秒ごとに自動的に再読み込みされます。"
-
-#: actions/recent.py:108
-#, python-format
-msgid "Try %sfull screen mode%s and press F11."
-msgstr "%sフルスクリーンモード%sにして、F11 を押してみてください。"
-
-#: actions/recent.py:112
-msgid "Click to see more screenshots of the same web site."
-msgstr "クリックすると、その Web サイトについてのその他のスクリーンショットも表示されます。"
-
-#: actions/search.py:74
-msgid "Count"
-msgstr "件数"
-
-#: actions/search.py:78
-#, python-format
-msgid "Another %d matching URLs are not shown."
-msgstr "その他 %d 件の URL が条件に一致しましたが、表示していません。"
-
-#: actions/search.py:109
-msgid "Queued"
-msgstr "キューに登録済み"
-
-#: actions/search.py:110
-msgid "Finished"
-msgstr "作成完了"
-
-#: actions/search.py:112
-msgid "No matching jobs."
-msgstr "該当するジョブはありません。"
-
-#: actions/search.py:120 actions/submit.py:299
-msgid "Please enter your URL."
-msgstr "URL を入力してください。"
-
-#: actions/search.py:122
-msgid "URL must not be shorter than 3 characters."
-msgstr "最低 3 文字は入力してください。"
-
-#: actions/search.py:124 actions/submit.py:301
-msgid "URL must not be longer than 255 characters."
-msgstr "255 文字をこえる条件は指定できません。"
-
-#: actions/search.py:126 actions/submit.py:305
-msgid "URL must not contain spaces."
-msgstr "URL には空白を含めることができません。"
-
-#: actions/search.py:128 actions/submit.py:307
-msgid "URL must not contain quotes."
-msgstr "URL には引用符を含めることができません。"
-
-#: actions/search.py:142
-msgid "Enter a part of your web address to find your jobs."
-msgstr "Web アドレスの一部を入力し、ジョブを検索します。"
-
-#: actions/search.py:152 actions/submit.py:415
-msgid "Reset"
-msgstr "取消"
-
-#: actions/start.py:33
-#, python-format
-msgid "Logo design by %s."
-msgstr "ロゴのデザインは %s によって行われました。"
-
-#: actions/start.py:34
-msgid "Free screenshots of your web design in different browsers."
-msgstr "あなたの Web デザインがさまざまなブラウザでどのように見えるのかを確認するため、スクリーンショットを作成します。"
-
-#: actions/start.py:56
-msgid "Help"
-msgstr "ヘルプ"
-
-#: actions/start.py:59
-msgid "Options"
-msgstr "詳細設定"
-
-#: actions/start.py:61 actions/submit.py:395
-msgid "Enter your web address."
-msgstr "Web のアドレスを入力します。"
-
-#: actions/start.py:80
-msgid "Make Screenshots"
-msgstr "スクリーンショットを作成"
-
-#: actions/start.py:88
-msgid "Find Results"
-msgstr "結果を検索"
-
-#: actions/submit.py:63
-msgid "Browser name<br />and version"
-msgstr "ブラウザ名と<br />バージョン"
-
-#: actions/submit.py:64
-msgid "Rendering<br />engine"
-msgstr "レンダリング<br />エンジン"
-
-#: actions/submit.py:65
-msgid "Operating<br />system"
-msgstr "オペレーティング<br />システム"
-
-#: actions/submit.py:66
-msgid "Last<br />poll"
-msgstr "直近の<br />登録"
-
-#: actions/submit.py:67
-msgid "Last<br />upload"
-msgstr "直近の<br />アップロード"
-
-#: actions/submit.py:100
-msgid "No active screenshot factories."
-msgstr "使用可能なスクリーンショット ファクトリがありません。"
-
-#: actions/submit.py:137
-msgid "Top-down"
-msgstr "最初から下に向かって"
-
-#: actions/submit.py:138 actions/submit.py:144
-msgid "pages"
-msgstr "ページ"
-
-#: actions/submit.py:143
-msgid "Bottom-up"
-msgstr "最後から上に向かって"
-
-#: actions/submit.py:261
-msgid "The following jobs were added to the queue:"
-msgstr "以下のジョブがキューに追加されました。"
-
-#: actions/submit.py:264
-msgid "The following jobs were already in the queue:"
-msgstr "以下のジョブは、すでにキューに登録されています。"
-
-#: actions/submit.py:303
-msgid "URL must start with <span class=\"uncolor\">http://</span>."
-msgstr "URL は <span class=\"uncolor\">http://</span> ではじめる必要があります。"
-
-#: actions/submit.py:309
-msgid "URL must not contain HTML tags."
-msgstr "URL に HTML タグを含めることはできません。"
-
-#: actions/submit.py:313
-msgid "URL seems to be invalid."
-msgstr "URL が無効なようです。"
-
-#: actions/submit.py:318
-#, python-format
-msgid "Domain name %s is blacklisted."
-msgstr "ドメイン名 %s はブラックリストに載っています。"
-
-#: actions/submit.py:328
-#, python-format
-msgid "The queue already contains %d jobs for this domain."
-msgstr "このドメインに対するジョブが、すでに %d 件キューに登録されています。"
-
-#: actions/submit.py:330
-msgid "Please wait until some of these jobs are finished."
-msgstr "これらのジョブのいくつかが終了するまでお待ちください。"
-
-#: actions/submit.py:333
-#, python-format
-msgid "There were %d jobs for this domain in the last 7 days."
-msgstr "過去 7 日の間に、このドメインは %d 回処理されています。"
-
-#: actions/submit.py:335
-msgid "Please reduce your usage a little,"
-msgstr "もう少し使用を控えるか、"
-
-#: actions/submit.py:336
-msgid "or make a donation to help pay the bandwidth."
-msgstr "あるいは回線使用料の足しにするための寄付をお願いいたします。"
-
-#: actions/submit.py:341
-#, python-format
-msgid "Domain name %s could not be found."
-msgstr "ドメイン名 %s が見つかりませんでした。"
-
-#: actions/submit.py:348
-msgid "Please select at least one browser."
-msgstr "少なくともひとつのブラウザを選んでください。"
-
-#: actions/submit.py:355
-msgid "Please select at least one screen resolution."
-msgstr "少なくともひとつの画面解像度を選んでください。"
-
-#: actions/submit.py:398
-msgid "Select the browsers that you would like to test."
-msgstr "調べたいブラウザを選びます。"
-
-#: actions/submit.py:401
-msgid "Select one or more screen resolutions."
-msgstr "ひとつまたは複数の画面解像度を選びます。"
-
-#: actions/submit.py:404
-msgid "Select pages for scrolling."
-msgstr "スクロールさせるページ数を選択します。"
-
-#: actions/upload.py:182
-msgid "Upload successful."
-msgstr "アップロードに成功しました。"
-
-#: actions/website.py:46
+#: factories/templates/factories/factory_detail.html:15
 msgid "Engine"
 msgstr "エンジン"
 
-#: actions/website.py:47
-msgid "Language"
-msgstr "言語"
-
-#: actions/website.py:48
-msgid "JavaScript"
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
+#: browsers/models.py:64
+#, fuzzy
+msgid "Javascript"
 msgstr "JavaScript"
 
-#: actions/website.py:49
-msgid "Hardware"
-msgstr "ハードウェア"
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
+#: browsers/models.py:66
+msgid "Java"
+msgstr ""
 
-#: actions/website.py:50
-msgid "OS"
-msgstr "OS"
+#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
+#: browsers/models.py:68
+msgid "Flash"
+msgstr ""
 
-#: actions/website.py:147
-msgid "Click to see a larger preview."
-msgstr "クリックすると、さらに大きなプレビューが表示されます。"
+#: factories/templates/factories/factory_detail.html:19
+msgid "Last<br />upload"
+msgstr "直近の<br />アップロード"
+
+#: factories/templates/factories/factory_detail.html:38
+#, fuzzy
+msgid "No browsers."
+msgstr "ブラウザ"
+
+#: factories/templates/factories/factory_detail.html:42
+#, fuzzy
+msgid "Screen sizes"
+msgstr "スクリーンショット"
+
+#: factories/templates/factories/factory_detail.html:50
+#: factories/templates/factories/factory_detail.html:63
+msgid "Default only."
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:55
+msgid "Color depths"
+msgstr ""
+
+#: common/templates/start.html:5 common/templates/start.html.py:8
+#, fuzzy
+msgid "Test your web design in different browsers"
+msgstr ""
+"あなたの Web デザインがさまざまなブラウザでどのように見えるのかを確認するた"
+"め、スクリーンショットを作成します。"
+
+#: common/templates/base.html:27
+msgid "Home"
+msgstr "ホーム"
+
+#: common/templates/base.html:28
+#, fuzzy
+msgid "Screenshots"
+msgstr "スクリーンショット"
+
+#: common/templates/base.html:29
+msgid "Queue"
+msgstr "キュー"
+
+#: common/templates/base.html:30
+#, fuzzy
+msgid "Factories"
+msgstr "スクリーンショット"
+
+#: common/templates/base.html:31
+msgid "Search"
+msgstr "検索"
+
+#: common/templates/base.html:32
+#, fuzzy
+msgid "Download"
+msgstr "ダウンロード"
+
+#: common/templates/base.html:33
+msgid "Documentation"
+msgstr ""
+
+#: common/templates/base.html:34
+msgid "Blog"
+msgstr ""
+
+#: requests/models.py:12 websites/models.py:25
+msgid "website"
+msgstr ""
+
+#: requests/models.py:14
+msgid "screen width"
+msgstr ""
+
+#: requests/models.py:24
+#, fuzzy
+msgid "submitter"
+msgstr "送信"
+
+#: requests/models.py:26 websites/models.py:17
+#, fuzzy
+msgid "submitted"
+msgstr "送信"
+
+#: requests/models.py:28
+msgid "expire"
+msgstr ""
+
+#: requests/models.py:45 requests/models.py:54
+msgid "request group"
+msgstr ""
+
+#: requests/models.py:46
+msgid "request groups"
+msgstr ""
+
+#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
+msgid "platform"
+msgstr ""
+
+#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
+#, fuzzy
+msgid "browser group"
+msgstr "ブラウザ"
+
+#: requests/models.py:60 browsers/models.py:56
+msgid "major"
+msgstr ""
+
+#: requests/models.py:62 browsers/models.py:58
+msgid "minor"
+msgstr ""
+
+#: requests/models.py:75 screenshots/models.py:12
+msgid "request"
+msgstr ""
+
+#: requests/models.py:76
+#, fuzzy
+msgid "requests"
+msgstr "スクリーンショット"
+
+#: websites/models.py:9
+msgid "Missing slash after the hostname."
+msgstr ""
+
+#: websites/models.py:14
+msgid "URL"
+msgstr "URL"
+
+#: websites/models.py:26
+msgid "websites"
+msgstr ""
+
+#: screenshots/models.py:10 nonces/models.py:10
+msgid "hashkey"
+msgstr ""
+
+#: screenshots/models.py:16 browsers/models.py:97
+#, fuzzy
+msgid "browser"
+msgstr "ブラウザ"
+
+#: screenshots/models.py:22
+msgid "error message"
+msgstr ""
+
+#: screenshots/models.py:24
+msgid "locked"
+msgstr ""
+
+#: screenshots/models.py:26
+msgid "redirected"
+msgstr ""
+
+#: screenshots/models.py:28
+msgid "failed"
+msgstr ""
+
+#: screenshots/models.py:30
+msgid "uploaded"
+msgstr ""
+
+#: screenshots/models.py:48
+#, fuzzy
+msgid "screenshot"
+msgstr "スクリーンショット"
+
+#: screenshots/models.py:49
+#, fuzzy
+msgid "screenshots"
+msgstr "スクリーンショット"
+
+#: nonces/models.py:12
+msgid "IP address"
+msgstr ""
+
+#: nonces/models.py:25
+msgid "nonce"
+msgstr ""
+
+#: nonces/models.py:26
+#, fuzzy
+msgid "nonces"
+msgstr "ドキュメント"
+
+#: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
+msgid "maker"
+msgstr ""
+
+#: browsers/models.py:20 browsers/models.py:60
+#, fuzzy
+msgid "engine"
+msgstr "エンジン"
+
+#: browsers/models.py:21
+#, fuzzy
+msgid "engines"
+msgstr "エンジン"
+
+#: browsers/models.py:31
+msgid "terminal"
+msgstr ""
+
+#: browsers/models.py:31
+msgid "Is this a text-mode browser?"
+msgstr ""
+
+#: browsers/models.py:42
+msgid "browser groups"
+msgstr ""
+
+#: browsers/models.py:50
+msgid "user agent"
+msgstr ""
+
+#: browsers/models.py:54 platforms/models.py:30
+msgid "version"
+msgstr ""
+
+#: browsers/models.py:62
+msgid "engine version"
+msgstr ""
+
+#: browsers/models.py:70
+msgid "command"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "disabled"
+msgstr ""
+
+#: browsers/models.py:72
+msgid "Is this browser inactive?"
+msgstr ""
+
+#: browsers/models.py:98
+#, fuzzy
+msgid "browsers"
+msgstr "ブラウザ"
+
+#: platforms/models.py:10
+msgid "order"
+msgstr ""
+
+#: platforms/models.py:20
+msgid "platforms"
+msgstr ""
+
+#: platforms/models.py:32
+msgid "codename"
+msgstr ""
+
+#: platforms/models.py:45
+#, fuzzy
+msgid "operating systems"
+msgstr "オペレーティング<br />システム"
+
+#: platforms/models.py:60
+msgid "architecture"
+msgstr ""
+
+#: platforms/models.py:61
+msgid "architectures"
+msgstr ""
+
+#~ msgid "Recent screenshots"
+#~ msgstr "最近のスクリーンショット"
+
+#~ msgid "Screenshots by URL"
+#~ msgstr "スクリーンショットのURL"
+
+#~ msgid "Complete job"
+#~ msgstr "ジョブの完了"
+
+#~ msgid "Submit your website"
+#~ msgstr "Web サイトの登録"
+
+#~ msgid "Job queue"
+#~ msgstr "ジョブのキュー"
+
+#~ msgid "Search jobs"
+#~ msgstr "ジョブの検索"
+
+#~ msgid "%d sec auto refresh."
+#~ msgstr "%d 秒で自動リフレッシュします。"
+
+#~ msgid "This entry is no longer available."
+#~ msgstr "このエントリは使用できません。"
+
+#~ msgid "Click to see the full-size original screenshots."
+#~ msgstr "クリックすると、元の大きさのスクリーンショットが表示されます。"
+
+#~ msgid "No screenshots were uploaded recently."
+#~ msgstr "最近アップロードされたスクリーンショットはありません。"
+
+#~ msgid "Error: "
+#~ msgstr "エラー: "
+
+#~ msgid "Error: Bad username/password."
+#~ msgstr "エラー: ユーザ名あるいはパスワードが違います。"
+
+#~ msgid "No matching job at this time."
+#~ msgstr "現在、条件に一致するジョブはありません。"
+
+#~ msgid "Resolution"
+#~ msgstr "解像度"
+
+#~ msgid "Time"
+#~ msgstr "時刻"
+
+#~ msgid "There are %d jobs in the queue."
+#~ msgstr "%d 件のジョブがキューに登録されています。"
+
+#~ msgid "%d jobs were processed in the last hour."
+#~ msgstr "過去 1 時間で %d 件のジョブが実行されました。"
+
+#~ msgid "If you submit a job now, it will be finished in %s."
+#~ msgstr "いまジョブを登録すると、%s で完了するでしょう。"
+
+#~ msgid "The job queue is empty."
+#~ msgstr "ジョブのキューは、空です。"
+
+#~ msgid "Go ahead and submit your URL."
+#~ msgstr "あなたの URL を登録しましょう。"
+
+#~ msgid "This page will auto-reload every 60 seconds."
+#~ msgstr "このページは 60 秒ごとに自動的に再読み込みされます。"
+
+#~ msgid "Try %sfull screen mode%s and press F11."
+#~ msgstr "%sフルスクリーンモード%sにして、F11 を押してみてください。"
+
+#~ msgid "Click to see more screenshots of the same web site."
+#~ msgstr ""
+#~ "クリックすると、その Web サイトについてのその他のスクリーンショットも表示"
+#~ "されます。"
+
+#~ msgid "Count"
+#~ msgstr "件数"
+
+#~ msgid "Another %d matching URLs are not shown."
+#~ msgstr "その他 %d 件の URL が条件に一致しましたが、表示していません。"
+
+#~ msgid "Queued"
+#~ msgstr "キューに登録済み"
+
+#~ msgid "Finished"
+#~ msgstr "作成完了"
+
+#~ msgid "No matching jobs."
+#~ msgstr "該当するジョブはありません。"
+
+#~ msgid "Please enter your URL."
+#~ msgstr "URL を入力してください。"
+
+#~ msgid "URL must not be shorter than 3 characters."
+#~ msgstr "最低 3 文字は入力してください。"
+
+#~ msgid "URL must not be longer than 255 characters."
+#~ msgstr "255 文字をこえる条件は指定できません。"
+
+#~ msgid "URL must not contain spaces."
+#~ msgstr "URL には空白を含めることができません。"
+
+#~ msgid "URL must not contain quotes."
+#~ msgstr "URL には引用符を含めることができません。"
+
+#~ msgid "Enter a part of your web address to find your jobs."
+#~ msgstr "Web アドレスの一部を入力し、ジョブを検索します。"
+
+#~ msgid "Reset"
+#~ msgstr "取消"
+
+#~ msgid "Logo design by %s."
+#~ msgstr "ロゴのデザインは %s によって行われました。"
+
+#~ msgid "Help"
+#~ msgstr "ヘルプ"
+
+#~ msgid "Options"
+#~ msgstr "詳細設定"
+
+#~ msgid "Enter your web address."
+#~ msgstr "Web のアドレスを入力します。"
+
+#~ msgid "Make Screenshots"
+#~ msgstr "スクリーンショットを作成"
+
+#~ msgid "Find Results"
+#~ msgstr "結果を検索"
+
+#~ msgid "Browser name<br />and version"
+#~ msgstr "ブラウザ名と<br />バージョン"
+
+#~ msgid "Rendering<br />engine"
+#~ msgstr "レンダリング<br />エンジン"
+
+#~ msgid "No active screenshot factories."
+#~ msgstr "使用可能なスクリーンショット ファクトリがありません。"
+
+#~ msgid "Top-down"
+#~ msgstr "最初から下に向かって"
+
+#~ msgid "pages"
+#~ msgstr "ページ"
+
+#~ msgid "Bottom-up"
+#~ msgstr "最後から上に向かって"
+
+#~ msgid "The following jobs were added to the queue:"
+#~ msgstr "以下のジョブがキューに追加されました。"
+
+#~ msgid "The following jobs were already in the queue:"
+#~ msgstr "以下のジョブは、すでにキューに登録されています。"
+
+#~ msgid "URL must start with <span class=\"uncolor\">http://</span>."
+#~ msgstr ""
+#~ "URL は <span class=\"uncolor\">http://</span> ではじめる必要があります。"
+
+#~ msgid "URL must not contain HTML tags."
+#~ msgstr "URL に HTML タグを含めることはできません。"
+
+#~ msgid "URL seems to be invalid."
+#~ msgstr "URL が無効なようです。"
+
+#~ msgid "Domain name %s is blacklisted."
+#~ msgstr "ドメイン名 %s はブラックリストに載っています。"
+
+#~ msgid "The queue already contains %d jobs for this domain."
+#~ msgstr ""
+#~ "このドメインに対するジョブが、すでに %d 件キューに登録されています。"
+
+#~ msgid "Please wait until some of these jobs are finished."
+#~ msgstr "これらのジョブのいくつかが終了するまでお待ちください。"
+
+#~ msgid "There were %d jobs for this domain in the last 7 days."
+#~ msgstr "過去 7 日の間に、このドメインは %d 回処理されています。"
+
+#~ msgid "Please reduce your usage a little,"
+#~ msgstr "もう少し使用を控えるか、"
+
+#~ msgid "or make a donation to help pay the bandwidth."
+#~ msgstr "あるいは回線使用料の足しにするための寄付をお願いいたします。"
+
+#~ msgid "Domain name %s could not be found."
+#~ msgstr "ドメイン名 %s が見つかりませんでした。"
+
+#~ msgid "Please select at least one browser."
+#~ msgstr "少なくともひとつのブラウザを選んでください。"
+
+#~ msgid "Please select at least one screen resolution."
+#~ msgstr "少なくともひとつの画面解像度を選んでください。"
+
+#~ msgid "Select the browsers that you would like to test."
+#~ msgstr "調べたいブラウザを選びます。"
+
+#~ msgid "Select one or more screen resolutions."
+#~ msgstr "ひとつまたは複数の画面解像度を選びます。"
+
+#~ msgid "Select pages for scrolling."
+#~ msgstr "スクロールさせるページ数を選択します。"
+
+#~ msgid "Upload successful."
+#~ msgstr "アップロードに成功しました。"
+
+#~ msgid "Language"
+#~ msgstr "言語"
+
+#~ msgid "Hardware"
+#~ msgstr "ハードウェア"
+
+#~ msgid "OS"
+#~ msgstr "OS"
+
+#~ msgid "Click to see a larger preview."
+#~ msgstr "クリックすると、さらに大きなプレビューが表示されます。"
 
 #~ msgid "The length of the %sjob queue%s is circa %s."
 #~ msgstr "%sジョブキュー%s の長さは、およそ %s です。"
@@ -376,9 +631,6 @@ msgstr "クリックすると、さらに大きなプレビューが表示され
 
 #~ msgid "See %s for more info."
 #~ msgstr "詳しくは %s をご覧ください。"
-
-#~ msgid "Uploads<br />per day"
-#~ msgstr "1 日あたりの<br />アップロード数"
 
 #~ msgid "Jobs in<br />queue"
 #~ msgstr "キューに登録中の<br />ジョブ数"
