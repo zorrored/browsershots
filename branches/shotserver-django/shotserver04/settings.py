@@ -67,8 +67,13 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'shotserver04.urls'
 
+# Dynamic path trickery
+import os
+SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
+
+# Find templates next to settings.py
 TEMPLATE_DIRS = (
-    '/usr/share/shotserver04/templates',
+    os.path.join(SETTINGS_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (

@@ -2,6 +2,12 @@ from distutils.core import setup
 import os
 import sys
 
+# Tell distutils to put data files next to Python files
+# http://groups.google.com/group/comp.lang.python/browse_thread/thread/35ec7b2fed36eaec/2105ee4d9e8042cb
+from distutils.command.install import INSTALL_SCHEMES
+for scheme in INSTALL_SCHEMES.values():
+    scheme['data'] = scheme['purelib']
+
 root_dir = os.path.dirname(__file__)
 lib_dir = os.path.join(root_dir, 'shotserver04')
 
@@ -23,12 +29,14 @@ def find_data_files(data_dirnames=None):
         if 'templates' in dirpath.split(os.sep):
             files = [os.path.join(dirpath, f) for f in filenames]
             if files:
+                unified_path = os.path.join('shotserver04', 'templates')
                 basename = os.path.basename(dirpath)
-                unified_path = os.path.join(
-                    'share', 'shotserver04', 'templates')
                 if basename != 'templates':
                     unified_path = os.path.join(unified_path, basename)
                 yield (unified_path, files)
+        if dirpath.endswith('LC_MESSAGES'):
+            files = [os.path.join(dirpath, f) for f in filenames]
+            yield (dirpath, files)
 
 
 if sys.argv[1] == 'test':
