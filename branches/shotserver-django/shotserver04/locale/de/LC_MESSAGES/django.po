@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 17:55+0200\n"
+"POT-Creation-Date: 2007-05-23 18:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <i18n@browsershots.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: factories/models.py:10 platforms/models.py:7 platforms/models.py:28
-#: platforms/models.py:51
+#: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
+#: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
 msgid "name"
 msgstr "name"
 
@@ -44,7 +44,7 @@ msgstr "Betriebssystem"
 msgid "last poll"
 msgstr "letzte Anfrage"
 
-#: factories/models.py:22
+#: factories/models.py:22 browsers/models.py:74
 msgid "last upload"
 msgstr "letzter Upload"
 
@@ -61,7 +61,7 @@ msgid "created"
 msgstr "erstellt"
 
 #: factories/models.py:50 factories/models.py:98 factories/models.py:121
-#: screenshots/models.py:14 nonces/models.py:8
+#: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
 msgid "factory"
 msgstr "Fabrik"
 
@@ -124,15 +124,18 @@ msgstr "Browser"
 msgid "Engine"
 msgstr "Engine"
 
-#: factories/templates/factories/factory_detail.html:16
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
+#: browsers/models.py:64
 msgid "Javascript"
 msgstr "Javascript"
 
-#: factories/templates/factories/factory_detail.html:17
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
+#: browsers/models.py:66
 msgid "Java"
 msgstr "Java"
 
-#: factories/templates/factories/factory_detail.html:18
+#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
+#: browsers/models.py:68
 msgid "Flash"
 msgstr "Flash"
 
@@ -169,18 +172,6 @@ msgstr "Webseite"
 msgid "screen width"
 msgstr "Bildschirmbreite"
 
-#: requests/models.py:18
-msgid "javascript"
-msgstr "Javascript"
-
-#: requests/models.py:20
-msgid "java"
-msgstr "Java"
-
-#: requests/models.py:22
-msgid "flash"
-msgstr "Flash"
-
 #: requests/models.py:24
 msgid "submitter"
 msgstr "Auftraggeber"
@@ -205,15 +196,15 @@ msgstr "Auftragsgruppen"
 msgid "platform"
 msgstr "Plattform"
 
-#: requests/models.py:58 browsers/models.py:36
+#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
 msgid "browser group"
 msgstr "Browsergruppe"
 
-#: requests/models.py:60
+#: requests/models.py:60 browsers/models.py:56
 msgid "major"
 msgstr "Hauptversion"
 
-#: requests/models.py:62
+#: requests/models.py:62 browsers/models.py:58
 msgid "minor"
 msgstr "Unterversion"
 
@@ -241,7 +232,7 @@ msgstr "Webseiten"
 msgid "hashkey"
 msgstr "Hash-Schlüssel"
 
-#: screenshots/models.py:16 browsers/models.py:78
+#: screenshots/models.py:16 browsers/models.py:97
 msgid "browser"
 msgstr "Browser"
 
@@ -285,19 +276,55 @@ msgstr "Nonce"
 msgid "nonces"
 msgstr "Nonces"
 
-#: browsers/models.py:18
+#: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
+msgid "maker"
+msgstr "Hersteller"
+
+#: browsers/models.py:20 browsers/models.py:60
 msgid "engine"
 msgstr "Engine"
 
-#: browsers/models.py:19
+#: browsers/models.py:21
 msgid "engines"
 msgstr "Engines"
 
-#: browsers/models.py:37
+#: browsers/models.py:31
+msgid "terminal"
+msgstr "Terminal"
+
+#: browsers/models.py:31
+msgid "Is this a text-mode browser?"
+msgstr "Ist dies ein Textmodus-Browser?"
+
+#: browsers/models.py:42
 msgid "browser groups"
 msgstr "Browsergruppen"
 
-#: browsers/models.py:79
+#: browsers/models.py:50
+msgid "user agent"
+msgstr "User-Agent"
+
+#: browsers/models.py:54 platforms/models.py:30
+msgid "version"
+msgstr "Version"
+
+#: browsers/models.py:62
+msgid "engine version"
+msgstr "Engine-Version"
+
+#: browsers/models.py:70
+msgid "command"
+msgstr "Kommando"
+
+#: browsers/models.py:72
+msgid "disabled"
+msgstr "deaktiviert"
+
+#: browsers/models.py:72
+msgid "Is this browser inactive?"
+msgstr "Ist dieser Browser inaktiv?"
+
+#: browsers/models.py:98
 msgid "browsers"
 msgstr "Browser"
 
@@ -309,17 +336,9 @@ msgstr "Position"
 msgid "platforms"
 msgstr "Plattformen"
 
-#: platforms/models.py:30
-msgid "version"
-msgstr "Version"
-
 #: platforms/models.py:32
 msgid "codename"
 msgstr "Codename"
-
-#: platforms/models.py:34
-msgid "maker"
-msgstr "Hersteller"
 
 #: platforms/models.py:45
 msgid "operating systems"

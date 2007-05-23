@@ -4,8 +4,10 @@ from shotserver04.factories.models import Factory
 
 
 class Engine(models.Model):
-    name = models.CharField(maxlength=30)
-    maker = models.CharField(maxlength=30, blank=True)
+    name = models.CharField(
+        _('name'), maxlength=30)
+    maker = models.CharField(
+        _('maker'), maxlength=30, blank=True)
 
     def __str__(self):
         return self.name
@@ -21,9 +23,12 @@ class Engine(models.Model):
 
 
 class BrowserGroup(models.Model):
-    name = models.CharField(maxlength=30)
-    maker = models.CharField(maxlength=30, blank=True)
-    terminal = models.BooleanField()
+    name = models.CharField(
+        _('name'), maxlength=30)
+    maker = models.CharField(
+        _('maker'), maxlength=30, blank=True)
+    terminal = models.BooleanField(
+        _('terminal'), help_text=_("Is this a text-mode browser?"))
 
     def __str__(self):
         return self.name
@@ -39,20 +44,34 @@ class BrowserGroup(models.Model):
 
 
 class Browser(models.Model):
-    factory = models.ForeignKey(Factory)
-    user_agent = models.CharField(maxlength=200)
-    browser_group = models.ForeignKey(BrowserGroup)
-    version = models.CharField(maxlength=20)
-    major = models.IntegerField()
-    minor = models.IntegerField()
-    engine = models.ForeignKey(Engine, blank=True)
-    engine_version = models.CharField(maxlength=20, blank=True)
-    javascript = models.CharField(maxlength=20, blank=True)
-    java = models.CharField(maxlength=20, blank=True)
-    flash = models.CharField(maxlength=20, blank=True)
-    command = models.CharField(maxlength=80, blank=True)
-    disabled = models.BooleanField()
-    last_upload = models.DateTimeField(blank=True, null=True)
+    factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'))
+    user_agent = models.CharField(
+        _('user agent'), maxlength=200)
+    browser_group = models.ForeignKey(BrowserGroup,
+        verbose_name=_('browser group'))
+    version = models.CharField(
+        _('version'), maxlength=20)
+    major = models.IntegerField(
+        _('major'))
+    minor = models.IntegerField(
+        _('minor'))
+    engine = models.ForeignKey(Engine,
+        verbose_name=_('engine'), blank=True)
+    engine_version = models.CharField(
+        _('engine version'), maxlength=20, blank=True)
+    javascript = models.CharField(
+        _('Javascript'), maxlength=20, blank=True)
+    java = models.CharField(
+        _('Java'), maxlength=20, blank=True)
+    flash = models.CharField(
+        _('Flash'), maxlength=20, blank=True)
+    command = models.CharField(
+        _('command'), maxlength=80, blank=True)
+    disabled = models.BooleanField(
+        _('disabled'), help_text=_("Is this browser inactive?"))
+    last_upload = models.DateTimeField(
+        _('last upload'), blank=True, null=True)
 
     def __str__(self):
         return '%s %d.%d' % (self.browser_group.name, self.major, self.minor)

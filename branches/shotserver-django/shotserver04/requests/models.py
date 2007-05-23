@@ -15,11 +15,11 @@ class RequestGroup(models.Model):
     bits_per_pixel = models.IntegerField(
         _('bits per pixel'), null=True, blank=True)
     javascript = models.CharField(
-        _('javascript'), maxlength=20, blank=True)
+        _('Javascript'), maxlength=20, blank=True)
     java = models.CharField(
-        _('java'), maxlength=20, blank=True)
+        _('Java'), maxlength=20, blank=True)
     flash = models.CharField(
-        _('flash'), maxlength=20, blank=True)
+        _('Flash'), maxlength=20, blank=True)
     submitter = models.ForeignKey(User,
         verbose_name=_('submitter'),  blank=True, null=True)
     submitted = models.DateTimeField(
