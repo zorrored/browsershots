@@ -6,14 +6,54 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4-alpha1\n"
-"Report-Msgid-Bugs-To: johann@browsershots.org\n"
-"POT-Creation-Date: 2007-05-23 11:18+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-23 11:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <i18n@browsershots.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: factories/models.py:10
+msgid "Hostname (lowercase)"
+msgstr ""
+
+#: factories/models.py:12
+msgid "administrator"
+msgstr ""
+
+#: factories/models.py:14
+msgid "hardware architecture"
+msgstr "Hardware-Architektur"
+
+#: factories/models.py:15
+msgid "CPU type (e.g. i686 or PPC)"
+msgstr ""
+
+#: factories/models.py:17
+msgid "operating system"
+msgstr "Betriebssystem"
+
+#: factories/models.py:19
+msgid "last poll"
+msgstr "letzte Anfrage"
+
+#: factories/models.py:21
+msgid "last upload"
+msgstr "letzter Upload"
+
+#: factories/models.py:23
+msgid "uploads per hour"
+msgstr "Uploads pro Stunde"
+
+#: factories/models.py:25
+msgid "uploads per day"
+msgstr "Uploads pro Tag"
+
+#: factories/models.py:27
+msgid "created"
+msgstr "erstellt"
 
 #: factories/views.py:8
 msgid "Name"
