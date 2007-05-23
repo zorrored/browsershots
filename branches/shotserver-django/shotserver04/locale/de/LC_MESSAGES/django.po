@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4-alpha1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 11:46+0200\n"
+"POT-Creation-Date: 2007-05-23 12:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <i18n@browsershots.org>\n"
@@ -54,6 +54,14 @@ msgstr "Uploads pro Tag"
 #: factories/models.py:27
 msgid "created"
 msgstr "erstellt"
+
+#: factories/models.py:49
+msgid "factory"
+msgstr "Fabrik"
+
+#: factories/models.py:50
+msgid "factories"
+msgstr "Fabriken"
 
 #: factories/views.py:8
 msgid "Name"
