@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% load common_tags %}
+{% load i18n %}
 
-{% block title %}Website Overview{% endblock %}
+{% block title %}{% trans "Website Overview" %}{% endblock %}
 
 {% block content %}
-<h1>Website Overview</h1>
-<p>for {{ website.url }} (first submitted {% age website.submitted %} ago)</p>
+<h1>{% trans "Website Overview" %}</h1>
+<p>{% blocktrans with website.url as url %}for {{ url }}{% endblocktrans %}</p>
 
 {% for request_group in website.requestgroup_set.all %}
-<h2>{% age request_group.submitted %}</h2>
+<h2>{% blocktrans with request_group.submitted|timesince as interval %}submitted {{ interval }} ago{% endblocktrans %}</h2>
 <p>
 {% for request in request_group.request_set.all %}
 {{ request }}<br />
