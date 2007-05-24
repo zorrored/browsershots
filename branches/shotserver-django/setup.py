@@ -34,7 +34,8 @@ def find_data_files(data_dirnames=None):
                 if basename != 'templates':
                     unified_path = os.path.join(unified_path, basename)
                 yield (unified_path, files)
-        if dirpath.endswith('LC_MESSAGES'):
+        if (dirpath.endswith('/LC_MESSAGES') or
+            dirpath.endswith('/static/css')):
             files = [os.path.join(dirpath, f) for f in filenames]
             yield (dirpath, files)
 
