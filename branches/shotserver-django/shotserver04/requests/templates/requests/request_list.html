@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Screenshot requests" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Screenshot requests" %}</h1>
+
+{% if request_list %}
+<table>
+<thead>
+<tr>
+<th>Submitted</th>
+</tr>
+</thead>
+<tbody>
+{% for request in request_list %}
+<tr class="{% cycle row1,row2 %}">
+<td>{{ request.submitted|timesince }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<p>{% trans "No pending requests." %}</p>
+{% endif %}
+{% endblock %}
