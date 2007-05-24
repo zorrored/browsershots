@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load common_tags %}
 
 {% block title %}{% trans "Screenshot Factories" %}{% endblock %}
 
@@ -20,8 +19,8 @@
 <td><a href="{{ factory.get_absolute_url }}">{{ factory.name }}</a></td>
 <td>{{ factory.operating_system }}</td>
 <td>{{ factory.architecture }}</td>
-<td>{% age factory.last_poll %}</td>
-<td>{% age factory.last_upload %}</td>
+<td>{{ factory.last_poll|timesince }}</td>
+<td>{{ factory.last_upload|timesince }}</td>
 <td>{% if factory.uploads_per_hour %}{{ factory.uploads_per_hour }}{% endif %}</td>
 <td>{% if factory.uploads_per_day %}{{ factory.uploads_per_day }}{% endif %}</td>
 </tr>

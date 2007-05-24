@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% load common_tags %}
 
 {% block title %}{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}{% endblock %}
 
@@ -29,7 +28,7 @@ title="{{ browser.user_agent }}">
 <td>{{ browser.javascript }}</td>
 <td>{{ browser.java }}</td>
 <td>{{ browser.flash }}</td>
-<td>{% age browser.last_upload %}</td>
+<td>{{ browser.last_upload|timesince }}</td>
 </tr>
 {% endfor %}
 </tbody>

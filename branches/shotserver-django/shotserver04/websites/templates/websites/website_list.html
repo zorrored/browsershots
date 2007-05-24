@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load common_tags %}
 
 {% block title %}Submitted Websites{% endblock %}
 
@@ -28,7 +27,7 @@
 <tbody>
 {% for website in website_list %}
 <tr class="{% cycle row1,row2 %}">
-<td>{% age website.submitted %}</td>
+<td>{{ website.submitted|timesince }}</td>
 <td><a href="{{ website.get_absolute_url }}">{{ website.url }}</a></td>
 </tr>
 {% endfor %}
