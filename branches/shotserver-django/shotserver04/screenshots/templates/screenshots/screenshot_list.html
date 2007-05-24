@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Recent screenshots" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Recent screenshots" %}</h1>
+
+{% for screenshot in screenshot_list %}
+{{ screenshot }}
+{% endfor %}
+{% endblock %}
