@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 22:37+0200\n"
+"POT-Creation-Date: 2007-05-24 09:39+0200\n"
 "PO-Revision-Date: 2006-09-10 22:52+0000\n"
 "Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
 "MIME-Version: 1.0\n"
@@ -97,72 +97,84 @@ msgstr "Farbtiefe"
 msgid "color depths"
 msgstr "Farbtiefen"
 
-#: factories/templates/factories/factory_list.html:5
-#: factories/templates/factories/factory_list.html:8
+#: factories/templates/factories/factory_list.html:4
+#: factories/templates/factories/factory_list.html:7
 msgid "Screenshot Factories"
 msgstr "Screenshot-Fabriken"
 
-#: factories/templates/factories/factory_list.html:34
+#: factories/templates/factories/factory_list.html:33
 msgid "Previous"
 msgstr "Zurück"
 
-#: factories/templates/factories/factory_list.html:38
+#: factories/templates/factories/factory_list.html:37
 msgid "Next"
 msgstr "Weiter"
 
-#: factories/templates/factories/factory_detail.html:5
-#: factories/templates/factories/factory_detail.html:8
+#: factories/templates/factories/factory_detail.html:4
+#: factories/templates/factories/factory_detail.html:7
 #, python-format
 msgid "Screenshot Factory %(name)s"
 msgstr "Screenshot-Fabrik %(name)s"
 
-#: factories/templates/factories/factory_detail.html:14
+#: factories/templates/factories/factory_detail.html:13
 msgid "Browser"
 msgstr "Browser"
 
-#: factories/templates/factories/factory_detail.html:15
+#: factories/templates/factories/factory_detail.html:14
 msgid "Engine"
 msgstr "Engine"
 
-#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
+#: factories/templates/factories/factory_detail.html:15 requests/models.py:18
 #: browsers/models.py:64
 msgid "Javascript"
 msgstr "Javascript"
 
-#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:20
 #: browsers/models.py:66
 msgid "Java"
 msgstr "Java"
 
-#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:22
 #: browsers/models.py:68
 msgid "Flash"
 msgstr "Flash"
 
-#: factories/templates/factories/factory_detail.html:19
+#: factories/templates/factories/factory_detail.html:18
 msgid "Last<br />upload"
 msgstr "Letzter<br />Upload"
 
-#: factories/templates/factories/factory_detail.html:38
+#: factories/templates/factories/factory_detail.html:37
 msgid "No browsers."
 msgstr "Keine Browser."
 
-#: factories/templates/factories/factory_detail.html:42
+#: factories/templates/factories/factory_detail.html:41
 msgid "Screen sizes"
 msgstr "Bildschirmgrößen"
 
-#: factories/templates/factories/factory_detail.html:50
-#: factories/templates/factories/factory_detail.html:63
+#: factories/templates/factories/factory_detail.html:49
+#: factories/templates/factories/factory_detail.html:62
 msgid "Default only."
 msgstr "Nur Voreinstellung."
 
-#: factories/templates/factories/factory_detail.html:55
+#: factories/templates/factories/factory_detail.html:54
 msgid "Color depths"
 msgstr "Farbtiefen"
 
-#: common/templates/start.html:5 common/templates/start.html.py:8
+#: common/templates/start.html:4 common/templates/start.html.py:7
 msgid "Test your web design in different browsers"
 msgstr "Teste dein Webdesign in verschiedenen Browsern"
+
+#: common/templates/base.html:11
+msgid "Database queries"
+msgstr "Datenbank-Queries"
+
+#: common/templates/base.html:14
+msgid "Time"
+msgstr "Zeit"
+
+#: common/templates/base.html:14
+msgid "SQL"
+msgstr "SQL"
 
 #: common/templates/base.html:27
 msgid "Home"
@@ -259,6 +271,21 @@ msgstr "URL"
 #: websites/models.py:26
 msgid "websites"
 msgstr "Webseiten"
+
+#: websites/templates/websites/website_detail.html:4
+#: websites/templates/websites/website_detail.html:7
+msgid "Website Overview"
+msgstr "Webseiten-Übersicht"
+
+#: websites/templates/websites/website_detail.html:8
+#, python-format
+msgid "for %(url)s"
+msgstr "für %(url)s"
+
+#: websites/templates/websites/website_detail.html:11
+#, python-format
+msgid "submitted %(interval)s ago"
+msgstr "eingetragen vor %(interval)s"
 
 #: screenshots/models.py:10 nonces/models.py:10
 msgid "hashkey"
@@ -425,9 +452,6 @@ msgstr "Architekturen"
 
 #~ msgid "Resolution"
 #~ msgstr "Auflösung"
-
-#~ msgid "Time"
-#~ msgstr "Zeit"
 
 #~ msgid "There are %d jobs in the queue."
 #~ msgstr "In der Warteschlange befinden sich %d Aufträge."

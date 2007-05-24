@@ -8,10 +8,10 @@
 </head>
 <body>
 {% block content %}{% endblock %}
-{% if query_list %}<h2 style="clear: both;">Database queries</h2>
+{% if query_list %}<h2 style="clear: both;">{% trans "Database queries" %}</h2>
 <table>
 <thead>
-<tr><th>Time</th><th>SQL</th></tr>
+<tr><th>{% trans "Time" %}</th><th>{% trans "SQL" %}</th></tr>
 </thead>
 <tbody>
 {% for query in query_list %}
