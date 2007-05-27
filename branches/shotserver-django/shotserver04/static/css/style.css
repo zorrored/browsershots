@@ -3,5 +3,57 @@ body {
   background-color: white;
   color: black;
 }
+div#content {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  margin-left: -480px;
+  width: 960px;
+  border: 1px dotted #ccc;
+}
 
 pre.signature { font-weight: bold; }
+
+ul#mainmenu {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+ul#mainmenu li {
+  margin: 0;
+  padding: 6px;
+  float: left;
+  font-size: 14px;
+  text-align: center;
+  vertical-align: bottom;
+  background-position: 50% 50%;
+}
+ul#mainmenu a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+table#sqldebug {
+  clear: both;
+  font-size: x-small;
+  color: gray;
+}
+table#sqldebug td { vertical-align: top; }
+
+tr.row1 { background-color: #EEE; }
+tr.row2 { background-color: #FFF; }
+
+div.options {
+  float: left;
+  width: 160px;
+}
+div.options select { width: 140px; }
+
+input#id_url { width: 800px; }
+
+h1 { margin: 0; }
+h2 { margin: 0; }

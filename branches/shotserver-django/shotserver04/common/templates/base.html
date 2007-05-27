@@ -7,11 +7,15 @@
 <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
 </head>
 <body>
+<div id="content">
 {% block content %}{% endblock %}
-{% if query_list %}<h2 style="clear: both;">{% trans "Database queries" %}</h2>
-<table>
+{% if query_list %}
+<table id="sqldebug">
 <thead>
-<tr><th>{% trans "Time" %}</th><th>{% trans "SQL" %}</th></tr>
+<tr>
+<th>{% trans "Time" %}</th>
+<th>{% trans "Database queries" %}</th>
+</tr>
 </thead>
 <tbody>
 {% for query in query_list %}
@@ -23,7 +27,8 @@
 </tbody>
 </table>
 {% endif %}
-<ul class="mainmenu">
+</div>
+<ul id="mainmenu">
 <li><a href="/">{% trans "Home" %}</a></li>
 <li><a href="/screenshots/">{% trans "Screenshots" %}</a></li>
 <li><a href="/requests/">{% trans "Queue" %}</a></li>
