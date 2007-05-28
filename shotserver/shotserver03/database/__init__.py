@@ -80,6 +80,7 @@ def lastval():
     cur.execute("SELECT lastval()")
     return cur.fetchone()[0]
 
+
 class Printer:
     """Emulate a cursor for use with doctest."""
     @staticmethod

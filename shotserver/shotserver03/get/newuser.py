@@ -61,7 +61,7 @@ def input_row(fields, key, example, caption=None):
         js = ';'.join((
             "document.getElementById('pwgen').style.display='block'",
             "document.getElementById('click').style.display='none'"))
-        link =  xhtml.tag('a', "Click here!", onclick=js, id_="click")
+        link = xhtml.tag('a', "Click here!", onclick=js, id_="click")
         xhtml.write_tag('td', link, class_="gray")
     else:
         xhtml.write_tag('td', example, class_="gray")

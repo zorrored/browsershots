@@ -24,9 +24,11 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+
 class IncorrectBasepathError(Exception):
     """The given base path does not match the actual URI."""
     pass
+
 
 class URI:
     """

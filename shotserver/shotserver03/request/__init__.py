@@ -27,6 +27,7 @@ __author__ = "$Author$"
 from shotserver03.request import uri, params
 from shotserver03.interface import xhtml
 
+
 class RequestInfo:
     """
     Additional info about a mod_python Apache request object.
