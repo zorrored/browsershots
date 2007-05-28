@@ -19,4 +19,4 @@ install :
 	apache2ctl restart
 
 clean :
-	rm -rf build dist *.png *.ppm check-*
+	rm -rf build dist check-*
