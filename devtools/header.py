@@ -34,6 +34,7 @@ CRLF = """
 """
 
 import sys
+import os
 
 
 def remove_shebang(lines):
@@ -146,6 +147,7 @@ def _main():
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print "Copy header comment from one file to many others."
-        print "usage: %s <from-file> <to-file-1> <to-file-2> ..."
+        print "usage: %s <from-file> <to-file-1> <to-file-2> ..." % (
+            os.path.basename(sys.argv[0]))
     else:
         _main()
