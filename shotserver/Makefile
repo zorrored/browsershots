@@ -5,6 +5,9 @@
 # W0622 - Redefining built-in
 DISABLE="R0903,W0142,W0232,W0622"
 
+pep8 :
+	pep8.py --filename=*.py --repeat .
+
 pylint :
 	@find shotserver03 scripts -name "*.py" > check-pylint
 	@echo "Running PyLint on "`wc -l < check-pylint`" files..."
