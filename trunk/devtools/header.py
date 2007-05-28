@@ -34,6 +34,7 @@ import sys
 
 
 def remove_shebang(lines):
+    """Remove shebang and coding from lines and return removed lines."""
     result = []
     if lines[0].startswith('#!'):
         result.append(lines.pop(0))
@@ -43,6 +44,7 @@ def remove_shebang(lines):
 
 
 def remove_comment(lines):
+    """Remove block comment from lines and return removed lines."""
     result = []
     while lines[0].startswith('#'):
         result.append(lines.pop(0))
@@ -50,6 +52,7 @@ def remove_comment(lines):
 
 
 def adjust_lines(lines, header):
+    """Replace the header comment and return True if it has changed."""
     shebang = remove_shebang(lines)
     old_header = remove_comment(lines)
     lines[0:0] = shebang + header
@@ -57,6 +60,7 @@ def adjust_lines(lines, header):
 
 
 def adjust_file(filename, header):
+    """Adjust header comment in file and print filename if changed."""
     lines = file(filename).readlines()
     if adjust_lines(lines, header):
         print filename
@@ -64,17 +68,17 @@ def adjust_file(filename, header):
 
 
 def adjust_files(filenames, header):
+    """Adjust header comment in many files."""
     filenames.sort()
     for filename in filenames:
         adjust_file(filename, header)
 
 
 def _main():
+    """Main function."""
     reference = file(sys.argv[1]).readlines()
-    shebang = remove_shebang(reference)
-    # print 'shebang', shebang
+    remove_shebang(reference)
     header = remove_comment(reference)
-    # print 'header', header
     adjust_files(sys.argv[2:], header)
 
 
