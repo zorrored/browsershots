@@ -21,9 +21,9 @@ Output formatting for human consumption.
 >>> __builtins__.req = sys.stdout
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from shotserver03.interface import xhtml
 

@@ -20,9 +20,9 @@
 Redirect a screenshot factory browser and save the user-agent string.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import time
 from mod_python import util

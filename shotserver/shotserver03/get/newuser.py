@@ -20,9 +20,9 @@
 Sign up to create a user account.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import commands
 from shotserver03.interface import xhtml

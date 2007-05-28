@@ -20,9 +20,9 @@
 Show all queued requests for a given website.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import time
 from shotserver03.interface import xhtml, human

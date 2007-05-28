@@ -20,9 +20,9 @@
 Database interface for screenshot table.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 
 def hashkey_to_serial(hashkey):

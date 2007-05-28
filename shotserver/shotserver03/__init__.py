@@ -21,9 +21,9 @@ Top-level shotserver module.
 All HTTP requests are handled from here.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import sys
 import traceback

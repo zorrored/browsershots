@@ -20,9 +20,9 @@
 Database interface for factory_browser table.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 
 def get_command(factory, browser, major, minor):
