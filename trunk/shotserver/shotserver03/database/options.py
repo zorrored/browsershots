@@ -20,9 +20,9 @@
 Database interface for lock table.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 # How long may a factory work on a screenshot request?
 lock_timeout = '0:03:00'

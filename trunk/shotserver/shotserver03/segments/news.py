@@ -20,9 +20,9 @@
 Show the latest news headlines from the blog.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import os
 import re

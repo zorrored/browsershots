@@ -20,9 +20,9 @@
 Add new screenshot jobs to the queue.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import re
 import urllib

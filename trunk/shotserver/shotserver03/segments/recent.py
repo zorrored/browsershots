@@ -20,9 +20,9 @@
 Display recent screenshots in a horizontal row.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import cgi
 from shotserver03.interface import xhtml

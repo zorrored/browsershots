@@ -20,9 +20,9 @@
 Home page.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from shotserver03.interface import xhtml
 from shotserver03.segments import inputurl, about, news, sponsors

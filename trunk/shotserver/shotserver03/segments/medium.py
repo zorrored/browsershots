@@ -20,9 +20,9 @@
 Show a medium-sized preview of a screenshot.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from shotserver03.interface import xhtml
 

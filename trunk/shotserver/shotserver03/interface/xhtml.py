@@ -26,9 +26,9 @@ XHTML formatting and output.
 </a>
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 open_tags = []
 class ClosingTagMismatch(Exception):

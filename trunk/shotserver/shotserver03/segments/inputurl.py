@@ -20,9 +20,9 @@
 URL input for submitting a new URL.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import cgi
 from shotserver03.interface import xhtml

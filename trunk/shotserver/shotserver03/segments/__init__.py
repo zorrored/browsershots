@@ -21,6 +21,6 @@ XHTML segments for web frontend. Each segment is wrapped in a div or table
 or p or something, with the segment name in its id attribute.
 """
 
-__revision__ = '$Rev$'
-__date__ = '$Date$'
-__author__ = '$Author$'
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
