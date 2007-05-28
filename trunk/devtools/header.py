@@ -49,10 +49,8 @@ def remove_shebang(lines):
 def remove_comment(lines):
     """Remove block comment from lines and return removed lines."""
     result = []
-    while lines[0].startswith('#'):
+    while lines and lines[0].startswith('#'):
         result.append(lines.pop(0))
-    while lines[0].strip() == '':
-        lines.pop(0)
     return result
 
 
@@ -60,12 +58,12 @@ def remove_docstring(lines):
     """Remove docstring from lines and return removed lines."""
     if not lines[0].startswith('"""'):
         return ['"""' + CRLF, '"""' + CRLF]
-    result = [lines.pop(0)]
-    while lines[0].strip() != '"""':
+    first_line = lines.pop(0)
+    result = [first_line]
+    if first_line.count('"') < 6:
+        while lines and lines[0].strip() != '"""':
+            result.append(lines.pop(0))
         result.append(lines.pop(0))
-    result.append(lines.pop(0))
-    while lines[0].strip() == '':
-        lines.pop(0)
     return result
 
 
@@ -79,7 +77,7 @@ def extract_value(line):
 def remove_keywords(lines):
     """Remove subversion keywords and return old values or defaults."""
     result = [None] * 3
-    while True:
+    while lines:
         line = lines[0].strip()
         if line.startswith('__revision__'):
             result[0] = extract_value(lines.pop(0))
@@ -89,8 +87,6 @@ def remove_keywords(lines):
             result[2] = extract_value(lines.pop(0))
         else:
             break
-    while lines[0].strip() == '':
-        lines.pop(0)
     if result[0] is None:
         result[0] = '$Rev$'
     if result[1] is None:
@@ -100,19 +96,26 @@ def remove_keywords(lines):
     return result
 
 
+def remove_blank_lines(lines):
+    """Remove blank lines from the beginning."""
+    while lines and lines[0].strip() == '':
+        lines.pop(0)
+
+
 def adjust_lines(lines, header):
     """Replace the header comment and add subversion keywords."""
     old_lines = lines[:]
     shebang = remove_shebang(lines)
     remove_comment(lines)
+    remove_blank_lines(lines)
     old_docstring = remove_docstring(lines)
+    remove_blank_lines(lines)
     old_revision, old_date, old_author = remove_keywords(lines)
     lines[0:0] = shebang + header + [CRLF] + old_docstring + [
         CRLF,
         '__revision__ = "%s"%s' % (old_revision, CRLF),
         '__date__ = "%s"%s' % (old_date, CRLF),
         '__author__ = "%s"%s' % (old_author, CRLF),
-        CRLF,
         ]
     return lines != old_lines
 
