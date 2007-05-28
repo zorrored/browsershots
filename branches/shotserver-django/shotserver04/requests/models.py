@@ -21,7 +21,7 @@ class RequestGroup(models.Model):
     flash = models.CharField(
         _('Flash'), maxlength=20, blank=True)
     submitter = models.ForeignKey(User,
-        verbose_name=_('submitter'),  blank=True, null=True)
+        verbose_name=_('submitter'), blank=True, null=True)
     submitted = models.DateTimeField(
         _('submitted'), auto_now_add=True)
     expire = models.DateTimeField(
@@ -51,9 +51,9 @@ class RequestGroup(models.Model):
 
 class Request(models.Model):
     request_group = models.ForeignKey(RequestGroup,
-        verbose_name=_('request group'),  raw_id_admin=True)
+        verbose_name=_('request group'), raw_id_admin=True)
     platform = models.ForeignKey(Platform,
-        verbose_name=_('platform'),  blank=True, null=True)
+        verbose_name=_('platform'), blank=True, null=True)
     browser_group = models.ForeignKey(BrowserGroup,
         verbose_name=_('browser group'))
     major = models.IntegerField(

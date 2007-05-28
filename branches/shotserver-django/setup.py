@@ -3,7 +3,8 @@ import os
 import sys
 
 # Tell distutils to put data files next to Python files
-# http://groups.google.com/group/comp.lang.python/browse_thread/thread/35ec7b2fed36eaec/2105ee4d9e8042cb
+# See http://groups.google.com/group/comp.lang.python/
+# browse_thread/thread/35ec7b2fed36eaec/2105ee4d9e8042cb
 from distutils.command.install import INSTALL_SCHEMES
 for scheme in INSTALL_SCHEMES.values():
     scheme['data'] = scheme['purelib']
