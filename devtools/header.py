@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# pep8.py - Check Python source code formatting, according to PEP 8
+# header.py - Copy header comments between Python source files
 # Copyright (C) 2006 Johann C. Rocholl <johann@browsershots.org>
 #
 # Permission is hereby granted, free of charge, to any person
@@ -30,6 +30,9 @@ __revision__ = '$Rev$'
 __date__ = '$Date$'
 __author__ = '$Author$'
 
+CRLF = """
+"""
+
 import sys
 
 
@@ -48,15 +51,70 @@ def remove_comment(lines):
     result = []
     while lines[0].startswith('#'):
         result.append(lines.pop(0))
+    while lines[0].strip() == '':
+        lines.pop(0)
+    return result
+
+
+def remove_docstring(lines):
+    """Remove docstring from lines and return removed lines."""
+    if not lines[0].startswith('"""'):
+        return ['"""' + CRLF, '"""' + CRLF]
+    result = [lines.pop(0)]
+    while lines[0].strip() != '"""':
+        result.append(lines.pop(0))
+    result.append(lines.pop(0))
+    while lines[0].strip() == '':
+        lines.pop(0)
+    return result
+
+
+def extract_value(line):
+    """Extract string from subversion keyword line."""
+    for char in ('"', "'"):
+        if line.count(char):
+            return char.join(line.split(char)[1:-1])
+
+
+def remove_keywords(lines):
+    """Remove subversion keywords and return old values or defaults."""
+    result = [None] * 3
+    while True:
+        line = lines[0].strip()
+        if line.startswith('__revision__'):
+            result[0] = extract_value(lines.pop(0))
+        elif line.startswith('__date__'):
+            result[1] = extract_value(lines.pop(0))
+        elif line.startswith('__author__'):
+            result[2] = extract_value(lines.pop(0))
+        else:
+            break
+    while lines[0].strip() == '':
+        lines.pop(0)
+    if result[0] is None:
+        result[0] = '$Rev$'
+    if result[1] is None:
+        result[1] = '$Date$'
+    if result[2] is None:
+        result[2] = '$Author$'
     return result
 
 
 def adjust_lines(lines, header):
-    """Replace the header comment and return True if it has changed."""
+    """Replace the header comment and add subversion keywords."""
+    old_lines = lines[:]
     shebang = remove_shebang(lines)
-    old_header = remove_comment(lines)
-    lines[0:0] = shebang + header
-    return header != old_header
+    remove_comment(lines)
+    old_docstring = remove_docstring(lines)
+    old_revision, old_date, old_author = remove_keywords(lines)
+    lines[0:0] = shebang + header + [CRLF] + old_docstring + [
+        CRLF,
+        '__revision__ = "%s"%s' % (old_revision, CRLF),
+        '__date__ = "%s"%s' % (old_date, CRLF),
+        '__author__ = "%s"%s' % (old_author, CRLF),
+        CRLF,
+        ]
+    return lines != old_lines
 
 
 def adjust_file(filename, header):
