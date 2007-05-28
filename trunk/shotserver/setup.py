@@ -6,7 +6,7 @@ setup(name = 'ShotServer',
       author = 'Johann C. Rocholl',
       author_email = 'johann@browsershots.org',
       url = 'http://v03.browsershots.org/',
-      package_dir = {'shotserver03': 'lib'},
+      package_dir = {'shotserver03': 'shotserver03'},
       packages = [
             'shotserver03',
             'shotserver03.get',
