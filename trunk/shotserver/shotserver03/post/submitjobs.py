@@ -28,6 +28,7 @@ import re
 import urllib
 from shotserver03 import database
 
+
 class UnexpectedInput(Exception):
     """Post form input had unexpected fields."""
     pass

@@ -31,6 +31,8 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 open_tags = []
+
+
 class ClosingTagMismatch(Exception):
     """
     Last opened tag does not match closing tag name.

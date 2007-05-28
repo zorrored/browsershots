@@ -99,9 +99,11 @@ def find_latest(backup, basename):
 
 def usage(message = None):
     """
-    Print a usage line (and possibly an error message) and exit with return code 1.
+    Print a usage line (and possibly an error message) and exit with
+    return code 1.
     """
-    print "usage: %s [--full] <repos_path> <backup_dir>" % os.path.basename(sys.argv[0])
+    print "usage: %s [--full] <repos_path> <backup_dir>" % (
+        os.path.basename(sys.argv[0]))
     if message:
         print "error:", message
     sys.exit(1)
@@ -155,7 +157,8 @@ def run_backup():
     # move older version of same file out of the way
     date = backticks("date +%Y-%m-%d").strip()
     outfile = "%s/%s-r%u-r%u.dump.bz2" % (backup, basename, start, stop)
-    oldfile = "%s/%s-r%u-r%u.%s.dump.bz2" % (backup, basename, start, stop, date)
+    oldfile = "%s/%s-r%u-r%u.%s.dump.bz2" % (
+        backup, basename, start, stop, date)
     if os.path.exists(outfile):
         system("mv %s %s" % (outfile, oldfile))
 

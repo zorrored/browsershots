@@ -33,7 +33,7 @@ def write():
     """
     queue_link = xhtml.tag('a', '%s',
         href="http://v03.browsershots.org/queue/")
-    wiki_link =  xhtml.tag('a', '%s',
+    wiki_link = xhtml.tag('a', '%s',
         href="http://trac.browsershots.org/wiki/HowToCreateNewShotFactory")
     xhtml.write_open_tag('p', _id="queue-notice")
     req.write('\n'.join((

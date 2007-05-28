@@ -32,9 +32,11 @@ import socket
 from mod_python import util
 from shotserver03 import database
 
+
 class UnexpectedInput(Exception):
     """Post form input had unexpected fields."""
     pass
+
 
 class UnsupportedProtocol(Exception):
     """The specified web address didn't start with http:// or https://."""
