@@ -152,9 +152,6 @@ def start(request):
     else:
         # Show HTML form
         query_list = connection.queries
-        for index in range(len(query_list)):
-            query_list[index]['sql'] = (
-                query_list[index]['sql'].replace('","', '", "'))
         return render_to_response('start.html', locals())
 
 
