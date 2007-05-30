@@ -18,7 +18,8 @@ class Dispatcher:
         self.encoding = encoding
 
     def register_function(self, function, name = None):
-        """Registers a function to respond to XML-RPC requests.
+        """
+        Registers a function to respond to XML-RPC requests.
 
         The optional name argument can be used to set a Unicode name
         for the function.
@@ -29,8 +30,7 @@ class Dispatcher:
 
     @signature(list)
     def system_listMethods(self, request):
-        """system.listMethods() => ['add', 'subtract', 'multiply']
-
+        """
         Returns a list of the methods supported by the server.
         """
         methods = self.funcs.keys()
@@ -39,11 +39,8 @@ class Dispatcher:
 
     @signature(list, str)
     def system_methodSignature(self, request, method_name):
-        """system.methodSignature('add') => [['double', 'int', 'int']]
-
+        """
         Returns a list describing the possible signatures of the method.
-        In the above example, the add method takes two integers as
-        arguments and returns a double result.
         """
         if method_name not in self.funcs:
             return 'method not found'
@@ -59,8 +56,7 @@ class Dispatcher:
 
     @signature(str, str)
     def system_methodHelp(self, request, method_name):
-        """system.methodHelp('add') => "Adds two integers together"
-
+        """
         Returns a string containing documentation for the specified method.
         """
         if method_name not in self.funcs:
@@ -72,8 +68,7 @@ class Dispatcher:
 
     @signature(list, list)
     def system_multicall(self, request, call_list):
-        """system.multicall([{'methodName': 'add', 'params': [2, 2]}]) => [[4]]
-
+        """
         Allows the caller to package multiple XML-RPC calls into a single
         request.
 
