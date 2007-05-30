@@ -15,12 +15,12 @@
 </div>
 
 <div class="gray background" style="clear:both">
-{% for browser_form in browser_forms %}
+{% for browser_form in browser_forms %}{% if browser_form.fields %}
 <div class="browsers linux" style="float:left">
 <h2>{{ browser_form.platform.name }}</h2>
 {{ browser_form }}
 </div>
-{% endfor %}
+{% endif %}{% endfor %}
 </div>
 
 <div class="gray background" style="clear:both">
