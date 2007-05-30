@@ -40,7 +40,8 @@ class Dispatcher:
     @signature(list, str)
     def system_methodSignature(self, request, method_name):
         """
-        Returns a list describing the possible signatures of the method.
+        Returns a list describing the possible signatures of the
+        method.
         """
         if method_name not in self.funcs:
             return 'method not found'
@@ -57,20 +58,23 @@ class Dispatcher:
     @signature(str, str)
     def system_methodHelp(self, request, method_name):
         """
-        Returns a string containing documentation for the specified method.
+        Returns a string containing documentation for the specified
+        method.
         """
         if method_name not in self.funcs:
             return 'method not found'
         method = self.funcs[method_name]
-        lines = method.__doc__.split('\n')
-        lines = [line.strip() for line in lines]
+        lines = method.__doc__.splitlines()
+        indent = min([len(line) - len(line.lstrip())
+                      for line in lines if line.strip()])
+        lines = [line[indent:] for line in lines]
         return '\n'.join(lines).strip()
 
     @signature(list, list)
     def system_multicall(self, request, call_list):
         """
-        Allows the caller to package multiple XML-RPC calls into a single
-        request.
+        Allows the caller to package multiple XML-RPC calls into a
+        single request.
 
         See http://www.xmlrpc.com/discuss/msgReader$1208
         """
