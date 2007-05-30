@@ -9,11 +9,13 @@ def challenge(request, factory_name):
     """
     Generate a nonce for authentication.
 
-    Arguments:
-        factory_name string (lowercase, normally from hostname)
+    Arguments
+    ~~~~~~~~~
+    * factory_name string (lowercase, normally from hostname)
 
-    Return value:
-        challenge string (algorithm$salt$nonce)
+    Return value
+    ~~~~~~~~~~~~
+    * challenge string (algorithm$salt$nonce)
 
     The return value is a string that contains the password crypt
     algorithm (sha1 or md5), the salt, and the nonce, separated by '$'
@@ -38,12 +40,14 @@ def verify(request, factory_name, crypted_password):
     """
     Test authentication with a crypted password.
 
-    Arguments:
-        factory_name string (lowercase, normally from hostname)
-        crypted_password string (lowercase hexadecimal, length 32)
+    Arguments
+    ~~~~~~~~~
+    * factory_name string (lowercase, normally from hostname)
+    * crypted_password string (lowercase hexadecimal, length 32)
 
-    Return value:
-        status string ('OK' or short error message)
+    Return value
+    ~~~~~~~~~~~~
+    * status string ('OK' or short error message)
 
     To compute the crypted password, you must first generate a nonce
     and get the crypt algorithm and salt (see nonces.challenge). Then

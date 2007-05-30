@@ -6,6 +6,12 @@ from shotserver04 import settings
 from shotserver04.xmlrpc import signature
 from shotserver04.xmlrpc.dispatcher import Dispatcher
 
+rst_settings = {
+    'initial_header_level': 2,
+    'doctitle_xform': False,
+    'docinfo_xform': False,
+    }
+
 
 def xmlrpc(request):
     if len(request.POST):
@@ -23,7 +29,6 @@ def method_help(request, method_name):
         raise Http404 # Don't POST here, only GET documentation
     if method_name not in dispatcher.system_listMethods(request):
         raise Http404 # Method not found
-    docstring = dispatcher.system_methodHelp(request, method_name)
     signatures = dispatcher.system_methodSignature(request, method_name)
     signature_lines = []
     for signature in signatures:
@@ -31,6 +36,15 @@ def method_help(request, method_name):
         params = signature[1:]
         signature_lines.append('%s(%s) => %s' % (
             method_name, ', '.join(params), result))
+    docstring = dispatcher.system_methodHelp(request, method_name)
+    try:
+        from docutils import core
+        parts = core.publish_parts(
+            source=docstring, writer_name='html',
+            settings_overrides=rst_settings)
+        docstring = parts['html_body']
+    except ImportError:
+        docstring = '<pre>\n%s\n</pre>\n' % docstring
     return render_to_response('xmlrpc/method_help.html', locals())
 
 

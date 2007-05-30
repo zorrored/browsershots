@@ -8,11 +8,13 @@ def features(request, factory_name):
     """
     Generate SQL WHERE clause to match requests for this factory.
 
-    Arguments:
-        factory_name string (lowercase, normally from hostname)
+    Arguments
+    ~~~~~~~~~
+    * factory_name string (lowercase, normally from hostname)
 
-    Return value:
-        where string (SQL WHERE clause)
+    Return value
+    ~~~~~~~~~~~~
+    * where string (SQL WHERE clause)
     """
     factory = Factory.objects.get(name=factory_name)
     joins, where, params = factory.features_q().get_sql(Request._meta)

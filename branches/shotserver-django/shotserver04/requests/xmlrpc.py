@@ -10,24 +10,27 @@ def poll(request, factory_name, crypted_password):
     """
     Try to find a matching screenshot request for a given factory.
 
-    Arguments:
-        factory_name string (lowercase, normally from hostname)
-        crypted_password string (lowercase hexadecimal, length 32)
+    Arguments
+    ~~~~~~~~~
+    * factory_name string (lowercase, normally from hostname)
+    * crypted string (lowercase hexadecimal, length 32)
 
-    Return value:
-        options dict (screenshot request configuration)
+    Return value
+    ~~~~~~~~~~~~
+    * options dict (screenshot request configuration)
 
     If successful, the options dict will have the following keys:
-        status string ('OK' or short error message)
-        browser string (browser name)
-        version string (browser version)
-        width int (screen width in pixels)
-        height int (screen height in pixels)
-        bpp int (color depth in bits per pixel)
-        javascript string (javascript version)
-        java string (java version)
-        flash string (flash version)
-        command string (browser command to run)
+
+    * status string ('OK' or short error message)
+    * browser string (browser name)
+    * version string (browser version)
+    * width int (screen width in pixels)
+    * height int (screen height in pixels)
+    * bpp int (color depth in bits per pixel)
+    * javascript string (javascript version)
+    * java string (java version)
+    * flash string (flash version)
+    * command string (browser command to run)
 
     The matching screenshot request is locked for 3 minutes. This is
     to make sure that no requests are processed by two factories at
