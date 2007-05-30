@@ -9,11 +9,17 @@ def challenge(request, factory_name):
     """
     Generate a nonce for authentication.
 
-    The return value is a string that contains the password crypt
-    algorithm (e.g. 'sha1'), the salt, and the nonce, separated by '$'
-    signs::
+    Arguments:
+        factory_name string (lowercase, normally from hostname)
 
-      algo$salt$nonce
+    Return value:
+        challenge string (algorithm$salt$nonce)
+
+    The return value is a string that contains the password crypt
+    algorithm (sha1 or md5), the salt, and the nonce, separated by '$'
+    signs, for example::
+
+        sha1$Y7JaR/..$eb403b48ec9bf887ba645408acad17a5
     """
     factory = Factory.objects.get(name=factory_name)
     hashkey = crypto.random_md5()
@@ -28,13 +34,27 @@ def challenge(request, factory_name):
 
 
 @signature(str, str, str)
-def checkPassword(request, factory_name, crypted_password):
+def verify(request, factory_name, crypted_password):
     """
-    Verify a crypted password that was created like this::
+    Test authentication with a crypted password.
 
-      md5(algo(salt + password) + nonce)
+    Arguments:
+        factory_name string (lowercase, normally from hostname)
+        crypted_password string (lowercase hexadecimal, length 32)
 
-    The return value is the string 'OK' or a short error message.
+    Return value:
+        status string ('OK' or short error message)
+
+    To compute the crypted password, you must first generate a nonce
+    and get the crypt algorithm and salt (see nonces.challenge). Then
+    you can encrypt the password like this::
+
+        crypted_password = md5(sha1(salt + password) + nonce)
+
+    If requested by the challenge, you must use md5 rather than sha1
+    for the inner hash. The result of each hash function call must be
+    formatted as lowercase hexadecimal. The calls to nonces.challenge
+    and nonces.verify must be made from the same IP address.
     """
     factory = Factory.objects.get(name=factory_name)
     ip = request.META['REMOTE_ADDR']

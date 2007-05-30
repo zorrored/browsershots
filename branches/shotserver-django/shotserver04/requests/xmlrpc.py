@@ -8,12 +8,36 @@ from datetime import datetime
 @signature(dict, str, str)
 def poll(request, factory_name, crypted_password):
     """
-    Find a matching screenshot request. If successful, the screenshot
-    request is locked for the calling factory, and the function
-    returns a dict with information about the screenshot request.
+    Try to find a matching screenshot request for a given factory.
+
+    Arguments:
+        factory_name string (lowercase, normally from hostname)
+        crypted_password string (lowercase hexadecimal, length 32)
+
+    Return value:
+        options dict (screenshot request configuration)
+
+    If successful, the options dict will have the following keys:
+        status string ('OK' or short error message)
+        browser string (browser name)
+        version string (browser version)
+        width int (screen width in pixels)
+        height int (screen height in pixels)
+        bpp int (color depth in bits per pixel)
+        javascript string (javascript version)
+        java string (java version)
+        flash string (flash version)
+        command string (browser command to run)
+
+    The matching screenshot request is locked for 3 minutes. This is
+    to make sure that no requests are processed by two factories at
+    the same time. If your factory takes longer to process a request,
+    it is possible that somebody else will lock it. In this case, your
+    upload will fail.
 
     If an error occurs, the 'status' field in the result dict will
-    contain a short error message.
+    contain a short error message, and the other keys will not be
+    available.
     """
     # Verify authentication
     factory = Factory.objects.get(name=factory_name)
