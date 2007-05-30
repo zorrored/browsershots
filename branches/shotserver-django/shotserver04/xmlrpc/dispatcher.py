@@ -1,72 +1,8 @@
 # Inspired by SimpleXMLRPCServer.py by Brian Quinlan (brian@sweetapp.com).
 
-import re
 import sys
 import xmlrpclib
-
-signature_match = re.compile(r'^([\w\.]+)\((.*?)\)\s*=>\s*(.*)$').match
-
-
-def first_parameter(values):
-    if values.startswith('['):
-        types, rest = parse_types(values[1:])
-        assert rest.startswith(']')
-        return 'array', rest[1:]
-    elif values.startswith('('):
-        types, rest = parse_types(values[1:])
-        assert rest.startswith(')')
-        return 'tuple', rest[1:]
-    elif values.startswith('{'):
-        types, rest = parse_types(values[1:], ',:')
-        assert rest.startswith('}')
-        return 'dict', rest[1:]
-    elif values.startswith('"'):
-        index = 1
-        while index < len(values) and (
-            values[index] != '"' or values[index-1] == '\\'):
-            index += 1
-        return 'string', values[index+1:]
-    elif values.startswith("'"):
-        index = 1
-        while index < len(values) and (
-            values[index] != "'" or values[index-1] == '\\'):
-            index += 1
-        return 'string', values[index+1:]
-    elif values[0] in '0123456789':
-        index = 1
-        while index < len(values) and values[index] in '0123456789.':
-            index += 1
-        if values[:index].count('.'):
-            return 'float', values[index:]
-        else:
-            return 'int', values[index:]
-    words = values.split(',')
-    first_word = words[0].strip()
-    if first_word in ('True', 'False'):
-        return 'bool', values[len(words[0]):]
-    return 'unknown', values
-
-
-def parse_types(values, separators=','):
-    """
-    >>> parse_types('[], (), {}, "", 1')
-    (['array', 'tuple', 'dict', 'string', 'int'], '')
-    >>> parse_types("['(']")
-    (['array'], '')
-    >>> parse_types('{1:["a"]}')
-    (['dict'], '')
-    """
-    if values.strip() == '':
-        return [], ''
-    types = []
-    while values:
-        type_name, values = first_parameter(values)
-        types.append(type_name)
-        values = values.lstrip()
-        if values and values[0] in separators:
-            values = values[1:].lstrip()
-        else:
-            return types, values
+from shotserver04.xmlrpc import signature
 
 
 class Dispatcher:
@@ -91,6 +27,7 @@ class Dispatcher:
             name = function.__name__
         self.funcs[name] = function
 
+    @signature(list)
     def system_listMethods(self, request):
         """system.listMethods() => ['add', 'subtract', 'multiply']
 
@@ -100,6 +37,7 @@ class Dispatcher:
         methods.sort()
         return methods
 
+    @signature(list, str)
     def system_methodSignature(self, request, method_name):
         """system.methodSignature('add') => [['double', 'int', 'int']]
 
@@ -110,22 +48,16 @@ class Dispatcher:
         if method_name not in self.funcs:
             return 'method not found'
         method = self.funcs[method_name]
-        lines = method.__doc__.split('\n')
-        while lines and lines[0].strip() == '':
-            lines.pop(0)
-        if not lines:
-            return 'empty docstring'
-        first_line = lines[0].strip()
-        match = signature_match(first_line)
-        if not match:
-            return 'signature not found'
-        name, params, result = match.groups()
-        if name != method_name:
-            return 'signature name mismatch'
-        result_types, rest = parse_types(result)
-        params_types, rest = parse_types(params)
-        return [result_types + params_types]
+        if hasattr(method, '_signature'):
+            result = []
+            for x in method._signature:
+                if x is str:
+                    result.append('string')
+                else:
+                    result.append(x.__name__)
+            return [result]
 
+    @signature(str, str)
     def system_methodHelp(self, request, method_name):
         """system.methodHelp('add') => "Adds two integers together"
 
@@ -138,6 +70,7 @@ class Dispatcher:
         lines = [line.strip() for line in lines]
         return '\n'.join(lines).strip()
 
+    @signature(list, list)
     def system_multicall(self, request, call_list):
         """system.multicall([{'methodName': 'add', 'params': [2, 2]}]) => [[4]]
 

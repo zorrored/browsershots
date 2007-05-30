@@ -5,11 +5,11 @@
 {% block content %}
 <h1>{{ method_name }}</h1>
 <pre class="signature">
-{{ signature }}
-</pre>
+{% for signature in signature_lines %}{{ signature }}
+{% endfor %}</pre>
 {% if docstring %}
-<pre>
+<p>
 {{ docstring }}
-</pre>
+</p>
 {% endif %}
 {% endblock %}

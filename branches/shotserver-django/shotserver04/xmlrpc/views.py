@@ -3,6 +3,7 @@ import types
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from shotserver04 import settings
+from shotserver04.xmlrpc import signature
 from shotserver04.xmlrpc.dispatcher import Dispatcher
 
 
@@ -23,15 +24,13 @@ def method_help(request, method_name):
     if method_name not in dispatcher.system_listMethods(request):
         raise Http404 # Method not found
     docstring = dispatcher.system_methodHelp(request, method_name)
-    if docstring.startswith(method_name):
-        lines = docstring.split('\n')
-        signature = lines[0]
-        docstring = '\n'.join(lines[1:]).strip()
-    else:
-        signature = dispatcher.system_methodSignature(request, method_name)
+    signatures = dispatcher.system_methodSignature(request, method_name)
+    signature_lines = []
+    for signature in signatures:
         result = signature[0]
         params = signature[1:]
-        signature = '%s(%s) => %s' % (method_name, params, result)
+        signature_lines.append('%s(%s) => %s' % (
+            method_name, ', '.join(params), result))
     return render_to_response('xmlrpc/method_help.html', locals())
 
 
@@ -42,6 +41,9 @@ for app in settings.INSTALLED_APPS:
     except ImportError:
         continue
     for name, item in module.__dict__.items():
-        if isinstance(item, types.FunctionType):
-            function_name = '%s.%s' % (app.split('.')[-1], name)
-            dispatcher.register_function(item, function_name)
+        if item is signature:
+            continue
+        if not isinstance(item, types.FunctionType):
+            continue
+        function_name = '%s.%s' % (app.split('.')[-1], name)
+        dispatcher.register_function(item, function_name)
