@@ -18,7 +18,7 @@ for method in methods:
             result = signature.pop(0)
             print "%s(%s) => %s" % (method, ', '.join(signature), result)
     else:
-        print signatures
+        print "%s (%s)" % (method, signatures)
     doc = server.system.methodHelp(method)
     print '    ' + doc.replace('\n', '\n    ') + '\n'
 print sys.argv[1]
