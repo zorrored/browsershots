@@ -21,7 +21,7 @@ def challenge(request, factory_name):
     algorithm (sha1 or md5), the salt, and the nonce, separated by '$'
     signs, for example::
 
-        sha1$Y7JaR/..$eb403b48ec9bf887ba645408acad17a5
+        sha1$0c0ac$eb403b48ec9bf887ba645408acad17a5
 
     See nonces.verify for how to encrypt your password with the nonce.
     """
