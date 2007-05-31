@@ -19,7 +19,4 @@ def features(request, factory_name):
     factory = Factory.objects.get(name=factory_name)
     joins, where, params = factory.features_q().get_sql(Request._meta)
     where = ' AND '.join(where)
-    for index in range(len(params)):
-        if params[index] is None:
-            params[index] = 'NULL'
     return where % tuple(params)

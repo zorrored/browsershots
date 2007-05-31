@@ -64,30 +64,30 @@ class Factory(models.Model):
                 self.colordepths_q())
 
     def platform_q(self):
-        return (Q(platform=None) |
+        return (Q(platform__isnull=True) |
                 Q(platform__id=self.operating_system.platform.id))
 
     def operating_system_q(self):
-        return (Q(operating_system=None) |
+        return (Q(operating_system__isnull=True) |
                 Q(operating_system__id=self.operating_system.id))
 
     def browsers_q(self):
         q = Q()
         for browser in self.browser_set.all():
             group = Q(browser_group__id=browser.browser_group.id)
-            major = Q(major=None) | Q(major=browser.major)
-            minor = Q(minor=None) | Q(minor=browser.minor)
+            major = Q(major__isnull=True) | Q(major=browser.major)
+            minor = Q(minor__isnull=True) | Q(minor=browser.minor)
             q |= (group & major & minor)
         return q
 
     def screensizes_q(self):
-        q = Q(request_group__width=None)
+        q = Q(request_group__width__isnull=True)
         for screensize in self.screensize_set.all():
             q |= Q(request_group__width=screensize.width)
         return q
 
     def colordepths_q(self):
-        q = Q(request_group__bits_per_pixel=None)
+        q = Q(request_group__bits_per_pixel__isnull=True)
         for colordepth in self.colordepth_set.all():
             q |= Q(request_group__bits_per_pixel=colordepth.bits_per_pixel)
         return q
