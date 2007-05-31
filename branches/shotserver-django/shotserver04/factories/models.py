@@ -73,7 +73,7 @@ class Factory(models.Model):
 
     def browsers_q(self):
         q = Q()
-        for browser in self.browser_set.all():
+        for browser in self.browser_set.filter(disabled=False):
             group = Q(browser_group__id=browser.browser_group.id)
             major = Q(major__isnull=True) | Q(major=browser.major)
             minor = Q(minor__isnull=True) | Q(minor=browser.minor)
