@@ -32,15 +32,17 @@ def poll(request, factory_name, crypted_password):
     * flash string (flash version)
     * command string (browser command to run)
 
+    If an error occurs, the 'status' field in the result dict will
+    contain a short error message, and the other keys will not be
+    available.
+
+    Locking
+    ~~~~~~~
     The matching screenshot request is locked for 3 minutes. This is
     to make sure that no requests are processed by two factories at
     the same time. If your factory takes longer to process a request,
     it is possible that somebody else will lock it. In this case, your
     upload will fail.
-
-    If an error occurs, the 'status' field in the result dict will
-    contain a short error message, and the other keys will not be
-    available.
     """
     # Verify authentication
     factory = Factory.objects.get(name=factory_name)
