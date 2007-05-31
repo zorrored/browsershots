@@ -45,6 +45,9 @@ def method_help(request, method_name):
         docstring = parts['html_body']
     except ImportError:
         docstring = '<pre>\n%s\n</pre>\n' % docstring
+    for method in dispatcher.funcs:
+        docstring = docstring.replace(
+            method, '<a href="../%s/">%s</a>' % (method, method))
     return render_to_response('xmlrpc/method_help.html', locals())
 
 
