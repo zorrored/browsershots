@@ -56,17 +56,22 @@ def poll(request, factory_name, encrypted_password):
     factory.last_poll = datetime.now()
     factory.save()
     # Find matching request
-    matches = Request.objects.filter(factory.features_q()).order_by(
-        '-requests_request__request_group.submitted')[:1]
+    matches = Request.objects.select_related()
+    matches = matches.filter(factory.features_q())
+    matches = matches.order_by('-requests_request__request_group.submitted')
+    matches = matches[:1]
     if len(matches) == 0:
         return {'status': 'No matching screenshot requests'}
     request = matches[0]
-    browser = Browser.objects.get(
+    browser = Browser.objects.select_related().get(
         factory=factory,
         browser_group=request.browser_group,
         major=request.major,
         minor=request.minor)
     return {
         'status': 'OK',
+        'browser': browser.browser_group.name,
         'command': browser.command,
+        'width': request.request_group.width,
+        'bpp': request.request_group.bits_per_pixel,
         }
