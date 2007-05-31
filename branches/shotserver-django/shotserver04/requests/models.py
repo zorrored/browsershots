@@ -12,6 +12,8 @@ class RequestGroup(models.Model):
         verbose_name=_('website'), raw_id_admin=True)
     width = models.IntegerField(
         _('screen width'), null=True, blank=True)
+    height = models.IntegerField(
+        _('screen height'), null=True, blank=True)
     bits_per_pixel = models.IntegerField(
         _('bits per pixel'), null=True, blank=True)
     javascript = models.CharField(
