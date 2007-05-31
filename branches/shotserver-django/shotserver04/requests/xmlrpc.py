@@ -2,6 +2,7 @@ from shotserver04.xmlrpc import signature
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
+from shotserver04.browsers.models import Browser
 from datetime import datetime
 
 
@@ -55,7 +56,17 @@ def poll(request, factory_name, encrypted_password):
     factory.last_poll = datetime.now()
     factory.save()
     # Find matching request
-    matching_requests = Request.objects.filter(factory.features_q())
-    if len(matching_requests) == 0:
+    matches = Request.objects.filter(factory.features_q()).order_by(
+        '-requests_request__request_group.submitted')[:1]
+    if len(matches) == 0:
         return {'status': 'No matching screenshot requests'}
-    return {'status': 'OK'}
+    request = matches[0]
+    browser = Browser.objects.get(
+        factory=factory,
+        browser_group=request.browser_group,
+        major=request.major,
+        minor=request.minor)
+    return {
+        'status': 'OK',
+        'command': browser.command,
+        }
