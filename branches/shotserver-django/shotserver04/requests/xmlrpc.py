@@ -1,4 +1,4 @@
-from shotserver04.xmlrpc import signature
+from shotserver04.xmlrpc import signature, ErrorMessage
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
@@ -48,40 +48,44 @@ def poll(request, factory_name, encrypted_password):
     it is possible that somebody else will lock it. In this case, your
     upload will fail.
     """
-    # Verify authentication
-    factory = Factory.objects.get(name=factory_name)
-    status = nonces.verify(request, factory, encrypted_password)
-    if status != 'OK':
-        return {'status': status}
-    # Update last_poll timestamp
-    factory.last_poll = datetime.now()
-    factory.save()
-    # Find matching request
-    matches = Request.objects.select_related()
-    matches = matches.filter(factory.features_q())
-    matches = matches.order_by('-requests_request__request_group.submitted')
-    matches = matches[:1]
-    if len(matches) == 0:
-        return {'status': 'No matching screenshot requests'}
-    request = matches[0]
-    browser = Browser.objects.select_related().get(
-        factory=factory,
-        browser_group=request.browser_group,
-        major=request.major,
-        minor=request.minor)
-    command = browser.command
-    if not command:
-        command = browser.browser_group.name.lower()
-    return {
-        'status': 'OK',
-        'request': request.id,
-        'command': command,
-        'browser': browser.browser_group.name,
-        'version': browser.version,
-        'width': request.request_group.width or 0,
-        'height': request.request_group.height or 0,
-        'bpp': request.request_group.bits_per_pixel or 0,
-        'javascript': request.request_group.javascript,
-        'java': request.request_group.java,
-        'flash': request.request_group.flash,
-        }
+    try:
+        # Verify authentication
+        factory = Factory.objects.get(name=factory_name)
+        nonces.verify(request, factory, encrypted_password)
+        # Update last_poll timestamp
+        factory.last_poll = datetime.now()
+        factory.save()
+        # Find matching request
+        matches = Request.objects.select_related()
+        matches = matches.filter(factory.features_q())
+        matches = matches.order_by(
+            '-requests_request__request_group.submitted')
+        matches = matches[:1]
+        if len(matches) == 0:
+            raise ErrorMessage('No matching request.')
+        request = matches[0]
+        # Get matching browser
+        browser = Browser.objects.select_related().get(
+            factory=factory,
+            browser_group=request.browser_group,
+            major=request.major,
+            minor=request.minor)
+        command = browser.command
+        if not command:
+            command = browser.browser_group.name.lower()
+        # Build result dict
+        return {
+            'status': 'OK',
+            'request': request.id,
+            'command': command,
+            'browser': browser.browser_group.name,
+            'version': browser.version,
+            'width': request.request_group.width or 0,
+            'height': request.request_group.height or 0,
+            'bpp': request.request_group.bits_per_pixel or 0,
+            'javascript': request.request_group.javascript,
+            'java': request.request_group.java,
+            'flash': request.request_group.flash,
+            }
+    except ErrorMessage, error:
+        return {'status': error.message}

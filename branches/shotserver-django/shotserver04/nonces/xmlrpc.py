@@ -1,4 +1,4 @@
-from shotserver04.xmlrpc import signature
+from shotserver04.xmlrpc import signature, ErrorMessage
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
 from shotserver04.factories.models import Factory
@@ -82,14 +82,14 @@ def verify(request, factory_name, encrypted_password):
         where=["MD5(%s || hashkey) = %s"],
         params=[hashed, encrypted_password])
     if len(nonces) == 0:
-        return 'Password mismatch'
+        raise ErrorMessage('Password mismatch.')
     if len(nonces) > 1:
-        return 'Hash collision'
+        raise ErrorMessage('Hash collision.')
     # Check nonce freshness
     nonce = nonces[0]
     if datetime.now() - nonce.created > timedelta(0, 600, 0):
         nonce.delete()
-        return 'Nonce expired'
+        raise ErrorMessage('Nonce expired.')
     # Success!
     nonce.delete()
     return 'OK'

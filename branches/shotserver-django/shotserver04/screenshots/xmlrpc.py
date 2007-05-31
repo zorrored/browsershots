@@ -1,7 +1,9 @@
 import xmlrpclib
-from shotserver04.xmlrpc import signature
+from shotserver04.xmlrpc import signature, ErrorMessage
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
+from shotserver04.requests.models import Request
+from shotserver04.screenshots import storage
 
 
 @signature(str, str, str, int, xmlrpclib.Binary)
@@ -24,7 +26,12 @@ def upload(post, factory_name, encrypted_password, request, screenshot):
     """
     # Verify authentication
     factory = Factory.objects.get(name=factory_name)
-    status = nonces.verify(post, factory, encrypted_password)
-    if status != 'OK':
-        return status
+    nonces.verify(post, factory, encrypted_password)
+    try:
+        request_id = request
+        request = Request.objects.get(pk=request_id)
+    except Reqest.NotFound:
+        raise ErrorMessage('Request %d not found.' % request_id)
+    hashkey = storage.save_upload(screenshot)
+    ppmname = storage.pngtoppm(hashkey)
     return 'OK'

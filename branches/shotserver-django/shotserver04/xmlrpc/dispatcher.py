@@ -2,7 +2,7 @@
 
 import sys
 import xmlrpclib
-from shotserver04.xmlrpc import signature
+from shotserver04.xmlrpc import signature, ErrorMessage
 
 
 class Dispatcher:
@@ -96,6 +96,9 @@ class Dispatcher:
         try:
             response = self.dispatch(method, request, params)
             response = xmlrpclib.dumps(response, methodresponse=True,
+                allow_none=self.allow_none, encoding=self.encoding)
+        except ErrorMessage, error:
+            response = xmlrpclib.dumps((error.message, ),
                 allow_none=self.allow_none, encoding=self.encoding)
         except xmlrpclib.Fault, fault:
             response = xmlrpclib.dumps(fault,
