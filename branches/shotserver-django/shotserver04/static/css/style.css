@@ -42,6 +42,7 @@ table#sqldebug {
   font-size: x-small;
   color: gray;
 }
+table#sqldebug th { text-align: left; }
 table#sqldebug td { vertical-align: top; }
 
 tr.row1 { background-color: #EEE; }
