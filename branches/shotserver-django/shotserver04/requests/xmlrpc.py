@@ -25,6 +25,8 @@ def poll(request, factory_name, encrypted_password):
     If successful, the options dict will have the following keys:
 
     * status string ('OK' or short error message)
+    * request int (for redirect and screenshots.upload)
+    * command string (browser command to run)
     * browser string (browser name)
     * version string (browser version)
     * width int (screen width in pixels)
@@ -33,7 +35,6 @@ def poll(request, factory_name, encrypted_password):
     * javascript string (javascript version)
     * java string (java version)
     * flash string (flash version)
-    * command string (browser command to run)
 
     If an error occurs, the 'status' field in the result dict will
     contain a short error message, and the other keys will not be
@@ -73,9 +74,14 @@ def poll(request, factory_name, encrypted_password):
         command = browser.browser_group.name.lower()
     return {
         'status': 'OK',
-        'browser': browser.browser_group.name,
-        'command': command,
-        'width': request.request_group.width,
-        'bpp': request.request_group.bits_per_pixel,
         'request': request.id,
+        'command': command,
+        'browser': browser.browser_group.name,
+        'version': browser.version,
+        'width': request.request_group.width or 0,
+        'height': request.request_group.height or 0,
+        'bpp': request.request_group.bits_per_pixel or 0,
+        'javascript': request.request_group.javascript,
+        'java': request.request_group.java,
+        'flash': request.request_group.flash,
         }
