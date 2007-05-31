@@ -75,8 +75,6 @@ class Dispatcher:
         """
         Allows the caller to package multiple XML-RPC calls into a
         single request.
-
-        See http://www.xmlrpc.com/discuss/msgReader$1208
         """
         results = []
         for call in call_list:
