@@ -50,12 +50,10 @@ def poll(request, factory_name, encrypted_password):
     status = nonces.verify(request, factory_name, encrypted_password)
     if status != 'OK':
         return {'status': status}
-
     # Update last_poll timestamp
     factory = Factory.objects.get(name=factory_name)
     factory.last_poll = datetime.now()
     factory.save()
-
     # Find matching request
     matching_requests = Request.objects.filter(factory.features_q())
     if len(matching_requests) == 0:

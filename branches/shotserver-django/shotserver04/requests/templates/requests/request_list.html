@@ -16,7 +16,11 @@
 <tbody>
 {% for request in request_list %}
 <tr class="{% cycle row1,row2 %}">
-<td>{{ request.submitted|timesince }}</td>
+<td>{{ request.request_group.submitted|timesince }}</td>
+<td>{{ request.browser_group.name }} {{ request.major }}.{{ request.minor }}</td>
+<td>{{ request.platform.name }}</td>
+<td>{{ request.request_group.width }}</td>
+<td>{{ request.request_group.bits_per_pixel }}</td>
 </tr>
 {% endfor %}
 </tbody>

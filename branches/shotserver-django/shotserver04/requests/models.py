@@ -44,6 +44,7 @@ class RequestGroup(models.Model):
     class Meta:
         verbose_name = _('request group')
         verbose_name_plural = _('request groups')
+        ordering = ('-submitted', )
 
     def __str__(self):
         return str(self.website)
