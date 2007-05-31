@@ -1,7 +1,8 @@
 from shotserver04.xmlrpc import signature
-from shotserver04.nonces import crypto, util
+from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
 from shotserver04.factories.models import Factory
+from datetime import datetime, timedelta
 
 
 @signature(str, str)
@@ -66,4 +67,25 @@ def verify(request, factory_name, encrypted_password):
     """
     factory = Factory.objects.get(name=factory_name)
     ip = request.META['REMOTE_ADDR']
-    return util.verify(factory, ip, encrypted_password)
+    # Get password hash from database
+    password = factory.admin.password
+    if password.count('$'):
+        algo, salt, hashed = password.split('$')
+    else:
+        algo, salt, hashed = 'md5', '', password
+    # Get matching nonces
+    nonces = Nonce.objects.filter(factory=factory, ip=ip).extra(
+        where=["MD5(%s || hashkey) = %s"],
+        params=[hashed, encrypted_password])
+    if len(nonces) == 0:
+        return 'Password mismatch'
+    if len(nonces) > 1:
+        return 'Hash collision'
+    # Check nonce freshness
+    nonce = nonces[0]
+    if datetime.now() - nonce.created > timedelta(0, 600, 0):
+        nonce.delete()
+        return 'Nonce expired'
+    # Success!
+    nonce.delete()
+    return 'OK'

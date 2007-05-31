@@ -1,19 +1,21 @@
 from shotserver04.xmlrpc import signature
-from shotserver04.nonces import util
+from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
 from datetime import datetime
 
 
 @signature(dict, str, str)
-def poll(request, factory_name, crypted_password):
+def poll(request, factory_name, encrypted_password):
     """
     Try to find a matching screenshot request for a given factory.
 
     Arguments
     ~~~~~~~~~
     * factory_name string (lowercase, normally from hostname)
-    * crypted string (lowercase hexadecimal, length 32)
+    * encrypted_password string (lowercase hexadecimal, length 32)
+
+    See nonces.verify for how to encrypt your password.
 
     Return value
     ~~~~~~~~~~~~
@@ -45,13 +47,12 @@ def poll(request, factory_name, crypted_password):
     upload will fail.
     """
     # Verify authentication
-    factory = Factory.objects.get(name=factory_name)
-    ip = request.META['REMOTE_ADDR']
-    status = util.verify(factory, ip, crypted_password)
+    status = nonces.verify(request, factory_name, encrypted_password)
     if status != 'OK':
         return {'status': status}
 
     # Update last_poll timestamp
+    factory = Factory.objects.get(name=factory_name)
     factory.last_poll = datetime.now()
     factory.save()
 
