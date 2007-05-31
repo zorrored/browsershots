@@ -1,5 +1,5 @@
 {% load i18n %}
-{% load sqlwrap %}
+{% load sql_queries %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -10,24 +10,7 @@
 <body>
 <div id="content">
 {% block content %}{% endblock %}
-{% if query_list %}
-<table id="sqldebug">
-<thead>
-<tr>
-<th>{% trans "Time" %}</th>
-<th>{% trans "Database queries" %}</th>
-</tr>
-</thead>
-<tbody>
-{% for query in query_list %}
-<tr class="{% cycle row1,row2 %}">
-<td>{{ query.time }}</td>
-<td>{{ query.sql|sqlwrap }}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-{% endif %}
+{% sql_queries %}
 </div>
 <ul id="mainmenu">
 <li><a href="/">{% trans "Home" %}</a></li>

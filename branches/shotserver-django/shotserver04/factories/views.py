@@ -1,4 +1,3 @@
-from django.db import connection
 from django.http import Http404
 from django.shortcuts import render_to_response
 from shotserver04.factories.models import Factory
@@ -44,7 +43,6 @@ def factory_list(request):
                             'class_attrib': class_attrib})
     factory_list = list(Factory.objects.select_related().order_by(
         order, 'name'))
-    query_list = connection.queries
     return render_to_response('factories/factory_list.html', locals())
 
 
@@ -56,5 +54,4 @@ def factory_detail(request, factory_name):
     browser_list = Browser.objects.select_related().filter(factory=factory.id)
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
-    query_list = connection.queries
     return render_to_response('factories/factory_detail.html', locals())

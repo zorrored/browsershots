@@ -1,4 +1,3 @@
-from django.db import connection
 from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
@@ -151,7 +150,6 @@ def start(request):
         return HttpResponseRedirect(website.get_absolute_url())
     else:
         # Show HTML form
-        query_list = connection.queries
         return render_to_response('start.html', locals())
 
 

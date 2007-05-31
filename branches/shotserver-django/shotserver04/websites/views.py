@@ -1,4 +1,3 @@
-from django.db import connection
 from django.http import Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.websites.models import Website
@@ -14,17 +13,14 @@ def website_list(request):
             website_list = website_list.filter(url__contains=search)
     website_list = website_list.order_by('-submitted')
     website_list = website_list[:100]
-    query_list = connection.queries
     return render_to_response('websites/website_list.html', locals())
 
 
 def website_detail(request, website_url):
     website = get_object_or_404(Website, url=website_url)
-    query_list = connection.queries
     return render_to_response('websites/website_detail.html', locals())
 
 
 def website_numeric(request, website_id):
     website = get_object_or_404(Website, id=website_id)
-    query_list = connection.queries
     return render_to_response('websites/website_detail.html', locals())

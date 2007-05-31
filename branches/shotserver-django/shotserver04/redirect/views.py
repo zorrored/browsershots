@@ -1,4 +1,3 @@
-from django.db import connection
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from shotserver04.nonces import xmlrpc as nonces
