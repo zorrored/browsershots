@@ -68,10 +68,14 @@ def poll(request, factory_name, encrypted_password):
         browser_group=request.browser_group,
         major=request.major,
         minor=request.minor)
+    command = browser.command
+    if not command:
+        command = browser.browser_group.name.lower()
     return {
         'status': 'OK',
         'browser': browser.browser_group.name,
-        'command': browser.command,
+        'command': command,
         'width': request.request_group.width,
         'bpp': request.request_group.bits_per_pixel,
+        'request': request.id,
         }
