@@ -47,11 +47,11 @@ def poll(request, factory_name, encrypted_password):
     upload will fail.
     """
     # Verify authentication
-    status = nonces.verify(request, factory_name, encrypted_password)
+    factory = Factory.objects.get(name=factory_name)
+    status = nonces.verify(request, factory, encrypted_password)
     if status != 'OK':
         return {'status': status}
     # Update last_poll timestamp
-    factory = Factory.objects.get(name=factory_name)
     factory.last_poll = datetime.now()
     factory.save()
     # Find matching request

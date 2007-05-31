@@ -65,7 +65,11 @@ def verify(request, factory_name, encrypted_password):
     formatted as lowercase hexadecimal. The calls to nonces.challenge
     and nonces.verify must be made from the same IP address.
     """
-    factory = Factory.objects.get(name=factory_name)
+    # Shortcut for use with other XML-RPC methods
+    if isinstance(factory_name, Factory):
+        factory = factory_name
+    else:
+        factory = Factory.objects.get(name=factory_name)
     ip = request.META['REMOTE_ADDR']
     # Get password hash from database
     password = factory.admin.password
