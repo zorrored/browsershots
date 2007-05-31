@@ -5,8 +5,7 @@ from shotserver04.factories.models import Factory
 
 
 @signature(str, str, str, int, xmlrpclib.Binary)
-def upload(post_request,
-           factory_name, encrypted_password, request, screenshot):
+def upload(post, factory_name, encrypted_password, request, screenshot):
     """
     Submit a multi-page screenshot as a lossless PNG file.
 
@@ -25,7 +24,7 @@ def upload(post_request,
     """
     # Verify authentication
     factory = Factory.objects.get(name=factory_name)
-    status = nonces.verify(request, factory, encrypted_password)
+    status = nonces.verify(post, factory, encrypted_password)
     if status != 'OK':
         return status
     return 'OK'
