@@ -4,7 +4,8 @@ from django.db import connection
 register = template.Library()
 
 TABLE_TEMPLATE = """
-<table id="sqldebug">
+<p class="debug"><a onclick="document.getElementById('sql-queries').style.visibility='visible'" href="#sql" name="sql">%s</a></p>
+<table class="debug" id="sql-queries" style="visibility:hidden">
 <thead>
 <tr><th>%s</th><th>%s</th></tr>
 </thead>
@@ -27,6 +28,7 @@ def sql_queries():
             query['sql'].replace('","', '", "'),
             ))
     return TABLE_TEMPLATE % (
+        _("Database queries"),
         _("Time"),
         _("Database queries"),
         '\n'.join(rows),
