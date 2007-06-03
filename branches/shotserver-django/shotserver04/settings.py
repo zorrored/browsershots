@@ -27,6 +27,11 @@ TIME_ZONE = 'America/Chicago'
 # http://blogs.law.harvard.edu/tech/stories/storyReader$15
 LANGUAGE_CODE = 'en-us'
 
+LANGUAGES = (
+    ('en', 'English'),
+    ('de', 'Deutsch'),
+    )
+
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
