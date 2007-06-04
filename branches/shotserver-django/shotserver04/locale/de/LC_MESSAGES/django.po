@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-24 09:39+0200\n"
+"POT-Creation-Date: 2007-06-04 16:39+0200\n"
 "PO-Revision-Date: 2006-09-10 22:52+0000\n"
 "Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "Bildschirmgröße"
 msgid "screen sizes"
 msgstr "Bildschirmgrößen"
 
-#: factories/models.py:124 requests/models.py:16
+#: factories/models.py:124 requests/models.py:18
 msgid "bits per pixel"
 msgstr "Bits pro Pixel"
 
@@ -124,17 +124,17 @@ msgstr "Browser"
 msgid "Engine"
 msgstr "Engine"
 
-#: factories/templates/factories/factory_detail.html:15 requests/models.py:18
+#: factories/templates/factories/factory_detail.html:15 requests/models.py:20
 #: browsers/models.py:64
 msgid "Javascript"
 msgstr "Javascript"
 
-#: factories/templates/factories/factory_detail.html:16 requests/models.py:20
+#: factories/templates/factories/factory_detail.html:16 requests/models.py:22
 #: browsers/models.py:66
 msgid "Java"
 msgstr "Java"
 
-#: factories/templates/factories/factory_detail.html:17 requests/models.py:22
+#: factories/templates/factories/factory_detail.html:17 requests/models.py:24
 #: browsers/models.py:68
 msgid "Flash"
 msgstr "Flash"
@@ -160,51 +160,51 @@ msgstr "Nur Voreinstellung."
 msgid "Color depths"
 msgstr "Farbtiefen"
 
+#: common/templatetags/sql_queries.py:31 common/templatetags/sql_queries.py:33
+msgid "Database queries"
+msgstr "Datenbank-Queries"
+
+#: common/templatetags/sql_queries.py:32
+msgid "Time"
+msgstr "Zeit"
+
 #: common/templates/start.html:4 common/templates/start.html.py:7
 msgid "Test your web design in different browsers"
 msgstr "Teste dein Webdesign in verschiedenen Browsern"
 
-#: common/templates/base.html:11
-msgid "Database queries"
-msgstr "Datenbank-Queries"
+#: common/templates/start.html:11
+msgid "Enter your web address here:"
+msgstr "Gib deine Webadresse hier ein:"
 
-#: common/templates/base.html:14
-msgid "Time"
-msgstr "Zeit"
-
-#: common/templates/base.html:14
-msgid "SQL"
-msgstr "SQL"
-
-#: common/templates/base.html:27
+#: common/templates/base.html:15
 msgid "Home"
 msgstr "Home"
 
-#: common/templates/base.html:28
+#: common/templates/base.html:16
 msgid "Screenshots"
 msgstr "Screenshots"
 
-#: common/templates/base.html:29
+#: common/templates/base.html:17
 msgid "Queue"
 msgstr "Warteschlange"
 
-#: common/templates/base.html:30
+#: common/templates/base.html:18
 msgid "Factories"
 msgstr "Fabriken"
 
-#: common/templates/base.html:31
+#: common/templates/base.html:19
 msgid "Search"
 msgstr "Suche"
 
-#: common/templates/base.html:32
+#: common/templates/base.html:20
 msgid "Download"
 msgstr "Download"
 
-#: common/templates/base.html:33
+#: common/templates/base.html:21
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: common/templates/base.html:34
+#: common/templates/base.html:22
 msgid "Blog"
 msgstr "Blog"
 
@@ -216,49 +216,62 @@ msgstr "Webseite"
 msgid "screen width"
 msgstr "Bildschirmbreite"
 
-#: requests/models.py:24
+#: requests/models.py:16
+msgid "screen height"
+msgstr "Bildschirmhöhe"
+
+#: requests/models.py:26
 msgid "submitter"
 msgstr "Auftraggeber"
 
-#: requests/models.py:26 websites/models.py:17
+#: requests/models.py:28 websites/models.py:17
 msgid "submitted"
 msgstr "eingetragen"
 
-#: requests/models.py:28
+#: requests/models.py:30
 msgid "expire"
 msgstr "Ablaufzeit"
 
-#: requests/models.py:45 requests/models.py:54
+#: requests/models.py:47 requests/models.py:57
 msgid "request group"
 msgstr "Auftragsgruppe"
 
-#: requests/models.py:46
+#: requests/models.py:48
 msgid "request groups"
 msgstr "Auftragsgruppen"
 
-#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
+#: requests/models.py:59 platforms/models.py:19 platforms/models.py:26
 msgid "platform"
 msgstr "Plattform"
 
-#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
+#: requests/models.py:61 browsers/models.py:41 browsers/models.py:52
 msgid "browser group"
 msgstr "Browsergruppe"
 
-#: requests/models.py:60 browsers/models.py:56
+#: requests/models.py:63 browsers/models.py:56
 msgid "major"
 msgstr "Hauptversion"
 
-#: requests/models.py:62 browsers/models.py:58
+#: requests/models.py:65 browsers/models.py:58
 msgid "minor"
 msgstr "Unterversion"
 
-#: requests/models.py:75 screenshots/models.py:12
+#: requests/models.py:78 screenshots/models.py:12
 msgid "request"
 msgstr "Auftrag"
 
-#: requests/models.py:76
+#: requests/models.py:79
 msgid "requests"
 msgstr "Aufträge"
+
+#: requests/templates/requests/request_list.html:4
+#: requests/templates/requests/request_list.html:7
+msgid "Screenshot requests"
+msgstr "Screenshot-Aufträge"
+
+#: requests/templates/requests/request_list.html:29
+msgid "No pending requests."
+msgstr ""
 
 #: websites/models.py:9
 msgid "Missing slash after the hostname."
@@ -322,6 +335,11 @@ msgstr "Screenshot"
 #: screenshots/models.py:49
 msgid "screenshots"
 msgstr "Screenshots"
+
+#: screenshots/templates/screenshots/screenshot_list.html:4
+#: screenshots/templates/screenshots/screenshot_list.html:7
+msgid "Recent screenshots"
+msgstr "Aktuelle Screenshots"
 
 #: nonces/models.py:12
 msgid "IP address"
@@ -389,7 +407,7 @@ msgstr "Browser"
 
 #: platforms/models.py:10
 msgid "order"
-msgstr "Position"
+msgstr "Reihenfolge"
 
 #: platforms/models.py:20
 msgid "platforms"
@@ -411,8 +429,8 @@ msgstr "Architektur"
 msgid "architectures"
 msgstr "Architekturen"
 
-#~ msgid "Recent screenshots"
-#~ msgstr "Aktuelle Screenshots"
+#~ msgid "SQL"
+#~ msgstr "SQL"
 
 #~ msgid "Screenshots by URL"
 #~ msgstr "Screenshots nach URL"
@@ -521,9 +539,6 @@ msgstr "Architekturen"
 
 #~ msgid "Options"
 #~ msgstr "Optionen"
-
-#~ msgid "Enter your web address."
-#~ msgstr "Gib deine Webadresse ein."
 
 #~ msgid "Make Screenshots"
 #~ msgstr "Screenshots erstellen"
