@@ -9,15 +9,15 @@ class Screenshot(models.Model):
     hashkey = models.SlugField(
         _('hashkey'), maxlength=32, unique=True)
     request = models.ForeignKey(Request,
-        verbose_name=_('request'), raw_id_admin=True, null=True, blank=True)
+        verbose_name=_('request'), raw_id_admin=True)
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'), raw_id_admin=True)
     browser = models.ForeignKey(Browser,
-        verbose_name=_('browser'), raw_id_admin=True, null=True, blank=True)
+        verbose_name=_('browser'), raw_id_admin=True)
     width = models.IntegerField(
-        _('width'), null=True, blank=True)
+        _('width'))
     height = models.IntegerField(
-        _('height'), null=True, blank=True)
+        _('height'))
     uploaded = models.DateTimeField(
         _('uploaded'), auto_now_add=True)
 
