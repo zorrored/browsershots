@@ -3,8 +3,12 @@ from django.db import connection
 
 register = template.Library()
 
+JAVASCRIPT = """
+document.getElementById('sql-queries').style.visibility='visible';
+""".strip()
+
 TABLE_TEMPLATE = """
-<p class="debug"><a onclick="document.getElementById('sql-queries').style.visibility='visible'" href="#sql" name="sql">%s</a></p>
+<p class="debug"><a onclick="%s" href="#sql" name="sql">%s</a></p>
 <table class="debug" id="sql-queries" style="visibility:hidden">
 <thead>
 <tr><th>%s</th><th>%s</th></tr>
@@ -28,6 +32,7 @@ def sql_queries():
             query['sql'].replace('","', '", "'),
             ))
     return TABLE_TEMPLATE % (
+        JAVASCRIPT,
         _("Database queries"),
         _("Time"),
         _("Database queries"),
