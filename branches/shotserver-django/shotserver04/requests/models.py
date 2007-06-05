@@ -63,6 +63,12 @@ class Request(models.Model):
         _('major'), blank=True, null=True)
     minor = models.IntegerField(
         _('minor'), blank=True, null=True)
+    factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'), blank=True, null=True)
+    locked = models.DateTimeField(
+        _('locked'), blank=True, null=True)
+    redirected = models.DateTimeField(
+        _('redirected'), blank=True, null=True)
 
     class Admin:
         fields = (
