@@ -30,7 +30,7 @@ def upload(post, factory_name, encrypted_password, request, screenshot):
     try:
         request_id = request
         request = Request.objects.get(pk=request_id)
-    except Reqest.NotFound:
+    except Request.NotFound:
         raise ErrorMessage('Request %d not found.' % request_id)
     hashkey = storage.save_upload(screenshot)
     ppmname = storage.pngtoppm(hashkey)
