@@ -5,6 +5,7 @@ from shotserver04.websites.models import Website
 from shotserver04.platforms.models import Platform
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
+from shotserver04.xmlrpc import ErrorMessage
 
 
 class RequestGroup(models.Model):
@@ -71,6 +72,8 @@ class Request(models.Model):
         verbose_name=_('browser'), blank=True, null=True)
     redirected = models.DateTimeField(
         _('redirected'), blank=True, null=True)
+    uploaded =  models.DateTimeField(
+        _('uploaded'), blank=True, null=True)
 
     class Admin:
         fields = (
