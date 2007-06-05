@@ -5,7 +5,8 @@ from shotserver04.factories.models import Factory
 
 class Engine(models.Model):
     name = models.CharField(
-        _('name'), maxlength=30)
+        _('name'), maxlength=30,
+        help_text=_("e.g. Gecko / KHTML / AppleWebKit"))
     maker = models.CharField(
         _('maker'), maxlength=30, blank=True)
 
@@ -24,7 +25,8 @@ class Engine(models.Model):
 
 class BrowserGroup(models.Model):
     name = models.CharField(
-        _('name'), maxlength=30)
+        _('name'), maxlength=30,
+        help_text=_("e.g. Firefox / Internet Explorer / Safari"))
     maker = models.CharField(
         _('maker'), maxlength=30, blank=True)
     terminal = models.BooleanField(
@@ -69,9 +71,19 @@ class Browser(models.Model):
     command = models.CharField(
         _('command'), maxlength=80, blank=True)
     disabled = models.BooleanField(
-        _('disabled'), help_text=_("Is this browser inactive?"))
+        _('disabled'),
+        help_text=_("Deactivate this browser temporarily"))
     last_upload = models.DateTimeField(
         _('last upload'), blank=True, null=True)
+    uploads_per_hour = models.IntegerField(
+        _('uploads per hour'), blank=True, null=True)
+    uploads_per_day = models.IntegerField(
+        _('uploads per day'), blank=True, null=True)
+    queue_estimate = models.IntegerField(
+        _('queue estimate'), blank=True, null=True,
+        help_text=_("Seconds between request submission and upload"))
+    created = models.DateTimeField(
+        _('created'), auto_now_add=True)
 
     def __str__(self):
         return '%s %d.%d' % (self.browser_group.name, self.major, self.minor)
@@ -88,7 +100,8 @@ class Browser(models.Model):
             'disabled',
             )}),
             )
-        list_display = ('browser_group', 'version', 'command', 'factory')
+        list_display = ('browser_group', 'version', 'command',
+                        'uploads_per_day', 'queue_estimate', 'factory')
         list_filter = ('factory', 'browser_group')
         search_fields = ('user_agent', 'command',
                          'javascript', 'java', 'flash')
