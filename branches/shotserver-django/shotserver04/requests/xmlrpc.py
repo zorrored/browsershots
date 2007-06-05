@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 @signature(dict, str, str)
-def poll(request, factory_name, encrypted_password):
+def poll(http_request, factory_name, encrypted_password):
     """
     Try to find a matching screenshot request for a given factory.
 
@@ -51,7 +51,7 @@ def poll(request, factory_name, encrypted_password):
     try:
         # Verify authentication
         factory = Factory.objects.get(name=factory_name)
-        nonces.verify(request, factory, encrypted_password)
+        nonces.verify(http_request, factory, encrypted_password)
         # Update last_poll timestamp
         factory.last_poll = datetime.now()
         factory.save()
