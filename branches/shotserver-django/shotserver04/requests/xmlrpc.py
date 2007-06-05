@@ -1,9 +1,10 @@
+from django.db.models import Q
 from shotserver04.xmlrpc import signature, ErrorMessage
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
 from shotserver04.browsers.models import Browser
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 @signature(dict, str, str)
@@ -42,8 +43,8 @@ def poll(http_request, factory_name, encrypted_password):
 
     Locking
     ~~~~~~~
-    The matching screenshot request is locked for 3 minutes. This is
-    to make sure that no requests are processed by two factories at
+    The matching screenshot request is locked for five minutes. This
+    is to make sure that no requests are processed by two factories at
     the same time. If your factory takes longer to process a request,
     it is possible that somebody else will lock it. In this case, your
     upload will fail.
@@ -56,14 +57,22 @@ def poll(http_request, factory_name, encrypted_password):
         factory.last_poll = datetime.now()
         factory.save()
         # Find matching request
+        five_minutes_ago = datetime.now() - timedelta(0, 300)
         matches = Request.objects.select_related()
         matches = matches.filter(factory.features_q())
+        matches = matches.filter(uploaded__isnull=True)
+        matches = matches.filter(
+            Q(locked__isnull=True) | Q(locked__lt=five_minutes_ago))
         matches = matches.order_by(
             '-requests_request__request_group.submitted')
         matches = matches[:1]
         if len(matches) == 0:
             raise ErrorMessage('No matching request.')
         request = matches[0]
+        # Lock request
+        request.factory = factory
+        request.locked = datetime.now()
+        request.save()
         # Get matching browser
         browser = Browser.objects.select_related().get(
             factory=factory,
