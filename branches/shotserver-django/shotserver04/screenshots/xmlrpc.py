@@ -1,4 +1,5 @@
 import xmlrpclib
+from datetime import datetime
 from shotserver04.xmlrpc import signature, ErrorMessage
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
@@ -29,8 +30,8 @@ def upload(http_request,
     # Verify authentication
     factory = Factory.objects.get(name=factory_name)
     nonces.verify(http_request, factory, encrypted_password)
+    request_id = request
     try:
-        request_id = request
         request = Request.objects.get(pk=request_id)
     except Request.DoesNotExist:
         raise ErrorMessage("Request %d not found." % request_id)
@@ -50,4 +51,14 @@ def upload(http_request,
         factory=factory, browser=browser, request=request,
         hashkey=hashkey, width=width, height=height)
     screenshot.save()
+    # Check again that no other factory has locked the request
+    request = Request.objects.get(pk=request_id)
+    try:
+        request.check_factory_lock(factory)
+    except ErrorMessage:
+        screenshot.delete()
+        raise
+    # Close the request
+    request.uploaded = datetime.now()
+    request.save()
     return 'OK'
