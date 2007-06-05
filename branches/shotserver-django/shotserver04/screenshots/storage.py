@@ -1,7 +1,10 @@
+import re
 import os
 import tempfile
 from shotserver04 import settings
 from shotserver04.nonces import crypto
+
+HEADER_MATCH = re.compile(r'(\S\S)\s+(\d+)\s+(\d+)\s+').match
 
 
 def png_path(hashkey, size='full'):
@@ -43,4 +46,21 @@ def pngtoppm(hashkey):
         os.system('mv "%s" "%s"' % (pngname, errorname))
         raise ErrorMessage(
             'Could not decode uploaded PNG file (hashkey %s).' % hashkey)
+    if not os.path.exists(ppmname):
+        raise ErrorMessage('Decoded screenshot file not found.')
+    if os.path.getsize(ppmname) == 0:
+        raise ErrorMessage('Decoded screenshot file is empty.')
     return ppmname
+
+
+def read_pnm_header(ppmname):
+    header = file(ppmname, 'rb').read(1024)
+    match = HEADER_MATCH(header)
+    if match is None:
+        raise xmlrpc.ErrorMessage(
+            'Could not read PNM header after decoding uploaded PNG file.')
+    return (
+        match.group(1),
+        int(match.group(2)),
+        int(match.group(3)),
+        )
