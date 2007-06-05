@@ -18,16 +18,8 @@ class Screenshot(models.Model):
         _('width'), null=True, blank=True)
     height = models.IntegerField(
         _('height'), null=True, blank=True)
-    message = models.CharField(
-        _('error message'), maxlength=400, blank=True)
-    locked = models.DateTimeField(
-        _('locked'), auto_now_add=True)
-    redirected = models.DateTimeField(
-        _('redirected'), null=True, blank=True)
-    failed = models.DateTimeField(
-        _('failed'), null=True, blank=True)
     uploaded = models.DateTimeField(
-        _('uploaded'), null=True, blank=True)
+        _('uploaded'), auto_now_add=True)
 
     def __str__(self):
         return self.hashkey
@@ -42,7 +34,7 @@ class Screenshot(models.Model):
             )}),
             )
         list_display = ('hashkey', 'factory', 'browser',
-                        'width', 'height', 'locked')
+                        'width', 'height', 'uploaded')
 
     class Meta:
         verbose_name = _('screenshot')
