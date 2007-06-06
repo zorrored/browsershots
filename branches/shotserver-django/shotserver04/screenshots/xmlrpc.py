@@ -59,6 +59,12 @@ def upload(http_request,
         screenshot.delete()
         raise
     # Close the request
-    request.uploaded = datetime.now()
+    now = datetime.now()
+    request.uploaded = now
     request.save()
+    factory.last_upload = now
+    factory.save()
+    browser.last_upload = now
+    browser.queue_estimate = (now - request.submitted).seconds
+    browser.save()
     return 'OK'
