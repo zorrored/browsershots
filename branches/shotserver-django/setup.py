@@ -1,6 +1,7 @@
 from distutils.core import setup
 import os
 import sys
+from glob import glob
 
 # Tell distutils to put data files next to Python files
 # See http://groups.google.com/group/comp.lang.python/
@@ -41,6 +42,10 @@ def find_data_files(data_dirnames=None):
             yield (dirpath, files)
 
 
+def find_scripts():
+    return glob('shotserver04_*.py')
+
+
 if sys.argv[1] == 'test':
     from pprint import pprint
     print 'root_dir:', repr(root_dir)
@@ -49,6 +54,8 @@ if sys.argv[1] == 'test':
     pprint(list(find_packages()))
     print 'data_files:'
     pprint(list(find_data_files()))
+    print 'scripts:'
+    pprint(list(find_scripts()))
     sys.exit(0)
 
 
@@ -61,4 +68,5 @@ setup(
     description = 'Test your web design in different browsers',
     packages = list(find_packages()),
     data_files = list(find_data_files()),
+    scripts = list(find_scripts()),
 )
