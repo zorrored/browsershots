@@ -1,13 +1,7 @@
-class ErrorMessage(Exception):
+def register(*signature):
 
-    def __init__(self, message):
-        self.message = str(message)
-
-
-def signature(*types):
-
-    def decorator(func):
-        func._signature = types
+    def wrapper(func):
+        func._signature = signature
         return func
 
-    return decorator
+    return wrapper

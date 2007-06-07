@@ -1,12 +1,36 @@
-from shotserver04.xmlrpc import signature, ErrorMessage
+from django.db.models import Q
+from shotserver04.common import serializable, ErrorMessage
+from shotserver04.xmlrpc import register
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
-from shotserver04.requests import util
+from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
 
 
-@signature(dict, str, str)
+@serializable
+def find_and_lock_request(factory, features):
+    # Find matching request
+    five_minutes_ago = datetime.now() - timedelta(0, 300)
+    matches = Request.objects.select_related()
+    matches = matches.filter(features)
+    matches = matches.filter(uploaded__isnull=True)
+    matches = matches.filter(
+        Q(locked__isnull=True) | Q(locked__lt=five_minutes_ago))
+    matches = matches.order_by(
+        '-requests_request__request_group.submitted')
+    matches = matches[:1]
+    if len(matches) == 0:
+        raise ErrorMessage('No matching request.')
+    request = matches[0]
+    # Lock request
+    request.factory = factory
+    request.locked = datetime.now()
+    request.save()
+    return request
+
+
+@register(dict, str, str)
 def poll(http_request, factory_name, encrypted_password):
     """
     Try to find a matching screenshot request for a given factory.
@@ -56,7 +80,7 @@ def poll(http_request, factory_name, encrypted_password):
         factory.last_poll = datetime.now()
         factory.save()
         # Get matching request
-        request = util.find_and_lock_request(factory, factory.features_q())
+        request = find_and_lock_request(factory, factory.features_q())
         # Get matching browser
         browser = Browser.objects.select_related().get(
             factory=factory,

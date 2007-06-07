@@ -1,11 +1,12 @@
-from shotserver04.xmlrpc import signature, ErrorMessage
+from shotserver04.xmlrpc import register
+from shotserver04.common import ErrorMessage
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
 from shotserver04.factories.models import Factory
 from datetime import datetime, timedelta
 
 
-@signature(str, str)
+@register(str, str)
 def challenge(request, factory_name):
     """
     Generate a nonce for authentication.
@@ -38,7 +39,7 @@ def challenge(request, factory_name):
     return '$'.join((algo, salt, hashkey))
 
 
-@signature(str, str, str)
+@register(str, str, str)
 def verify(request, factory_name, encrypted_password):
     """
     Test authentication with an encrypted password.

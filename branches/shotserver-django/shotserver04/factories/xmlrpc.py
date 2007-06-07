@@ -1,9 +1,9 @@
-from shotserver04.xmlrpc import signature
+from shotserver04.xmlrpc import register
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
 
 
-@signature(str, str)
+@register(str, str)
 def features(request, factory_name):
     """
     Generate SQL WHERE clause to match requests for this factory.

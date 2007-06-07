@@ -4,7 +4,7 @@ from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
 from shotserver04.browsers.models import Browser
-from shotserver04.xmlrpc import ErrorMessage
+from shotserver04.common import ErrorMessage
 from datetime import datetime
 
 

@@ -1,6 +1,7 @@
 import xmlrpclib
 from datetime import datetime
-from shotserver04.xmlrpc import signature, ErrorMessage
+from shotserver04.common import serializable, ErrorMessage
+from shotserver04.xmlrpc import register
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
@@ -11,7 +12,27 @@ PREVIEW_SIZES = [(640 - 8 * (parts - 1)) / parts
                  for parts in [1, 2, 3, 4, 6, 9, 12]]
 
 
-@signature(str, str, str, int, xmlrpclib.Binary)
+@serializable
+def close_request(request_id, factory, browser, screenshot):
+    # Check again that no other factory has locked the request
+    request = Request.objects.get(pk=request_id)
+    try:
+        request.check_factory_lock(factory)
+    except ErrorMessage:
+        screenshot.delete()
+        raise
+    # Close the request
+    now = datetime.now()
+    request.uploaded = now
+    request.save()
+    factory.last_upload = now
+    factory.save()
+    browser.last_upload = now
+    browser.queue_estimate = (now - request.request_group.submitted).seconds
+    browser.save()
+
+
+@register(str, str, str, int, xmlrpclib.Binary)
 def upload(http_request,
            factory_name, encrypted_password, request, screenshot):
     """
@@ -57,20 +78,6 @@ def upload(http_request,
         factory=factory, browser=browser, request=request,
         hashkey=hashkey, width=width, height=height)
     screenshot.save()
-    # Check again that no other factory has locked the request
-    request = Request.objects.get(pk=request_id)
-    try:
-        request.check_factory_lock(factory)
-    except ErrorMessage:
-        screenshot.delete()
-        raise
-    # Close the request
-    now = datetime.now()
-    request.uploaded = now
-    request.save()
-    factory.last_upload = now
-    factory.save()
-    browser.last_upload = now
-    browser.queue_estimate = (now - request.request_group.submitted).seconds
-    browser.save()
+    # Close request and update timestamps in database
+    close_request(request_id, factory, browser, screenshot)
     return 'OK'

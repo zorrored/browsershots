@@ -2,7 +2,8 @@
 
 import sys
 import xmlrpclib
-from shotserver04.xmlrpc import signature, ErrorMessage
+from shotserver04.xmlrpc import register
+from shotserver04.common import ErrorMessage
 
 
 class Dispatcher:
@@ -28,7 +29,7 @@ class Dispatcher:
             name = function.__name__
         self.funcs[name] = function
 
-    @signature(list)
+    @register(list)
     def system_listMethods(self, request):
         """
         Returns a list of the methods supported by the server.
@@ -37,7 +38,7 @@ class Dispatcher:
         methods.sort()
         return methods
 
-    @signature(list, str)
+    @register(list, str)
     def system_methodSignature(self, request, method_name):
         """
         Returns a list describing the possible signatures of the
@@ -55,7 +56,7 @@ class Dispatcher:
                     result.append(x.__name__)
             return [result]
 
-    @signature(str, str)
+    @register(str, str)
     def system_methodHelp(self, request, method_name):
         """
         Returns a string containing documentation for the specified
@@ -70,7 +71,7 @@ class Dispatcher:
         lines = [line[indent:] for line in lines]
         return '\n'.join(lines).strip()
 
-    @signature(list, list)
+    @register(list, list)
     def system_multicall(self, request, call_list):
         """
         Allows the caller to package multiple XML-RPC calls into a

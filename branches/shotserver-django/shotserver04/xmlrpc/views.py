@@ -3,7 +3,6 @@ import types
 from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from shotserver04 import settings
-from shotserver04.xmlrpc import signature
 from shotserver04.xmlrpc.dispatcher import Dispatcher
 
 rst_settings = {
@@ -58,9 +57,6 @@ for app in settings.INSTALLED_APPS:
     except ImportError:
         continue
     for name, item in module.__dict__.items():
-        if item is signature:
-            continue
-        if not isinstance(item, types.FunctionType):
-            continue
-        function_name = '%s.%s' % (app.split('.')[-1], name)
-        dispatcher.register_function(item, function_name)
+        if hasattr(item, '_signature'):
+            function_name = '%s.%s' % (app.split('.')[-1], name)
+            dispatcher.register_function(item, function_name)
