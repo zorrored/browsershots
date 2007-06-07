@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load human %}
 
 {% block title %}{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}{% endblock %}
 
@@ -16,6 +17,7 @@
 <th>{% trans "Java" %}</th>
 <th>{% trans "Flash" %}</th>
 <th>{% trans "Last<br />upload" %}</th>
+<th>{% trans "Queue<br />estimate" %}</th>
 </tr>
 </thead>
 <tbody>
@@ -28,7 +30,8 @@ title="{{ browser.user_agent }}">
 <td>{{ browser.javascript }}</td>
 <td>{{ browser.java }}</td>
 <td>{{ browser.flash }}</td>
-<td>{{ browser.last_upload|timesince }}</td>
+<td>{{ browser.last_upload|human_timesince }}</td>
+<td>{{ browser.queue_estimate|human_seconds }}</td>
 </tr>
 {% endfor %}
 </tbody>
