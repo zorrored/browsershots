@@ -12,6 +12,9 @@
 <p>
 {% for request in request_group.request_set.all %}
 {{ request }}<br />
+{% for screenshot in request.screenshot_set.all %}
+{{ screenshot.preview_img }}
+{% endfor %}
 {% endfor%}
 </p>
 {% endfor %}

@@ -30,3 +30,7 @@ if settings.DEBUG:
         (r'^static/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': static_path}),
         )
+    urlpatterns += patterns('',
+        (r'^png/(?P<path>.*)$', 'django.views.static.serve',
+         {'document_root': settings.PNG_ROOT}),
+        )

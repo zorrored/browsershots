@@ -21,9 +21,6 @@ class Screenshot(models.Model):
     uploaded = models.DateTimeField(
         _('uploaded'), auto_now_add=True)
 
-    def __str__(self):
-        return self.hashkey
-
     class Admin:
         fields = (
             (None, {'fields': (
@@ -39,3 +36,16 @@ class Screenshot(models.Model):
     class Meta:
         verbose_name = _('screenshot')
         verbose_name_plural = _('screenshots')
+
+    def __str__(self):
+        return self.hashkey
+
+    def get_absolute_url(self):
+        return self.get_size_url('original')
+
+    def get_size_url(self, size):
+        return "/png/%s/%s/%s.png" % (size, self.hashkey[:2], self.hashkey)
+
+    def preview_img(self, size=100):
+        return '<img src="%s" alt="" width="%s" height="%s" />' % (
+            self.get_size_url(size), size, self.height * size / self.width)
