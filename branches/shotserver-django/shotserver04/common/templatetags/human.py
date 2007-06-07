@@ -9,7 +9,14 @@ register = template.Library()
 def human_seconds(seconds):
     if seconds < 180:
         return "%d s" % seconds
-    return "%d min" % (seconds / 60)
+    minutes = seconds / 60
+    if minutes < 180:
+        return "%d min" % minutes
+    hours = minutes / 60
+    if hours < 72:
+        return "%d h" % hours
+    days = hours / 24
+    return "%d d" % days
 
 
 @register.filter
