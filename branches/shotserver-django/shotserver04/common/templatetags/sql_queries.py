@@ -4,12 +4,12 @@ from django.db import connection
 register = template.Library()
 
 JAVASCRIPT = """
-document.getElementById('sql-queries').style.visibility='visible';
+document.getElementById('sql-queries').style.display='block';
 """.strip()
 
 TABLE_TEMPLATE = """
 <p class="debug"><a onclick="%s" href="#sql" name="sql">%s</a></p>
-<table class="debug" id="sql-queries" style="visibility:hidden">
+<table class="debug" id="sql-queries" style="display:none">
 <thead>
 <tr><th>%s</th><th>%s</th></tr>
 </thead>
