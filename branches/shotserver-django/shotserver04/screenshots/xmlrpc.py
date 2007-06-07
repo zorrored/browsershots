@@ -7,6 +7,9 @@ from shotserver04.requests.models import Request
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
 
+PREVIEW_SIZES = [(640 - 8 * (parts - 1)) / parts
+                 for parts in [1, 2, 3, 4, 6, 9, 12]]
+
 
 @signature(str, str, str, int, xmlrpclib.Binary)
 def upload(http_request,
@@ -46,6 +49,9 @@ def upload(http_request,
     hashkey = storage.save_upload(screenshot)
     ppmname = storage.pngtoppm(hashkey)
     magic, width, height = storage.read_pnm_header(ppmname)
+    # Make smaller preview images
+    for size in PREVIEW_SIZES:
+        storage.scale(ppmname, size, hashkey)
     # Save screenshot in database
     screenshot = Screenshot(
         factory=factory, browser=browser, request=request,
@@ -65,6 +71,6 @@ def upload(http_request,
     factory.last_upload = now
     factory.save()
     browser.last_upload = now
-    browser.queue_estimate = (now - request.submitted).seconds
+    browser.queue_estimate = (now - request.request_group.submitted).seconds
     browser.save()
     return 'OK'
