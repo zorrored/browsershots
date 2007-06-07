@@ -1,3 +1,4 @@
+from datetime import datetime
 from psycopg import IntegrityError, ProgrammingError, DatabaseError
 from unittest import TestCase
 from django.db import transaction
@@ -6,6 +7,9 @@ from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory
 from shotserver04.screenshots.models import Screenshot
+from shotserver04.browsers.models import Engine, BrowserGroup, Browser
+from shotserver04.requests.models import RequestGroup, Request
+from shotserver04.websites.models import Website
 
 VALID_SIZES = [
     (640, 480),
@@ -55,8 +59,31 @@ class SizeTestCase(TestCase):
             admin=self.user,
             architecture=self.architecture,
             operating_system=self.operating_system)
+        self.engine = Engine.objects.create()
+        self.browser_group = BrowserGroup.objects.create(
+            name='Firefox', maker='Mozilla', terminal=False)
+        self.browser = Browser.objects.create(
+            factory=self.factory,
+            user_agent="Firefox/2.0.0.4",
+            browser_group=self.browser_group,
+            version='2.0.0.4', major=2, minor=0,
+            engine=self.engine,
+            disabled=False)
+        self.website = Website.objects.create(
+            url='http://browsershots.org/')
+        self.request_group = RequestGroup.objects.create(
+            website=self.website, expire=datetime.now())
+        self.request = Request.objects.create(
+            browser_group=self.browser_group,
+            request_group=self.request_group)
 
     def tearDown(self):
+        self.request.delete()
+        self.request_group.delete()
+        self.website.delete()
+        self.browser.delete()
+        self.browser_group.delete()
+        self.engine.delete()
         self.factory.delete()
         self.operating_system.delete()
         self.platform.delete()
@@ -67,8 +94,11 @@ class SizeTestCase(TestCase):
         try:
             screenshot = Screenshot.objects.create(
                 hashkey='0123456789abcdef' * 2,
-                factory=self.factory, message='',
-                width=width, height=height)
+                request=self.request,
+                factory=self.factory,
+                browser=self.browser,
+                width=width,
+                height=height)
             screenshot.delete()
         except IntegrityError:
             transaction.rollback()
@@ -84,8 +114,11 @@ class SizeTestCase(TestCase):
             try:
                 screenshot = Screenshot.objects.create(
                     hashkey='0123456789abcdef' * 2,
-                    factory=self.factory, message='',
-                    width=width, height=height)
+                    request=self.request,
+                    factory=self.factory,
+                    browser=self.browser,
+                    width=width,
+                    height=height)
                 screenshot.delete()
                 self.fail('created screenshot with invalid size %dx%d' %
                           (width, height))
