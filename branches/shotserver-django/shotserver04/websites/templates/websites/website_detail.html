@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load human %}
 
 {% block title %}{% trans "Website Overview" %}{% endblock %}
 
@@ -8,7 +9,7 @@
 <p>{% blocktrans with website.url as url %}for {{ url }}{% endblocktrans %}</p>
 
 {% for request_group in website.requestgroup_set.all %}
-<h2>{% blocktrans with request_group.submitted|timesince as interval %}submitted {{ interval }} ago{% endblocktrans %}</h2>
+<h2>{% blocktrans with request_group.submitted|human_timesince as interval %}submitted {{ interval }} ago{% endblocktrans %}</h2>
 <p>
 {% for request in request_group.request_set.all %}
 {{ request }}<br />
