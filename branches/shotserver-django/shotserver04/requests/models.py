@@ -72,7 +72,7 @@ class Request(models.Model):
         verbose_name=_('browser'), blank=True, null=True)
     redirected = models.DateTimeField(
         _('redirected'), blank=True, null=True)
-    uploaded =  models.DateTimeField(
+    uploaded = models.DateTimeField(
         _('uploaded'), blank=True, null=True)
 
     class Admin:
