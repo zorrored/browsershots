@@ -13,6 +13,13 @@ class ErrorMessage(Exception):
         return self.message
 
 
+def get_or_error(model, *args, **kwargs):
+    try:
+        return model.objects.get(*args, **kwargs)
+    except model.DoesNotExist:
+        raise ErrorMessage(model.__name__ + 'not found.')
+
+
 def serializable(func):
 
     @transaction.commit_manually

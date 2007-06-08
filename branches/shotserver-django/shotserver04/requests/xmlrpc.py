@@ -1,5 +1,5 @@
 from django.db.models import Q
-from shotserver04.common import serializable, ErrorMessage
+from shotserver04.common import ErrorMessage, get_or_error, serializable
 from shotserver04.xmlrpc import register
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
@@ -74,7 +74,7 @@ def poll(http_request, factory_name, encrypted_password):
     """
     try:
         # Verify authentication
-        factory = Factory.objects.get(name=factory_name)
+        factory = get_or_error(Factory, name=factory_name)
         nonces.verify(http_request, factory, encrypted_password)
         # Update last_poll timestamp
         factory.last_poll = datetime.now()
@@ -82,11 +82,14 @@ def poll(http_request, factory_name, encrypted_password):
         # Get matching request
         request = find_and_lock_request(factory, factory.features_q())
         # Get matching browser
-        browser = Browser.objects.select_related().get(
-            factory=factory,
-            browser_group=request.browser_group,
-            major=request.major,
-            minor=request.minor)
+        try:
+            browser = Browser.objects.select_related().get(
+                factory=factory,
+                browser_group=request.browser_group,
+                major=request.major,
+                minor=request.minor)
+        except Browser.DoesNotExist:
+            raise ErrorMessage("No matching browser for selected request.")
         command = browser.command
         if not command:
             command = browser.browser_group.name.lower()

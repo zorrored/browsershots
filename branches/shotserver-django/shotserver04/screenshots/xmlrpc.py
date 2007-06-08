@@ -1,6 +1,6 @@
 import xmlrpclib
 from datetime import datetime
-from shotserver04.common import serializable, ErrorMessage
+from shotserver04.common import ErrorMessage, get_or_error, serializable
 from shotserver04.xmlrpc import register
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
@@ -15,7 +15,7 @@ PREVIEW_SIZES = [512, 240, 160, 116, 92, 77, 57, 44, 32]
 @serializable
 def close_request(request_id, factory, browser, screenshot):
     # Check again that no other factory has locked the request
-    request = Request.objects.get(pk=request_id)
+    request = get_or_error(Request, pk=request_id)
     try:
         request.check_factory_lock(factory)
     except ErrorMessage:
@@ -52,13 +52,10 @@ def upload(http_request,
     * status string ('OK' or short error message)
     """
     # Verify authentication
-    factory = Factory.objects.get(name=factory_name)
+    factory = get_or_error(Factory, name=factory_name)
     nonces.verify(http_request, factory, encrypted_password)
     request_id = request
-    try:
-        request = Request.objects.get(pk=request_id)
-    except Request.DoesNotExist:
-        raise ErrorMessage("Request %d not found." % request_id)
+    request = get_or_error(Request, pk=request_id)
     # Make sure the request was locked by this factory
     request.check_factory_lock(factory)
     # Make sure the request was redirected by the browser
