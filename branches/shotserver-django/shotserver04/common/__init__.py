@@ -1,13 +1,16 @@
 import psycopg
 from django.db import connection, transaction
 
-MAX_ATTEMPTS = 3
+MAX_ATTEMPTS = 10
 
 
 class ErrorMessage(Exception):
 
     def __init__(self, message):
         self.message = str(message)
+
+    def __str__(self):
+        return self.message
 
 
 def serializable(func):
@@ -27,7 +30,7 @@ def serializable(func):
                 transaction.rollback()
                 serialize_failed = (
                     isinstance(error, psycopg.ProgrammingError) and
-                    error.lower().count("can't serialize access"))
+                    error.message.lower().count("serialize access"))
                 if attempt == MAX_ATTEMPTS or not serialize_failed:
                     raise
 
