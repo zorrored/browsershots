@@ -40,9 +40,9 @@ import os
 def remove_shebang(lines):
     """Remove shebang and coding from lines and return removed lines."""
     result = []
-    if lines[0].startswith('#!'):
+    if lines and lines[0].startswith('#!'):
         result.append(lines.pop(0))
-    if lines[0].count(' coding: '):
+    if lines and lines[0].count(' coding: '):
         result.append(lines.pop(0))
     return result
 
@@ -57,7 +57,7 @@ def remove_comment(lines):
 
 def remove_docstring(lines):
     """Remove docstring from lines and return removed lines."""
-    if not lines[0].startswith('"""'):
+    if not lines or not lines[0].startswith('"""'):
         return ['"""' + CRLF, '"""' + CRLF]
     first_line = lines.pop(0)
     result = [first_line]
@@ -112,6 +112,12 @@ def adjust_lines(lines, header):
     old_docstring = remove_docstring(lines)
     remove_blank_lines(lines)
     old_revision, old_date, old_author = remove_keywords(lines)
+    if lines and (lines[0].startswith('def ') or
+                  lines[0].startswith('class ') or
+                  lines[0].startswith('@')):
+        lines[0:0] = [CRLF, CRLF]
+    elif lines and lines[0].strip():
+        lines[0:0] = [CRLF]
     lines[0:0] = shebang + header + [CRLF] + old_docstring + [
         CRLF,
         '__revision__ = "%s"%s' % (old_revision, CRLF),
