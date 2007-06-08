@@ -55,7 +55,6 @@ def factory_list(request):
             text = text.replace(' ', '<br />', 1)
         class_attrib = ''
         if column == order_column:
-            found = True
             if descending:
                 class_attrib = ' class="sorted descending"'
                 url = '?order=' + column
