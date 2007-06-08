@@ -1,4 +1,3 @@
-from django.http import Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.websites.models import Website
 

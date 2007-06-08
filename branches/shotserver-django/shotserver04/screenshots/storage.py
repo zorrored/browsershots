@@ -3,6 +3,7 @@ import os
 import tempfile
 from shotserver04 import settings
 from shotserver04.nonces import crypto
+from shotserver04.common import ErrorMessage
 
 ORIGINAL_SIZE = 'original'
 HEADER_MATCH = re.compile(r'(\S\S)\s+(\d+)\s+(\d+)\s+').match
@@ -59,7 +60,7 @@ def read_pnm_header(ppmname):
     header = file(ppmname, 'rb').read(1024)
     match = HEADER_MATCH(header)
     if match is None:
-        raise xmlrpc.ErrorMessage(
+        raise ErrorMessage(
             'Could not read PNM header after decoding uploaded PNG file.')
     return (
         match.group(1),

@@ -1,5 +1,5 @@
 from shotserver04.xmlrpc import register
-from shotserver04.common import ErrorMessage
+from shotserver04.common import ErrorMessage, get_or_error
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
 from shotserver04.factories.models import Factory
@@ -27,7 +27,7 @@ def challenge(request, factory_name):
 
     See nonces.verify for how to encrypt your password with the nonce.
     """
-    factory = Factory.objects.get(name=factory_name)
+    factory = get_or_error(Factory, name=factory_name)
     hashkey = crypto.random_md5()
     ip = request.META['REMOTE_ADDR']
     Nonce.objects.create(factory=factory, hashkey=hashkey, ip=ip)
@@ -70,7 +70,7 @@ def verify(request, factory_name, encrypted_password):
     if isinstance(factory_name, Factory):
         factory = factory_name
     else:
-        factory = Factory.objects.get(name=factory_name)
+        factory = get_or_error(Factory, name=factory_name)
     ip = request.META['REMOTE_ADDR']
     # Get password hash from database
     password = factory.admin.password

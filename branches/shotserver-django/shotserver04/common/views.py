@@ -2,7 +2,6 @@ from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
 from shotserver04.platforms.models import Platform
-from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.websites.models import Website
 from shotserver04.requests.models import RequestGroup, Request
@@ -125,7 +124,7 @@ def start(request):
         valid_post = valid_post and browser_form.is_valid()
     if valid_post:
         # Submit URL
-        url=url_form.cleaned_data['url']
+        url = url_form.cleaned_data['url']
         if url.count('/') == 2:
             url += '/' # Trailing slash
         website, created = Website.objects.get_or_create(url=url)
