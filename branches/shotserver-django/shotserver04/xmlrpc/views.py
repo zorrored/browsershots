@@ -29,7 +29,7 @@ from django.shortcuts import render_to_response
 from shotserver04 import settings
 from shotserver04.xmlrpc.dispatcher import Dispatcher
 
-rst_settings = {
+RST_SETTINGS = {
     'initial_header_level': 2,
     'doctitle_xform': False,
     'docinfo_xform': False,
@@ -64,7 +64,7 @@ def method_help(request, method_name):
         from docutils import core
         parts = core.publish_parts(
             source=docstring, writer_name='html',
-            settings_overrides=rst_settings)
+            settings_overrides=RST_SETTINGS)
         docstring = parts['html_body']
     except ImportError:
         docstring = '<pre>\n%s\n</pre>\n' % docstring
