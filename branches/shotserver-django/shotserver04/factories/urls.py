@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('shotserver04.factories.views',
     (r'^$', 'factory_list'),
