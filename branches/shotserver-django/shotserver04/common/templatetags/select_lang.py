@@ -1,5 +1,4 @@
 from django import template
-from django.db import connection
 from django.conf import settings
 from django.utils import translation
 

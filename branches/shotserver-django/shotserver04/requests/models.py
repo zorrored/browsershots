@@ -101,4 +101,4 @@ class Request(models.Model):
         if factory != self.factory:
             raise ErrorMessage(
                 "Request %d was locked by factory %s." %
-                (request.id, request.factory.name))
+                (self.id, self.factory.name))

@@ -1,5 +1,5 @@
 from datetime import datetime
-from psycopg import IntegrityError, ProgrammingError, DatabaseError
+from psycopg import IntegrityError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User

@@ -1,8 +1,7 @@
-from psycopg import IntegrityError, ProgrammingError, DatabaseError
+from psycopg import DatabaseError
 from unittest import TestCase
 from django.db import transaction
-from shotserver04.platforms.models import Architecture
-from shotserver04.platforms.models import Platform, OperatingSystem
+from shotserver04.platforms.models import OperatingSystem
 
 
 class InvalidTestCase(TestCase):

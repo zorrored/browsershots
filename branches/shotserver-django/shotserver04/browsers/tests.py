@@ -1,4 +1,4 @@
-from psycopg import IntegrityError, ProgrammingError, DatabaseError
+from psycopg import IntegrityError, ProgrammingError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User
