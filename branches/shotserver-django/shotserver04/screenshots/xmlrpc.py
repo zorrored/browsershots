@@ -8,8 +8,8 @@ from shotserver04.requests.models import Request
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
 
-PREVIEW_SIZES = [(640 - 8 * (parts - 1)) / parts
-                 for parts in [1, 2, 3, 4, 6, 9, 12]]
+PREVIEW_SIZES = [512, 240, 160, 116, 92, 77, 57, 44, 32]
+# PREVIEW_SIZES = [640, 316, 208, 154, 100, 64, 46]
 
 
 @serializable
