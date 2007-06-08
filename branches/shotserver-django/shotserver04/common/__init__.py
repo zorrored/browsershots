@@ -1,23 +1,18 @@
+import xmlrpclib
 import psycopg
 from django.db import connection, transaction
 
 MAX_ATTEMPTS = 10
 
 
-class ErrorMessage(Exception):
-
-    def __init__(self, message):
-        self.message = str(message)
-
-    def __str__(self):
-        return self.message
-
-
-def get_or_error(model, *args, **kwargs):
+def get_or_fault(model, **kwargs):
     try:
-        return model.objects.get(*args, **kwargs)
+        return model.objects.get(**kwargs)
     except model.DoesNotExist:
-        raise ErrorMessage(model.__name__ + 'not found.')
+        filters = ' and '.join(
+            ['%s=%s' % (key, kwargs[key]) for key in kwargs])
+        raise xmlrpclib.Fault(0, '%s not found with %s.' % (
+            model.__name__, filters))
 
 
 def serializable(func):

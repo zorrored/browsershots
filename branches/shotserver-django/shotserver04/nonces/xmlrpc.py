@@ -1,5 +1,6 @@
+from xmlrpclib import Fault
 from shotserver04.xmlrpc import register
-from shotserver04.common import ErrorMessage, get_or_error
+from shotserver04.common import get_or_fault
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
 from shotserver04.factories.models import Factory
@@ -27,7 +28,7 @@ def challenge(request, factory_name):
 
     See nonces.verify for how to encrypt your password with the nonce.
     """
-    factory = get_or_error(Factory, name=factory_name)
+    factory = get_or_fault(Factory, name=factory_name)
     hashkey = crypto.random_md5()
     ip = request.META['REMOTE_ADDR']
     Nonce.objects.create(factory=factory, hashkey=hashkey, ip=ip)
@@ -70,7 +71,7 @@ def verify(request, factory_name, encrypted_password):
     if isinstance(factory_name, Factory):
         factory = factory_name
     else:
-        factory = get_or_error(Factory, name=factory_name)
+        factory = get_or_fault(Factory, name=factory_name)
     ip = request.META['REMOTE_ADDR']
     # Get password hash from database
     password = factory.admin.password
@@ -83,14 +84,14 @@ def verify(request, factory_name, encrypted_password):
         where=["MD5(%s || hashkey) = %s"],
         params=[hashed, encrypted_password])
     if len(nonces) == 0:
-        raise ErrorMessage('Password mismatch.')
+        raise Fault(0, 'Password mismatch.')
     if len(nonces) > 1:
-        raise ErrorMessage('Hash collision.')
+        raise Fault(0, 'Hash collision.')
     # Check nonce freshness
     nonce = nonces[0]
     if datetime.now() - nonce.created > timedelta(0, 600, 0):
         nonce.delete()
-        raise ErrorMessage('Nonce expired.')
+        raise Fault(0, 'Nonce expired.')
     # Success!
     nonce.delete()
     return 'OK'

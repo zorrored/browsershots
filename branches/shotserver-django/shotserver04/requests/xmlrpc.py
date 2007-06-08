@@ -1,5 +1,6 @@
+from xmlrpclib import Fault
 from django.db.models import Q
-from shotserver04.common import ErrorMessage, get_or_error, serializable
+from shotserver04.common import serializable, get_or_fault
 from shotserver04.xmlrpc import register
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
@@ -21,7 +22,7 @@ def find_and_lock_request(factory, features):
         '-requests_request__request_group.submitted')
     matches = matches[:1]
     if len(matches) == 0:
-        raise ErrorMessage('No matching request.')
+        raise Fault(0, 'No matching request.')
     request = matches[0]
     # Lock request
     request.factory = factory
@@ -72,40 +73,36 @@ def poll(http_request, factory_name, encrypted_password):
     it is possible that somebody else will lock it. In this case, your
     upload will fail.
     """
+    # Verify authentication
+    factory = get_or_fault(Factory, name=factory_name)
+    nonces.verify(http_request, factory, encrypted_password)
+    # Update last_poll timestamp
+    factory.last_poll = datetime.now()
+    factory.save()
+    # Get matching request
+    request = find_and_lock_request(factory, factory.features_q())
+    # Get matching browser
     try:
-        # Verify authentication
-        factory = get_or_error(Factory, name=factory_name)
-        nonces.verify(http_request, factory, encrypted_password)
-        # Update last_poll timestamp
-        factory.last_poll = datetime.now()
-        factory.save()
-        # Get matching request
-        request = find_and_lock_request(factory, factory.features_q())
-        # Get matching browser
-        try:
-            browser = Browser.objects.select_related().get(
-                factory=factory,
-                browser_group=request.browser_group,
-                major=request.major,
-                minor=request.minor)
-        except Browser.DoesNotExist:
-            raise ErrorMessage("No matching browser for selected request.")
-        command = browser.command
-        if not command:
-            command = browser.browser_group.name.lower()
-        # Build result dict
-        return {
-            'status': 'OK',
-            'request': request.id,
-            'command': command,
-            'browser': browser.browser_group.name,
-            'version': browser.version,
-            'width': request.request_group.width or 0,
-            'height': request.request_group.height or 0,
-            'bpp': request.request_group.bits_per_pixel or 0,
-            'javascript': request.request_group.javascript,
-            'java': request.request_group.java,
-            'flash': request.request_group.flash,
-            }
-    except ErrorMessage, error:
-        return {'status': error.message}
+        browser = Browser.objects.select_related().get(
+            factory=factory,
+            browser_group=request.browser_group,
+            major=request.major,
+            minor=request.minor)
+    except Browser.DoesNotExist:
+        raise Fault(0, "No matching browser for selected request.")
+    command = browser.command
+    if not command:
+        command = browser.browser_group.name.lower()
+    # Build result dict
+    return {
+        'request': request.id,
+        'command': command,
+        'browser': browser.browser_group.name,
+        'version': browser.version,
+        'width': request.request_group.width or 0,
+        'height': request.request_group.height or 0,
+        'bpp': request.request_group.bits_per_pixel or 0,
+        'javascript': request.request_group.javascript,
+        'java': request.request_group.java,
+        'flash': request.request_group.flash,
+        }

@@ -1,3 +1,4 @@
+from xmlrpclib import Fault
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
@@ -5,7 +6,6 @@ from shotserver04.websites.models import Website
 from shotserver04.platforms.models import Platform
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
-from shotserver04.common import ErrorMessage
 
 
 class RequestGroup(models.Model):
@@ -96,9 +96,9 @@ class Request(models.Model):
 
     def check_factory_lock(self, factory):
         if self.factory is None:
-            raise ErrorMessage(
+            raise Fault(0,
                 "Request %d was not locked." % self.id)
         if factory != self.factory:
-            raise ErrorMessage(
+            raise Fault(0,
                 "Request %d was locked by factory %s." %
                 (self.id, self.factory.name))
