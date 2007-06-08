@@ -31,9 +31,13 @@ from django.db import connection, transaction
 MAX_ATTEMPTS = 10
 
 
-def get_or_fault(model, **kwargs):
+def get_or_fault(model, *args, **kwargs):
+    """
+    Get the specified object, or raise xmlrpclib.Fault with a detailed
+    error message. Similar to django.shortcuts.get_object_or_404.
+    """
     try:
-        return model.objects.get(**kwargs)
+        return model.objects.get(*args, **kwargs)
     except model.DoesNotExist:
         filters = ' and '.join(
             ['%s=%s' % (key, kwargs[key]) for key in kwargs])
@@ -42,6 +46,12 @@ def get_or_fault(model, **kwargs):
 
 
 def serializable(func):
+    """
+    Decorator that changes the PostgreSQL transaction isolation level
+    to serializable. Use this for minimal functions that need to be
+    isolated from concurrent access. The operation will be attempted
+    again if a serialization error occurs (up to MAX_ATTEMPTS times).
+    """
 
     @transaction.commit_manually
     def wrapper(*args, **kwargs):

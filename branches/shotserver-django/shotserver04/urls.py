@@ -39,6 +39,9 @@ from shotserver04 import settings
 
 
 def load_app_patterns(prefix, ignore=()):
+    """
+    Include URL configuration for installed apps.
+    """
     pairs = []
     for app in settings.INSTALLED_APPS:
         if app.startswith(prefix):

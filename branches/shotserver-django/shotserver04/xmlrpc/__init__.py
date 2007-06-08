@@ -26,8 +26,14 @@ __author__ = "$Author$"
 
 
 def register(*signature):
+    """
+    Add signature to a function or method. Functions in app.xmlrpc
+    modules that have a signature will be auto-registered for the
+    XML-RPC interface.
+    """
 
     def wrapper(func):
+        """Add signature to a function or method."""
         func._signature = signature
         return func
 

@@ -35,10 +35,16 @@ from datetime import datetime, timedelta
 
 
 class URLForm(forms.Form):
+    """
+    URL input form.
+    """
     url = forms.URLField(max_length=400)
 
 
 class OptionsForm(forms.Form):
+    """
+    Request options input form.
+    """
     screen_size = forms.ChoiceField(initial='any', choices=(
         ('any', "Don't Care"),
         (640, "640x480"),
@@ -84,6 +90,9 @@ class OptionsForm(forms.Form):
 
 
 class BrowserForm(forms.BaseForm):
+    """
+    Browser chooser form for one platform.
+    """
 
     errors = {}
     base_fields = forms.forms.SortedDictFromList()
@@ -139,6 +148,9 @@ class BrowserForm(forms.BaseForm):
 
 
 def start(request):
+    """
+    Front page with URL input, browser chooser, and options.
+    """
     post = request.POST or None
     url_form = URLForm(post)
     options_form = OptionsForm(post)
