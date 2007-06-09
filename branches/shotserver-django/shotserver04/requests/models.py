@@ -78,6 +78,14 @@ class RequestGroup(models.Model):
     def __str__(self):
         return str(self.website)
 
+    def previews(self):
+        result = []
+        for request in self.request_set.filter(uploaded__isnull=False):
+            for screenshot in request.screenshot_set.all():
+                result.append('<div class="preview">%s</div>' %
+                              screenshot.preview_img())
+        return '\n'.join(result)
+
 
 class Request(models.Model):
     request_group = models.ForeignKey(RequestGroup,

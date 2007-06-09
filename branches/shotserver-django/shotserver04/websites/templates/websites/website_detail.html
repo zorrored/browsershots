@@ -10,13 +10,6 @@
 
 {% for request_group in website.requestgroup_set.all %}
 <h2>{% blocktrans with request_group.submitted|human_timesince as interval %}submitted {{ interval }} ago{% endblocktrans %}</h2>
-<p>
-{% for request in request_group.request_set.all %}
-{{ request }}<br />
-{% for screenshot in request.screenshot_set.all %}
-{{ screenshot.preview_img }}
-{% endfor %}
-{% endfor%}
-</p>
+{{ request_group.previews }}
 {% endfor %}
 {% endblock %}
