@@ -32,8 +32,8 @@ class Platform(models.Model):
     name = models.CharField(
         _('name'), maxlength=30,
         help_text="e.g. Linux / Windows / Mac")
-    order = models.IntegerField(
-        _('order'), blank=True, null=True)
+    position = models.IntegerField(
+        _('position'), blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -44,7 +44,7 @@ class Platform(models.Model):
     class Meta:
         verbose_name = _('platform')
         verbose_name_plural = _('platforms')
-        ordering = ('order', 'name')
+        ordering = ('position', 'name')
 
 
 class OperatingSystem(models.Model):
@@ -59,9 +59,6 @@ class OperatingSystem(models.Model):
     maker = models.CharField(
         _('maker'), maxlength=30, blank=True)
 
-    def __str__(self):
-        return '%s %s (%s)' % (self.name, self.version, self.codename)
-
     class Admin:
         list_display = ('platform', 'name', 'version', 'codename', 'maker')
         list_filter = ('platform', )
@@ -70,6 +67,12 @@ class OperatingSystem(models.Model):
         verbose_name = _('operating system')
         verbose_name_plural = _('operating systems')
         ordering = ('name', 'version')
+
+    def __str__(self):
+        if self.codename:
+            return '%s %s (%s)' % (self.name, self.version, self.codename)
+        else:
+            return '%s %s' % (self.name, self.version)
 
 
 class Architecture(models.Model):
