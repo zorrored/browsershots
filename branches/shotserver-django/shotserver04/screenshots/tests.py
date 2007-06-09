@@ -35,7 +35,7 @@ from shotserver04.factories.models import Factory
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.browsers.models import Engine, BrowserGroup, Browser
 from shotserver04.requests.models import RequestGroup, Request
-from shotserver04.websites.models import Website
+from shotserver04.websites.models import Domain, Website
 
 VALID_SIZES = [
     (640, 480),
@@ -95,8 +95,11 @@ class SizeTestCase(TestCase):
             version='2.0.0.4', major=2, minor=0,
             engine=self.engine,
             disabled=False)
+        self.domain = Domain.objects.create(
+            name='browsershots.org')
         self.website = Website.objects.create(
-            url='http://browsershots.org/')
+            url='http://browsershots.org/',
+            domain=self.domain)
         self.request_group = RequestGroup.objects.create(
             website=self.website, expire=datetime.now())
         self.request = Request.objects.create(
@@ -107,6 +110,7 @@ class SizeTestCase(TestCase):
         self.request.delete()
         self.request_group.delete()
         self.website.delete()
+        self.domain.delete()
         self.browser.delete()
         self.browser_group.delete()
         self.engine.delete()

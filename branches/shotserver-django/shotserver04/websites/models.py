@@ -35,10 +35,36 @@ def hasSlashAfterHostname(field_data, all_data):
             _("Missing slash after the hostname."))
 
 
+class Domain(models.Model):
+    name = models.CharField(
+        _('name'), maxlength=200, unique=True)
+    submitted = models.DateTimeField(
+        _('submitted'), auto_now_add=True)
+
+    class Admin:
+        list_display = ('__str__', 'submitted')
+        search_fields = ('name', )
+        date_hierarchy = 'submitted'
+
+    class Meta:
+        verbose_name = _('domain')
+        verbose_name_plural = _('domains')
+
+    def __str__(self):
+        if len(self.name) > 60:
+            return self.name[:56] + '...'
+        else:
+            return self.name
+
+
 class Website(models.Model):
     url = models.URLField(
         _('URL'), maxlength=400, unique=True,
         validator_list=[hasSlashAfterHostname])
+    domain = models.ForeignKey(Domain,
+        verbose_name=_('domain'), raw_id_admin=True)
+    content = models.TextField(
+        _('content'), blank=True)
     submitted = models.DateTimeField(
         _('submitted'), auto_now_add=True)
 

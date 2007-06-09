@@ -27,7 +27,8 @@ __author__ = "$Author$"
 from psycopg import IntegrityError, ProgrammingError
 from unittest import TestCase
 from django.db import transaction
-from shotserver04.websites.models import Website
+from shotserver04.websites import extract_domain
+from shotserver04.websites.models import Domain, Website
 
 INVALID_URLS = [
     '',
@@ -92,10 +93,15 @@ VALID_URLS = [
 class WebsitesTestCase(TestCase):
 
     def setUp(self):
-        self.website = Website.objects.create(url='http://browsershots.org/')
+        self.domain, created = Domain.objects.get_or_create(
+            name='browsershots.org')
+        self.website = Website.objects.create(
+            url='http://browsershots.org/',
+            domain=self.domain)
 
     def tearDown(self):
         self.website.delete()
+        self.domain.delete()
 
     def testChangeURL(self):
         self.website.url = 'https://browsershots.org/websites/'
@@ -110,13 +116,35 @@ class WebsitesTestCase(TestCase):
         finally:
             transaction.rollback()
 
+    def testMaxLength(self, length=400):
+        try:
+            website = Website.objects.create(url='http://browsershots.org/' +
+                'x' * (length - len('http://browsershots.org/')),
+                domain=self.domain)
+            website.delete()
+        except ProgrammingError:
+            transaction.rollback()
+            self.fail('could not create URL with %d characters' % length)
+
+    def testTooLong(self, length=401):
+        try:
+            website = Website.objects.create(url='http://browsershots.org/' +
+                'x' * (length - len('http://browsershots.org/')),
+                domain=self.domain)
+            website.delete()
+            self.fail('created URL with %d characters' % length)
+        except ProgrammingError:
+            transaction.rollback()
+
 
 class UrlTestCase(TestCase):
 
     def assertInvalid(self, url):
         try:
-            website = Website.objects.create(url=url)
+            domain = Domain.objects.create(name=extract_domain(url))
+            website = Website.objects.create(url=url, domain=domain)
             website.delete()
+            domain.delete()
             self.fail("invalid URL did not raise IntegrityError: '%s'" % url)
         except IntegrityError:
             transaction.rollback()
@@ -127,8 +155,10 @@ class UrlTestCase(TestCase):
 
     def assertValid(self, url):
         self.assertEqual(Website.objects.filter(url=url).count(), 0)
+        domain, created = Domain.objects.get_or_create(
+            name=extract_domain(url))
         try:
-            website = Website.objects.create(url=url)
+            website = Website.objects.create(url=url, domain=domain)
         except IntegrityError:
             transaction.rollback()
             self.fail("valid URL raised IntegrityError: '%s'" % url)
@@ -139,21 +169,3 @@ class UrlTestCase(TestCase):
     def testValidUrls(self):
         for url in VALID_URLS:
             self.assertValid(url)
-
-    def testMaxLength(self, length=400):
-        try:
-            website = Website.objects.create(url='http://browsershots.org/' +
-                'x' * (length - len('http://browsershots.org/')))
-            website.delete()
-        except ProgrammingError:
-            transaction.rollback()
-            self.fail('could not create URL with %d characters' % length)
-
-    def testTooLong(self, length=401):
-        try:
-            website = Website.objects.create(url='http://browsershots.org/' +
-                'x' * (length - len('http://browsershots.org/')))
-            website.delete()
-            self.fail('created URL with %d characters' % length)
-        except ProgrammingError:
-            transaction.rollback()

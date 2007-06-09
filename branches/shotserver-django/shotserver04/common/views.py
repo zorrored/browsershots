@@ -27,9 +27,10 @@ __author__ = "$Author$"
 from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
+from shotserver04.websites import extract_domain
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup, Browser
-from shotserver04.websites.models import Website
+from shotserver04.websites.models import Domain, Website
 from shotserver04.requests.models import RequestGroup, Request
 from datetime import datetime, timedelta
 
@@ -156,16 +157,21 @@ def start(request):
     options_form = OptionsForm(post)
     valid_post = url_form.is_valid() and options_form.is_valid()
     browser_forms = []
+    no_active_factories = True
     for platform in Platform.objects.all():
         browser_form = BrowserForm(platform, post)
         browser_forms.append(browser_form)
         valid_post = valid_post and browser_form.is_valid()
+        no_active_factories = no_active_factories and not browser_form.fields
     if valid_post:
         # Submit URL
         url = url_form.cleaned_data['url']
         if url.count('/') == 2:
-            url += '/' # Trailing slash
-        website, created = Website.objects.get_or_create(url=url)
+            url += '/' # Slash after domain name
+        domain, created = Domain.objects.get_or_create(
+            name=extract_domain(url, remove_www=True))
+        website, created = Website.objects.get_or_create(
+            url=url, domain=domain)
         # Calculate expiration timeout
         minutes = int(options_form.cleaned_data['maximum_wait'])
         timeout = timedelta(0, minutes * 60, 0)
