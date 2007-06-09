@@ -5,10 +5,16 @@
 
 {% block content %}
 <h1>{% trans "Test your web design in different browsers" %}</h1>
-
+{% if no_active_factories %}
+<p>{% trans "No active screenshot factories." %}</p>
+{% else %}
 <form action="/" method="post">
 <div class="blue background" id="inputurl">
+{% if url_form.url.errors %}
+{{ url_form.url.errors }}
+{% else %}
 <p>{% trans "Enter your web address here:" %}</p>
+{% endif %}
 {{ url_form.url }}
 <input class="button" id="submit" name="submit" type="submit" value="Start" />
 </div>
@@ -32,4 +38,5 @@
 {% endfor %}
 </div>
 </form>
+{% endif %}
 {% endblock %}
