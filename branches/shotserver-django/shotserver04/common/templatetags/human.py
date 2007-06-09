@@ -32,6 +32,8 @@ register = template.Library()
 
 @register.filter
 def human_seconds(seconds):
+    if seconds is None:
+        return ''
     if seconds < 180:
         return "%d s" % seconds
     minutes = seconds / 60
@@ -46,5 +48,7 @@ def human_seconds(seconds):
 
 @register.filter
 def human_timesince(then):
+    if then is None:
+        return ''
     delta = datetime.now() - then
     return human_seconds(delta.days * 24 * 3600 + delta.seconds)
