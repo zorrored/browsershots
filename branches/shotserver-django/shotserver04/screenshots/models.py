@@ -72,6 +72,12 @@ class Screenshot(models.Model):
     def get_size_url(self, size):
         return "/png/%s/%s/%s.png" % (size, self.hashkey[:2], self.hashkey)
 
-    def preview_img(self, size=100):
-        return '<img src="%s" alt="" width="%s" height="%s" />' % (
-            self.get_size_url(size), size, self.height * size / self.width)
+    def preview_img(self, width=160):
+        height = self.height * width / self.width
+        return ' '.join((
+            '<img src="%s" alt=""',
+            'style="width:%spx;height:%spx;z-index:0;position:absolute"',
+            'onmouseover="larger(this,%s,%s)"',
+            'onmouseout="smaller(this,%s,%s)" />',
+            )) % (self.get_size_url(width),
+            width / 2, height / 2, width, height, width, height)
