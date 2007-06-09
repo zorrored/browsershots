@@ -25,8 +25,6 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 
-
-
 def extract_domain(url, remove_www=False):
     """
     Extract domain name from URL, without user, password, or port.
