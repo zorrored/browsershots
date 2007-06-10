@@ -87,8 +87,9 @@ class RequestGroup(models.Model):
                 style = 'width:%dpx;height:%dpx' % (width, height)
                 result.append(
                     '<div class="preview float-left" style="%s">' % style +
+                    '<a href="%s">' % screenshot.get_absolute_url() +
                     screenshot.preview_img() +
-                    '</div>')
+                    '</a></div>')
         return '\n'.join(result)
 
 
