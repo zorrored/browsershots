@@ -76,6 +76,10 @@ def verify(request, factory_name, encrypted_password):
     * factory_name string (lowercase, normally from hostname)
     * encrypted_password string (lowercase hexadecimal, length 32)
 
+    Return value
+    ~~~~~~~~~~~~
+    * success boolean (or XML-RPC fault with error message)
+
     Password encryption
     ~~~~~~~~~~~~~~~~~~~
     To encrypt the password, you must first generate a nonce and get
@@ -116,3 +120,4 @@ def verify(request, factory_name, encrypted_password):
         raise Fault(0, 'Nonce expired.')
     # Success!
     nonce.delete()
+    return True
