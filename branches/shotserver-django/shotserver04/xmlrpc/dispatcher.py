@@ -73,7 +73,9 @@ class Dispatcher:
         if hasattr(method, '_signature'):
             result = []
             for x in method._signature:
-                if x is str:
+                if x is None:
+                    result.append('void')
+                elif x is str:
                     result.append('string')
                 else:
                     result.append(x.__name__)

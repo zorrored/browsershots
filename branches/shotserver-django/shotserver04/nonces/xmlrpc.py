@@ -66,7 +66,7 @@ def challenge(request, factory_name):
     return '$'.join((algo, salt, hashkey))
 
 
-@register(str, str, str)
+@register(None, str, str)
 def verify(request, factory_name, encrypted_password):
     """
     Test authentication with an encrypted password.
@@ -116,4 +116,3 @@ def verify(request, factory_name, encrypted_password):
         raise Fault(0, 'Nonce expired.')
     # Success!
     nonce.delete()
-    return 'OK'

@@ -58,7 +58,7 @@ def close_request(request_id, factory, browser, screenshot):
     browser.save()
 
 
-@register(str, str, str, int, Binary)
+@register(None, str, str, int, Binary)
 def upload(http_request,
            factory_name, encrypted_password, request, screenshot):
     """
