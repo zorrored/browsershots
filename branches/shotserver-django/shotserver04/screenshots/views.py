@@ -27,9 +27,11 @@ __author__ = "$Author$"
 from django.shortcuts import render_to_response
 from shotserver04.screenshots.models import Screenshot
 
+COLUMNS = 11
+
 
 def screenshot_list(request):
-    columns = [[0, index * 88] for index in range(10)]
+    columns = [[0, index * 88] for index in range(COLUMNS)]
     screenshot_list = Screenshot.objects.all()[:100]
     previews = []
     for screenshot in screenshot_list:
@@ -45,8 +47,8 @@ def screenshot_list(request):
             '</div>')
         columns[0][0] += height + 8
     columns.sort()
-    previews.insert(0, '<div class="relative" style="height:%dpx">' %
-                    columns[9][0])
+    previews.insert(0,
+        '<div class="relative" style="height:%dpx">' % columns[-1][0])
     previews.append('</div>')
     previews = '\n'.join(previews)
     return render_to_response('screenshots/screenshot_list.html', locals())
