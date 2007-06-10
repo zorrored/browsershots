@@ -76,14 +76,19 @@ class RequestGroup(models.Model):
         ordering = ('-submitted', )
 
     def __str__(self):
-        return str(self.website)
+        return str(self.submitted)
 
     def previews(self):
         result = []
         for request in self.request_set.filter(uploaded__isnull=False):
             for screenshot in request.screenshot_set.all():
-                result.append('<div class="preview">%s</div>' %
-                              screenshot.preview_img())
+                width = 80
+                height = screenshot.height * width / screenshot.width
+                style = 'width:%dpx;height:%dpx' % (width, height)
+                result.append(
+                    '<div class="preview float-left" style="%s">' % style +
+                    screenshot.preview_img() +
+                    '</div>')
         return '\n'.join(result)
 
 

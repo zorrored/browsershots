@@ -68,11 +68,13 @@ h1, h2 {
 pre.signature { font-weight: bold; }
 
 div.preview {
-  margin: 0 8px 0 0;
+  margin: 0 8px 8px 0;
 }
 
 .absolute { position: absolute; }
 .relative { position: relative; }
+.float-left { float: left; }
+.float-right { float: right; }
 
 ul.errorlist {
   color: black;
