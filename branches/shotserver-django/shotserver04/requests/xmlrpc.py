@@ -75,7 +75,6 @@ def poll(http_request, factory_name, encrypted_password):
 
     If successful, the options dict will have the following keys:
 
-    * status string ('OK' or short error message)
     * request int (for redirect and screenshots.upload)
     * command string (browser command to run)
     * browser string (browser name)
@@ -86,10 +85,6 @@ def poll(http_request, factory_name, encrypted_password):
     * javascript string (javascript version)
     * java string (java version)
     * flash string (flash version)
-
-    If an error occurs, the 'status' field in the result dict will
-    contain a short error message, and the other keys will not be
-    available.
 
     Locking
     ~~~~~~~

@@ -72,10 +72,6 @@ def upload(http_request,
     * screenshot binary (BASE64-encoded PNG file)
 
     See nonces.verify for how to encrypt your password.
-
-    Return value
-    ~~~~~~~~~~~~
-    * status string ('OK' or short error message)
     """
     # Verify authentication
     factory = get_or_fault(Factory, name=factory_name)
@@ -103,4 +99,3 @@ def upload(http_request,
     screenshot.save()
     # Close request and update timestamps in database
     close_request(request_id, factory, browser, screenshot)
-    return 'OK'
