@@ -83,3 +83,5 @@ ul.errorlist {
   padding-top: 1ex;
   padding-bottom: 1ex;
 }
+
+img { border: none; }
