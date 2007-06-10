@@ -37,9 +37,7 @@ from datetime import datetime
 def redirect(http_request, factory_name, encrypted_password, request_id):
     try:
         factory = get_object_or_404(Factory, name=factory_name)
-        status = nonces.verify(http_request, factory, encrypted_password)
-        if status != 'OK':
-            raise Fault(0, status)
+        nonces.verify(http_request, factory, encrypted_password)
         request = get_object_or_404(Request, id=request_id)
         request.check_factory_lock(factory)
         user_agent = http_request.META['HTTP_USER_AGENT']
