@@ -75,8 +75,8 @@ class Screenshot(models.Model):
     def preview_img(self, width=160):
         height = self.height * width / self.width
         return ' '.join((
-            '<img src="%s" alt=""',
-            'style="width:%spx;height:%spx;z-index:0;position:absolute"',
+            '<img src="%s" alt="" class="preview absolute"',
+            'style="width:%spx;height:%spx;z-index:0"',
             'onmouseover="larger(this,%s,%s)"',
             'onmouseout="smaller(this,%s,%s)" />',
             )) % (self.get_size_url(width),

@@ -29,5 +29,24 @@ from shotserver04.screenshots.models import Screenshot
 
 
 def screenshot_list(request):
+    columns = [[0, index * 88] for index in range(10)]
     screenshot_list = Screenshot.objects.all()[:100]
+    previews = []
+    for screenshot in screenshot_list:
+        width = 80
+        height = screenshot.height * width / screenshot.width
+        columns.sort()
+        top, left = columns[0]
+        previews.append(
+            '<div class="preview absolute"' +
+            ' style="left:%dpx;top:%dpx;width:%dpx;height:%dpx">' % (
+                left, top, width, height) +
+            screenshot.preview_img() +
+            '</div>')
+        columns[0][0] += height + 8
+    columns.sort()
+    previews.insert(0, '<div class="relative" style="height:%dpx">' %
+                    columns[9][0])
+    previews.append('</div>')
+    previews = '\n'.join(previews)
     return render_to_response('screenshots/screenshot_list.html', locals())

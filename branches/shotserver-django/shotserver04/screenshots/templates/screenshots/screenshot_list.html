@@ -6,7 +6,5 @@
 {% block content %}
 <h1>{% trans "Recent screenshots" %}</h1>
 
-{% for screenshot in screenshot_list %}
-{{ screenshot.preview_img }}
-{% endfor %}
+{{ previews }}
 {% endblock %}
