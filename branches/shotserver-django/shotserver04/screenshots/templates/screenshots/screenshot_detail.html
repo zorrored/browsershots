@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Screenshot details" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Screenshot details" %}</h1>
+
+<div class="float-left">
+<img src="{{ screenshot.get_large_url }}" />
+</div>
+{% endblock %}

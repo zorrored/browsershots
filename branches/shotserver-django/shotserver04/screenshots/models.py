@@ -67,10 +67,13 @@ class Screenshot(models.Model):
         return self.hashkey
 
     def get_absolute_url(self):
-        return self.get_size_url('original')
+        return '/screenshots/%s/' % self.hashkey
 
-    def get_size_url(self, size):
-        return "/png/%s/%s/%s.png" % (size, self.hashkey[:2], self.hashkey)
+    def get_size_url(self, size='original'):
+        return '/png/%s/%s/%s.png' % (size, self.hashkey[:2], self.hashkey)
+
+    def get_large_url(self):
+        return self.get_size_url(size=512)
 
     def preview_img(self, width=160):
         height = self.height * width / self.width

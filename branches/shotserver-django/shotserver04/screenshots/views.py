@@ -24,7 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.screenshots.models import Screenshot
 
 COLUMNS = 11
@@ -43,8 +43,9 @@ def screenshot_list(request):
             '<div class="preview absolute"' +
             ' style="left:%dpx;top:%dpx;width:%dpx;height:%dpx">' % (
                 left, top, width, height) +
+            '<a href="%s">' % screenshot.get_absolute_url() +
             screenshot.preview_img() +
-            '</div>')
+            '</a></div>')
         columns[0][0] += height + 8
     columns.sort()
     previews.insert(0,
@@ -52,3 +53,8 @@ def screenshot_list(request):
     previews.append('</div>')
     previews = '\n'.join(previews)
     return render_to_response('screenshots/screenshot_list.html', locals())
+
+
+def screenshot_detail(request, hashkey):
+    screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
+    return render_to_response('screenshots/screenshot_detail.html', locals())

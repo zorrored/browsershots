@@ -28,4 +28,5 @@ from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('shotserver04.screenshots.views',
     (r'^$', 'screenshot_list'),
+    (r'^(?P<hashkey>[0-9a-f]{32})/$', 'screenshot_detail'),
 )
