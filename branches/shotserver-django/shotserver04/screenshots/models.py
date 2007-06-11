@@ -24,11 +24,13 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import os
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from shotserver04.requests.models import Request
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
+from shotserver04.screenshots import storage
 
 
 class Screenshot(models.Model):
@@ -84,3 +86,7 @@ class Screenshot(models.Model):
             'onmouseout="smaller(this,%s,%s)" />',
             )) % (self.get_size_url(width),
             width / 2, height / 2, width, height, width, height)
+
+    def get_file_size(self):
+        """Get size in bytes of original screenshot file."""
+        return os.path.getsize(storage.png_filename(self.hashkey))
