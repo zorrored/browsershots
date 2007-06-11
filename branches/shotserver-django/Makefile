@@ -16,6 +16,10 @@ pylint :
 doctest :
 	grep -rl --include "*.py" "doctest.testmod()" . | xargs -n1 python
 
+headers :
+	find shotserver04 -name "*.py" \
+	| xargs header.py shotserver04/settings.py
+
 reset :
 	echo DROP DATABASE shotserver04 | psql template1
 	echo CREATE DATABASE shotserver04 | psql template1
