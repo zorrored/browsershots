@@ -13,6 +13,9 @@ pylint :
 	| grep -v "\.Meta] To few public methods" \
 	| grep -v "E1101"
 
+doctest :
+	grep -rl --include "*.py" "doctest.testmod()" . | xargs -n1 python
+
 reset :
 	echo DROP DATABASE shotserver04 | psql template1
 	echo CREATE DATABASE shotserver04 | psql template1
