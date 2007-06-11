@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-11 21:27+0200\n"
+"POT-Creation-Date: 2007-06-11 23:44+0200\n"
 "PO-Revision-Date: 2007-06-04 16:55+2:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgid "CPU type (e.g. i686 or PPC)"
 msgstr ""
 
 #: factories/models.py:44
-#: screenshots/templates/screenshots/screenshot_detail.html:17
+#: screenshots/templates/screenshots/screenshot_detail.html:18
 #: platforms/models.py:67
 msgid "operating system"
 msgstr ""
@@ -48,7 +48,8 @@ msgstr ""
 msgid "last poll"
 msgstr ""
 
-#: factories/models.py:48 browsers/models.py:110
+#: factories/models.py:48 factories/templates/factories/factory_detail.html:19
+#: browsers/models.py:110
 msgid "last upload"
 msgstr ""
 
@@ -65,7 +66,7 @@ msgid "created"
 msgstr ""
 
 #: factories/models.py:76 factories/models.py:124 factories/models.py:147
-#: requests/models.py:108 screenshots/models.py:40 nonces/models.py:34
+#: requests/models.py:108 screenshots/models.py:42 nonces/models.py:34
 #: browsers/models.py:77
 msgid "factory"
 msgstr ""
@@ -74,11 +75,11 @@ msgstr ""
 msgid "factories"
 msgstr ""
 
-#: factories/models.py:127 screenshots/models.py:44
+#: factories/models.py:127 screenshots/models.py:46
 msgid "width"
 msgstr ""
 
-#: factories/models.py:129 screenshots/models.py:46
+#: factories/models.py:129 screenshots/models.py:48
 msgid "height"
 msgstr ""
 
@@ -87,6 +88,7 @@ msgid "screen size"
 msgstr ""
 
 #: factories/models.py:140
+#: factories/templates/factories/factory_detail.html:44
 msgid "screen sizes"
 msgstr ""
 
@@ -99,6 +101,7 @@ msgid "color depth"
 msgstr ""
 
 #: factories/models.py:161
+#: factories/templates/factories/factory_detail.html:57
 msgid "color depths"
 msgstr ""
 
@@ -121,52 +124,66 @@ msgstr ""
 msgid "Screenshot Factory %(name)s"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:14
-msgid "Browser"
+#: factories/templates/factories/factory_detail.html:14 requests/models.py:112
+#: screenshots/models.py:44
+#: screenshots/templates/screenshots/screenshot_detail.html:17
+#: browsers/models.py:143
+msgid "browser"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:15
-msgid "Engine"
+#: factories/templates/factories/factory_detail.html:15 browsers/models.py:48
+#: browsers/models.py:92
+msgid "engine"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:16 requests/models.py:47
-#: browsers/models.py:98
-msgid "Javascript"
+#: factories/templates/factories/factory_detail.html:16
+msgid "javascript"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:17 requests/models.py:49
-#: browsers/models.py:100
-msgid "Java"
+#: factories/templates/factories/factory_detail.html:17
+msgid "java"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:18 requests/models.py:51
-#: browsers/models.py:102
-msgid "Flash"
+#: factories/templates/factories/factory_detail.html:18
+msgid "flash"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:19
-msgid "Last<br />upload"
-msgstr ""
-
-#: factories/templates/factories/factory_detail.html:20
-msgid "Queue<br />estimate"
+#: factories/templates/factories/factory_detail.html:20 browsers/models.py:116
+msgid "queue estimate"
 msgstr ""
 
 #: factories/templates/factories/factory_detail.html:40
-msgid "No browsers."
-msgstr ""
-
-#: factories/templates/factories/factory_detail.html:44
-msgid "Screen sizes"
+msgid "no browsers"
 msgstr ""
 
 #: factories/templates/factories/factory_detail.html:52
 #: factories/templates/factories/factory_detail.html:65
-msgid "Default only."
+msgid "default only"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:57
-msgid "Color depths"
+#: common/templatetags/human.py:46
+#, python-format
+msgid "%(seconds)d s"
+msgstr ""
+
+#: common/templatetags/human.py:49
+#, python-format
+msgid "%(minutes)d min"
+msgstr ""
+
+#: common/templatetags/human.py:52
+#, python-format
+msgid "%(hours)d h"
+msgstr ""
+
+#: common/templatetags/human.py:54
+#, python-format
+msgid "%(days)d d"
+msgstr ""
+
+#: common/templatetags/human.py:83
+#, python-format
+msgid "%(bytes)s bytes"
 msgstr ""
 
 #: common/templatetags/sql_queries.py:63 common/templatetags/sql_queries.py:65
@@ -193,7 +210,7 @@ msgstr ""
 msgid "home"
 msgstr ""
 
-#: common/templates/base.html:17 screenshots/models.py:64
+#: common/templates/base.html:17 screenshots/models.py:66
 msgid "screenshots"
 msgstr ""
 
@@ -215,6 +232,18 @@ msgstr ""
 
 #: requests/models.py:43
 msgid "screen height"
+msgstr ""
+
+#: requests/models.py:47 browsers/models.py:98
+msgid "Javascript"
+msgstr ""
+
+#: requests/models.py:49 browsers/models.py:100
+msgid "Java"
+msgstr ""
+
+#: requests/models.py:51 browsers/models.py:102
+msgid "Flash"
 msgstr ""
 
 #: requests/models.py:53
@@ -257,22 +286,16 @@ msgstr ""
 msgid "locked"
 msgstr ""
 
-#: requests/models.py:112 screenshots/models.py:42
-#: screenshots/templates/screenshots/screenshot_detail.html:16
-#: browsers/models.py:143
-msgid "browser"
-msgstr ""
-
 #: requests/models.py:114
 msgid "redirected"
 msgstr ""
 
-#: requests/models.py:116 screenshots/models.py:48
-#: screenshots/templates/screenshots/screenshot_detail.html:22
+#: requests/models.py:116 screenshots/models.py:50
+#: screenshots/templates/screenshots/screenshot_detail.html:26
 msgid "uploaded"
 msgstr ""
 
-#: requests/models.py:129 screenshots/models.py:38
+#: requests/models.py:129 screenshots/models.py:40
 msgid "request"
 msgstr ""
 
@@ -319,28 +342,36 @@ msgid "Website Overview"
 msgstr ""
 
 #: websites/templates/websites/website_detail.html:9
-#: screenshots/templates/screenshots/screenshot_detail.html:8
+#: screenshots/templates/screenshots/screenshot_detail.html:9
 #, python-format
 msgid "for %(url)s"
 msgstr ""
 
-#: screenshots/models.py:36 nonces/models.py:36
+#: screenshots/models.py:38 nonces/models.py:36
 msgid "hashkey"
 msgstr ""
 
-#: screenshots/models.py:63
+#: screenshots/models.py:65
 msgid "screenshot"
 msgstr ""
 
-#: screenshots/templates/screenshots/screenshot_detail.html:18
-msgid "size"
-msgstr ""
-
-#: screenshots/templates/screenshots/screenshot_detail.html:20
-msgid "requested"
+#: screenshots/templates/screenshots/screenshot_detail.html:19
+msgid "screenshot factory"
 msgstr ""
 
 #: screenshots/templates/screenshots/screenshot_detail.html:21
+msgid "dimensions"
+msgstr ""
+
+#: screenshots/templates/screenshots/screenshot_detail.html:22
+msgid "file size"
+msgstr ""
+
+#: screenshots/templates/screenshots/screenshot_detail.html:24
+msgid "requested"
+msgstr ""
+
+#: screenshots/templates/screenshots/screenshot_detail.html:25
 msgid "page loaded"
 msgstr ""
 
@@ -367,10 +398,6 @@ msgstr ""
 
 #: browsers/models.py:38 browsers/models.py:58 platforms/models.py:60
 msgid "maker"
-msgstr ""
-
-#: browsers/models.py:48 browsers/models.py:92
-msgid "engine"
 msgstr ""
 
 #: browsers/models.py:49
@@ -415,10 +442,6 @@ msgstr ""
 
 #: browsers/models.py:108
 msgid "Deactivate this browser temporarily"
-msgstr ""
-
-#: browsers/models.py:116
-msgid "queue estimate"
 msgstr ""
 
 #: browsers/models.py:117

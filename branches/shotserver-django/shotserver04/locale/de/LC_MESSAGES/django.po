@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-11 21:19+0200\n"
+"POT-Creation-Date: 2007-06-11 23:44+0200\n"
 "PO-Revision-Date: 2006-09-10 22:52+0000\n"
 "Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgid "CPU type (e.g. i686 or PPC)"
 msgstr "CPU-Typ (z.B. i686 oder PPC)"
 
 #: factories/models.py:44
-#: screenshots/templates/screenshots/screenshot_detail.html:17
+#: screenshots/templates/screenshots/screenshot_detail.html:18
 #: platforms/models.py:67
 msgid "operating system"
 msgstr "Betriebssystem"
@@ -47,7 +47,8 @@ msgstr "Betriebssystem"
 msgid "last poll"
 msgstr "letzte Anfrage"
 
-#: factories/models.py:48 browsers/models.py:110
+#: factories/models.py:48 factories/templates/factories/factory_detail.html:19
+#: browsers/models.py:110
 msgid "last upload"
 msgstr "letzter Upload"
 
@@ -64,7 +65,7 @@ msgid "created"
 msgstr "erstellt"
 
 #: factories/models.py:76 factories/models.py:124 factories/models.py:147
-#: requests/models.py:108 screenshots/models.py:40 nonces/models.py:34
+#: requests/models.py:108 screenshots/models.py:42 nonces/models.py:34
 #: browsers/models.py:77
 msgid "factory"
 msgstr "Fabrik"
@@ -73,11 +74,11 @@ msgstr "Fabrik"
 msgid "factories"
 msgstr "Fabriken"
 
-#: factories/models.py:127 screenshots/models.py:44
+#: factories/models.py:127 screenshots/models.py:46
 msgid "width"
 msgstr "Breite"
 
-#: factories/models.py:129 screenshots/models.py:46
+#: factories/models.py:129 screenshots/models.py:48
 msgid "height"
 msgstr "Höhe"
 
@@ -86,6 +87,7 @@ msgid "screen size"
 msgstr "Bildschirmgröße"
 
 #: factories/models.py:140
+#: factories/templates/factories/factory_detail.html:44
 msgid "screen sizes"
 msgstr "Bildschirmgrößen"
 
@@ -98,6 +100,7 @@ msgid "color depth"
 msgstr "Farbtiefe"
 
 #: factories/models.py:161
+#: factories/templates/factories/factory_detail.html:57
 msgid "color depths"
 msgstr "Farbtiefen"
 
@@ -120,53 +123,72 @@ msgstr "Weiter"
 msgid "Screenshot Factory %(name)s"
 msgstr "Screenshot-Fabrik %(name)s"
 
-#: factories/templates/factories/factory_detail.html:14
-msgid "Browser"
+#: factories/templates/factories/factory_detail.html:14 requests/models.py:112
+#: screenshots/models.py:44
+#: screenshots/templates/screenshots/screenshot_detail.html:17
+#: browsers/models.py:143
+msgid "browser"
 msgstr "Browser"
 
-#: factories/templates/factories/factory_detail.html:15
-msgid "Engine"
+#: factories/templates/factories/factory_detail.html:15 browsers/models.py:48
+#: browsers/models.py:92
+msgid "engine"
 msgstr "Engine"
 
-#: factories/templates/factories/factory_detail.html:16 requests/models.py:47
-#: browsers/models.py:98
-msgid "Javascript"
+#: factories/templates/factories/factory_detail.html:16
+#, fuzzy
+msgid "javascript"
 msgstr "Javascript"
 
-#: factories/templates/factories/factory_detail.html:17 requests/models.py:49
-#: browsers/models.py:100
-msgid "Java"
+#: factories/templates/factories/factory_detail.html:17
+#, fuzzy
+msgid "java"
 msgstr "Java"
 
-#: factories/templates/factories/factory_detail.html:18 requests/models.py:51
-#: browsers/models.py:102
-msgid "Flash"
+#: factories/templates/factories/factory_detail.html:18
+#, fuzzy
+msgid "flash"
 msgstr "Flash"
 
-#: factories/templates/factories/factory_detail.html:19
-msgid "Last<br />upload"
-msgstr "Letzter<br />Upload"
-
-#: factories/templates/factories/factory_detail.html:20
-msgid "Queue<br />estimate"
-msgstr "Geschätzte<br />Wartezeit"
+#: factories/templates/factories/factory_detail.html:20 browsers/models.py:116
+msgid "queue estimate"
+msgstr "geschätzte Wartezeit"
 
 #: factories/templates/factories/factory_detail.html:40
-msgid "No browsers."
+#, fuzzy
+msgid "no browsers"
 msgstr "Keine Browser."
-
-#: factories/templates/factories/factory_detail.html:44
-msgid "Screen sizes"
-msgstr "Bildschirmgrößen"
 
 #: factories/templates/factories/factory_detail.html:52
 #: factories/templates/factories/factory_detail.html:65
-msgid "Default only."
+#, fuzzy
+msgid "default only"
 msgstr "Nur Voreinstellung."
 
-#: factories/templates/factories/factory_detail.html:57
-msgid "Color depths"
-msgstr "Farbtiefen"
+#: common/templatetags/human.py:46
+#, python-format
+msgid "%(seconds)d s"
+msgstr ""
+
+#: common/templatetags/human.py:49
+#, python-format
+msgid "%(minutes)d min"
+msgstr ""
+
+#: common/templatetags/human.py:52
+#, python-format
+msgid "%(hours)d h"
+msgstr ""
+
+#: common/templatetags/human.py:54
+#, python-format
+msgid "%(days)d d"
+msgstr ""
+
+#: common/templatetags/human.py:83
+#, python-format
+msgid "%(bytes)s bytes"
+msgstr ""
 
 #: common/templatetags/sql_queries.py:63 common/templatetags/sql_queries.py:65
 msgid "Database queries"
@@ -192,7 +214,7 @@ msgstr "Gib deine Webadresse hier ein:"
 msgid "home"
 msgstr "Home"
 
-#: common/templates/base.html:17 screenshots/models.py:64
+#: common/templates/base.html:17 screenshots/models.py:66
 msgid "screenshots"
 msgstr "Screenshots"
 
@@ -215,6 +237,18 @@ msgstr "Bildschirmbreite"
 #: requests/models.py:43
 msgid "screen height"
 msgstr "Bildschirmhöhe"
+
+#: requests/models.py:47 browsers/models.py:98
+msgid "Javascript"
+msgstr "Javascript"
+
+#: requests/models.py:49 browsers/models.py:100
+msgid "Java"
+msgstr "Java"
+
+#: requests/models.py:51 browsers/models.py:102
+msgid "Flash"
+msgstr "Flash"
 
 #: requests/models.py:53
 msgid "submitter"
@@ -256,22 +290,16 @@ msgstr "Unterversion"
 msgid "locked"
 msgstr "gesperrt"
 
-#: requests/models.py:112 screenshots/models.py:42
-#: screenshots/templates/screenshots/screenshot_detail.html:16
-#: browsers/models.py:143
-msgid "browser"
-msgstr "Browser"
-
 #: requests/models.py:114
 msgid "redirected"
 msgstr "umgeleitet"
 
-#: requests/models.py:116 screenshots/models.py:48
-#: screenshots/templates/screenshots/screenshot_detail.html:22
+#: requests/models.py:116 screenshots/models.py:50
+#: screenshots/templates/screenshots/screenshot_detail.html:26
 msgid "uploaded"
 msgstr "hochgeladen"
 
-#: requests/models.py:129 screenshots/models.py:38
+#: requests/models.py:129 screenshots/models.py:40
 msgid "request"
 msgstr "Auftrag"
 
@@ -318,28 +346,38 @@ msgid "Website Overview"
 msgstr "Webseiten-Übersicht"
 
 #: websites/templates/websites/website_detail.html:9
-#: screenshots/templates/screenshots/screenshot_detail.html:8
+#: screenshots/templates/screenshots/screenshot_detail.html:9
 #, python-format
 msgid "for %(url)s"
 msgstr "für %(url)s"
 
-#: screenshots/models.py:36 nonces/models.py:36
+#: screenshots/models.py:38 nonces/models.py:36
 msgid "hashkey"
 msgstr "Hash-Schlüssel"
 
-#: screenshots/models.py:63
+#: screenshots/models.py:65
 msgid "screenshot"
 msgstr "Screenshot"
 
-#: screenshots/templates/screenshots/screenshot_detail.html:18
-msgid "size"
+#: screenshots/templates/screenshots/screenshot_detail.html:19
+#, fuzzy
+msgid "screenshot factory"
+msgstr "Screenshot-Fabriken"
+
+#: screenshots/templates/screenshots/screenshot_detail.html:21
+msgid "dimensions"
+msgstr ""
+
+#: screenshots/templates/screenshots/screenshot_detail.html:22
+#, fuzzy
+msgid "file size"
 msgstr "Größe"
 
-#: screenshots/templates/screenshots/screenshot_detail.html:20
+#: screenshots/templates/screenshots/screenshot_detail.html:24
 msgid "requested"
 msgstr "angefordert"
 
-#: screenshots/templates/screenshots/screenshot_detail.html:21
+#: screenshots/templates/screenshots/screenshot_detail.html:25
 msgid "page loaded"
 msgstr "Seite geladen"
 
@@ -367,10 +405,6 @@ msgstr "z.B. Gecko / KHTML / AppleWebKit"
 #: browsers/models.py:38 browsers/models.py:58 platforms/models.py:60
 msgid "maker"
 msgstr "Hersteller"
-
-#: browsers/models.py:48 browsers/models.py:92
-msgid "engine"
-msgstr "Engine"
 
 #: browsers/models.py:49
 msgid "engines"
@@ -416,10 +450,6 @@ msgstr "deaktiviert"
 msgid "Deactivate this browser temporarily"
 msgstr "Diesen Browser vorübergehend deaktivieren"
 
-#: browsers/models.py:116
-msgid "queue estimate"
-msgstr "geschätzte Wartezeit"
-
 #: browsers/models.py:117
 msgid "Seconds between request submission and upload"
 msgstr "Sekunden zwischen Anforderung und Hochladen"
@@ -451,6 +481,24 @@ msgstr "Architektur"
 #: platforms/models.py:90
 msgid "architectures"
 msgstr "Architekturen"
+
+#~ msgid "Browser"
+#~ msgstr "Browser"
+
+#~ msgid "Engine"
+#~ msgstr "Engine"
+
+#~ msgid "Last<br />upload"
+#~ msgstr "Letzter<br />Upload"
+
+#~ msgid "Queue<br />estimate"
+#~ msgstr "Geschätzte<br />Wartezeit"
+
+#~ msgid "Screen sizes"
+#~ msgstr "Bildschirmgrößen"
+
+#~ msgid "Color depths"
+#~ msgstr "Farbtiefen"
 
 #~ msgid "Screenshots"
 #~ msgstr "Screenshots"

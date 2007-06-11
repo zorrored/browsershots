@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-23 22:19+0200\n"
+"POT-Creation-Date: 2007-06-11 23:45+0200\n"
 "PO-Revision-Date: 2006-05-23 12:27+0000\n"
 "Last-Translator: Johann C. Rocholl <launchpad@jogg.de>\n"
 "MIME-Version: 1.0\n"
@@ -15,89 +15,96 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "First-Translator: Артем Калимулов, http://unique.com.ru\n"
 
-#: factories/models.py:10 browsers/models.py:8 browsers/models.py:27
-#: platforms/models.py:7 platforms/models.py:28 platforms/models.py:51
+#: factories/models.py:36 websites/models.py:40 browsers/models.py:35
+#: browsers/models.py:55 platforms/models.py:33 platforms/models.py:54
+#: platforms/models.py:80
 msgid "name"
 msgstr ""
 
-#: factories/models.py:11
+#: factories/models.py:37
 msgid "Hostname (lowercase)"
 msgstr ""
 
-#: factories/models.py:13
+#: factories/models.py:39
 msgid "administrator"
 msgstr ""
 
-#: factories/models.py:15
+#: factories/models.py:41
 msgid "hardware architecture"
 msgstr ""
 
-#: factories/models.py:16
+#: factories/models.py:42
 msgid "CPU type (e.g. i686 or PPC)"
 msgstr ""
 
-#: factories/models.py:18 platforms/models.py:44
+#: factories/models.py:44
+#: screenshots/templates/screenshots/screenshot_detail.html:18
+#: platforms/models.py:67
 #, fuzzy
 msgid "operating system"
 msgstr "Операционная<br />система"
 
-#: factories/models.py:20
+#: factories/models.py:46
 #, fuzzy
 msgid "last poll"
 msgstr "Последний<br />опрос"
 
-#: factories/models.py:22 browsers/models.py:74
+#: factories/models.py:48 factories/templates/factories/factory_detail.html:19
+#: browsers/models.py:110
 #, fuzzy
 msgid "last upload"
 msgstr "Последняя<br />загрузка"
 
-#: factories/models.py:24
+#: factories/models.py:50 browsers/models.py:112
 msgid "uploads per hour"
 msgstr ""
 
-#: factories/models.py:26
+#: factories/models.py:52 browsers/models.py:114
 msgid "uploads per day"
 msgstr ""
 
-#: factories/models.py:28 nonces/models.py:14
+#: factories/models.py:54 nonces/models.py:40 browsers/models.py:119
 msgid "created"
 msgstr ""
 
-#: factories/models.py:50 factories/models.py:98 factories/models.py:121
-#: screenshots/models.py:14 nonces/models.py:8 browsers/models.py:48
+#: factories/models.py:76 factories/models.py:124 factories/models.py:147
+#: requests/models.py:108 screenshots/models.py:42 nonces/models.py:34
+#: browsers/models.py:77
 msgid "factory"
 msgstr ""
 
-#: factories/models.py:51
+#: factories/models.py:77 common/templates/base.html:19
 msgid "factories"
 msgstr ""
 
-#: factories/models.py:101 screenshots/models.py:18
+#: factories/models.py:127 screenshots/models.py:46
 msgid "width"
 msgstr ""
 
-#: factories/models.py:103 screenshots/models.py:20
+#: factories/models.py:129 screenshots/models.py:48
 msgid "height"
 msgstr ""
 
-#: factories/models.py:113
+#: factories/models.py:139
 msgid "screen size"
 msgstr ""
 
-#: factories/models.py:114
+#: factories/models.py:140
+#: factories/templates/factories/factory_detail.html:44
 #, fuzzy
 msgid "screen sizes"
 msgstr "Скриншоты"
 
-#: factories/models.py:124 requests/models.py:16
+#: factories/models.py:150 requests/models.py:45
 msgid "bits per pixel"
 msgstr ""
 
-#: factories/models.py:134
+#: factories/models.py:160
 msgid "color depth"
 msgstr ""
 
-#: factories/models.py:135
+#: factories/models.py:161
+#: factories/templates/factories/factory_detail.html:57
 msgid "color depths"
 msgstr ""
 
@@ -121,295 +128,403 @@ msgstr ""
 msgid "Screenshot Factory %(name)s"
 msgstr ""
 
-#: factories/templates/factories/factory_detail.html:14
-msgid "Browser"
-msgstr "Браузер"
-
-#: factories/templates/factories/factory_detail.html:15
-msgid "Engine"
-msgstr "Движок"
-
-#: factories/templates/factories/factory_detail.html:16 requests/models.py:18
-#: browsers/models.py:64
-#, fuzzy
-msgid "Javascript"
-msgstr "JavaScript"
-
-#: factories/templates/factories/factory_detail.html:17 requests/models.py:20
-#: browsers/models.py:66
-msgid "Java"
-msgstr ""
-
-#: factories/templates/factories/factory_detail.html:18 requests/models.py:22
-#: browsers/models.py:68
-msgid "Flash"
-msgstr ""
-
-#: factories/templates/factories/factory_detail.html:19
-msgid "Last<br />upload"
-msgstr "Последняя<br />загрузка"
-
-#: factories/templates/factories/factory_detail.html:38
-#, fuzzy
-msgid "No browsers."
-msgstr "Браузер"
-
-#: factories/templates/factories/factory_detail.html:42
-#, fuzzy
-msgid "Screen sizes"
-msgstr "Скриншоты"
-
-#: factories/templates/factories/factory_detail.html:50
-#: factories/templates/factories/factory_detail.html:63
-msgid "Default only."
-msgstr ""
-
-#: factories/templates/factories/factory_detail.html:55
-msgid "Color depths"
-msgstr ""
-
-#: common/templates/start.html:5 common/templates/start.html.py:8
-#, fuzzy
-msgid "Test your web design in different browsers"
-msgstr "Бесплатные скриншоты вашего сайта в разных браузерах."
-
-#: common/templates/base.html:27
-msgid "Home"
-msgstr "Главная"
-
-#: common/templates/base.html:28
-#, fuzzy
-msgid "Screenshots"
-msgstr "Скриншоты"
-
-#: common/templates/base.html:29
-msgid "Queue"
-msgstr "Очередь"
-
-#: common/templates/base.html:30
-#, fuzzy
-msgid "Factories"
-msgstr "Скриншоты"
-
-#: common/templates/base.html:31
-msgid "Search"
-msgstr "Поиск"
-
-#: common/templates/base.html:32
-#, fuzzy
-msgid "Download"
-msgstr "Загрузки"
-
-#: common/templates/base.html:33
-msgid "Documentation"
-msgstr ""
-
-#: common/templates/base.html:34
-msgid "Blog"
-msgstr ""
-
-#: requests/models.py:12 websites/models.py:25
-msgid "website"
-msgstr ""
-
-#: requests/models.py:14
-msgid "screen width"
-msgstr ""
-
-#: requests/models.py:24
-#, fuzzy
-msgid "submitter"
-msgstr "Отправить"
-
-#: requests/models.py:26 websites/models.py:17
-#, fuzzy
-msgid "submitted"
-msgstr "Отправить"
-
-#: requests/models.py:28
-msgid "expire"
-msgstr ""
-
-#: requests/models.py:45 requests/models.py:54
-msgid "request group"
-msgstr ""
-
-#: requests/models.py:46
-msgid "request groups"
-msgstr ""
-
-#: requests/models.py:56 platforms/models.py:19 platforms/models.py:26
-msgid "platform"
-msgstr ""
-
-#: requests/models.py:58 browsers/models.py:41 browsers/models.py:52
-#, fuzzy
-msgid "browser group"
-msgstr "Браузер"
-
-#: requests/models.py:60 browsers/models.py:56
-msgid "major"
-msgstr ""
-
-#: requests/models.py:62 browsers/models.py:58
-msgid "minor"
-msgstr ""
-
-#: requests/models.py:75 screenshots/models.py:12
-msgid "request"
-msgstr ""
-
-#: requests/models.py:76
-#, fuzzy
-msgid "requests"
-msgstr "Скриншоты"
-
-#: websites/models.py:9
-msgid "Missing slash after the hostname."
-msgstr ""
-
-#: websites/models.py:14
-msgid "URL"
-msgstr "URL"
-
-#: websites/models.py:26
-msgid "websites"
-msgstr ""
-
-#: screenshots/models.py:10 nonces/models.py:10
-msgid "hashkey"
-msgstr ""
-
-#: screenshots/models.py:16 browsers/models.py:97
+#: factories/templates/factories/factory_detail.html:14 requests/models.py:112
+#: screenshots/models.py:44
+#: screenshots/templates/screenshots/screenshot_detail.html:17
+#: browsers/models.py:143
 #, fuzzy
 msgid "browser"
 msgstr "Браузер"
 
-#: screenshots/models.py:22
-msgid "error message"
-msgstr ""
-
-#: screenshots/models.py:24
-msgid "locked"
-msgstr ""
-
-#: screenshots/models.py:26
-msgid "redirected"
-msgstr ""
-
-#: screenshots/models.py:28
-msgid "failed"
-msgstr ""
-
-#: screenshots/models.py:30
-msgid "uploaded"
-msgstr ""
-
-#: screenshots/models.py:48
-#, fuzzy
-msgid "screenshot"
-msgstr "Скриншот"
-
-#: screenshots/models.py:49
-#, fuzzy
-msgid "screenshots"
-msgstr "Скриншоты"
-
-#: nonces/models.py:12
-msgid "IP address"
-msgstr ""
-
-#: nonces/models.py:25
-msgid "nonce"
-msgstr ""
-
-#: nonces/models.py:26
-#, fuzzy
-msgid "nonces"
-msgstr "Доки"
-
-#: browsers/models.py:10 browsers/models.py:29 platforms/models.py:34
-msgid "maker"
-msgstr ""
-
-#: browsers/models.py:20 browsers/models.py:60
+#: factories/templates/factories/factory_detail.html:15 browsers/models.py:48
+#: browsers/models.py:92
 #, fuzzy
 msgid "engine"
 msgstr "Движок"
 
-#: browsers/models.py:21
+#: factories/templates/factories/factory_detail.html:16
+#, fuzzy
+msgid "javascript"
+msgstr "JavaScript"
+
+#: factories/templates/factories/factory_detail.html:17
+msgid "java"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:18
+msgid "flash"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:20 browsers/models.py:116
+msgid "queue estimate"
+msgstr ""
+
+#: factories/templates/factories/factory_detail.html:40
+#, fuzzy
+msgid "no browsers"
+msgstr "Браузер"
+
+#: factories/templates/factories/factory_detail.html:52
+#: factories/templates/factories/factory_detail.html:65
+msgid "default only"
+msgstr ""
+
+#: common/templatetags/human.py:46
+#, python-format
+msgid "%(seconds)d s"
+msgstr ""
+
+#: common/templatetags/human.py:49
+#, python-format
+msgid "%(minutes)d min"
+msgstr ""
+
+#: common/templatetags/human.py:52
+#, python-format
+msgid "%(hours)d h"
+msgstr ""
+
+#: common/templatetags/human.py:54
+#, python-format
+msgid "%(days)d d"
+msgstr ""
+
+#: common/templatetags/human.py:83
+#, python-format
+msgid "%(bytes)s bytes"
+msgstr ""
+
+#: common/templatetags/sql_queries.py:63 common/templatetags/sql_queries.py:65
+msgid "Database queries"
+msgstr ""
+
+#: common/templatetags/sql_queries.py:64
+msgid "Time"
+msgstr "Время"
+
+#: common/templates/start.html:4 common/templates/start.html.py:7
+#, fuzzy
+msgid "Test your web design in different browsers"
+msgstr "Бесплатные скриншоты вашего сайта в разных браузерах."
+
+#: common/templates/start.html:9
+msgid "No active screenshot factories."
+msgstr "Временно недоступно."
+
+#: common/templates/start.html:16
+#, fuzzy
+msgid "Enter your web address here:"
+msgstr "Введите адрес вебсайта."
+
+#: common/templates/base.html:16
+#, fuzzy
+msgid "home"
+msgstr "Главная"
+
+#: common/templates/base.html:17 screenshots/models.py:66
+#, fuzzy
+msgid "screenshots"
+msgstr "Скриншоты"
+
+#: common/templates/base.html:18
+#, fuzzy
+msgid "queue"
+msgstr "Очередь"
+
+#: common/templates/base.html:20
+#, fuzzy
+msgid "search"
+msgstr "Поиск"
+
+#: requests/models.py:39 websites/models.py:77
+msgid "website"
+msgstr ""
+
+#: requests/models.py:41
+msgid "screen width"
+msgstr ""
+
+#: requests/models.py:43
+#, fuzzy
+msgid "screen height"
+msgstr "Скриншот"
+
+#: requests/models.py:47 browsers/models.py:98
+#, fuzzy
+msgid "Javascript"
+msgstr "JavaScript"
+
+#: requests/models.py:49 browsers/models.py:100
+msgid "Java"
+msgstr ""
+
+#: requests/models.py:51 browsers/models.py:102
+msgid "Flash"
+msgstr ""
+
+#: requests/models.py:53
+#, fuzzy
+msgid "submitter"
+msgstr "Отправить"
+
+#: requests/models.py:55 websites/models.py:42 websites/models.py:69
+#, fuzzy
+msgid "submitted"
+msgstr "Отправить"
+
+#: requests/models.py:57
+msgid "expire"
+msgstr ""
+
+#: requests/models.py:74 requests/models.py:98
+msgid "request group"
+msgstr ""
+
+#: requests/models.py:75
+msgid "request groups"
+msgstr ""
+
+#: requests/models.py:100 platforms/models.py:45 platforms/models.py:52
+msgid "platform"
+msgstr ""
+
+#: requests/models.py:102 browsers/models.py:70 browsers/models.py:82
+#, fuzzy
+msgid "browser group"
+msgstr "Браузер"
+
+#: requests/models.py:104 browsers/models.py:88
+msgid "major"
+msgstr ""
+
+#: requests/models.py:106 browsers/models.py:90
+msgid "minor"
+msgstr ""
+
+#: requests/models.py:110
+msgid "locked"
+msgstr ""
+
+#: requests/models.py:114
+msgid "redirected"
+msgstr ""
+
+#: requests/models.py:116 screenshots/models.py:50
+#: screenshots/templates/screenshots/screenshot_detail.html:26
+msgid "uploaded"
+msgstr ""
+
+#: requests/models.py:129 screenshots/models.py:40
+msgid "request"
+msgstr ""
+
+#: requests/models.py:130
+#, fuzzy
+msgid "requests"
+msgstr "Скриншоты"
+
+#: requests/templates/requests/request_list.html:5
+#: requests/templates/requests/request_list.html:8
+#, fuzzy
+msgid "Screenshot requests"
+msgstr "Скриншоты"
+
+#: requests/templates/requests/request_list.html:30
+msgid "No pending requests."
+msgstr ""
+
+#: websites/models.py:35
+msgid "Missing slash after the hostname."
+msgstr ""
+
+#: websites/models.py:50 websites/models.py:65
+msgid "domain"
+msgstr ""
+
+#: websites/models.py:51
+msgid "domains"
+msgstr ""
+
+#: websites/models.py:62
+msgid "URL"
+msgstr "URL"
+
+#: websites/models.py:67
+msgid "content"
+msgstr ""
+
+#: websites/models.py:78
+msgid "websites"
+msgstr ""
+
+#: websites/templates/websites/website_detail.html:5
+#: websites/templates/websites/website_detail.html:8
+msgid "Website Overview"
+msgstr ""
+
+#: websites/templates/websites/website_detail.html:9
+#: screenshots/templates/screenshots/screenshot_detail.html:9
+#, python-format
+msgid "for %(url)s"
+msgstr ""
+
+#: screenshots/models.py:38 nonces/models.py:36
+msgid "hashkey"
+msgstr ""
+
+#: screenshots/models.py:65
+#, fuzzy
+msgid "screenshot"
+msgstr "Скриншот"
+
+#: screenshots/templates/screenshots/screenshot_detail.html:19
+#, fuzzy
+msgid "screenshot factory"
+msgstr "Скриншоты"
+
+#: screenshots/templates/screenshots/screenshot_detail.html:21
+msgid "dimensions"
+msgstr ""
+
+#: screenshots/templates/screenshots/screenshot_detail.html:22
+msgid "file size"
+msgstr ""
+
+#: screenshots/templates/screenshots/screenshot_detail.html:24
+#, fuzzy
+msgid "requested"
+msgstr "Скриншоты"
+
+#: screenshots/templates/screenshots/screenshot_detail.html:25
+msgid "page loaded"
+msgstr ""
+
+#: screenshots/templates/screenshots/screenshot_list.html:4
+#: screenshots/templates/screenshots/screenshot_list.html:7
+msgid "Recent screenshots"
+msgstr "Последние выполненные задания"
+
+#: nonces/models.py:38
+msgid "IP address"
+msgstr ""
+
+#: nonces/models.py:51
+msgid "nonce"
+msgstr ""
+
+#: nonces/models.py:52
+#, fuzzy
+msgid "nonces"
+msgstr "Доки"
+
+#: browsers/models.py:36
+msgid "e.g. Gecko / KHTML / AppleWebKit"
+msgstr ""
+
+#: browsers/models.py:38 browsers/models.py:58 platforms/models.py:60
+msgid "maker"
+msgstr ""
+
+#: browsers/models.py:49
 #, fuzzy
 msgid "engines"
 msgstr "Движок"
 
-#: browsers/models.py:31
+#: browsers/models.py:56
+msgid "e.g. Firefox / Internet Explorer / Safari"
+msgstr ""
+
+#: browsers/models.py:60
 msgid "terminal"
 msgstr ""
 
-#: browsers/models.py:31
+#: browsers/models.py:60
 msgid "Is this a text-mode browser?"
 msgstr ""
 
-#: browsers/models.py:42
+#: browsers/models.py:71
 msgid "browser groups"
 msgstr ""
 
-#: browsers/models.py:50
+#: browsers/models.py:79
 msgid "user agent"
 msgstr ""
 
-#: browsers/models.py:54 platforms/models.py:30
+#: browsers/models.py:85 platforms/models.py:56
 msgid "version"
 msgstr ""
 
-#: browsers/models.py:62
+#: browsers/models.py:95
 msgid "engine version"
 msgstr ""
 
-#: browsers/models.py:70
+#: browsers/models.py:104
 msgid "command"
 msgstr ""
 
-#: browsers/models.py:72
+#: browsers/models.py:107
 msgid "disabled"
 msgstr ""
 
-#: browsers/models.py:72
-msgid "Is this browser inactive?"
+#: browsers/models.py:108
+msgid "Deactivate this browser temporarily"
 msgstr ""
 
-#: browsers/models.py:98
+#: browsers/models.py:117
+msgid "Seconds between request submission and upload"
+msgstr ""
+
+#: browsers/models.py:144
 #, fuzzy
 msgid "browsers"
 msgstr "Браузер"
 
-#: platforms/models.py:10
-msgid "order"
-msgstr ""
+#: platforms/models.py:36
+#, fuzzy
+msgid "position"
+msgstr "Настройки"
 
-#: platforms/models.py:20
+#: platforms/models.py:46
 msgid "platforms"
 msgstr ""
 
-#: platforms/models.py:32
+#: platforms/models.py:58
 msgid "codename"
 msgstr ""
 
-#: platforms/models.py:45
+#: platforms/models.py:68
 #, fuzzy
 msgid "operating systems"
 msgstr "Операционная<br />система"
 
-#: platforms/models.py:60
+#: platforms/models.py:89
 msgid "architecture"
 msgstr ""
 
-#: platforms/models.py:61
+#: platforms/models.py:90
 msgid "architectures"
 msgstr ""
 
-#~ msgid "Recent screenshots"
-#~ msgstr "Последние выполненные задания"
+#~ msgid "Browser"
+#~ msgstr "Браузер"
+
+#~ msgid "Engine"
+#~ msgstr "Движок"
+
+#~ msgid "Last<br />upload"
+#~ msgstr "Последняя<br />загрузка"
+
+#, fuzzy
+#~ msgid "Screen sizes"
+#~ msgstr "Скриншоты"
+
+#, fuzzy
+#~ msgid "Factories"
+#~ msgstr "Скриншоты"
+
+#, fuzzy
+#~ msgid "Download"
+#~ msgstr "Загрузки"
 
 #~ msgid "Screenshots by URL"
 #~ msgstr "Скриншоты по URL"
@@ -449,9 +564,6 @@ msgstr ""
 
 #~ msgid "Resolution"
 #~ msgstr "Экран"
-
-#~ msgid "Time"
-#~ msgstr "Время"
 
 #~ msgid "There are %d jobs in the queue."
 #~ msgstr "Заданий в очереди - %d."
@@ -521,12 +633,6 @@ msgstr ""
 #~ msgid "Help"
 #~ msgstr "Помощь"
 
-#~ msgid "Options"
-#~ msgstr "Настройки"
-
-#~ msgid "Enter your web address."
-#~ msgstr "Введите адрес вебсайта."
-
 #~ msgid "Make Screenshots"
 #~ msgstr "Сделать скриншоты"
 
@@ -538,9 +644,6 @@ msgstr ""
 
 #~ msgid "Rendering<br />engine"
 #~ msgstr "Движок<br />прорисовки"
-
-#~ msgid "No active screenshot factories."
-#~ msgstr "Временно недоступно."
 
 #~ msgid "Top-down"
 #~ msgstr "Сверху-вниз"
