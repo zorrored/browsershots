@@ -8,7 +8,7 @@ body {
 
 div#content {
   position: absolute;
-  top: 30px;
+  top: 20px;
   left: 30px;
   right: 30px;
 }
@@ -61,7 +61,7 @@ div.options select { width: 140px; }
 input#id_url { width: 800px; }
 
 h1, h2 {
-  margin: 0;
+  margin: 10px 0;
   clear: both;
 }
 
