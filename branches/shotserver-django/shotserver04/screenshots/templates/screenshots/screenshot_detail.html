@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Screenshot details" %}{% endblock %}
+{% block title %}{{ screenshot.browser }} / {{ screenshot.factory.operating_system }}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Screenshot details" %}</h1>
+<h1>{{ screenshot.browser }} / {{ screenshot.factory.operating_system }}</h1>
+<p>{% blocktrans with screenshot.request.request_group.website.link as url %}for {{ url }}{% endblocktrans %}</p>
 
-<div class="float-left">
+<div class="screenshot float-left">
 <img src="{{ screenshot.get_large_url }}" />
+</div>
+
+<div class="screenshot-info float-left">
+<dl>
+<dt>{{ _("browser")|capfirst }}:</dt><dd>{{ screenshot.browser }}</dd>
+<dt>{{ _("operating system")|capfirst }}:</dt><dd>{{ screenshot.factory.operating_system }}</dd>
+<dt>{{ _("size")|capfirst }}:</dt><dd>{{ screenshot.width }}x{{ screenshot.height }}</dd>
+<hr />
+<dt>{{ _("requested")|capfirst }}:</dt><dd>{{ screenshot.request.request_group.submitted }}</dd>
+<dt>{{ _("page loaded")|capfirst }}:</dt><dd>{{ screenshot.request.redirected }}</dd>
+<dt>{{ _("uploaded")|capfirst }}:</dt><dd>{{ screenshot.request.uploaded }}</dd>
+</dl>
 </div>
 {% endblock %}

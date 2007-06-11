@@ -85,3 +85,8 @@ ul.errorlist {
 }
 
 img { border: none; }
+
+div.screenshot { margin: 0 16px 0 0; }
+
+dl { margin: 0; }
+dt { font-weight: bold; }
