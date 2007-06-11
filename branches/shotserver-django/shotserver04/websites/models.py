@@ -88,3 +88,7 @@ class Website(models.Model):
             return '/websites/%d/' % self.id
         else:
             return '/' + self.url
+
+    def link(self):
+        return '<a href="%s">%s</a>' % (
+            self.get_absolute_url(), self.url)
