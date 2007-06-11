@@ -27,6 +27,7 @@ __author__ = "$Author$"
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from shotserver04.factories.models import Factory
+from shotserver04.browsers import middleware as current_browser
 
 
 class Engine(models.Model):
@@ -75,19 +76,24 @@ class Browser(models.Model):
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     user_agent = models.CharField(
-        _('user agent'), maxlength=200)
+        _('user agent'), maxlength=200,
+        default=current_browser.get_user_agent)
     browser_group = models.ForeignKey(BrowserGroup,
-        verbose_name=_('browser group'))
+        verbose_name=_('browser group'),
+        default=current_browser.get_browser_group)
     version = models.CharField(
-        _('version'), maxlength=20)
+        _('version'), maxlength=20,
+        default=current_browser.get_version)
     major = models.IntegerField(
-        _('major'))
+        _('major'), default=current_browser.get_major)
     minor = models.IntegerField(
-        _('minor'))
+        _('minor'), default=current_browser.get_minor)
     engine = models.ForeignKey(Engine,
-        verbose_name=_('engine'), blank=True)
+        verbose_name=_('engine'), blank=True,
+        default=current_browser.get_engine)
     engine_version = models.CharField(
-        _('engine version'), maxlength=20, blank=True)
+        _('engine version'), maxlength=20, blank=True,
+        default=current_browser.get_engine_version)
     javascript = models.CharField(
         _('Javascript'), maxlength=20, blank=True)
     java = models.CharField(
@@ -95,7 +101,8 @@ class Browser(models.Model):
     flash = models.CharField(
         _('Flash'), maxlength=20, blank=True)
     command = models.CharField(
-        _('command'), maxlength=80, blank=True)
+        _('command'), maxlength=80, blank=True,
+        default=current_browser.get_command)
     disabled = models.BooleanField(
         _('disabled'),
         help_text=_("Deactivate this browser temporarily"))
