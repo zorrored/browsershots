@@ -6,7 +6,7 @@
 
 {% block content %}
 <h1>{% trans "Website Overview" %}</h1>
-<p>{% blocktrans with website.link as url %}for {{ url }}{% endblocktrans %}</p>
+<p>{% blocktrans with website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
 {% for request_group in website.requestgroup_set.all %}
 <h2>{{ request_group }}</h2>
