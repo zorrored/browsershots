@@ -106,8 +106,7 @@ class BrowserInfoMiddleware(object):
         Grab browser details from request.
         """
         # Only for "Add browser" in Django admin
-        if not request.META['PATH_INFO'].startswith(
-            '/admin/browsers/browser/add/'):
+        if not '/browsers/browser/add/' in request.META['PATH_INFO']:
             return
         # Get user agent from request
         user_agent = request.META['HTTP_USER_AGENT']
