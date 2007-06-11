@@ -10,7 +10,7 @@
 <thead>
 <tr>
 {% for header in header_list %}
-<th{{ header.class_attrib }}><a href="{{ header.url }}">{{ header.text|capfirst }}</a></th>
+<th{{ header.class_attrib }}><a href="{{ header.url }}">{{ header.text|capfirst|human_br }}</a></th>
 {% endfor %}
 </tr>
 </thead>

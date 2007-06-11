@@ -49,10 +49,6 @@ def factory_list(request):
     header_list = []
     for column in FACTORY_LIST_COLUMNS:
         text = Factory._meta.get_field(column).verbose_name
-        if text.count('-'):
-            text = text.replace('-', '-<br />', 1)
-        else:
-            text = text.replace(' ', '<br />', 1)
         class_attrib = ''
         if column == order_column:
             if descending:
