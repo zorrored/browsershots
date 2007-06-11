@@ -25,30 +25,108 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from datetime import datetime
-from django import template
-
-register = template.Library()
 
 
-@register.filter
 def human_seconds(seconds):
+    """
+    >>> human_seconds(0)
+    '0 s'
+    >>> human_seconds(1)
+    '1 s'
+    >>> human_seconds(5*60)
+    '5 min'
+    >>> human_seconds(5*3600)
+    '5 h'
+    >>> human_seconds(5*24*3600)
+    '5 d'
+    """
     if seconds is None:
         return ''
     if seconds < 180:
-        return "%d s" % seconds
+        return _("%(seconds)d s") % locals()
     minutes = seconds / 60
     if minutes < 180:
-        return "%d min" % minutes
+        return _("%(minutes)d min") % locals()
     hours = minutes / 60
     if hours < 72:
-        return "%d h" % hours
+        return _("%(hours)d h") % locals()
     days = hours / 24
-    return "%d d" % days
+    return _("%(days)d d") % locals()
 
 
-@register.filter
 def human_timesince(then):
     if then is None:
         return ''
     delta = datetime.now() - then
     return human_seconds(delta.days * 24 * 3600 + delta.seconds)
+
+
+def human_bytes(bytes):
+    """
+    >>> human_bytes(0)
+    '0 bytes'
+    >>> human_bytes(100)
+    '100 bytes'
+    >>> human_bytes(9999)
+    '9999 bytes'
+    >>> human_bytes(10000)
+    '10 000 bytes'
+    >>> human_bytes(10000000)
+    '10 000 000 bytes'
+    >>> human_bytes(123456789)
+    '123 456 789 bytes'
+    """
+    bytes = str(bytes)
+    if len(bytes) > 4:
+        for index in range(len(bytes) - 3, 0, -3):
+            bytes = bytes[:index] + ' ' + bytes[index:]
+    return _("%(bytes)s bytes") % locals()
+
+
+def human_link(object):
+    """
+    HTML link to the detail page.
+    """
+    return '<a href="%s">%s</a>' % (object.get_absolute_url(), str(object))
+
+
+def human_br(text):
+    """
+    Add <br /> tags for narrow table headers.
+
+    >>> human_br('test')
+    'test'
+    >>> human_br('last upload')
+    'last<br />upload'
+    >>> human_br('browser-group')
+    'browser-<br />group'
+    >>> human_br('a b c d')
+    'a b<br />c d'
+    """
+    middle = len(text) / 2
+    candidates = []
+    for index, char in enumerate(text):
+        if char in ' -':
+            candidates.append((abs(middle - index), index, char))
+    candidates.sort()
+    if not candidates:
+        return text
+    middle, index, char = candidates[0]
+    if char == '-':
+        return text[:index+1] + '<br />' + text[index+1:]
+    else:
+        return text[:index] + '<br />' + text[index+1:]
+
+
+if __name__ == '__main__':
+    import doctest
+    _ = lambda x: x
+    doctest.testmod()
+else:
+    from django import template
+    register = template.Library()
+    register.filter(human_seconds)
+    register.filter(human_timesince)
+    register.filter(human_bytes)
+    register.filter(human_link)
+    register.filter(human_br)
