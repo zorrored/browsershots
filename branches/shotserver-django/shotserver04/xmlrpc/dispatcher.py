@@ -135,8 +135,3 @@ class Dispatcher:
     def dispatch_request(self, request):
         params, method = xmlrpclib.loads(request.raw_post_data)
         return self.dispatch_and_marshal(method, request, params)
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
