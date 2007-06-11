@@ -13,11 +13,11 @@
 </div>
 {% load i18n %}
 <ul id="mainmenu">
-<li><a href="/">{% trans "Home" %}</a></li>
-<li><a href="/screenshots/">{% trans "Screenshots" %}</a></li>
-<li><a href="/requests/">{% trans "Queue" %}</a></li>
-<li><a href="/factories/">{% trans "Factories" %}</a></li>
-<li><a href="/websites/">{% trans "Search" %}</a></li>
+<li><a href="/">{{ _("home")|title }}</a></li>
+<li><a href="/screenshots/">{{ _("screenshots")|title }}</a></li>
+<li><a href="/requests/">{{ _("queue")|title }}</a></li>
+<li><a href="/factories/">{{ _("factories")|title }}</a></li>
+<li><a href="/websites/">{{ _("search")|title }}</a></li>
 </ul>
 {% load select_lang %}{% select_lang %}
 </body>
