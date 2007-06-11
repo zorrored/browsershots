@@ -45,7 +45,7 @@ def find_and_lock_request(factory, features):
     matches = matches.filter(
         Q(locked__isnull=True) | Q(locked__lt=five_minutes_ago))
     matches = matches.order_by(
-        '-requests_request__request_group.submitted')
+        'requests_request__request_group.submitted')
     matches = matches[:1]
     if len(matches) == 0:
         raise Fault(0, 'No matching request.')
