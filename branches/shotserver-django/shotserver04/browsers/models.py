@@ -119,7 +119,7 @@ class Browser(models.Model):
         _('created'), auto_now_add=True)
 
     def __str__(self):
-        return '%s %d.%d' % (self.browser_group.name, self.major, self.minor)
+        return '%s %s' % (self.browser_group.name, self.version)
 
     class Admin:
         fields = (
