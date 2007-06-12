@@ -9,20 +9,20 @@ body {
 div#content {
   position: absolute;
   top: 20px;
-  left: 30px;
-  right: 30px;
+  left: 50px;
+  right: 50px;
 }
 
 div#setlang {
   position: absolute;
   top: 10px;
-  right: 30px;
+  right: 50px;
 }
 
 ul#mainmenu {
   position: absolute;
   top: 0;
-  left: 30px;
+  left: 50px;
   padding: 0;
   margin: 0;
   list-style-type: none;
@@ -52,13 +52,20 @@ table.debug td { vertical-align: top; }
 tr.row1 { background-color: #EEE; }
 tr.row2 { background-color: #FFF; }
 
+div.browsers,
 div.options {
   float: left;
-  width: 160px;
+  margin: 0 20px 20px 0;
 }
-div.options select { width: 140px; }
+div.options select {
+  width: 120px;
+}
 
-input#id_url { width: 800px; }
+input#id_url {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
 
 h1, h2 {
   margin: 10px 0;

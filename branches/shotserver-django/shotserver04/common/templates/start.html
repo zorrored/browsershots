@@ -15,13 +15,14 @@
 {% else %}
 <p>{% trans "Enter your web address here:" %}</p>
 {% endif %}
-{{ url_form.url }}
-<input class="button" id="submit" name="submit" type="submit" value="Start" />
+<p>{{ url_form.url }}<br /></p>
+<p><input class="button" id="submit" name="submit" type="submit"
+value="{{ _("request screenshots")|title }}" /></p>
 </div>
 
 <div class="gray background" style="clear:both">
 {% for browser_form in browser_forms %}{% if browser_form.fields %}
-<div class="browsers" style="float:left">
+<div class="browsers ">
 <h2>{{ browser_form.platform.name }}</h2>
 {{ browser_form }}
 </div>
@@ -30,10 +31,10 @@
 
 <div class="gray background" style="clear:both">
 <h2>Options</h2>
-{% for option in options_form %}
-<div class="options {{ option.name }}">
-<p><label for="id_{{ option.name }}">{{ option.label }}</label><br />
-{{ option }}</p>
+{% for options in options_form %}
+<div class="options {{ options.name }}">
+<label for="id_{{ options.name }}">{{ options.label }}</label><br />
+{{ options }}
 </div>
 {% endfor %}
 </div>
