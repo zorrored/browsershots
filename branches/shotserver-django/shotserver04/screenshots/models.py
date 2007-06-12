@@ -25,7 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import os
-from django.db import models
+from django.db import models, backend
 from django.utils.translation import gettext_lazy as _
 from shotserver04.requests.models import Request
 from shotserver04.websites.models import Website
@@ -36,23 +36,30 @@ from shotserver04.screenshots import storage
 
 class ScreenshotManager(models.Manager):
 
+    def _quote(self, name):
+        return '%s.%s' % (
+            backend.quote_name(self.model._meta.db_table),
+            backend.quote_name(name))
+
     def recent(self):
         """
         Get recent screenshots, but only one per website.
         """
         from django.db import connection
         cursor = connection.cursor()
-        fields = [f.column for f in self.model._meta.fields]
+        fields = ','.join(
+            [self._quote(field.column) for field in self.model._meta.fields])
         cursor.execute("""
-            SELECT """ + ','.join(fields) + """
-            FROM screenshots_screenshot
-            WHERE id IN (
-                SELECT MAX(id) AS maximum
-                FROM screenshots_screenshot
-                GROUP BY website_id
-                ORDER BY maximum DESC
+            SELECT """ + fields + """
+            FROM """ + backend.quote_name(self.model._meta.db_table) + """
+            WHERE """ + self._quote('id') + """ IN (
+                SELECT MAX(""" + self._quote('id') + """)
+                AS """ + backend.quote_name('maximum') + """
+                FROM  """ + backend.quote_name(self.model._meta.db_table) + """
+                GROUP BY """ + self._quote('website_id') + """
+                ORDER BY """ + backend.quote_name('maximum') + """ DESC
                 LIMIT 100)
-            ORDER BY id DESC
+            ORDER BY """ + self._quote('id') + """ DESC
             """)
         for row in cursor.fetchall():
             yield self.model(*row)
