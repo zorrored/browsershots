@@ -109,3 +109,13 @@ div.blue input#submit {
   width: 20%;
 }
 div.blue p { margin: 0; }
+
+div.large-preview { position: relative; }
+div.previous-screenshot {
+  position: absolute;
+  right: 0;
+}
+div.next-screenshot {
+  position: absolute;
+  left: 0;
+}

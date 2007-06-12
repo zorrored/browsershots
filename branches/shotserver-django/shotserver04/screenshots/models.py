@@ -139,3 +139,22 @@ class Screenshot(models.Model):
     def get_file_size(self):
         """Get size in bytes of original screenshot file."""
         return os.path.getsize(storage.png_filename(self.hashkey))
+
+    def link(self, text=None, div_class='screenshot-link'):
+        if text is None:
+            text = str(self)
+        return ' '.join((
+            '<div class="%s">' % div_class,
+            '<a href="%s">%s</a>' % (self.get_absolute_url(), text),
+            '</div>',
+            ))
+
+    def previous_link(self):
+        other = self.get_previous_by_uploaded(website=self.website)
+        return other.link(_('previous').title() + ': ' +
+                          str(other.browser), 'previous-screenshot')
+
+    def next_link(self):
+        other = self.get_next_by_uploaded(website=self.website)
+        return other.link(_('next').title() + ': ' +
+                          str(other.browser), 'next-screenshot')

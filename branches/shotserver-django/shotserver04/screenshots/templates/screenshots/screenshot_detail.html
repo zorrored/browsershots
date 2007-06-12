@@ -9,6 +9,9 @@
 <p>{% blocktrans with screenshot.request.request_group.website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
 <div class="large-preview">
+{{ screenshot.previous_link }}
+{{ screenshot.next_link }}
+<br />
 <img src="{{ screenshot.get_large_url }}" />
 </div>
 
