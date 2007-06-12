@@ -6,7 +6,6 @@
 
 {% block content %}
 <h1>{{ screenshot.browser }} / {{ screenshot.factory.operating_system }}</h1>
-<p>{% blocktrans with screenshot.request.request_group.website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
 <div class="large-preview">
 {{ screenshot.previous_link }}
@@ -29,4 +28,6 @@
 <dt>{{ _("uploaded")|capfirst }}:</dt><dd>{{ screenshot.request.uploaded }}</dd>
 </dl>
 </div>
+
+<p>{{ screenshot.request.request_group.website|human_link }}</p>
 {% endblock %}
