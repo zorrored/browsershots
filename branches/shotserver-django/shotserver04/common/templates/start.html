@@ -15,9 +15,9 @@
 {% else %}
 <p>{% trans "Enter your web address here:" %}</p>
 {% endif %}
-<p>{{ url_form.url }}<br /></p>
-<p><input class="button" id="submit" name="submit" type="submit"
-value="{{ _("request screenshots")|title }}" /></p>
+{{ url_form.url }}
+<input class="button" id="submit" name="submit" type="submit"
+value="{{ _("request screenshots")|title }}" />
 </div>
 
 <div class="gray background" style="clear:both">
