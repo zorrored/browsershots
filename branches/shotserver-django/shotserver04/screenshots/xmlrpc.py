@@ -100,9 +100,10 @@ def upload(http_request,
     for size in PREVIEW_SIZES:
         storage.scale(ppmname, size, hashkey)
     # Save screenshot in database
+    website = request.request_group.website
     screenshot = Screenshot(
-        factory=factory, browser=browser, request=request,
-        hashkey=hashkey, width=width, height=height)
+        hashkey=hashkey, request=request, website=website,
+        factory=factory, browser=browser, width=width, height=height)
     screenshot.save()
     # Close request and update timestamps in database
     close_request(request_id, factory, browser, screenshot)
