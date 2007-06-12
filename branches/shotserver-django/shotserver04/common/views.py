@@ -124,7 +124,8 @@ class BrowserForm(forms.BaseForm):
             if name in field_dict:
                 continue
             initial = data is None or (name in data and 'on' in data[name])
-            field = forms.BooleanField(label=label, initial=initial)
+            field = forms.BooleanField(
+                label=label, initial=initial, required=False)
             field_dict[name] = field
         field_names = field_dict.keys()
         field_names.sort()
@@ -200,9 +201,11 @@ def create_platform_requests(request_group, platform, browser_form):
     platform_lower = platform.name.lower().replace(' ', '-')
     result = []
     for name in browser_form.fields:
+        if not browser_form.cleaned_data[name]:
+            continue # Browser not selected
         first_part, browser_name, major, minor = name.split('_')
         if first_part != platform_lower:
-            continue
+            continue # Different platform
         browser_group = BrowserGroup.objects.get(
             name__iexact=browser_name.replace('-', ' '))
         result.append(Request.objects.create(
