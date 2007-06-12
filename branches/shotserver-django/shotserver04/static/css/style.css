@@ -74,14 +74,15 @@ h1, h2 {
 
 pre.signature { font-weight: bold; }
 
-div.preview {
-  margin: 0 8px 8px 0;
-}
+div.previews { position: relative; }
+div.preview { margin: 0 8px 8px 0; }
+img.preview { position: absolute; }
 
-.absolute { position: absolute; }
-.relative { position: relative; }
-.float-left { float: left; }
-.float-right { float: right; }
+div.large-preview,
+div.screenshot-details {
+  float: left;
+  margin: 0 16px 16px 0;
+}
 
 ul.errorlist {
   color: black;

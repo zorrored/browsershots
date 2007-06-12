@@ -99,6 +99,7 @@ class Screenshot(models.Model):
     class Meta:
         verbose_name = _('screenshot')
         verbose_name_plural = _('screenshots')
+        ordering = ('-uploaded', )
 
     def __str__(self):
         return self.hashkey
@@ -112,15 +113,28 @@ class Screenshot(models.Model):
     def get_large_url(self):
         return self.get_size_url(size=512)
 
-    def preview_img(self, width=160):
+    def preview_img(self, width=160, title=None):
         height = self.height * width / self.width
+        style = 'width:%spx;height:%spx;z-index:0' % (width / 2, height / 2)
+        if title is None:
+            title = str(self.browser)
         return ' '.join((
-            '<img src="%s" alt="" class="preview absolute"',
-            'style="width:%spx;height:%spx;z-index:0"',
-            'onmouseover="larger(this,%s,%s)"',
-            'onmouseout="smaller(this,%s,%s)" />',
-            )) % (self.get_size_url(width),
-            width / 2, height / 2, width, height, width, height)
+            '<img class="preview" style="%s"' % style,
+            'src="%s"' % self.get_size_url(width),
+            'alt="%s" title="%s"' % (title, title),
+            'onmouseover="larger(this,%s,%s)"' % (width, height),
+            'onmouseout="smaller(this,%s,%s)" />' % (width, height),
+            ))
+
+    def preview_div(self, width=80, title=None, style="float:left"):
+        height = self.height * width / self.width
+        style = 'width:%dpx;height:%dpx;%s' % (width, height, style)
+        return ''.join((
+            '<div class="preview" style="%s">' % style,
+            '<a href="%s">' % self.get_absolute_url(),
+            self.preview_img(width=2*width, title=title),
+            '</a></div>',
+            ))
 
     def get_file_size(self):
         """Get size in bytes of original screenshot file."""

@@ -8,11 +8,11 @@
 <h1>{{ screenshot.browser }} / {{ screenshot.factory.operating_system }}</h1>
 <p>{% blocktrans with screenshot.request.request_group.website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
-<div class="screenshot float-left">
+<div class="large-preview">
 <img src="{{ screenshot.get_large_url }}" />
 </div>
 
-<div class="screenshot-info float-left">
+<div class="screenshot-details">
 <dl>
 <dt>{{ _("browser")|capfirst }}:</dt><dd>{{ screenshot.browser }}</dd>
 <dt>{{ _("operating system")|capfirst }}:</dt><dd>{{ screenshot.factory.operating_system }}</dd>

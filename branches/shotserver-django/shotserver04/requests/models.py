@@ -80,16 +80,11 @@ class RequestGroup(models.Model):
 
     def previews(self):
         result = []
-        for request in self.request_set.filter(uploaded__isnull=False):
+        requests = self.request_set.filter(uploaded__isnull=False)
+        requests = requests.order_by('-uploaded')
+        for request in requests:
             for screenshot in request.screenshot_set.all():
-                width = 80
-                height = screenshot.height * width / screenshot.width
-                style = 'width:%dpx;height:%dpx' % (width, height)
-                result.append(
-                    '<div class="preview float-left" style="%s">' % style +
-                    '<a href="%s">' % screenshot.get_absolute_url() +
-                    screenshot.preview_img() +
-                    '</a></div>')
+                result.append(screenshot.preview_div())
         return '\n'.join(result)
 
 
