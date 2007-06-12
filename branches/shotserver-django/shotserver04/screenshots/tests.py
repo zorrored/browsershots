@@ -90,10 +90,12 @@ class SizeTestCase(TestCase):
             name='Firefox', maker='Mozilla', terminal=False)
         self.browser = Browser.objects.create(
             factory=self.factory,
-            user_agent="Firefox/2.0.0.4",
+            user_agent="Firefox/2.0.0.4 Gecko/20061201",
             browser_group=self.browser_group,
             version='2.0.0.4', major=2, minor=0,
+            command='firefox',
             engine=self.engine,
+            engine_version='20061201',
             disabled=False)
         self.domain = Domain.objects.create(
             name='browsershots.org')
