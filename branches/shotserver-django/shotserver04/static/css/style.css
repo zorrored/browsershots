@@ -94,22 +94,18 @@ dl { margin: 0; }
 dt { font-weight: bold; }
 
 div.blue {
-  position: relative;
   background-color: #016;
   background-image: url(blue.jpg);
   background-repeat: repeat-x;
   color: white;
-  padding: 8px 8px 16px;
+  padding: 8px 8px 32px;
 }
 div.blue input#id_url {
-  position: absolute;
-  left: 8px;
-  right: 218px;
+  float: left;
+  width: 78%;
 }
 div.blue input#submit {
-  position: absolute;
-  right: 8px;
-  width: 200px;
+  float: right;
+  width: 20%;
 }
-div.blue p,
-div.blue ul { margin: 0 0 2ex; }
+div.blue p { margin: 0; }
