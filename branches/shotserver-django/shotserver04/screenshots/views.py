@@ -32,9 +32,8 @@ COLUMNS = 11
 
 def screenshot_list(request):
     columns = [[0, index * 88] for index in range(COLUMNS)]
-    screenshot_list = Screenshot.objects.all()[:100]
     previews = []
-    for screenshot in screenshot_list:
+    for screenshot in Screenshot.objects.recent():
         width = 80
         height = screenshot.height * width / screenshot.width
         columns.sort()

@@ -28,9 +28,34 @@ import os
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from shotserver04.requests.models import Request
+from shotserver04.websites.models import Website
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots import storage
+
+
+class ScreenshotManager(models.Manager):
+
+    def recent(self):
+        """
+        Get recent screenshots, but only one per website.
+        """
+        from django.db import connection
+        cursor = connection.cursor()
+        fields = [f.column for f in self.model._meta.fields]
+        cursor.execute("""
+            SELECT """ + ','.join(fields) + """
+            FROM screenshots_screenshot
+            WHERE id IN (
+                SELECT MAX(id) AS maximum
+                FROM screenshots_screenshot
+                GROUP BY website_id
+                ORDER BY maximum DESC
+                LIMIT 100)
+            ORDER BY id DESC
+            """)
+        for row in cursor.fetchall():
+            yield self.model(*row)
 
 
 class Screenshot(models.Model):
@@ -38,6 +63,8 @@ class Screenshot(models.Model):
         _('hashkey'), maxlength=32, unique=True)
     request = models.ForeignKey(Request,
         verbose_name=_('request'), raw_id_admin=True)
+    website = models.ForeignKey(Website,
+        verbose_name=_('website'), raw_id_admin=True)
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'), raw_id_admin=True)
     browser = models.ForeignKey(Browser,
@@ -48,6 +75,7 @@ class Screenshot(models.Model):
         _('height'))
     uploaded = models.DateTimeField(
         _('uploaded'), auto_now_add=True)
+    objects = ScreenshotManager()
 
     class Admin:
         fields = (
