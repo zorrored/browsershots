@@ -161,6 +161,8 @@ def start(request):
     no_active_factories = True
     for platform in Platform.objects.all():
         browser_form = BrowserForm(platform, post)
+        if browser_form.is_bound:
+            browser_form.full_clean()
         browser_forms.append(browser_form)
         valid_post = valid_post and browser_form.is_valid()
         no_active_factories = no_active_factories and not browser_form.fields
