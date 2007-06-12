@@ -42,6 +42,8 @@ def website_list(request):
 
 
 def website_detail(request, website_url):
+    if request.META['QUERY_STRING']:
+        website_url += '?' + request.META['QUERY_STRING']
     website = get_object_or_404(Website, url=website_url)
     return render_to_response('websites/website_detail.html', locals())
 
