@@ -85,9 +85,9 @@ class Factory(models.Model):
 
     def features_q(self):
         return (self.platform_q() &
-                self.browsers_q() &
                 self.screensizes_q() &
-                self.colordepths_q())
+                self.colordepths_q() &
+                self.browsers_q())
 
     def platform_q(self):
         return (Q(platform__isnull=True) |
