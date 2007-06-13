@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-13 20:07+0200\n"
+"POT-Creation-Date: 2007-06-13 21:09+0200\n"
 "PO-Revision-Date: 2006-09-10 22:52+0000\n"
 "Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Breite"
 msgid "height"
 msgstr "Höhe"
 
-#: factories/models.py:139
+#: factories/models.py:139 common/views.py:51
 msgid "screen size"
 msgstr "Bildschirmgröße"
 
@@ -95,7 +95,7 @@ msgstr "Bildschirmgrößen"
 msgid "bits per pixel"
 msgstr "Bits pro Pixel"
 
-#: factories/models.py:160
+#: factories/models.py:160 common/views.py:61
 msgid "color depth"
 msgstr "Farbtiefe"
 
@@ -135,16 +135,19 @@ msgstr "Browser"
 msgid "engine"
 msgstr "Engine"
 
-#: factories/templates/factories/factory_detail.html:16
-msgid "javascript"
+#: factories/templates/factories/factory_detail.html:16 common/views.py:72
+#: requests/models.py:47 browsers/models.py:98
+msgid "Javascript"
 msgstr "Javascript"
 
-#: factories/templates/factories/factory_detail.html:17
-msgid "java"
+#: factories/templates/factories/factory_detail.html:17 common/views.py:79
+#: requests/models.py:49 browsers/models.py:100
+msgid "Java"
 msgstr "Java"
 
-#: factories/templates/factories/factory_detail.html:18
-msgid "flash"
+#: factories/templates/factories/factory_detail.html:18 common/views.py:86
+#: requests/models.py:51 browsers/models.py:102
+msgid "Flash"
 msgstr "Flash"
 
 #: factories/templates/factories/factory_detail.html:20 browsers/models.py:116
@@ -159,6 +162,60 @@ msgstr "keine Browser"
 #: factories/templates/factories/factory_detail.html:65
 msgid "default only"
 msgstr "nur Voreinstellung"
+
+#: common/views.py:53 common/views.py:63 common/views.py:74 common/views.py:81
+#: common/views.py:88
+msgid "don't care"
+msgstr "egal"
+
+#: common/views.py:64 common/views.py:66
+#, python-format
+msgid "%(bits)d bits (%(colors)d colors)"
+msgstr "%(bits)d Bits (%(colors)d Farben)"
+
+#: common/views.py:68
+msgid "16 bits (high color)"
+msgstr "16 Bits (High Color)"
+
+#: common/views.py:69
+msgid "24 bits (true color)"
+msgstr "24 Bits (True Color)"
+
+#: common/views.py:75 common/views.py:82 common/views.py:89
+#: browsers/models.py:107
+msgid "disabled"
+msgstr "deaktiviert"
+
+#: common/views.py:76 common/views.py:83 common/views.py:90
+msgid "enabled"
+msgstr "aktiviert"
+
+#: common/views.py:91 common/views.py:92 common/views.py:93 common/views.py:94
+#: common/views.py:95
+#, python-format
+msgid "version %(version)d"
+msgstr "Version %(version)d"
+
+#: common/views.py:98
+msgid "maximum wait"
+msgstr "max. Wartezeit"
+
+#: common/views.py:100
+msgid "15 minutes"
+msgstr "Viertelstunde"
+
+#: common/views.py:101
+msgid "30 minutes"
+msgstr "halbe Stunde"
+
+#: common/views.py:102
+msgid "1 hour"
+msgstr "1 Stunde"
+
+#: common/views.py:103 common/views.py:104
+#, python-format
+msgid "%(hours)d hours"
+msgstr "%(hours)d Stunden"
 
 #: common/templatetags/human.py:46
 #, python-format
@@ -236,18 +293,6 @@ msgstr "Bildschirmbreite"
 #: requests/models.py:43
 msgid "screen height"
 msgstr "Bildschirmhöhe"
-
-#: requests/models.py:47 browsers/models.py:98
-msgid "Javascript"
-msgstr "Javascript"
-
-#: requests/models.py:49 browsers/models.py:100
-msgid "Java"
-msgstr "Java"
-
-#: requests/models.py:51 browsers/models.py:102
-msgid "Flash"
-msgstr "Flash"
 
 #: requests/models.py:53
 msgid "submitter"
@@ -446,10 +491,6 @@ msgstr "Engine-Version"
 msgid "command"
 msgstr "Kommando"
 
-#: browsers/models.py:107
-msgid "disabled"
-msgstr "deaktiviert"
-
 #: browsers/models.py:108
 msgid "Deactivate this browser temporarily"
 msgstr "Diesen Browser vorübergehend deaktivieren"
@@ -486,30 +527,6 @@ msgstr "Architektur"
 msgid "architectures"
 msgstr "Architekturen"
 
-#~ msgid "Browser"
-#~ msgstr "Browser"
-
-#~ msgid "Engine"
-#~ msgstr "Engine"
-
-#~ msgid "Last<br />upload"
-#~ msgstr "Letzter<br />Upload"
-
-#~ msgid "Queue<br />estimate"
-#~ msgstr "Geschätzte<br />Wartezeit"
-
-#~ msgid "Screen sizes"
-#~ msgstr "Bildschirmgrößen"
-
-#~ msgid "Color depths"
-#~ msgstr "Farbtiefen"
-
-#~ msgid "Screenshots"
-#~ msgstr "Screenshots"
-
-#~ msgid "Factories"
-#~ msgstr "Fabriken"
-
 #~ msgid "Download"
 #~ msgstr "Download"
 
@@ -527,9 +544,6 @@ msgstr "Architekturen"
 
 #~ msgid "failed"
 #~ msgstr "fehlgeschlagen"
-
-#~ msgid "Is this browser inactive?"
-#~ msgstr "Ist dieser Browser inaktiv?"
 
 #~ msgid "order"
 #~ msgstr "Reihenfolge"
@@ -552,9 +566,6 @@ msgstr "Architekturen"
 #~ msgid "Search jobs"
 #~ msgstr "Suche Jobs"
 
-#~ msgid "%d sec auto refresh."
-#~ msgstr "Autorefresh alle %d s."
-
 #~ msgid "This entry is no longer available."
 #~ msgstr "Dieser Eintrag ist nicht mehr verfügbar."
 
@@ -563,12 +574,6 @@ msgstr "Architekturen"
 
 #~ msgid "No screenshots were uploaded recently."
 #~ msgstr "Keine aktuellen Screenshots."
-
-#~ msgid "Error: "
-#~ msgstr "Fehler: "
-
-#~ msgid "Error: Bad username/password."
-#~ msgstr "Fehler: Benutzer/Passwort inkorrekt."
 
 #~ msgid "No matching job at this time."
 #~ msgstr "Momentan kein passender Auftrag."
@@ -590,9 +595,6 @@ msgstr "Architekturen"
 
 #~ msgid "Go ahead and submit your URL."
 #~ msgstr "Hier kannst du deine Website eintragen."
-
-#~ msgid "This page will auto-reload every 60 seconds."
-#~ msgstr "Diese Seite wird automatisch alle 60 Sekunden neu geladen."
 
 #~ msgid "Try %sfull screen mode%s and press F11."
 #~ msgstr "Probiere auch den %sVollbild-Modus%s und drücke F11."
@@ -663,9 +665,6 @@ msgstr "Architekturen"
 #~ msgid "The following jobs were already in the queue:"
 #~ msgstr "Die folgenden Aufträge waren bereits in der Warteschlange:"
 
-#~ msgid "URL must start with <span class=\"uncolor\">http://</span>."
-#~ msgstr "URL muss mit <span class=\"uncolor\">http://</span> beginnen."
-
 #~ msgid "URL must not contain HTML tags."
 #~ msgstr "URL darf keine HTML-Tags enthalten."
 
@@ -711,14 +710,11 @@ msgstr "Architekturen"
 #~ msgid "Upload successful."
 #~ msgstr "Upload erfolgreich."
 
-#~ msgid "Language"
+#~ msgid "language"
 #~ msgstr "Sprache"
 
-#~ msgid "Hardware"
+#~ msgid "hardware"
 #~ msgstr "Hardware"
-
-#~ msgid "OS"
-#~ msgstr "Betriebssystem"
 
 #~ msgid "Click to see a larger preview."
 #~ msgstr "Anklicken für größere Vorschau."

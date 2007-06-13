@@ -27,6 +27,7 @@ __author__ = "$Author$"
 from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
+from django.utils.text import capfirst
 from shotserver04.websites import extract_domain
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup, Browser
@@ -46,47 +47,61 @@ class OptionsForm(forms.Form):
     """
     Request options input form.
     """
-    screen_size = forms.ChoiceField(initial='any', choices=(
-        ('any', "Don't Care"),
+    screen_size = forms.ChoiceField(
+        label=capfirst(_("screen size")),
+        initial='any', choices=(
+        ('any', capfirst(_("don't care"))),
         (640, "640x480"),
         (800, "800x600"),
         (1024, "1024x768"),
         (1280, "1280x1024"),
         (1600, "1600x1200"),
         ))
-    color_depth = forms.ChoiceField(initial='any', choices=(
-        ('any', "Don't Care"),
-        (4, "4 Bits (16 Colors)"),
-        (8, "8 Bits (256 Colors)"),
-        (16, "16 Bits (High Color)"),
-        (24, "24 Bits (True Color)"),
+    color_depth = forms.ChoiceField(
+        label=capfirst(_("color depth")),
+        initial='any', choices=(
+        ('any', capfirst(_("don't care"))),
+        (4, capfirst(_("%(bits)d bits (%(colors)d colors)")) %
+         {'bits': 4, 'colors': 2 ** 4}),
+        (8, capfirst(_("%(bits)d bits (%(colors)d colors)")) %
+         {'bits': 8, 'colors': 2 ** 8}),
+        (16, capfirst(_("16 bits (high color)"))),
+        (24, capfirst(_("24 bits (true color)"))),
         ))
-    javascript = forms.ChoiceField(initial='any', choices=(
-        ('any', "Don't Care"),
-        ('no', "Disabled"),
-        ('yes', "Enabled"),
+    javascript = forms.ChoiceField(
+        label=capfirst(_("Javascript")),
+        initial='any', choices=(
+        ('any', capfirst(_("don't care"))),
+        ('no', capfirst(_("disabled"))),
+        ('yes', capfirst(_("enabled"))),
         ))
-    java = forms.ChoiceField(initial='any', choices=(
-        ('any', "Don't Care"),
-        ('no', "Disabled"),
-        ('yes', "Enabled"),
+    java = forms.ChoiceField(
+        label=capfirst(_("Java")),
+        initial='any', choices=(
+        ('any', capfirst(_("don't care"))),
+        ('no', capfirst(_("disabled"))),
+        ('yes', capfirst(_("enabled"))),
         ))
-    flash = forms.ChoiceField(initial='any', choices=(
-        ('any', "Don't Care"),
-        ('no', "Disabled"),
-        ('yes', "Enabled"),
-        (5, "Version 5"),
-        (6, "Version 6"),
-        (7, "Version 7"),
-        (8, "Version 8"),
-        (9, "Version 9"),
+    flash = forms.ChoiceField(
+        label=capfirst(_("Flash")),
+        initial='any', choices=(
+        ('any', capfirst(_("don't care"))),
+        ('no', capfirst(_("disabled"))),
+        ('yes', capfirst(_("enabled"))),
+        (5, capfirst(_("version %(version)d")) % {'version': 5}),
+        (5, capfirst(_("version %(version)d")) % {'version': 6}),
+        (5, capfirst(_("version %(version)d")) % {'version': 7}),
+        (5, capfirst(_("version %(version)d")) % {'version': 8}),
+        (5, capfirst(_("version %(version)d")) % {'version': 9}),
         ))
-    maximum_wait = forms.ChoiceField(initial=30, choices=(
-        (15, "15 minutes"),
-        (30, "30 minutes"),
-        (60, "1 hour"),
-        (120, "2 hours"),
-        (240, "4 hours"),
+    maximum_wait = forms.ChoiceField(
+        label=capfirst(_("maximum wait")),
+        initial=30, choices=(
+        (15, capfirst(_("15 minutes"))),
+        (30, capfirst(_("30 minutes"))),
+        (60, capfirst(_("1 hour"))),
+        (120, capfirst(_("%(hours)d hours")) % {'hours': 2}),
+        (240, capfirst(_("%(hours)d hours")) % {'hours': 4}),
         ))
 
 
