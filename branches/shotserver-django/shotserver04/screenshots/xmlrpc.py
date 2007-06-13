@@ -39,7 +39,7 @@ PREVIEW_SIZES = [512, 240, 160, 116, 92, 77, 57, 44, 32]
 
 
 @serializable
-def close_request(request_id, factory, browser, screenshot):
+def close_request(request_id, factory, screenshot):
     # Check again that no other factory has locked the request
     request = get_or_fault(Request, pk=request_id)
     try:
@@ -48,14 +48,8 @@ def close_request(request_id, factory, browser, screenshot):
         screenshot.delete()
         raise
     # Close the request
-    now = datetime.now()
-    request.uploaded = now
+    request.screenshot = screenshot
     request.save()
-    factory.last_upload = now
-    factory.save()
-    browser.last_upload = now
-    browser.queue_estimate = (now - request.request_group.submitted).seconds
-    browser.save()
 
 
 @register(None, str, str, int, Binary)
@@ -101,10 +95,17 @@ def upload(http_request,
         storage.scale(ppmname, size, hashkey)
     # Save screenshot in database
     website = request.request_group.website
-    screenshot = Screenshot(
-        hashkey=hashkey, request=request, website=website,
-        factory=factory, browser=browser, width=width, height=height)
+    screenshot = Screenshot(hashkey=hashkey,
+        website=website, factory=factory, browser=browser,
+        width=width, height=height)
     screenshot.save()
-    # Close request and update timestamps in database
-    close_request(request_id, factory, browser, screenshot)
+    # Close the request
+    close_request(request_id, factory, screenshot)
+    # Update timestamps and estimates
+    now = datetime.now()
+    factory.last_upload = now
+    factory.save()
+    browser.last_upload = now
+    browser.queue_estimate = (now - request.request_group.submitted).seconds
+    browser.save()
     return hashkey

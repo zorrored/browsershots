@@ -26,6 +26,7 @@ __author__ = "$Author$"
 
 from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.screenshots.models import Screenshot
+from shotserver04.requests.models import Request
 
 COLUMNS = 11
 
@@ -53,4 +54,5 @@ def screenshot_list(request):
 
 def screenshot_detail(request, hashkey):
     screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
+    request = Request.objects.get(screenshot=screenshot)
     return render_to_response('screenshots/screenshot_detail.html', locals())

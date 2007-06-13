@@ -23,11 +23,11 @@
 <dt>{{ _("dimensions")|capfirst }}:</dt><dd>{{ screenshot.width }}x{{ screenshot.height }}</dd>
 <dt>{{ _("file size")|capfirst }}:</dt><dd>{{ screenshot.get_file_size|human_bytes }}</dd>
 <hr />
-<dt>{{ _("requested")|capfirst }}:</dt><dd>{{ screenshot.request.request_group.submitted }}</dd>
-<dt>{{ _("page loaded")|capfirst }}:</dt><dd>{{ screenshot.request.redirected }}</dd>
-<dt>{{ _("uploaded")|capfirst }}:</dt><dd>{{ screenshot.request.uploaded }}</dd>
+<dt>{{ _("requested")|capfirst }}:</dt><dd>{{ request.request_group.submitted }}</dd>
+<dt>{{ _("page loaded")|capfirst }}:</dt><dd>{{ request.redirected }}</dd>
+<dt>{{ _("uploaded")|capfirst }}:</dt><dd>{{ screenshot.uploaded }}</dd>
 </dl>
 </div>
 
-<p>{{ screenshot.request.request_group.website|human_link }}</p>
+<p>{{ request.request_group.website|human_link }}</p>
 {% endblock %}

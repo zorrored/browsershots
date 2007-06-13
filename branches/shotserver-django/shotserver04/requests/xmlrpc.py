@@ -42,7 +42,7 @@ def find_and_lock_request(factory, features):
     five_minutes_ago = now - timedelta(0, 300)
     matches = Request.objects.select_related()
     matches = matches.filter(features)
-    matches = matches.filter(uploaded__isnull=True)
+    matches = matches.filter(screenshot__isnull=True)
     matches = matches.filter(request_group__expire__gt=now)
     matches = matches.filter(
         Q(locked__isnull=True) | Q(locked__lt=five_minutes_ago))

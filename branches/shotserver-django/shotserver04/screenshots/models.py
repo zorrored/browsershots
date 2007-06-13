@@ -28,7 +28,6 @@ import os
 from django.db import models, backend
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import capfirst
-from shotserver04.requests.models import Request
 from shotserver04.websites.models import Website
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
@@ -69,8 +68,6 @@ class ScreenshotManager(models.Manager):
 class Screenshot(models.Model):
     hashkey = models.SlugField(
         _('hashkey'), maxlength=32, unique=True)
-    request = models.ForeignKey(Request,
-        verbose_name=_('request'), raw_id_admin=True)
     website = models.ForeignKey(Website,
         verbose_name=_('website'), raw_id_admin=True)
     factory = models.ForeignKey(Factory,
@@ -88,10 +85,10 @@ class Screenshot(models.Model):
     class Admin:
         fields = (
             (None, {'fields': (
-            ('hashkey', 'request'),
-            ('factory', 'browser'),
+            'hashkey',
+            ('website', 'factory', 'browser'),
             ('width', 'height'),
-            'message',
+            'uploaded',
             )}),
             )
         list_display = ('hashkey', 'factory', 'browser',
@@ -100,7 +97,7 @@ class Screenshot(models.Model):
     class Meta:
         verbose_name = _('screenshot')
         verbose_name_plural = _('screenshots')
-        ordering = ('-uploaded', )
+        ordering = ('uploaded', )
 
     def __str__(self):
         return self.hashkey

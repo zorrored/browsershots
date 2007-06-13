@@ -32,6 +32,7 @@ from shotserver04.websites.models import Website
 from shotserver04.platforms.models import Platform
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
+from shotserver04.screenshots.models import Screenshot
 
 
 class RequestGroup(models.Model):
@@ -73,18 +74,16 @@ class RequestGroup(models.Model):
     class Meta:
         verbose_name = _('request group')
         verbose_name_plural = _('request groups')
-        ordering = ('-submitted', )
+        ordering = ('submitted', )
 
     def __str__(self):
         return str(self.submitted)
 
     def previews(self):
         result = []
-        requests = self.request_set.filter(uploaded__isnull=False)
-        requests = requests.order_by('-uploaded')
+        requests = self.request_set.filter(screenshot__isnull=False)
         for request in requests:
-            for screenshot in request.screenshot_set.all():
-                result.append(screenshot.preview_div())
+            result.append(request.screenshot.preview_div())
         return '\n'.join(result)
 
 
@@ -104,11 +103,13 @@ class Request(models.Model):
     locked = models.DateTimeField(
         _('locked'), blank=True, null=True)
     browser = models.ForeignKey(Browser,
-        verbose_name=_('browser'), blank=True, null=True)
+        verbose_name=_('browser'), raw_id_admin=True,
+        blank=True, null=True)
     redirected = models.DateTimeField(
         _('redirected'), blank=True, null=True)
-    uploaded = models.DateTimeField(
-        _('uploaded'), blank=True, null=True)
+    screenshot = models.ForeignKey(Screenshot,
+        verbose_name=_('screenshot'), raw_id_admin=True,
+        blank=True, null=True)
 
     class Admin:
         fields = (
