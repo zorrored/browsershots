@@ -139,9 +139,9 @@ div.clear {
 div.large-preview { position: relative; }
 div.previous-screenshot {
   position: absolute;
-  right: 0;
+  left: 0;
 }
 div.next-screenshot {
   position: absolute;
-  left: 0;
+  right: 0;
 }
