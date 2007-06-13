@@ -13,7 +13,7 @@
 {% if url_form.url.errors %}
 {{ url_form.url.errors }}
 {% else %}
-<p>{% trans "Enter your web address here:" %}</p>
+<p>{{ url_form.url.label }}</p>
 {% endif %}
 {{ url_form.url }}
 <input class="button" id="submit" name="submit" type="submit" value="{{ _("submit")|title }}" />

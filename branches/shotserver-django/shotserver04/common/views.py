@@ -28,6 +28,8 @@ from django.http import HttpResponseRedirect
 from django import newforms as forms
 from django.shortcuts import render_to_response
 from django.utils.text import capfirst
+from django.utils.translation import gettext
+from django.utils.functional import lazy
 from shotserver04.websites import extract_domain
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup, Browser
@@ -36,11 +38,20 @@ from shotserver04.requests.models import RequestGroup, Request
 from datetime import datetime, timedelta
 
 
+def capfirst_gettext(text):
+    return capfirst(gettext(text))
+
+
+_ = lazy(capfirst_gettext, str, unicode)
+
+
 class URLForm(forms.Form):
     """
     URL input form.
     """
-    url = forms.URLField(max_length=400)
+    url = forms.URLField(
+        max_length=400,
+        label=_("Enter your web address here:"))
 
 
 class OptionsForm(forms.Form):
@@ -48,9 +59,9 @@ class OptionsForm(forms.Form):
     Request options input form.
     """
     screen_size = forms.ChoiceField(
-        label=capfirst(_("screen size")),
+        label=_("screen size"),
         initial='any', choices=(
-        ('any', capfirst(_("don't care"))),
+        ('any', _("don't care")),
         (640, "640x480"),
         (800, "800x600"),
         (1024, "1024x768"),
@@ -58,50 +69,50 @@ class OptionsForm(forms.Form):
         (1600, "1600x1200"),
         ))
     color_depth = forms.ChoiceField(
-        label=capfirst(_("color depth")),
+        label=_("color depth"),
         initial='any', choices=(
-        ('any', capfirst(_("don't care"))),
-        (4, capfirst(_("%(bits)d bits (%(colors)d colors)")) %
-         {'bits': 4, 'colors': 2 ** 4}),
-        (8, capfirst(_("%(bits)d bits (%(colors)d colors)")) %
-         {'bits': 8, 'colors': 2 ** 8}),
-        (16, capfirst(_("16 bits (high color)"))),
-        (24, capfirst(_("24 bits (true color)"))),
+        ('any', _("don't care")),
+        (4, _("4 bits (16 colors)")),
+        (8, _("8 bits (256 colors)")),
+        (16, _("16 bits (high color)")),
+        (24, _("24 bits (true color)")),
         ))
     javascript = forms.ChoiceField(
-        label=capfirst(_("Javascript")),
+        label=_("Javascript"),
         initial='any', choices=(
-        ('any', capfirst(_("don't care"))),
-        ('no', capfirst(_("disabled"))),
-        ('yes', capfirst(_("enabled"))),
+        ('any', _("don't care")),
+        ('no', _("disabled")),
+        ('yes', _("enabled")),
         ))
     java = forms.ChoiceField(
-        label=capfirst(_("Java")),
+        label=_("Java"),
         initial='any', choices=(
-        ('any', capfirst(_("don't care"))),
-        ('no', capfirst(_("disabled"))),
-        ('yes', capfirst(_("enabled"))),
+        ('any', _("don't care")),
+        ('no', _("disabled")),
+        ('yes', _("enabled")),
         ))
     flash = forms.ChoiceField(
-        label=capfirst(_("Flash")),
+        label=_("Flash"),
         initial='any', choices=(
-        ('any', capfirst(_("don't care"))),
-        ('no', capfirst(_("disabled"))),
-        ('yes', capfirst(_("enabled"))),
-        (5, capfirst(_("version %(version)d")) % {'version': 5}),
-        (5, capfirst(_("version %(version)d")) % {'version': 6}),
-        (5, capfirst(_("version %(version)d")) % {'version': 7}),
-        (5, capfirst(_("version %(version)d")) % {'version': 8}),
-        (5, capfirst(_("version %(version)d")) % {'version': 9}),
+        ('any', _("don't care")),
+        ('no', _("disabled")),
+        ('yes', _("enabled")),
+        (5, _("version 5")),
+        (5, _("version 6")),
+        (5, _("version 7")),
+        (5, _("version 8")),
+        (5, _("version 9")),
         ))
+    # We can't use "version %d" above because that would break lazy
+    # translation (see the definition of _ at the top of this file).
     maximum_wait = forms.ChoiceField(
-        label=capfirst(_("maximum wait")),
+        label=_("maximum wait"),
         initial=30, choices=(
-        (15, capfirst(_("15 minutes"))),
-        (30, capfirst(_("30 minutes"))),
-        (60, capfirst(_("1 hour"))),
-        (120, capfirst(_("%(hours)d hours")) % {'hours': 2}),
-        (240, capfirst(_("%(hours)d hours")) % {'hours': 4}),
+        (15, _("15 minutes")),
+        (30, _("30 minutes")),
+        (60, _("1 hour")),
+        (120, _("2 hours")),
+        (240, _("4 hours")),
         ))
 
 

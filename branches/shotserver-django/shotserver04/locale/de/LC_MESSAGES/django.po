@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-13 21:09+0200\n"
+"POT-Creation-Date: 2007-06-13 21:44+0200\n"
 "PO-Revision-Date: 2006-09-10 22:52+0000\n"
 "Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Breite"
 msgid "height"
 msgstr "Höhe"
 
-#: factories/models.py:139 common/views.py:51
+#: factories/models.py:139 common/views.py:62
 msgid "screen size"
 msgstr "Bildschirmgröße"
 
@@ -95,7 +95,7 @@ msgstr "Bildschirmgrößen"
 msgid "bits per pixel"
 msgstr "Bits pro Pixel"
 
-#: factories/models.py:160 common/views.py:61
+#: factories/models.py:160 common/views.py:72
 msgid "color depth"
 msgstr "Farbtiefe"
 
@@ -135,17 +135,17 @@ msgstr "Browser"
 msgid "engine"
 msgstr "Engine"
 
-#: factories/templates/factories/factory_detail.html:16 common/views.py:72
+#: factories/templates/factories/factory_detail.html:16 common/views.py:81
 #: requests/models.py:47 browsers/models.py:98
 msgid "Javascript"
 msgstr "Javascript"
 
-#: factories/templates/factories/factory_detail.html:17 common/views.py:79
+#: factories/templates/factories/factory_detail.html:17 common/views.py:88
 #: requests/models.py:49 browsers/models.py:100
 msgid "Java"
 msgstr "Java"
 
-#: factories/templates/factories/factory_detail.html:18 common/views.py:86
+#: factories/templates/factories/factory_detail.html:18 common/views.py:95
 #: requests/models.py:51 browsers/models.py:102
 msgid "Flash"
 msgstr "Flash"
@@ -163,59 +163,83 @@ msgstr "keine Browser"
 msgid "default only"
 msgstr "nur Voreinstellung"
 
-#: common/views.py:53 common/views.py:63 common/views.py:74 common/views.py:81
-#: common/views.py:88
+#: common/views.py:54
+msgid "Enter your web address here:"
+msgstr "Gib deine Webadresse hier ein:"
+
+#: common/views.py:64 common/views.py:74 common/views.py:83 common/views.py:90
+#: common/views.py:97
 msgid "don't care"
 msgstr "egal"
 
-#: common/views.py:64 common/views.py:66
-#, python-format
-msgid "%(bits)d bits (%(colors)d colors)"
-msgstr "%(bits)d Bits (%(colors)d Farben)"
+#: common/views.py:75
+msgid "4 bits (16 colors)"
+msgstr "4 Bits (16 Farben)"
 
-#: common/views.py:68
+#: common/views.py:76
+msgid "8 bits (256 colors)"
+msgstr "8 Bits (256 Farben)"
+
+#: common/views.py:77
 msgid "16 bits (high color)"
 msgstr "16 Bits (High Color)"
 
-#: common/views.py:69
+#: common/views.py:78
 msgid "24 bits (true color)"
 msgstr "24 Bits (True Color)"
 
-#: common/views.py:75 common/views.py:82 common/views.py:89
+#: common/views.py:84 common/views.py:91 common/views.py:98
 #: browsers/models.py:107
 msgid "disabled"
 msgstr "deaktiviert"
 
-#: common/views.py:76 common/views.py:83 common/views.py:90
+#: common/views.py:85 common/views.py:92 common/views.py:99
 msgid "enabled"
 msgstr "aktiviert"
 
-#: common/views.py:91 common/views.py:92 common/views.py:93 common/views.py:94
-#: common/views.py:95
-#, python-format
-msgid "version %(version)d"
-msgstr "Version %(version)d"
+#: common/views.py:100
+msgid "version 5"
+msgstr "Version 5"
 
-#: common/views.py:98
+#: common/views.py:101
+msgid "version 6"
+msgstr "Version 6"
+
+#: common/views.py:102
+msgid "version 7"
+msgstr "Version 7"
+
+#: common/views.py:103
+msgid "version 8"
+msgstr "Version 8"
+
+#: common/views.py:104
+msgid "version 9"
+msgstr "Version 9"
+
+#: common/views.py:109
 msgid "maximum wait"
 msgstr "max. Wartezeit"
 
-#: common/views.py:100
+#: common/views.py:111
 msgid "15 minutes"
 msgstr "Viertelstunde"
 
-#: common/views.py:101
+#: common/views.py:112
 msgid "30 minutes"
 msgstr "halbe Stunde"
 
-#: common/views.py:102
+#: common/views.py:113
 msgid "1 hour"
 msgstr "1 Stunde"
 
-#: common/views.py:103 common/views.py:104
-#, python-format
-msgid "%(hours)d hours"
-msgstr "%(hours)d Stunden"
+#: common/views.py:114
+msgid "2 hours"
+msgstr "2 Stunden"
+
+#: common/views.py:115
+msgid "4 hours"
+msgstr "4 Stunden"
 
 #: common/templatetags/human.py:46
 #, python-format
@@ -257,10 +281,6 @@ msgstr "Teste dein Webdesign in verschiedenen Browsern"
 #: common/templates/start.html:9
 msgid "No active screenshot factories."
 msgstr "Keine aktiven Screenshot-Fabriken."
-
-#: common/templates/start.html:16
-msgid "Enter your web address here:"
-msgstr "Gib deine Webadresse hier ein:"
 
 #: common/templates/start.html:19
 msgid "submit"
