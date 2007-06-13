@@ -12,6 +12,7 @@
 {% for header in header_list %}
 <th{{ header.class_attrib }}><a href="{{ header.url }}">{{ header.text|capfirst|human_br }}</a></th>
 {% endfor %}
+<th>{{ _("queue estimate")|capfirst|human_br }}</th>
 </tr>
 </thead>
 <tbody>
@@ -24,6 +25,7 @@
 <td>{{ factory.last_upload|human_timesince }}</td>
 <td>{% if factory.uploads_per_hour %}{{ factory.uploads_per_hour }}{% endif %}</td>
 <td>{% if factory.uploads_per_day %}{{ factory.uploads_per_day }}{% endif %}</td>
+<td>{{ factory.queue_estimate|human_seconds }}</td>
 </tr>
 {% endfor %}
 </tbody>

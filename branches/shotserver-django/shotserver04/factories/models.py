@@ -118,6 +118,17 @@ class Factory(models.Model):
             q |= Q(request_group__bits_per_pixel=colordepth.bits_per_pixel)
         return q
 
+    def queue_estimate(self):
+        """
+        Get the median of queue estimates from the browsers.
+        """
+        estimates = [browser.queue_estimate
+                     for browser in self.browser_set.all()
+                     if browser.queue_estimate]
+        if not estimates:
+            return None
+        return estimates[len(estimates) / 2]
+
 
 class ScreenSize(models.Model):
     factory = models.ForeignKey(Factory,
