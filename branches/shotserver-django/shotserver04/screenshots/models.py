@@ -27,6 +27,7 @@ __author__ = "$Author$"
 import os
 from django.db import models, backend
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import capfirst
 from shotserver04.requests.models import Request
 from shotserver04.websites.models import Website
 from shotserver04.factories.models import Factory
@@ -151,10 +152,10 @@ class Screenshot(models.Model):
 
     def previous_link(self):
         other = self.get_previous_by_uploaded(website=self.website)
-        return other.link(_('previous').title() + ': ' +
+        return other.link(capfirst(_('previous')) + ': ' +
                           str(other.browser), 'previous-screenshot')
 
     def next_link(self):
         other = self.get_next_by_uploaded(website=self.website)
-        return other.link(_('next').title() + ': ' +
+        return other.link(capfirst(_('next')) + ': ' +
                           str(other.browser), 'next-screenshot')
