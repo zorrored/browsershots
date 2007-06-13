@@ -42,24 +42,20 @@ ul#mainmenu a {
 }
 
 .debug {
-  clear: both;
   font-size: x-small;
   color: gray;
+}
+p.debug {
+  clear: both;
+  margin: 20px 0 0;
 }
 table.debug th { text-align: left; }
 table.debug td { vertical-align: top; }
 
+table { border-collapse: collapse; }
+th, td { padding: 0 0.5ex; }
 tr.row1 { background-color: #EEE; }
 tr.row2 { background-color: #FFF; }
-
-div.browsers,
-div.options {
-  float: left;
-  margin: 0 20px 20px 0;
-}
-div.options select {
-  width: 120px;
-}
 
 h1, h2 {
   margin: 10px 0;
@@ -93,22 +89,52 @@ div.screenshot { margin: 0 16px 0 0; }
 dl { margin: 0; }
 dt { font-weight: bold; }
 
+div.background {
+  background-repeat: repeat-x;
+  padding: 16px 16px 0;
+}
+div.background h2 { margin: 0; }
+
 div.blue {
   background-color: #016;
   background-image: url(blue.jpg);
-  background-repeat: repeat-x;
   color: white;
-  padding: 8px 8px 32px;
 }
 div.blue input#id_url {
   float: left;
-  width: 78%;
+  width: 81%;
+  margin-bottom: 16px;
 }
 div.blue input#submit {
   float: right;
-  width: 20%;
+  width: 16%;
+  margin-bottom: 16px;
 }
 div.blue p { margin: 0; }
+
+div.gray {
+  background-color: #e4e4e4;
+  background-image: url(gray.jpg);
+  background-position: bottom left;
+}
+div.browsers {
+  background-image: none;
+  border-bottom: 1px solid #ccc;
+}
+div.options {
+  border-top: 1px solid white;
+}
+div.options select {
+  width: 130px;
+}
+
+div.floatleft {
+  float: left;
+  margin: 0 16px 16px 0;
+}
+div.clear {
+  clear: both;
+}
 
 div.large-preview { position: relative; }
 div.previous-screenshot {
