@@ -20,7 +20,11 @@ headers :
 	find shotserver04 -name "*.py" \
 	| xargs header.py shotserver04/settings.py
 
-reset :
+backup :
+	pg_dump shotserver04 | bzip2 \
+	> /tmp/shotserver04.`date +%y%m%d-%H%M%S`.sql.bz2
+
+reset : backup
 	echo DROP DATABASE shotserver04 | psql template1
 	echo CREATE DATABASE shotserver04 | psql template1
 	shotserver04/manage.py syncdb
