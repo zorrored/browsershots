@@ -6,28 +6,32 @@
 
 {% block content %}
 <h1>{{ screenshot.browser }} / {{ screenshot.factory.operating_system }}</h1>
+<p>{% blocktrans with screenshot.website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
 <div class="large-preview">
-{{ screenshot.previous_link }}
-{{ screenshot.next_link }}
-<br />
 <img src="{{ screenshot.get_large_url }}" />
 </div>
 
 <div class="screenshot-details">
 <dl>
-<dt>{{ _("browser")|capfirst }}:</dt><dd>{{ screenshot.browser }}</dd>
-<dt>{{ _("operating system")|capfirst }}:</dt><dd>{{ screenshot.factory.operating_system }}</dd>
-<dt>{{ _("screenshot factory")|capfirst }}:</dt><dd>{{ screenshot.factory|human_link }}</dd>
+<dt>{{ _("same website")|capfirst }}:</dt>
+<dd>{{ screenshot.website_navigation }}</dd>
+<dt>{{ _("same browser")|capfirst }}:</dt>
+<dd>{{ screenshot.browser_navigation }}</dd>
+<dt>{{ _("screenshot factory")|capfirst }}:</dt>
+<dd>{{ screenshot.factory|human_link }}</dd>
 <hr />
-<dt>{{ _("dimensions")|capfirst }}:</dt><dd>{{ screenshot.width }}x{{ screenshot.height }}</dd>
-<dt>{{ _("file size")|capfirst }}:</dt><dd>{{ screenshot.get_file_size|human_bytes }}</dd>
+<dt>{{ _("dimensions")|capfirst }}:</dt>
+<dd>{{ screenshot.width }}x{{ screenshot.height }}</dd>
+<dt>{{ _("file size")|capfirst }}:</dt>
+<dd>{{ screenshot.get_file_size|human_bytes }}</dd>
 <hr />
-<dt>{{ _("requested")|capfirst }}:</dt><dd>{{ request.request_group.submitted }}</dd>
-<dt>{{ _("page loaded")|capfirst }}:</dt><dd>{{ request.redirected }}</dd>
-<dt>{{ _("uploaded")|capfirst }}:</dt><dd>{{ screenshot.uploaded }}</dd>
+<dt>{{ _("requested")|capfirst }}:</dt>
+<dd>{{ request.request_group.submitted }}</dd>
+<dt>{{ _("page loaded")|capfirst }}:</dt>
+<dd>{{ request.redirected }}</dd>
+<dt>{{ _("uploaded")|capfirst }}:</dt>
+<dd>{{ screenshot.uploaded }}</dd>
 </dl>
 </div>
-
-<p>{{ request.request_group.website|human_link }}</p>
 {% endblock %}

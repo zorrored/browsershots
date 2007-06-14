@@ -147,12 +147,53 @@ class Screenshot(models.Model):
             '</div>',
             ))
 
-    def previous_link(self):
-        other = self.get_previous_by_uploaded(website=self.website)
-        return other.link(capfirst(_('previous')) + ': ' +
-                          str(other.browser), 'previous-screenshot')
+    def navigation_link(self, screenshots, img, alt):
+        if not screenshots or screenshots[0] == self:
+            return '<img src="/static/css/%s-gray.png" alt="%s">' % (img, alt)
+        return ''.join((
+            '<a href="%s">' % screenshots[0].get_absolute_url(),
+            '<img src="/static/css/%s.png" alt="%s">' % (img, alt),
+            '</a>',
+            ))
 
-    def next_link(self):
-        other = self.get_next_by_uploaded(website=self.website)
-        return other.link(capfirst(_('next')) + ': ' +
-                          str(other.browser), 'next-screenshot')
+    def get_first(self, **kwargs):
+        return Screenshot.objects.filter(**kwargs).order_by('id')[:1]
+
+    def get_last(self, **kwargs):
+        return Screenshot.objects.filter(**kwargs).order_by('-id')[:1]
+
+    def get_previous(self, **kwargs):
+        return Screenshot.objects.filter(
+            id__lt=self.id, **kwargs).order_by('-id')[:1]
+
+    def get_next(self, **kwargs):
+        return Screenshot.objects.filter(
+            id__gt=self.id, **kwargs).order_by('id')[:1]
+
+    def navigation(self, **kwargs):
+        """
+        Show links for related screenshots.
+        """
+        return '\n'.join((
+            self.navigation_link(self.get_first(**kwargs),
+                                 'first', capfirst(_("first"))),
+            self.navigation_link(self.get_previous(**kwargs),
+                                 'previous', capfirst(_("previous"))),
+            self.navigation_link(self.get_next(**kwargs),
+                                 'next', capfirst(_("next"))),
+            self.navigation_link(self.get_last(**kwargs),
+                                 'last', capfirst(_("last"))),
+            ))
+
+    def website_navigation(self):
+        """
+        Show links for screenshots of the same website.
+        """
+        return self.navigation(website=self.website)
+
+    def browser_navigation(self):
+        """
+        Show links for screenshots of the same browser.
+        """
+        return self.navigation(website=self.website,
+            browser__browser_group=self.browser.browser_group)
