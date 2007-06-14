@@ -127,6 +127,7 @@ class Factory(models.Model):
                      if browser.queue_estimate]
         if not estimates:
             return None
+        estimates.sort()
         return estimates[len(estimates) / 2]
 
 
