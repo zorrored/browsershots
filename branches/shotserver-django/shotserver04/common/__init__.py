@@ -27,8 +27,28 @@ __author__ = "$Author$"
 import xmlrpclib
 import psycopg
 from django.db import connection, transaction
+from datetime import datetime, timedelta
+from django.utils.text import capfirst
+from django.utils.translation import gettext
+from django.utils.functional import lazy
 
 MAX_ATTEMPTS = 10
+POLL_TIMEOUT = 10 # minutes
+
+def last_poll_timeout():
+    return datetime.now() - timedelta(minutes=POLL_TIMEOUT)
+
+
+def int_or_none(value):
+    if value.isdigit():
+        return int(value)
+
+
+def gettext_capfirst(text):
+    return capfirst(gettext(text))
+
+
+lazy_gettext_capfirst = lazy(gettext_capfirst, str, unicode)
 
 
 def get_or_fault(model, *args, **kwargs):
@@ -57,6 +77,8 @@ def serializable(func):
     def wrapper(*args, **kwargs):
         if transaction.is_dirty():
             transaction.commit()
+        else:
+            transaction.rollback()
         cursor = connection.cursor()
         for attempt in range(1, MAX_ATTEMPTS + 1):
             cursor.execute("SET TRANSACTION ISOLATION LEVEL SERIALIZABLE")
