@@ -44,13 +44,13 @@ def challenge(request, factory_name):
 
     Return value
     ~~~~~~~~~~~~
-    * challenge string (algorithm$salt$nonce)
+    * challenge dict
 
-    The return value is a string that contains the password encryption
-    algorithm (sha1 or md5), the salt, and the nonce, separated by '$'
-    signs, for example::
+    The return value is a dict with the following keys:
 
-        sha1$0c0ac$eb403b48ec9bf887ba645408acad17a5
+    * algorithm string (sha1 or md5)
+    * salt string (few random characters)
+    * nonce string (random lowercase hexadecimal, length 32)
 
     See nonces.verify for how to encrypt your password with the nonce.
     """
@@ -60,10 +60,14 @@ def challenge(request, factory_name):
     Nonce.objects.create(factory=factory, hashkey=hashkey, ip=ip)
     password = factory.admin.password
     if password.count('$'):
-        algo, salt, encrypted = password.split('$')
+        algorithm, salt, encrypted = password.split('$')
     else:
-        algo, salt, encrypted = 'md5', '', password
-    return '$'.join((algo, salt, hashkey))
+        algorithm, salt, encrypted = 'md5', '', password
+    return {
+        'algorithm': algorithm,
+        'salt': salt,
+        'nonce': hashkey,
+        }
 
 
 @register(None, str, str)
