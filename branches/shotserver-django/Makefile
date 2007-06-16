@@ -28,8 +28,8 @@ reset : backup
 	echo DROP DATABASE shotserver04 | psql template1
 	echo CREATE DATABASE shotserver04 | psql template1
 	shotserver04/manage.py syncdb
-	cat sql/platforms_architecture.sql | psql shotserver04
-	cat sql/platforms_platform.sql | psql shotserver04
-	cat sql/platforms_operatingsystem.sql | psql shotserver04
-	cat sql/browsers_engine.sql | psql shotserver04
-	cat sql/browsers_browsergroup.sql | psql shotserver04
+
+customsql :
+	./django_dump.py -p shotserver04 -i \
+	Architecture Platform OperatingSystem \
+	Javascript Java Flash Engine BrowserGroup
