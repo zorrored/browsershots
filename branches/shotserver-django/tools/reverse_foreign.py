@@ -6,6 +6,7 @@ requests = file('requests_request.sql').readlines()
 print requests.pop(0).rstrip('\n').replace('uploaded', 'screenshot_id')
 end = requests.pop(-1).rstrip('\n')
 
+
 def find_screenshot(request_id):
     for screenshot in screenshots:
         values = screenshot.rstrip('\n').split('\t')

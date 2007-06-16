@@ -35,6 +35,7 @@ from django.utils.functional import lazy
 MAX_ATTEMPTS = 10
 POLL_TIMEOUT = 10 # minutes
 
+
 def last_poll_timeout():
     return datetime.now() - timedelta(minutes=POLL_TIMEOUT)
 
