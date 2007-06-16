@@ -93,6 +93,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'shotserver04.common.middleware.RedirectMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -122,6 +123,7 @@ INSTALLED_APPS = (
     'shotserver04.common',
     'shotserver04.platforms',
     'shotserver04.factories',
+    'shotserver04.features',
     'shotserver04.browsers',
     'shotserver04.websites',
     'shotserver04.requests',
