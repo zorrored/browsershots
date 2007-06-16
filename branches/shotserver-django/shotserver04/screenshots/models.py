@@ -147,11 +147,11 @@ class Screenshot(models.Model):
             '</div>',
             ))
 
-    def navigation_link(self, screenshots, img, alt):
-        if not screenshots or screenshots[0] == self:
+    def arrow(self, screenshot, img, alt):
+        if not screenshot:
             return '<img src="/static/css/%s-gray.png" alt="%s">' % (img, alt)
         return ''.join((
-            '<a href="%s">' % screenshots[0].get_absolute_url(),
+            '<a href="%s">' % screenshot.get_absolute_url(),
             '<img src="/static/css/%s.png" alt="%s">' % (img, alt),
             '</a>',
             ))
@@ -170,30 +170,66 @@ class Screenshot(models.Model):
         return Screenshot.objects.filter(
             id__gt=self.id, **kwargs).order_by('id')[:1]
 
-    def navigation(self, **kwargs):
+    def not_me(self, screenshots):
+        if screenshots and screenshots[0] != self:
+            return screenshots[0]
+
+    def arrows(self, **kwargs):
         """
         Show links for related screenshots.
         """
+        first = self.not_me(self.get_first(**kwargs))
+        previous = self.not_me(self.get_previous(**kwargs))
+        next = self.not_me(self.get_next(**kwargs))
+        last = self.not_me(self.get_last(**kwargs))
+        if first or previous or next or last:
+            return '\n'.join((
+                self.arrow(first, 'first', capfirst(_("first"))),
+                self.arrow(previous, 'previous', capfirst(_("previous"))),
+                self.arrow(next, 'next', capfirst(_("next"))),
+                self.arrow(last, 'last', capfirst(_("last"))),
+                ))
+
+    def navigation(self, title, already=0, **kwargs):
+        total = Screenshot.objects.filter(**kwargs).count()
+        if total <= 1 or total == already:
+            return ''
+        count = Screenshot.objects.filter(id__lt=self.id, **kwargs).count() + 1
+        position = _("%(count)d out of %(total)d") % locals()
+        print 'still trying'
+        arrows = self.arrows(**kwargs)
         return '\n'.join((
-            self.navigation_link(self.get_first(**kwargs),
-                                 'first', capfirst(_("first"))),
-            self.navigation_link(self.get_previous(**kwargs),
-                                 'previous', capfirst(_("previous"))),
-            self.navigation_link(self.get_next(**kwargs),
-                                 'next', capfirst(_("next"))),
-            self.navigation_link(self.get_last(**kwargs),
-                                 'last', capfirst(_("last"))),
+            '<tr>',
+            '<th>%s:</th>' % title,
+            '<td><span class="position">%s</span>' % position,
+            '<span class="arrows">',
+            arrows,
+            '</span></td>',
+            '</tr>',
             ))
 
     def website_navigation(self):
         """
-        Show links for screenshots of the same website.
+        Navigation links to other screenshots of the same website.
         """
-        return self.navigation(website=self.website)
+        return self.navigation(
+            capfirst(_("screenshot")),
+            website=self.website)
 
     def browser_navigation(self):
         """
-        Show links for screenshots of the same browser.
+        Navigation links for screenshots of the same browser.
         """
-        return self.navigation(website=self.website,
+        return self.navigation(
+            self.browser.browser_group.name,
+            already=Screenshot.objects.filter(website=self.website).count(),
+            website=self.website,
             browser__browser_group=self.browser.browser_group)
+
+    def platform_navigation(self):
+        platform = self.factory.operating_system.platform
+        return self.navigation(
+            platform.name,
+            already=Screenshot.objects.filter(website=self.website).count(),
+            website=self.website,
+            factory__operating_system__platform=platform)
