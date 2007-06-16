@@ -25,7 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from xmlrpclib import Fault
-from django.db.models import Q
+from django.db import models
 from shotserver04.common import serializable, get_or_fault
 from shotserver04.xmlrpc import register
 from shotserver04.nonces import xmlrpc as nonces
@@ -45,7 +45,7 @@ def find_and_lock_request(factory, features):
     matches = matches.filter(screenshot__isnull=True)
     matches = matches.filter(request_group__expire__gt=now)
     matches = matches.filter(
-        Q(locked__isnull=True) | Q(locked__lt=five_minutes_ago))
+        models.Q(locked__isnull=True) | models.Q(locked__lt=five_minutes_ago))
     matches = matches.order_by(
         'requests_request__request_group.submitted')
     matches = matches[:1]
@@ -57,6 +57,26 @@ def find_and_lock_request(factory, features):
     request.locked = datetime.now()
     request.save()
     return request
+
+
+def add_version(filters, value, name):
+    """
+    Update filters to get the browser for a matching request.
+    """
+    if value is None:
+        return
+    if hasattr(value, 'id'):
+        value = value.id
+    if value == 2: # request for 'enabled'
+        filters[name + '__gte'] = 2 # match 'enabled' or version
+    else:
+        filters[name] = value # specific requested version
+
+
+def version_or_empty(feature):
+    if hasattr(feature, 'version'):
+        return feature.version
+    return ''
 
 
 @register(dict, str, str)
@@ -105,12 +125,15 @@ def poll(http_request, factory_name, encrypted_password):
     # Get matching request
     request = find_and_lock_request(factory, factory.features_q())
     # Get matching browser
+    filters = {'factory': factory,
+               'browser_group': request.browser_group}
+    add_version(filters, request.major, 'major')
+    add_version(filters, request.minor, 'minor')
+    add_version(filters, request.request_group.javascript, 'javascript__id')
+    add_version(filters, request.request_group.java, 'java__id')
+    add_version(filters, request.request_group.flash, 'flash__id')
     try:
-        browser = Browser.objects.select_related().get(
-            factory=factory,
-            browser_group=request.browser_group,
-            major=request.major,
-            minor=request.minor)
+        browser = Browser.objects.select_related().get(**filters)
     except Browser.DoesNotExist:
         raise Fault(0, "No matching browser for selected request.")
     command = browser.command
@@ -125,7 +148,7 @@ def poll(http_request, factory_name, encrypted_password):
         'width': request.request_group.width or 0,
         'height': request.request_group.height or 0,
         'bpp': request.request_group.bits_per_pixel or 0,
-        'javascript': request.request_group.javascript,
-        'java': request.request_group.java,
-        'flash': request.request_group.flash,
+        'javascript': version_or_empty(request.request_group.javascript),
+        'java': version_or_empty(request.request_group.java),
+        'flash': version_or_empty(request.request_group.flash),
         }
