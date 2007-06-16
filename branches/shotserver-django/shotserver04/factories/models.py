@@ -24,9 +24,9 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from xmlrpclib import Fault
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.db.models import Q
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture, OperatingSystem
 
@@ -90,32 +90,34 @@ class Factory(models.Model):
                 self.browsers_q())
 
     def platform_q(self):
-        return (Q(platform__isnull=True) |
-                Q(platform__id=self.operating_system.platform.id))
+        return (models.Q(platform__isnull=True) |
+                models.Q(platform__id=self.operating_system.platform.id))
 
     def operating_system_q(self):
-        return (Q(operating_system__isnull=True) |
-                Q(operating_system__id=self.operating_system.id))
+        return (models.Q(operating_system__isnull=True) |
+                models.Q(operating_system__id=self.operating_system.id))
 
     def browsers_q(self):
-        q = Q()
-        for browser in self.browser_set.filter(disabled=False):
-            group = Q(browser_group__id=browser.browser_group.id)
-            major = Q(major__isnull=True) | Q(major=browser.major)
-            minor = Q(minor__isnull=True) | Q(minor=browser.minor)
-            q |= (group & major & minor)
+        q = models.Q()
+        browsers = self.browser_set.filter(active=True)
+        if not len(browsers):
+            raise Fault(0,
+                "No browsers registered for factory %s." % self.name)
+        for browser in browsers:
+            q |= browser.features_q()
         return q
 
     def screensizes_q(self):
-        q = Q(request_group__width__isnull=True)
+        q = models.Q(request_group__width__isnull=True)
         for screensize in self.screensize_set.all():
-            q |= Q(request_group__width=screensize.width)
+            q |= models.Q(request_group__width=screensize.width)
         return q
 
     def colordepths_q(self):
-        q = Q(request_group__bits_per_pixel__isnull=True)
+        q = models.Q(request_group__bits_per_pixel__isnull=True)
         for colordepth in self.colordepth_set.all():
-            q |= Q(request_group__bits_per_pixel=colordepth.bits_per_pixel)
+            q |= models.Q(request_group__bits_per_pixel=
+                          colordepth.bits_per_pixel)
         return q
 
     def queue_estimate(self):

@@ -32,6 +32,7 @@ from shotserver04.websites.models import Website
 from shotserver04.platforms.models import Platform
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
+from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
 
 
@@ -44,12 +45,12 @@ class RequestGroup(models.Model):
         _('screen height'), null=True, blank=True)
     bits_per_pixel = models.IntegerField(
         _('bits per pixel'), null=True, blank=True)
-    javascript = models.CharField(
-        _('Javascript'), maxlength=20, blank=True)
-    java = models.CharField(
-        _('Java'), maxlength=20, blank=True)
-    flash = models.CharField(
-        _('Flash'), maxlength=20, blank=True)
+    javascript = models.ForeignKey(Javascript,
+        verbose_name=_('Javascript'), blank=True, null=True)
+    java = models.ForeignKey(Java,
+        verbose_name=_('Java'), blank=True, null=True)
+    flash = models.ForeignKey(Flash,
+        verbose_name=_('Flash'), blank=True, null=True)
     submitter = models.ForeignKey(User,
         verbose_name=_('submitter'), blank=True, null=True)
     submitted = models.DateTimeField(

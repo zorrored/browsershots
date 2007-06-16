@@ -27,6 +27,7 @@ __author__ = "$Author$"
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from shotserver04.factories.models import Factory
+from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.browsers import middleware as current_browser
 
 
@@ -59,9 +60,6 @@ class BrowserGroup(models.Model):
     terminal = models.BooleanField(
         _('terminal'), help_text=_("Is this a text-mode browser?"))
 
-    def __str__(self):
-        return self.name
-
     class Admin:
         list_display = ('name', 'maker')
         search_fields = ('name', 'maker')
@@ -70,6 +68,9 @@ class BrowserGroup(models.Model):
         verbose_name = _('browser group')
         verbose_name_plural = _('browser groups')
         ordering = ('name', )
+
+    def __str__(self):
+        return self.name
 
 
 class Browser(models.Model):
@@ -94,18 +95,18 @@ class Browser(models.Model):
     engine_version = models.CharField(
         _('engine version'), maxlength=20, blank=True,
         default=current_browser.get_engine_version)
-    javascript = models.CharField(
-        _('Javascript'), maxlength=20, blank=True)
-    java = models.CharField(
-        _('Java'), maxlength=20, blank=True)
-    flash = models.CharField(
-        _('Flash'), maxlength=20, blank=True)
+    javascript = models.ForeignKey(Javascript,
+        verbose_name=_('Javascript'))
+    java = models.ForeignKey(Java,
+        verbose_name=_('Java'))
+    flash = models.ForeignKey(Flash,
+        verbose_name=_('Flash'))
     command = models.CharField(
         _('command'), maxlength=80, blank=True,
         default=current_browser.get_command)
-    disabled = models.BooleanField(
-        _('disabled'),
-        help_text=_("Deactivate this browser temporarily"))
+    active = models.BooleanField(
+        _('active'), default=True,
+        help_text=_("Designates that this browser is currently installed."))
     last_upload = models.DateTimeField(
         _('last upload'), blank=True, null=True)
     uploads_per_hour = models.IntegerField(
@@ -118,9 +119,6 @@ class Browser(models.Model):
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
 
-    def __str__(self):
-        return '%s %s' % (self.browser_group.name, self.version)
-
     class Admin:
         fields = (
             (None, {'fields': (
@@ -130,7 +128,7 @@ class Browser(models.Model):
             ('version', 'major', 'minor'),
             ('engine', 'engine_version'),
             ('javascript', 'java', 'flash'),
-            'disabled',
+            'active',
             )}),
             )
         list_display = ('browser_group', 'version', 'command',
@@ -146,3 +144,15 @@ class Browser(models.Model):
         unique_together = (
             ('factory', 'browser_group', 'major', 'minor'),
             )
+
+    def __str__(self):
+        return '%s %s' % (self.browser_group.name, self.version)
+
+    def features_q(self):
+        group = models.Q(browser_group__id=self.browser_group.id)
+        major = models.Q(major__isnull=True) | models.Q(major=self.major)
+        minor = models.Q(minor__isnull=True) | models.Q(minor=self.minor)
+        javascript = self.javascript.features_q()
+        java = self.java.features_q()
+        flash = self.flash.features_q()
+        return (group & major & minor & javascript & java & flash)
