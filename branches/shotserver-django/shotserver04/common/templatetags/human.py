@@ -25,8 +25,12 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from datetime import datetime
+from django import template
+
+register = template.Library()
 
 
+@register.filter
 def human_seconds(seconds):
     """
     >>> human_seconds(0)
@@ -54,6 +58,7 @@ def human_seconds(seconds):
     return _("%(days)d d") % locals()
 
 
+@register.filter
 def human_timesince(then):
     if then is None:
         return ''
@@ -61,6 +66,7 @@ def human_timesince(then):
     return human_seconds(delta.days * 24 * 3600 + delta.seconds)
 
 
+@register.filter
 def human_bytes(bytes):
     """
     >>> human_bytes(0)
@@ -83,6 +89,7 @@ def human_bytes(bytes):
     return _("%(bytes)s bytes") % locals()
 
 
+@register.filter
 def human_link(object):
     """
     HTML link to the detail page.
@@ -90,6 +97,7 @@ def human_link(object):
     return '<a href="%s">%s</a>' % (object.get_absolute_url(), str(object))
 
 
+@register.filter
 def human_br(text):
     """
     Add <br /> tags for narrow table headers.
@@ -118,15 +126,12 @@ def human_br(text):
         return text[:index] + '<br />' + text[index+1:]
 
 
+@register.filter
+def human_datetime(datetime):
+    return datetime.strftime('%Y-%m-%d %H:%M:%S')
+
+
 if __name__ == '__main__':
     import doctest
     _ = lambda x: x
     doctest.testmod()
-else:
-    from django import template
-    register = template.Library()
-    register.filter(human_seconds)
-    register.filter(human_timesince)
-    register.filter(human_bytes)
-    register.filter(human_link)
-    register.filter(human_br)
