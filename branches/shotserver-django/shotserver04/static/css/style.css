@@ -53,7 +53,7 @@ table.debug th { text-align: left; }
 table.debug td { vertical-align: top; }
 
 table { border-collapse: collapse; }
-th, td { padding: 0 0.5ex; }
+th, td { padding: 0 1ex 4px 0; }
 tr.row1 { background-color: #EEE; }
 tr.row2 { background-color: #FFF; }
 
@@ -111,6 +111,7 @@ div.blue input#submit {
   margin-bottom: 16px;
 }
 div.blue p { margin: 0; }
+div.blue ul.errorlist { margin: 0 0 16px; }
 
 div.gray {
   background-color: #e4e4e4;
@@ -144,4 +145,25 @@ div.previous-screenshot {
 div.next-screenshot {
   position: absolute;
   right: 0;
+}
+
+table.detail th,
+table.detail td {
+  text-align: left;
+  vertical-align: top;
+}
+tr.separator {
+  border-top: 1px solid #ccc;
+}
+tr.separator th,
+tr.separator td {
+  padding-top: 4px;
+}
+
+span.position {
+  white-space: nowrap;
+  margin-right: 1em;
+}
+span.arrows {
+  white-space: nowrap;
 }
