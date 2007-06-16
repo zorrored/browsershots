@@ -38,27 +38,16 @@ class SizeTestCase(TestCase):
 
     def setUp(self):
         self.user = User.objects.create()
-        self.architecture = Architecture.objects.create()
-        self.platform = Platform.objects.create()
-        self.operating_system = OperatingSystem.objects.create(
-            platform=self.platform)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
-            architecture=self.architecture,
-            operating_system=self.operating_system)
-        self.engine = Engine.objects.create(
-            name='Gecko', maker='Mozilla')
-        self.browser_group = BrowserGroup.objects.create(
-            name='Firefox', maker='Mozilla', terminal=False)
+            architecture=Architecture.objects.get(pk=1),
+            operating_system=OperatingSystem.objects.get(pk=1))
+        self.engine = Engine.objects.get(pk=1)
+        self.browser_group = BrowserGroup.objects.get(pk=1)
 
     def tearDown(self):
-        self.browser_group.delete()
-        self.engine.delete()
         self.factory.delete()
-        self.operating_system.delete()
-        self.platform.delete()
-        self.architecture.delete()
         self.user.delete()
 
     def createBrowser(self, user_agent, **kwargs):
@@ -71,11 +60,11 @@ class SizeTestCase(TestCase):
             minor=kwargs.get('minor', 0),
             engine=self.engine,
             engine_version=kwargs.get('engine_version', ''),
-            javascript=kwargs.get('javascript', ''),
-            java=kwargs.get('java', ''),
-            flash=kwargs.get('flash', ''),
+            javascript_id=kwargs.get('javascript', 1),
+            java_id=kwargs.get('java', 1),
+            flash_id=kwargs.get('flash', 1),
             command=kwargs.get('command', ''),
-            disabled=kwargs.get('disabled', False),
+            active=kwargs.get('active', True),
             )
 
     def assertBrowserValid(self, user_agent, **kwargs):

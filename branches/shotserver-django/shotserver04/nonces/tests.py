@@ -38,21 +38,14 @@ class NonceTestCase(TestCase):
 
     def setUp(self):
         self.user = User.objects.create()
-        self.architecture = Architecture.objects.create()
-        self.platform = Platform.objects.create()
-        self.operating_system = OperatingSystem.objects.create(
-            platform=self.platform)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
-            architecture=self.architecture,
-            operating_system=self.operating_system)
+            architecture=Architecture.objects.get(pk=1),
+            operating_system=OperatingSystem.objects.get(pk=1))
 
     def tearDown(self):
         self.factory.delete()
-        self.operating_system.delete()
-        self.platform.delete()
-        self.architecture.delete()
         self.user.delete()
 
     def assertNonceValid(self, hashkey):

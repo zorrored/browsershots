@@ -17,65 +17,47 @@
 # MA 02111-1307, USA.
 
 """
-Test suite for screenshots app.
+Test suite for requests app.
 """
 
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from datetime import datetime
+import os
+from md5 import md5
+from datetime import datetime, timedelta
 from psycopg import IntegrityError
+from xmlrpclib import Fault
 from unittest import TestCase
-from django.db import transaction
+from django.db import transaction, connection
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.browsers.models import Engine, BrowserGroup, Browser
-from shotserver04.requests.models import RequestGroup, Request
 from shotserver04.websites.models import Domain, Website
+from shotserver04.requests.models import RequestGroup, Request
+from shotserver04.requests import xmlrpc as requests
+from shotserver04.nonces import xmlrpc as nonces
+from shotserver04.factories import xmlrpc as factories
 
-VALID_SIZES = [
-    (640, 480),
-    (800, 600),
-    (1024, 768),
-    (1280, 1024),
-    (1600, 1200),
-    (640, 320),
-    (800, 400),
-    (1024, 512),
-    (1280, 640),
-    (1600, 800),
-    (640, 5120),
-    (800, 6400),
-    (1024, 8192),
-    (1280, 10240),
-    (1600, 12800),
-    ]
-
-INVALID_SIZES = [
-    (640, 319),
-    (800, 399),
-    (1024, 511),
-    (1280, 639),
-    (1600, 799),
-    (640, 5121),
-    (800, 6401),
-    (1024, 8193),
-    (1280, 10241),
-    (1600, 12801),
-    (0, 0),
-    (639, 480),
-    (1601, 1200),
-    ]
+SHA1_PASSWORD = 'edefaf28ff4645d1dfd075c18b8ac36a5fe691f9'
 
 
-class SizeTestCase(TestCase):
+class FakeHttpRequest:
+
+    def __init__(self):
+        self.META = {'REMOTE_ADDR': '127.0.0.1'}
+
+
+class PollTestCase(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create()
+        self.http_request = FakeHttpRequest()
+        self.user = User.objects.create(
+            password='sha1$a5481$' + SHA1_PASSWORD)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
@@ -84,7 +66,7 @@ class SizeTestCase(TestCase):
         self.browser = Browser.objects.create(
             factory=self.factory,
             user_agent="Firefox/2.0.0.4 Gecko/20061201",
-            browser_group=BrowserGroup.objects.get(pk=1),
+            browser_group_id=1,
             version='2.0.0.4', major=2, minor=0,
             command='firefox',
             engine=Engine.objects.get(pk=1),
@@ -98,50 +80,52 @@ class SizeTestCase(TestCase):
         self.website = Website.objects.create(
             url='http://browsershots.org/',
             domain=self.domain)
+        self.request_group = RequestGroup.objects.create(
+            website=self.website,
+            expire=datetime.now() + timedelta(0, 300, 0))
+        self.request = Request.objects.create(
+            request_group=self.request_group,
+            browser_group_id=1)
 
     def tearDown(self):
+        self.request.delete()
+        self.request_group.delete()
         self.website.delete()
         self.domain.delete()
         self.browser.delete()
         self.factory.delete()
         self.user.delete()
 
-    def assertSizeValid(self, width, height):
+    def testFeatures(self):
+        features = factories.features(self.http_request, 'factory')
+
+    def encrypted_password(self):
+        challenge = nonces.challenge(
+            self.http_request, 'factory')
+        if challenge['algorithm'] == 'sha1':
+            return md5(SHA1_PASSWORD + challenge['nonce']).hexdigest()
+        elif challenge['algorithm'] == 'md5':
+            return md5(MD5_PASSWORD + challenge['nonce']).hexdigest()
+        else:
+            self.fail("Unsupported algorithm: %s." % challenge['algorithm'])
+
+    def testPoll(self):
+        # Poll for matching request.
         try:
-            screenshot = Screenshot.objects.create(
-                hashkey='0123456789abcdef' * 2,
-                website=self.website,
-                factory=self.factory,
-                browser=self.browser,
-                width=width,
-                height=height)
-            screenshot.delete()
-        except IntegrityError:
+            result = requests.poll(self.http_request,
+                                   'factory', self.encrypted_password())
+        except Fault, fault:
             transaction.rollback()
             raise
-
-    def testValidSizes(self):
-        for width, height in VALID_SIZES:
-            self.assertSizeValid(width, height)
-
-    def assertSizeInvalid(self, width, height):
+        # Now expect no match because the previous request was locked.
         try:
-            try:
-                screenshot = Screenshot.objects.create(
-                    hashkey='0123456789abcdef' * 2,
-                    website=self.website,
-                    factory=self.factory,
-                    browser=self.browser,
-                    width=width,
-                    height=height)
-                screenshot.delete()
-                self.fail('created screenshot with invalid size %dx%d' %
-                          (width, height))
-            except IntegrityError:
-                pass
-        finally:
+            result = requests.poll(self.http_request,
+                                   'factory', self.encrypted_password())
+            self.fail("Unexpected matching request.")
+        except Fault, fault:
             transaction.rollback()
+            if fault.faultString != 'No matching request.':
+                raise
 
-    def testInvalidSizes(self):
-        for width, height in INVALID_SIZES:
-            self.assertSizeInvalid(width, height)
+    def testDump(self):
+        os.system('pg_dump test_shotserver04 > test.sql')

@@ -37,10 +37,8 @@ class FactoriesTestCase(TestCase):
 
     def setUp(self):
         self.user = User.objects.create()
-        self.architecture = Architecture.objects.create()
-        self.platform = Platform.objects.create()
-        self.operating_system = OperatingSystem.objects.create(
-            platform=self.platform)
+        self.architecture=Architecture.objects.get(pk=1)
+        self.operating_system=OperatingSystem.objects.get(pk=1)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
@@ -64,9 +62,6 @@ class FactoriesTestCase(TestCase):
         self.size_800.delete()
         self.size_1024.delete()
         self.factory.delete()
-        self.operating_system.delete()
-        self.platform.delete()
-        self.architecture.delete()
         self.user.delete()
 
     def testFactoryName(self):
