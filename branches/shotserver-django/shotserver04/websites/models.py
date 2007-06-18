@@ -29,13 +29,20 @@ from django.utils.translation import gettext_lazy as _
 from django.core import validators
 
 
-def hasSlashAfterHostname(field_data, all_data):
+def has_slash_after_hostname(field_data, all_data):
+    """
+    Check that the website URL has 3 or more slashes.
+    """
     if field_data.count('/') < 3:
         raise validators.ValidationError(
             _("Missing slash after the hostname."))
 
 
 class Domain(models.Model):
+    """
+    Normalized domain names.
+    """
+
     name = models.CharField(
         _('name'), maxlength=200, unique=True)
     submitted = models.DateTimeField(
@@ -58,9 +65,13 @@ class Domain(models.Model):
 
 
 class Website(models.Model):
+    """
+    URLs of requested web pages, and some background info.
+    """
+
     url = models.URLField(
         _('URL'), maxlength=400, unique=True,
-        validator_list=[hasSlashAfterHostname])
+        validator_list=[has_slash_after_hostname])
     domain = models.ForeignKey(Domain,
         verbose_name=_('domain'), raw_id_admin=True)
     content = models.TextField(
@@ -84,6 +95,7 @@ class Website(models.Model):
             return self.url
 
     def get_absolute_url(self):
+        """Get absolute URL."""
         if self.url.count('#'):
             return '/websites/%d/' % self.id
         else:

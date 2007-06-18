@@ -25,6 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.shortcuts import render_to_response, get_object_or_404
+from django.db import models
 from shotserver04.websites.models import Website
 
 
@@ -42,12 +43,16 @@ def website_list(request):
 
 
 def website_detail(request, website_url):
-    if request.META['QUERY_STRING']:
-        website_url += '?' + request.META['QUERY_STRING']
-    website = get_object_or_404(Website, url=website_url)
+    if isinstance(website_url, Website):
+        website = website_url
+    else:
+        if request.META['QUERY_STRING']:
+            website_url += '?' + request.META['QUERY_STRING']
+        website = get_object_or_404(Website, url=website_url)
+    domain_website_list = website.domain.website_set.exclude(id=website.id)
     return render_to_response('websites/website_detail.html', locals())
 
 
 def website_numeric(request, website_id):
     website = get_object_or_404(Website, id=website_id)
-    return render_to_response('websites/website_detail.html', locals())
+    return website_detail(request, website)

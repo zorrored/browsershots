@@ -2,14 +2,33 @@
 {% load i18n %}
 {% load human %}
 
-{% block title %}{% trans "Website Overview" %}{% endblock %}
+{% block title %}{{ _("website overview")|capfirst }}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Website Overview" %}</h1>
+<h1>{{ _("website overview")|capfirst }}</h1>
 <p>{% blocktrans with website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
 {% for request_group in website.requestgroup_set.all %}
-<h2>{{ request_group }}</h2>
+<h2 class="requestgroup">{{ request_group.submitted|human_datetime }}</h2>
+<ul class="requestgroup">
+{{ request_group.time_since_submitted }}
+{{ request_group.time_until_expire }}
+{{ request_group.options }}
+{{ request_group.pending_requests }}
+</ul>
 {{ request_group.previews }}
 {% endfor %}
+
+<p class="clear">
+<a href="/?url={{ website.url|urlencode }}">{{ _("Request new screenshots?") }}</a>
+</p>
+
+{% if domain_website_list %}
+<h2>{{ _("other pages on the same domain")|capfirst }}</h2>
+<ul>
+{% for website in domain_website_list %}
+<li>{{ website|human_link }}</li>
+{% endfor %}
+</ul>
+{% endif %}
 {% endblock %}
