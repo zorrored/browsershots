@@ -33,10 +33,14 @@ from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
+# import time # For test_overload.py
 
 
 @serializable
 def find_and_lock_request(factory, features):
+    """
+    Find a matching screenshot request and lock it.
+    """
     # Find matching request
     now = datetime.now()
     five_minutes_ago = now - timedelta(0, 300)
@@ -49,6 +53,7 @@ def find_and_lock_request(factory, features):
     matches = matches.order_by(
         'requests_request__request_group.submitted')
     matches = matches[:1]
+    # time.sleep(0.1) # For test_overload.py
     if len(matches) == 0:
         raise Fault(0, 'No matching request.')
     request = matches[0]
@@ -74,9 +79,11 @@ def add_version(filters, value, name):
 
 
 def version_or_empty(feature):
-    if hasattr(feature, 'version'):
+    """Return version field, or empty string if feature is None."""
+    if feature is None:
+        return ''
+    else:
         return feature.version
-    return ''
 
 
 @register(dict, str, str)
