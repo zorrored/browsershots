@@ -5,7 +5,7 @@ import sys
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from django.db import transaction
-from shotserver04.common import ErrorMessage
+from xmlrpclib import Fault
 from shotserver04.factories.models import Factory
 from shotserver04.websites.models import Website
 from shotserver04.browsers.models import BrowserGroup
@@ -18,7 +18,7 @@ import time
 def generator():
     factory = Factory.objects.get(pk=1)
     browser_group = BrowserGroup.objects.get(pk=1)
-    website = Website.objects.get(pk=1)
+    website = Website.objects.all()[0]
     request_group = RequestGroup.objects.create(
         website=website,
         expire=datetime.now() + timedelta(1, 0, 0))
@@ -43,8 +43,8 @@ def overload(thread_id):
         while True:
             try:
                 request = requests.find_and_lock_request(factory, features)
-            except ErrorMessage, error:
-                if error.message != "No matching request.":
+            except Fault, error:
+                if error.faultString != "No matching request.":
                     print
                     print message
             sys.stdout.write(str(thread_id))
