@@ -33,7 +33,7 @@ from shotserver04.factories.models import Factory
 from datetime import datetime, timedelta
 
 
-@register(str, str)
+@register(dict, str)
 def challenge(request, factory_name):
     """
     Generate a nonce for authentication.
@@ -70,7 +70,7 @@ def challenge(request, factory_name):
         }
 
 
-@register(None, str, str)
+@register(bool, str, str)
 def verify(request, factory_name, encrypted_password):
     """
     Test authentication with an encrypted password.

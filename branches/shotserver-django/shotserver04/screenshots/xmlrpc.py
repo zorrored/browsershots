@@ -52,7 +52,7 @@ def close_request(request_id, factory, screenshot):
     request.save()
 
 
-@register(None, str, str, int, Binary)
+@register(str, str, str, int, Binary)
 def upload(http_request,
            factory_name, encrypted_password, request, screenshot):
     """
@@ -72,7 +72,7 @@ def upload(http_request,
     * hashkey string (lowercase hexadecimal, length 32)
 
     Users can see the resulting uploaded screenshot at
-    http://browsershots.org/screenshots/<hashkey>/
+    http://browsershots.org/screenshots/hashkey/
     """
     # Verify authentication
     factory = get_or_fault(Factory, name=factory_name)
