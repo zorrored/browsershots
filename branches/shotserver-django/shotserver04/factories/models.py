@@ -32,6 +32,10 @@ from shotserver04.platforms.models import Architecture, OperatingSystem
 
 
 class Factory(models.Model):
+    """
+    Screenshot factory configuration.
+    """
+
     name = models.SlugField(
         _('name'), unique=True,
         help_text=_('Hostname (lowercase)'))
@@ -81,23 +85,23 @@ class Factory(models.Model):
         return self.name
 
     def get_absolute_url(self):
+        """Get absolute URL."""
         return '/factories/%s/' % self.name
 
     def features_q(self):
+        """Get SQL query to match screenshot requests."""
         return (self.platform_q() &
                 self.screensizes_q() &
                 self.colordepths_q() &
                 self.browsers_q())
 
     def platform_q(self):
+        """Get SQL query to match requested platforms."""
         return (models.Q(platform__isnull=True) |
                 models.Q(platform__id=self.operating_system.platform.id))
 
-    def operating_system_q(self):
-        return (models.Q(operating_system__isnull=True) |
-                models.Q(operating_system__id=self.operating_system.id))
-
     def browsers_q(self):
+        """Get SQL query to match requested browsers."""
         q = models.Q()
         browsers = self.browser_set.filter(active=True)
         if not len(browsers):
@@ -108,12 +112,14 @@ class Factory(models.Model):
         return q
 
     def screensizes_q(self):
+        """Get SQL query to match requested screen sizes."""
         q = models.Q(request_group__width__isnull=True)
         for screensize in self.screensize_set.all():
             q |= models.Q(request_group__width=screensize.width)
         return q
 
     def colordepths_q(self):
+        """Get SQL query to match requested color depths."""
         q = models.Q(request_group__bits_per_pixel__isnull=True)
         for colordepth in self.colordepth_set.all():
             q |= models.Q(request_group__bits_per_pixel=
@@ -134,6 +140,10 @@ class Factory(models.Model):
 
 
 class ScreenSize(models.Model):
+    """
+    Supported screen resolutions for screenshot factories.
+    """
+
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'),
         edit_inline=models.TABULAR, num_in_admin=3)
@@ -157,6 +167,10 @@ class ScreenSize(models.Model):
 
 
 class ColorDepth(models.Model):
+    """
+    Supported color depths (bits per pixel) for screenshot factories.
+    """
+
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'),
         edit_inline=models.TABULAR, num_in_admin=3)

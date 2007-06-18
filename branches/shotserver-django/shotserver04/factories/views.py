@@ -41,6 +41,9 @@ FACTORY_LIST_COLUMNS = (
 
 
 def factory_list(request):
+    """
+    List all screenshot factories.
+    """
     order = request.GET.get('order', '')
     if order.lstrip('-') not in FACTORY_LIST_COLUMNS:
         order = '-uploads_per_day'
@@ -68,6 +71,9 @@ def factory_list(request):
 
 
 def factory_detail(request, factory_name):
+    """
+    Get detailed information about a screenshot factory.
+    """
     try:
         factory = Factory.objects.get(name=factory_name)
     except Factory.DoesNotExist:
