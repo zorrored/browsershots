@@ -35,20 +35,18 @@ document.getElementById('sql-queries').style.display='block';
 """.strip()
 
 TABLE_TEMPLATE = """
-<p class="debug"><a onclick="%s" href="#sql" name="sql">%s</a></p>
+<p class="debug"><a onclick="%s" href="%s" name="sql">%s</a></p>
 <table class="debug" id="sql-queries" style="display:none">
-<thead>
-<tr><th>%s</th><th>%s</th></tr>
-</thead>
-<tbody>
 %s
-</tbody>
 </table>
 """.strip()
 
 
 @register.simple_tag
 def sql_queries():
+    """
+    Display an HTML table with all SQL queries for this HTTP request.
+    """
     if not connection.queries:
         return ''
     rows = []
@@ -59,9 +57,4 @@ def sql_queries():
             query['sql'].replace('","', '", "'),
             ))
     return TABLE_TEMPLATE % (
-        JAVASCRIPT,
-        _("Database queries"),
-        _("Time"),
-        _("Database queries"),
-        '\n'.join(rows),
-        )
+        JAVASCRIPT, '#sql', _("Database queries"), '\n'.join(rows))
