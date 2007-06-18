@@ -30,13 +30,16 @@ from shotserver04.xmlrpc import register
 
 
 class Dispatcher:
+    """
+    XML-RPC dispatcher with full introspection and multicall support.
+    """
 
     def __init__(self, allow_none=False, encoding=None):
         self.funcs = {
-            'system.listMethods': self.system_listMethods,
-            'system.methodSignature': self.system_methodSignature,
-            'system.methodHelp': self.system_methodHelp,
-            'system.multicall': self.system_multicall,
+            'system.listMethods': self.list_methods,
+            'system.methodSignature': self.method_signature,
+            'system.methodHelp': self.method_help,
+            'system.multicall': self.multicall,
             }
         self.allow_none = allow_none
         self.encoding = encoding
@@ -53,7 +56,7 @@ class Dispatcher:
         self.funcs[name] = function
 
     @register(list)
-    def system_listMethods(self, request):
+    def list_methods(self, request):
         """
         Returns a list of the methods supported by the server.
         """
@@ -62,7 +65,7 @@ class Dispatcher:
         return methods
 
     @register(list, str)
-    def system_methodSignature(self, request, method_name):
+    def method_signature(self, request, method_name):
         """
         Returns a list describing the possible signatures of the
         method.
@@ -82,7 +85,7 @@ class Dispatcher:
             return [result]
 
     @register(str, str)
-    def system_methodHelp(self, request, method_name):
+    def method_help(self, request, method_name):
         """
         Returns a string containing documentation for the specified
         method.
@@ -97,7 +100,7 @@ class Dispatcher:
         return '\n'.join(lines).strip()
 
     @register(list, list)
-    def system_multicall(self, request, call_list):
+    def multicall(self, request, call_list):
         """
         Allows the caller to package multiple XML-RPC calls into a
         single request.
@@ -111,14 +114,19 @@ class Dispatcher:
         return results
 
     def dispatch(self, method, request, params):
-        try:
-            func = self.funcs[method]
-        except KeyError:
+        """
+        Call a registered XML-RPC method.
+        """
+        if not method in self.funcs:
             raise Exception('method "%s" is not supported' % method)
+        func = self.funcs[method]
         response = func(request, *params)
         return (response, )
 
     def dispatch_and_marshal(self, method, request, params):
+        """
+        Call a registered XML-RPC method and marshal the response.
+        """
         try:
             response = self.dispatch(method, request, params)
             response = xmlrpclib.dumps(response, methodresponse=True,
@@ -133,5 +141,6 @@ class Dispatcher:
         return response
 
     def dispatch_request(self, request):
+        """Unmarshal and run an XML-RPC request."""
         params, method = xmlrpclib.loads(request.raw_post_data)
         return self.dispatch_and_marshal(method, request, params)
