@@ -1,3 +1,29 @@
+# browsershots.org - Test your web design in different browsers
+# Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+# MA 02111-1307, USA.
+
+"""
+Input form with select fields for screen size, color depth, timeout.
+"""
+
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
+
 from django import newforms as forms
 from shotserver04.factories.models import ScreenSize, ColorDepth
 from shotserver04.common import last_poll_timeout, int_or_none
@@ -6,17 +32,29 @@ from datetime import datetime, timedelta
 
 
 def screen_size_choices():
+    """
+    Get screen sizes that are supported by active factories.
+    """
     yield ('dontcare', _("don't care"))
+    previous = None
     for size in ScreenSize.objects.filter(
         factory__last_poll__gt=last_poll_timeout()):
-        yield (size.width, str(size))
+        if size != previous:
+            yield (size.width, str(size))
+            previous = size
 
 
 def color_depth_choices():
+    """
+    Get color depths that are supported by active factories.
+    """
     yield ('dontcare', _("don't care"))
+    previous = None
     for depth in ColorDepth.objects.filter(
         factory__last_poll__gt=last_poll_timeout()):
-        yield (depth.bits_per_pixel, str(depth))
+        if depth != previous:
+            yield (depth.bits_per_pixel, str(depth))
+            previous = depth
 
 
 class OptionsForm(forms.Form):
