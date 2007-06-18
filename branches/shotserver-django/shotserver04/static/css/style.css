@@ -129,12 +129,10 @@ div.options select {
   width: 130px;
 }
 
-div.floatleft {
+.clear { clear: both; }
+.floatleft {
   float: left;
   margin: 0 16px 16px 0;
-}
-div.clear {
-  clear: both;
 }
 
 div.large-preview { position: relative; }
@@ -160,10 +158,14 @@ tr.separator td {
   padding-top: 4px;
 }
 
-span.position {
-  white-space: nowrap;
-  margin-right: 1em;
+td.index,
+td.arrows { white-space: nowrap; }
+
+h2.requestgroup {
+  margin-bottom: 0;
 }
-span.arrows {
-  white-space: nowrap;
+ul.requestgroup {
+  margin: 0 0 1ex;
+  padding: 0;
+  list-style-type: none;
 }
