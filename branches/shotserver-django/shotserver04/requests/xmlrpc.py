@@ -108,6 +108,8 @@ def poll(http_request, factory_name, encrypted_password):
     * command string (browser command to run)
     * browser string (browser name)
     * version string (browser version)
+    * major int (major browser version number)
+    * minor int (minor browser version number)
     * width int (screen width in pixels)
     * height int (screen height in pixels)
     * bpp int (color depth in bits per pixel)
@@ -152,6 +154,8 @@ def poll(http_request, factory_name, encrypted_password):
         'command': command,
         'browser': browser.browser_group.name,
         'version': browser.version,
+        'major': browser.major,
+        'minor': browser.minor,
         'width': request.request_group.width or 0,
         'height': request.request_group.height or 0,
         'bpp': request.request_group.bits_per_pixel or 0,
