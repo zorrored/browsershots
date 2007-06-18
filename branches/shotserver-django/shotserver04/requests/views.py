@@ -24,11 +24,51 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from datetime import datetime
 from django.shortcuts import render_to_response
+from django.db import connection
 from shotserver04.requests.models import Request
+from shotserver04.platforms.models import Platform
+from shotserver04.browsers.models import BrowserGroup
 
 
 def request_list(http_request):
-    request_list = Request.objects.select_related().order_by(
-        '-requests_requestgroup.submitted')[:100]
+    """
+    Show statistics about pending requests.
+    """
+    browser_list = []
+    cursor = connection.cursor()
+    cursor.execute("""
+SELECT platform_id, browser_group_id, major, minor,
+SUM(browsers_browser.uploads_per_hour) AS uploads_per_hour,
+SUM(browsers_browser.uploads_per_day) AS uploads_per_day
+FROM browsers_browser
+JOIN factories_factory ON factories_factory.id = factory_id
+JOIN browsers_browsergroup ON browsers_browsergroup.id = browser_group_id
+JOIN platforms_operatingsystem
+ON platforms_operatingsystem.id = operating_system_id
+GROUP BY platform_id, browser_group_id, major, minor
+""")
+    for row in cursor.fetchall():
+        (platform_id, browser_group_id, major, minor,
+         uploads_per_hour, uploads_per_day) = row
+        pending_requests = Request.objects.filter(
+            platform=platform_id,
+            browser_group=browser_group_id,
+            major=major,
+            minor=minor,
+            screenshot__isnull=True,
+            request_group__expire__gt=datetime.now(),
+            ).count()
+        if not pending_requests:
+            continue
+        browser_list.append({
+            'platform': Platform.objects.get(id=platform_id),
+            'browser_group': BrowserGroup.objects.get(id=browser_group_id),
+            'major': major,
+            'minor': minor,
+            'uploads_per_hour': uploads_per_hour,
+            'uploads_per_day': uploads_per_day,
+            'pending_requests': pending_requests,
+            })
     return render_to_response('requests/request_list.html', locals())
