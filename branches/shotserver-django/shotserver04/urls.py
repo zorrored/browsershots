@@ -60,16 +60,17 @@ urlpatterns = patterns('',
     *load_app_patterns('shotserver04.', ignore=['common']))
 
 
-if settings.DEBUG:
+def get_static_path():
+    """Get path to static CSS, Javascript, image files."""
     import os
-    local_path = os.path.normpath(os.path.dirname(__file__))
-    static_path = os.path.join(local_path, 'static')
+    return os.path.join(os.path.normpath(os.path.dirname(__file__)), 'static')
+
+
+if settings.DEBUG:
     # Serve CSS and image files from shotserver04/static/
     urlpatterns += patterns('',
         (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-         {'document_root': static_path}),
-        )
-    urlpatterns += patterns('',
+         {'document_root': get_static_path()}),
         (r'^png/(?P<path>.*)$', 'django.views.static.serve',
          {'document_root': settings.PNG_ROOT}),
         )
