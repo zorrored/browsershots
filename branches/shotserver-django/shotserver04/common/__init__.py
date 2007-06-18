@@ -24,6 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import sys
 import xmlrpclib
 import psycopg
 from django.db import connection, transaction
@@ -34,18 +35,27 @@ from django.utils.functional import lazy
 
 MAX_ATTEMPTS = 10
 POLL_TIMEOUT = 10 # minutes
+LOCK_TIMEOUT = 5 # minutes
 
 
 def last_poll_timeout():
+    """Factory is inactive if last poll was before this datetime."""
     return datetime.now() - timedelta(minutes=POLL_TIMEOUT)
 
 
+def lock_timeout():
+    """Request lock is expired if it was created before this datetime."""
+    return datetime.now() - timedelta(minutes=LOCK_TIMEOUT)
+
+
 def int_or_none(value):
+    """Convert string to int, if possible."""
     if value.isdigit():
         return int(value)
 
 
 def gettext_capfirst(text):
+    """Translate and then change first letter to uppercase."""
     return capfirst(gettext(text))
 
 
@@ -76,6 +86,10 @@ def serializable(func):
 
     @transaction.commit_manually
     def wrapper(*args, **kwargs):
+        """
+        Set the transaction isolation level to serializable, then run
+        the wrapped function. Automatically retry on serialize error.
+        """
         if transaction.is_dirty():
             transaction.commit()
         else:
@@ -87,12 +101,12 @@ def serializable(func):
                 result = func(*args, **kwargs)
                 transaction.commit()
                 return result
-            except Exception, error:
-                transaction.rollback()
-                serialize_failed = (
-                    isinstance(error, psycopg.ProgrammingError) and
-                    error.message.lower().count("serialize access"))
-                if attempt == MAX_ATTEMPTS or not serialize_failed:
+            except psycopg.ProgrammingError, error:
+                serialize_error = "serialize access" in error.message.lower()
+                if serialize_error and attempt < MAX_ATTEMPTS:
+                    transaction.rollback()
+                    # sys.stdout.write('!') # For test_overload.py
+                else:
                     raise
 
     wrapper.__name__ = func.__name__
