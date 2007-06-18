@@ -41,7 +41,7 @@ def start(request):
     Front page with URL input, browser chooser, and options.
     """
     post = request.POST or None
-    url_form = UrlForm(post)
+    url_form = UrlForm(post or request.GET or None)
     options_form = OptionsForm(post)
     features_form = FeaturesForm(post)
     valid_post = (url_form.is_valid() and
@@ -74,6 +74,9 @@ def start(request):
 
 
 def create_platform_requests(request_group, platform, browser_form):
+    """
+    Create screenshots requests for selected browsers on one platform.
+    """
     platform_lower = platform.name.lower().replace(' ', '-')
     result = []
     for name in browser_form.fields:
