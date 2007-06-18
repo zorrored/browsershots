@@ -37,8 +37,8 @@ class FactoriesTestCase(TestCase):
 
     def setUp(self):
         self.user = User.objects.create()
-        self.architecture=Architecture.objects.get(pk=1)
-        self.operating_system=OperatingSystem.objects.get(pk=1)
+        self.architecture = Architecture.objects.get(pk=1)
+        self.operating_system = OperatingSystem.objects.get(pk=1)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
