@@ -35,6 +35,10 @@ from datetime import datetime
 
 
 def redirect(http_request, factory_name, encrypted_password, request_id):
+    """
+    Redirect the browser to the requested URL for the screenshot, and
+    save the browser in the database.
+    """
     try:
         factory = get_object_or_404(Factory, name=factory_name)
         nonces.verify(http_request, factory, encrypted_password)
