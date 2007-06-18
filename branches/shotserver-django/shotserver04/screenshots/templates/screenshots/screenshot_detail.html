@@ -18,55 +18,55 @@
 {{ screenshot.platform_navigation }}
 <tr class="separator">
 <th>{{ _("browser")|capfirst }}:</th>
-<td>{{ screenshot.browser }}</td>
+<td colspan="2">{{ screenshot.browser }}</td>
 </tr>
 <tr>
 <th>{{ _("engine")|capfirst }}:</th>
-<td>{{ screenshot.browser.engine }} {{ screenshot.browser.engine_version }}</td>
+<td colspan="2">{{ screenshot.browser.engine }} {{ screenshot.browser.engine_version }}</td>
 </tr>
 <tr>
 <th>{{ _("Javascript") }}:</th>
-<td>{{ screenshot.browser.javascript }}</td>
+<td colspan="2">{{ screenshot.browser.javascript }}</td>
 </tr>
 <tr>
 <th>{{ _("Java") }}:</th>
-<td>{{ screenshot.browser.java }}</td>
+<td colspan="2">{{ screenshot.browser.java }}</td>
 </tr>
 <tr>
 <th>{{ _("Flash") }}:</th>
-<td>{{ screenshot.browser.flash }}</td>
+<td colspan="2">{{ screenshot.browser.flash }}</td>
 </tr>
 <tr class="separator">
 <th>{{ _("factory")|capfirst }}:</th>
-<td>{{ screenshot.factory|human_link }}</td>
+<td colspan="2">{{ screenshot.factory|human_link }}</td>
 </tr>
 <tr>
 <th>{{ _("architecture")|capfirst }}:</th>
-<td>{{ screenshot.factory.architecture }}</td>
+<td colspan="2">{{ screenshot.factory.architecture }}</td>
 </tr>
 <tr>
 <th>{{ _("operating system")|capfirst }}:</th>
-<td>{{ screenshot.factory.operating_system }}</td>
+<td colspan="2">{{ screenshot.factory.operating_system }}</td>
 </tr>
 <tr class="separator">
 <th>{{ _("dimensions")|capfirst }}:</th>
-<td>{{ screenshot.width }}x{{ screenshot.height }}</td>
+<td colspan="2">{{ screenshot.width }}x{{ screenshot.height }}</td>
 </tr>
 <tr>
 <th>{{ _("file size")|capfirst }}:</th>
-<td>{{ screenshot.get_file_size|human_bytes }}</td>
+<td colspan="2">{{ screenshot.get_file_size|filesizeformat }}</td>
 </tr>
 <tr class="separator">
 <th>{{ _("requested")|capfirst }}:</th>
-<td>{{ request.request_group.submitted|human_datetime }}</td>
+<td colspan="2">{{ request.request_group.submitted|human_datetime }}</td>
 </tr>
 <tr>
 <th>{{ _("page loaded")|capfirst }}:</th>
-<td>{{ request.redirected|human_datetime }}</td>
+<td colspan="2">{{ request.redirected|human_datetime }}</td>
 </tr>
 <tr>
 <th>{{ _("uploaded")|capfirst }}:</th>
-<td>{{ screenshot.uploaded|human_datetime }}</td>
+<td colspan="2">{{ screenshot.uploaded|human_datetime }}</td>
 </tr>
 </table>
 {% endblock %}

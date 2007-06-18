@@ -182,29 +182,25 @@ class Screenshot(models.Model):
         previous = self.not_me(self.get_previous(**kwargs))
         next = self.not_me(self.get_next(**kwargs))
         last = self.not_me(self.get_last(**kwargs))
-        if first or previous or next or last:
-            return '\n'.join((
-                self.arrow(first, 'first', capfirst(_("first"))),
-                self.arrow(previous, 'previous', capfirst(_("previous"))),
-                self.arrow(next, 'next', capfirst(_("next"))),
-                self.arrow(last, 'last', capfirst(_("last"))),
-                ))
+        return '\n'.join((
+            self.arrow(first, 'first', capfirst(_("first"))),
+            self.arrow(previous, 'previous', capfirst(_("previous"))),
+            self.arrow(next, 'next', capfirst(_("next"))),
+            self.arrow(last, 'last', capfirst(_("last"))),
+            ))
 
-    def navigation(self, title, already=0, **kwargs):
+    def navigation(self, title, min_count=2, already=0, **kwargs):
         total = Screenshot.objects.filter(**kwargs).count()
-        if total <= 1 or total == already:
+        if total < min_count or total == already:
             return ''
-        count = Screenshot.objects.filter(id__lt=self.id, **kwargs).count() + 1
-        position = _("%(count)d out of %(total)d") % locals()
-        print 'still trying'
+        index = Screenshot.objects.filter(id__lt=self.id, **kwargs).count() + 1
+        index = _("%(index)d out of %(total)d") % locals()
         arrows = self.arrows(**kwargs)
         return '\n'.join((
             '<tr>',
             '<th>%s:</th>' % title,
-            '<td><span class="position">%s</span>' % position,
-            '<span class="arrows">',
-            arrows,
-            '</span></td>',
+            '<td class="index">%s</span>' % index,
+            '<td class="arrows">%s</td>' % arrows,
             '</tr>',
             ))
 
@@ -214,6 +210,7 @@ class Screenshot(models.Model):
         """
         return self.navigation(
             capfirst(_("screenshot")),
+            min_count=1,
             website=self.website)
 
     def browser_navigation(self):
