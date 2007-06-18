@@ -19,7 +19,7 @@
 </tr>
 </thead>
 <tbody>
-{% for browser in browser_list %}
+{% for browser in browser_list|dictsortreversed:"pending_requests" %}
 <tr class="{% cycle row1,row2 %}">
 <td>{{ browser.platform.name }}</td>
 <td>{{ browser.browser_group.name }} {{ browser.major }}.{{ browser.minor }}</td>
