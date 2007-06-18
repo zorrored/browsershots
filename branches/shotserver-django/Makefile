@@ -11,7 +11,10 @@ pylint :
 	| grep -v "\.Meta] Missing docstring" \
 	| grep -v "\.Meta] Class has no __init__ method" \
 	| grep -v "\.Meta] To few public methods" \
-	| grep -v "E1101"
+	| grep -v "Access to a protected member _meta" \
+	| grep -v "Undefined variable '_'" \
+	| grep -v "E1101" \
+	| grep -v "W0142"
 
 doctest :
 	grep -rl --include "*.py" "doctest.testmod()" . | xargs -n1 python
