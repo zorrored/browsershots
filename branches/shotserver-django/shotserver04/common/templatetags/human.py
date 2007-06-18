@@ -60,9 +60,23 @@ def human_seconds(seconds):
 
 @register.filter
 def human_timesince(then):
+    """
+    Short human-readable formatting of interval since given datetime.
+    """
     if then is None:
         return ''
     delta = datetime.now() - then
+    return human_seconds(delta.days * 24 * 3600 + delta.seconds)
+
+
+@register.filter
+def human_timeuntil(then):
+    """
+    Short human-readable formatting of interval until given datetime.
+    """
+    if then is None:
+        return ''
+    delta = then - datetime.now()
     return human_seconds(delta.days * 24 * 3600 + delta.seconds)
 
 
@@ -90,11 +104,12 @@ def human_bytes(bytes):
 
 
 @register.filter
-def human_link(object):
+def human_link(instance):
     """
     HTML link to the detail page.
     """
-    return '<a href="%s">%s</a>' % (object.get_absolute_url(), str(object))
+    return '<a href="%s">%s</a>' % (
+        instance.get_absolute_url(), str(instance))
 
 
 @register.filter
@@ -127,8 +142,11 @@ def human_br(text):
 
 
 @register.filter
-def human_datetime(datetime):
-    return datetime.strftime('%Y-%m-%d %H:%M:%S')
+def human_datetime(timestamp):
+    """
+    Short human-readable formatting of timestamp.
+    """
+    return timestamp.strftime('%Y-%m-%d %H:%M:%S')
 
 
 if __name__ == '__main__':

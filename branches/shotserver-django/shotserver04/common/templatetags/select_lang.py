@@ -48,6 +48,9 @@ FORM_TEMPLATE = """
 
 @register.simple_tag
 def select_lang():
+    """
+    Display an HTML form with language drop-down box.
+    """
     options = []
     current = translation.get_language()
     for lang, name in settings.LANGUAGES:
