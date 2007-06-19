@@ -42,7 +42,8 @@ def screenshot_list(request):
         previews.append(
             screenshot.preview_div(
             style="left:%dpx;top:%dpx;position:absolute" % (left, top),
-            title=screenshot.website.url))
+            title=screenshot.website.url,
+            href=screenshot.website.get_absolute_url()))
         columns[0][0] += height + 8
     columns.sort()
     previews.insert(0,
