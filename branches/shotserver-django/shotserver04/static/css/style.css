@@ -15,7 +15,7 @@ div#content {
 
 div#setlang {
   position: absolute;
-  top: 10px;
+  top: 30px;
   right: 50px;
 }
 
@@ -39,6 +39,14 @@ ul#mainmenu li {
 ul#mainmenu a {
   text-decoration: none;
   font-weight: bold;
+}
+
+div#openid {
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  right: 50px;
+  padding: 5px 0 0;
 }
 
 .debug {

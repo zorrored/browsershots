@@ -96,11 +96,20 @@ MIDDLEWARE_CLASSES = (
     'shotserver04.common.middleware.RedirectMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_openidconsumer.middleware.OpenIDMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
     'shotserver04.browsers.middleware.BrowserInfoMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
 )
 
 ROOT_URLCONF = 'shotserver04.urls'
@@ -120,6 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.admin',
+    'django_openidconsumer',
     'shotserver04.common',
     'shotserver04.platforms',
     'shotserver04.factories',
