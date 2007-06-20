@@ -59,8 +59,10 @@ class RequestGroup(models.Model):
         verbose_name=_('Java'), blank=True, null=True)
     flash = models.ForeignKey(Flash,
         verbose_name=_('Flash'), blank=True, null=True)
-    submitter = models.ForeignKey(User,
+    user = models.ForeignKey(User,
         verbose_name=_('submitter'), blank=True, null=True)
+    ip = models.IPAddressField(
+        _('IP'))
     submitted = models.DateTimeField(
         _('submitted'), auto_now_add=True)
     expire = models.DateTimeField(

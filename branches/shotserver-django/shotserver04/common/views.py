@@ -36,12 +36,12 @@ from shotserver04.browsers.models import BrowserGroup
 from shotserver04.requests.models import RequestGroup, Request
 
 
-def start(request):
+def start(http_request):
     """
     Front page with URL input, browser chooser, and options.
     """
-    post = request.POST or None
-    url_form = UrlForm(post or request.GET or None)
+    post = http_request.POST or None
+    url_form = UrlForm(post or http_request.GET or None)
     options_form = OptionsForm(post)
     features_form = FeaturesForm(post)
     valid_post = (url_form.is_valid() and
@@ -57,7 +57,7 @@ def start(request):
         valid_post = valid_post and browser_form.is_valid()
         no_active_factories = no_active_factories and not browser_form.fields
     if valid_post:
-        values = {}
+        values = {'ip': http_request.META['REMOTE_ADDR']}
         values.update(url_form.cleaned_dict())
         values.update(options_form.cleaned_dict())
         values.update(features_form.cleaned_dict())
