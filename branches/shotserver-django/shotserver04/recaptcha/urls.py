@@ -17,18 +17,15 @@
 # MA 02111-1307, USA.
 
 """
-Recaptcha views.
+URL configuration for the recaptcha app.
 """
 
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from django.shortcuts import render_to_response
-from shotserver04 import settings
-import captcha
+from django.conf.urls.defaults import patterns
 
-
-def recaptcha(http_request):
-    recaptcha_html = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY)
-    return render_to_response('recaptcha/recaptcha.html', locals())
+urlpatterns = patterns('shotserver04.recaptcha.views',
+    (r'^$', 'recaptcha'),
+)

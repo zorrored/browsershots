@@ -85,6 +85,10 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 
+# Get your own reCAPTCHA keys from http://recaptcha.net/api/getkey
+RECAPTCHA_PUBLIC_KEY = '6LdxGQAAAAAAA...'
+RECAPTCHA_PRIVATE_KEY = '6LdxGQAAAAAAA...'
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
@@ -137,6 +141,7 @@ INSTALLED_APPS = (
     'shotserver04.browsers',
     'shotserver04.websites',
     'shotserver04.requests',
+    'shotserver04.recaptcha',
     'shotserver04.screenshots',
     'shotserver04.nonces',
     'shotserver04.xmlrpc',
