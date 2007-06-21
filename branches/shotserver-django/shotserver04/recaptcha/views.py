@@ -30,12 +30,16 @@ import captcha
 
 
 def recaptcha(http_request):
+    error = None
     if http_request.POST:
         challenge = http_request.POST['recaptcha_challenge_field']
         response = http_request.POST['recaptcha_response_field']
         remote_ip = http_request.META['REMOTE_ADDR']
         result = captcha.submit(challenge, response,
             settings.RECAPTCHA_PRIVATE_KEY, remote_ip)
+        if not result.is_valid:
+            error = result.error_code
     recaptcha_html = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY,
-                                         options={'theme': 'blackglass'})
+                                         options={'theme': 'blackglass'},
+                                         error=error)
     return render_to_response('recaptcha/recaptcha.html', locals())
