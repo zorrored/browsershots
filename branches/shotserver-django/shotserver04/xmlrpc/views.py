@@ -36,37 +36,37 @@ RST_SETTINGS = {
     }
 
 
-def xmlrpc(request):
+def xmlrpc(http_request):
     """
     XML-RPC interface (for POST requests) and automatic human-readable
     HTML documentation (for GET requests).
     """
-    if len(request.POST):
+    if len(http_request.POST):
         response = HttpResponse()
-        response.write(dispatcher.dispatch_request(request))
+        response.write(dispatcher.dispatch_request(http_request))
         response['Content-length'] = str(len(response.content))
         return response
     else:
-        method_list = dispatcher.list_methods(request)
+        method_list = dispatcher.list_methods(http_request)
         return render_to_response('xmlrpc/method_list.html', locals())
 
 
-def method_help(request, method_name):
+def method_help(http_request, method_name):
     """
     Display automatic help about an XML-RPC method.
     """
-    if len(request.POST):
+    if len(http_request.POST):
         raise Http404 # Don't POST here, only GET documentation
-    if method_name not in dispatcher.list_methods(request):
+    if method_name not in dispatcher.list_methods(http_request):
         raise Http404 # Method not found
-    signatures = dispatcher.method_signature(request, method_name)
+    signatures = dispatcher.method_signature(http_request, method_name)
     signature_lines = []
     for signature in signatures:
         result = signature[0]
         params = signature[1:]
         signature_lines.append('%s(%s) => %s' % (
             method_name, ', '.join(params), result))
-    docstring = dispatcher.method_help(request, method_name)
+    docstring = dispatcher.method_help(http_request, method_name)
     try:
         from docutils import core
         parts = core.publish_parts(

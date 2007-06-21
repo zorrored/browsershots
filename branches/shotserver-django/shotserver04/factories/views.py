@@ -40,11 +40,11 @@ FACTORY_LIST_COLUMNS = (
 )
 
 
-def factory_list(request):
+def factory_list(http_request):
     """
     List all screenshot factories.
     """
-    order = request.GET.get('order', '')
+    order = http_request.GET.get('order', '')
     if order.lstrip('-') not in FACTORY_LIST_COLUMNS:
         order = '-uploads_per_day'
     order_column = order.lstrip('-')
@@ -70,7 +70,7 @@ def factory_list(request):
     return render_to_response('factories/factory_list.html', locals())
 
 
-def factory_detail(request, factory_name):
+def factory_detail(http_request, factory_name):
     """
     Get detailed information about a screenshot factory.
     """

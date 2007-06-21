@@ -56,5 +56,4 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
         website = request.request_group.website
         return HttpResponseRedirect(website.url)
     except Fault, fault:
-        return render_to_response('redirect/error.html',
-                                  {'message': fault.faultString})
+        return render_to_response('redirect/error.html', locals())

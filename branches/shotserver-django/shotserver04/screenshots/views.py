@@ -31,7 +31,7 @@ from shotserver04.requests.models import Request
 COLUMNS = 11
 
 
-def screenshot_list(request):
+def screenshot_list(http_request):
     columns = [[0, index * 88] for index in range(COLUMNS)]
     previews = []
     for screenshot in Screenshot.objects.recent():
@@ -53,7 +53,7 @@ def screenshot_list(request):
     return render_to_response('screenshots/screenshot_list.html', locals())
 
 
-def screenshot_detail(request, hashkey):
+def screenshot_detail(http_request, hashkey):
     screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
     request = Request.objects.get(screenshot=screenshot)
     return render_to_response('screenshots/screenshot_detail.html', locals())

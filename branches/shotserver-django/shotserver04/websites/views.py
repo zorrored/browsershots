@@ -29,9 +29,9 @@ from django.db import models
 from shotserver04.websites.models import Website
 
 
-def website_list(request):
+def website_list(http_request):
     website_list = Website.objects
-    search_query = request.GET.get('q', '')
+    search_query = http_request.GET.get('q', '')
     for search in search_query.split():
         if search.islower(): # Case insensitive search
             website_list = website_list.filter(url__icontains=search)
@@ -42,17 +42,17 @@ def website_list(request):
     return render_to_response('websites/website_list.html', locals())
 
 
-def website_detail(request, website_url):
+def website_detail(http_request, website_url):
     if isinstance(website_url, Website):
         website = website_url
     else:
-        if request.META['QUERY_STRING']:
-            website_url += '?' + request.META['QUERY_STRING']
+        if http_request.META['QUERY_STRING']:
+            website_url += '?' + http_request.META['QUERY_STRING']
         website = get_object_or_404(Website, url=website_url)
     domain_website_list = website.domain.website_set.exclude(id=website.id)
     return render_to_response('websites/website_detail.html', locals())
 
 
-def website_numeric(request, website_id):
+def website_numeric(http_request, website_id):
     website = get_object_or_404(Website, id=website_id)
-    return website_detail(request, website)
+    return website_detail(http_request, website)
