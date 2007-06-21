@@ -89,6 +89,9 @@ SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 RECAPTCHA_PUBLIC_KEY = '6LdxGQAAAAAAA...'
 RECAPTCHA_PRIVATE_KEY = '6LdxGQAAAAAAA...'
 
+# Override secret settings
+from secrets import *
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
