@@ -30,5 +30,12 @@ import captcha
 
 
 def recaptcha(http_request):
-    recaptcha_html = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY)
+    if http_request.POST:
+        challenge = http_request.POST['recaptcha_challenge_field']
+        response = http_request.POST['recaptcha_response_field']
+        remote_ip = http_request.META['REMOTE_ADDR']
+        result = captcha.submit(challenge, response,
+            settings.RECAPTCHA_PRIVATE_KEY, remote_ip)
+    recaptcha_html = captcha.displayhtml(settings.RECAPTCHA_PUBLIC_KEY,
+                                         options={'theme': 'blackglass'})
     return render_to_response('recaptcha/recaptcha.html', locals())

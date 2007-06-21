@@ -7,5 +7,19 @@
 {% block content %}
 <h1>ReCAPTCHA</h1>
 
+<form action="/recaptcha/" method="post">
 {{ recaptcha_html }}
+<input class="button" id="submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" />
+</form>
+
+<dl>
+<dt>Challenge</dt>
+<dd>{{ challenge }}</dd>
+<dt>Response</dt>
+<dd>{{ response }}</dd>
+<dt>Success</dt>
+<dd>{{ result.is_valid }}</dd>
+<dt>Error</dt>
+<dd>{{ result.error_code }}</dd>
+</dl>
 {% endblock %}
