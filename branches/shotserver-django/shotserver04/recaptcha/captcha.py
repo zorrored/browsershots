@@ -3,7 +3,9 @@
 # Home Page: http://recaptcha.net/
 # License: MIT/X11
 
-import urllib2, urllib
+import socket
+import urllib
+import urllib2
 
 API_SSL_SERVER="api-secure.recaptcha.net"
 API_SERVER="api.recaptcha.net"
@@ -62,47 +64,45 @@ def submit (recaptcha_challenge_field,
             private_key,
             remoteip):
     """
-    Submits a reCAPTCHA request for verification. Returns RecaptchaResponse
-    for the request
+    Submit a reCAPTCHA request for verification. Return RecaptchaResponse
+    for the request.
 
-    recaptcha_challenge_field -- The value of recaptcha_challenge_field from the form
-    recaptcha_response_field -- The value of recaptcha_response_field from the form
-    private_key -- your reCAPTCHA private key
-    remoteip -- the user's ip address
+    recaptcha_challenge_field -- The recaptcha_challenge_field from the form
+    recaptcha_response_field -- The recaptcha_response_field from the form
+    private_key -- Your reCAPTCHA private key
+    remoteip -- The user's ip address
     """
-
-    if not (recaptcha_response_field and recaptcha_challenge_field and
-            len (recaptcha_response_field) and len (recaptcha_challenge_field)):
-        return RecaptchaResponse (is_valid = False, error_code = 'incorrect-captcha-sol')
-    
-    
-    
+    if not (recaptcha_response_field and recaptcha_challenge_field):
+        return RecaptchaResponse(is_valid=False,
+                                 error_code='incorrect-captcha-sol')
     params = urllib.urlencode ({
-	    'privatekey': private_key,
-            'remoteip' : remoteip,
-	    'challenge': recaptcha_challenge_field,
-	    'response' : recaptcha_response_field,
-	    })
-
+        'privatekey': private_key,
+        'remoteip' : remoteip,
+        'challenge': recaptcha_challenge_field,
+        'response' : recaptcha_response_field,
+        })
     request = urllib2.Request (
-        url = "http://%s/verify" % VERIFY_SERVER,
-        data = params,
-        headers = {
+        url="http://%s/verify" % VERIFY_SERVER,
+        data=params,
+        headers={
             "Content-type": "application/x-www-form-urlencoded",
             "User-agent": "reCAPTCHA Python"
             }
         )
-    
-    httpresp = urllib2.urlopen (request)
-
-    return_values = httpresp.read ().splitlines ();
+    socket.setdefaulttimeout(3)
+    try:
+        httpresp = urllib2.urlopen (request)
+    except urllib2.URLError, e:
+        if e.args and isinstance(e.args[0], socket.timeout):
+            return RecaptchaResponse(is_valid=False,
+                                     error_code='recaptcha-not-reachable')
+        else:
+            raise
+    return_values = httpresp.read().splitlines ();
     httpresp.close();
-
-    return_code = return_values [0]
-
+    return_code = return_values[0]
     if (return_code == "true"):
-        return RecaptchaResponse (is_valid=True)
+        return RecaptchaResponse(is_valid=True)
     else:
-        return RecaptchaResponse (is_valid=False, error_code = return_values [1])
-
-
+        return RecaptchaResponse(is_valid=False,
+                                 error_code=return_values [1])
