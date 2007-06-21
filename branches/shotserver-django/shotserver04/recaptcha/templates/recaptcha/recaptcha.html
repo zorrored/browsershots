@@ -7,6 +7,10 @@
 {% block content %}
 <h1>ReCAPTCHA</h1>
 
+{% if result.error_code %}
+<p>Error: {{ result.error_code }}</p>
+{% endif %}
+
 <form action="/recaptcha/" method="post">
 {{ recaptcha_html }}
 <input class="button" id="submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" />
