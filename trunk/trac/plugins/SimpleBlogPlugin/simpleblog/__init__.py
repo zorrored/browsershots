@@ -56,9 +56,12 @@ class SimpleBlogPlugin(Component):
         output = ['</p>']
         output.append('<p style="clear: both;"></p>')
         if comment.has_key('email'):
+            email = comment['email']
+            if email.split('.')[-1] not in ('com', 'org'):
+                email = email.encode('rot13')
             output.append('<div style="float: left; margin: 0 1em 2px -18px; border-bottom-style: none;">' +
                           '<a href="http://www.gravatar.com/">' +
-                          '<img src="http://www.gravatar.com/avatar.php?gravatar_id=' + md5(comment['email']).hexdigest() +
+                          '<img src="http://www.gravatar.com/avatar.php?gravatar_id=' + md5(email).hexdigest() +
                           '&amp;rating=R&amp;size=40&amp;default=http%3A%2F%2Fv03.browsershots.org%2Fstyle%2Fgravatar40.png"' +
                           ' alt="Gravatar" width="40" height="40" style="vertical-align: middle;" /></a></div>')
             output.append('<h2 style="float: left; margin: 0 1ex 0 0;">%(title)s</h2>' % comment)
