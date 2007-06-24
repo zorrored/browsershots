@@ -42,6 +42,29 @@ class PasswordForm(forms.Form):
 BrowserForm = forms.form_for_model(Browser)
 
 
+def guess_factory(ip, user_agent):
+    """
+    Guess factory name from IP address and User-Agent.
+    """
+    factories = Factory.objects.select_related().filter(ip=ip)
+    if not factories:
+        factories = Factory.objects.select_related().all()
+    # Try to match Ubuntu or Mac OS X
+    for factory in factories:
+        if factory.operating_system.name in user_agent:
+            return factory
+    # Try to match Linux or Windows
+    for factory in factories:
+        if factory.operating_system.platform.name in user_agent:
+            return factory
+    # Try to match PPC or i686
+    for factory in factories:
+        if factory.architecture.name in user_agent:
+            return factory
+    if factories:
+        return factories[0]
+
+
 def add_browser(http_request):
     # Use lazy translation for field labels
     for key in BrowserForm.base_fields:
@@ -56,12 +79,10 @@ def add_browser(http_request):
         'flash': 2, # enabled
         }
     # Guess factory name from IP address
-    factories = Factory.objects.filter(
-        ip=http_request.META['REMOTE_ADDR'])[:1]
-    if not factories:
-        factories = Factory.objects.all()[:1]
-    if factories:
-        initial['factory'] = factories[0].id
+    ip = http_request.META['REMOTE_ADDR']
+    factory = guess_factory(ip, user_agent)
+    if factory:
+        initial['factory'] = factory.id
     # Extract engine and engine version from user agent string
     for engine in agents.get_engines():
         if engine.name in user_agent:
