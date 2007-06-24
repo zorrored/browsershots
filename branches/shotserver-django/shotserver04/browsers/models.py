@@ -103,7 +103,8 @@ class Browser(models.Model):
         verbose_name=_('Flash'))
     command = models.CharField(
         _('command'), maxlength=80, blank=True,
-        default=current_browser.get_command)
+        default=current_browser.get_command,
+        help_text=_("Leave empty to use default command."))
     active = models.BooleanField(
         _('active'), default=True,
         help_text=_("Designates that this browser is currently installed."))
@@ -124,7 +125,8 @@ class Browser(models.Model):
             (None, {'fields': (
             'factory',
             'user_agent',
-            ('browser_group', 'command'),
+            'command',
+            'browser_group',
             ('version', 'major', 'minor'),
             ('engine', 'engine_version'),
             ('javascript', 'java', 'flash'),

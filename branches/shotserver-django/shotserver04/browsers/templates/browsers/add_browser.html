@@ -2,10 +2,33 @@
 {% load i18n %}
 {% load human %}
 
-{% block title %}{{ _("add or update a browser")|capfirst }}{% endblock %}
+{% block title %}{{ _("add a new browser version")|capfirst }}{% endblock %}
 
 {% block content %}
-<h1>{{ _("add or update a browser")|capfirst }}</h1>
+<h1>{{ _("add a new browser version")|capfirst }}</h1>
 
-{{ browser_form }}
+<form action="/browsers/add/" method="post" id="add_browser_form">
+{% for group in field_groups %}
+{% for row in group %}<p>
+{% for field in row %}{% if field.errors %}
+{{ field.errors }}
+{% endif %}{{ field.label }}: {{ field }} {{ field.help_text }}
+{% endfor %}</p>
+{% endfor %}<hr />
+{% endfor %}
+<p><input class="button" id="submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" /></p>
+</form>
+
+<h2>{{ _("other options")|capfirst }}</h2>
+<p>{% blocktrans with admin_email as email %}
+If your browser group or rendering engine is not available, please
+write to {{ email }}.
+{% endblocktrans %}</p>
+
+<h2>{{ _("browser upgrade")|capfirst }}</h2>
+<p>{% blocktrans %}
+If you're upgrading the browser version (e.g. from Firefox 2.0.0.3 to
+2.0.0.4), the same browser may already be registered for your factory.
+In that case, the old version will be deactivated automatically.
+{% endblocktrans %}</p>
 {% endblock %}

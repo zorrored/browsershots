@@ -177,3 +177,7 @@ ul.requestgroup {
   padding: 0;
   list-style-type: none;
 }
+
+input#id_user_agent { width: 60em; }
+input#id_major, input#id_minor { width: 3em; }
+input#id_version, input#id_engine_version { width: 8em; }
