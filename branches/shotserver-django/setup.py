@@ -42,6 +42,9 @@ def find_data_files(data_dirnames=None):
             dirpath.endswith('/sql')):
             files = [os.path.join(dirpath, f) for f in filenames]
             yield (dirpath, files)
+        if (dirpath.endswith('/browsers') and
+            'uamatrix.xml' in filenames):
+            yield(dirpath, [os.path.join(dirpath, 'uamatrix.xml')])
 
 
 def find_scripts():
