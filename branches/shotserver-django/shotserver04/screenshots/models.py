@@ -105,11 +105,11 @@ class Screenshot(models.Model):
     def get_absolute_url(self):
         return '/screenshots/%s/' % self.hashkey
 
-    def get_size_url(self, size='original'):
+    def get_png_url(self, size='original'):
         return '/png/%s/%s/%s.png' % (size, self.hashkey[:2], self.hashkey)
 
     def get_large_url(self):
-        return self.get_size_url(size=512)
+        return self.get_png_url(size=512)
 
     def preview_img(self, width=160, title=None):
         height = self.height * width / self.width
@@ -118,7 +118,7 @@ class Screenshot(models.Model):
             title = str(self.browser)
         return ' '.join((
             '<img class="preview" style="%s"' % style,
-            'src="%s"' % self.get_size_url(width),
+            'src="%s"' % self.get_png_url(width),
             'alt="%s" title="%s"' % (title, title),
             'onmouseover="larger(this,%s,%s)"' % (width, height),
             'onmouseout="smaller(this,%s,%s)" />' % (width, height),

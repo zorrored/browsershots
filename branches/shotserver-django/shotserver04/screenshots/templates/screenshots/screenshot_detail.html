@@ -9,7 +9,7 @@
 <p>{% blocktrans with screenshot.website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
 <div class="large-preview">
-<img src="{{ screenshot.get_large_url }}" />
+<a href="{{ screenshot.get_png_url }}"><img src="{{ screenshot.get_large_url }}" /></a>
 </div>
 
 <table class="detail">
