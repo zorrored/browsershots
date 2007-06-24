@@ -1,6 +1,6 @@
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (1,'Firefox','Mozilla',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (2,'Safari','Apple',False);
-INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (3,'Internet Explorer','Microsoft',False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (3,'MSIE','Microsoft',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (4,'Konqueror','KDE',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (5,'Galeon','',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (6,'Mozilla','Mozilla',False);
