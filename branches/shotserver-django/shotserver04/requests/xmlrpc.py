@@ -130,6 +130,7 @@ def poll(http_request, factory_name, encrypted_password):
     nonces.verify(http_request, factory, encrypted_password)
     # Update last_poll timestamp
     factory.last_poll = datetime.now()
+    factory.ip = http_request.META['REMOTE_ADDR']
     factory.save()
     # Get matching request
     request = find_and_lock_request(factory, factory.features_q())

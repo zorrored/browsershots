@@ -49,6 +49,9 @@ class Factory(models.Model):
         help_text=_('CPU type (e.g. i686 or PPC)'))
     operating_system = models.ForeignKey(OperatingSystem,
         verbose_name=_('operating system'))
+    ip = models.IPAddressField(
+        _('IP'), blank=True, null=True,
+        help_text=_("The last poll came from this IP address."))
     last_poll = models.DateTimeField(
         _('last poll'), blank=True, null=True)
     last_upload = models.DateTimeField(
