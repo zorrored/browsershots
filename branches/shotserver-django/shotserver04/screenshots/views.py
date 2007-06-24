@@ -28,14 +28,16 @@ from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.requests.models import Request
 
-COLUMNS = 11
+COLUMNS = 10
+WIDTH = 80 # pixels
+MARGIN = 12 # pixels
 
 
 def screenshot_list(http_request):
-    columns = [[0, index * 88] for index in range(COLUMNS)]
+    columns = [[0, index * (WIDTH + MARGIN)] for index in range(COLUMNS)]
     previews = []
     for screenshot in Screenshot.objects.recent():
-        width = 80
+        width = WIDTH
         height = screenshot.height * width / screenshot.width
         columns.sort()
         top, left = columns[0]
@@ -44,7 +46,7 @@ def screenshot_list(http_request):
             style="left:%dpx;top:%dpx;position:absolute" % (left, top),
             title=screenshot.website.url,
             href=screenshot.website.get_absolute_url()))
-        columns[0][0] += height + 8
+        columns[0][0] += height + MARGIN
     columns.sort()
     previews.insert(0,
         '<div class="previews" style="height:%dpx">' % columns[-1][0])
