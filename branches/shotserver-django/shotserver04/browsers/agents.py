@@ -63,12 +63,14 @@ def extract_version(user_agent, name):
     '2.0.3'
     >>> extract_version('Version/3.0.2 Safari/522.13.1', 'Safari')
     '3.0.2'
+    >>> extract_version('MSIE 6.0', 'MSIE')
+    '6.0'
     """
     if name == 'Safari' and 'Version' in user_agent:
        name = 'Version'
     index = user_agent.index(name)
     index += len(name)
-    if user_agent[index] != '/':
+    if user_agent[index] not in '/ ':
         return ''
     index += 1
     start = index
