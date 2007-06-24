@@ -127,11 +127,14 @@ class RequestGroup(models.Model):
 
     def previews(self):
         """Thumbnails of screenshots for this request group."""
-        result = []
+        screenshots = []
         requests = self.request_set.filter(screenshot__isnull=False)
         for request in requests:
-            result.append(request.screenshot.preview_div())
-        return '\n'.join(result)
+            screenshot = request.screenshot
+            screenshots.append(
+                (screenshot.id, screenshot.preview_div()))
+        screenshots.sort()
+        return '\n'.join([entry[1] for entry in screenshots])
 
     def pending_requests(self):
         """
