@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load human %}
+
+{% block title %}{{ _("add or update a browser")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ _("add or update a browser")|capfirst }}</h1>
+
+{{ browser_form }}
+{% endblock %}
