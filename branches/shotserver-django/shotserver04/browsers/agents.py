@@ -2,6 +2,9 @@
 Extract browser information from the User-Agent header.
 """
 
+import os
+import re
+
 
 def get_engines():
     """
@@ -56,7 +59,13 @@ def extract_version(user_agent, name):
     '5.0'
     >>> extract_version('Mozilla/5.0 Gecko/20061201 Firefox/2.0.0.4', 'Gecko')
     '20061201'
+    >>> extract_version('Safari/417.8', 'Safari')
+    '2.0.3'
+    >>> extract_version('Version/3.0.2 Safari/522.13.1', 'Safari')
+    '3.0.2'
     """
+    if name == 'Safari' and 'Version' in user_agent:
+       name = 'Version'
     index = user_agent.index(name)
     index += len(name)
     if user_agent[index] != '/':
@@ -65,7 +74,10 @@ def extract_version(user_agent, name):
     start = index
     while index < len(user_agent) and user_agent[index] in '.0123456789':
         index += 1
-    return user_agent[start:index]
+    version = user_agent[start:index]
+    if name == 'Safari':
+       return safari_version(version)
+    return version
 
 
 def extract_major(version):
@@ -94,3 +106,33 @@ def extract_minor(version):
     """
     if version.count('.'):
         return int(version.split('.')[1])
+
+
+uamatrix_findall = re.compile(r"""
+<update.*?
+<os_ver>10.*?
+<safari_ver>(.+?)</safari_ver>.*?
+<safari_bld>(.+?)</safari_bld>.*?
+</update>
+""", re.VERBOSE | re.DOTALL).findall
+
+
+def safari_version(build):
+   """
+   Convert Safari build number to version number.
+
+   >>> safari_version('419.3')
+   '2.0.4'
+   """
+   module_dir = os.path.dirname(__file__)
+   uamatrix_filename = os.path.join(module_dir, 'uamatrix.xml')
+   uamatrix = open(uamatrix_filename).read()
+   for safari_version, safari_build in uamatrix_findall(uamatrix):
+      if safari_build == build:
+         return safari_version
+   return build
+
+
+if __name__ == '__main__':
+   import doctest
+   doctest.testmod()
