@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'django_openidconsumer',
     'shotserver04.common',
     'shotserver04.platforms',
+    'shotserver04.sponsors',
     'shotserver04.factories',
     'shotserver04.features',
     'shotserver04.browsers',

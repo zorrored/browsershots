@@ -40,6 +40,10 @@
 <th>{{ _("factory")|capfirst }}:</th>
 <td colspan="2">{{ screenshot.factory|human_link }}</td>
 </tr>
+{% if screenshot.factory.sponsor %}<tr>
+<th>{{ _("sponsor")|capfirst }}:</th>
+<td colspan="2">{{ screenshot.factory.sponsor|human_link }}</td>
+</tr>{% endif %}
 <tr>
 <th>{{ _("architecture")|capfirst }}:</th>
 <td colspan="2">{{ screenshot.factory.architecture }}</td>

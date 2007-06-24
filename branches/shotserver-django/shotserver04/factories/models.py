@@ -29,6 +29,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture, OperatingSystem
+from shotserver04.sponsors.models import Sponsor
 
 
 class Factory(models.Model):
@@ -41,6 +42,8 @@ class Factory(models.Model):
         help_text=_('Hostname (lowercase)'))
     admin = models.ForeignKey(User,
         verbose_name=_('administrator'))
+    sponsor = models.ForeignKey(Sponsor,
+        verbose_name=_('sponsor'), blank=True, null=True)
     architecture = models.ForeignKey(Architecture,
         verbose_name=_('hardware architecture'),
         help_text=_('CPU type (e.g. i686 or PPC)'))
@@ -59,7 +62,7 @@ class Factory(models.Model):
 
     class Admin:
         fields = (
-            (None, {'fields': ('name', 'admin')}),
+            (None, {'fields': ('name', 'admin', 'sponsor')}),
             ('Platform', {'fields': ('architecture', 'operating_system')}),
             )
         search_fields = (
@@ -152,9 +155,6 @@ class ScreenSize(models.Model):
     height = models.IntegerField(
         _('height'), core=True)
 
-    def __str__(self):
-        return '%dx%d' % (self.width, self.height)
-
     class Admin:
         list_display = ('width', 'height', 'factory')
         list_filter = ('factory', )
@@ -164,6 +164,9 @@ class ScreenSize(models.Model):
         verbose_name_plural = _('screen sizes')
         ordering = ('width', )
         unique_together = (('factory', 'width', 'height'), )
+
+    def __str__(self):
+        return '%dx%d' % (self.width, self.height)
 
 
 class ColorDepth(models.Model):
@@ -177,9 +180,6 @@ class ColorDepth(models.Model):
     bits_per_pixel = models.IntegerField(
         _('bits per pixel'), core=True)
 
-    def __str__(self):
-        return '%d' % self.bits_per_pixel
-
     class Admin:
         list_display = ('bits_per_pixel', 'factory')
         list_filter = ('factory', )
@@ -189,3 +189,6 @@ class ColorDepth(models.Model):
         verbose_name_plural = _('color depths')
         ordering = ('bits_per_pixel', )
         unique_together = (('factory', 'bits_per_pixel'), )
+
+    def __str__(self):
+        return '%d' % self.bits_per_pixel
