@@ -89,9 +89,10 @@ SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 RECAPTCHA_PUBLIC_KEY = '6LdxGQAAAAAAA...'
 RECAPTCHA_PRIVATE_KEY = '6LdxGQAAAAAAA...'
 
-# Override secret settings from secrets.py, if that module exists
+# Override secret settings from secrets.py,
+# if that file exists in the same folder as settings.py.
 try:
-    from shotserver04.secrets import *
+    from secrets import *
 except ImportError:
     pass
 
