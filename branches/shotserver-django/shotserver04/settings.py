@@ -112,7 +112,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
-    'shotserver04.browsers.middleware.BrowserInfoMiddleware',
 )
 
 ROOT_URLCONF = 'shotserver04.urls'
