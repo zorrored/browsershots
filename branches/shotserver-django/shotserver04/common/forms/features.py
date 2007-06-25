@@ -67,17 +67,11 @@ class FeaturesForm(forms.Form):
     Request features input form.
     """
     javascript = forms.ChoiceField(
-        label=_("Javascript"),
-        initial='dontcare',
-        choices=feature_choices(Javascript))
+        label=_("Javascript"), initial='dontcare')
     java = forms.ChoiceField(
-        label=_("Java"),
-        initial='dontcare',
-        choices=feature_choices(Java))
+        label=_("Java"), initial='dontcare')
     flash = forms.ChoiceField(
-        label=_("Flash"),
-        initial='dontcare',
-        choices=feature_choices(Flash))
+        label=_("Flash"), initial='dontcare')
 
     def cleaned_dict(self):
         """

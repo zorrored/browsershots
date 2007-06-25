@@ -76,14 +76,11 @@ class OptionsForm(forms.Form):
     Request options input form.
     """
     screen_size = forms.ChoiceField(
-        label=_("screen size"), initial='dontcare',
-        choices=screen_size_choices())
+        label=_("screen size"), initial='dontcare')
     color_depth = forms.ChoiceField(
-        label=_("color depth"), initial='dontcare',
-        choices=color_depth_choices())
+        label=_("color depth"), initial='dontcare')
     maximum_wait = forms.ChoiceField(
-        label=_("maximum wait"), initial=30,
-        choices=maximum_wait_choices())
+        label=_("maximum wait"), initial=30)
 
     def cleaned_dict(self):
         """
