@@ -27,13 +27,11 @@ __author__ = "$Author$"
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from shotserver04.common import int_or_none
-from shotserver04.common.forms.url import UrlForm
-from shotserver04.common.forms.browsers import BrowsersForm
-from shotserver04.common.forms.options import OptionsForm
-from shotserver04.common.forms.features import FeaturesForm
+from shotserver04.common.forms import url, browsers, options, features
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup
 from shotserver04.requests.models import RequestGroup, Request
+from shotserver04.features.models import Javascript, Java, Flash
 
 
 def start(http_request):
@@ -41,16 +39,26 @@ def start(http_request):
     Front page with URL input, browser chooser, and options.
     """
     post = http_request.POST or None
-    url_form = UrlForm(post or http_request.GET or None)
-    options_form = OptionsForm(post)
-    features_form = FeaturesForm(post)
+    url_form = url.UrlForm(post or http_request.GET or None)
+    features_form = features.FeaturesForm(post)
+    options_form = options.OptionsForm(post)
+    # Get available choices from database, because the defaults may be stale.
+    # This also loads the correct translations for the choice text entries.
+    features_form['javascript'].field.choices = \
+        features.feature_choices(Javascript)
+    features_form['java'].field.choices = features.feature_choices(Java)
+    features_form['flash'].field.choices = features.feature_choices(Flash)
+    options_form['screen_size'].field.choices = options.screen_size_choices()
+    options_form['color_depth'].field.choices = options.color_depth_choices()
+    options_form['maximum_wait'].field.choices = options.maximum_wait_choices()
+    # Validate posted data.
     valid_post = (url_form.is_valid() and
                   options_form.is_valid() and
                   features_form.is_valid())
     browser_forms = []
     no_active_factories = True
     for platform in Platform.objects.all():
-        browser_form = BrowsersForm(platform, post)
+        browser_form = browsers.BrowsersForm(platform, post)
         if browser_form.is_bound:
             browser_form.full_clean()
         browser_forms.append(browser_form)
