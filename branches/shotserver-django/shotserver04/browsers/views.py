@@ -74,9 +74,9 @@ def add_browser(http_request):
     user_agent = http_request.META['HTTP_USER_AGENT']
     initial = {
         'user_agent': user_agent,
-        'javascript': 2, # enabled
-        'java': 2, # enabled
-        'flash': 2, # enabled
+        'javascript': 1, # disabled
+        'java': 1, # disabled
+        'flash': 1, # disbled
         }
     # Guess factory name from IP address
     ip = http_request.META['REMOTE_ADDR']
