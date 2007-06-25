@@ -26,6 +26,9 @@ __author__ = "$Author$"
 
 from django import newforms as forms
 from django.db import connection
+from django.http import HttpResponseRedirect
+from django.newforms.util import ErrorList
+from django.contrib.auth.models import check_password
 from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04 import settings
 from shotserver04.common import lazy_gettext_capfirst as _
@@ -102,7 +105,8 @@ def add_browser(http_request):
             initial['minor'] = agents.extract_minor(version)
             break
     form = BrowserForm(http_request.POST or initial)
-    password_form = PasswordForm()
+    password_form = PasswordForm(http_request.POST or None)
+    password_form['password'].field.widget.render_value = False
     field_groups = [[
         [form['user_agent']],
         [form['command']],
@@ -117,14 +121,44 @@ def add_browser(http_request):
         ]]
     admin_email = '<a href="mailto:%s">%s</a>' % (
         settings.ADMINS[0][1], settings.ADMINS[0][0])
-    if form.is_valid():
-        cursor = connection.cursor()
-        cursor.execute("""
-UPDATE browsers_browser SET active = FALSE
+    password_valid = False
+    if form.is_valid() and password_form.is_valid():
+        if password_form.cleaned_data['password']:
+            password_valid = check_password(
+                password_form.cleaned_data['password'],
+                form.cleaned_data['factory'].admin.password)
+            if not password_valid:
+                password_form.errors['password'] = ErrorList(
+                    [_("Password mismatch.")])
+    if not password_valid:
+        return render_to_response('browsers/add_browser.html', locals())
+    cursor = connection.cursor()
+    where = """
 WHERE factory_id = %s AND browser_group_id = %s
 AND major = %s AND minor = %s
-""", [form.cleaned_data['factory'].id, form.cleaned_data['browser_group'].id,
-      form.cleaned_data['major'], form.cleaned_data['minor']])
-        form.cleaned_data['active'] = True
-        Browser.objects.create(**form.cleaned_data)
-    return render_to_response('browsers/add_browser.html', locals())
+"""
+    params = [
+        form.cleaned_data['factory'].id,
+        form.cleaned_data['browser_group'].id,
+        form.cleaned_data['major'],
+        form.cleaned_data['minor'],
+        ]
+    # Delete old unused versions of the same browsers
+    cursor.execute("""
+DELETE FROM browsers_browser
+""" + where + """
+AND NOT EXISTS(SELECT 1 FROM screenshots_screenshot
+               WHERE browser_id = browsers_browser.id LIMIT 1)
+AND NOT EXISTS(SELECT 1 FROM requests_request
+               WHERE browser_id = browsers_browser.id LIMIT 1)
+""", params)
+    # Deactivate old versions of the same browser
+    cursor.execute("""
+UPDATE browsers_browser SET active = FALSE
+""" + where, params)
+    # Create new browser with submitted data
+    form.cleaned_data['active'] = True
+    Browser.objects.create(**form.cleaned_data)
+    # Redirect to factory detail page
+    return HttpResponseRedirect(
+        form.cleaned_data['factory'].get_absolute_url())
