@@ -39,9 +39,10 @@ def screen_size_choices():
     previous = None
     for size in ScreenSize.objects.filter(
         factory__last_poll__gt=last_poll_timeout()):
-        if size != previous:
-            yield (size.width, str(size))
-            previous = size
+        if size.width != previous:
+            yield (size.width,
+                   _("%(width)d pixels wide") % {'width': size.width})
+            previous = size.width
 
 
 def color_depth_choices():
@@ -52,9 +53,22 @@ def color_depth_choices():
     previous = None
     for depth in ColorDepth.objects.filter(
         factory__last_poll__gt=last_poll_timeout()):
-        if depth != previous:
-            yield (depth.bits_per_pixel, str(depth))
-            previous = depth
+        if depth.bits_per_pixel != previous:
+            yield (depth.bits_per_pixel,
+                   _("%(color_depth)d bits per pixel") %
+                   {'color_depth': depth.bits_per_pixel})
+            previous = depth.bits_per_pixel
+
+
+def maximum_wait_choices():
+    """
+    Get choices for screenshot request expiration timeout.
+    """
+    yield (15, _("15 minutes"))
+    yield (30, _("30 minutes"))
+    yield (60, _("1 hour"))
+    yield (120, _("%(hours)d hours") % {'hours': 2})
+    yield (240, _("%(hours)d hours") % {'hours': 4})
 
 
 class OptionsForm(forms.Form):
@@ -62,22 +76,14 @@ class OptionsForm(forms.Form):
     Request options input form.
     """
     screen_size = forms.ChoiceField(
-        label=_("screen size"),
-        initial='dontcare',
+        label=_("screen size"), initial='dontcare',
         choices=screen_size_choices())
     color_depth = forms.ChoiceField(
-        label=_("color depth"),
-        initial='dontcare',
+        label=_("color depth"), initial='dontcare',
         choices=color_depth_choices())
     maximum_wait = forms.ChoiceField(
-        label=_("maximum wait"),
-        initial=30, choices=(
-        (15, _("15 minutes")),
-        (30, _("30 minutes")),
-        (60, _("1 hour")),
-        (120, _("2 hours")),
-        (240, _("4 hours")),
-        ))
+        label=_("maximum wait"), initial=30,
+        choices=maximum_wait_choices())
 
     def cleaned_dict(self):
         """
