@@ -67,7 +67,7 @@ def extract_version(user_agent, name):
     '6.0'
     """
     if name == 'Safari' and 'Version' in user_agent:
-       name = 'Version'
+        name = 'Version'
     index = user_agent.index(name)
     index += len(name)
     if user_agent[index] not in '/ ':
@@ -78,7 +78,7 @@ def extract_version(user_agent, name):
         index += 1
     version = user_agent[start:index]
     if name == 'Safari':
-       return safari_version(version)
+        return safari_version(version)
     return version
 
 
@@ -120,21 +120,21 @@ uamatrix_findall = re.compile(r"""
 
 
 def safari_version(build):
-   """
-   Convert Safari build number to version number.
+    """
+    Convert Safari build number to version number.
 
-   >>> safari_version('419.3')
-   '2.0.4'
-   """
-   module_dir = os.path.dirname(__file__)
-   uamatrix_filename = os.path.join(module_dir, 'uamatrix.xml')
-   uamatrix = open(uamatrix_filename).read()
-   for safari_version, safari_build in uamatrix_findall(uamatrix):
-      if safari_build == build:
-         return safari_version
-   return build
+    >>> safari_version('419.3')
+    '2.0.4'
+    """
+    module_dir = os.path.dirname(__file__)
+    uamatrix_filename = os.path.join(module_dir, 'uamatrix.xml')
+    uamatrix = open(uamatrix_filename).read()
+    for safari_version, safari_build in uamatrix_findall(uamatrix):
+        if safari_build == build:
+            return safari_version
+    return build
 
 
 if __name__ == '__main__':
-   import doctest
-   doctest.testmod()
+    import doctest
+    doctest.testmod()
