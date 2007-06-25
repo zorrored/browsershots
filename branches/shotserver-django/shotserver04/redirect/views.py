@@ -47,7 +47,7 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
         user_agent = http_request.META['HTTP_USER_AGENT']
         try:
             browser = Browser.objects.get(
-                factory=factory, user_agent=user_agent)
+                factory=factory, user_agent=user_agent, active=True)
         except Browser.DoesNotExist:
             raise Fault(0, "Unknown user agent: %s." % user_agent)
         request.browser = browser

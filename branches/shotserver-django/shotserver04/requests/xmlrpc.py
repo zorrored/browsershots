@@ -136,7 +136,8 @@ def poll(http_request, factory_name, encrypted_password):
     request = find_and_lock_request(factory, factory.features_q())
     # Get matching browser
     filters = {'factory': factory,
-               'browser_group': request.browser_group}
+               'browser_group': request.browser_group,
+               'active': True}
     add_version(filters, request.major, 'major')
     add_version(filters, request.minor, 'minor')
     add_version(filters, request.request_group.javascript, 'javascript__id')
