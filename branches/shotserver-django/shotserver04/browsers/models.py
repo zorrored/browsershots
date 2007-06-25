@@ -116,7 +116,7 @@ class Browser(models.Model):
         _('uploads per day'), blank=True, null=True)
     queue_estimate = models.IntegerField(
         _('queue estimate'), blank=True, null=True,
-        help_text=_("Seconds between request submission and upload"))
+        help_text=_("Seconds between screenshot request and upload."))
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
 
@@ -134,7 +134,8 @@ class Browser(models.Model):
             )}),
             )
         list_display = ('browser_group', 'version', 'command',
-                        'uploads_per_day', 'queue_estimate', 'factory')
+                        'uploads_per_day', 'queue_estimate', 'factory',
+                        'active')
         list_filter = ('factory', 'browser_group')
         search_fields = ('user_agent', 'command',
                          'javascript', 'java', 'flash')
