@@ -58,7 +58,7 @@ class ScreenshotManager(models.Manager):
                 FROM  """ + backend.quote_name(self.model._meta.db_table) + """
                 GROUP BY """ + self._quote('website_id') + """
                 ORDER BY """ + backend.quote_name('maximum') + """ DESC
-                LIMIT 100)
+                LIMIT 60)
             ORDER BY """ + self._quote('id') + """ DESC
             """)
         for row in cursor.fetchall():
