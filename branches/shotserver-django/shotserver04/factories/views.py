@@ -78,7 +78,8 @@ def factory_detail(http_request, factory_name):
         factory = Factory.objects.get(name=factory_name)
     except Factory.DoesNotExist:
         raise Http404
-    browser_list = Browser.objects.select_related().filter(factory=factory.id)
+    browser_list = Browser.objects.select_related().filter(
+        factory=factory.id, active=True)
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
     return render_to_response('factories/factory_detail.html', locals())
