@@ -223,13 +223,13 @@ class Request(models.Model):
         Human-readable output of request state.
         """
         if self.locked and self.locked < lock_timeout():
-            return _('lock expired')
+            return _('failed')
         if self.screenshot:
             return _('uploaded')
         if self.redirected:
             return _('loading')
         if self.locked:
-            return _('locked')
+            return _('starting')
         return ''
 
     def check_factory_lock(self, factory):
