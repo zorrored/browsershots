@@ -27,7 +27,10 @@ __author__ = "$Author$"
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from shotserver04.common import int_or_none
-from shotserver04.common.forms import url, browsers, options, features
+from shotserver04.common.forms.url import UrlForm
+from shotserver04.common.forms.browsers import BrowsersForm
+from shotserver04.common.forms.features import FeaturesForm
+from shotserver04.common.forms.options import OptionsForm
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup
 from shotserver04.requests.models import RequestGroup, Request
@@ -39,9 +42,9 @@ def start(http_request):
     """
     # Initialize forms.
     post = http_request.POST or None
-    url_form = url.UrlForm(post or http_request.GET or None)
-    features_form = features.FeaturesForm(post)
-    options_form = options.OptionsForm(post)
+    url_form = UrlForm(post or http_request.GET or None)
+    features_form = FeaturesForm(post)
+    options_form = OptionsForm(post)
     # Get available choices from database, with correct translations.
     features_form.load_choices()
     options_form.load_choices()
@@ -53,7 +56,7 @@ def start(http_request):
     browser_forms = []
     no_active_factories = True
     for platform in Platform.objects.all():
-        browser_form = browsers.BrowsersForm(platform, post)
+        browser_form = BrowsersForm(platform, post)
         if browser_form.is_bound:
             browser_form.full_clean()
         browser_forms.append(browser_form)
