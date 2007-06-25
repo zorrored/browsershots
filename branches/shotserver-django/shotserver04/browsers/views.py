@@ -25,6 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import newforms as forms
+from django.db import connection
 from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04 import settings
 from shotserver04.common import lazy_gettext_capfirst as _
@@ -116,4 +117,14 @@ def add_browser(http_request):
         ]]
     admin_email = '<a href="mailto:%s">%s</a>' % (
         settings.ADMINS[0][1], settings.ADMINS[0][0])
+    if form.is_valid():
+        cursor = connection.cursor()
+        cursor.execute("""
+UPDATE browsers_browser SET active = FALSE
+WHERE factory_id = %s AND browser_group_id = %s
+AND major = %s AND minor = %s
+""", [form.cleaned_data['factory'].id, form.cleaned_data['browser_group'].id,
+      form.cleaned_data['major'], form.cleaned_data['minor']])
+        form.cleaned_data['active'] = True
+        Browser.objects.create(**form.cleaned_data)
     return render_to_response('browsers/add_browser.html', locals())

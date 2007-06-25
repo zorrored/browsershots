@@ -143,9 +143,6 @@ class Browser(models.Model):
         verbose_name = _('browser')
         verbose_name_plural = _('browsers')
         ordering = ('user_agent', )
-        unique_together = (
-            ('factory', 'browser_group', 'major', 'minor'),
-            )
 
     def __str__(self):
         return '%s %s' % (self.browser_group.name, self.version)
