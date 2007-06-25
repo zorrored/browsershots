@@ -49,8 +49,8 @@ def version_q(self):
 
 class Javascript(models.Model):
     version = models.CharField(
-        _('version'), maxlength=30,
-        help_text=_("e.g. 1.3 / 1.4 / 1.5"))
+        _('version'), maxlength=30, unique=True,
+        help_text=_("e.g. 1.4 / 1.5 / 1.6"))
 
     class Admin:
         pass
@@ -66,7 +66,7 @@ class Javascript(models.Model):
 
 class Java(models.Model):
     version = models.CharField(
-        _('version'), maxlength=30,
+        _('version'), maxlength=30, unique=True,
         help_text=_("e.g. 1.4 / 1.5 / 1.6"))
 
     class Admin:
@@ -83,7 +83,7 @@ class Java(models.Model):
 
 class Flash(models.Model):
     version = models.CharField(
-        _('version'), maxlength=30,
+        _('version'), maxlength=30, unique=True,
         help_text=_("e.g. 5 / 6 / 7 / 8 / 9"))
 
     class Admin:
