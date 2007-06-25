@@ -44,10 +44,10 @@ function auto_select(id, text) {
 }
 
 auto_select("id_javascript", jsVersion());
-auto_select("id_java", navigator.javaEnabled() ? 'enabled' : 'disabled');
+auto_select("id_java", navigator.javaEnabled() ? "{{ _("enabled") }}" : "{{ _("disabled") }}");
 
 flash = hasFlashPlugin();
 if (flash[0] == 2) { auto_select("id_flash", flash[1]); }
-if (flash[0] == 1) { auto_select("id_flash", "disabled"); }
+if (flash[0] == 1) { auto_select("id_flash", "{{ _("disabled") }}"); }
 </script>
 {% endblock %}
