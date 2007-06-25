@@ -73,6 +73,14 @@ class FeaturesForm(forms.Form):
     flash = forms.ChoiceField(
         label=_("Flash"), initial='dontcare')
 
+    def load_choices(self):
+        """
+        Load available choices from the database.
+        """
+        self['javascript'].field.choices = feature_choices(Javascript)
+        self['java'].field.choices = feature_choices(Java)
+        self['flash'].field.choices = feature_choices(Flash)
+
     def cleaned_dict(self):
         """
         Get features from their tables.

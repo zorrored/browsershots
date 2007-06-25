@@ -82,6 +82,14 @@ class OptionsForm(forms.Form):
     maximum_wait = forms.ChoiceField(
         label=_("maximum wait"), initial=30)
 
+    def load_choices(self):
+        """
+        Load available choices from the database.
+        """
+        self['screen_size'].field.choices = screen_size_choices()
+        self['color_depth'].field.choices = color_depth_choices()
+        self['maximum_wait'].field.choices = maximum_wait_choices()
+
     def cleaned_dict(self):
         """
         Convert options to integer and timestamp.

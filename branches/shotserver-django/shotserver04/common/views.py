@@ -31,30 +31,25 @@ from shotserver04.common.forms import url, browsers, options, features
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup
 from shotserver04.requests.models import RequestGroup, Request
-from shotserver04.features.models import Javascript, Java, Flash
 
 
 def start(http_request):
     """
     Front page with URL input, browser chooser, and options.
     """
+    # Initialize forms.
     post = http_request.POST or None
     url_form = url.UrlForm(post or http_request.GET or None)
     features_form = features.FeaturesForm(post)
     options_form = options.OptionsForm(post)
-    # Get available choices from database, because the defaults may be stale.
-    # This also loads the correct translations for the choice text entries.
-    features_form['javascript'].field.choices = \
-        features.feature_choices(Javascript)
-    features_form['java'].field.choices = features.feature_choices(Java)
-    features_form['flash'].field.choices = features.feature_choices(Flash)
-    options_form['screen_size'].field.choices = options.screen_size_choices()
-    options_form['color_depth'].field.choices = options.color_depth_choices()
-    options_form['maximum_wait'].field.choices = options.maximum_wait_choices()
+    # Get available choices from database, with correct translations.
+    features_form.load_choices()
+    options_form.load_choices()
     # Validate posted data.
     valid_post = (url_form.is_valid() and
                   options_form.is_valid() and
                   features_form.is_valid())
+    # Browser forms for each platform.
     browser_forms = []
     no_active_factories = True
     for platform in Platform.objects.all():
@@ -64,21 +59,20 @@ def start(http_request):
         browser_forms.append(browser_form)
         valid_post = valid_post and browser_form.is_valid()
         no_active_factories = no_active_factories and not browser_form.fields
-    if valid_post:
-        values = {'ip': http_request.META['REMOTE_ADDR']}
-        values.update(url_form.cleaned_dict())
-        values.update(options_form.cleaned_dict())
-        values.update(features_form.cleaned_dict())
-        # Submit request group
-        request_group = RequestGroup.objects.create(**values)
-        for browser_form in browser_forms:
-            create_platform_requests(
-                request_group, browser_form.platform, browser_form)
-        # return render_to_response('debug.html', locals())
-        return HttpResponseRedirect(values['website'].get_absolute_url())
-    else:
-        # Show HTML form
+    if not valid_post:
+        # Show HTML form.
         return render_to_response('start.html', locals())
+    # Create screenshot requests and redirect to website overview.
+    values = {'ip': http_request.META['REMOTE_ADDR']}
+    values.update(url_form.cleaned_dict())
+    values.update(options_form.cleaned_dict())
+    values.update(features_form.cleaned_dict())
+    request_group = RequestGroup.objects.create(**values)
+    for browser_form in browser_forms:
+        create_platform_requests(
+            request_group, browser_form.platform, browser_form)
+    # return render_to_response('debug.html', locals())
+    return HttpResponseRedirect(values['website'].get_absolute_url())
 
 
 def create_platform_requests(request_group, platform, browser_form):
