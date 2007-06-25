@@ -137,7 +137,7 @@ class Factory(models.Model):
         Get the median of queue estimates from the browsers.
         """
         estimates = [browser.queue_estimate
-                     for browser in self.browser_set.all()
+                     for browser in self.browser_set.filter(active=True)
                      if browser.queue_estimate]
         if not estimates:
             return None
