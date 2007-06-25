@@ -29,7 +29,7 @@ from django.db import models
 from shotserver04.common import serializable, get_or_fault
 from shotserver04.xmlrpc import register
 from shotserver04.nonces import xmlrpc as nonces
-from shotserver04.factories.models import Factory
+from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
@@ -148,6 +148,8 @@ def poll(http_request, factory_name, encrypted_password):
     except Browser.DoesNotExist:
         raise Fault(0, "No matching browser for selected request.")
     # Build result dict
+    screen_size = select_screen_size(factory, request)
+    color_depth = select_color_depth(factory, request)
     return {
         'request': request.id,
         'browser': browser.browser_group.name,
@@ -155,10 +157,40 @@ def poll(http_request, factory_name, encrypted_password):
         'major': browser.major,
         'minor': browser.minor,
         'command': browser.command,
-        'width': request.request_group.width or 0,
-        'height': request.request_group.height or 0,
-        'bpp': request.request_group.bits_per_pixel or 0,
+        'width': screen_size.width,
+        'height': screen_size.height,
+        'bpp': color_depth.bits_per_pixel,
         'javascript': version_or_empty(request.request_group.javascript),
         'java': version_or_empty(request.request_group.java),
         'flash': version_or_empty(request.request_group.flash),
         }
+
+
+def select_screen_size(factory, request):
+    screen_sizes = ScreenSize.objects.filter(factory=factory)
+    if request.request_group.width:
+        screen_sizes = screen_sizes.filter(width=request.request_group.width)
+    if request.request_group.height:
+        screen_sizes = screen_sizes.filter(height=request.request_group.height)
+    if not len(screen_sizes):
+        raise Fault(0, "No matching screen size for selected request.")
+    # Try most popular screen sizes first
+    if len(screen_sizes) > 1:
+        for popular in (1024, 800, 1152, 1280, 640):
+            for screen_size in screen_sizes:
+                if screen_size.width == popular:
+                    return screen_size
+    # Return the smallest matching screen size
+    return screen_sizes[0]
+
+
+def select_color_depth(factory, request):
+    color_depths = ColorDepth.objects.filter(factory=factory)
+    color_depths = color_depths.order_by('-bits_per_pixel')
+    if request.request_group.bits_per_pixel:
+        color_depths = color_depths.filter(
+            bits_per_pixel=request.request_group.bits_per_pixel)
+    if not len(color_depths):
+        raise Fault(0, "No matching color depth for selected request.")
+    # Return greatest matching color depth
+    return color_depths[0]
