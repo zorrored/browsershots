@@ -31,4 +31,23 @@ If you're upgrading the browser version (e.g. from Firefox 2.0.0.3 to
 2.0.0.4), the same browser may already be registered for your factory.
 In that case, the old version will be deactivated automatically.
 {% endblocktrans %}</p>
+
+<script type="text/javascript" src="/static/js/brwsniff.js"></script>
+
+<script type="text/javascript">
+function auto_select(id, text) {
+  field = document.getElementById(id);
+  length = field.options.length;
+  for (i = 0; i < length; i++) {
+    if (field.options[i].text == text) { field.selectedIndex = i; }
+  }
+}
+
+auto_select("id_javascript", jsVersion());
+auto_select("id_java", navigator.javaEnabled() ? 'enabled' : 'disabled');
+
+flash = hasFlashPlugin();
+if (flash[0] == 2) { auto_select("id_flash", flash[1]); }
+if (flash[0] == 1) { auto_select("id_flash", "disabled"); }
+</script>
 {% endblock %}
