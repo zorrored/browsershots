@@ -37,8 +37,8 @@ In that case, the old version will be deactivated automatically.
 <script type="text/javascript">
 function auto_select(id, text) {
   field = document.getElementById(id);
-  length = field.options.length;
-  for (i = 0; i < length; i++) {
+  l = field.options.length;
+  for (i = 0; i < l; i++) {
     if (field.options[i].text == text) { field.selectedIndex = i; }
   }
 }
