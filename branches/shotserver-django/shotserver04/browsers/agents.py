@@ -10,19 +10,23 @@ def get_engines():
     """
     Get all rendering engines from the database.
 
-    Make sure that KHTML and Gecko are returned last, because some
-    browsers include those names in their User-Agent string, in
-    addition to their real engine name.
+    Some engines are always returned last, because there are browsers
+    that include those names in their User-Agent string, in addition
+    to their real engine name.
     """
     from shotserver04.browsers.models import Engine
-    khtml = gecko = None
+    khtml = gecko = msie = None
     for engine in Engine.objects.all():
         if engine.name == 'Gecko':
             gecko = engine
         elif engine.name == 'KHTML':
             khtml = engine
+        elif engine.name == 'MSIE':
+            msie = engine
         else:
             yield engine
+    if msie:
+        yield msie
     if khtml:
         yield khtml
     if gecko:
@@ -33,18 +37,22 @@ def get_browser_groups():
     """
     Get all browser groups from the database.
 
-    Make sure that Firefox and Mozilla are returned last, because
-    other browsers include those names in their User-Agent string.
+    Some browsers are always returned last, because other browsers
+    include those names in their User-Agent string.
     """
     from shotserver04.browsers.models import BrowserGroup
-    firefox = mozilla = None
+    firefox = mozilla = msie = None
     for browser_group in BrowserGroup.objects.all():
         if browser_group.name == 'Firefox':
             firefox = browser_group
         elif browser_group.name == 'Mozilla':
             mozilla = browser_group
+        elif browser_group.name == 'MSIE':
+            msie = browser_group
         else:
             yield browser_group
+    if msie:
+        yield msie
     if firefox:
         yield firefox
     if mozilla:
