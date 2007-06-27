@@ -141,13 +141,12 @@ class RequestGroup(models.Model):
                 screenshot.preview_div(height=max_height, caption=True)
                 for index, screenshot in screenshots])
         elif self.is_pending():
-            hint = _(
-                "Your screenshots will appear here when they are uploaded.")
-            bookmark = str(_(
-                "[Reload this page] or bookmark it and come back later."
-                )).replace('[', '<a href="">').replace(']', '</a>')
-            return '<p class="admonition hint">%s<br />\n%s</p>' % (
-                hint, bookmark)
+            appear = str(_(
+                "Your screenshots will appear here when they are uploaded."))
+            bookmark = bracket_link("", str(_(
+                "[Reload this page] or bookmark it and come back later.")))
+            hint = '<br />\n'.join((appear, bookmark))
+            return '<p class="admonition hint">%s</p>' % hint
 
     def pending_requests(self):
         """
@@ -256,3 +255,8 @@ class Request(models.Model):
             raise Fault(0,
                 "Request %d was locked by factory %s." %
                 (self.id, self.factory.name))
+
+
+def bracket_link(href, text):
+    """Replace square brackets with a HTML link."""
+    return text.replace('[', '<a href="%s">' % href).replace(']', '</a>')
