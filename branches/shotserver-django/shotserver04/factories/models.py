@@ -45,8 +45,7 @@ class Factory(models.Model):
     sponsor = models.ForeignKey(Sponsor,
         verbose_name=_('sponsor'), blank=True, null=True)
     architecture = models.ForeignKey(Architecture,
-        verbose_name=_('hardware architecture'),
-        help_text=_('CPU type (e.g. i686 or PPC)'))
+        verbose_name=_('hardware architecture'))
     operating_system = models.ForeignKey(OperatingSystem,
         verbose_name=_('operating system'))
     ip = models.IPAddressField(
