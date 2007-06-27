@@ -147,6 +147,9 @@ class RequestGroup(models.Model):
                 "[Reload this page] or bookmark it and come back later.")))
             hint = '<br />\n'.join((appear, bookmark))
             return '<p class="admonition hint">%s</p>' % hint
+        else:
+            hint = _("Your screenshot requests have expired.")
+            return '<p class="admonition warning">%s</p>' % hint
 
     def pending_requests(self):
         """
