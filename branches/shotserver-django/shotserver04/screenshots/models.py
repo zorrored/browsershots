@@ -35,8 +35,12 @@ from shotserver04.screenshots import storage
 
 
 class ScreenshotManager(models.Manager):
+    """
+    Extended database manager for Screenshot model.
+    """
 
     def _quote(self, name):
+        """Quote column name, with table name."""
         return '%s.%s' % (
             backend.quote_name(self.model._meta.db_table),
             backend.quote_name(name))
@@ -66,6 +70,9 @@ class ScreenshotManager(models.Manager):
 
 
 class Screenshot(models.Model):
+    """
+    Uploaded screenshot files.
+    """
     hashkey = models.SlugField(
         _('hashkey'), maxlength=32, unique=True)
     website = models.ForeignKey(Website,
@@ -103,15 +110,21 @@ class Screenshot(models.Model):
         return self.hashkey
 
     def get_absolute_url(self):
+        """URL for screenshot detail page."""
         return '/screenshots/%s/' % self.hashkey
 
     def get_png_url(self, size='original'):
+        """URL for screenshot images of different sizes."""
         return '/png/%s/%s/%s.png' % (size, self.hashkey[:2], self.hashkey)
 
     def get_large_url(self):
+        """URL for large preview image."""
         return self.get_png_url(size=512)
 
     def preview_img(self, width=160, title=None):
+        """
+        HTML img with screenshot preview.
+        """
         height = self.height * width / self.width
         style = 'width:%spx;height:%spx;z-index:0' % (width / 2, height / 2)
         if title is None:
@@ -125,6 +138,9 @@ class Screenshot(models.Model):
             ))
 
     def preview_div(self, width=80, style="float:left", title=None, href=None):
+        """
+        HTML div with screenshot preview image and link.
+        """
         height = self.height * width / self.width
         style = 'width:%dpx;height:%dpx;%s' % (width, height, style)
         href = href or self.get_absolute_url()
@@ -139,16 +155,10 @@ class Screenshot(models.Model):
         """Get size in bytes of original screenshot file."""
         return os.path.getsize(storage.png_filename(self.hashkey))
 
-    def link(self, text=None, div_class='screenshot-link'):
-        if text is None:
-            text = str(self)
-        return ' '.join((
-            '<div class="%s">' % div_class,
-            '<a href="%s">%s</a>' % (self.get_absolute_url(), text),
-            '</div>',
-            ))
-
     def arrow(self, screenshot, img, alt):
+        """
+        HTML link to next or previous screenshot in a group.
+        """
         if not screenshot:
             return '<img src="/static/css/%s-gray.png" alt="%s">' % (img, alt)
         return ''.join((
@@ -158,20 +168,28 @@ class Screenshot(models.Model):
             ))
 
     def get_first(self, **kwargs):
+        """Get the first screenshot in a group."""
         return Screenshot.objects.filter(**kwargs).order_by('id')[:1]
 
     def get_last(self, **kwargs):
+        """Get the last screenshot in a group."""
         return Screenshot.objects.filter(**kwargs).order_by('-id')[:1]
 
     def get_previous(self, **kwargs):
+        """Get the previous screenshot in a group."""
         return Screenshot.objects.filter(
             id__lt=self.id, **kwargs).order_by('-id')[:1]
 
     def get_next(self, **kwargs):
+        """Get the next screenshot in a group."""
         return Screenshot.objects.filter(
             id__gt=self.id, **kwargs).order_by('id')[:1]
 
     def not_me(self, screenshots):
+        """
+        Try to get the first screenshot from a (possibly empty) list,
+        but only if it's different from self.
+        """
         if screenshots and screenshots[0] != self:
             return screenshots[0]
 
@@ -191,6 +209,9 @@ class Screenshot(models.Model):
             ))
 
     def navigation(self, title, min_count=2, already=0, **kwargs):
+        """
+        Show arrows to go to first/previous/next/last screenshot.
+        """
         total = Screenshot.objects.filter(**kwargs).count()
         if total < min_count or total == already:
             return ''
@@ -225,6 +246,9 @@ class Screenshot(models.Model):
             browser__browser_group=self.browser.browser_group)
 
     def platform_navigation(self):
+        """
+        Navigation links for screenshots of the same platform.
+        """
         platform = self.factory.operating_system.platform
         return self.navigation(
             platform.name,

@@ -32,6 +32,9 @@ from shotserver04.browsers import middleware as current_browser
 
 
 class Engine(models.Model):
+    """
+    Browser rendering engines like Gecko / KHTML / AppleWebKit.
+    """
     name = models.CharField(
         _('name'), maxlength=30,
         help_text=_("e.g. Gecko / KHTML / AppleWebKit"))
@@ -52,9 +55,12 @@ class Engine(models.Model):
 
 
 class BrowserGroup(models.Model):
+    """
+    Browser names like Firefox / MSIE / Safari.
+    """
     name = models.CharField(
         _('name'), maxlength=30,
-        help_text=_("e.g. Firefox / Internet Explorer / Safari"))
+        help_text=_("e.g. Firefox / MSIE / Safari"))
     maker = models.CharField(
         _('maker'), maxlength=30, blank=True)
     terminal = models.BooleanField(
@@ -74,6 +80,9 @@ class BrowserGroup(models.Model):
 
 
 class Browser(models.Model):
+    """
+    Browsers that are installed on a screenshot factory.
+    """
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     user_agent = models.CharField(
@@ -149,6 +158,9 @@ class Browser(models.Model):
         return '%s %s' % (self.browser_group.name, self.version)
 
     def features_q(self):
+        """
+        SQL to match screenshot requests for this browser.
+        """
         group = models.Q(browser_group__id=self.browser_group.id)
         major = models.Q(major__isnull=True) | models.Q(major=self.major)
         minor = models.Q(minor__isnull=True) | models.Q(minor=self.minor)

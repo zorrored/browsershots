@@ -29,6 +29,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 def version_str(self):
+    """
+    Human-readable version output, with translation.
+    """
     if self.version == 'enabled':
         return str(_("enabled"))
     elif self.version == 'disabled':
@@ -38,6 +41,9 @@ def version_str(self):
 
 
 def version_q(self):
+    """
+    SQL query to match requests for a given factory.
+    """
     field = 'request_group__' + self._meta.module_name
     result = models.Q(**{field + '__isnull': True})
     result |= models.Q(**{field: self.id})
@@ -48,6 +54,10 @@ def version_q(self):
 
 
 class Javascript(models.Model):
+    """
+    Javascript versions.
+    """
+
     version = models.CharField(
         _('version'), maxlength=30, unique=True,
         help_text=_("e.g. 1.4 / 1.5 / 1.6"))
@@ -65,6 +75,10 @@ class Javascript(models.Model):
 
 
 class Java(models.Model):
+    """
+    Java versions.
+    """
+
     version = models.CharField(
         _('version'), maxlength=30, unique=True,
         help_text=_("e.g. 1.4 / 1.5 / 1.6"))
@@ -82,6 +96,10 @@ class Java(models.Model):
 
 
 class Flash(models.Model):
+    """
+    Flash plugin versions.
+    """
+
     version = models.CharField(
         _('version'), maxlength=30, unique=True,
         help_text=_("e.g. 5 / 6 / 7 / 8 / 9"))

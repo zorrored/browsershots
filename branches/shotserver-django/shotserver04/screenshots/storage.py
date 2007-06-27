@@ -36,14 +36,20 @@ HEADER_MATCH = re.compile(r'(\S\S)\s+(\d+)\s+(\d+)\s+').match
 
 
 def png_path(hashkey, size=ORIGINAL_SIZE):
+    """Get the full filesystem path for a PNG directory."""
     return os.path.join(settings.PNG_ROOT, str(size), hashkey[:2])
 
 
 def png_filename(hashkey, size=ORIGINAL_SIZE):
+    """Get the full filesystem path for a PNG file."""
     return os.path.join(png_path(hashkey, size), hashkey + '.png')
 
 
 def makedirs(path):
+    """
+    Make directory (and parents) if necessary.
+    Raise xmlrpclib.Fault if an error occurs.
+    """
     if os.path.exists(path):
         return
     try:
@@ -53,6 +59,9 @@ def makedirs(path):
 
 
 def save_upload(screenshot):
+    """
+    Save uploaded screenshot file and return hashkey.
+    """
     hashkey = crypto.random_md5()
     makedirs(png_path(hashkey))
     try:
@@ -65,6 +74,9 @@ def save_upload(screenshot):
 
 
 def pngtoppm(hashkey):
+    """
+    Decode PNG file and return temporary PPM filename.
+    """
     pngname = png_filename(hashkey)
     ppmhandle, ppmname = tempfile.mkstemp()
     os.close(ppmhandle)
@@ -83,6 +95,9 @@ def pngtoppm(hashkey):
 
 
 def read_pnm_header(ppmname):
+    """
+    Try to read PNM header from decoded screenshot.
+    """
     header = file(ppmname, 'rb').read(1024)
     match = HEADER_MATCH(header)
     if match is None:
@@ -96,6 +111,9 @@ def read_pnm_header(ppmname):
 
 
 def scale(ppmname, width, hashkey):
+    """
+    Make small preview image from uploaded screenshot.
+    """
     makedirs(png_path(hashkey, size=width))
     pngname = png_filename(hashkey, size=width)
     error = os.system('pnmscale -width=%d "%s" | pnmtopng > %s' %

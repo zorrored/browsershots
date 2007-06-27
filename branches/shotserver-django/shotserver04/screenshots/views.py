@@ -34,6 +34,9 @@ MARGIN = 12 # pixels
 
 
 def screenshot_list(http_request):
+    """
+    Full-screen display of recent screenshots (one per website).
+    """
     columns = [[0, index * (WIDTH + MARGIN)] for index in range(COLUMNS)]
     previews = []
     for screenshot in Screenshot.objects.recent():
@@ -56,6 +59,9 @@ def screenshot_list(http_request):
 
 
 def screenshot_detail(http_request, hashkey):
+    """
+    Show large preview and detailed information about a screenshot.
+    """
     screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
     request = Request.objects.get(screenshot=screenshot)
     return render_to_response('screenshots/screenshot_detail.html', locals())

@@ -40,6 +40,9 @@ PREVIEW_SIZES = [512, 240, 160, 116, 92, 77, 57, 44, 32]
 
 @serializable
 def close_request(request_id, factory, screenshot):
+    """
+    Close a screenshot request after it has been completed.
+    """
     # Check again that no other factory has locked the request
     request = get_or_fault(Request, pk=request_id)
     try:

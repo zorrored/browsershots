@@ -167,6 +167,9 @@ def poll(http_request, factory_name, encrypted_password):
 
 
 def select_screen_size(factory, request):
+    """
+    Select a matching screen size for this screenshot request.
+    """
     screen_sizes = ScreenSize.objects.filter(factory=factory)
     if request.request_group.width:
         screen_sizes = screen_sizes.filter(width=request.request_group.width)
@@ -185,6 +188,9 @@ def select_screen_size(factory, request):
 
 
 def select_color_depth(factory, request):
+    """
+    Select a matching color depth for this screenshot request.
+    """
     color_depths = ColorDepth.objects.filter(factory=factory)
     color_depths = color_depths.order_by('-bits_per_pixel')
     if request.request_group.bits_per_pixel:

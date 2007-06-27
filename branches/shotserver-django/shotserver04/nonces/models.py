@@ -30,6 +30,9 @@ from shotserver04.factories.models import Factory
 
 
 class Nonce(models.Model):
+    """
+    Authentication nonce for password encryption.
+    """
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     hashkey = models.SlugField(

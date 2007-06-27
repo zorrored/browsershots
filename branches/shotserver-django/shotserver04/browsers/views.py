@@ -29,7 +29,7 @@ from django.db import connection
 from django.http import HttpResponseRedirect
 from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response
 from shotserver04 import settings
 from shotserver04.common import lazy_gettext_capfirst as _
 from shotserver04.factories.models import Factory
@@ -38,6 +38,9 @@ from shotserver04.browsers import agents
 
 
 class PasswordForm(forms.Form):
+    """
+    Simple password input form.
+    """
     password = forms.CharField(
         label=_('password'),
         widget=forms.PasswordInput)
@@ -70,6 +73,9 @@ def guess_factory(ip, user_agent):
 
 
 def add_browser(http_request):
+    """
+    Add a browser that is installed on a screenshot factory.
+    """
     # Use lazy translation for field labels
     for key in BrowserForm.base_fields:
         BrowserForm.base_fields[key].label = _(

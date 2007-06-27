@@ -25,11 +25,13 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.shortcuts import render_to_response, get_object_or_404
-from django.db import models
 from shotserver04.websites.models import Website
 
 
 def website_list(http_request):
+    """
+    List websites, with keyword search filter.
+    """
     website_list = Website.objects
     search_query = http_request.GET.get('q', '')
     for search in search_query.split():
@@ -43,6 +45,9 @@ def website_list(http_request):
 
 
 def website_detail(http_request, website_url):
+    """
+    Show details for a selected website.
+    """
     if isinstance(website_url, Website):
         website = website_url
     else:
@@ -54,5 +59,8 @@ def website_detail(http_request, website_url):
 
 
 def website_numeric(http_request, website_id):
+    """
+    Show details for a website, selected by numeric ID not URL.
+    """
     website = get_object_or_404(Website, id=website_id)
     return website_detail(http_request, website)

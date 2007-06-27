@@ -26,10 +26,13 @@ __author__ = "$Author$"
 
 from django.shortcuts import render_to_response
 from shotserver04 import settings
-import captcha
+from shotserver04.recaptcha import captcha
 
 
 def recaptcha(http_request):
+    """
+    Show reCAPTCHA callenge.
+    """
     error = None
     if http_request.POST:
         challenge = http_request.POST['recaptcha_challenge_field']

@@ -29,6 +29,9 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Platform(models.Model):
+    """
+    Screenshot factory platforms like Linux / Windows / Mac.
+    """
     name = models.CharField(
         _('name'), maxlength=30,
         help_text="e.g. Linux / Windows / Mac")
@@ -48,6 +51,9 @@ class Platform(models.Model):
 
 
 class OperatingSystem(models.Model):
+    """
+    Screenshot factory operating systems.
+    """
     platform = models.ForeignKey(Platform,
         verbose_name=_('platform'))
     name = models.CharField(
@@ -76,8 +82,12 @@ class OperatingSystem(models.Model):
 
 
 class Architecture(models.Model):
+    """
+    Hardware architectures like i686 / PPC.
+    """
     name = models.CharField(
-        _('name'), maxlength=30)
+        _('name'), maxlength=30,
+        help_text=_('e.g. i686 / PPC'))
 
     def __str__(self):
         return self.name
