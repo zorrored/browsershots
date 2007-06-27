@@ -137,26 +137,32 @@ class Screenshot(models.Model):
             'onmouseout="smaller(this,%s,%s)" />' % (width, height),
             ))
 
-    def preview_div(self, width=80, height=None,
-                    style="float:left", title=None, href=None):
+    def preview_div(self, width=80, height=None, style="float:left",
+                    title=None, caption=None, href=None):
         """
         HTML div with screenshot preview image and link.
         """
         auto_height = self.height * width / self.width
         if height is None:
             height = auto_height
+        if caption:
+            height += 20
         style = 'width:%dpx;height:%dpx;%s' % (width, height, style)
         href = href or self.get_absolute_url()
         if title is None:
             title = str(self.browser)
-        return '\n'.join((
-            '<div class="preview" style="%s">' % style,
-            '<a href="%s">%s</a>' % (
-                href, self.preview_img(width=2*width, title=title)),
-            '<div class="caption" style="padding-top:%dpx">%s</div>' % (
-                auto_height, title),
-            '</div>',
-            ))
+        lines = ['<div class="preview" style="%s">' % style]
+        lines.append('<a href="%s">%s</a>' %
+            (href, self.preview_img(width=2*width, title=title)))
+        if caption is True:
+            caption = '<br />'.join((str(self.browser),
+                self.factory.operating_system.__str__(show_codename=False)))
+        if caption:
+            lines.append(
+                '<div class="caption" style="padding-top:%dpx">%s</div>' %
+                (auto_height, caption))
+        lines.append('</div>')
+        return '\n'.join(lines)
 
     def get_file_size(self):
         """Get size in bytes of original screenshot file."""

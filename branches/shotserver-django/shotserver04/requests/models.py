@@ -134,10 +134,12 @@ class RequestGroup(models.Model):
             screenshots.append((screenshot.id, screenshot))
         if screenshots:
             screenshots.sort()
-            max_height = max([screenshot.height * 80 / screenshot.width
-                              for index, screenshot in screenshots])
-            return '\n'.join([screenshot.preview_div(height=max_height)
-                              for index, screenshot in screenshots])
+            max_height = max([
+                screenshot.height * 80 / screenshot.width
+                for index, screenshot in screenshots])
+            return '\n'.join([
+                screenshot.preview_div(height=max_height, caption=True)
+                for index, screenshot in screenshots])
         elif self.is_pending():
             return '<p class="admonition hint">%s</p>' % \
                 _("Your screenshots will appear here.")
