@@ -11,6 +11,7 @@ pylint :
 	| grep -v "\.Meta] Missing docstring" \
 	| grep -v "\.Meta] Class has no __init__ method" \
 	| grep -v "\.Meta] To few public methods" \
+	| grep -v "Unused argument 'http_request'" \
 	| grep -v "Access to a protected member _meta" \
 	| grep -v "Undefined variable '_'" \
 	| grep -v "E1101" \
