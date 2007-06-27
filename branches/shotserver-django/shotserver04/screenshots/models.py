@@ -137,11 +137,13 @@ class Screenshot(models.Model):
             'onmouseout="smaller(this,%s,%s)" />' % (width, height),
             ))
 
-    def preview_div(self, width=80, style="float:left", title=None, href=None):
+    def preview_div(self, width=80, height=None,
+                    style="float:left", title=None, href=None):
         """
         HTML div with screenshot preview image and link.
         """
-        height = self.height * width / self.width
+        if height is None:
+            height = self.height * width / self.width
         style = 'width:%dpx;height:%dpx;%s' % (width, height, style)
         href = href or self.get_absolute_url()
         return ''.join((

@@ -131,13 +131,16 @@ class RequestGroup(models.Model):
         requests = self.request_set.filter(screenshot__isnull=False)
         for request in requests:
             screenshot = request.screenshot
-            screenshots.append(
-                (screenshot.id, screenshot.preview_div()))
-        screenshots.sort()
-        if not screenshots and self.is_pending():
-            return '<p class="admonition hint">%s</p>' % (
-                _("Your screenshots will appear here."))
-        return '\n'.join([entry[1] for entry in screenshots])
+            screenshots.append((screenshot.id, screenshot))
+        if screenshots:
+            screenshots.sort()
+            max_height = max([screenshot.height * 80 / screenshot.width
+                              for index, screenshot in screenshots])
+            return '\n'.join([screenshot.preview_div(height=max_height)
+                              for index, screenshot in screenshots])
+        elif self.is_pending():
+            return '<p class="admonition hint">%s</p>' % \
+                _("Your screenshots will appear here.")
 
     def pending_requests(self):
         """
