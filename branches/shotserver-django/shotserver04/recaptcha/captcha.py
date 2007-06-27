@@ -1,25 +1,36 @@
-# http://python.org/pypi/recaptcha-client
-# Author:  Ben Maurer <support at recaptcha net>
+# Based on http://python.org/pypi/recaptcha-client
+# Original Author: Ben Maurer <support at recaptcha net>
 # Home Page: http://recaptcha.net/
 # License: MIT/X11
+
+"""
+reCAPTCHA support.
+"""
+
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import socket
 import urllib
 import urllib2
 
-API_SSL_SERVER="api-secure.recaptcha.net"
-API_SERVER="api.recaptcha.net"
-VERIFY_SERVER="api-verify.recaptcha.net"
+API_SSL_SERVER = "api-secure.recaptcha.net"
+API_SERVER = "api.recaptcha.net"
+VERIFY_SERVER = "api-verify.recaptcha.net"
 
 
 class RecaptchaResponse(object):
+    """
+    Simple wrapper for reCAPTCHA verification result.
+    """
 
     def __init__(self, is_valid, error_code=None):
         self.is_valid = is_valid
         self.error_code = error_code
 
 
-def displayhtml(public_key, use_ssl=False, error=None, options={}):
+def displayhtml(public_key, use_ssl=False, error=None, options=None):
     """
     Get the HTML to display for a reCAPTCHA challenge.
 
@@ -37,12 +48,13 @@ def displayhtml(public_key, use_ssl=False, error=None, options={}):
     else:
         protocol = 'http'
         server = API_SERVER
-    options_lines = []
-    for key in options:
-        options_lines.append('%s: %s' % (key, repr(options[key])))
     options_script = ''
-    if options_lines:
-        options_script = """
+    if options:
+        options_lines = []
+        for key in options:
+            options_lines.append('%s: %s' % (key, repr(options[key])))
+        if options_lines:
+            options_script = """
 <script type="text/javascript">
 var RecaptchaOptions = {
   %s
