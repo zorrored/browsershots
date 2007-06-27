@@ -50,6 +50,18 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
                 factory=factory, user_agent=user_agent, active=True)
         except Browser.DoesNotExist:
             raise Fault(0, "Unknown user agent: %s." % user_agent)
+        # Check that the browser matches the request
+        if (request.browser_group and
+            request.browser_group != browser.browser_group):
+            raise Fault(0, "Requested browser %s but got %s." %
+                        (request.browser_group.name,
+                         browser.browser_group.name))
+        if ((request.major and request.major != browser.major) or
+            (request.minor and request.minor != browser.minor)):
+            raise Fault(0, "Requested browser version %s.%s but got %s.%s." %
+                        (request.major, request.minor,
+                         browser.major, browser.minor))
+        # Update request with browser and redirect timestamp
         request.browser = browser
         request.redirected = datetime.now()
         request.save()
