@@ -141,8 +141,13 @@ class RequestGroup(models.Model):
                 screenshot.preview_div(height=max_height, caption=True)
                 for index, screenshot in screenshots])
         elif self.is_pending():
-            return '<p class="admonition hint">%s</p>' % \
-                _("Your screenshots will appear here.")
+            hint = _(
+                "Your screenshots will appear here when they are uploaded.")
+            bookmark = str(_(
+                "[Reload this page] or bookmark it and come back later."
+                )).replace('[', '<a href="">').replace(']', '</a>')
+            return '<p class="admonition hint">%s<br />\n%s</p>' % (
+                hint, bookmark)
 
     def pending_requests(self):
         """
