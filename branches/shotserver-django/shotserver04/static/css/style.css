@@ -204,3 +204,9 @@ p.error {
   background-color: #fcc;
   border-color: #f00;
 }
+
+div.caption {
+  font-size: 10px;
+  color: gray;
+  text-align: center;
+}

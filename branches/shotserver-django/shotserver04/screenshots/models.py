@@ -142,15 +142,20 @@ class Screenshot(models.Model):
         """
         HTML div with screenshot preview image and link.
         """
+        auto_height = self.height * width / self.width
         if height is None:
-            height = self.height * width / self.width
+            height = auto_height
         style = 'width:%dpx;height:%dpx;%s' % (width, height, style)
         href = href or self.get_absolute_url()
-        return ''.join((
+        if title is None:
+            title = str(self.browser)
+        return '\n'.join((
             '<div class="preview" style="%s">' % style,
-            '<a href="%s">' % href,
-            self.preview_img(width=2*width, title=title),
-            '</a></div>',
+            '<a href="%s">%s</a>' % (
+                href, self.preview_img(width=2*width, title=title)),
+            '<div class="caption" style="padding-top:%dpx">%s</div>' % (
+                auto_height, title),
+            '</div>',
             ))
 
     def get_file_size(self):
