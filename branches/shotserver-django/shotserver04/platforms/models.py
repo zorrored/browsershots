@@ -74,8 +74,8 @@ class OperatingSystem(models.Model):
         verbose_name_plural = _('operating systems')
         ordering = ('name', 'version')
 
-    def __str__(self):
-        if self.codename:
+    def __str__(self, show_codename=True):
+        if self.codename and show_codename:
             return '%s %s (%s)' % (self.name, self.version, self.codename)
         else:
             return '%s %s' % (self.name, self.version)
