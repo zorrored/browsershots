@@ -1,6 +1,6 @@
 ALTER TABLE browsers_browser
 ADD CONSTRAINT browsers_browser_version_check
-CHECK (user_agent ~ version or user_agent LIKE '%Safari%');
+CHECK (user_agent ~ version or user_agent ~ 'Safari');
 
 ALTER TABLE browsers_browser
 ADD CONSTRAINT browsers_browser_major_minor_check
