@@ -18,59 +18,59 @@
 {{ screenshot.platform_navigation }}
 <tr class="separator">
 <th>{{ _("browser")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.browser }}</td>
+<td>{{ screenshot.browser }}</td>
 </tr>
 <tr>
 <th>{{ _("engine")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.browser.engine }} {{ screenshot.browser.engine_version }}</td>
+<td>{{ screenshot.browser.engine }} {{ screenshot.browser.engine_version }}</td>
 </tr>
 <tr>
 <th>{{ _("Javascript") }}:</th>
-<td colspan="2">{{ screenshot.browser.javascript }}</td>
+<td>{{ screenshot.browser.javascript }}</td>
 </tr>
 <tr>
 <th>{{ _("Java") }}:</th>
-<td colspan="2">{{ screenshot.browser.java }}</td>
+<td>{{ screenshot.browser.java }}</td>
 </tr>
 <tr>
 <th>{{ _("Flash") }}:</th>
-<td colspan="2">{{ screenshot.browser.flash }}</td>
+<td>{{ screenshot.browser.flash }}</td>
 </tr>
 <tr class="separator">
 <th>{{ _("factory")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.factory|human_link }}</td>
+<td>{{ screenshot.factory|human_link }}</td>
 </tr>
 {% if screenshot.factory.sponsor %}<tr>
 <th>{{ _("sponsor")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.factory.sponsor|human_link }}</td>
+<td>{{ screenshot.factory.sponsor|human_link }}</td>
 </tr>{% endif %}
 <tr>
 <th>{{ _("architecture")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.factory.architecture }}</td>
+<td>{{ screenshot.factory.architecture }}</td>
 </tr>
 <tr>
 <th>{{ _("operating system")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.factory.operating_system }}</td>
+<td>{{ screenshot.factory.operating_system }}</td>
 </tr>
 <tr class="separator">
 <th>{{ _("dimensions")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.width }}x{{ screenshot.height }}</td>
+<td>{{ screenshot.width }}x{{ screenshot.height }}</td>
 </tr>
 <tr>
 <th>{{ _("file size")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.get_file_size|filesizeformat }}</td>
+<td>{{ screenshot.get_file_size|filesizeformat }}</td>
 </tr>
 <tr class="separator">
 <th>{{ _("requested")|capfirst }}:</th>
-<td colspan="2">{{ request.request_group.submitted|human_datetime }}</td>
+<td>{{ request.request_group.submitted|human_datetime }}</td>
 </tr>
 <tr>
 <th>{{ _("page loaded")|capfirst }}:</th>
-<td colspan="2">{{ request.redirected|human_datetime }}</td>
+<td>{{ request.redirected|human_datetime }}</td>
 </tr>
 <tr>
 <th>{{ _("uploaded")|capfirst }}:</th>
-<td colspan="2">{{ screenshot.uploaded|human_datetime }}</td>
+<td>{{ screenshot.uploaded|human_datetime }}</td>
 </tr>
 </table>
 {% endblock %}

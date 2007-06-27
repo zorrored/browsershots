@@ -220,9 +220,8 @@ class Screenshot(models.Model):
         arrows = self.arrows(**kwargs)
         return '\n'.join((
             '<tr>',
-            '<th>%s:</th>' % title,
-            '<td class="index">%s</span>' % index,
-            '<td class="arrows">%s</td>' % arrows,
+            '<th>%s</th>' % arrows,
+            '<td>%s %s</td>' % (index, title),
             '</tr>',
             ))
 
@@ -231,7 +230,7 @@ class Screenshot(models.Model):
         Navigation links to other screenshots of the same website.
         """
         return self.navigation(
-            capfirst(_("screenshot")),
+            _("screenshots"),
             min_count=1,
             website=self.website)
 
@@ -239,11 +238,12 @@ class Screenshot(models.Model):
         """
         Navigation links for screenshots of the same browser.
         """
+        browser_group = self.browser.browser_group
         return self.navigation(
-            self.browser.browser_group.name,
+            str(_("with %(browser)s")) % {'browser': browser_group.name},
             already=Screenshot.objects.filter(website=self.website).count(),
             website=self.website,
-            browser__browser_group=self.browser.browser_group)
+            browser__browser_group=browser_group)
 
     def platform_navigation(self):
         """
@@ -251,7 +251,7 @@ class Screenshot(models.Model):
         """
         platform = self.factory.operating_system.platform
         return self.navigation(
-            platform.name,
+            str(_("on %(platform)s")) % {'platform': platform.name},
             already=Screenshot.objects.filter(website=self.website).count(),
             website=self.website,
             factory__operating_system__platform=platform)
