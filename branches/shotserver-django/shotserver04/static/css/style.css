@@ -181,3 +181,10 @@ ul.requestgroup {
 input#id_user_agent { width: 60em; }
 input#id_major, input#id_minor { width: 3em; }
 input#id_version, input#id_engine_version { width: 8em; }
+
+p.hint {
+  padding: 8px 0 8px 40px;
+  background-image: url(lightbulb.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+}
