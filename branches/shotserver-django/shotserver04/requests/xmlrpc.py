@@ -175,8 +175,9 @@ def select_screen_size(factory, request):
         screen_sizes = screen_sizes.filter(width=request.request_group.width)
     if request.request_group.height:
         screen_sizes = screen_sizes.filter(height=request.request_group.height)
+    # Fallback to default size if factory configuration incomplete
     if not len(screen_sizes):
-        raise Fault(0, "No matching screen size for selected request.")
+        return ScreenSize(factory=factory, width=1024, height=768)
     # Try most popular screen sizes first
     if len(screen_sizes) > 1:
         for popular in (1024, 800, 1152, 1280, 640):
@@ -196,7 +197,8 @@ def select_color_depth(factory, request):
     if request.request_group.bits_per_pixel:
         color_depths = color_depths.filter(
             bits_per_pixel=request.request_group.bits_per_pixel)
+    # Fallback to default depth if factory configuration incomplete
     if not len(color_depths):
-        raise Fault(0, "No matching color depth for selected request.")
+        return ColorDepth(factory=factory, bits_per_pixel=24)
     # Return greatest matching color depth
     return color_depths[0]
