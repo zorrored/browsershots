@@ -31,7 +31,7 @@ from shotserver04.requests.models import Request
 
 
 @register(str, str)
-def features(request, factory_name):
+def features(http_request, factory_name):
     """
     Generate SQL WHERE clause to match requests for this factory.
 

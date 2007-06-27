@@ -56,7 +56,7 @@ class Dispatcher:
         self.funcs[name] = function
 
     @register(list)
-    def list_methods(self, request):
+    def list_methods(self, http_request):
         """
         Returns a list of the methods supported by the server.
         """
@@ -65,7 +65,7 @@ class Dispatcher:
         return methods
 
     @register(list, str)
-    def method_signature(self, request, method_name):
+    def method_signature(self, http_request, method_name):
         """
         Returns a list describing the possible signatures of the
         method.
@@ -85,7 +85,7 @@ class Dispatcher:
             return [result]
 
     @register(str, str)
-    def method_help(self, request, method_name):
+    def method_help(self, http_request, method_name):
         """
         Returns a string containing documentation for the specified
         method.
@@ -100,7 +100,7 @@ class Dispatcher:
         return '\n'.join(lines).strip()
 
     @register(list, list)
-    def multicall(self, request, call_list):
+    def multicall(self, http_request, call_list):
         """
         Allows the caller to package multiple XML-RPC calls into a
         single request.
@@ -109,26 +109,26 @@ class Dispatcher:
         for call in call_list:
             method = call['methodName']
             params = call['params']
-            result = self.dispatch(method, request, params)
+            result = self.dispatch(method, http_request, params)
             results.append([result])
         return results
 
-    def dispatch(self, method, request, params):
+    def dispatch(self, method, http_request, params):
         """
         Call a registered XML-RPC method.
         """
         if not method in self.funcs:
             raise Exception('method "%s" is not supported' % method)
         func = self.funcs[method]
-        response = func(request, *params)
+        response = func(http_request, *params)
         return (response, )
 
-    def dispatch_and_marshal(self, method, request, params):
+    def dispatch_and_marshal(self, method, http_request, params):
         """
         Call a registered XML-RPC method and marshal the response.
         """
         try:
-            response = self.dispatch(method, request, params)
+            response = self.dispatch(method, http_request, params)
             response = xmlrpclib.dumps(response, methodresponse=True,
                 allow_none=self.allow_none, encoding=self.encoding)
         except xmlrpclib.Fault, fault:
@@ -140,7 +140,7 @@ class Dispatcher:
                 allow_none=self.allow_none, encoding=self.encoding)
         return response
 
-    def dispatch_request(self, request):
+    def dispatch_request(self, http_request):
         """Unmarshal and run an XML-RPC request."""
-        params, method = xmlrpclib.loads(request.raw_post_data)
-        return self.dispatch_and_marshal(method, request, params)
+        params, method = xmlrpclib.loads(http_request.raw_post_data)
+        return self.dispatch_and_marshal(method, http_request, params)
