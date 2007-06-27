@@ -134,6 +134,9 @@ class RequestGroup(models.Model):
             screenshots.append(
                 (screenshot.id, screenshot.preview_div()))
         screenshots.sort()
+        if not screenshots and self.is_pending():
+            return '<p class="hint">%s</p>' % (
+                _("Your screenshots will appear here."))
         return '\n'.join([entry[1] for entry in screenshots])
 
     def pending_requests(self):
