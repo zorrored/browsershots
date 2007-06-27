@@ -34,7 +34,7 @@ from django.db import transaction, connection
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
-from shotserver04.factories.models import Factory
+from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.browsers.models import Engine, BrowserGroup, Browser
 from shotserver04.websites.models import Domain, Website
@@ -63,6 +63,13 @@ class PollTestCase(TestCase):
             admin=self.user,
             architecture=Architecture.objects.get(pk=1),
             operating_system=OperatingSystem.objects.get(pk=1))
+        self.screen_size = ScreenSize.objects.create(
+            factory=self.factory,
+            width=1024,
+            height=768)
+        self.color_depth = ColorDepth.objects.create(
+            factory=self.factory,
+            bits_per_pixel=24)
         self.browser = Browser.objects.create(
             factory=self.factory,
             user_agent="Firefox/2.0.0.4 Gecko/20061201",
@@ -82,7 +89,8 @@ class PollTestCase(TestCase):
             domain=self.domain)
         self.request_group = RequestGroup.objects.create(
             website=self.website,
-            expire=datetime.now() + timedelta(0, 300, 0))
+            expire=datetime.now() + timedelta(0, 300, 0),
+            ip='127.0.0.1')
         self.request = Request.objects.create(
             request_group=self.request_group,
             browser_group_id=1)
@@ -93,6 +101,8 @@ class PollTestCase(TestCase):
         self.website.delete()
         self.domain.delete()
         self.browser.delete()
+        self.color_depth.delete()
+        self.screen_size.delete()
         self.factory.delete()
         self.user.delete()
 
