@@ -167,6 +167,10 @@ WHERE """ + where, params)
     # Create new browser with submitted data
     form.cleaned_data['active'] = True
     Browser.objects.create(**form.cleaned_data)
+    # Save IP address, to guess the factory when adding the next browser
+    factory = form.cleaned_data['factory']
+    factory.ip = ip
+    factory.save()
     # Redirect to factory detail page
     return HttpResponseRedirect(
         form.cleaned_data['factory'].get_absolute_url())
