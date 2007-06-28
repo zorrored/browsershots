@@ -18,6 +18,8 @@
 <th>{{ _("Java")|human_br }}</th>
 <th>{{ _("Flash")|human_br }}</th>
 <th>{{ _("last upload")|capfirst|human_br }}</th>
+<th>{{ _("uploads per hour")|capfirst|human_br }}</th>
+<th>{{ _("uploads per day")|capfirst|human_br }}</th>
 <th>{{ _("queue estimate")|capfirst|human_br }}</th>
 </tr>
 </thead>
@@ -32,6 +34,8 @@ title="{{ browser.user_agent }}">
 <td>{{ browser.java }}</td>
 <td>{{ browser.flash }}</td>
 <td>{{ browser.last_upload|human_timesince }}</td>
+<td>{% if browser.uploads_per_hour %}{{ browser.uploads_per_hour }}{% endif %}</td>
+<td>{% if browser.uploads_per_day %}{{ browser.uploads_per_day }}{% endif %}</td>
 <td>{{ browser.queue_estimate|human_seconds }}</td>
 </tr>
 {% endfor %}
