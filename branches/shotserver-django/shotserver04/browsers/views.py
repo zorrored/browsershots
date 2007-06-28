@@ -107,8 +107,10 @@ def add_browser(http_request):
             version = agents.extract_version(
                 user_agent, browser_group.name)
             initial['version'] = version
-            initial['major'] = agents.extract_major(version)
-            initial['minor'] = agents.extract_minor(version)
+            initial['major'] = agents.extract_major(
+                version, browser_group.name)
+            initial['minor'] = agents.extract_minor(
+                version, browser_group.name)
             break
     form = BrowserForm(http_request.POST or initial)
     password_form = PasswordForm(http_request.POST or None)

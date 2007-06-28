@@ -112,7 +112,7 @@ def extract_version(user_agent, name):
     return version
 
 
-def extract_major(version):
+def extract_major(version, name=None):
     """
     Extract major version number from version string.
 
@@ -127,7 +127,7 @@ def extract_major(version):
         return int(version)
 
 
-def extract_minor(version):
+def extract_minor(version, name=None):
     """
     Extract minor version number from version string.
 
@@ -135,9 +135,16 @@ def extract_minor(version):
     18
     >>> extract_minor('2.0.0.4')
     0
+    >>> extract_minor('4.01', 'MSIE')
+    0
+    >>> extract_minor('9.21', 'Opera')
+    21
     """
     if version.count('.'):
-        return int(version.split('.')[1])
+        minor = version.split('.')[1]
+        if minor and name == 'MSIE':
+            minor = minor[0]
+        return int(minor)
 
 
 uamatrix_findall = re.compile(r"""
