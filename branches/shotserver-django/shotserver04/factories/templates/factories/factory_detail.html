@@ -12,6 +12,7 @@
 <thead>
 <tr>
 <th>{{ _("browser")|capfirst|human_br }}</th>
+<th>{{ _("version")|capfirst|human_br }}</th>
 <th>{{ _("engine")|capfirst|human_br }}</th>
 <th>{{ _("Javascript")|human_br }}</th>
 <th>{{ _("Java")|human_br }}</th>
@@ -24,9 +25,9 @@
 {% for browser in browser_list %}
 <tr class="{% cycle row1,row2 %}{% if browser.disabled %} disabled{% endif%}"
 title="{{ browser.user_agent }}">
-<td>{{ browser }}</td>
-<td>{% if browser.engine %}{{ browser.engine }}{% endif %}
-{{ browser.engine_version }}</td>
+<td>{{ browser.browser_group.name }} {{ browser.major }}.{{ browser.minor }}</td>
+<td>{{ browser.version }}</td>
+<td>{% if browser.engine %}{{ browser.engine }}{% endif %} {{ browser.engine_version }}</td>
 <td>{{ browser.javascript }}</td>
 <td>{{ browser.java }}</td>
 <td>{{ browser.flash }}</td>
