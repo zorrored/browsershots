@@ -139,11 +139,11 @@ def add_browser(http_request):
     if not password_valid:
         return render_to_response('browsers/add_browser.html', locals())
     cursor = connection.cursor()
-    where = """
-WHERE factory_id = %s AND browser_group_id = %s
-AND major = %s AND minor = %s
-"""
+    where = """((factory_id = %s AND user_agent = %s) OR
+(factory_id = %s AND browser_group_id = %s AND major = %s AND minor = %s))"""
     params = [
+        form.cleaned_data['factory'].id,
+        form.cleaned_data['user_agent'],
         form.cleaned_data['factory'].id,
         form.cleaned_data['browser_group'].id,
         form.cleaned_data['major'],
@@ -152,7 +152,7 @@ AND major = %s AND minor = %s
     # Delete old unused versions of the same browsers
     cursor.execute("""
 DELETE FROM browsers_browser
-""" + where + """
+WHERE """ + where + """
 AND NOT EXISTS(SELECT 1 FROM screenshots_screenshot
                WHERE browser_id = browsers_browser.id LIMIT 1)
 AND NOT EXISTS(SELECT 1 FROM requests_request
@@ -161,7 +161,7 @@ AND NOT EXISTS(SELECT 1 FROM requests_request
     # Deactivate old versions of the same browser
     cursor.execute("""
 UPDATE browsers_browser SET active = FALSE
-""" + where, params)
+WHERE """ + where, params)
     # Create new browser with submitted data
     form.cleaned_data['active'] = True
     Browser.objects.create(**form.cleaned_data)
