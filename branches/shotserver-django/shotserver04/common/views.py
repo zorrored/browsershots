@@ -24,6 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from shotserver04.common import int_or_none
@@ -74,6 +75,8 @@ def start(http_request):
     for browser_form in browser_forms:
         create_platform_requests(
             request_group, browser_form.platform, browser_form)
+    # Make sure that the redirect will show the new request group
+    transaction.commit()
     # return render_to_response('debug.html', locals())
     return HttpResponseRedirect(values['website'].get_absolute_url())
 
