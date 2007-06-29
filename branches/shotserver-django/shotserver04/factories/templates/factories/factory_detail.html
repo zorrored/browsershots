@@ -7,21 +7,23 @@
 {% block content %}
 <h1>{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}</h1>
 
-<ul>
-<li>{{ _("operating system")|capfirst }}: {{ factory.operating_system }}</li>
-<li>{{ _("architecture")|capfirst }}: {{ factory.architecture }}</li>
-<li>{{ _("created")|capfirst }}: {{ factory.created }}</li>
-<li>{{ _("admin")|capfirst }}: {{ factory.admin }}</li>
+<table>
+<tr class="row1"><th>{{ _("operating system")|capfirst }}:</th><td>{{ factory.operating_system }}</td></tr>
+<tr class="row2"><th>{{ _("architecture")|capfirst }}:</th><td>{{ factory.architecture }}</td></tr>
+<tr class="row1"><th>{{ _("created")|capfirst }}:</th><td>{{ factory.created }}</td></tr>
+<tr class="row2"><th>{{ _("admin")|capfirst }}:</th><td>{{ factory.admin }}</td></tr>
 {% if factory.sponsor %}
-<li>{{ _("sponsor")|capfirst }}: {{ factory.sponsor }}</li>
+<tr class="row1"><th>{{ _("sponsor")|capfirst }}:</th><td>{{ factory.sponsor }}</td></tr>
 {% endif %}
-</ul>
+</table>
+
+<h2>{{ _("installed browsers")|capfirst }}</h2>
 
 {% if browser_list %}
-<table class="details">
+<table class="vertical browsers">
 <thead>
 <tr>
-<th>{{ _("browser")|capfirst|human_br }}</th>
+<th>{{ _("name")|capfirst|human_br }}</th>
 <th>{{ _("short version")|capfirst|human_br }}</th>
 <th>{{ _("engine")|capfirst|human_br }}</th>
 <th>{{ _("Javascript")|human_br }}</th>

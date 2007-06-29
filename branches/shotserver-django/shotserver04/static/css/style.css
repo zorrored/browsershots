@@ -153,11 +153,10 @@ div.next-screenshot {
   right: 0;
 }
 
-table.detail th,
-table.detail td {
-  text-align: left;
-  vertical-align: top;
-}
+th, td { text-align: left; }
+table.vertical th { vertical-align: bottom; }
+table.horizontal th { vertical-align: top; }
+
 tr.separator {
   border-top: 1px solid #ccc;
 }
