@@ -82,4 +82,11 @@ title="{{ browser.user_agent }}">
 <p>{{ _("default only")|capfirst }}.</p>
 {% endif %}
 </div>
+
+{% if screenshot_list %}
+<h2>{{ _("recent screenshots")|capfirst }}</h2>
+{% for screenshot in screenshot_list %}
+{{ screenshot.preview_div }}
+{% endfor %}
+{% endif %}
 {% endblock %}

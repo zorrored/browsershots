@@ -28,6 +28,7 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
+from shotserver04.screenshots.models import Screenshot
 
 FACTORY_LIST_COLUMNS = (
     'name',
@@ -82,4 +83,6 @@ def factory_detail(http_request, factory_name):
         factory=factory.id, active=True)
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
+    screenshot_list = Screenshot.objects.filter(
+        factory=factory).order_by('-id')[:10]
     return render_to_response('factories/factory_detail.html', locals())
