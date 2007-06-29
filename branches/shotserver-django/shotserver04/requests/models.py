@@ -99,7 +99,9 @@ class RequestGroup(models.Model):
             {'interval': timesince(self.submitted)})
 
     def time_until_expire(self):
-        """Human-readable formatting of interval before expiration."""
+        """
+        Human-readable formatting of interval before expiration.
+        """
         if not self.is_pending():
             return ''
         return '<li>%s</li>' % (
@@ -107,7 +109,9 @@ class RequestGroup(models.Model):
             {'interval': timeuntil(self.expire)})
 
     def options(self):
-        """Human-readable output of requested options."""
+        """
+        Human-readable output of requested options.
+        """
         result = []
         for attr in ('javascript', 'java', 'flash',
                      'width', 'bits_per_pixel'):
@@ -126,7 +130,9 @@ class RequestGroup(models.Model):
         return '<li>%s</li>' % ', '.join(result)
 
     def previews(self):
-        """Thumbnails of screenshots for this request group."""
+        """
+        Thumbnails of screenshots for this request group.
+        """
         screenshots = []
         requests = self.request_set.filter(screenshot__isnull=False)
         for request in requests:
