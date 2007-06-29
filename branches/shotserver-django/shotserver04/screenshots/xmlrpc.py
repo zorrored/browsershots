@@ -86,7 +86,7 @@ def upload(http_request,
     request.check_factory_lock(factory)
     # Make sure the request was redirected by the browser
     browser = request.browser
-    if browser is None:
+    if browser is None or browser.factory != factory:
         raise Fault(0, "The browser has not visited the requested website.")
     # Store and check screenshot file
     hashkey = storage.save_upload(screenshot)
