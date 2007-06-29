@@ -89,7 +89,7 @@ class Browser(models.Model):
     browser_group = models.ForeignKey(BrowserGroup,
         verbose_name=_('browser group'))
     version = models.CharField(
-        _('version'), maxlength=20get_version)
+        _('version'), maxlength=20)
     major = models.IntegerField(
         _('major'))
     minor = models.IntegerField(
