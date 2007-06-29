@@ -28,7 +28,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from shotserver04.factories.models import Factory
 from shotserver04.features.models import Javascript, Java, Flash
-from shotserver04.browsers import middleware as current_browser
 
 
 class Engine(models.Model):
@@ -86,24 +85,19 @@ class Browser(models.Model):
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     user_agent = models.CharField(
-        _('user agent'), maxlength=200,
-        default=current_browser.get_user_agent)
+        _('user agent'), maxlength=200)
     browser_group = models.ForeignKey(BrowserGroup,
-        verbose_name=_('browser group'),
-        default=current_browser.get_browser_group)
+        verbose_name=_('browser group'))
     version = models.CharField(
-        _('version'), maxlength=20,
-        default=current_browser.get_version)
+        _('version'), maxlength=20get_version)
     major = models.IntegerField(
-        _('major'), default=current_browser.get_major)
+        _('major'))
     minor = models.IntegerField(
-        _('minor'), default=current_browser.get_minor)
+        _('minor'))
     engine = models.ForeignKey(Engine,
-        verbose_name=_('engine'), blank=True,
-        default=current_browser.get_engine)
+        verbose_name=_('engine'), blank=True)
     engine_version = models.CharField(
-        _('engine version'), maxlength=20, blank=True,
-        default=current_browser.get_engine_version)
+        _('engine version'), maxlength=20, blank=True)
     javascript = models.ForeignKey(Javascript,
         verbose_name=_('Javascript'))
     java = models.ForeignKey(Java,
@@ -112,7 +106,6 @@ class Browser(models.Model):
         verbose_name=_('Flash'))
     command = models.CharField(
         _('command'), maxlength=80, blank=True,
-        default=current_browser.get_command,
         help_text=_("Leave empty to use default command."))
     active = models.BooleanField(
         _('active'), default=True,
