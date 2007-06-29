@@ -7,6 +7,16 @@
 {% block content %}
 <h1>{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}</h1>
 
+<ul>
+<li>{{ _("operating system")|capfirst }}: {{ factory.operating_system }}</li>
+<li>{{ _("architecture")|capfirst }}: {{ factory.architecture }}</li>
+<li>{{ _("created")|capfirst }}: {{ factory.created }}</li>
+<li>{{ _("admin")|capfirst }}: {{ factory.admin }}</li>
+{% if factory.sponsor %}
+<li>{{ _("sponsor")|capfirst }}: {{ factory.sponsor }}</li>
+{% endif %}
+</ul>
+
 {% if browser_list %}
 <table class="details">
 <thead>

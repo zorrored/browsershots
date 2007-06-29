@@ -211,3 +211,8 @@ div.caption {
   text-align: center;
   line-height: 8px;
 }
+
+ul {
+  margin-top: 0;
+  padding: 0 0 0 1em;
+}
