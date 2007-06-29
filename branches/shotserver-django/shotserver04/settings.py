@@ -107,7 +107,7 @@ MIDDLEWARE_CLASSES = (
     'shotserver04.common.middleware.RedirectMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django_openidconsumer.middleware.OpenIDMiddleware',
+    #'django_openidconsumer.middleware.OpenIDMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
