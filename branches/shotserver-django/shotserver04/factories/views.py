@@ -90,5 +90,5 @@ def factory_detail(http_request, factory_name):
 
 
 @login_required
-def create_factory(http_request):
+def add(http_request):
     return render_to_response('factories/edit.html', locals())
