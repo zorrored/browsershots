@@ -21,12 +21,12 @@
 </ul>
 {% load select_lang %}
 {% select_lang %}
-<div id="openid">
-{% if http_request.openid %}
-<span id="openid-signedin">Signed in as <strong>{{ http_request.openid|escape }}</strong></span>
-<span id="openid-signout"><a href="/openid/signout/">Sign out</a></span>
+<div id="account">
+{% if http_request.user %}
+<span id="account-signedin">Signed in as <strong>{{ http_request.user.username|escape }}</strong></span>
+<span id="account-signout"><a href="/accounts/logout/">{{ _("logout")|capfirst }}</a></span>
 {% else%}
-<span id="openid-signin"><a href="/openid/">Sign in</a></span>
+<span id="account-signin"><a href="/accounts/login/">{{ _("login")|capfirst }}</a></span>
 {% endif %}
 </div>
 </body>

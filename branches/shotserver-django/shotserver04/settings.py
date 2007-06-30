@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.admin',
     #'django_openidconsumer',
+    'shotserver04.accounts',
     'shotserver04.common',
     'shotserver04.platforms',
     'shotserver04.sponsors',

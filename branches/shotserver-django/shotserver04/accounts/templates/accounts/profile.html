@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ _("profile")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{% blocktrans with http_request.user.first_name as first_name %}Hi {{ first_name }}!{% endblocktrans %}</h1>
+{% endblock %}
