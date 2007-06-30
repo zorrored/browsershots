@@ -198,7 +198,6 @@ p.warning {
   border-color: #ff0;
 }
 p.error {
-  padding-left: 28px;
   background-image: url(error.png);
   background-color: #fcc;
   border-color: #f00;
