@@ -26,6 +26,7 @@ __author__ = "$Author$"
 
 from django.http import Http404
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot
@@ -68,7 +69,7 @@ def factory_list(http_request):
                             'class_attrib': class_attrib})
     factory_list = list(Factory.objects.select_related().order_by(
         order, 'name'))
-    return render_to_response('factories/factory_list.html', locals())
+    return render_to_response('factories/list.html', locals())
 
 
 def factory_detail(http_request, factory_name):
@@ -85,4 +86,9 @@ def factory_detail(http_request, factory_name):
     colordepth_list = factory.colordepth_set.all()
     screenshot_list = Screenshot.objects.filter(
         factory=factory).order_by('-id')[:10]
-    return render_to_response('factories/factory_detail.html', locals())
+    return render_to_response('factories/detail.html', locals())
+
+
+@login_required
+def create_factory(http_request):
+    return render_to_response('factories/edit.html', locals())
