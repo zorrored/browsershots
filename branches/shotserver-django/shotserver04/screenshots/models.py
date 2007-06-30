@@ -164,6 +164,10 @@ class Screenshot(models.Model):
         lines.append('</div>')
         return '\n'.join(lines)
 
+    def preview_div_with_browser(self):
+        """Shortcut for templates."""
+        return self.preview_div(caption=str(self.browser))
+
     def get_file_size(self):
         """Get size in bytes of original screenshot file."""
         return os.path.getsize(storage.png_filename(self.hashkey))
