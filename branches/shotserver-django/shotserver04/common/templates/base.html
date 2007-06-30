@@ -23,7 +23,7 @@
 {% select_lang %}
 <div id="account">
 {% if http_request.user.is_authenticated %}
-<span id="account-signedin">Signed in as <strong>{{ http_request.user.username|escape }}</strong></span>
+<span id="account-signedin">Signed in as <a href="/accounts/profile/">{{ http_request.user.username }}</a></span>
 <span id="account-signout"><a href="/accounts/logout/">{{ _("logout")|capfirst }}</a></span>
 {% else%}
 <span id="account-signin"><a href="/accounts/login/">{{ _("login")|capfirst }}</a></span>
