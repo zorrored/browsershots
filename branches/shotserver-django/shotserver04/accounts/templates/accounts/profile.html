@@ -5,4 +5,20 @@
 
 {% block content %}
 <h1>{% blocktrans with http_request.user.first_name as first_name %}Hi {{ first_name }}!{% endblocktrans %}</h1>
+
+<p class="admonition hint">{% blocktrans %}
+This is your private profile page. Only you can see it.
+{% endblocktrans %}</p>
+
+<h2>{{ _("your screenshot factories")|capfirst }}</h2>
+<table class="factories vertical">
+<thead>
+<tr>{{ factory_table_header }}</tr>
+</thead>
+<tbody>
+{% for factory in factory_list %}
+<tr class="{% cycle row1,row2 %}">{{ factory.table_row }}</tr>
+{% endfor %}
+</tbody>
+</table>
 {% endblock %}
