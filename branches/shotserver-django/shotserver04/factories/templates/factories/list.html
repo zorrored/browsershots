@@ -6,39 +6,15 @@
 
 {% block content %}
 <h1>{% trans "Screenshot Factories" %}</h1>
+
 <table>
 <thead>
-<tr>
-{% for header in header_list %}
-<th{{ header.class_attrib }}><a href="{{ header.url }}">{{ header.text|capfirst|human_br }}</a></th>
-{% endfor %}
-<th>{{ _("queue estimate")|capfirst|human_br }}</th>
-</tr>
+<tr>{{ factory_table_header }}</tr>
 </thead>
 <tbody>
 {% for factory in factory_list %}
-<tr class="{% cycle row1,row2 %}">
-<td>{{ factory|human_link }}</a></td>
-<td>{{ factory.operating_system }}</td>
-<td>{{ factory.architecture }}</td>
-<td>{{ factory.last_poll|human_timesince }}</td>
-<td>{{ factory.last_upload|human_timesince }}</td>
-<td>{% if factory.uploads_per_hour %}{{ factory.uploads_per_hour }}{% endif %}</td>
-<td>{% if factory.uploads_per_day %}{{ factory.uploads_per_day }}{% endif %}</td>
-<td>{{ factory.queue_estimate|human_seconds }}</td>
-</tr>
+<tr class="{% cycle row1,row2 %}">{{ factory.table_row }}</tr>
 {% endfor %}
 </tbody>
 </table>
-{% if is_paginated %}
-<p>
-{% if has_previous %}
-<a href="/factories/page{{ previous }}/">{% trans "Previous" %}</a>
-{% endif %}
-Page {{ page }} of {{ pages }}
-{% if has_next %}
-<a href="/factories/page{{ next }}/">{% trans "Next" %}</a>
-{% endif %}
-</p>
-{% endif %}
 {% endblock %}

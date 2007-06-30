@@ -46,29 +46,8 @@ def factory_list(http_request):
     """
     List all screenshot factories.
     """
-    order = http_request.GET.get('order', '')
-    if order.lstrip('-') not in FACTORY_LIST_COLUMNS:
-        order = '-uploads_per_day'
-    order_column = order.lstrip('-')
-    descending = order.startswith('-')
-    header_list = []
-    for column in FACTORY_LIST_COLUMNS:
-        text = Factory._meta.get_field(column).verbose_name
-        class_attrib = ''
-        if column == order_column:
-            if descending:
-                class_attrib = ' class="sorted descending"'
-                url = '?order=' + column
-            else:
-                class_attrib = ' class="sorted ascending"'
-                url = '?order=-' + column
-        else:
-            url = '?order=' + column
-        header_list.append({'text': text,
-                            'url': url,
-                            'class_attrib': class_attrib})
-    factory_list = list(Factory.objects.select_related().order_by(
-        order, 'name'))
+    factory_table_header = Factory.table_header()
+    factory_list = Factory.objects.select_related()
     return render_to_response('factories/list.html', locals())
 
 

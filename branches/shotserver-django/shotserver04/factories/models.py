@@ -27,9 +27,16 @@ __author__ = "$Author$"
 from xmlrpclib import Fault
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import capfirst
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture, OperatingSystem
 from shotserver04.sponsors.models import Sponsor
+from shotserver04.common.templatetags import human
+
+FACTORY_FIELDS_HIDE = ('created', )
+FACTORY_FIELDS_EXTRA = ('queue_estimate', )
+FACTORY_FIELDS_SECONDS = ('queue_estimate')
+FACTORY_FIELDS_TIMESINCE = ('last_poll', 'last_upload', 'created')
 
 
 class Factory(models.Model):
@@ -77,7 +84,8 @@ class Factory(models.Model):
             'architecture__name',
             )
         list_display = ('name', 'operating_system', 'architecture',
-                        'last_poll', 'last_upload', 'uploads_per_day',
+                        'last_poll', 'last_upload',
+                        'uploads_per_hour', 'uploads_per_day',
                         'created')
         date_hierarchy = 'created'
 
@@ -142,6 +150,44 @@ class Factory(models.Model):
             return None
         estimates.sort()
         return estimates[len(estimates) / 2]
+
+    @classmethod
+    def table_header(cls):
+        """
+        HTML table header cells for factory list.
+        """
+        fields = []
+        for field in cls._meta.admin.list_display + FACTORY_FIELDS_EXTRA:
+            if field in FACTORY_FIELDS_HIDE:
+                continue
+            try:
+                name = cls._meta.get_field(field).verbose_name
+            except models.FieldDoesNotExist:
+                name = _(field.replace('_', ' '))
+            fields.append('<th>%s</th>' % human.human_br(capfirst(name)))
+        return ''.join(fields)
+
+    def table_row(self):
+        """
+        HTML table row cells for this factory.
+        """
+        fields = []
+        for field in self._meta.admin.list_display + FACTORY_FIELDS_EXTRA:
+            if field in FACTORY_FIELDS_HIDE:
+                continue
+            value = getattr(self, field)
+            if callable(value):
+                value = value()
+            if field == 'name':
+                value = human.human_link(self)
+            if field in FACTORY_FIELDS_TIMESINCE:
+                value = human.human_timesince(value)
+            if field in FACTORY_FIELDS_SECONDS:
+                value = human.human_seconds(value)
+            if value is None:
+                value = ''
+            fields.append('<td>%s</td>' % value)
+        return ''.join(fields)
 
 
 class ScreenSize(models.Model):
