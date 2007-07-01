@@ -72,7 +72,7 @@ def get_or_fault(model, *args, **kwargs):
     except model.DoesNotExist:
         filters = ' and '.join(
             ['%s=%s' % (key, kwargs[key]) for key in kwargs])
-        raise xmlrpclib.Fault(0, '%s not found with %s.' % (
+        raise xmlrpclib.Fault(404, '%s not found with %s.' % (
             model.__name__, filters))
 
 

@@ -258,10 +258,10 @@ class Request(models.Model):
         Check that the request is locked by this factory.
         """
         if self.factory is None:
-            raise Fault(0,
+            raise Fault(409,
                 "Request %d was not locked." % self.id)
         if factory != self.factory:
-            raise Fault(0,
+            raise Fault(408,
                 "Request %d was locked by factory %s." %
                 (self.id, self.factory.name))
 

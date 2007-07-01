@@ -146,7 +146,7 @@ def poll(http_request, factory, encrypted_password):
     try:
         browser = Browser.objects.select_related().get(**filters)
     except Browser.DoesNotExist:
-        raise Fault(0, "No matching browser for selected request.")
+        raise Fault(404, "No matching browser for selected request.")
     # Build result dict
     screen_size = select_screen_size(factory, request)
     color_depth = select_color_depth(factory, request)

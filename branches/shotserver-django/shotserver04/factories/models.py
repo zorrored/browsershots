@@ -118,7 +118,7 @@ class Factory(models.Model):
         q = models.Q()
         browsers = self.browser_set.filter(active=True)
         if not len(browsers):
-            raise Fault(0,
+            raise Fault(404,
                 "No browsers registered for factory %s." % self.name)
         for browser in browsers:
             q |= browser.features_q()

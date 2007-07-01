@@ -55,7 +55,7 @@ def makedirs(path):
     try:
         os.makedirs(path)
     except OSError, error:
-        raise Fault(0, error)
+        raise Fault(500, error)
 
 
 def save_upload(screenshot):
@@ -69,7 +69,7 @@ def save_upload(screenshot):
         outfile.write(screenshot.data)
         outfile.close()
     except IOError, error:
-        raise Fault(0, error)
+        raise Fault(500, error)
     return hashkey
 
 
@@ -85,12 +85,12 @@ def pngtoppm(hashkey):
         makedirs(png_path(hashkey, 'error'))
         errorname = png_filename(hashkey, 'error')
         os.system('mv "%s" "%s"' % (pngname, errorname))
-        raise Fault(0,
+        raise Fault(415,
             'Could not decode uploaded PNG file (hashkey %s).' % hashkey)
     if not os.path.exists(ppmname):
-        raise Fault(0, 'Decoded screenshot file not found.')
+        raise Fault(500, 'Decoded screenshot file not found.')
     if os.path.getsize(ppmname) == 0:
-        raise Fault(0, 'Decoded screenshot file is empty.')
+        raise Fault(500, 'Decoded screenshot file is empty.')
     return ppmname
 
 
@@ -101,7 +101,7 @@ def read_pnm_header(ppmname):
     header = file(ppmname, 'rb').read(1024)
     match = HEADER_MATCH(header)
     if match is None:
-        raise Fault(0,
+        raise Fault(500,
             'Could not read PNM header after decoding uploaded PNG file.')
     return (
         match.group(1),
@@ -119,5 +119,5 @@ def scale(ppmname, width, hashkey):
     error = os.system('pnmscale -width=%d "%s" | pnmtopng > %s' %
                       (width, ppmname, pngname))
     if error:
-        raise Fault(0,
+        raise Fault(500,
             "Could not create scaled preview image.")

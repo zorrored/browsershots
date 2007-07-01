@@ -85,13 +85,14 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Make sure the request was redirected by the browser
     browser = request.browser
     if browser is None or browser.factory != factory:
-        raise Fault(0, "The browser has not visited the requested website.")
+        raise Fault(406,
+            "The browser has not visited the requested website.")
     # Store and check screenshot file
     hashkey = storage.save_upload(screenshot)
     ppmname = storage.pngtoppm(hashkey)
     magic, width, height = storage.read_pnm_header(ppmname)
     if request.request_group.width and width != request.request_group.width:
-        raise Fault(0,
+        raise Fault(412,
             "The screenshot is %d pixels wide, not %d as requested." %
             (width, request.request_group.width))
     # Make smaller preview images

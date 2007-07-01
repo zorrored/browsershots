@@ -108,14 +108,14 @@ def verify(http_request, factory, encrypted_password):
         where=["MD5(%s || hashkey) = %s"],
         params=[hashed, encrypted_password])
     if len(nonces) == 0:
-        raise Fault(0, 'Password mismatch.')
+        raise Fault(401, 'Password mismatch.')
     if len(nonces) > 1:
-        raise Fault(0, 'Hash collision.')
+        raise Fault(401, 'Hash collision.')
     # Check nonce freshness
     nonce = nonces[0]
     if datetime.now() - nonce.created > timedelta(0, 600, 0):
         nonce.delete()
-        raise Fault(0, 'Nonce expired.')
+        raise Fault(408, 'Nonce expired.')
     # Success!
     nonce.delete()
     return True
