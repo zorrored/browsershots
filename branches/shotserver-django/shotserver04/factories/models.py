@@ -34,7 +34,6 @@ from shotserver04.sponsors.models import Sponsor
 from shotserver04.common.templatetags import human
 
 FACTORY_FIELDS_HIDE = ('created', )
-FACTORY_FIELDS_EXTRA = ('queue_estimate', )
 FACTORY_FIELDS_SECONDS = ('queue_estimate')
 FACTORY_FIELDS_TIMESINCE = ('last_poll', 'last_upload', 'created')
 
@@ -43,7 +42,6 @@ class Factory(models.Model):
     """
     Screenshot factory configuration.
     """
-
     name = models.SlugField(
         _('name'), unique=True,
         help_text=_('Hostname (lowercase)'))
@@ -66,6 +64,8 @@ class Factory(models.Model):
         _('uploads per hour'), blank=True, null=True)
     uploads_per_day = models.IntegerField(
         _('uploads per day'), blank=True, null=True)
+    queue_estimate = models.IntegerField(
+        _('queue estimate'), blank=True, null=True)
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
 
@@ -86,7 +86,7 @@ class Factory(models.Model):
         list_display = ('name', 'operating_system', 'architecture',
                         'last_poll', 'last_upload',
                         'uploads_per_hour', 'uploads_per_day',
-                        'created')
+                        'queue_estimate', 'created')
         date_hierarchy = 'created'
 
     class Meta:
@@ -139,25 +139,13 @@ class Factory(models.Model):
                           colordepth.bits_per_pixel)
         return q
 
-    def queue_estimate(self):
-        """
-        Get the median of queue estimates from the browsers.
-        """
-        estimates = [browser.queue_estimate
-                     for browser in self.browser_set.filter(active=True)
-                     if browser.queue_estimate]
-        if not estimates:
-            return None
-        estimates.sort()
-        return estimates[len(estimates) / 2]
-
     @classmethod
     def table_header(cls):
         """
         HTML table header cells for factory list.
         """
         fields = []
-        for field in cls._meta.admin.list_display + FACTORY_FIELDS_EXTRA:
+        for field in cls._meta.admin.list_display:
             if field in FACTORY_FIELDS_HIDE:
                 continue
             try:
@@ -172,7 +160,7 @@ class Factory(models.Model):
         HTML table row cells for this factory.
         """
         fields = []
-        for field in self._meta.admin.list_display + FACTORY_FIELDS_EXTRA:
+        for field in self._meta.admin.list_display:
             if field in FACTORY_FIELDS_HIDE:
                 continue
             value = getattr(self, field)
@@ -194,7 +182,6 @@ class ScreenSize(models.Model):
     """
     Supported screen resolutions for screenshot factories.
     """
-
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'),
         edit_inline=models.TABULAR, num_in_admin=3)
@@ -221,7 +208,6 @@ class ColorDepth(models.Model):
     """
     Supported color depths (bits per pixel) for screenshot factories.
     """
-
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'),
         edit_inline=models.TABULAR, num_in_admin=3)
