@@ -31,6 +31,7 @@ from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
 from shotserver04.browsers.models import Browser
+from shotserver04.errorlogs.models import FactoryError
 from datetime import datetime
 
 
@@ -49,18 +50,19 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
             browser = Browser.objects.get(
                 factory=factory, user_agent=user_agent, active=True)
         except Browser.DoesNotExist:
-            raise Fault(0, "Unknown user agent: %s." % user_agent)
+            raise Fault(404, "Unknown user agent: %s." % user_agent)
         # Check that the browser matches the request
         if (request.browser_group and
             request.browser_group != browser.browser_group):
-            raise Fault(0, "Requested browser %s but got %s." %
+            raise Fault(409, "Requested browser %s but got %s." %
                         (request.browser_group.name,
                          browser.browser_group.name))
         if ((request.major and request.major != browser.major) or
             (request.minor and request.minor != browser.minor)):
-            raise Fault(0, "Requested browser version %s.%s but got %s.%s." %
-                        (request.major, request.minor,
-                         browser.major, browser.minor))
+            raise Fault(409,
+                "Requested browser version %s.%s but got %s.%s." %
+                (request.major, request.minor,
+                 browser.major, browser.minor))
         # Update request with browser and redirect timestamp
         request.browser = browser
         request.redirected = datetime.now()
@@ -68,4 +70,6 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
         website = request.request_group.website
         return HttpResponseRedirect(website.url)
     except Fault, fault:
+        FactoryError.objects.create(factory=factory,
+            code=fault.faultCode, message=fault.faultString)
         return render_to_response('redirect/error.html', locals())
