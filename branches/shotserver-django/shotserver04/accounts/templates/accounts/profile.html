@@ -7,9 +7,9 @@
 {% block content %}
 <h1>{% blocktrans with http_request.user.first_name as first_name %}Hi {{ first_name }}!{% endblocktrans %}</h1>
 
-<p class="admonition hint">{% blocktrans %}
-This is your private profile page. Only you can see it.
-{% endblocktrans %}</p>
+<p class="admonition hint">
+{{ _("This is your private profile page. Only you can see it.") }}
+</p>
 
 <h2>{{ _("your screenshot factories")|capfirst }}</h2>
 <table class="factories vertical">
