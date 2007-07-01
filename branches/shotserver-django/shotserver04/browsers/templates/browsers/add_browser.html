@@ -19,18 +19,14 @@
 <p><input class="button" id="submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" /></p>
 </form>
 
-<h2>{{ _("other options")|capfirst }}</h2>
-<p>{% blocktrans with admin_email as email %}
-If your browser group or rendering engine is not available, please
-write to {{ email }}.
-{% endblocktrans %}</p>
+<h2>{{ _("updates")|capfirst }}</h2>
+<p>
+{{ _("You can also use this page when you've changed settings or updated the browser.") }}
+{{ _("If the same browser is already registered for your factory, it will be replaced.") }}
+</p>
 
-<h2>{{ _("browser upgrade")|capfirst }}</h2>
-<p>{% blocktrans %}
-If you're upgrading the browser version (e.g. from Firefox 2.0.0.3 to
-2.0.0.4), the same browser may already be registered for your factory.
-In that case, the old version will be deactivated automatically.
-{% endblocktrans %}</p>
+<h2>{{ _("other options")|capfirst }}</h2>
+<p>{% blocktrans with admin_email as email %}If your browser group or rendering engine is not available, please write to {{ email }}.{% endblocktrans %}</p>
 
 <script type="text/javascript" src="/static/js/brwsniff.js"></script>
 
