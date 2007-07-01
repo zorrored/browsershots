@@ -25,16 +25,15 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from xmlrpclib import Fault
-from shotserver04.xmlrpc import register
-from shotserver04.common import get_or_fault
+from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
-from shotserver04.factories.models import Factory
 from datetime import datetime, timedelta
 
 
-@register(dict, str)
-def challenge(request, factory_name):
+@factory_xmlrpc
+@signature(dict, str)
+def challenge(http_request, factory):
     """
     Generate a nonce for authentication.
 
@@ -54,15 +53,14 @@ def challenge(request, factory_name):
 
     See nonces.verify for how to encrypt your password with the nonce.
     """
-    factory = get_or_fault(Factory, name=factory_name)
     hashkey = crypto.random_md5()
-    ip = request.META['REMOTE_ADDR']
+    ip = http_request.META['REMOTE_ADDR']
     Nonce.objects.create(factory=factory, hashkey=hashkey, ip=ip)
     password = factory.admin.password
     if password.count('$'):
-        algorithm, salt, encrypted = password.split('$')
+        algorithm, salt, hashed = password.split('$')
     else:
-        algorithm, salt, encrypted = 'md5', '', password
+        algorithm, salt, hashed = 'md5', '', password
     return {
         'algorithm': algorithm,
         'salt': salt,
@@ -70,8 +68,9 @@ def challenge(request, factory_name):
         }
 
 
-@register(bool, str, str)
-def verify(request, factory_name, encrypted_password):
+@factory_xmlrpc
+@signature(bool, str, str)
+def verify(http_request, factory, encrypted_password):
     """
     Test authentication with an encrypted password.
 
@@ -97,12 +96,7 @@ def verify(request, factory_name, encrypted_password):
     formatted as lowercase hexadecimal. The calls to nonces.challenge
     and nonces.verify must be made from the same IP address.
     """
-    # Shortcut for use with other XML-RPC methods
-    if isinstance(factory_name, Factory):
-        factory = factory_name
-    else:
-        factory = get_or_fault(Factory, name=factory_name)
-    ip = request.META['REMOTE_ADDR']
+    ip = http_request.META['REMOTE_ADDR']
     # Get password hash from database
     password = factory.admin.password
     if password.count('$'):

@@ -24,17 +24,53 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import xmlrpclib
+from shotserver04.common import get_or_fault
 
-def register(*signature):
+
+def signature(*types):
     """
-    Add signature to a function or method. Functions in app.xmlrpc
-    modules that have a signature will be auto-registered for the
-    XML-RPC interface.
+    Add a signature to a function or method.
     """
 
     def wrapper(func):
-        """Add signature to a function or method."""
-        func._signature = signature
+        """Save the signature."""
+        func._signature = types
         return func
 
+    return wrapper
+
+
+def factory_xmlrpc(func):
+    """
+    Convenience wrapper for screenshot factory XML-RPC methods.
+    Functions in app.xmlrpc modules that have a signature will be
+    auto-registered for the XML-RPC interface.
+    """
+
+    def wrapper(http_request, factory_name, *args, **kwargs):
+        """
+        Get factory by name and log errors in the database.
+        """
+        from shotserver04.factories.models import Factory
+        # Shortcut for nested calls, e.g. nonces.verify
+        if isinstance(factory_name, Factory):
+            factory = factory_name
+            return func(http_request, factory, *args, **kwargs)
+        # Get factory by name and run wrapped function
+        factory = get_or_fault(Factory, name=factory_name)
+        try:
+            return func(http_request, factory, *args, **kwargs)
+        except xmlrpclib.Fault, fault:
+            if fault.faultCode != 204: # No matching requests.
+                from shotserver04.logging.models import FactoryError
+                # Save error message in the database
+                FactoryError.objects.create(factory=factory,
+                    code=fault.faultCode, message=fault.faultString)
+            raise
+
+    wrapper.__name__ = func.__name__
+    wrapper.__doc__ = func.__doc__
+    if hasattr(func, '_signature'):
+        wrapper._signature = func._signature
     return wrapper

@@ -85,8 +85,10 @@ dispatcher = Dispatcher()
 for app in settings.INSTALLED_APPS:
     try:
         module = __import__(app + '.xmlrpc', globals(), locals(), ['xmlrpc'])
-    except ImportError:
-        continue
+    except ImportError, error:
+        if 'no module named xmlrpc' in str(error).lower():
+            continue
+        raise
     for name, item in module.__dict__.items():
         if hasattr(item, '_signature'):
             function_name = '%s.%s' % (app.split('.')[-1], name)

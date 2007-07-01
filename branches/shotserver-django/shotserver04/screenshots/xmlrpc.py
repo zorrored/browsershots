@@ -27,9 +27,8 @@ __author__ = "$Author$"
 from xmlrpclib import Fault, Binary
 from datetime import datetime
 from shotserver04.common import serializable, get_or_fault
-from shotserver04.xmlrpc import register
+from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import xmlrpc as nonces
-from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
@@ -55,9 +54,9 @@ def close_request(request_id, factory, screenshot):
     request.save()
 
 
-@register(str, str, str, int, Binary)
-def upload(http_request,
-           factory_name, encrypted_password, request, screenshot):
+@factory_xmlrpc
+@signature(str, str, str, int, Binary)
+def upload(http_request, factory, encrypted_password, request, screenshot):
     """
     Submit a multi-page screenshot as a lossless PNG file.
 
@@ -78,7 +77,6 @@ def upload(http_request,
     http://browsershots.org/screenshots/hashkey/
     """
     # Verify authentication
-    factory = get_or_fault(Factory, name=factory_name)
     nonces.verify(http_request, factory, encrypted_password)
     request_id = request
     request = get_or_fault(Request, pk=request_id)

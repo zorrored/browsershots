@@ -26,10 +26,10 @@ __author__ = "$Author$"
 
 from xmlrpclib import Fault
 from django.db import models
-from shotserver04.common import serializable, get_or_fault
-from shotserver04.xmlrpc import register
+from shotserver04.common import serializable
+from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import xmlrpc as nonces
-from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
+from shotserver04.factories.models import ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
@@ -55,7 +55,7 @@ def find_and_lock_request(factory, features):
     matches = matches[:1]
     # time.sleep(0.1) # For test_overload.py
     if len(matches) == 0:
-        raise Fault(0, 'No matching request.')
+        raise Fault(204, 'No matching request.')
     request = matches[0]
     # Lock request
     request.factory = factory
@@ -86,8 +86,9 @@ def version_or_empty(feature):
         return feature.version
 
 
-@register(dict, str, str)
-def poll(http_request, factory_name, encrypted_password):
+@factory_xmlrpc
+@signature(dict, str, str)
+def poll(http_request, factory, encrypted_password):
     """
     Try to find a matching screenshot request for a given factory.
 
@@ -126,7 +127,6 @@ def poll(http_request, factory_name, encrypted_password):
     upload will fail.
     """
     # Verify authentication
-    factory = get_or_fault(Factory, name=factory_name)
     nonces.verify(http_request, factory, encrypted_password)
     # Update last_poll timestamp
     factory.last_poll = datetime.now()

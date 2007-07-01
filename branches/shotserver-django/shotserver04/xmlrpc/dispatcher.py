@@ -26,7 +26,7 @@ __author__ = "$Author$"
 
 import sys
 import xmlrpclib
-from shotserver04.xmlrpc import register
+from shotserver04.xmlrpc import signature
 
 
 class Dispatcher:
@@ -55,7 +55,7 @@ class Dispatcher:
             name = function.__name__
         self.funcs[name] = function
 
-    @register(list)
+    @signature(list)
     def list_methods(self, http_request):
         """
         Returns a list of the methods supported by the server.
@@ -64,7 +64,7 @@ class Dispatcher:
         methods.sort()
         return methods
 
-    @register(list, str)
+    @signature(list, str)
     def method_signature(self, http_request, method_name):
         """
         Returns a list describing the possible signatures of the
@@ -84,7 +84,7 @@ class Dispatcher:
                     result.append(x.__name__)
             return [result]
 
-    @register(str, str)
+    @signature(str, str)
     def method_help(self, http_request, method_name):
         """
         Returns a string containing documentation for the specified
@@ -99,7 +99,7 @@ class Dispatcher:
         lines = [line[indent:] for line in lines]
         return '\n'.join(lines).strip()
 
-    @register(list, list)
+    @signature(list, list)
     def multicall(self, http_request, call_list):
         """
         Allows the caller to package multiple XML-RPC calls into a
