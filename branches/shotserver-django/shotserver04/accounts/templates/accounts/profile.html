@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load human %}
 
 {% block title %}{{ _("profile")|capfirst }}{% endblock %}
 
@@ -21,4 +22,27 @@ This is your private profile page. Only you can see it.
 {% endfor %}
 </tbody>
 </table>
+{% if error_list %}
+<h2>{{ _("recent factory errors")|capfirst }}</h2>
+<table class="errors vertical">
+<thead>
+<tr>
+<th>{{ _("factory")|capfirst|human_br }}</th>
+<th>{{ _("time")|capfirst|human_br }}</th>
+<th>{{ _("code")|capfirst|human_br }}</th>
+<th>{{ _("message")|capfirst|human_br }}</th>
+</tr>
+</thead>
+<tbody>
+{% for error in error_list %}
+<tr class="{% cycle row1,row2 %}">
+<td>{{ error.factory|human_link }}</td>
+<td>{{ error.occurred|human_timesince }}</td>
+<td>{{ error.code }}</td>
+<td>{{ error.message }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}
 {% endblock %}

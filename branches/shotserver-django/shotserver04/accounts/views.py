@@ -27,6 +27,7 @@ __author__ = "$Author$"
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from shotserver04.factories.models import Factory
+from shotserver04.errorlogs.models import FactoryError
 
 
 @login_required
@@ -36,4 +37,6 @@ def profile(http_request):
     """
     factory_table_header = Factory.table_header()
     factory_list = Factory.objects.filter(admin=http_request.user)
+    error_list = FactoryError.objects.filter(
+        factory__in=factory_list).order_by('-id')[:10]
     return render_to_response('accounts/profile.html', locals())
