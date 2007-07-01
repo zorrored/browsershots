@@ -31,7 +31,7 @@ from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
 from shotserver04.browsers.models import Browser
-from shotserver04.errorlogs.models import FactoryError
+from shotserver04.messages.models import FactoryError
 from datetime import datetime
 
 

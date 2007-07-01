@@ -42,11 +42,13 @@ class FactoryError(models.Model):
         _("occurred"), auto_now_add=True)
 
     class Admin:
-        pass
+        list_display = ('factory', 'code', 'message', 'occurred')
+        list_filter = ('factory', 'code')
+        date_hierarchy = 'occurred'
 
     class Meta:
         verbose_name = _("factory error message")
-        verbose_name = _("factory error messages")
+        verbose_name_plural = _("factory error messages")
 
     def __str__(self):
         return self.message

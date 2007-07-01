@@ -27,7 +27,7 @@ __author__ = "$Author$"
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from shotserver04.factories.models import Factory
-from shotserver04.errorlogs.models import FactoryError
+from shotserver04.messages.models import FactoryError
 
 
 @login_required

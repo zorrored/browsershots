@@ -146,5 +146,5 @@ INSTALLED_APPS = (
     'shotserver04.nonces',
     'shotserver04.xmlrpc',
     'shotserver04.redirect',
-    'shotserver04.errorlogs',
+    'shotserver04.messages',
 )
