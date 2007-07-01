@@ -28,7 +28,7 @@ doctest :
 	grep -rl --include "*.py" "doctest.testmod()" . | xargs -n1 python
 
 headers :
-	find shotserver04 -name "*.py" \
+	find -name "*.py" \
 	| xargs header.py shotserver04/settings.py
 
 backup :
