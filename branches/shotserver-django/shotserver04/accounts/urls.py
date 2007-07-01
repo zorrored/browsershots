@@ -17,7 +17,7 @@
 # MA 02111-1307, USA.
 
 """
-URL configuration for the login app.
+URL configuration for the accounts app.
 """
 
 __revision__ = "$Rev$"
