@@ -70,4 +70,7 @@ def factory_detail(http_request, factory_name):
 
 @login_required
 def add(http_request):
+    """
+    Create a new screenshot factory.
+    """
     return render_to_response('factories/edit.html', locals())
