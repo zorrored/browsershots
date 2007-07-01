@@ -36,7 +36,8 @@ def profile(http_request):
     Show a user's private profile page.
     """
     factory_table_header = Factory.table_header()
-    factory_list = Factory.objects.filter(admin=http_request.user)
+    factory_list = Factory.objects.select_related().filter(
+        admin=http_request.user)
     error_list = FactoryError.objects.filter(
         factory__in=factory_list).order_by('-id')[:10]
     return render_to_response('accounts/profile.html', locals())
