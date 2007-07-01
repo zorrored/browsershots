@@ -53,14 +53,13 @@ def median(values):
 
 
 for factory in Factory.objects.all():
-    print factory, factory.queue_estimate
     factory.uploads_per_hour = Screenshot.objects.filter(
         factory=factory, uploaded__gte=ONE_HOUR_AGO).count()
     factory.uploads_per_day = Screenshot.objects.filter(
         factory=factory, uploaded__gte=ONE_DAY_AGO).count()
     browsers = Browser.objects.filter(factory=factory)
     factory.queue_estimate = median(
-        [browser.queue_estimate for browser in browsers])
+        [browser.queue_estimate for browser in browsers if browser.active])
     factory.save()
     for browser in browsers:
         browser.uploads_per_hour = Screenshot.objects.filter(
