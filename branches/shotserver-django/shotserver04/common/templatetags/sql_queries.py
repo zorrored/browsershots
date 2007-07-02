@@ -27,6 +27,7 @@ __author__ = "$Author$"
 
 from django import template
 from django.db import connection
+from django.utils.text import capfirst
 
 register = template.Library()
 
@@ -56,5 +57,6 @@ def sql_queries():
             query['time'],
             query['sql'].replace('","', '", "'),
             ))
+    caption = capfirst(_("%(count)d database queries")) % {'count': len(rows)}
     return TABLE_TEMPLATE % (
-        JAVASCRIPT, '#sql', _("Database queries"), '\n'.join(rows))
+        JAVASCRIPT, '#sql', caption, '\n'.join(rows))
