@@ -47,10 +47,8 @@ def get_active(model, browsers):
         yield ('enabled', _("enabled"))
         if 2 in available: # 2 means enabled
             del available[2]
-    if available:
-        for version in model.objects.all():
-            if version.id in available:
-                yield (version.version, version.version)
+    for version in model.objects.filter(id__in=available.keys()):
+        yield (version.version, version.version)
 
 
 def feature_or_none(model, value):
