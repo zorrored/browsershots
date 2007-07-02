@@ -33,7 +33,7 @@ from shotserver04.common.forms.browsers import BrowsersForm
 from shotserver04.common.forms.features import FeaturesForm
 from shotserver04.common.forms.options import OptionsForm
 from shotserver04.factories.models import Factory
-from shotserver04.platforms.models import Platform
+from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.requests.models import RequestGroup, Request
 
@@ -59,16 +59,19 @@ def start(http_request):
     valid_post = (url_form.is_valid() and
                   options_form.is_valid() and
                   features_form.is_valid())
+    # Load some database entries for browser forms
+    active_operating_systems = list(OperatingSystem.objects.filter(id__in=
+        [factory.operating_system_id for factory in active_factories]))
+    active_browser_groups = list(BrowserGroup.objects.filter(id__in=
+        [browser.browser_group_id for browser in active_browsers]))
     # Browser forms for each platform.
     browser_forms = []
-    no_active_factories = True
     for platform in Platform.objects.all():
         browser_form = BrowsersForm(active_browsers, platform, post)
         if browser_form.is_bound:
             browser_form.full_clean()
         browser_forms.append(browser_form)
         valid_post = valid_post and browser_form.is_valid()
-        no_active_factories = no_active_factories and not browser_form.fields
     if not valid_post:
         # Show HTML form.
         return render_to_response('start.html', locals())
