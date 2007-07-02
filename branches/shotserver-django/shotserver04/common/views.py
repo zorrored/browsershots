@@ -59,11 +59,21 @@ def start(http_request):
     valid_post = (url_form.is_valid() and
                   options_form.is_valid() and
                   features_form.is_valid())
-    # Load some database entries for browser forms
-    active_operating_systems = list(OperatingSystem.objects.filter(id__in=
-        [factory.operating_system_id for factory in active_factories]))
-    active_browser_groups = list(BrowserGroup.objects.filter(id__in=
-        [browser.browser_group_id for browser in active_browsers]))
+    # Preload some database entries for browser forms
+    for operating_system in OperatingSystem.objects.filter(id__in=
+        [factory.operating_system_id for factory in active_factories]):
+        for factory in active_factories:
+            if factory.operating_system_id == operating_system.id:
+                for browser in active_browsers:
+                    if browser.factory_id == factory.id:
+                        browser._factory_cache = factory
+                        browser._factory_cache._operating_system_cache = \
+                            operating_system
+    for browser_group in BrowserGroup.objects.filter(id__in=
+        [browser.browser_group_id for browser in active_browsers]):
+        for browser in active_browsers:
+            if browser.browser_group_id == browser_group.id:
+                browser._browser_group_cache = browser_group
     # Browser forms for each platform.
     browser_forms = []
     for platform in Platform.objects.all():
