@@ -40,7 +40,7 @@ def get_active(model, browsers):
         feature_id = getattr(browser, attr)
         if feature_id:
             available[feature_id] = True
-    if '1' in available: # 1 means disabled
+    if 1 in available: # 1 means disabled
         yield ('disabled', _("disabled"))
         del available[1]
     if available:
