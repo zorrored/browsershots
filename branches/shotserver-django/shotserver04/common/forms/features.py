@@ -34,20 +34,19 @@ def get_active(model, browsers):
     Get choices for a feature from the database.
     """
     yield ('dontcare', _("don't care"))
-    available = {}
+    available = set()
     attr = model._meta.module_name + '_id'
     for browser in browsers:
         feature_id = getattr(browser, attr)
         if feature_id:
-            available[feature_id] = True
-    if 1 in available: # 1 means disabled
+            available.add(feature_id)
+    if 1 in available:
         yield ('disabled', _("disabled"))
-        del available[1]
+        available.discard(1) # 1 means disabled
     if available:
         yield ('enabled', _("enabled"))
-        if 2 in available: # 2 means enabled
-            del available[2]
-    for version in model.objects.filter(id__in=available.keys()):
+        available.discard(2) # 2 means enabled
+    for version in model.objects.filter(id__in=available):
         yield (version.version, version.version)
 
 
