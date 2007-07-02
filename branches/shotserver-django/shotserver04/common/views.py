@@ -49,12 +49,12 @@ def start(http_request):
     options_form = OptionsForm(post)
     # Get available choices from database, with correct translations.
     active_factories = Factory.objects.filter(
-        last_poll__gte=last_poll_timeout)
+        last_poll__gte=last_poll_timeout())
     active_browsers = Browser.objects.filter(
         factory__in=active_factories,
         active=True)
     features_form.load_choices(active_browsers)
-    options_form.load_choices()
+    options_form.load_choices(active_factories)
     # Validate posted data.
     valid_post = (url_form.is_valid() and
                   options_form.is_valid() and

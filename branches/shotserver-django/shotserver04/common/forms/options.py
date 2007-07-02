@@ -31,28 +31,26 @@ from shotserver04.common import lazy_gettext_capfirst as _
 from datetime import datetime, timedelta
 
 
-def screen_size_choices():
+def screen_size_choices(active_factories):
     """
     Get screen sizes that are supported by active factories.
     """
     yield ('dontcare', _("don't care"))
     previous = None
-    for size in ScreenSize.objects.filter(
-        factory__last_poll__gt=last_poll_timeout()):
+    for size in ScreenSize.objects.filter(factory__in=active_factories):
         if size.width != previous:
             yield (size.width,
                    _("%(width)d pixels wide") % {'width': size.width})
             previous = size.width
 
 
-def color_depth_choices():
+def color_depth_choices(active_factories):
     """
     Get color depths that are supported by active factories.
     """
     yield ('dontcare', _("don't care"))
     previous = None
-    for depth in ColorDepth.objects.filter(
-        factory__last_poll__gt=last_poll_timeout()):
+    for depth in ColorDepth.objects.filter(factory__in=active_factories):
         if depth.bits_per_pixel != previous:
             yield (depth.bits_per_pixel,
                    _("%(color_depth)d bits per pixel") %
@@ -82,12 +80,12 @@ class OptionsForm(forms.Form):
     maximum_wait = forms.ChoiceField(
         label=_("maximum wait"), initial=30)
 
-    def load_choices(self):
+    def load_choices(self, factories):
         """
         Load available choices from the database.
         """
-        self['screen_size'].field.choices = screen_size_choices()
-        self['color_depth'].field.choices = color_depth_choices()
+        self['screen_size'].field.choices = screen_size_choices(factories)
+        self['color_depth'].field.choices = color_depth_choices(factories)
         self['maximum_wait'].field.choices = maximum_wait_choices()
 
     def cleaned_dict(self):
