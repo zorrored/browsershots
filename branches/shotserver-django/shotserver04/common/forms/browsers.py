@@ -37,16 +37,14 @@ class BrowsersForm(forms.BaseForm):
     errors = {}
     base_fields = forms.forms.SortedDictFromList()
 
-    def __init__(self, platform, data=None):
+    def __init__(self, active_browsers, platform, data=None):
         forms.BaseForm.__init__(self, data)
         self.platform = platform
         self.parts = 1
-        active_browsers = Browser.objects.filter(
-            factory__operating_system__platform=platform,
-            factory__last_poll__gt=last_poll_timeout(),
-            active=True)
         field_dict = {}
         for browser in active_browsers:
+            if browser.factory.operating_system.platform_id != platform.id:
+                continue
             label = browser.browser_group.name
             if browser.major is not None:
                 label += ' ' + str(browser.major)

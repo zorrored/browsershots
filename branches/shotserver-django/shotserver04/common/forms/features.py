@@ -25,32 +25,32 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import newforms as forms
-from shotserver04.browsers.models import Browser
 from shotserver04.features.models import Javascript, Java, Flash
-from shotserver04.common import last_poll_timeout
 from shotserver04.common import lazy_gettext_capfirst as _
 
 
-def feature_choices(model):
+def get_active(model, browsers):
     """
     Get choices for a feature from the database.
     """
     yield ('dontcare', _("don't care"))
-    timeout = last_poll_timeout()
-    for version in model.objects.all():
-        filters = {'factory__last_poll__gt': timeout}
-        if version.version == 'enabled':
-            filters[model._meta.module_name + '__id__gte'] = 2
-        else:
-            filters[model._meta.module_name + '__id'] = version.id
-        if not Browser.objects.filter(**filters).count():
-            continue
-        if version.version == 'disabled':
-            yield (version.version, _("disabled"))
-        elif version.version == 'enabled':
-            yield (version.version, _("enabled"))
-        else:
-            yield (version.version, version.version)
+    available = {}
+    attr = model._meta.module_name + '_id'
+    for browser in browsers:
+        feature_id = getattr(browser, attr)
+        if feature_id:
+            available[feature_id] = True
+    if '1' in available: # 1 means disabled
+        yield ('disabled', _("disabled"))
+        del available[1]
+    if available:
+        yield ('enabled', _("enabled"))
+        if 2 in available: # 2 means enabled
+            del available[2]
+    if available:
+        for version in model.objects.all():
+            if version.id in available:
+                yield (version.version, version.version)
 
 
 def feature_or_none(model, value):
@@ -73,13 +73,13 @@ class FeaturesForm(forms.Form):
     flash = forms.ChoiceField(
         label=_("Flash"), initial='dontcare')
 
-    def load_choices(self):
+    def load_choices(self, browsers):
         """
         Load available choices from the database.
         """
-        self['javascript'].field.choices = feature_choices(Javascript)
-        self['java'].field.choices = feature_choices(Java)
-        self['flash'].field.choices = feature_choices(Flash)
+        self['javascript'].field.choices = get_active(Javascript, browsers)
+        self['java'].field.choices = get_active(Java, browsers)
+        self['flash'].field.choices = get_active(Flash, browsers)
 
     def cleaned_dict(self):
         """

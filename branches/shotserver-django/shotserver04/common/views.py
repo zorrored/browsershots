@@ -27,13 +27,13 @@ __author__ = "$Author$"
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
-from shotserver04.common import int_or_none
+from shotserver04.common import int_or_none, last_poll_timeout
 from shotserver04.common.forms.url import UrlForm
 from shotserver04.common.forms.browsers import BrowsersForm
 from shotserver04.common.forms.features import FeaturesForm
 from shotserver04.common.forms.options import OptionsForm
 from shotserver04.platforms.models import Platform
-from shotserver04.browsers.models import BrowserGroup
+from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.requests.models import RequestGroup, Request
 
 
@@ -47,7 +47,10 @@ def start(http_request):
     features_form = FeaturesForm(post)
     options_form = OptionsForm(post)
     # Get available choices from database, with correct translations.
-    features_form.load_choices()
+    active_browsers = Browser.objects.filter(
+        factory__last_poll__gte=last_poll_timeout,
+        active=True)
+    features_form.load_choices(active_browsers)
     options_form.load_choices()
     # Validate posted data.
     valid_post = (url_form.is_valid() and
@@ -57,7 +60,7 @@ def start(http_request):
     browser_forms = []
     no_active_factories = True
     for platform in Platform.objects.all():
-        browser_form = BrowsersForm(platform, post)
+        browser_form = BrowsersForm(active_browsers, platform, post)
         if browser_form.is_bound:
             browser_form.full_clean()
         browser_forms.append(browser_form)
