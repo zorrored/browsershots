@@ -24,6 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import cgi
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.core import validators
@@ -89,10 +90,10 @@ class Website(models.Model):
         verbose_name_plural = _('websites')
 
     def __str__(self):
-        if len(self.url) > 60:
-            return self.url[:56] + '...'
+        if len(self.url) >= 80:
+            return cgi.escape(self.url[:76] + '...')
         else:
-            return self.url
+            return cgi.escap(self.url)
 
     def get_absolute_url(self):
         """Get absolute URL."""
