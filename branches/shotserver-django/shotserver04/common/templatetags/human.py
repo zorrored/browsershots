@@ -24,6 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import cgi
 from datetime import datetime
 from django import template
 
@@ -109,7 +110,8 @@ def human_link(instance):
     HTML link to the detail page.
     """
     return '<a href="%s">%s</a>' % (
-        instance.get_absolute_url(), str(instance))
+        cgi.escape(instance.get_absolute_url(), quote=True),
+        str(instance))
 
 
 @register.filter
