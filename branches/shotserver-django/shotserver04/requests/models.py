@@ -182,10 +182,13 @@ class RequestGroup(models.Model):
         if not self.is_pending():
             return ''
         result = []
+        requests = self.request_set.filter(screenshot__isnull=True)
+        preload_foreign_keys(requests, browser_group=True)
         for platform in Platform.objects.all():
             browsers = []
-            for request in self.request_set.filter(
-                screenshot__isnull=True, platform=platform):
+            for request in requests:
+                if request.platform_id != platform.id:
+                    continue
                 browser = request.browser_string()
                 state = request.state()
                 if state:
