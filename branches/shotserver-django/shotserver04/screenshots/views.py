@@ -58,7 +58,7 @@ def screenshot_list(http_request):
         '<div class="previews" style="height:%dpx">' % columns[-1][0])
     previews.append('</div>')
     previews = '\n'.join(previews)
-    return render_to_response('screenshots/screenshot_list.html', locals())
+    return render_to_response('screenshots/list.html', locals())
 
 
 def screenshot_detail(http_request, hashkey):
@@ -67,4 +67,4 @@ def screenshot_detail(http_request, hashkey):
     """
     screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
     request = Request.objects.get(screenshot=screenshot)
-    return render_to_response('screenshots/screenshot_detail.html', locals())
+    return render_to_response('screenshots/detail.html', locals())

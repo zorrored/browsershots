@@ -44,7 +44,7 @@ def website_list(http_request):
             website_list = website_list.filter(url__contains=search)
     website_list = website_list.order_by('-submitted')
     website_list = website_list[:100]
-    return render_to_response('websites/website_list.html', locals())
+    return render_to_response('websites/list.html', locals())
 
 
 def website_detail(http_request, website_url):
@@ -68,4 +68,4 @@ def website_detail(http_request, website_url):
         request_group._factories_cache = factories
     # Get other websites on the same domain
     domain_website_list = website.domain.website_set.exclude(id=website.id)
-    return render_to_response('websites/website_detail.html', locals())
+    return render_to_response('websites/detail.html', locals())

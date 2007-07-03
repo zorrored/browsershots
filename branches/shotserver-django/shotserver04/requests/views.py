@@ -71,4 +71,4 @@ GROUP BY platform_id, browser_group_id, major, minor
             'uploads_per_day': uploads_per_day,
             'pending_requests': pending_requests,
             })
-    return render_to_response('requests/request_list.html', locals())
+    return render_to_response('requests/list.html', locals())

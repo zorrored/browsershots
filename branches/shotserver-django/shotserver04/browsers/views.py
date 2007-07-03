@@ -139,7 +139,7 @@ def add_browser(http_request):
                 password_form.errors['password'] = ErrorList(
                     [_("Password mismatch.")])
     if not password_valid:
-        return render_to_response('browsers/add_browser.html', locals())
+        return render_to_response('browsers/add.html', locals())
     cursor = connection.cursor()
     where = """((factory_id = %s AND user_agent = %s) OR
 (factory_id = %s AND browser_group_id = %s AND major = %s AND minor = %s))"""
