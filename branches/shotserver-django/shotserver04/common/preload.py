@@ -16,10 +16,7 @@ def preload_foreign_keys(instances, **kwargs):
     >>> preload_foreign_keys(books, author=Author.objects.filter(
             id__in=set([book.author_id for book in books])))
     """
-    if not isinstance(instances, list):
-        raise ValueError("The first parameter must be a list of objects. " +
-                         "Please call list() on your query set.")
-    if not instances:
+    if not len(instances):
         return # Nothing to do.
     fieldnames = kwargs.keys()
     fieldnames.sort() # Process short names before nested names.
