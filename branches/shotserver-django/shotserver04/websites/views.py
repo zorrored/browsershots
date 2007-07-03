@@ -26,6 +26,7 @@ __author__ = "$Author$"
 
 from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.websites.models import Website
+from shotserver04.common.preload import preload_foreign_keys
 
 
 def website_list(http_request):
@@ -48,19 +49,12 @@ def website_detail(http_request, website_url):
     """
     Show details for a selected website.
     """
-    if isinstance(website_url, Website):
-        website = website_url
+    if website_url.isdigit():
+        website = get_object_or_404(Website, id=int(website_url))
     else:
         if http_request.META['QUERY_STRING']:
             website_url += '?' + http_request.META['QUERY_STRING']
         website = get_object_or_404(Website, url=website_url)
+    request_group_list = website.requestgroup_set.all()
     domain_website_list = website.domain.website_set.exclude(id=website.id)
     return render_to_response('websites/website_detail.html', locals())
-
-
-def website_numeric(http_request, website_id):
-    """
-    Show details for a website, selected by numeric ID not URL.
-    """
-    website = get_object_or_404(Website, id=website_id)
-    return website_detail(http_request, website)
