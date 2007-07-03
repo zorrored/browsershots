@@ -155,9 +155,11 @@ div.next-screenshot {
   right: 0;
 }
 
-th, td { text-align: left; }
+th, td {
+  text-align: left;
+  vertical-align: top;
+}
 table.vertical th { vertical-align: bottom; }
-table.horizontal th { vertical-align: top; }
 
 tr.separator {
   border-top: 1px solid #ccc;
