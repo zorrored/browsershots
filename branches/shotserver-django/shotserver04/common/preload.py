@@ -16,6 +16,9 @@ def preload_foreign_keys(instances, **kwargs):
     >>> preload_foreign_keys(books, author=Author.objects.filter(
             id__in=set([book.author_id for book in books])))
     """
+    if not isinstance(instances, list):
+        raise ValueError("The first parameter must be a list of objects. " +
+                         "Please call list() on your query set.")
     if not instances:
         return # Nothing to do.
     fieldnames = kwargs.keys()
@@ -37,10 +40,10 @@ def preload_foreign_keys(instances, **kwargs):
             # Recursive call to preload nested foreign keys.
             preload_foreign_keys(values, **{rest: kwargs[fieldname]})
         else:
-            values = kwargs[fieldname]
             field = instances[0]._meta.get_field(fieldname)
             field_id = fieldname + '_id'
             field_cache = field.get_cache_name()
+            values = kwargs[fieldname]
             if values is True:
                 # Load needed values from database with just one SQL query.
                 ids = [getattr(instance, field_id) for instance in instances]
