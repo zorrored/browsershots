@@ -38,6 +38,7 @@ from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.common import lock_timeout
+from shotserver04.common.preload import preload_foreign_keys
 
 
 class RequestGroup(models.Model):
@@ -137,6 +138,9 @@ class RequestGroup(models.Model):
         """
         screenshots = []
         requests = self.request_set.filter(screenshot__isnull=False)
+        preload_foreign_keys(requests,
+            screenshot__browser__browser_group=True,
+            screenshot__factory__operating_system=True)
         for request in requests:
             screenshot = request.screenshot
             screenshots.append((screenshot.id, screenshot))
