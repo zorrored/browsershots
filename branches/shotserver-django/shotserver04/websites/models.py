@@ -93,7 +93,7 @@ class Website(models.Model):
         if len(self.url) >= 80:
             return cgi.escape(self.url[:76] + '...')
         else:
-            return cgi.escap(self.url)
+            return cgi.escape(self.url)
 
     def get_absolute_url(self):
         """Get absolute URL."""
