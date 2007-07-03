@@ -59,8 +59,8 @@ p.debug {
   clear: both;
   margin: 20px 0 0;
 }
-table.debug th { text-align: left; }
-table.debug td { vertical-align: top; }
+.debug :link { color: gray; }
+.debug :visited { color: gray; }
 
 table { border-collapse: collapse; }
 th, td { padding: 0 1ex 4px 0; }
@@ -216,3 +216,6 @@ ul {
   margin-top: 0;
   padding: 0 0 0 1em;
 }
+
+:link { color: #016; }
+:visited { color: #048; }
