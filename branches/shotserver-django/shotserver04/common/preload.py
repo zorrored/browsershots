@@ -48,5 +48,6 @@ def preload_foreign_keys(instances, **kwargs):
             # Fill the foreign key cache.
             value_dict = dict([(value.id, value) for value in values])
             for instance in instances:
-                value = value_dict[getattr(instance, field_id)]
-                setattr(instance, field_cache, value)
+                value_id = getattr(instance, field_id)
+                if value_id in value_dict:
+                    setattr(instance, field_cache, value_dict[value_id])
