@@ -28,6 +28,7 @@ from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from shotserver04.common import int_or_none, last_poll_timeout
+from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.common.forms.url import UrlForm
 from shotserver04.common.forms.browsers import BrowsersForm
 from shotserver04.common.forms.features import FeaturesForm
@@ -60,20 +61,10 @@ def start(http_request):
                   options_form.is_valid() and
                   features_form.is_valid())
     # Preload some database entries for browser forms
-    for operating_system in OperatingSystem.objects.filter(id__in=
-        set([factory.operating_system_id for factory in active_factories])):
-        for factory in active_factories:
-            if factory.operating_system_id == operating_system.id:
-                for browser in active_browsers:
-                    if browser.factory_id == factory.id:
-                        browser._factory_cache = factory
-                        browser._factory_cache._operating_system_cache = \
-                            operating_system
-    for browser_group in BrowserGroup.objects.filter(id__in=
-        set([browser.browser_group_id for browser in active_browsers])):
-        for browser in active_browsers:
-            if browser.browser_group_id == browser_group.id:
-                browser._browser_group_cache = browser_group
+    preload_foreign_keys(active_browsers,
+                         factory=active_factories,
+                         factory__operating_system=True,
+                         browser_group=True)
     # Browser forms for each platform.
     browser_forms = []
     for platform in Platform.objects.all():
