@@ -29,7 +29,7 @@
 {% for website in website_list %}
 <tr class="{% cycle row1,row2 %}">
 <td>{{ website.submitted|human_timesince }}</td>
-<td><a href="{{ website.get_absolute_url }}">{{ website.url }}</a></td>
+<td>{{ website|human_link }}</td>
 </tr>
 {% endfor %}
 </tbody>
