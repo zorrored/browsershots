@@ -36,7 +36,7 @@ document.getElementById('sql-queries').style.display='block';
 """.strip()
 
 TABLE_TEMPLATE = """
-<p class="debug"><a onclick="%s" href="%s" name="sql">%s</a></p>
+<a onclick="%s" href="%s" name="sql">%s</a>
 <table class="debug" id="sql-queries" style="display:none">
 %s
 </table>
