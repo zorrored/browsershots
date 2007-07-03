@@ -37,10 +37,7 @@ ul#mainmenu li {
   background-position: 50% 50%;
 }
 ul#mainmenu a,
-div#account a {
-  text-decoration: none;
-  font-weight: bold;
-}
+div#account a { font-weight: bold; }
 
 div#account {
   font-size: 14px;
@@ -218,6 +215,9 @@ ul {
   margin-top: 0;
   padding: 0 0 0 1em;
 }
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 :link { color: #016; }
 :visited { color: #048; }
