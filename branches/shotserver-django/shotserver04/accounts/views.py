@@ -28,6 +28,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from shotserver04.factories.models import Factory
 from shotserver04.messages.models import FactoryError
+from shotserver04.common.preload import preload_foreign_keys
 
 
 @login_required
@@ -40,4 +41,5 @@ def profile(http_request):
         admin=http_request.user)
     error_list = FactoryError.objects.filter(
         factory__in=factory_list).order_by('-id')[:10]
+    preload_foreign_keys(error_list, factory=factory_list)
     return render_to_response('accounts/profile.html', locals())
