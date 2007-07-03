@@ -138,12 +138,23 @@ class RequestGroup(models.Model):
         """
         screenshots = []
         requests = self.request_set.filter(screenshot__isnull=False)
-        preload_foreign_keys(requests,
-            screenshot__browser__browser_group=True,
-            screenshot__factory__operating_system=True)
-        for request in requests:
-            screenshot = request.screenshot
-            screenshots.append((screenshot.id, screenshot))
+        # Preload browsers, from cache if possible.
+        if hasattr(self, '_browsers_cache'):
+            preload_foreign_keys(requests,
+                screenshot__browser=self._browsers_cache)
+        else:
+            preload_foreign_keys(requests,
+                screenshot__browser__browser_group=True)
+        # Preload factories, from cache if possible.
+        if hasattr(self, '_factories_cache'):
+            preload_foreign_keys(requests,
+                screenshot__factory=self._factories_cache)
+        else:
+            preload_foreign_keys(requests,
+                screenshot__factory__operating_system=True)
+        # Get screenshots and sort by id.
+        screenshots = [(request.screenshot_id, request.screenshot)
+                       for request in requests]
         if screenshots:
             screenshots.sort()
             max_height = max([

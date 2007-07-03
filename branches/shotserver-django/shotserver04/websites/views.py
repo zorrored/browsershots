@@ -26,6 +26,8 @@ __author__ = "$Author$"
 
 from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.websites.models import Website
+from shotserver04.browsers.models import Browser
+from shotserver04.factories.models import Factory
 from shotserver04.common.preload import preload_foreign_keys
 
 
@@ -55,6 +57,15 @@ def website_detail(http_request, website_url):
         if http_request.META['QUERY_STRING']:
             website_url += '?' + http_request.META['QUERY_STRING']
         website = get_object_or_404(Website, url=website_url)
+    # Use caching to reduce number of SQL queries
+    browsers = Browser.objects.all()
+    preload_foreign_keys(browsers, browser_group=True)
+    factories = Factory.objects.all()
+    preload_foreign_keys(factories, operating_system=True)
     request_group_list = website.requestgroup_set.all()
+    for request_group in request_group_list:
+        request_group._browsers_cache = browsers
+        request_group._factories_cache = factories
+    # Get other websites on the same domain
     domain_website_list = website.domain.website_set.exclude(id=website.id)
     return render_to_response('websites/website_detail.html', locals())
