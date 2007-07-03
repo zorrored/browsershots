@@ -35,12 +35,27 @@ JAVASCRIPT = """
 document.getElementById('sql-queries').style.display='block';
 """.strip()
 
+LINK_TEMPLATE = """
+<a href="%s" onclick="%s" name="sql">%s</a>
+""".strip()
+
 TABLE_TEMPLATE = """
-<a onclick="%s" href="%s" name="sql">%s</a>
 <table class="debug" id="sql-queries" style="display:none">
 %s
 </table>
 """.strip()
+
+
+@register.simple_tag
+def sql_link():
+    """
+    Display an HTML link to display the queries table.
+    """
+    if not connection.queries:
+        return ''
+    caption = capfirst(_("%(count)d database queries")) % {
+        'count': len(connection.queries)}
+    return LINK_TEMPLATE % ('#sql', JAVASCRIPT, caption)
 
 
 @register.simple_tag
@@ -57,6 +72,4 @@ def sql_queries():
             query['time'],
             query['sql'].replace('","', '", "'),
             ))
-    caption = capfirst(_("%(count)d database queries")) % {'count': len(rows)}
-    return TABLE_TEMPLATE % (
-        JAVASCRIPT, '#sql', caption, '\n'.join(rows))
+    return TABLE_TEMPLATE % '\n'.join(rows)
