@@ -25,6 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.shortcuts import render_to_response, get_object_or_404
+from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.requests.models import Request
 
@@ -39,7 +40,9 @@ def screenshot_list(http_request):
     """
     columns = [[0, index * (WIDTH + MARGIN)] for index in range(COLUMNS)]
     previews = []
-    for screenshot in Screenshot.objects.recent():
+    screenshots = list(Screenshot.objects.recent())
+    preload_foreign_keys(screenshots, website=True)
+    for screenshot in screenshots:
         width = WIDTH
         height = screenshot.height * width / screenshot.width
         columns.sort()
