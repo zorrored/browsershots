@@ -120,9 +120,11 @@ class RequestGroup(models.Model):
                 continue
             name = self._meta.get_field(attr).verbose_name
             if attr == 'width':
-                result.append('%s pixels wide' % (option))
+                result.append(_("%(width)d pixels wide") %
+                              {'width': option})
             elif attr == 'bits_per_pixel':
-                result.append('%s bits per pixel' % (option))
+                result.append(_("%(color_depth)d bits per pixel") %
+                              {'color_depth': option})
             else:
                 result.append('%s %s' % (name, option))
         if not result:
