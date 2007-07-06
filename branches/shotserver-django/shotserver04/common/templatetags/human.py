@@ -128,6 +128,8 @@ def human_br(text):
     >>> human_br('a b c d')
     'a b<br />c d'
     """
+    if not isinstance(text, basestring):
+        text = unicode(text)
     middle = len(text) / 2
     candidates = []
     for index, char in enumerate(text):
