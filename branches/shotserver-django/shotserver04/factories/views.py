@@ -42,21 +42,21 @@ FACTORY_LIST_COLUMNS = (
 )
 
 
-def factory_list(http_request):
+def overview(http_request):
     """
     List all screenshot factories.
     """
     factory_table_header = Factory.table_header()
     factory_list = Factory.objects.select_related()
-    return render_to_response('factories/list.html', locals())
+    return render_to_response('factories/overview.html', locals())
 
 
-def factory_detail(http_request, factory_name):
+def details(http_request, name):
     """
     Get detailed information about a screenshot factory.
     """
     try:
-        factory = Factory.objects.get(name=factory_name)
+        factory = Factory.objects.get(name=name)
     except Factory.DoesNotExist:
         raise Http404
     browser_list = Browser.objects.select_related().filter(
@@ -65,7 +65,7 @@ def factory_detail(http_request, factory_name):
     colordepth_list = factory.colordepth_set.all()
     screenshot_list = Screenshot.objects.filter(
         factory=factory).order_by('-id')[:10]
-    return render_to_response('factories/detail.html', locals())
+    return render_to_response('factories/details.html', locals())
 
 
 @login_required

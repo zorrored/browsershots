@@ -26,8 +26,10 @@ __author__ = "$Author$"
 
 from xmlrpclib import Fault
 from django.db import models
+from django.db.models import permalink
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import capfirst
+from django.utils.http import urlquote
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture, OperatingSystem
 from shotserver04.sponsors.models import Sponsor
@@ -97,9 +99,11 @@ class Factory(models.Model):
     def __unicode__(self):
         return self.name
 
+    # @permalink
     def get_absolute_url(self):
         """Get absolute URL."""
-        return '/factories/%s/' % self.name
+        return '/factories/%s/' % urlquote(self.name)
+        # return ('factories.views.details', (), {'name': self.name})
 
     def features_q(self):
         """Get SQL query to match screenshot requests."""
@@ -119,7 +123,7 @@ class Factory(models.Model):
         browsers = self.browser_set.filter(active=True)
         if not len(browsers):
             raise Fault(404,
-                "No browsers registered for factory %s." % self.name)
+                u"No browsers registered for factory %s." % self.name)
         for browser in browsers:
             q |= browser.features_q()
         return q
@@ -152,7 +156,7 @@ class Factory(models.Model):
                 name = cls._meta.get_field(field).verbose_name
             except models.FieldDoesNotExist:
                 name = _(field.replace('_', ' '))
-            fields.append('<th>%s</th>' % human.human_br(capfirst(name)))
+            fields.append(u'<th>%s</th>' % human.human_br(capfirst(name)))
         return ''.join(fields)
 
     def table_row(self):
@@ -174,7 +178,7 @@ class Factory(models.Model):
                 value = human.human_seconds(value)
             if value is None:
                 value = ''
-            fields.append('<td>%s</td>' % value)
+            fields.append(u'<td>%s</td>' % value)
         return ''.join(fields)
 
 
@@ -201,7 +205,7 @@ class ScreenSize(models.Model):
         unique_together = (('factory', 'width', 'height'), )
 
     def __unicode__(self):
-        return '%dx%d' % (self.width, self.height)
+        return u'%dx%d' % (self.width, self.height)
 
 
 class ColorDepth(models.Model):
