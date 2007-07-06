@@ -49,13 +49,13 @@ def screenshot_list(http_request):
         top, left = columns[0]
         previews.append(
             screenshot.preview_div(
-            style="left:%dpx;top:%dpx;position:absolute" % (left, top),
+            style=u"left:%dpx;top:%dpx;position:absolute" % (left, top),
             title=screenshot.website.url,
             href=screenshot.website.get_absolute_url()))
         columns[0][0] += height + MARGIN
     columns.sort()
     previews.insert(0,
-        '<div class="previews" style="height:%dpx">' % columns[-1][0])
+        u'<div class="previews" style="height:%dpx">' % columns[-1][0])
     previews.append('</div>')
     previews = '\n'.join(previews)
     return render_to_response('screenshots/list.html', locals())

@@ -26,7 +26,7 @@ __author__ = "$Author$"
 
 import os
 from django.db import models, backend
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
 from shotserver04.websites.models import Website
 from shotserver04.factories.models import Factory
@@ -130,11 +130,11 @@ class Screenshot(models.Model):
         if title is None:
             title = unicode(self.browser)
         return ' '.join((
-            '<img class="preview" style="%s"' % style,
-            'src="%s"' % self.get_png_url(width),
-            'alt="%s" title="%s"' % (title, title),
-            'onmouseover="larger(this,%s,%s)"' % (width, height),
-            'onmouseout="smaller(this,%s,%s)" />' % (width, height),
+            u'<img class="preview" style="%s"' % style,
+            u'src="%s"' % self.get_png_url(width),
+            u'alt="%s" title="%s"' % (title, title),
+            u'onmouseover="larger(this,%s,%s)"' % (width, height),
+            u'onmouseout="smaller(this,%s,%s)" />' % (width, height),
             ))
 
     def preview_div(self, width=80, height=None, style="float:left",
@@ -152,15 +152,16 @@ class Screenshot(models.Model):
         if title is None:
             title = unicode(self.browser)
         lines = ['<div class="preview" style="%s">' % style]
-        lines.append('<a href="%s">%s</a>' %
+        lines.append(u'<a href="%s">%s</a>' %
             (href, self.preview_img(width=2*width, title=title)))
         if caption is True:
-            caption = '<br />'.join((unicode(self.browser),
+            caption = '<br />'.join((
+                unicode(self.browser),
                 self.factory.operating_system.
                     __unicode__(show_codename=False)))
         if caption:
             lines.append(
-                '<div class="caption" style="padding-top:%dpx">%s</div>' %
+                u'<div class="caption" style="padding-top:%dpx">%s</div>' %
                 (auto_height, caption))
         lines.append('</div>')
         return '\n'.join(lines)
@@ -178,11 +179,11 @@ class Screenshot(models.Model):
         HTML link to next or previous screenshot in a group.
         """
         if not screenshot:
-            return '<img src="/static/css/%s-gray.png" alt="%s">' % (img, alt)
+            return u'<img src="/static/css/%s-gray.png" alt="%s">' % (img, alt)
         return ''.join((
-            '<a href="%s">' % screenshot.get_absolute_url(),
-            '<img src="/static/css/%s.png" alt="%s">' % (img, alt),
-            '</a>',
+            u'<a href="%s">' % screenshot.get_absolute_url(),
+            u'<img src="/static/css/%s.png" alt="%s">' % (img, alt),
+            u'</a>',
             ))
 
     def get_first(self, **kwargs):
@@ -234,13 +235,13 @@ class Screenshot(models.Model):
         if total < min_count or total == already:
             return ''
         index = Screenshot.objects.filter(id__lt=self.id, **kwargs).count() + 1
-        index = _("%(index)d out of %(total)d") % locals()
+        index = _(u"%(index)d out of %(total)d") % locals()
         arrows = self.arrows(**kwargs)
         return '\n'.join((
-            '<tr>',
-            '<th>%s</th>' % arrows,
-            '<td>%s %s</td>' % (index, title),
-            '</tr>',
+            u'<tr>',
+            u'<th>%s</th>' % arrows,
+            u'<td>%s %s</td>' % (index, title),
+            u'</tr>',
             ))
 
     def website_navigation(self):
@@ -258,7 +259,7 @@ class Screenshot(models.Model):
         """
         browser_group = self.browser.browser_group
         return self.navigation(
-            unicode(_("with %(browser)s")) % {u'browser': browser_group.name},
+            unicode(_("with %(browser)s")) % {'browser': browser_group.name},
             already=Screenshot.objects.filter(website=self.website).count(),
             website=self.website,
             browser__browser_group=browser_group)
@@ -269,7 +270,7 @@ class Screenshot(models.Model):
         """
         platform = self.factory.operating_system.platform
         return self.navigation(
-            unicode(_("on %(platform)s")) % {u'platform': platform.name},
+            unicode(_("on %(platform)s")) % {'platform': platform.name},
             already=Screenshot.objects.filter(website=self.website).count(),
             website=self.website,
             factory__operating_system__platform=platform)

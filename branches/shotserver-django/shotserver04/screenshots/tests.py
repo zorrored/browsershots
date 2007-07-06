@@ -135,7 +135,7 @@ class SizeTestCase(TestCase):
                     width=width,
                     height=height)
                 screenshot.delete()
-                self.fail('created screenshot with invalid size %dx%d' %
+                self.fail(u'created screenshot with invalid size %dx%d' %
                           (width, height))
             except IntegrityError:
                 pass
