@@ -50,7 +50,7 @@ class Domain(models.Model):
         _('submitted'), auto_now_add=True)
 
     class Admin:
-        list_display = ('__str__', 'submitted')
+        list_display = ('__unicode__', 'submitted')
         search_fields = ('name', )
         date_hierarchy = 'submitted'
 
@@ -58,7 +58,7 @@ class Domain(models.Model):
         verbose_name = _('domain')
         verbose_name_plural = _('domains')
 
-    def __str__(self):
+    def __unicode__(self):
         if len(self.name) > 60:
             return self.name[:56] + '...'
         else:
@@ -81,7 +81,7 @@ class Website(models.Model):
         _('submitted'), auto_now_add=True)
 
     class Admin:
-        list_display = ('__str__', 'submitted')
+        list_display = ('__unicode__', 'submitted')
         search_fields = ('url', )
         date_hierarchy = 'submitted'
 
@@ -89,7 +89,7 @@ class Website(models.Model):
         verbose_name = _('website')
         verbose_name_plural = _('websites')
 
-    def __str__(self):
+    def __unicode__(self):
         if len(self.url) >= 80:
             return cgi.escape(self.url[:76] + '...')
         else:

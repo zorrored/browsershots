@@ -38,7 +38,7 @@ class Platform(models.Model):
     position = models.IntegerField(
         _('position'), blank=True, null=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Admin:
@@ -74,11 +74,11 @@ class OperatingSystem(models.Model):
         verbose_name_plural = _('operating systems')
         ordering = ('name', 'version')
 
-    def __str__(self, show_codename=True):
+    def __unicode__(self, show_codename=True):
         if self.codename and show_codename:
-            return '%s %s (%s)' % (self.name, self.version, self.codename)
+            return u'%s %s (%s)' % (self.name, self.version, self.codename)
         else:
-            return '%s %s' % (self.name, self.version)
+            return u'%s %s' % (self.name, self.version)
 
 
 class Architecture(models.Model):
@@ -89,7 +89,7 @@ class Architecture(models.Model):
         _('name'), maxlength=30,
         help_text=_('e.g. i686 / PPC'))
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Admin:

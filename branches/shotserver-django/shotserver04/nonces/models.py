@@ -42,7 +42,7 @@ class Nonce(models.Model):
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.hashkey
 
     class Admin:

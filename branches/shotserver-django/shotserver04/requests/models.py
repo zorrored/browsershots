@@ -79,7 +79,7 @@ class RequestGroup(models.Model):
             'expire',
             )}),
             )
-        list_display = ('__str__', 'width', 'javascript', 'java', 'flash')
+        list_display = ('__unicode__', 'width', 'javascript', 'java', 'flash')
         search_fields = ('website__url', )
         date_hierarchy = 'submitted'
 
@@ -164,9 +164,9 @@ class RequestGroup(models.Model):
                 screenshot.preview_div(height=max_height, caption=True)
                 for index, screenshot in screenshots])
         elif self.is_pending():
-            appear = str(_(
+            appear = unicode(_(
                 "Your screenshots will appear here when they are uploaded."))
-            bookmark = bracket_link("", str(_(
+            bookmark = bracket_link("", unicode(_(
                 "[Reload this page] or bookmark it and come back later.")))
             hint = '<br />\n'.join((appear, bookmark))
             return '<p class="admonition hint">%s</p>' % hint
@@ -245,8 +245,8 @@ class Request(models.Model):
         verbose_name = _('request')
         verbose_name_plural = _('requests')
 
-    def __str__(self):
-        return '%s on %s' % (self.browser_string(), self.platform.name)
+    def __unicode__(self):
+        return u'%s on %s' % (self.browser_string(), self.platform.name)
 
     def browser_string(self):
         """
@@ -254,10 +254,10 @@ class Request(models.Model):
         """
         result = [self.browser_group.name]
         if self.major is not None:
-            result.append(' ' + str(self.major))
+            result.append(u' ' + unicode(self.major))
             if self.minor is not None:
-                result.append('.' + str(self.minor))
-        return ''.join(result)
+                result.append(u'.' + unicode(self.minor))
+        return u''.join(result)
 
     def state(self):
         """

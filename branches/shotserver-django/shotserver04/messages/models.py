@@ -50,5 +50,5 @@ class FactoryError(models.Model):
         verbose_name = _("factory error message")
         verbose_name_plural = _("factory error messages")
 
-    def __str__(self):
+    def __unicode__(self):
         return self.message

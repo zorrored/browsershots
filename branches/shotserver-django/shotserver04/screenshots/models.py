@@ -106,7 +106,7 @@ class Screenshot(models.Model):
         verbose_name_plural = _('screenshots')
         ordering = ('uploaded', )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.hashkey
 
     def get_absolute_url(self):
@@ -128,7 +128,7 @@ class Screenshot(models.Model):
         height = self.height * width / self.width
         style = 'width:%spx;height:%spx;z-index:0' % (width / 2, height / 2)
         if title is None:
-            title = str(self.browser)
+            title = unicode(self.browser)
         return ' '.join((
             '<img class="preview" style="%s"' % style,
             'src="%s"' % self.get_png_url(width),
@@ -150,13 +150,14 @@ class Screenshot(models.Model):
         style = 'width:%dpx;height:%dpx;%s' % (width, height, style)
         href = href or self.get_absolute_url()
         if title is None:
-            title = str(self.browser)
+            title = unicode(self.browser)
         lines = ['<div class="preview" style="%s">' % style]
         lines.append('<a href="%s">%s</a>' %
             (href, self.preview_img(width=2*width, title=title)))
         if caption is True:
-            caption = '<br />'.join((str(self.browser),
-                self.factory.operating_system.__str__(show_codename=False)))
+            caption = '<br />'.join((unicode(self.browser),
+                self.factory.operating_system.
+                    __unicode__(show_codename=False)))
         if caption:
             lines.append(
                 '<div class="caption" style="padding-top:%dpx">%s</div>' %
@@ -166,7 +167,7 @@ class Screenshot(models.Model):
 
     def preview_div_with_browser(self):
         """Shortcut for templates."""
-        return self.preview_div(caption=str(self.browser))
+        return self.preview_div(caption=unicode(self.browser))
 
     def get_file_size(self):
         """Get size in bytes of original screenshot file."""
@@ -257,7 +258,7 @@ class Screenshot(models.Model):
         """
         browser_group = self.browser.browser_group
         return self.navigation(
-            str(_("with %(browser)s")) % {'browser': browser_group.name},
+            unicode(_("with %(browser)s")) % {u'browser': browser_group.name},
             already=Screenshot.objects.filter(website=self.website).count(),
             website=self.website,
             browser__browser_group=browser_group)
@@ -268,7 +269,7 @@ class Screenshot(models.Model):
         """
         platform = self.factory.operating_system.platform
         return self.navigation(
-            str(_("on %(platform)s")) % {'platform': platform.name},
+            unicode(_("on %(platform)s")) % {u'platform': platform.name},
             already=Screenshot.objects.filter(website=self.website).count(),
             website=self.website,
             factory__operating_system__platform=platform)

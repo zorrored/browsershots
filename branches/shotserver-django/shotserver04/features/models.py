@@ -28,14 +28,14 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-def version_str(self):
+def version_unicode(self):
     """
     Human-readable version output, with translation.
     """
     if self.version == 'enabled':
-        return str(_("enabled"))
+        return unicode(_("enabled"))
     elif self.version == 'disabled':
-        return str(_("disabled"))
+        return unicode(_("disabled"))
     else:
         return self.version
 
@@ -70,7 +70,7 @@ class Javascript(models.Model):
         verbose_name_plural = _('Javascript versions')
         ordering = ('version', )
 
-    __str__ = version_str
+    __unicode__ = version_unicode
     features_q = version_q
 
 
@@ -91,7 +91,7 @@ class Java(models.Model):
         verbose_name_plural = _('Java versions')
         ordering = ('version', )
 
-    __str__ = version_str
+    __unicode__ = version_unicode
     features_q = version_q
 
 
@@ -112,5 +112,5 @@ class Flash(models.Model):
         verbose_name_plural = _('Flash versions')
         ordering = ('version', )
 
-    __str__ = version_str
+    __unicode__ = version_unicode
     features_q = version_q

@@ -40,7 +40,7 @@ class Engine(models.Model):
     maker = models.CharField(
         _('maker'), maxlength=30, blank=True)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Admin:
@@ -74,7 +74,7 @@ class BrowserGroup(models.Model):
         verbose_name_plural = _('browser groups')
         ordering = ('name', )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 
@@ -147,8 +147,8 @@ class Browser(models.Model):
         verbose_name_plural = _('browsers')
         ordering = ('user_agent', )
 
-    def __str__(self):
-        return '%s %s' % (self.browser_group.name, self.version)
+    def __unicode__(self):
+        return u'%s %s' % (self.browser_group.name, self.version)
 
     def features_q(self):
         """

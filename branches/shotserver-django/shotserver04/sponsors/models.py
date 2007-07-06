@@ -38,14 +38,14 @@ class Sponsor(models.Model):
         _('URL'), maxlength=400, unique=True)
 
     class Admin:
-        list_display = ('name', 'url')
+        list_display = ('__unicode__', 'url')
 
     class Meta:
         verbose_name = _('sponsor')
         verbose_name_plural = _('sponsors')
         ordering = ('name', )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def get_absolute_url(self):

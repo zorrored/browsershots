@@ -94,7 +94,7 @@ class Factory(models.Model):
         verbose_name_plural = _('factories')
         ordering = ('name', )
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -200,7 +200,7 @@ class ScreenSize(models.Model):
         ordering = ('width', )
         unique_together = (('factory', 'width', 'height'), )
 
-    def __str__(self):
+    def __unicode__(self):
         return '%dx%d' % (self.width, self.height)
 
 
@@ -224,5 +224,5 @@ class ColorDepth(models.Model):
         ordering = ('bits_per_pixel', )
         unique_together = (('factory', 'bits_per_pixel'), )
 
-    def __str__(self):
-        return '%d' % self.bits_per_pixel
+    def __unicode__(self):
+        return unicode(self.bits_per_pixel)
