@@ -29,9 +29,6 @@ import xmlrpclib
 import psycopg
 from django.db import connection, transaction
 from datetime import datetime, timedelta
-from django.utils.text import capfirst
-from django.utils.translation import gettext
-from django.utils.functional import lazy
 
 MAX_ATTEMPTS = 10
 POLL_TIMEOUT = 10 # minutes
@@ -62,9 +59,9 @@ def get_or_fault(model, *args, **kwargs):
     try:
         return model.objects.get(*args, **kwargs)
     except model.DoesNotExist:
-        filters = ' and '.join(
-            ['%s=%s' % (key, kwargs[key]) for key in kwargs])
-        raise xmlrpclib.Fault(404, '%s not found with %s.' % (
+        filters = u' and '.join(
+            [u'%s=%s' % (key, kwargs[key]) for key in kwargs])
+        raise xmlrpclib.Fault(404, u'%s not found with %s.' % (
             model.__name__, filters))
 
 

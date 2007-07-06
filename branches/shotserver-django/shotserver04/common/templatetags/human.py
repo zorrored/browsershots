@@ -109,9 +109,9 @@ def human_link(instance):
     """
     HTML link to the detail page.
     """
-    return '<a href="%s">%s</a>' % (
+    return u'<a href="%s">%s</a>' % (
         cgi.escape(instance.get_absolute_url(), quote=True),
-        str(instance))
+        unicode(instance))
 
 
 @register.filter

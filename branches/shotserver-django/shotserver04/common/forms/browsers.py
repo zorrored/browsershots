@@ -78,7 +78,7 @@ class BrowsersForm(forms.BaseForm):
                     break
                 field = fields.pop(0)
                 output.append(unicode(self[field]) +
-                    ' <label for="id_%s">%s</label><br />' % (
+                    u' <label for="id_%s">%s</label><br />' % (
                     field, self[field].label))
             output.append('</div>')
         return u'\n'.join(output)

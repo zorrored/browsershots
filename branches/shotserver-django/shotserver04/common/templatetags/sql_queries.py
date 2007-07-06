@@ -31,15 +31,15 @@ from django.utils.text import capfirst
 
 register = template.Library()
 
-JAVASCRIPT = """
+JAVASCRIPT = u"""
 document.getElementById('sql-queries').style.display='block';
 """.strip()
 
-LINK_TEMPLATE = """
+LINK_TEMPLATE = u"""
 <a href="%s" onclick="%s" name="sql">%s</a>
 """.strip()
 
-TABLE_TEMPLATE = """
+TABLE_TEMPLATE = u"""
 <table class="debug" id="sql-queries" style="display:none">
 %s
 </table>
@@ -53,7 +53,7 @@ def sql_link():
     """
     if not connection.queries:
         return ''
-    caption = capfirst(_("%(count)d database queries")) % {
+    caption = capfirst(_(u"%(count)d database queries")) % {
         'count': len(connection.queries)}
     return LINK_TEMPLATE % ('#sql', JAVASCRIPT, caption)
 
@@ -67,7 +67,7 @@ def sql_queries():
         return ''
     rows = []
     for index, query in enumerate(connection.queries):
-        rows.append('<tr class="%s"><td>%s</td><td>%s</td></tr>' % (
+        rows.append(u'<tr class="%s"><td>%s</td><td>%s</td></tr>' % (
             'row%d' % (index % 2 + 1),
             query['time'],
             query['sql'].replace('","', '", "'),
