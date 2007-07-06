@@ -25,8 +25,8 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import newforms as forms
+from django.utils.translation import gettext_lazy as _
 from shotserver04.features.models import Javascript, Java, Flash
-from shotserver04.common import lazy_gettext_capfirst as _
 
 
 def get_active(model, browsers):

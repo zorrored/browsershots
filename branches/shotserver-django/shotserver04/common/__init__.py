@@ -54,14 +54,6 @@ def int_or_none(value):
         return int(value)
 
 
-def gettext_capfirst(text):
-    """Translate and then change first letter to uppercase."""
-    return capfirst(gettext(text))
-
-
-lazy_gettext_capfirst = lazy(gettext_capfirst, str, unicode)
-
-
 def get_or_fault(model, *args, **kwargs):
     """
     Get the specified object, or raise xmlrpclib.Fault with a detailed

@@ -30,8 +30,8 @@ from django.http import HttpResponseRedirect
 from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
 from django.shortcuts import render_to_response
+from django.utils.translation import gettext_lazy as _
 from shotserver04 import settings
-from shotserver04.common import lazy_gettext_capfirst as _
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.browsers import agents

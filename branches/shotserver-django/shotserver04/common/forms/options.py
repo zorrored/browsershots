@@ -25,9 +25,9 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import newforms as forms
+from django.utils.translation import gettext_lazy as _
 from shotserver04.factories.models import ScreenSize, ColorDepth
 from shotserver04.common import last_poll_timeout, int_or_none
-from shotserver04.common import lazy_gettext_capfirst as _
 from datetime import datetime, timedelta
 
 
