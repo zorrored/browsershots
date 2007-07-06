@@ -34,7 +34,7 @@ WIDTH = 80 # pixels
 MARGIN = 12 # pixels
 
 
-def screenshot_list(http_request):
+def overview(http_request):
     """
     Full-screen display of recent screenshots (one per website).
     """
@@ -58,13 +58,13 @@ def screenshot_list(http_request):
         u'<div class="previews" style="height:%dpx">' % columns[-1][0])
     previews.append('</div>')
     previews = '\n'.join(previews)
-    return render_to_response('screenshots/list.html', locals())
+    return render_to_response('screenshots/overview.html', locals())
 
 
-def screenshot_detail(http_request, hashkey):
+def details(http_request, hashkey):
     """
     Show large preview and detailed information about a screenshot.
     """
     screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
     request = Request.objects.get(screenshot=screenshot)
-    return render_to_response('screenshots/detail.html', locals())
+    return render_to_response('screenshots/details.html', locals())
