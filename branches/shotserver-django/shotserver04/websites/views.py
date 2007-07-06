@@ -31,7 +31,7 @@ from shotserver04.factories.models import Factory
 from shotserver04.common.preload import preload_foreign_keys
 
 
-def website_list(http_request):
+def overview(http_request):
     """
     List websites, with keyword search filter.
     """
@@ -44,19 +44,19 @@ def website_list(http_request):
             website_list = website_list.filter(url__contains=search)
     website_list = website_list.order_by('-submitted')
     website_list = website_list[:100]
-    return render_to_response('websites/list.html', locals())
+    return render_to_response('websites/overview.html', locals())
 
 
-def website_detail(http_request, website_url):
+def details(http_request, url):
     """
     Show details for a selected website.
     """
-    if website_url.isdigit():
-        website = get_object_or_404(Website, id=int(website_url))
+    if url.isdigit():
+        website = get_object_or_404(Website, id=int(url))
     else:
         if http_request.META['QUERY_STRING']:
-            website_url += '?' + http_request.META['QUERY_STRING']
-        website = get_object_or_404(Website, url=website_url)
+            url += '?' + http_request.META['QUERY_STRING']
+        website = get_object_or_404(Website, url=url)
     # Use caching to reduce number of SQL queries
     browsers = Browser.objects.all()
     preload_foreign_keys(browsers, browser_group=True)
@@ -68,4 +68,4 @@ def website_detail(http_request, website_url):
         request_group._factories_cache = factories
     # Get other websites on the same domain
     domain_website_list = website.domain.website_set.exclude(id=website.id)
-    return render_to_response('websites/detail.html', locals())
+    return render_to_response('websites/details.html', locals())
