@@ -73,16 +73,16 @@ class SizeTestCase(TestCase):
         except (IntegrityError, ProgrammingError):
             transaction.rollback()
             self.fail('\n'.join((
-                "could not create browser with valid settings:",
-                '"%s"' % user_agent, repr(kwargs))))
+                u"could not create browser with valid settings:",
+                u'"%s"' % user_agent, repr(kwargs))))
 
     def assertBrowserInvalid(self, user_agent, **kwargs):
         try:
             try:
                 self.createBrowser(user_agent, **kwargs).delete()
                 self.fail('\n'.join((
-                    "created browser with invalid settings:",
-                    '"%s"' % user_agent, repr(kwargs))))
+                    u"created browser with invalid settings:",
+                    u'"%s"' % user_agent, repr(kwargs))))
             except IntegrityError:
                 pass
         finally:

@@ -27,7 +27,7 @@ __author__ = "$Author$"
 from datetime import datetime
 from xmlrpclib import Fault
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.utils.timesince import timesince, timeuntil
 from django.utils.text import capfirst
 from django.contrib.auth.models import User
@@ -88,6 +88,10 @@ class RequestGroup(models.Model):
         verbose_name_plural = _('request groups')
         ordering = ('-submitted', )
 
+    def __unicode__(self):
+        """Get string representation."""
+        return unicode(self.website)
+
     def is_pending(self):
         """True if there are pending screenshot requests in this group."""
         return self.expire > datetime.now() and self.request_set.filter(
@@ -127,7 +131,7 @@ class RequestGroup(models.Model):
                 result.append(_("%(color_depth)d bits per pixel") %
                               {'color_depth': option})
             else:
-                result.append('%s %s' % (name, option))
+                result.append(u'%s %s' % (name, option))
         if not result:
             return ''
         return '<li>%s</li>' % ', '.join(result)
@@ -165,14 +169,14 @@ class RequestGroup(models.Model):
                 for index, screenshot in screenshots])
         elif self.is_pending():
             appear = unicode(_(
-                "Your screenshots will appear here when they are uploaded."))
+                u"Your screenshots will appear here when they are uploaded."))
             bookmark = bracket_link("", unicode(_(
-                "[Reload this page] or bookmark it and come back later.")))
+                u"[Reload this page] or bookmark it and come back later.")))
             hint = '<br />\n'.join((appear, bookmark))
-            return '<p class="admonition hint">%s</p>' % hint
+            return u'<p class="admonition hint">%s</p>' % hint
         else:
-            hint = _("Your screenshot requests have expired.")
-            return '<p class="admonition warning">%s</p>' % hint
+            hint = _(u"Your screenshot requests have expired.")
+            return u'<p class="admonition warning">%s</p>' % hint
 
     def pending_requests(self):
         """
@@ -192,12 +196,12 @@ class RequestGroup(models.Model):
                 browser = request.browser_string()
                 state = request.state()
                 if state:
-                    browsers.append('%s (%s)' % (browser, state))
+                    browsers.append(u'%s (%s)' % (browser, state))
                 else:
                     browsers.append(browser)
             if browsers:
                 browsers.sort()
-                result.append('<li>%s: %s</li>' % (
+                result.append(u'<li>%s: %s</li>' % (
                     platform.name, ', '.join(browsers)))
         return '\n'.join(result)
 
@@ -279,13 +283,13 @@ class Request(models.Model):
         """
         if self.factory is None:
             raise Fault(409,
-                "Request %d was not locked." % self.id)
+                u"Request %d was not locked." % self.id)
         if factory != self.factory:
-            raise Fault(408,
-                "Request %d was locked by factory %s." %
+            raise Fault(423,
+                u"Request %d was locked by factory %s." %
                 (self.id, self.factory.name))
 
 
 def bracket_link(href, text):
     """Replace square brackets with a HTML link."""
-    return text.replace('[', '<a href="%s">' % href).replace(']', '</a>')
+    return text.replace('[', u'<a href="%s">' % href).replace(']', '</a>')

@@ -55,7 +55,7 @@ class NonceTestCase(TestCase):
                     hashkey=hashkey, ip='127.0.0.1')
                 nonce.delete()
             except (IntegrityError, ProgrammingError):
-                self.fail("could not create nonce with valid hashkey '%s'" %
+                self.fail(u"could not create nonce with valid hashkey '%s'" %
                           hashkey)
         finally:
             transaction.rollback()
@@ -67,7 +67,7 @@ class NonceTestCase(TestCase):
                     hashkey=hashkey, ip='127.0.0.1')
                 nonce.save()
                 nonce.delete()
-                self.fail("created nonce with invalid hashkey '%s'" % hashkey)
+                self.fail(u"created nonce with invalid hashkey '%s'" % hashkey)
             except (IntegrityError, ProgrammingError):
                 pass
         finally:

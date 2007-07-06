@@ -124,7 +124,7 @@ class WebsitesTestCase(TestCase):
             website.delete()
         except ProgrammingError:
             transaction.rollback()
-            self.fail('could not create URL with %d characters' % length)
+            self.fail(u'could not create URL with %d characters' % length)
 
     def testTooLong(self, length=401):
         try:
@@ -132,7 +132,7 @@ class WebsitesTestCase(TestCase):
                 'x' * (length - len('http://browsershots.org/')),
                 domain=self.domain)
             website.delete()
-            self.fail('created URL with %d characters' % length)
+            self.fail(u'created URL with %d characters' % length)
         except ProgrammingError:
             transaction.rollback()
 
@@ -145,7 +145,7 @@ class UrlTestCase(TestCase):
             website = Website.objects.create(url=url, domain=domain)
             website.delete()
             domain.delete()
-            self.fail("invalid URL did not raise IntegrityError: '%s'" % url)
+            self.fail(u"invalid URL did not raise IntegrityError: '%s'" % url)
         except IntegrityError:
             transaction.rollback()
 
@@ -161,7 +161,7 @@ class UrlTestCase(TestCase):
             website = Website.objects.create(url=url, domain=domain)
         except IntegrityError:
             transaction.rollback()
-            self.fail("valid URL raised IntegrityError: '%s'" % url)
+            self.fail(u"valid URL raised IntegrityError: '%s'" % url)
         self.assertEqual(Website.objects.filter(url=url).count(), 1)
         website.delete()
         self.assertEqual(Website.objects.filter(url=url).count(), 0)

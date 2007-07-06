@@ -117,7 +117,7 @@ class PollTestCase(TestCase):
         elif challenge['algorithm'] == 'md5':
             return md5(MD5_PASSWORD + challenge['nonce']).hexdigest()
         else:
-            self.fail("Unsupported algorithm: %s." % challenge['algorithm'])
+            self.fail(u"Unsupported algorithm: %s." % challenge['algorithm'])
 
     def testPoll(self):
         # Poll for matching request.

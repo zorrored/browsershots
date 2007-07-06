@@ -30,7 +30,7 @@ from django.http import HttpResponseRedirect
 from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
 from django.shortcuts import render_to_response
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
@@ -127,7 +127,7 @@ def add_browser(http_request):
         [form['factory']],
         [password_form['password']],
         ]]
-    admin_email = '<a href="mailto:%s">%s</a>' % (
+    admin_email = u'<a href="mailto:%s">%s</a>' % (
         settings.ADMINS[0][1], settings.ADMINS[0][0])
     password_valid = False
     if form.is_valid() and password_form.is_valid():
@@ -141,7 +141,7 @@ def add_browser(http_request):
     if not password_valid:
         return render_to_response('browsers/add.html', locals())
     cursor = connection.cursor()
-    where = """((factory_id = %s AND user_agent = %s) OR
+    where = u"""((factory_id = %s AND user_agent = %s) OR
 (factory_id = %s AND browser_group_id = %s AND major = %s AND minor = %s))"""
     params = [
         form.cleaned_data['factory'].id,

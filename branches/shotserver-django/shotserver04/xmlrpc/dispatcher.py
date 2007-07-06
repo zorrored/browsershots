@@ -118,7 +118,8 @@ class Dispatcher:
         Call a registered XML-RPC method.
         """
         if not method in self.funcs:
-            raise Exception('method "%s" is not supported' % method)
+            raise xmlrpclib.Fault(404,
+                u'method "%s" is not supported' % method)
         func = self.funcs[method]
         response = func(http_request, *params)
         return (response, )
@@ -136,7 +137,8 @@ class Dispatcher:
                 allow_none=self.allow_none, encoding=self.encoding)
         except:
             response = xmlrpclib.dumps(
-                xmlrpclib.Fault(1, "%s:%s" % (sys.exc_type, sys.exc_value)),
+                xmlrpclib.Fault(500,
+                    u'%s:%s' % (sys.exc_type, sys.exc_value)),
                 allow_none=self.allow_none, encoding=self.encoding)
         return response
 

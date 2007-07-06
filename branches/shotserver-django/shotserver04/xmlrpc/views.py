@@ -74,10 +74,10 @@ def method_help(http_request, method_name):
             settings_overrides=RST_SETTINGS)
         docstring = parts['html_body']
     except ImportError:
-        docstring = '<pre>\n%s\n</pre>\n' % docstring
+        docstring = u'<pre>\n%s\n</pre>\n' % docstring
     for method in dispatcher.funcs:
         docstring = docstring.replace(
-            method, '<a href="../%s/">%s</a>' % (method, method))
+            method, u'<a href="../%s/">%s</a>' % (method, method))
     return render_to_response('xmlrpc/method_help.html', locals())
 
 
