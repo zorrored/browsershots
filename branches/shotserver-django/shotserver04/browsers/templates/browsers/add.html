@@ -12,7 +12,7 @@
 {% for row in group %}<p>
 {% for field in row %}{% if field.errors %}
 {{ field.errors }}
-{% endif %}{{ field.label }}: {{ field }} {{ field.help_text }}
+{% endif %}{{ field.label|capfirst }}: {{ field }} {{ field.help_text }}
 {% endfor %}</p>
 {% endfor %}<hr />
 {% endfor %}
