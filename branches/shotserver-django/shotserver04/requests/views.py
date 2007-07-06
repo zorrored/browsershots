@@ -32,7 +32,7 @@ from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup
 
 
-def request_list(http_request):
+def overview(http_request):
     """
     Show statistics about pending requests.
     """
@@ -71,4 +71,4 @@ GROUP BY platform_id, browser_group_id, major, minor
             'uploads_per_day': uploads_per_day,
             'pending_requests': pending_requests,
             })
-    return render_to_response('requests/list.html', locals())
+    return render_to_response('requests/overview.html', locals())
