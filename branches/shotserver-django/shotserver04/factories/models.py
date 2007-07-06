@@ -26,7 +26,6 @@ __author__ = "$Author$"
 
 from xmlrpclib import Fault
 from django.db import models
-from django.db.models import permalink
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
 from django.utils.http import urlquote
@@ -99,11 +98,9 @@ class Factory(models.Model):
     def __unicode__(self):
         return self.name
 
-    # @permalink
     def get_absolute_url(self):
         """Get absolute URL."""
         return '/factories/%s/' % urlquote(self.name)
-        # return ('factories.views.details', (), {'name': self.name})
 
     def features_q(self):
         """Get SQL query to match screenshot requests."""
