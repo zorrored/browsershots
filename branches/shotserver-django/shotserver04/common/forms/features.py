@@ -25,6 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import newforms as forms
+from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 from shotserver04.features.models import Javascript, Java, Flash
 
@@ -33,7 +34,7 @@ def get_active(model, browsers):
     """
     Get choices for a feature from the database.
     """
-    yield ('dontcare', _("don't care"))
+    yield ('dontcare', capfirst(_("don't care")))
     available = set()
     attr = model._meta.module_name + '_id'
     for browser in browsers:
@@ -41,10 +42,10 @@ def get_active(model, browsers):
         if feature_id:
             available.add(feature_id)
     if 1 in available:
-        yield ('disabled', _("disabled"))
+        yield ('disabled', capfirst(_("disabled")))
         available.discard(1) # 1 means disabled
     if available:
-        yield ('enabled', _("enabled"))
+        yield ('enabled', capfirst(_("enabled")))
         available.discard(2) # 2 means enabled
     for version in model.objects.filter(id__in=available):
         yield (version.version, version.version)

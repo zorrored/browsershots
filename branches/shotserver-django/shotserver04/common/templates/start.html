@@ -31,13 +31,13 @@
 <div class="gray background options" style="clear:both">
 {% for select in features_form %}
 <div class="floatleft">
-<label for="id_{{ select.name }}">{{ select.label }}</label><br />
+<label for="id_{{ select.name }}">{{ select.label|capfirst }}</label><br />
 {{ select }}
 </div>
 {% endfor %}
 {% for select in options_form %}
 <div class="floatleft">
-<label for="id_{{ select.name }}">{{ select.label }}</label><br />
+<label for="id_{{ select.name }}">{{ select.label|capfirst }}</label><br />
 {{ select }}
 </div>
 {% endfor %}
