@@ -67,8 +67,8 @@ GROUP BY platform_id, browser_group_id, major, minor
             'browser_group': BrowserGroup.objects.get(id=browser_group_id),
             'major': major,
             'minor': minor,
-            'uploads_per_hour': uploads_per_hour,
-            'uploads_per_day': uploads_per_day,
+            'uploads_per_hour': uploads_per_hour or '',
+            'uploads_per_day': uploads_per_day or '',
             'pending_requests': pending_requests,
             })
     return render_to_response('requests/overview.html', locals())
