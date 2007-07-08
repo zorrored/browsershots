@@ -33,17 +33,25 @@ class UrlForm(forms.Form):
     """
     URL input form.
     """
-    url = forms.URLField(
+    url = forms.CharField(
         max_length=400,
         label=_("Enter your web address here:"))
+
+    def clean_url(self):
+        url = self.cleaned_data['url']
+        # Protocol specifier
+        if ':' not in url and not url.startswith('http'):
+            url = 'http://' + url.lstrip('/')
+        # Slash after domain name
+        if url.count('/') == 2:
+            url += '/'
+        return url
 
     def cleaned_dict(self):
         """
         Get or create domain and website.
         """
         url = self.cleaned_data['url']
-        if url.count('/') == 2:
-            url += '/' # Slash after domain name
         domain, created = Domain.objects.get_or_create(
             name=extract_domain(url, remove_www=True))
         website, created = Website.objects.get_or_create(
