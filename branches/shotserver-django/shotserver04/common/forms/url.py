@@ -37,7 +37,7 @@ from django.newforms.util import ValidationError
 from django.utils.translation import ugettext as _
 from shotserver04.websites.utils import \
      split_netloc, http_get, count_profanities, \
-     HTTPError, ConnectError, RequestError, ResponseError, TimeoutError
+     HTTP_TIMEOUT, HTTPError, ConnectError, RequestError
 from shotserver04.websites.models import Domain, Website
 
 SUPPORTED_SCHEMES = ['http', 'https']
@@ -105,14 +105,16 @@ class UrlForm(forms.Form):
             if isinstance(error, ConnectError):
                 text = _("Could not connect to %(hostname)s.")
             elif isinstance(error, RequestError):
-                text = _("Could not send request to %(hostname)s.")
-            elif isinstance(error, (ResponseError, TimeoutError)):
-                text = _("Could not read response from %(hostname)s.")
+                text = _("Could not send HTTP request to %(hostname)s.")
             else:
-                text = _("Could not get content from %(hostname)s.")
-            if isinstance(error, TimeoutError):
-                error.message = _("Timeout on server.")
+                text = _("Could not get page content from %(hostname)s.")
             text %= {'hostname': error.hostname}
+            if error.message == 'timed out':
+                error.message = (
+                    _("Server failed to respond within %d seconds.") %
+                    HTTP_TIMEOUT)
+            elif error.message:
+                error.message = capfirst(error.message).rstrip('.') + '.'
             raise ValidationError(' '.join((text, error.message)).strip())
 
     def get_or_create_domain(self):

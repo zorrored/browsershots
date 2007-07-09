@@ -2,6 +2,7 @@ import socket
 import httplib
 import urlparse
 
+HTTP_TIMEOUT = 10 # seconds
 MAX_RESPONSE_SIZE = 10000 # bytes
 
 class HTTPError(Exception):
@@ -21,7 +22,6 @@ class HTTPError(Exception):
 class ConnectError(HTTPError): pass
 class RequestError(HTTPError): pass
 class ResponseError(HTTPError): pass
-class TimeoutError(HTTPError): pass
 
 
 def split_netloc(netloc):
@@ -61,7 +61,7 @@ def http_get(url):
     >>> '404' in http_get('http://www.example.com/test.html')
     True
     """
-    socket.setdefaulttimeout(10)
+    socket.setdefaulttimeout(HTTP_TIMEOUT)
     url_parts = urlparse.urlsplit(url)
     netloc_parts = split_netloc(url_parts[1])
     scheme = url_parts[0]
@@ -98,8 +98,6 @@ def http_get_path(connection, path):
     try:
         response = connection.getresponse()
         return response.read(MAX_RESPONSE_SIZE)
-    except socket.timeout, error:
-        raise TimeoutError(connection.host)
     except socket.error, error:
         raise ResponseError(connection.host, error)
 
