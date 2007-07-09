@@ -109,10 +109,10 @@ class UrlForm(forms.Form):
             hostname += ':' + self.netloc_parts[3]
         self.cleaned_data['hostname'] = hostname
         try:
-            if scheme == 'http':
-                connection = httplib.HTTPConnection(hostname)
-            elif protocol == 'https':
+            if scheme == 'https':
                 connection = httplib.HTTPSConnection(hostname)
+            else:
+                connection = httplib.HTTPConnection(hostname)
         except httplib.HTTPException, error:
             raise ValidationError(
                 _("Could not connect to %(hostname)s.") % self.cleaned_data)
