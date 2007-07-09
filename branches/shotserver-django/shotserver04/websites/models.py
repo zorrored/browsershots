@@ -106,3 +106,13 @@ class Website(models.Model):
             return '/websites/%d/' % self.id
         else:
             return '/' + self.url
+
+    def count_profanities(self):
+        """
+        Count profanities in page content.
+        """
+        text = ' '.join((self.url, self.content)).lower()
+        for word in settings.PROFANITIES_LIST:
+            count = text.count(word)
+            if count:
+                yield {'word': word, 'count': count}
