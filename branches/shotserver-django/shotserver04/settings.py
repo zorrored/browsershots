@@ -88,6 +88,9 @@ asshat asshead asshole cunt fuck gook nigger shit
 porn pron p0rn pr0n boys girls chicks babe cock
 sex xxx nude nudist naked bitcafe stile omglol                                 """.lower().split()
 
+# Tolerate a small number of profane words
+PROFANITIES_ALLOWED = 1
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 

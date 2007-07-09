@@ -27,9 +27,11 @@ __author__ = "$Author$"
 from django.http import Http404
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from shotserver04 import settings
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot
+from shotserver04.common.preload import preload_foreign_keys
 
 
 def overview(http_request):
@@ -54,8 +56,11 @@ def details(http_request, name):
         factory=factory.id, active=True)
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
-    screenshot_list = Screenshot.objects.filter(
-        factory=factory).order_by('-id')[:10]
+    screenshot_list = Screenshot.objects.filter(factory=factory,
+        website__profanities__lte=settings.PROFANITIES_ALLOWED)
+    screenshot_list = screenshot_list.order_by('-id')[:10]
+    preload_foreign_keys(screenshot_list,
+                         browser__browser_group=True)
     return render_to_response('factories/details.html', locals())
 
 

@@ -28,6 +28,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.requests.models import Request
+from shotserver04 import settings
 
 COLUMNS = 10
 WIDTH = 80 # pixels
@@ -43,7 +44,7 @@ def overview(http_request):
     screenshots = list(Screenshot.objects.recent())
     preload_foreign_keys(screenshots, website=True)
     for screenshot in screenshots:
-        if screenshot.website.profanities:
+        if screenshot.website.profanities > settings.PROFANITIES_ALLOWED:
             continue
         width = WIDTH
         height = screenshot.height * width / screenshot.width
