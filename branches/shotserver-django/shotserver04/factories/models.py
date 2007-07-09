@@ -173,7 +173,7 @@ class Factory(models.Model):
                 value = human.human_timesince(value)
             if field in FACTORY_FIELDS_SECONDS:
                 value = human.human_seconds(value)
-            if value is None:
+            if value is None or value == 0:
                 value = ''
             fields.append(u'<td>%s</td>' % value)
         return ''.join(fields)
