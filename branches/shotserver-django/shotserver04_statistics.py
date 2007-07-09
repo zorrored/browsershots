@@ -39,7 +39,7 @@ from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.websites.models import Website
-from shotserver04.websites.utils import count_profanities, http_get
+from shotserver04.websites.utils import count_profanities, http_get, HTTPError
 
 ONE_HOUR_AGO = datetime.now() - timedelta(0, 3600, 0)
 ONE_DAY_AGO = datetime.now() - timedelta(1, 0, 0)
@@ -74,9 +74,12 @@ for factory in Factory.objects.all():
 
 
 if '--content' in sys.argv:
-    for website in Website.objects.order_by('fetched')[:10]:
+    for website in Website.objects.order_by('fetched')[:20]:
         print website.url
-        website.content = http_get(website.url)
+        try:
+            website.content = http_get(website.url)
+        except HTTPError:
+            pass
         website.fetched = datetime.now()
         website.save()
 
