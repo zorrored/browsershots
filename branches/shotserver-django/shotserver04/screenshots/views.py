@@ -43,6 +43,8 @@ def overview(http_request):
     screenshots = list(Screenshot.objects.recent())
     preload_foreign_keys(screenshots, website=True)
     for screenshot in screenshots:
+        if screenshot.website.profanities:
+            continue
         width = WIDTH
         height = screenshot.height * width / screenshot.width
         columns.sort()

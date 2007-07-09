@@ -28,6 +28,7 @@ import cgi
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core import validators
+from shotserver04 import settings
 
 
 def has_slash_after_hostname(field_data, all_data):
@@ -37,6 +38,17 @@ def has_slash_after_hostname(field_data, all_data):
     if field_data.count('/') < 3:
         raise validators.ValidationError(
             _("Missing slash after the hostname."))
+
+
+def count_profanities(content):
+    """
+    Count the number of profanities in page content.
+    """
+    result = 0
+    content = content.lower()
+    for word in settings.PROFANITIES_LIST:
+        result += content.count(word)
+    return result
 
 
 class Domain(models.Model):
@@ -77,6 +89,8 @@ class Website(models.Model):
         verbose_name=_('domain'), raw_id_admin=True)
     content = models.TextField(
         _('content'), blank=True)
+    profanities = models.IntegerField(
+        _('profanities'), blank=True, null=True)
     fetched = models.DateTimeField(
         _('fetched'), auto_now_add=True)
     submitted = models.DateTimeField(

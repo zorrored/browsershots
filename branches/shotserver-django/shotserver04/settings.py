@@ -82,6 +82,12 @@ PNG_URL = 'http://png.browsershots.org/'
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/media/'
 
+# Profanity filter
+PROFANITIES_LIST = """
+asshat asshead asshole cunt fuck gook nigger shit
+porn pron p0rn pr0n boys girls chicks babe cock
+sex xxx nude nudist naked bitcafe stile omglol                                 """.lower().split()
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 
