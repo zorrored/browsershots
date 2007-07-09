@@ -97,7 +97,11 @@ def http_get_path(connection, path):
     # Read response
     try:
         response = connection.getresponse()
-        return response.read(MAX_RESPONSE_SIZE)
+        content = response.read(MAX_RESPONSE_SIZE)
+        try:
+            return content.decode('utf8')
+        except UnicodeDecodeError:
+            return content.decode('latin1')
     except socket.error, error:
         raise ResponseError(connection.host, error)
 
