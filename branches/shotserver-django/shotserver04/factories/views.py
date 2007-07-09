@@ -31,23 +31,14 @@ from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot
 
-FACTORY_LIST_COLUMNS = (
-    'name',
-    'operating_system',
-    'architecture',
-    'last_poll',
-    'last_upload',
-    'uploads_per_hour',
-    'uploads_per_day',
-)
-
 
 def overview(http_request):
     """
     List all screenshot factories.
     """
     factory_table_header = Factory.table_header()
-    factory_list = Factory.objects.select_related()
+    factory_list = Factory.objects.select_related().filter(
+        uploads_per_day__gt=0).order_by('-uploads_per_day')
     return render_to_response('factories/overview.html', locals())
 
 
