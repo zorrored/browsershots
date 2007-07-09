@@ -102,13 +102,13 @@ def http_get_path(connection, path):
         raise ResponseError(connection.host, error)
 
 
-def count_profanities(content):
+def count_profanities(profanities, content):
     """
     Count the number of profanities in page content.
     """
     result = 0
     content = content.lower()
-    for word in settings.PROFANITIES_LIST:
+    for word in profanities:
         result += content.count(word)
     return result
 

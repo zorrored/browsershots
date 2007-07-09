@@ -34,10 +34,12 @@ import sys
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
+from shotserver04 import settings
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot
-from shotserver04.websites.models import Website, count_profanities
+from shotserver04.websites.models import Website
+from shotserver04.websites.utils import count_profanities, http_get
 
 ONE_HOUR_AGO = datetime.now() - timedelta(0, 3600, 0)
 ONE_DAY_AGO = datetime.now() - timedelta(1, 0, 0)
@@ -71,9 +73,18 @@ for factory in Factory.objects.all():
         browser.save()
 
 
+if '--content' in sys.argv:
+    for website in Website.objects.order_by('fetched')[:10]:
+        print website.url
+        website.content = http_get(website.url)
+        website.fetched = datetime.now()
+        website.save()
+
+
 if '--profanities' in sys.argv:
     for website in Website.objects.all():
         profanities = count_profanities(
+            settings.PROFANITIES_LIST,
             ' '.join((website.url, website.content)))
         if website.profanities != profanities:
             website.profanities = profanities
