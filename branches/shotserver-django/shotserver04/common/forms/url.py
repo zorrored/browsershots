@@ -34,13 +34,13 @@ from django import newforms as forms
 from django.utils.text import capfirst
 from django.db import transaction
 from django.newforms.util import ValidationError
-from shotserver04.common.utils import split_netloc
-from shotserver04.websites import extract_domain
-from shotserver04.websites.models import Domain, Website
 from django.utils.translation import ugettext as _
+from shotserver04.websites.utils import \
+     split_netloc, http_get, count_profanities, \
+     HTTPError, ConnectError, RequestError, ResponseError, TimeoutError
+from shotserver04.websites.models import Domain, Website
 
 SUPPORTED_SCHEMES = ['http', 'https']
-MAX_RESPONSE_SIZE = 10000 # bytes
 
 scheme_match = re.compile(r'[A-Za-z0-9\.+-]+:').match
 
@@ -60,9 +60,9 @@ class UrlForm(forms.Form):
         self.add_scheme()
         self.split_url()
         self.add_slash()
-        self.http_connect_and_get()
-        self.get_or_create_domain()
-        self.get_or_create_website()
+        self.cleaned_data['content'] = self.http_get()
+        self.cleaned_data['domain'] = self.get_or_create_domain()
+        self.cleaned_data['website'] = self.get_or_create_website()
         return self.cleaned_data['url']
 
     def add_scheme(self):
@@ -98,60 +98,22 @@ class UrlForm(forms.Form):
             self.url_parts[2] = '/'
             self.cleaned_data['url'] = urlparse.urlunsplit(self.url_parts)
 
-    def http_connect_and_get(self):
-        """
-        Connect to server and get content.
-        """
-        socket.setdefaulttimeout(10)
-        scheme = self.url_parts[0]
-        hostname = self.netloc_parts[2]
-        if self.netloc_parts[3] is not None:
-            hostname += ':' + self.netloc_parts[3]
-        self.cleaned_data['hostname'] = hostname
+    def http_get(self):
         try:
-            if scheme == 'https':
-                connection = httplib.HTTPSConnection(hostname)
+            http_get(self.cleaned_data['url'])
+        except HTTPError, error:
+            if isinstance(error, ConnectError):
+                text = _("Could not connect to %(hostname)s.")
+            elif isinstance(error, RequestError):
+                text = _("Could not send request to %(hostname)s.")
+            elif isinstance(error, (ResponseError, TimeoutError)):
+                text = _("Could not read response from %(hostname)s.")
             else:
-                connection = httplib.HTTPConnection(hostname)
-        except httplib.HTTPException, error:
-            raise ValidationError(
-                _("Could not connect to %(hostname)s.") % self.cleaned_data)
-        try:
-            return self.http_get(connection)
-        finally:
-            connection.close()
-
-    def http_get(self, connection):
-        """
-        Try to get content with a HTTP request.
-        """
-        path = self.url_parts[2]
-        if self.url_parts[3]:
-            path += '?' + self.url_parts[3]
-        # Send HTTP request
-        try:
-            headers = {"User-Agent": "Browsershots URL Check"}
-            connection.request('GET', path, headers=headers)
-        except socket.error, error:
-            try:
-                (error_code, error_string) = error.args
-            except ValueError:
-                error_string = str(error)
-            raise ValidationError(' '.join((
-                _("Could not send HTTP request to %(hostname)s.") %
-                self.cleaned_data,
-                capfirst(error_string).rstrip('.') + '.')))
-        # Read response
-        try:
-            response = connection.getresponse()
-        except socket.timeout:
-            raise ValidationError(' '.join((
-                _("Timeout on server %(hostname)s.") % self.cleaned_data,
-                _("Please try again later."))))
-        self.cleaned_data['content'] = response.read(MAX_RESPONSE_SIZE)
-        # Check status code
-        if response.status == 200:
-            pass
+                text = _("Could not get content from %(hostname)s.")
+            if isinstance(error, TimeoutError):
+                error.message = _("Timeout on server.")
+            text %= {'hostname': error.hostname}
+            raise ValidationError(' '.join((text, error.message)).strip())
 
     def get_or_create_domain(self):
         """
@@ -161,7 +123,7 @@ class UrlForm(forms.Form):
         if domain_name.startswith('www.'):
             domain_name = domain_name[4:]
         domain, created = Domain.objects.get_or_create(name=domain_name)
-        self.cleaned_data['domain'] = domain
+        return domain
 
     def get_or_create_website(self):
         """
@@ -180,9 +142,9 @@ class UrlForm(forms.Form):
             transaction.rollback()
             raise ValidationError(
                 _("Malformed URL (database integrity error)."))
-        self.cleaned_data['website'] = website
         # Update content cache
         if not created:
             website.content = self.cleaned_data['content']
             website.fetched = datetime.now()
             website.save()
+        return website

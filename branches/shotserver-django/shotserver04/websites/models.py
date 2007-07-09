@@ -40,17 +40,6 @@ def has_slash_after_hostname(field_data, all_data):
             _("Missing slash after the hostname."))
 
 
-def count_profanities(content):
-    """
-    Count the number of profanities in page content.
-    """
-    result = 0
-    content = content.lower()
-    for word in settings.PROFANITIES_LIST:
-        result += content.count(word)
-    return result
-
-
 class Domain(models.Model):
     """
     Normalized domain names.
