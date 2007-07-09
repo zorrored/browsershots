@@ -100,7 +100,7 @@ class UrlForm(forms.Form):
 
     def http_get(self):
         try:
-            http_get(self.cleaned_data['url'])
+            return http_get(self.cleaned_data['url'])
         except HTTPError, error:
             if isinstance(error, ConnectError):
                 text = _("Could not connect to %(hostname)s.")
