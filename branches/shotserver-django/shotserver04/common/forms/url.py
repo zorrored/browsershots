@@ -35,6 +35,7 @@ from django.utils.text import capfirst
 from django.db import transaction
 from django.newforms.util import ValidationError
 from django.utils.translation import ugettext as _
+from shotserver04 import settings
 from shotserver04.websites.utils import \
      split_netloc, http_get, count_profanities, \
      HTTP_TIMEOUT, HTTPError, ConnectError, RequestError
@@ -61,6 +62,8 @@ class UrlForm(forms.Form):
         self.split_url()
         self.add_slash()
         self.cleaned_data['content'] = self.http_get()
+        self.cleaned_data['profanities'] = count_profanities(
+            settings.PROFANITIES_LIST, self.cleaned_data['content'])
         self.cleaned_data['domain'] = self.get_or_create_domain()
         self.cleaned_data['website'] = self.get_or_create_website()
         return self.cleaned_data['url']
@@ -131,13 +134,13 @@ class UrlForm(forms.Form):
         """
         Get or create website entry in database.
         """
+        defaults = {}
+        defaults['domain'] = self.cleaned_data['domain']
+        defaults['content'] = self.cleaned_data['content']
+        defaults['profanities'] = self.cleaned_data['profanities']
         try:
             website, created = Website.objects.get_or_create(
-                url=self.cleaned_data['url'],
-                defaults={
-                    'domain': self.cleaned_data['domain'],
-                    'content': self.cleaned_data['content'],
-                    })
+                url=self.cleaned_data['url'], defaults=defaults)
         except IntegrityError, error:
             if not 'websites_website_url_check' in str(error):
                 raise
@@ -147,6 +150,7 @@ class UrlForm(forms.Form):
         # Update content cache
         if not created:
             website.content = self.cleaned_data['content']
+            website.profanities = self.cleaned_data['profanities']
             website.fetched = datetime.now()
             website.save()
         return website
