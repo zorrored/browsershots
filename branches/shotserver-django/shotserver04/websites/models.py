@@ -77,6 +77,8 @@ class Website(models.Model):
         verbose_name=_('domain'), raw_id_admin=True)
     content = models.TextField(
         _('content'), blank=True)
+    fetched = models.DateTimeField(
+        _('fetched'), auto_now_add=True)
     submitted = models.DateTimeField(
         _('submitted'), auto_now_add=True)
 

@@ -45,7 +45,7 @@ def start(http_request):
     """
     # Initialize forms.
     post = http_request.POST or None
-    url_form = UrlForm(post or http_request.GET or None)
+    url_form = UrlForm(post)
     features_form = FeaturesForm(post)
     options_form = OptionsForm(post)
     # Get available choices from database, with correct translations.
@@ -75,10 +75,14 @@ def start(http_request):
         valid_post = valid_post and browser_form.is_valid()
     if not valid_post:
         # Show HTML form.
+        if 'url' in http_request.GET:
+            url_form.fields['url'].initial = http_request.GET['url']
         return render_to_response('start.html', locals())
     # Create screenshot requests and redirect to website overview.
-    values = {'ip': http_request.META['REMOTE_ADDR']}
-    values.update(url_form.cleaned_dict())
+    values = {
+        'ip': http_request.META['REMOTE_ADDR'],
+        'website': url_form.cleaned_data['website'],
+        }
     values.update(options_form.cleaned_dict())
     values.update(features_form.cleaned_dict())
     request_group = RequestGroup.objects.create(**values)
