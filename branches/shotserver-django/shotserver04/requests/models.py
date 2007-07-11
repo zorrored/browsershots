@@ -109,10 +109,14 @@ class RequestGroup(models.Model):
         """
         if not self.is_pending():
             return ''
-        interval = timeuntil(self.expire)
+        now = datetime.now()
+        remaining = self.expire - now
+        almost_fresh = remaining >= timedelta(minutes=29, seconds=50)
+        if almost_fresh:
+            remaining = timedelta(minutes=30)
+        interval = timeuntil(now + remaining, now)
         text = capfirst(_("expires in %(interval)s")) % {'interval': interval}
-        if (self.expire - datetime.now() < timedelta(minutes=29) or
-            '30' not in interval):
+        if not almost_fresh:
             text = """
 <form action="/requests/extend/" method="post">
 %s
