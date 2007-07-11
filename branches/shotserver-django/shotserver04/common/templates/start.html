@@ -12,8 +12,8 @@
 {% endfor %}
 <div class="blue background" id="inputurl">
 <p>{{ url_form.url.label }}</p>
-{{ url_form.url }}
-<input class="button" id="submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" />
+<div id="submit_div"><input class="button" id="id_submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" /></div>
+<div id="url_div">{{ url_form.url }}</div>
 <div class="clear"></div>
 </div>
 

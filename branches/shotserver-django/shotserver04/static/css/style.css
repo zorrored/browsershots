@@ -99,27 +99,35 @@ dt { font-weight: bold; }
 div.background {
   clear: both;
   background-repeat: repeat-x;
-  padding: 16px 0;
+  padding: 0 0 16px;
 }
 div.background h2 { margin: 0; }
 
 div.blue {
-  position: relative;
   background-color: #016;
   background-image: url(blue.jpg);
   color: white;
 }
-div.blue input#id_url {
-  position: absolute;
-  left: 16px;
-  right: 132px;
+div.blue div#url_div {
+  border: 1px dotted red;
+  padding: 0 132px 0 16px;
 }
-div.blue input#submit {
+div.blue input#id_url {
+  width: 100%;
+}
+div.blue div#submit_div {
+  float: right;
+  width: 116px;
+  margin: 0;
+}
+div.blue input#id_submit {
   float: right;
   width: 100px;
-  margin: 0 16px 0 0;
 }
-div.blue p { margin: 0 0 0 16px; }
+div.blue p {
+  margin: 0 0 0 16px;
+  padding-top: 16px;
+}
 div.blue ul.errorlist { margin: 0 0 16px; }
 
 div.gray {
@@ -158,6 +166,9 @@ div.browsers div.not_last {
   float: left;
   width: 160px;
   padding-left: 16px;
+}
+.request_options {
+  padding-top: 16px;
 }
 
 div.large-preview { position: relative; }
