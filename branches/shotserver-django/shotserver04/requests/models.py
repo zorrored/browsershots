@@ -24,7 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from xmlrpclib import Fault
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -109,9 +109,18 @@ class RequestGroup(models.Model):
         """
         if not self.is_pending():
             return ''
-        return '<li>%s</li>' % (
-            capfirst(_("expires in %(interval)s")) %
-            {'interval': timeuntil(self.expire)})
+        interval = timeuntil(self.expire)
+        text = capfirst(_("expires in %(interval)s")) % {'interval': interval}
+        if (self.expire - datetime.now() < timedelta(minutes=29) or
+            '30' not in interval):
+            text = """
+<form action="/requests/extend/" method="post">
+%s
+<input type="hidden" name="request_group_id" value="%d" />
+<input type="submit" name="submit" value="%s" />
+</form>
+""".strip() % (text, self.id, unicode(capfirst(_("extend"))))
+        return '<li>%s</li>' % text
 
     def options(self):
         """

@@ -24,10 +24,11 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from datetime import datetime
-from django.shortcuts import render_to_response
+from datetime import datetime, timedelta
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection
-from shotserver04.requests.models import Request
+from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup
 
@@ -72,3 +73,19 @@ GROUP BY platform_id, browser_group_id, major, minor
             'pending_requests': pending_requests,
             })
     return render_to_response('requests/overview.html', locals())
+
+
+def extend(http_request):
+    error_title = "Invalid request"
+    if not http_request.POST:
+        error_message = "You must send a POST request to this page."
+        return render_to_response('error.html', locals())
+    try:
+        request_group_id = int(http_request.POST['request_group_id'])
+    except KeyError, ValueError:
+        error_message = "You must specify a numeric request group id."
+        return render_to_response('error.html', locals())
+    request_group = get_object_or_404(RequestGroup, pk=request_group_id)
+    request_group.expire = datetime.now() + timedelta(minutes=30)
+    request_group.save()
+    return HttpResponseRedirect(http_request.META['HTTP_REFERER'])
