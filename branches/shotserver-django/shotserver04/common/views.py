@@ -57,6 +57,13 @@ def start(http_request):
     active_browsers = Browser.objects.filter(
         factory__in=active_factories,
         active=True)
+    if not active_browsers:
+        error_title = _("out of service")
+        error_message = ' '.join((
+            _("No active screenshot factories."),
+            _("Please try again later."),
+            ))
+        return render_to_response('error.html', locals())
     features_form.load_choices(active_browsers)
     options_form.load_choices(active_factories)
     # Validate posted data.
@@ -74,7 +81,8 @@ def start(http_request):
         browser_form = BrowsersForm(active_browsers, platform, post)
         if browser_form.is_bound:
             browser_form.full_clean()
-        browser_forms.append(browser_form)
+        if browser_form.fields:
+            browser_forms.append(browser_form)
         valid_post = valid_post and browser_form.is_valid()
     browser_forms[0].is_first = True
     browser_forms[-1].is_last = True

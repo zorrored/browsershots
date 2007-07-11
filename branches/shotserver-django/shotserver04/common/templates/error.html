@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}{{ error_title|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ error_title|capfirst }}</h1>
+<p class="admonition error">{{ error_message }}</p>
+{% endblock %}

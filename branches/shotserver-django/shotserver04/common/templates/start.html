@@ -5,7 +5,6 @@
 
 {% block content %}
 <h1>{% trans "Test your web design in different browsers" %}</h1>
-{% if active_factories %}
 <form action="/" method="post">
 {% for error in url_form.url.errors %}
 <p class="admonition error">{{ error }}</p>
@@ -19,12 +18,12 @@
 </div>
 
 <div class="gray background browsers">
-{% for browser_form in browser_forms %}{% if browser_form.fields %}
+{% for browser_form in browser_forms %}
 <div class="platform_browsers{% if browser_form.is_first %} first{% else %} not_first{% endif %}{% if browser_form.is_last %} last{% else %} not_last{% endif %}">
 <h2>{{ browser_form.platform.name }}</h2>
 {{ browser_form }}
 </div>
-{% endif %}{% endfor %}
+{% endfor %}
 <div class="clear"></div>
 </div>
 
@@ -45,10 +44,4 @@
 </div>
 </div>
 </form>
-{% else %}
-<p class="admonition error">
-{{ _("No active screenshot factories.") }}
-{{ _("Please try again later.") }}
-</p>
-{% endif %}
 {% endblock %}

@@ -72,4 +72,6 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
     except Fault, fault:
         FactoryError.objects.create(factory=factory,
             code=fault.faultCode, message=fault.faultString)
-        return render_to_response('redirect/error.html', locals())
+        error_title = "redirect error"
+        error_message = fault.faultString
+        return render_to_response('error.html', locals())

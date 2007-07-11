@@ -34,7 +34,7 @@ from django import newforms as forms
 from django.utils.text import capfirst
 from django.db import transaction
 from django.newforms.util import ValidationError
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
 from shotserver04.websites.utils import \
      split_netloc, http_get, count_profanities, \
