@@ -104,6 +104,7 @@ div.background {
 div.background h2 { margin: 0; }
 
 div.blue {
+  position: relative;
   background-color: #016;
   background-image: url(blue.jpg);
   color: white;
@@ -129,6 +130,7 @@ div.gray {
 div.browsers {
   background-image: none;
   border-bottom: 1px solid #ccc;
+  padding-top: 0;
 }
 div.options {
   border-top: 1px solid white;
@@ -144,7 +146,7 @@ div.options select {
 }
 .platform_browsers {
   float: left;
-  margin: 0;
+  margin: 16px 0 0;
 }
 div.browsers div.not_last {
   border-right: 1px solid #ccc;
