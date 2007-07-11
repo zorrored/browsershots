@@ -14,33 +14,33 @@
 <p>{{ url_form.url.label }}</p>
 {{ url_form.url }}
 <input class="button" id="submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" />
-<div class="clear"></div>
+<div class="clear"> </div>
 </div>
 
-<div class="gray background browsers" style="clear:both">
+<div class="gray background browsers">
 {% for browser_form in browser_forms %}{% if browser_form.fields %}
 <div class="platform_browsers">
 <h2>{{ browser_form.platform.name }}</h2>
 {{ browser_form }}
 </div>
 {% endif %}{% endfor %}
-<div class="clear"></div>
+<div class="clear"> </div>
 </div>
 
-<div class="gray background options" style="clear:both">
-{% for select in features_form %}
-<div class="request_options">
-<label for="id_{{ select.name }}">{{ select.label|capfirst }}</label><br />
-{{ select }}
-</div>
-{% endfor %}
+<div class="gray background options">
 {% for select in options_form %}
 <div class="request_options">
 <label for="id_{{ select.name }}">{{ select.label|capfirst }}</label><br />
 {{ select }}
 </div>
 {% endfor %}
-<div class="clear"></div>
+{% for select in features_form %}
+<div class="request_options">
+<label for="id_{{ select.name }}">{{ select.label|capfirst }}</label><br />
+{{ select }}
+</div>
+{% endfor %}
+<div class="clear"> </div>
 </div>
 </form>
 {% else %}

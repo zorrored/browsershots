@@ -98,7 +98,7 @@ dt { font-weight: bold; }
 
 div.background {
   background-repeat: repeat-x;
-  padding: 16px 16px 0;
+  padding: 16px 0;
 }
 div.background h2 { margin: 0; }
 
@@ -109,15 +109,15 @@ div.blue {
 }
 div.blue input#id_url {
   float: left;
-  width: 81%;
-  margin-bottom: 16px;
+  width: 760px;
+  margin: 0 0 0 16px;
 }
 div.blue input#submit {
   float: right;
-  width: 16%;
-  margin-bottom: 16px;
+  width: 100px;
+  margin: 0 16px 0 0;
 }
-div.blue p { margin: 0; }
+div.blue p { margin: 0 0 0 16px; }
 div.blue ul.errorlist { margin: 0 0 16px; }
 
 div.gray {
@@ -133,7 +133,7 @@ div.options {
   border-top: 1px solid white;
 }
 div.options select {
-  width: 11em;
+  width: 155px;
 }
 
 .clear { clear: both; }
@@ -145,11 +145,12 @@ div.options select {
   float: left;
   margin: 0;
 }
+.platform_browsers h2 { padding-left: 16px; }
 .browsers_column,
 .request_options {
   float: left;
-  width: 11em;
-  margin: 0 0 1em 0;
+  width: 160px;
+  margin: 0 0 0 16px;
 }
 
 div.large-preview { position: relative; }
