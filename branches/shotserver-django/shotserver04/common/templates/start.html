@@ -19,7 +19,7 @@
 
 <div class="gray background browsers">
 {% for browser_form in browser_forms %}{% if browser_form.fields %}
-<div class="platform_browsers">
+<div class="platform_browsers{% if browser_form.is_first %} first{% else %} not_first{% endif %}{% if browser_form.is_last %} last{% else %} not_last{% endif %}">
 <h2>{{ browser_form.platform.name }}</h2>
 {{ browser_form }}
 </div>

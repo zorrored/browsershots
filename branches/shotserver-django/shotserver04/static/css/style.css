@@ -145,6 +145,10 @@ div.options select {
   float: left;
   margin: 0;
 }
+div.browsers div.not_last {
+  border-right: 1px solid #ccc;
+  margin-right: -1px;
+}
 .platform_browsers h2 { padding-left: 16px; }
 .browsers_column,
 .request_options {

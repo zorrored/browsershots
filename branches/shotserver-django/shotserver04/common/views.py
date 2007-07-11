@@ -76,6 +76,8 @@ def start(http_request):
             browser_form.full_clean()
         browser_forms.append(browser_form)
         valid_post = valid_post and browser_form.is_valid()
+    browser_forms[0].is_first = True
+    browser_forms[-1].is_last = True
     if not valid_post:
         # Show HTML form.
         if 'url' in http_request.GET:
