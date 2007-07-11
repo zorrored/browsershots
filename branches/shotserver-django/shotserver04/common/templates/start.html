@@ -10,6 +10,7 @@
 {% for error in url_form.url.errors %}
 <p class="admonition error">{{ error }}</p>
 {% endfor %}
+<div class="extra_gray">
 <div class="blue background" id="inputurl">
 <p>{{ url_form.url.label }}</p>
 <div id="submit_div"><input class="button" id="id_submit" name="submit" type="submit" value="{{ _("submit")|capfirst }}" /></div>
@@ -41,6 +42,7 @@
 </div>
 {% endfor %}
 <div class="clear"></div>
+</div>
 </div>
 </form>
 {% else %}

@@ -128,18 +128,15 @@ div.blue p {
 }
 div.blue ul.errorlist { margin: 0 0 16px; }
 
+div.gray, div.extra_gray { background-color: #e4e4e4; }
 div.gray {
-  background-color: #e4e4e4;
   background-image: url(gray.jpg);
   background-position: bottom left;
 }
 div.browsers {
   background-image: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
   padding-top: 0;
-}
-div.options {
-  border-top: 1px solid white;
 }
 div.options select {
   width: 150px;
@@ -155,7 +152,7 @@ div.options select {
   margin: 16px 0 0;
 }
 div.browsers div.not_last {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #bbb;
   margin-right: -1px;
 }
 .platform_browsers h2 { padding-left: 16px; }
