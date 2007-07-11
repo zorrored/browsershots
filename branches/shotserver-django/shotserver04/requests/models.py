@@ -223,12 +223,18 @@ class RequestGroup(models.Model):
         """
         kwargs = {'active': True,
                   'factory__in': self.matching_factories()}
-        if self.javascript_id:
-            kwargs['javascript_id'] = self.javascript_id
-        if self.java_id:
-            kwargs['java_id'] = self.java_id
-        if self.flash_id:
-            kwargs['flash_id'] = self.flash_id
+        if self.javascript_id == 2:
+            kwargs['javascript__id__gte'] = self.javascript_id
+        elif self.javascript_id:
+            kwargs['javascript'] = self.javascript_id
+        if self.java_id == 2:
+            kwargs['java__id__gte'] = self.java_id
+        elif self.java_id:
+            kwargs['java'] = self.java_id
+        if self.flash_id == 2:
+            kwargs['flash__id__gte'] = self.flash_id
+        elif self.flash_id:
+            kwargs['flash'] = self.flash_id
         return kwargs
 
     def queue_estimates(self):
@@ -237,22 +243,18 @@ class RequestGroup(models.Model):
         """
         if not self.is_pending():
             return ''
+        queued = datetime.now() - self.submitted
+        queued_seconds = queued.seconds + queued.days * 24 * 3600
         filters = self.matching_browser_filters()
         requests = self.request_set.filter(screenshot__isnull=True)
         tables = {}
         for request in requests:
-            browsers = request.matching_browsers(filters)
-            if not len(browsers):
-                estimate = _("offline")
-            else:
-                estimates = [browser.queue_estimate for browser in browsers]
-                estimates.sort()
-                median = estimates[len(estimates) / 2]
-                estimate = human.human_seconds(median)
-            browsers = tables.get(request.platform_id, [])
-            browsers.append('<tr><td>%s</td><td>%s</td></tr>' % (
+            estimate = (request.state() or
+                        request.queue_estimate(filters, queued_seconds))
+            table = tables.get(request.platform_id, [])
+            table.append('<tr><td>%s</td><td>%s</td></tr>' % (
                 request.browser_string(), estimate))
-            tables[request.platform_id] = browsers
+            tables[request.platform_id] = table
         # return repr(tables)
         result = []
         for platform in Platform.objects.all():
@@ -264,6 +266,8 @@ class RequestGroup(models.Model):
                 result.extend(tables[platform.id])
                 result.append('</table>')
                 result.append('</div>')
+        if result:
+            result.append('<br class="clear" />')
         return '\n'.join(result)
 
 
@@ -329,13 +333,13 @@ class Request(models.Model):
         Human-readable output of request state.
         """
         if self.locked and self.locked < lock_timeout():
-            return _('failed')
+            return _("failed")
         if self.screenshot:
-            return _('uploaded')
+            return _("uploaded")
         if self.redirected:
-            return _('loading')
+            return _("loading")
         if self.locked:
-            return _('starting')
+            return _("starting")
         return ''
 
     def check_factory_lock(self, factory):
@@ -358,6 +362,18 @@ class Request(models.Model):
         if self.minor is not None:
             kwargs['minor'] = self.minor
         return list(Browser.objects.filter(**kwargs))
+
+    def queue_estimate(self, browser_filters, queued_seconds=0):
+        browsers = self.matching_browsers(browser_filters)
+        if not len(browsers):
+            return _("unavailable")
+        else:
+            estimates = [browser.queue_estimate for browser in browsers]
+            estimates.sort()
+            median = estimates[len(estimates) / 2]
+            seconds = max(60, median - queued_seconds)
+            minutes = (seconds + 30) / 60
+            return _("%(minutes)d min") % {'minutes': minutes}
 
 
 def bracket_link(href, text):
