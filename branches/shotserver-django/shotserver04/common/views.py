@@ -38,7 +38,7 @@ from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.requests.models import RequestGroup, Request
 
-BROWSER_COLUMNS = 6
+BROWSER_COLUMNS = 5
 
 
 def start(http_request):
