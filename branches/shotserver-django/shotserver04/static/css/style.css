@@ -141,6 +141,14 @@ div.options select {
   float: left;
   margin: 0 16px 16px 0;
 }
+.platform_browsers {
+  float: left;
+  margin: 0 0 16px 0;
+}
+.browsers_column {
+  float: left;
+  width: 9em;
+}
 
 div.large-preview { position: relative; }
 div.previous-screenshot {

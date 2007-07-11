@@ -71,7 +71,7 @@ class BrowsersForm(forms.BaseForm):
         fields = list(self.fields)
         output = []
         for column in range(self.columns):
-            output.append('<div style="width:12em;float:left">')
+            output.append('<div class="browsers_column">')
             for index in range(self.column_length()):
                 if not fields:
                     break

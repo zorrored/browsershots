@@ -38,6 +38,8 @@ from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.requests.models import RequestGroup, Request
 
+BROWSER_COLUMNS = 6
+
 
 def start(http_request):
     """
@@ -97,14 +99,14 @@ def start(http_request):
 
 
 def multi_column(browser_forms):
-    groups = [(form.column_length(), form) for form in browser_forms]
-    for total_columns in range(len(browser_forms), 6):
+    groups = [[form.column_length(), form] for form in browser_forms]
+    for total_columns in range(len(browser_forms), BROWSER_COLUMNS):
         groups.sort()
         length, form = groups[-1]
-        if length < 2:
+        if length <= 3:
             break
         form.columns += 1
-        groups[-1] = (form.column_length(), form)
+        groups[-1][0] = form.column_length()
 
 
 def create_platform_requests(request_group, platform, browser_form):
