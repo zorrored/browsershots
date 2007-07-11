@@ -40,7 +40,7 @@ class BrowsersForm(forms.BaseForm):
     def __init__(self, active_browsers, platform, data=None):
         forms.BaseForm.__init__(self, data)
         self.platform = platform
-        self.parts = 1
+        self.columns = 1
         field_dict = {}
         for browser in active_browsers:
             if browser.factory.operating_system.platform_id != platform.id:
@@ -69,11 +69,10 @@ class BrowsersForm(forms.BaseForm):
 
     def __unicode__(self):
         fields = list(self.fields)
-        fields_per_part = (len(fields) + self.parts - 1) / self.parts
         output = []
-        for part in range(self.parts):
+        for column in range(self.columns):
             output.append('<div style="width:12em;float:left">')
-            for index in range(fields_per_part):
+            for index in range(self.column_length()):
                 if not fields:
                     break
                 field = fields.pop(0)
@@ -82,3 +81,6 @@ class BrowsersForm(forms.BaseForm):
                     field, self[field].label))
             output.append('</div>')
         return u'\n'.join(output)
+
+    def column_length(self):
+        return (len(self.fields) + self.columns - 1) / self.columns
