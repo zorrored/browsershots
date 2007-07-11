@@ -25,6 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from datetime import datetime, timedelta
+import pprint
 from xmlrpclib import Fault
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -37,7 +38,8 @@ from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
-from shotserver04.common import lock_timeout
+from shotserver04.common import lock_timeout, last_poll_timeout
+from shotserver04.common.templatetags import human
 from shotserver04.common.preload import preload_foreign_keys
 
 
@@ -191,31 +193,73 @@ class RequestGroup(models.Model):
             hint = _(u"Your screenshot requests have expired.")
             return u'<p class="admonition warning">%s</p>' % hint
 
-    def pending_requests(self):
+    def matching_factories(self):
         """
-        Human-readable list of pending screenshot requests, with
-        request state (e.g. loading).
+        Get active factories that match this request group.
+        """
+        # Active factories
+        kwargs = {'last_poll__gte': last_poll_timeout()}
+        factories = set([factory.id
+            for factory in Factory.objects.filter(**kwargs)])
+        # Factories that support the requested screen size
+        kwargs = {}
+        if self.width:
+            kwargs['width'] = self.width
+        if self.height:
+            kwargs['height'] = self.height
+        if kwargs:
+            factories &= set([screen_size.factory_id
+                for screen_size in ScreenSize.objects.filter(**kwargs)])
+        # Factories that support the requested color depth
+        if self.bits_per_pixel:
+            kwargs = {'bits_per_pixel': self.bits_per_pixel}
+            factories &= set([color_depth.factory_id
+                for color_depth in ColorDepth.objects.filter(**kwargs)])
+        return factories
+
+    def matching_browser_filters(self):
+        """
+        Get active browsers that match this request group.
+        """
+        kwargs = {'active': True,
+                  'factory__in': self.matching_factories()}
+        if self.javascript_id:
+            kwargs['javascript_id'] = self.javascript_id
+        if self.java_id:
+            kwargs['java_id'] = self.java_id
+        if self.flash_id:
+            kwargs['flash_id'] = self.flash_id
+        return kwargs
+
+    def queue_estimates(self):
+        """
+        Queue estimates for pending screenshot requests.
         """
         if not self.is_pending():
             return ''
-        result = []
+        filters = self.matching_browser_filters()
         requests = self.request_set.filter(screenshot__isnull=True)
-        preload_foreign_keys(requests, browser_group=True)
+        tables = {}
+        for request in requests:
+            browsers = request.matching_browsers(filters)
+            if not len(browsers):
+                estimate = _("offline")
+            else:
+                estimates = [browser.queue_estimate for browser in browsers]
+                estimates.sort()
+                median = estimates[len(estimates) / 2]
+                estimate = human.human_seconds(median)
+            browsers = tables.get(request.platform_id, [])
+            browsers.append('<tr><td>%s</td><td>%s</td></tr>' % (
+                request.browser_string(), estimate))
+            tables[request.platform_id] = browsers
+        # return repr(tables)
+        result = []
         for platform in Platform.objects.all():
-            browsers = []
-            for request in requests:
-                if request.platform_id != platform.id:
-                    continue
-                browser = request.browser_string()
-                state = request.state()
-                if state:
-                    browsers.append(u'%s (%s)' % (browser, state))
-                else:
-                    browsers.append(browser)
-            if browsers:
-                browsers.sort()
-                result.append(u'<li>%s: %s</li>' % (
-                    platform.name, ', '.join(browsers)))
+            if platform.id in tables:
+                tables[platform.id].sort()
+                result.append('<table>%s</table>' %
+                              '\n'.join(tables[platform.id]))
         return '\n'.join(result)
 
 
@@ -301,6 +345,15 @@ class Request(models.Model):
             raise Fault(423,
                 u"Request %d was locked by factory %s." %
                 (self.id, self.factory.name))
+
+    def matching_browsers(self, browser_filters):
+        kwargs = dict(browser_filters)
+        kwargs['browser_group'] = self.browser_group_id
+        if self.major is not None:
+            kwargs['major'] = self.major
+        if self.minor is not None:
+            kwargs['minor'] = self.minor
+        return list(Browser.objects.filter(**kwargs))
 
 
 def bracket_link(href, text):
