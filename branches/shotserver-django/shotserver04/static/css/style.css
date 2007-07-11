@@ -97,6 +97,7 @@ dl { margin: 0; }
 dt { font-weight: bold; }
 
 div.background {
+  clear: both;
   background-repeat: repeat-x;
   padding: 16px 0;
 }
@@ -108,9 +109,9 @@ div.blue {
   color: white;
 }
 div.blue input#id_url {
-  float: left;
-  width: 760px;
-  margin: 0 0 0 16px;
+  position: absolute;
+  left: 16px;
+  right: 132px;
 }
 div.blue input#submit {
   float: right;
@@ -133,7 +134,7 @@ div.options {
   border-top: 1px solid white;
 }
 div.options select {
-  width: 155px;
+  width: 150px;
 }
 
 .clear { clear: both; }
