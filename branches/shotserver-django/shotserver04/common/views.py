@@ -24,6 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from datetime import datetime, timedelta
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -85,6 +86,7 @@ def start(http_request):
     values = {
         'ip': http_request.META['REMOTE_ADDR'],
         'website': url_form.cleaned_data['website'],
+        'expire': datetime.now() + timedelta(minutes=30),
         }
     values.update(options_form.cleaned_dict())
     values.update(features_form.cleaned_dict())

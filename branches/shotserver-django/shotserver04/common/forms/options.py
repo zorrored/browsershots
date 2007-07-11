@@ -59,17 +59,6 @@ def color_depth_choices(active_factories):
             previous = depth.bits_per_pixel
 
 
-def maximum_wait_choices():
-    """
-    Get choices for screenshot request expiration timeout.
-    """
-    yield (15, capfirst(_("15 minutes")))
-    yield (30, capfirst(_("30 minutes")))
-    yield (60, capfirst(_("1 hour")))
-    yield (120, capfirst(_("%(hours)d hours") % {'hours': 2}))
-    yield (240, capfirst(_("%(hours)d hours") % {'hours': 4}))
-
-
 class OptionsForm(forms.Form):
     """
     Request options input form.
@@ -78,8 +67,6 @@ class OptionsForm(forms.Form):
         label=_("screen size"), initial='dontcare')
     color_depth = forms.ChoiceField(
         label=_("color depth"), initial='dontcare')
-    maximum_wait = forms.ChoiceField(
-        label=_("maximum wait"), initial=30)
 
     def load_choices(self, factories):
         """
@@ -87,15 +74,12 @@ class OptionsForm(forms.Form):
         """
         self['screen_size'].field.choices = screen_size_choices(factories)
         self['color_depth'].field.choices = color_depth_choices(factories)
-        self['maximum_wait'].field.choices = maximum_wait_choices()
 
     def cleaned_dict(self):
         """
         Convert options to integer and timestamp.
         """
         return {
-            'expire': datetime.now() + timedelta(
-                minutes=int(self.cleaned_data['maximum_wait'])),
             'width': int_or_none(self.cleaned_data['screen_size']),
             'bits_per_pixel': int_or_none(self.cleaned_data['color_depth']),
             }
