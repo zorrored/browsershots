@@ -157,7 +157,7 @@ div.browsers div.not_last {
 .request_options {
   float: left;
   width: 160px;
-  margin: 0 0 0 16px;
+  padding-left: 16px;
 }
 
 div.large-preview { position: relative; }
