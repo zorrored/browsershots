@@ -133,21 +133,23 @@ div.options {
   border-top: 1px solid white;
 }
 div.options select {
-  width: 130px;
+  width: 11em;
 }
 
 .clear { clear: both; }
 .floatleft {
   float: left;
-  margin: 0 16px 16px 0;
+  margin: 0 1em 1em 0;
 }
 .platform_browsers {
   float: left;
-  margin: 0 0 16px 0;
+  margin: 0;
 }
-.browsers_column {
+.browsers_column,
+.request_options {
   float: left;
   width: 11em;
+  margin: 0 0 1em 0;
 }
 
 div.large-preview { position: relative; }
