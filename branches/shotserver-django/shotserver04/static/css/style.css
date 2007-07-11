@@ -201,6 +201,11 @@ ul.requestgroup {
   padding: 0;
   list-style-type: none;
 }
+div.estimates h3 { margin: 0; }
+div.estimates {
+  float: left;
+  margin: 0 16px 16px 0;
+}
 
 input#id_user_agent { width: 60em; }
 input#id_major, input#id_minor { width: 3em; }

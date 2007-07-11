@@ -34,7 +34,7 @@ from django.utils.text import capfirst
 from django.contrib.auth.models import User
 from shotserver04.websites.models import Website
 from shotserver04.platforms.models import Platform
-from shotserver04.factories.models import Factory
+from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
@@ -258,8 +258,12 @@ class RequestGroup(models.Model):
         for platform in Platform.objects.all():
             if platform.id in tables:
                 tables[platform.id].sort()
-                result.append('<table>%s</table>' %
-                              '\n'.join(tables[platform.id]))
+                result.append('<div class="estimates">')
+                result.append('<h3>%s</h3>' % platform.name)
+                result.append('<table>')
+                result.extend(tables[platform.id])
+                result.append('</table>')
+                result.append('</div>')
         return '\n'.join(result)
 
 
