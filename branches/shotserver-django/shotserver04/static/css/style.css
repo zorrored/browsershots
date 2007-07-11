@@ -109,20 +109,18 @@ div.blue {
   color: white;
 }
 div.blue div#url_div {
-  border: 1px dotted red;
-  padding: 0 132px 0 16px;
+  padding: 0 140px 0 16px;
 }
 div.blue input#id_url {
   width: 100%;
 }
 div.blue div#submit_div {
-  float: right;
-  width: 116px;
-  margin: 0;
+  position: absolute;
+  right: 16px;
+  width: 100px;
 }
 div.blue input#id_submit {
-  float: right;
-  width: 100px;
+  width: 100%;
 }
 div.blue p {
   margin: 0 0 0 16px;
