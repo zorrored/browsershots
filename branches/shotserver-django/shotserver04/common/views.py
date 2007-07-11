@@ -105,7 +105,7 @@ def multi_column(browser_forms):
     for total_columns in range(len(browser_forms), BROWSER_COLUMNS):
         groups.sort()
         length, form = groups[-1]
-        if length <= 3:
+        if length <= 4:
             break
         form.columns += 1
         groups[-1][0] = form.column_length()
