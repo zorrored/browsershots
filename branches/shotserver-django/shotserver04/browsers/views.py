@@ -149,18 +149,78 @@ def add(http_request):
                     [_("Password mismatch.")])
     if not password_valid:
         return render_to_response('browsers/add.html', locals())
-    cursor = connection.cursor()
-    where = u"""((factory_id = %s AND user_agent = %s) OR
-(factory_id = %s AND browser_group_id = %s AND major = %s AND minor = %s))"""
+    # Activate or add browser in the database
+    activate_or_add_browser(form.cleaned_data)
+    # Save IP address, to guess the factory when adding the next browser
+    factory = form.cleaned_data['factory']
+    factory.ip = ip
+    factory.save()
+    # Redirect to factory detail page
+    return HttpResponseRedirect(
+        form.cleaned_data['factory'].get_absolute_url())
+
+
+def activate_or_add_browser(data):
+    """
+    Add or activate browser in the database.
+    """
+    activated = activate_browser(data)
+    if activated:
+        delete_or_deactivate_similar_browsers(data, exclude=activated)
+        return
+    else:
+        delete_or_deactivate_similar_browsers(data)
+    # Create new browser with submitted data
+    data['active'] = True
+    Browser.objects.create(**data)
+
+
+def activate_browser(data):
+    """
+    Try to activate existing browser with the same settings.
+    """
+    existing_browsers = Browser.objects.filter(
+        factory=data['factory'],
+        user_agent=data['user_agent'],
+        browser_group=data['browser_group'],
+        major=data['major'],
+        minor=data['minor'],
+        javascript=data['javascript'],
+        java=data['java'],
+        flash=data['flash'],
+        )
+    if len(existing_browsers) == 0:
+        return False
+    for candidate in existing_browsers:
+        if candidate.active:
+            return candidate
+    browser = existing_browsers[0]
+    browser.active = True
+    browser.save()
+    return browser
+
+
+def delete_or_deactivate_similar_browsers(data, exclude=None):
+    """
+    Delete or deactivate similar browsers in the database.
+    """
+    where = u"""(
+(factory_id = %s AND user_agent = %s) OR
+(factory_id = %s AND browser_group_id = %s AND major = %s AND minor = %s)
+)"""
     params = [
-        form.cleaned_data['factory'].id,
-        form.cleaned_data['user_agent'],
-        form.cleaned_data['factory'].id,
-        form.cleaned_data['browser_group'].id,
-        form.cleaned_data['major'],
-        form.cleaned_data['minor'],
+        data['factory'].id,
+        data['user_agent'],
+        data['factory'].id,
+        data['browser_group'].id,
+        data['major'],
+        data['minor'],
         ]
+    if exclude:
+        where += "AND id != %s"
+        params += [exclude.id]
     # Delete old unused versions of the same browsers
+    cursor = connection.cursor()
     cursor.execute("""
 DELETE FROM browsers_browser
 WHERE """ + where + """
@@ -173,16 +233,6 @@ AND NOT EXISTS(SELECT 1 FROM requests_request
     cursor.execute("""
 UPDATE browsers_browser SET active = FALSE
 WHERE """ + where, params)
-    # Create new browser with submitted data
-    form.cleaned_data['active'] = True
-    Browser.objects.create(**form.cleaned_data)
-    # Save IP address, to guess the factory when adding the next browser
-    factory = form.cleaned_data['factory']
-    factory.ip = ip
-    factory.save()
-    # Redirect to factory detail page
-    return HttpResponseRedirect(
-        form.cleaned_data['factory'].get_absolute_url())
 
 
 class InvalidRequest(Exception):
