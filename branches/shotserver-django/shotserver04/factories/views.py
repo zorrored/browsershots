@@ -53,7 +53,7 @@ def details(http_request, name):
     except Factory.DoesNotExist:
         raise Http404
     browser_list = Browser.objects.select_related().filter(
-        factory=factory.id, active=True)
+        factory=factory.id) # active=True)
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
     screenshot_list = Screenshot.objects.filter(factory=factory,

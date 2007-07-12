@@ -38,8 +38,7 @@
 </thead>
 <tbody>
 {% for browser in browser_list %}
-<tr class="{% cycle row1,row2 %}{% if browser.disabled %} disabled{% endif%}"
-title="{{ browser.user_agent }}">
+<tr class="{% cycle row1,row2 %}{% if browser.active %} active{% else %} inactive{% endif%}" title="{{ browser.user_agent }}">
 <td>{{ browser }}</td>
 <td>{{ browser.major }}.{{ browser.minor }}</td>
 <td>{% if browser.engine %}{{ browser.engine }}{% endif %} {{ browser.engine_version }}</td>
