@@ -186,20 +186,26 @@ WHERE """ + where, params)
 
 
 class SureForm(forms.Form):
-    browser = forms.ChoiceField()
+    factory = forms.ModelChoiceField(None)
+    browser = forms.ModelChoiceField(None)
 
 
 @login_required
 def deactivate(http_request):
-    form = SureForm(http_request.POST or http_request.GET or None)
+    form = SureForm(http_request.POST or None)
     factories = Factory.objects.filter(admin=http_request.user)
+    form.fields['factory'].queryset = factories
+    form.fields['factory'].widget.choices = form.fields['factory'].choices
     browsers = Browser.objects.filter(factory__in=factories, active=True)
-    preload_foreign_keys(browsers, factory=factories, browser_group=True)
-    choices = [(u'%s - %s' % (browser.factory, browser), browser.id)
-               for browser in browsers]
-    choices.sort()
-    form.fields['browser'].choices = [(b, a) for (a, b) in choices]
+    form.fields['browser'].queryset = browsers
+    form.fields['browser'].widget.choices = form.fields['browser'].choices
+    # Deactivate browser if this is a proper post request
+    if http_request.POST and form.is_valid():
+        return HttpResponseRedirect(
+            form.cleaned_data['browser'].factory.get_absolute_url())
+    # Show verification form to send a post request
     form_title = _("deactivate a browser")
     form_submit = _("Yes, I'm sure")
     form_action = http_request.path
+    # preload_foreign_keys(browsers, browser_group=True)
     return render_to_response('form.html', locals())
