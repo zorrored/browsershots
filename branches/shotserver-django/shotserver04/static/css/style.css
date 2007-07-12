@@ -251,7 +251,5 @@ a:hover { text-decoration: underline; }
 :link { color: #016; }
 :visited { color: #048; }
 
-tr.inactive td {
-  color: gray;
-  text-decoration: line-through;
-}
+tr.inactive { color: gray; }
+tr.inactive td.browser { text-decoration: line-through; }
