@@ -327,6 +327,9 @@ def activate(http_request):
         return error_page(error)
     # Deactivate browser if this is a proper post request
     if http_request.POST:
+        data = dict((field.name, getattr(browser, field.name))
+                    for field in Browser._meta.fields)
+        delete_or_deactivate_similar_browsers(data, exclude=browser)
         browser.active = True
         browser.save()
         return HttpResponseRedirect(browser.factory.get_absolute_url())
