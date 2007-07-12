@@ -29,7 +29,11 @@ doctest :
 
 headers :
 	find -name "*.py" \
-	| xargs header.py shotserver04/settings.py
+	| xargs header.py shotserver04/__init__.py
+
+properties :
+	find -name "*.py" | xargs svn propset svn:keywords "Rev Date Author"
+	find -name "*.py" | xargs svn propset svn:eol-style native
 
 backup :
 	pg_dump shotserver04 | bzip2 \
