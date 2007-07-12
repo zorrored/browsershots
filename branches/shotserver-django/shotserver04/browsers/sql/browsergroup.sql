@@ -18,4 +18,5 @@ INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (17,
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (18,'Dillo','',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (19,'Netscape','Netscape',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (20,'Iceweasel','GNU',False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (21,'Kazehakase','',False);
 SELECT setval('browsers_browsergroup_id_seq', (SELECT max("id") FROM "browsers_browsergroup"));
