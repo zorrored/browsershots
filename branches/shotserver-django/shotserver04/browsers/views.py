@@ -187,6 +187,7 @@ WHERE """ + where, params)
 
 @login_required
 def deactivate(http_request):
+    error_title = "invalid request"
     # Get browser ID
     try:
         if 'browser' in http_request.POST:
@@ -194,11 +195,14 @@ def deactivate(http_request):
         else:
             browser_id = int(http_request.GET.get('browser', ''))
     except (KeyError, ValueError):
-        error_title = "invalid request"
         error_message = "You must specify a numeric browser ID."
         return render_to_response('error.html', locals())
     # Find browser by ID
     browser = get_object_or_404(Browser, id=browser_id)
+    # Check that browser is active
+    if not browser.active:
+        error_message = "This browser is already inactive."
+        return render_to_response('error.html', locals())
     # Permission check
     if browser.factory.admin_id != http_request.user.id:
         error_title = "permission denied"
