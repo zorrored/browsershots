@@ -39,8 +39,12 @@ def sql(instance):
     from django.db import backend
     field_names = [backend.quote_name(f.column)
                    for f in instance._meta.fields]
-    db_values = [repr(f.get_db_prep_save(f.pre_save(instance, True)))
-                 for f in instance._meta.fields]
+    db_values = []
+    for f in instance._meta.fields:
+        value = repr(f.get_db_prep_save(f.pre_save(instance, True)))
+        if value.startswith("u'"):
+            value = value[1:]
+        db_values.append(value)
     return 'INSERT INTO %s (%s) VALUES (%s);' % (
         backend.quote_name(instance._meta.db_table),
         ','.join(field_names),
