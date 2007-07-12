@@ -31,7 +31,7 @@ from django import newforms as forms
 from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
 from shotserver04.common.preload import preload_foreign_keys
@@ -185,26 +185,38 @@ WHERE """ + where, params)
         form.cleaned_data['factory'].get_absolute_url())
 
 
-class SureForm(forms.Form):
-    factory = forms.ModelChoiceField(None)
-    browser = forms.ModelChoiceField(None)
-
-
 @login_required
 def deactivate(http_request):
-    form = SureForm(http_request.POST or None)
-    factories = Factory.objects.filter(admin=http_request.user)
-    form.fields['factory'].queryset = factories
-    form.fields['factory'].widget.choices = form.fields['factory'].choices
-    browsers = Browser.objects.filter(factory__in=factories, active=True)
-    form.fields['browser'].queryset = browsers
-    form.fields['browser'].widget.choices = form.fields['browser'].choices
+    # Get browser ID
+    try:
+        if 'browser' in http_request.POST:
+            browser_id = int(http_request.POST.get('browser', ''))
+        else:
+            browser_id = int(http_request.GET.get('browser', ''))
+    except (KeyError, ValueError):
+        error_title = "invalid request"
+        error_message = "You must specify a numeric browser ID."
+        return render_to_response('error.html', locals())
+    # Find browser by ID
+    browser = get_object_or_404(Browser, id=browser_id)
+    # Permission check
+    if browser.factory.admin_id != http_request.user.id:
+        error_title = "permission denied"
+        error_message = "You don't have permission to edit this browser."
+        return render_to_response('error.html', locals())
     # Deactivate browser if this is a proper post request
-    if http_request.POST and form.is_valid():
-        return HttpResponseRedirect(
-            form.cleaned_data['browser'].factory.get_absolute_url())
+    if http_request.POST:
+        browser.active = False
+        browser.save()
+        return HttpResponseRedirect(browser.factory.get_absolute_url())
     # Show verification form to send a post request
     form_title = _("deactivate a browser")
+    really = _("Do you really want to deactivate %(browser)s on %(factory)s?")
+    really %= {'browser': browser, 'factory': browser.factory}
+    form = u"""
+<tr><th></th><td>%s
+<input type="hidden" name="browser" value="%d" /></td></tr>
+""".strip() % (really, browser.id)
     form_submit = _("Yes, I'm sure")
     form_action = http_request.path
     # preload_foreign_keys(browsers, browser_group=True)
