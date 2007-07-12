@@ -82,8 +82,8 @@ def extend(http_request):
         return render_to_response('error.html', locals())
     try:
         request_group_id = int(http_request.POST['request_group_id'])
-    except KeyError, ValueError:
-        error_message = "You must specify a numeric request group id."
+    except (KeyError, ValueError):
+        error_message = "You must specify a numeric request group ID."
         return render_to_response('error.html', locals())
     request_group = get_object_or_404(RequestGroup, pk=request_group_id)
     request_group.expire = datetime.now() + timedelta(minutes=30)
