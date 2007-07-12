@@ -49,10 +49,15 @@ class PasswordForm(forms.Form):
 BrowserForm = forms.form_for_model(Browser)
 
 
-def guess_factory(ip, user_agent):
+def guess_factory(ip, user_agent, name=None):
     """
-    Guess factory name from IP address and User-Agent.
+    Guess factory name from IP address and User-Agent, or optionally
+    from factory parameter in query string.
     """
+    if name:
+        factories = Factory.objects.select_related().filter(name=name)
+        if len(factories):
+            return factories[0]
     factories = Factory.objects.select_related().filter(ip=ip)
     if not factories:
         factories = Factory.objects.select_related()
@@ -90,7 +95,8 @@ def add_browser(http_request):
         }
     # Guess factory name from IP address
     ip = http_request.META['REMOTE_ADDR']
-    factory = guess_factory(ip, user_agent)
+    factory = guess_factory(ip, user_agent,
+        http_request.GET.get('factory', None))
     if factory:
         initial['factory'] = factory.id
     # Extract engine and engine version from user agent string

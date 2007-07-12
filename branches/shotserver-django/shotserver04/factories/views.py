@@ -61,6 +61,7 @@ def details(http_request, name):
     screenshot_list = screenshot_list.order_by('-id')[:10]
     preload_foreign_keys(screenshot_list,
                          browser__browser_group=True)
+    admin_logged_in = http_request.user.id == factory.admin_id
     return render_to_response('factories/details.html', locals())
 
 
