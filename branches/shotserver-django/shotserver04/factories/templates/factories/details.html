@@ -49,7 +49,10 @@
 <td>{% if browser.uploads_per_hour %}{{ browser.uploads_per_hour }}{% endif %}</td>
 <td>{% if browser.uploads_per_day %}{{ browser.uploads_per_day }}{% endif %}</td>
 <td>{{ browser.queue_estimate|human_seconds }}</td>
-{% if admin_logged_in %}<td><a href="/browsers/deactivate/?browser={{ browser.id }}" title="{{ _("deactivate")|capfirst }}">X</a></td>{% endif %}
+{% if admin_logged_in %}<td>
+{% if browser.active %}<a href="/browsers/deactivate/?browser={{ browser.id }}" title="{{ _("deactivate")|capfirst }}">X</a>
+{% else %}<a href="/browsers/activate/?browser={{ browser.id }}" title="{{ _("activate")|capfirst }}">A</a>{% endif %}
+</td>{% endif %}
 </tr>
 {% endfor %}
 </tbody>

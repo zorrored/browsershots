@@ -28,5 +28,6 @@ from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('shotserver04.browsers.views',
     (r'^add/$', 'add'),
+    (r'^activate/$', 'activate'),
     (r'^deactivate/$', 'deactivate'),
 )

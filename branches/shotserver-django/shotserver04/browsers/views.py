@@ -185,43 +185,99 @@ WHERE """ + where, params)
         form.cleaned_data['factory'].get_absolute_url())
 
 
-@login_required
-def deactivate(http_request):
+class InvalidRequest(Exception):
+    pass
+
+
+class PermissionDenied(InvalidRequest):
+    pass
+
+
+def error_page(error):
+    """
+    Render a simple error message.
+    """
     error_title = "invalid request"
-    # Get browser ID
+    if isinstance(error, PermissionDenied):
+        error_title = "permission denied"
+    error_message = error.args[0]
+    return render_to_response('error.html', locals())
+
+
+def get_browser(http_request):
+    """
+    Get browser from POST or GET, and check admin permissions.
+    """
     try:
         if 'browser' in http_request.POST:
             browser_id = int(http_request.POST.get('browser', ''))
         else:
             browser_id = int(http_request.GET.get('browser', ''))
     except (KeyError, ValueError):
-        error_message = "You must specify a numeric browser ID."
-        return render_to_response('error.html', locals())
-    # Find browser by ID
-    browser = get_object_or_404(Browser, id=browser_id)
-    # Check that browser is active
-    if not browser.active:
-        error_message = "This browser is already inactive."
-        return render_to_response('error.html', locals())
+        raise InvalidRequest(
+            "You must specify a numeric browser ID.")
+    # Get browser from database
+    try:
+        browser = Browser.objects.get(id=browser_id)
+    except Browser.DoesNotExist:
+        raise InvalidRequest(
+            "Browser with id=%d does not exist." % browser_id)
     # Permission check
     if browser.factory.admin_id != http_request.user.id:
-        error_title = "permission denied"
-        error_message = "You don't have permission to edit this browser."
+        raise PermissionDenied(
+            "You don't have permission to edit this browser.")
         return render_to_response('error.html', locals())
-    # Deactivate browser if this is a proper post request
-    if http_request.POST:
-        browser.active = False
-        browser.save()
-        return HttpResponseRedirect(browser.factory.get_absolute_url())
+    return browser
+
+
+def activation_form(http_request, browser, action='activate'):
     # Show verification form to send a post request
-    form_title = _("deactivate a browser")
-    really = _("Do you really want to deactivate %(browser)s on %(factory)s?")
-    really %= {'browser': browser, 'factory': browser.factory}
+    if action == 'activate':
+        form_title = _("activate a browser")
+    elif action == 'deactivate':
+        form_title = _("deactivate a browser")
+    really = _("Do you really want to %(action)s %(browser)s on %(factory)s?")
+    really %= {
+        'browser': browser,
+        'factory': browser.factory,
+        'action': action,
+        }
     form = u"""
 <tr><th></th><td>%s
 <input type="hidden" name="browser" value="%d" /></td></tr>
 """.strip() % (really, browser.id)
     form_submit = _("Yes, I'm sure")
     form_action = http_request.path
-    # preload_foreign_keys(browsers, browser_group=True)
     return render_to_response('form.html', locals())
+
+
+@login_required
+def deactivate(http_request):
+    try:
+        browser = get_browser(http_request)
+        if not browser.active:
+            raise InvalidRequest("This browser is already inactive.")
+    except InvalidRequest, error:
+        return error_page(error)
+    # Deactivate browser if this is a proper post request
+    if http_request.POST:
+        browser.active = False
+        browser.save()
+        return HttpResponseRedirect(browser.factory.get_absolute_url())
+    return activation_form(http_request, browser, 'deactivate')
+
+
+@login_required
+def activate(http_request):
+    try:
+        browser = get_browser(http_request)
+        if browser.active:
+            raise InvalidRequest("This browser is already active.")
+    except InvalidRequest, error:
+        return error_page(error)
+    # Deactivate browser if this is a proper post request
+    if http_request.POST:
+        browser.active = True
+        browser.save()
+        return HttpResponseRedirect(browser.factory.get_absolute_url())
+    return activation_form(http_request, browser)
