@@ -64,7 +64,7 @@ def find_and_lock_request(factory, features):
     return request
 
 
-def add_version(filters, value, name):
+def add_version(filters, value, name, exact=False):
     """
     Update filters to get the browser for a matching request.
     """
@@ -72,7 +72,7 @@ def add_version(filters, value, name):
         return
     if hasattr(value, 'id'):
         value = value.id
-    if value == 2: # request for 'enabled'
+    if value == 2 and not exact: # request for 'enabled'
         filters[name + '__gte'] = 2 # match 'enabled' or version
     else:
         filters[name] = value # specific requested version
@@ -138,8 +138,8 @@ def poll(http_request, factory, encrypted_password):
     filters = {'factory': factory,
                'browser_group': request.browser_group,
                'active': True}
-    add_version(filters, request.major, 'major')
-    add_version(filters, request.minor, 'minor')
+    add_version(filters, request.major, 'major', exact=True)
+    add_version(filters, request.minor, 'minor', exact=True)
     add_version(filters, request.request_group.javascript, 'javascript__id')
     add_version(filters, request.request_group.java, 'java__id')
     add_version(filters, request.request_group.flash, 'flash__id')
