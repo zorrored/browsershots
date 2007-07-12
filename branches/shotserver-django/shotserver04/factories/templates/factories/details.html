@@ -33,6 +33,7 @@
 <th>{{ _("uploads per hour")|capfirst|human_br }}</th>
 <th>{{ _("uploads per day")|capfirst|human_br }}</th>
 <th>{{ _("queue estimate")|capfirst|human_br }}</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -49,6 +50,7 @@ title="{{ browser.user_agent }}">
 <td>{% if browser.uploads_per_hour %}{{ browser.uploads_per_hour }}{% endif %}</td>
 <td>{% if browser.uploads_per_day %}{{ browser.uploads_per_day }}{% endif %}</td>
 <td>{{ browser.queue_estimate|human_seconds }}</td>
+{% if admin_logged_in %}<td><a href="/browsers/deactivate/?browser={{ browser.id }}" title="{{ _("deactivate")|capfirst }}">X</a></td>{% endif %}
 </tr>
 {% endfor %}
 </tbody>

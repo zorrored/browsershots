@@ -27,11 +27,14 @@ __author__ = "$Author$"
 from django import newforms as forms
 from django.db import connection
 from django.http import HttpResponseRedirect
+from django import newforms as forms
 from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
+from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.browsers import agents
@@ -77,7 +80,7 @@ def guess_factory(ip, user_agent, name=None):
         return factories[0]
 
 
-def add_browser(http_request):
+def add(http_request):
     """
     Add a browser that is installed on a screenshot factory.
     """
@@ -180,3 +183,23 @@ WHERE """ + where, params)
     # Redirect to factory detail page
     return HttpResponseRedirect(
         form.cleaned_data['factory'].get_absolute_url())
+
+
+class SureForm(forms.Form):
+    browser = forms.ChoiceField()
+
+
+@login_required
+def deactivate(http_request):
+    form = SureForm(http_request.POST or http_request.GET or None)
+    factories = Factory.objects.filter(admin=http_request.user)
+    browsers = Browser.objects.filter(factory__in=factories, active=True)
+    preload_foreign_keys(browsers, factory=factories, browser_group=True)
+    choices = [(u'%s - %s' % (browser.factory, browser), browser.id)
+               for browser in browsers]
+    choices.sort()
+    form.fields['browser'].choices = [(b, a) for (a, b) in choices]
+    form_title = _("deactivate a browser")
+    form_submit = _("Yes, I'm sure")
+    form_action = http_request.path
+    return render_to_response('form.html', locals())

@@ -27,5 +27,6 @@ __author__ = "$Author$"
 from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('shotserver04.browsers.views',
-    (r'^add/$', 'add_browser'),
+    (r'^add/$', 'add'),
+    (r'^deactivate/$', 'deactivate'),
 )
