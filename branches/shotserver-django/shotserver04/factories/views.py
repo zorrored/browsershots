@@ -52,15 +52,20 @@ def details(http_request, name):
         factory = Factory.objects.get(name=name)
     except Factory.DoesNotExist:
         raise Http404
-    browser_list = Browser.objects.select_related().filter(
-        factory=factory.id) # active=True)
+    browser_list = list(Browser.objects.filter(factory=factory.id))
+    preload_foreign_keys(browser_list,
+                         browser_group=True,
+                         engine=True,
+                         javascript=True,
+                         java=True,
+                         flash=True)
+    browser_list.sort(key=Browser.__unicode__)
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
     screenshot_list = Screenshot.objects.filter(factory=factory,
         website__profanities__lte=settings.PROFANITIES_ALLOWED)
     screenshot_list = screenshot_list.order_by('-id')[:10]
-    preload_foreign_keys(screenshot_list,
-                         browser__browser_group=True)
+    preload_foreign_keys(screenshot_list, browser=browser_list)
     admin_logged_in = http_request.user.id == factory.admin_id
     return render_to_response('factories/details.html', locals())
 
