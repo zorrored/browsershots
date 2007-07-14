@@ -177,26 +177,32 @@ def activate_or_add_browser(data):
 
 def activate_browser(data):
     """
-    Try to activate existing browser with the same settings.
+    Try to activate existing browser, and update settings.
     """
     existing_browsers = Browser.objects.filter(
         factory=data['factory'],
         user_agent=data['user_agent'],
         browser_group=data['browser_group'],
-        major=data['major'],
-        minor=data['minor'],
+        version=data['version'],
         javascript=data['javascript'],
         java=data['java'],
         flash=data['flash'],
         )
     if len(existing_browsers) == 0:
         return False
+    browser = existing_browsers[0]
     for candidate in existing_browsers:
         if candidate.active:
-            return candidate
-    browser = existing_browsers[0]
-    browser.active = True
-    browser.save()
+            browser = candidate
+            break
+    modified = False
+    data['active'] = True
+    for field in 'active command major minor engine engine_version'.split():
+        if getattr(browser, field) != data[field]:
+            setattr(browser, field, data[field])
+            modified = True
+    if modified:
+        browser.save()
     return browser
 
 
