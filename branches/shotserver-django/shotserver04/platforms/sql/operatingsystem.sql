@@ -15,4 +15,7 @@ INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","co
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (15,3,'Windows','2003','Server','Microsoft');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (16,3,'Windows','Vista','','Microsoft');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (17,3,'Windows','2000','','Microsoft');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (18,1,'Fedora','7','','Red Hat');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (19,1,'PLD','3.0','Th','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (20,1,'Arch','','Current','');
 SELECT setval('platforms_operatingsystem_id_seq', (SELECT max("id") FROM "platforms_operatingsystem"));
