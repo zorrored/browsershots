@@ -103,15 +103,16 @@ def add(http_request):
     if factory:
         initial['factory'] = factory.id
     # Extract engine and engine version from user agent string
+    user_agent_lower = user_agent.lower()
     for engine in agents.get_engines():
-        if engine.name in user_agent:
+        if engine.name.lower() in user_agent_lower:
             initial['engine'] = engine.id
             initial['engine_version'] = agents.extract_version(
                 user_agent, engine.name)
             break
     # Extract browser group and version from user agent string
     for browser_group in agents.get_browser_groups():
-        if browser_group.name in user_agent:
+        if browser_group.name.lower() in user_agent_lower:
             initial['browser_group'] = browser_group.id
             version = agents.extract_version(
                 user_agent, browser_group.name)

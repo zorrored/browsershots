@@ -98,7 +98,7 @@ def extract_version(user_agent, name):
     """
     if name == 'Safari' and 'Version' in user_agent:
         name = 'Version'
-    index = user_agent.index(name)
+    index = user_agent.lower().index(name.lower())
     index += len(name)
     if user_agent[index] not in '/ ':
         return ''
