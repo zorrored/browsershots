@@ -247,6 +247,8 @@ class RequestGroup(models.Model):
         queued_seconds = queued.seconds + queued.days * 24 * 3600
         filters = self.matching_browser_filters()
         requests = self.request_set.filter(screenshot__isnull=True)
+        preload_foreign_keys(requests,
+                             browser_group=self._browser_groups_cache)
         tables = {}
         for request in requests:
             estimate = (request.state() or
