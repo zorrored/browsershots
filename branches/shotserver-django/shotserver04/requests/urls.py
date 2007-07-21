@@ -28,5 +28,6 @@ from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('shotserver04.requests.views',
     (r'^$', 'overview'),
+    (r'^(?P<group>\d+)/$', 'details'),
     (r'^extend/$', 'extend')
 )

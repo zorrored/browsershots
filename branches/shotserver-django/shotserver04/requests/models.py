@@ -91,8 +91,18 @@ class RequestGroup(models.Model):
         ordering = ('-submitted', )
 
     def __unicode__(self):
-        """Get string representation."""
-        return unicode(self.website)
+        """
+        Get string representation.
+        """
+        if callable(self.index):
+            self.index = self.index() # Cache the result
+        return u'%s %d' % (capfirst(_("screenshot request group")), self.index)
+
+    def get_absolute_url(self):
+        """
+        Get absolute URL.
+        """
+        return '/requests/%d/' % self.id
 
     def is_pending(self):
         """True if there are pending screenshot requests in this group."""
@@ -102,7 +112,7 @@ class RequestGroup(models.Model):
     def time_since_submitted(self):
         """Human-readable formatting of interval since submitted."""
         return '<li>%s</li>' % (
-            capfirst(_("requested %(interval)s ago")) %
+            capfirst(_("submitted %(interval)s ago")) %
             {'interval': timesince(self.submitted)})
 
     def time_until_expire(self):
@@ -271,6 +281,15 @@ class RequestGroup(models.Model):
         if result:
             result.append('<br class="clear" />')
         return '\n'.join(result)
+
+    def index(self):
+        """
+        Get the number among all request groups for the same website.
+        """
+        return RequestGroup.objects.filter(
+            id__lte=self.id,
+            website=self.website
+            ).count()
 
 
 class Request(models.Model):

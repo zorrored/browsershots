@@ -28,6 +28,7 @@ from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection
+from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup
@@ -73,6 +74,15 @@ GROUP BY platform_id, browser_group_id, major, minor
             'pending_requests': pending_requests,
             })
     return render_to_response('requests/overview.html', locals())
+
+
+def details(http_request, group):
+    request_group = get_object_or_404(RequestGroup, pk=group)
+    request_group.index = request_group.index() # Cache the result
+    website = request_group.website
+    request_list = request_group.request_set.all()
+    preload_foreign_keys(request_list, browser_group=True)
+    return render_to_response('requests/details.html', locals())
 
 
 def extend(http_request):
