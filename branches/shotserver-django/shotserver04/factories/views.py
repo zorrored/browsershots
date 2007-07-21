@@ -25,9 +25,11 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.http import Http404
+from django.utils.text import capfirst
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from shotserver04 import settings
+from shotserver04.common import last_poll_timeout
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot
@@ -40,7 +42,11 @@ def overview(http_request):
     """
     factory_table_header = Factory.table_header()
     factory_list = Factory.objects.select_related().filter(
-        uploads_per_day__gt=0).order_by('-uploads_per_day')
+        last_poll__gt=last_poll_timeout()).order_by('-uploads_per_day')
+    if not len(factory_list):
+        error_title = capfirst(_("out of service"))
+        error_message = _("No active screenshot factories.")
+        return render_to_response('error.html', locals())
     return render_to_response('factories/overview.html', locals())
 
 
