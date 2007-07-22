@@ -94,9 +94,8 @@ class RequestGroup(models.Model):
         """
         Get string representation.
         """
-        if callable(self.index):
-            self.index = self.index() # Cache the result
-        return u'%s %d' % (capfirst(_("screenshot request group")), self.index)
+        return u'%s %d' % (capfirst(_("screenshot request group")),
+                           self.index())
 
     def get_absolute_url(self):
         """
@@ -251,17 +250,18 @@ class RequestGroup(models.Model):
         """
         Queue estimates for pending screenshot requests.
         """
-        if not self.is_pending():
-            return ''
         queued = datetime.now() - self.submitted
         queued_seconds = queued.seconds + queued.days * 24 * 3600
         filters = self.matching_browser_filters()
-        requests = self.request_set.filter(screenshot__isnull=True)
-        preload_foreign_keys(requests,
-                             browser_group=self._browser_groups_cache)
+        requests = self.request_set.all()
+        if hasattr(self, '_browser_groups_cache'):
+            preload_foreign_keys(requests,
+                browser_group=self._browser_groups_cache)
+        else:
+            preload_foreign_keys(requests, browser_group=True)
         tables = {}
         for request in requests:
-            estimate = (request.state() or
+            estimate = (request.status() or
                         request.queue_estimate(filters, queued_seconds))
             table = tables.get(request.platform_id, [])
             table.append('<tr><td>%s</td><td>%s</td></tr>' % (
@@ -286,10 +286,10 @@ class RequestGroup(models.Model):
         """
         Get the number among all request groups for the same website.
         """
-        return RequestGroup.objects.filter(
-            id__lte=self.id,
-            website=self.website
-            ).count()
+        if not hasattr(self, '_index'):
+            self._index = RequestGroup.objects.filter(
+                id__lte=self.id, website=self.website).count()
+        return self._index
 
 
 class Request(models.Model):
@@ -349,14 +349,14 @@ class Request(models.Model):
                 result.append(u'.' + unicode(self.minor))
         return u''.join(result)
 
-    def state(self):
+    def status(self):
         """
-        Human-readable output of request state.
+        Human-readable output of request status.
         """
+        if self.screenshot_id is not None:
+            return _("uploaded")
         if self.locked and self.locked < lock_timeout():
             return _("failed")
-        if self.screenshot:
-            return _("uploaded")
         if self.redirected:
             return _("loading")
         if self.locked:

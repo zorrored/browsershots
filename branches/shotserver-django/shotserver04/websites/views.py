@@ -65,7 +65,7 @@ def details(http_request, url):
     preload_foreign_keys(factories, operating_system=True)
     request_group_list = website.requestgroup_set.all()
     for index, request_group in enumerate(request_group_list):
-        request_group.index = len(request_group_list) - index
+        request_group._index = len(request_group_list) - index
         request_group._browser_groups_cache = browser_groups
         request_group._browsers_cache = browsers
         request_group._factories_cache = factories

@@ -15,7 +15,7 @@
 {{ request_group.time_since_submitted }}
 {{ request_group.time_until_expire }}
 </ul>
-{{ request_group.queue_estimates }}
+{% if request_group.is_pending %}{{ request_group.queue_estimate }}{% endif %}
 {{ request_group.previews }}
 {% endfor %}
 

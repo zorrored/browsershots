@@ -78,7 +78,6 @@ GROUP BY platform_id, browser_group_id, major, minor
 
 def details(http_request, group):
     request_group = get_object_or_404(RequestGroup, pk=group)
-    request_group.index = request_group.index() # Cache the result
     website = request_group.website
     request_list = request_group.request_set.all()
     preload_foreign_keys(request_list, browser_group=True)
