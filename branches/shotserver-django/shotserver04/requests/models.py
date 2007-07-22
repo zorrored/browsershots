@@ -246,6 +246,23 @@ class RequestGroup(models.Model):
             kwargs['flash'] = self.flash_id
         return kwargs
 
+    def queue_overview(self):
+        """
+        Quick overview of queuing screenshots requests.
+        """
+        parts = []
+        all = self.request_set.all()
+        count = all.count()
+        parts.append("%(count)d browsers selected" % locals())
+        queuing = all.filter(screenshot__isnull=True)
+        count = queuing.filter(browser__isnull=False).count()
+        if count:
+            parts.append(_("%(count)d loading") % locals())
+        count = all.filter(screenshot__isnull=False).count()
+        if count:
+            parts.append(_("%(count)d uploaded") % locals())
+        return _("<li>%s</li>") % ', '.join(parts)
+
     def queue_estimates(self):
         """
         Queue estimates for pending screenshot requests.
