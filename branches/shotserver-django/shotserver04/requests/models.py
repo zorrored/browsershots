@@ -251,15 +251,21 @@ class RequestGroup(models.Model):
         parts = []
         all = self.request_set.all()
         count = all.count()
-        parts.append("%(count)d browsers selected" % locals())
+        parts.append(u"%(count)d browsers selected" % locals())
         queuing = all.filter(screenshot__isnull=True)
+        count = queuing.filter(factory__isnull=False,
+                               browser__isnull=True).count()
+        if count:
+            parts.append(', ' + _(u"%(count)d starting") % locals())
         count = queuing.filter(browser__isnull=False).count()
         if count:
-            parts.append(_("%(count)d loading") % locals())
+            parts.append(', ' + _(u"%(count)d loading") % locals())
         count = all.filter(screenshot__isnull=False).count()
         if count:
-            parts.append(_("%(count)d uploaded") % locals())
-        return _("<li>%s</li>") % ', '.join(parts)
+            parts.append(', ' + _(u"%(count)d uploaded") % locals())
+        parts.append(u' (<a href="%s">%s</a>)' % (
+            self.get_absolute_url(), capfirst(_("details"))))
+        return _(u"<li>%s</li>") % ''.join(parts)
 
     def queue_estimates(self):
         """
