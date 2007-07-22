@@ -92,6 +92,8 @@ def start(http_request):
         if 'url' in http_request.GET:
             url_form.fields['url'].initial = http_request.GET['url']
         multi_column(browser_forms)
+        deselect_legacy_browsers(browser_forms, 'phoenix')
+        deselect_legacy_browsers(browser_forms, 'mozilla')
         selectors = ' |\n'.join(selector_links(browser_forms))
         return render_to_response('start.html', locals())
     # Create screenshot requests and redirect to website overview.
@@ -113,6 +115,9 @@ def start(http_request):
 
 
 def multi_column(browser_forms):
+    """
+    Arrange browsers in multiple columns per platform.
+    """
     groups = [[form.column_length(), form] for form in browser_forms]
     for total_columns in range(len(browser_forms), BROWSER_COLUMNS):
         groups.sort()
@@ -121,6 +126,20 @@ def multi_column(browser_forms):
             break
         form.columns += 1
         groups[-1][0] = form.column_length()
+
+
+def deselect_legacy_browsers(browser_forms, name):
+    """
+    Uncheck old versions of Mozilla and Phoenix.
+    """
+    for browser_form in browser_forms:
+        fields = [field for field in browser_form.fields if name in field]
+        if not fields:
+            continue
+        fields.sort()
+        fields.pop(-1)
+        for field in fields:
+            browser_form.fields[field].initial = False
 
 
 def selector_links(browser_forms):
@@ -133,10 +152,6 @@ def selector_links(browser_forms):
 """.strip()
     yield link_template % ('+' * total, capfirst(_('select all')))
     yield link_template % ('-' * total, capfirst(_('deselect all')))
-
-
-def selector(browser_form, func):
-    return ''.join([func(field) for field in browser_form.fields])
 
 
 def create_platform_requests(request_group, platform, browser_form):
