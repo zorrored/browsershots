@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver-0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-21 12:09-0700\n"
+"POT-Creation-Date: 2007-07-21 17:34-0700\n"
 "PO-Revision-Date: 2006-09-10 22:52+0000\n"
 "Last-Translator: Ferdinand Tschernitz <fht@pixelcow.com>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgid "created"
 msgstr "erstellt"
 
 #: factories/models.py:94 factories/models.py:187 factories/models.py:213
-#: messages/models.py:36 requests/models.py:293
+#: messages/models.py:36 requests/models.py:312
 #: accounts/templates/accounts/profile.html:31 screenshots/models.py:81
 #: screenshots/templates/screenshots/details.html:40 nonces/models.py:37
 #: browsers/models.py:86
@@ -120,6 +120,14 @@ msgstr "Farbtiefe"
 #: factories/models.py:224 factories/templates/factories/details.html:84
 msgid "color depths"
 msgstr "Farbtiefen"
+
+#: factories/views.py:47 common/views.py:61
+msgid "out of service"
+msgstr "außer Betrieb"
+
+#: factories/views.py:48 common/views.py:63
+msgid "No active screenshot factories."
+msgstr "Keine aktiven Screenshot-Fabriken."
 
 #: factories/templates/factories/overview.html:5
 #: factories/templates/factories/overview.html:8
@@ -223,14 +231,6 @@ msgstr "Fabrik-Fehlermeldung"
 msgid "factory error messages"
 msgstr "Fabrik-Fehlermeldungen"
 
-#: common/views.py:61
-msgid "out of service"
-msgstr "außer Betrieb"
-
-#: common/views.py:63
-msgid "No active screenshot factories."
-msgstr "Keine aktiven Screenshot-Fabriken."
-
 #: common/views.py:64
 msgid "Please try again later."
 msgstr "Bitte später erneut versuchen."
@@ -240,7 +240,7 @@ msgstr "Bitte später erneut versuchen."
 msgid "%(seconds)d s"
 msgstr "%(seconds)d s"
 
-#: common/templatetags/human.py:54 requests/models.py:378
+#: common/templatetags/human.py:54 requests/models.py:397
 #, python-format
 msgid "%(minutes)d min"
 msgstr "%(minutes)d min"
@@ -316,12 +316,12 @@ msgstr "deaktiviert"
 msgid "enabled"
 msgstr "aktiviert"
 
-#: common/forms/options.py:44 requests/models.py:143
+#: common/forms/options.py:44 requests/models.py:152
 #, python-format
 msgid "%(width)d pixels wide"
 msgstr "%(width)d Pixel breit"
 
-#: common/forms/options.py:57 requests/models.py:146
+#: common/forms/options.py:57 requests/models.py:155
 #, python-format
 msgid "%(color_depth)d bits per pixel"
 msgstr "%(color_depth)d Bits pro Pixel"
@@ -395,7 +395,7 @@ msgstr "eingetragen"
 msgid "expire"
 msgstr "Ablaufzeit"
 
-#: requests/models.py:89 requests/models.py:283
+#: requests/models.py:89 requests/models.py:302
 msgid "request group"
 msgstr "Auftragsgruppe"
 
@@ -403,93 +403,97 @@ msgstr "Auftragsgruppe"
 msgid "request groups"
 msgstr "Auftragsgruppen"
 
-#: requests/models.py:105
-#, python-format
-msgid "requested %(interval)s ago"
-msgstr "angefordert vor %(interval)s"
+#: requests/models.py:97
+msgid "screenshot request group"
+msgstr "Screenshot-Auftragsgruppe"
 
-#: requests/models.py:120
+#: requests/models.py:114
+#, python-format
+msgid "submitted %(interval)s ago"
+msgstr "eingetragen vor %(interval)s"
+
+#: requests/models.py:129
 #, python-format
 msgid "expires in %(interval)s"
 msgstr "läuft in %(interval)s ab"
 
-#: requests/models.py:128
+#: requests/models.py:137
 msgid "extend"
 msgstr "verlängern"
 
-#: requests/models.py:187
+#: requests/models.py:196
 msgid "Your screenshots will appear here when they are uploaded."
 msgstr "Deine Screenshots werden nach dem Hochladen hier erscheinen."
 
-#: requests/models.py:189
+#: requests/models.py:198
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr "[Aktualisiere diese Seite] oder setze ein Lesezeichen für später."
 
-#: requests/models.py:193
+#: requests/models.py:202
 msgid "Your screenshot requests have expired."
 msgstr "Deine Aufträge sind abgelaufen."
 
-#: requests/models.py:285 requests/templates/requests/overview.html:14
+#: requests/models.py:304 requests/templates/requests/overview.html:14
 #: platforms/models.py:48 platforms/models.py:58
 msgid "platform"
 msgstr "Plattform"
 
-#: requests/models.py:287 browsers/models.py:73 browsers/models.py:90
+#: requests/models.py:306 browsers/models.py:73 browsers/models.py:90
 msgid "browser group"
 msgstr "Browsergruppe"
 
-#: requests/models.py:289 browsers/models.py:94
+#: requests/models.py:308 browsers/models.py:94
 msgid "major"
 msgstr "Hauptversion"
 
-#: requests/models.py:291 browsers/models.py:96
+#: requests/models.py:310 browsers/models.py:96
 msgid "minor"
 msgstr "Unterversion"
 
-#: requests/models.py:295
+#: requests/models.py:314
 msgid "locked"
 msgstr "gesperrt"
 
-#: requests/models.py:297 requests/templates/requests/overview.html:15
+#: requests/models.py:316 requests/templates/requests/overview.html:15
 #: screenshots/models.py:83 screenshots/templates/screenshots/details.html:20
 #: browsers/models.py:146
 msgid "browser"
 msgstr "Browser"
 
-#: requests/models.py:300
+#: requests/models.py:319
 msgid "redirected"
 msgstr "umgeleitet"
 
-#: requests/models.py:302 screenshots/models.py:105
+#: requests/models.py:321 screenshots/models.py:105
 msgid "screenshot"
 msgstr "Screenshot"
 
-#: requests/models.py:316
+#: requests/models.py:335
 msgid "request"
 msgstr "Auftrag"
 
-#: requests/models.py:317
+#: requests/models.py:336
 msgid "requests"
 msgstr "Aufträge"
 
-#: requests/models.py:338
-msgid "failed"
-msgstr "Fehler"
-
-#: requests/models.py:340 screenshots/models.py:89
+#: requests/models.py:357 screenshots/models.py:89
 #: screenshots/templates/screenshots/details.html:72
 msgid "uploaded"
 msgstr "hochgeladen"
 
-#: requests/models.py:342
+#: requests/models.py:359
+msgid "failed"
+msgstr "Fehler"
+
+#: requests/models.py:361
 msgid "loading"
 msgstr "lädt"
 
-#: requests/models.py:344
+#: requests/models.py:363
 msgid "starting"
 msgstr "startet"
 
-#: requests/models.py:371
+#: requests/models.py:390
 msgid "unavailable"
 msgstr "nicht verfügbar"
 
@@ -505,6 +509,13 @@ msgstr "wartende Aufträge"
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
 msgstr "Keine Aufträge in der Warteschlange."
+
+#: requests/templates/requests/details.html:9
+#: websites/templates/websites/details.html:9
+#: screenshots/templates/screenshots/details.html:9
+#, python-format
+msgid "for %(url)s"
+msgstr "für %(url)s"
 
 #: accounts/templates/accounts/login.html:3
 #: accounts/templates/accounts/login.html:6
@@ -598,12 +609,6 @@ msgstr "Webseiten"
 #: websites/templates/websites/details.html:8
 msgid "website overview"
 msgstr "Webseiten-Übersicht"
-
-#: websites/templates/websites/details.html:9
-#: screenshots/templates/screenshots/details.html:9
-#, python-format
-msgid "for %(url)s"
-msgstr "für %(url)s"
 
 #: websites/templates/websites/details.html:23
 msgid "Request new screenshots?"
