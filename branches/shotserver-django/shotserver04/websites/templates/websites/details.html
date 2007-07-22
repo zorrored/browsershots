@@ -11,10 +11,10 @@
 {% for request_group in request_group_list %}
 <h2 class="requestgroup">{{ request_group|human_link }}</h2>
 <ul class="requestgroup">
-{{ request_group.time_since_submitted }}
-{{ request_group.time_until_expire }}
 {{ request_group.options }}
+{{ request_group.time_since_submitted }}
 {% if request_group.is_pending %}
+{{ request_group.time_until_expire }}
 {{ request_group.queue_overview }}
 {% endif %}
 </ul>

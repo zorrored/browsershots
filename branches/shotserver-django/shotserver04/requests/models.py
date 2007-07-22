@@ -118,8 +118,6 @@ class RequestGroup(models.Model):
         """
         Human-readable formatting of interval before expiration.
         """
-        if not self.is_pending():
-            return ''
         now = datetime.now()
         remaining = self.expire - now
         almost_fresh = remaining >= timedelta(minutes=29, seconds=50)
