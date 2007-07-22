@@ -28,6 +28,7 @@ from datetime import datetime, timedelta
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.utils.text import capfirst
 from shotserver04.common import int_or_none, last_poll_timeout
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.common.forms.url import UrlForm
@@ -91,6 +92,7 @@ def start(http_request):
         if 'url' in http_request.GET:
             url_form.fields['url'].initial = http_request.GET['url']
         multi_column(browser_forms)
+        selectors = ' |\n'.join(selector_links(browser_forms))
         return render_to_response('start.html', locals())
     # Create screenshot requests and redirect to website overview.
     values = {
@@ -119,6 +121,22 @@ def multi_column(browser_forms):
             break
         form.columns += 1
         groups[-1][0] = form.column_length()
+
+
+def selector_links(browser_forms):
+    """
+    Links to select or unselect all browsers.
+    """
+    total = sum([len(form.fields) for form in browser_forms])
+    link_template = """
+<a href="javascript:select_browsers('%s')" onfocus="this.blur()">%s</a>
+""".strip()
+    yield link_template % ('+' * total, capfirst(_('select all')))
+    yield link_template % ('-' * total, capfirst(_('deselect all')))
+
+
+def selector(browser_form, func):
+    return ''.join([func(field) for field in browser_form.fields])
 
 
 def create_platform_requests(request_group, platform, browser_form):

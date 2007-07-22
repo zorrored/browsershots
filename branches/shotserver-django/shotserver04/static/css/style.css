@@ -253,3 +253,8 @@ a:hover { text-decoration: underline; }
 
 tr.inactive { color: gray; }
 tr.inactive td.browser { text-decoration: line-through; }
+
+div#selectors {
+  font-size: smaller;
+  margin: 16px 16px 0;
+}
