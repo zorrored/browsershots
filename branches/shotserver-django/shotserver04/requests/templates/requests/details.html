@@ -8,7 +8,5 @@
 <h1>{{ request_group }}</h1>
 <p>{% blocktrans with website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
-{% for request in request_list %}
-{{ request }}
-{% endfor %}
+{{ request_group.queue_estimates }}
 {% endblock %}
