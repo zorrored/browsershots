@@ -158,26 +158,30 @@ class RequestGroup(models.Model):
             return ''
         return '<li>%s</li>' % ', '.join(result)
 
+    def preload_cache(self):
+        if not hasattr(self, '_browser_groups_cache'):
+            self._browser_groups_cache = Browser.objects.all()
+        if not hasattr(self, '_browsers_cache'):
+            self._browsers_cache = Browser.objects.all()
+            preload_foreign_keys(self._browsers_cache,
+                browser_group=self._browser_groups_cache)
+        if not hasattr(self, '_factories_cache'):
+            self._factories_cache = Factory.objects.all()
+            preload_foreign_keys(self._factories_cache,
+                operating_system=True)
+
     def previews(self):
         """
         Thumbnails of screenshots for this request group.
         """
         screenshots = []
         requests = self.request_set.filter(screenshot__isnull=False)
-        # Preload browsers, from cache if possible.
-        if hasattr(self, '_browsers_cache'):
-            preload_foreign_keys(requests,
-                screenshot__browser=self._browsers_cache)
-        else:
-            preload_foreign_keys(requests,
-                screenshot__browser__browser_group=True)
-        # Preload factories, from cache if possible.
-        if hasattr(self, '_factories_cache'):
-            preload_foreign_keys(requests,
-                screenshot__factory=self._factories_cache)
-        else:
-            preload_foreign_keys(requests,
-                screenshot__factory__operating_system=True)
+        # Preload browsers and factories from cache.
+        self.preload_cache()
+        preload_foreign_keys(requests,
+            screenshot__browser=self._browsers_cache)
+        preload_foreign_keys(requests,
+            screenshot__factory=self._factories_cache)
         # Get screenshots and sort by id.
         screenshots = [(request.screenshot_id, request.screenshot)
                        for request in requests]
@@ -275,11 +279,9 @@ class RequestGroup(models.Model):
         queued_seconds = queued.seconds + queued.days * 24 * 3600
         filters = self.matching_browser_filters()
         requests = self.request_set.all()
-        if hasattr(self, '_browser_groups_cache'):
-            preload_foreign_keys(requests,
-                browser_group=self._browser_groups_cache)
-        else:
-            preload_foreign_keys(requests, browser_group=True)
+        self.preload_cache()
+        preload_foreign_keys(requests,
+            browser_group=self._browser_groups_cache)
         tables = {}
         for request in requests:
             estimate = (request.status() or
