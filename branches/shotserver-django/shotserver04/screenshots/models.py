@@ -279,7 +279,8 @@ class Screenshot(models.Model):
         """
         Get user-friendly screenshot filename for use within ZIP files.
         """
-        return '%s-%s.png' % (
-            self.browser.browser_group.name.lower(),
-            self.browser.version,
-            )
+        return u' '.join((
+            self.browser.__unicode__(),
+            self.factory.operating_system.__unicode__(show_codename=False),
+            self.hashkey,
+            )).lower().replace(' ', '-') + '.png'
