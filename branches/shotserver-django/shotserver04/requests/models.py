@@ -160,7 +160,7 @@ class RequestGroup(models.Model):
 
     def preload_cache(self):
         if not hasattr(self, '_browser_groups_cache'):
-            self._browser_groups_cache = Browser.objects.all()
+            self._browser_groups_cache = BrowserGroup.objects.all()
         if not hasattr(self, '_browsers_cache'):
             self._browsers_cache = Browser.objects.all()
             preload_foreign_keys(self._browsers_cache,
@@ -287,7 +287,7 @@ class RequestGroup(models.Model):
             estimate = (request.status() or
                         request.queue_estimate(filters, queued_seconds))
             table = tables.get(request.platform_id, [])
-            table.append('<tr><td>%s</td><td>%s</td></tr>' % (
+            table.append(u'<tr><td>%s</td><td>%s</td></tr>' % (
                 request.browser_string(), estimate))
             tables[request.platform_id] = table
         # return repr(tables)
