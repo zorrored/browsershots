@@ -46,4 +46,9 @@
 </tbody>
 </table>
 {% endif %}
+{% if current_balance %}
+<h2>{{ _("account balance")|capfirst }}</h2>
+<p>You have {{ current_balance }} points in your Browsershots account.
+(<a href="/points/">Details</a>)</p>
+{% endif %}
 {% endblock %}

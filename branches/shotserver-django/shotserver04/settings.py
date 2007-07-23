@@ -99,13 +99,6 @@ SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 RECAPTCHA_PUBLIC_KEY = '6LdxGQAAAAAAA...'
 RECAPTCHA_PRIVATE_KEY = '6LdxGQAAAAAAA...'
 
-# Override secret settings from secrets.py,
-# if that file exists in the same folder as settings.py.
-try:
-    from secrets import *
-except ImportError:
-    pass
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.load_template_source',
@@ -158,3 +151,12 @@ INSTALLED_APPS = (
     'shotserver04.redirect',
     'shotserver04.messages',
 )
+
+# Override secret settings from secrets.py,
+# if that file exists in the same folder as settings.py.
+try:
+    from secrets import *
+    if 'EXTRA_APPS' in locals():
+        INSTALLED_APPS = INSTALLED_APPS + EXTRA_APPS
+except ImportError:
+    pass
