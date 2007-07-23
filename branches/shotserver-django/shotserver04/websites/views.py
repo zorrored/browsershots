@@ -58,6 +58,7 @@ def details(http_request, url):
             url += '?' + http_request.META['QUERY_STRING']
         website = get_object_or_404(Website, url=url)
     # Use caching to reduce number of SQL queries
+    domain = website.domain
     browser_groups = BrowserGroup.objects.all()
     browsers = Browser.objects.all()
     preload_foreign_keys(browsers, browser_group=browser_groups)
@@ -69,6 +70,8 @@ def details(http_request, url):
         request_group._browser_groups_cache = browser_groups
         request_group._browsers_cache = browsers
         request_group._factories_cache = factories
+        request_group._website_cache = website
+        request_group._website_cache._domain_cache = domain
     # Get other websites on the same domain
-    domain_website_list = website.domain.website_set.exclude(id=website.id)
+    domain_website_list = domain.website_set.exclude(id=website.id)
     return render_to_response('websites/details.html', locals())

@@ -26,18 +26,21 @@ __author__ = "$Author$"
 
 from datetime import datetime, timedelta
 import pprint
+import os
 from xmlrpclib import Fault
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timesince import timesince, timeuntil
 from django.utils.text import capfirst
 from django.contrib.auth.models import User
+from django.template.defaultfilters import filesizeformat
 from shotserver04.websites.models import Website
 from shotserver04.platforms.models import Platform
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
+from shotserver04.screenshots import storage
 from shotserver04.common import lock_timeout, last_poll_timeout
 from shotserver04.common.templatetags import human
 from shotserver04.common.preload import preload_foreign_keys
@@ -182,6 +185,9 @@ class RequestGroup(models.Model):
             screenshot__browser=self._browsers_cache)
         preload_foreign_keys(requests,
             screenshot__factory=self._factories_cache)
+        total_bytes = sum([
+            os.path.getsize(storage.png_filename(request.screenshot.hashkey))
+            for request in requests])
         # Get screenshots and sort by id.
         screenshots = [(request.screenshot_id, request.screenshot)
                        for request in requests]
@@ -192,7 +198,8 @@ class RequestGroup(models.Model):
                 for index, screenshot in screenshots])
             return '\n'.join([
                 screenshot.preview_div(height=max_height, caption=True)
-                for index, screenshot in screenshots] + [self.zip_link()])
+                for index, screenshot in screenshots] + [
+                self.zip_link(total_bytes)])
         elif self.is_pending():
             appear = unicode(_(
                 u"Your screenshots will appear here when they are uploaded."))
@@ -323,13 +330,15 @@ class RequestGroup(models.Model):
             '%d.zip' % self.id,
             ))
 
-    def zip_link(self):
+    def zip_link(self, bytes=None):
         """
         Link to ZIP file with screenshots.
         """
+        text = unicode(capfirst(_("download all screenshots")))
+        if bytes:
+            text += ' (%s)' % filesizeformat(bytes)
         return u'<p><a href="/screenshots/%s">%s</a></p>' % (
-            self.zip_filename(),
-            capfirst(_("download all screenshots")))
+            self.zip_filename(), text)
 
 
 class Request(models.Model):
