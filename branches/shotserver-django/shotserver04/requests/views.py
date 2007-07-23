@@ -76,8 +76,8 @@ GROUP BY platform_id, browser_group_id, major, minor
     return render_to_response('requests/overview.html', locals())
 
 
-def details(http_request, group):
-    request_group = get_object_or_404(RequestGroup, pk=group)
+def details(http_request, request_group_id):
+    request_group = get_object_or_404(RequestGroup, id=request_group_id)
     website = request_group.website
     return render_to_response('requests/details.html', locals())
 
