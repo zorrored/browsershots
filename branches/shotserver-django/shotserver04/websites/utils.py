@@ -31,6 +31,7 @@ import urlparse
 HTTP_TIMEOUT = 10 # seconds
 MAX_RESPONSE_SIZE = 10000 # bytes
 
+
 class HTTPError(Exception):
 
     def __init__(self, hostname, error=None):
@@ -45,9 +46,16 @@ class HTTPError(Exception):
             self.message = error_string
 
 
-class ConnectError(HTTPError): pass
-class RequestError(HTTPError): pass
-class ResponseError(HTTPError): pass
+class ConnectError(HTTPError):
+    pass
+
+
+class RequestError(HTTPError):
+    pass
+
+
+class ResponseError(HTTPError):
+    pass
 
 
 def split_netloc(netloc):

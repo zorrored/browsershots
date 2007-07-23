@@ -86,7 +86,8 @@ ADMIN_MEDIA_PREFIX = '/media/'
 PROFANITIES_LIST = """
 asshat asshead asshole cunt fuck gook nigger shit
 porn p0rn pr0n boys girls chicks babe cock
-sex xxx nude nudist naked bitcafe stile omglol                                 """.lower().split()
+sex xxx nude nudist naked bitcafe stile omglol
+""".lower().split()
 
 # Tolerate a small number of profane words
 PROFANITIES_ALLOWED = 1
