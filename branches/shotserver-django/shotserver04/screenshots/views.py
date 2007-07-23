@@ -91,10 +91,11 @@ def download_zip(http_request, request_group_id):
         filename = storage.png_filename(request.screenshot.hashkey)
         archive.write(filename, str(request.screenshot.png_filename()))
     archive.close()
-    temp.seek(0)
     # Send result to browser
     response = HttpResponse(mimetype='application/zip')
     response['Content-Disposition'] = 'attachment' # ; filename=screenshots.zip
+    response['Content-Length'] = temp.tell()
+    temp.seek(0)
     response.write(temp.read())
     temp.close()
     return response
