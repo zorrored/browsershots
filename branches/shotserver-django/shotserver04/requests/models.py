@@ -336,7 +336,7 @@ class RequestGroup(models.Model):
         """
         text = unicode(capfirst(_("download all screenshots")))
         if bytes:
-            text += ' (%s)' % filesizeformat(bytes)
+            text += ' (%s)' % filesizeformat(bytes).replace(' ', '&nbsp;')
         return u'<p><a href="/screenshots/%s">%s</a></p>' % (
             self.zip_filename(), text)
 
