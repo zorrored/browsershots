@@ -192,7 +192,7 @@ class RequestGroup(models.Model):
                 for index, screenshot in screenshots])
             return '\n'.join([
                 screenshot.preview_div(height=max_height, caption=True)
-                for index, screenshot in screenshots])
+                for index, screenshot in screenshots] + [self.zip_link()])
         elif self.is_pending():
             appear = unicode(_(
                 u"Your screenshots will appear here when they are uploaded."))
@@ -314,6 +314,23 @@ class RequestGroup(models.Model):
                 id__lte=self.id, website=self.website).count()
         return self._index
 
+    def zip_filename(self):
+        """Filename for ZIP file with screenshots."""
+        return '-'.join((
+            self.submitted.strftime('%Y-%m-%d'),
+            # self.submitted.strftime('%y%m%d-%H%M%S'),
+            self.website.domain.name,
+            '%d.zip' % self.id,
+            ))
+
+    def zip_link(self):
+        """
+        Link to ZIP file with screenshots.
+        """
+        return u'<p><a href="/screenshots/%s">%s</a></p>' % (
+            self.zip_filename(),
+            capfirst(_("download all screenshots")))
+
 
 class Request(models.Model):
     """
@@ -399,6 +416,9 @@ class Request(models.Model):
                 (self.id, self.factory.name))
 
     def matching_browsers(self, browser_filters):
+        """
+        Get all browsers that can process this request.
+        """
         kwargs = dict(browser_filters)
         kwargs['browser_group'] = self.browser_group_id
         if self.major is not None:
@@ -408,6 +428,9 @@ class Request(models.Model):
         return list(Browser.objects.filter(**kwargs))
 
     def queue_estimate(self, browser_filters, queued_seconds=0):
+        """
+        Get human-readable queue estimate.
+        """
         browsers = self.matching_browsers(browser_filters)
         if not len(browsers):
             return _("unavailable")

@@ -29,4 +29,5 @@ from django.conf.urls.defaults import patterns
 urlpatterns = patterns('shotserver04.screenshots.views',
     (r'^$', 'overview'),
     (r'^(?P<hashkey>[0-9a-f]{32})/$', 'details'),
+    (r'.+-(?P<request_group_id>\d+).zip', 'download_zip'),
 )

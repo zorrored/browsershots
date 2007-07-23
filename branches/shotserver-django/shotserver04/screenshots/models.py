@@ -274,3 +274,12 @@ class Screenshot(models.Model):
             already=Screenshot.objects.filter(website=self.website).count(),
             website=self.website,
             factory__operating_system__platform=platform)
+
+    def png_filename(self):
+        """
+        Get user-friendly screenshot filename for use within ZIP files.
+        """
+        return '%s-%s.png' % (
+            self.browser.browser_group.name.lower(),
+            self.browser.version,
+            )

@@ -24,10 +24,14 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import zipfile
+import tempfile
 from django.shortcuts import render_to_response, get_object_or_404
+from django.http import HttpResponse
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot
-from shotserver04.requests.models import Request
+from shotserver04.screenshots import storage
+from shotserver04.requests.models import Request, RequestGroup
 from shotserver04 import settings
 
 COLUMNS = 10
@@ -71,3 +75,26 @@ def details(http_request, hashkey):
     screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
     request = Request.objects.get(screenshot=screenshot)
     return render_to_response('screenshots/details.html', locals())
+
+
+def download_zip(http_request, request_group_id):
+    """
+    Output a ZIP file containing all screenshots in a request group.
+    """
+    request_group = get_object_or_404(RequestGroup, id=request_group_id)
+    requests = request_group.request_set.filter(screenshot__isnull=False)
+    preload_foreign_keys(requests, screenshot=True)
+    # tempdir = tempfile.mkdtemp(prefix='screenshots-')
+    temp = tempfile.TemporaryFile()
+    archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_STORED)
+    for request in requests:
+        filename = storage.png_filename(request.screenshot.hashkey)
+        archive.write(filename, str(request.screenshot.png_filename()))
+    archive.close()
+    temp.seek(0)
+    # Send result to browser
+    response = HttpResponse(mimetype='application/zip')
+    response['Content-Disposition'] = 'attachment' # ; filename=screenshots.zip
+    response.write(temp.read())
+    temp.close()
+    return response

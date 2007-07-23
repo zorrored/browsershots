@@ -46,14 +46,17 @@ class RedirectMiddleware(object):
         # Don't rewrite POST requests
         if not request.method in ('GET', 'HEAD'):
             return
-        first_part = request.path.strip('/').split('/')[0]
+        parts = request.path.strip('/').split('/')
+        first_part = parts[0]
+        last_part = parts[-1]
         # Redirect to XML-RPC documentation
         host = http.get_host(request)
         subdomain = host.lower().split('.')[0]
         if subdomain in ('api', 'xmlrpc') and first_part == '':
             return http.HttpResponsePermanentRedirect('/xmlrpc/')
         # Add trailing slash if path starts with an installed app name
-        if self.installed_app(first_part) and not request.path.endswith('/'):
+        if self.installed_app(first_part) and not (
+            request.path.endswith('/') or '.' in last_part):
             new_path = request.path + '/'
             if request.GET:
                 new_path += '?' + request.GET.urlencode()
