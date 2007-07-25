@@ -26,6 +26,7 @@ __author__ = "$Author$"
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import capfirst
 from shotserver04.factories.models import Factory
 from shotserver04.features.models import Javascript, Java, Flash
 
@@ -161,3 +162,18 @@ class Browser(models.Model):
         java = self.java.features_q()
         flash = self.flash.features_q()
         return (group & major & minor & javascript & java & flash)
+
+    def activation_form(self):
+        if self.active:
+            action = '/browsers/deactivate/'
+            submit_value = capfirst(_("deactivate"))
+        else:
+            action = '/browsers/activate/'
+            submit_value = capfirst(_("activate"))
+        browser_id = self.id
+        return u"""
+<form action="%(action)s" method="post">
+<input type="hidden" name="browser" value="%(browser_id)s" />
+<input type="submit" name="submit" value="%(submit_value)s" />
+</form>
+""" % locals()

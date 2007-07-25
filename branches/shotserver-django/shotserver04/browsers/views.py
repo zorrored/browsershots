@@ -27,14 +27,12 @@ __author__ = "$Author$"
 from django import newforms as forms
 from django.db import connection
 from django.http import HttpResponseRedirect
-from django import newforms as forms
 from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
-from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.browsers import agents
@@ -243,10 +241,12 @@ WHERE """ + where, params)
 
 
 class InvalidRequest(Exception):
+    """Not a valid post request."""
     pass
 
 
 class PermissionDenied(InvalidRequest):
+    """User not logged in as factory admin."""
     pass
 
 
@@ -283,29 +283,7 @@ def get_browser(http_request):
     if browser.factory.admin_id != http_request.user.id:
         raise PermissionDenied(
             "You don't have permission to edit this browser.")
-        return render_to_response('error.html', locals())
     return browser
-
-
-def activation_form(http_request, browser, action='activate'):
-    # Show verification form to send a post request
-    if action == 'activate':
-        form_title = _("activate a browser")
-    elif action == 'deactivate':
-        form_title = _("deactivate a browser")
-    really = _("Do you really want to %(action)s %(browser)s on %(factory)s?")
-    really %= {
-        'browser': browser,
-        'factory': browser.factory,
-        'action': action,
-        }
-    form = u"""
-<tr><th></th><td>%s
-<input type="hidden" name="browser" value="%d" /></td></tr>
-""".strip() % (really, browser.id)
-    form_submit = _("Yes, I'm sure")
-    form_action = http_request.path
-    return render_to_response('form.html', locals())
 
 
 @login_required
