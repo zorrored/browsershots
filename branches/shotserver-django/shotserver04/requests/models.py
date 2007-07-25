@@ -25,7 +25,6 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from datetime import datetime, timedelta
-import pprint
 import os
 from xmlrpclib import Fault
 from django.db import models
@@ -42,7 +41,6 @@ from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
 from shotserver04.common import lock_timeout, last_poll_timeout
-from shotserver04.common.templatetags import human
 from shotserver04.common.preload import preload_foreign_keys
 
 
@@ -162,6 +160,9 @@ class RequestGroup(models.Model):
         return '<li>%s</li>' % ', '.join(result)
 
     def preload_cache(self):
+        """
+        Load database objects to save many SQL queries later.
+        """
         if not hasattr(self, '_browser_groups_cache'):
             self._browser_groups_cache = BrowserGroup.objects.all()
         if not hasattr(self, '_browsers_cache'):
@@ -260,10 +261,10 @@ class RequestGroup(models.Model):
         Quick overview of queuing screenshots requests.
         """
         parts = []
-        all = self.request_set.all()
-        count = all.count()
+        requests = self.request_set.all()
+        count = requests.count()
         parts.append(u"%(count)d browsers selected" % locals())
-        queuing = all.filter(screenshot__isnull=True)
+        queuing = requests.filter(screenshot__isnull=True)
         count = queuing.filter(factory__isnull=False,
                                browser__isnull=True).count()
         if count:
@@ -271,7 +272,7 @@ class RequestGroup(models.Model):
         count = queuing.filter(browser__isnull=False).count()
         if count:
             parts.append(', ' + _(u"%(count)d loading") % locals())
-        count = all.filter(screenshot__isnull=False).count()
+        count = requests.filter(screenshot__isnull=False).count()
         if count:
             parts.append(', ' + _(u"%(count)d uploaded") % locals())
         parts.append(u' (<a href="%s">%s</a>)' % (

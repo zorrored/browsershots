@@ -33,8 +33,12 @@ MAX_RESPONSE_SIZE = 10000 # bytes
 
 
 class HTTPError(Exception):
+    """
+    An error occurred while trying to load page content over HTTP.
+    """
 
     def __init__(self, hostname, error=None):
+        Exception.__init__(self)
         self.hostname = hostname
         if error is None:
             self.message = ''
@@ -47,14 +51,17 @@ class HTTPError(Exception):
 
 
 class ConnectError(HTTPError):
+    """Could not connect to remote HTTP server."""
     pass
 
 
 class RequestError(HTTPError):
+    """Could not send HTTP request to remote server."""
     pass
 
 
 class ResponseError(HTTPError):
+    """Could not read response from remote HTTP server."""
     pass
 
 

@@ -28,7 +28,6 @@ from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection
-from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup
@@ -77,12 +76,18 @@ GROUP BY platform_id, browser_group_id, major, minor
 
 
 def details(http_request, request_group_id):
+    """
+    Show details about the selected request group.
+    """
     request_group = get_object_or_404(RequestGroup, id=request_group_id)
     website = request_group.website
     return render_to_response('requests/details.html', locals())
 
 
 def extend(http_request):
+    """
+    Extend the expiration timeout of a screenshot request group.
+    """
     error_title = "Invalid request"
     if not http_request.POST:
         error_message = "You must send a POST request to this page."

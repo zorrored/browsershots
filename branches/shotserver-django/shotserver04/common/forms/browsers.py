@@ -59,11 +59,11 @@ class BrowsersForm(forms.BaseForm):
             if data:
                 initial = name in data and 'on' in data[name]
             else:
-                initial = not [
-                    True for other in active_browsers
+                initial = all([
+                    other.minor <= browser.minor
+                    for other in active_browsers
                     if other.browser_group == browser.browser_group
-                    and other.major == browser.major
-                    and other.minor > browser.minor]
+                    and other.major == browser.major])
             field = forms.BooleanField(
                 label=label, initial=initial, required=False)
             field_dict[name] = field
