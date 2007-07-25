@@ -338,7 +338,7 @@ class RequestGroup(models.Model):
             text = unicode(capfirst(_("download all screenshots")))
         else:
             text = unicode(capfirst(
-                _("download all %(count)d screenshots") % locals()))
+                _("download %(count)d screenshots") % locals()))
         if bytes is not None:
             text += ' (%s)' % filesizeformat(bytes).replace(' ', '&nbsp;')
         return u'<p><a href="/screenshots/%s">%s</a></p>' % (
