@@ -65,7 +65,7 @@ def details(http_request, name):
                          javascript=True,
                          java=True,
                          flash=True)
-    browser_list.sort(key=Browser.__unicode__)
+    browser_list.sort(key=lambda browser: (unicode(browser), browser.id))
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
     screenshot_list = Screenshot.objects.filter(factory=factory,
