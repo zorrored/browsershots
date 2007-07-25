@@ -25,7 +25,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import zipfile
-import tempfile
+import cStringIO
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse
 from shotserver04.common.preload import preload_foreign_keys
@@ -84,8 +84,7 @@ def download_zip(http_request, request_group_id):
     request_group = get_object_or_404(RequestGroup, id=request_group_id)
     requests = request_group.request_set.filter(screenshot__isnull=False)
     preload_foreign_keys(requests, screenshot=True)
-    # tempdir = tempfile.mkdtemp(prefix='screenshots-')
-    temp = tempfile.TemporaryFile()
+    temp = cStringIO.StringIO()
     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_STORED)
     for request in requests:
         filename = storage.png_filename(request.screenshot.hashkey)
