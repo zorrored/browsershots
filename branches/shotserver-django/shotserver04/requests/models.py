@@ -324,8 +324,7 @@ class RequestGroup(models.Model):
     def zip_filename(self):
         """Filename for ZIP file with screenshots."""
         return '-'.join((
-            self.submitted.strftime('%Y-%m-%d'),
-            # self.submitted.strftime('%y%m%d-%H%M%S'),
+            self.submitted.strftime('%y%m%d-%H%M%S'),
             self.website.domain.name,
             '%d.zip' % self.id,
             ))

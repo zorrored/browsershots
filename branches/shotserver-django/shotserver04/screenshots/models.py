@@ -280,6 +280,7 @@ class Screenshot(models.Model):
         Get user-friendly screenshot filename for use within ZIP files.
         """
         return u' '.join((
+            self.uploaded.strftime('%y%m%d-%H%M%S'),
             self.browser.__unicode__(),
             self.factory.operating_system.__unicode__(show_codename=False),
             self.hashkey,
