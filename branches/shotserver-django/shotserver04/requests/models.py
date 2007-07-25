@@ -193,13 +193,13 @@ class RequestGroup(models.Model):
                        for request in requests]
         if screenshots:
             screenshots.sort()
-            max_height = max([
-                screenshot.height * 80 / screenshot.width
-                for index, screenshot in screenshots])
-            return '\n'.join([
-                screenshot.preview_div(height=max_height, caption=True)
-                for index, screenshot in screenshots] + [
-                self.zip_link(total_bytes)])
+            max_height = max([screenshot.height * 80 / screenshot.width
+                              for index, screenshot in screenshots])
+            result = [screenshot.preview_div(height=max_height, caption=True)
+                      for index, screenshot in screenshots]
+            if len(screenshots) > 1:
+                result.append(self.zip_link(len(screenshots), total_bytes))
+            return '\n'.join(result)
         elif self.is_pending():
             appear = unicode(_(
                 u"Your screenshots will appear here when they are uploaded."))
@@ -330,12 +330,16 @@ class RequestGroup(models.Model):
             '%d.zip' % self.id,
             ))
 
-    def zip_link(self, bytes=None):
+    def zip_link(self, count=None, bytes=None):
         """
         Link to ZIP file with screenshots.
         """
-        text = unicode(capfirst(_("download all screenshots")))
-        if bytes:
+        if count is None:
+            text = unicode(capfirst(_("download all screenshots")))
+        else:
+            text = unicode(capfirst(
+                _("download all %(count)d screenshots") % locals()))
+        if bytes is not None:
             text += ' (%s)' % filesizeformat(bytes).replace(' ', '&nbsp;')
         return u'<p><a href="/screenshots/%s">%s</a></p>' % (
             self.zip_filename(), text)
