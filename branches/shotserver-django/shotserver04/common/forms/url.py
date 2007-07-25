@@ -26,8 +26,6 @@ __author__ = "$Author$"
 
 import re
 import urlparse
-import socket
-import httplib
 from datetime import datetime
 from psycopg import IntegrityError
 from django import newforms as forms
@@ -102,6 +100,9 @@ class UrlForm(forms.Form):
             self.cleaned_data['url'] = urlparse.urlunsplit(self.url_parts)
 
     def http_get(self):
+        """
+        Load page content from remote HTTP server.
+        """
         try:
             return http_get(self.cleaned_data['url'])
         except HTTPError, error:

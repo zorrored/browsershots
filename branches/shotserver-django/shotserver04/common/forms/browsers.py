@@ -25,8 +25,6 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import newforms as forms
-from shotserver04.browsers.models import Browser
-from shotserver04.common import last_poll_timeout
 
 
 class BrowsersForm(forms.BaseForm):
@@ -90,4 +88,5 @@ class BrowsersForm(forms.BaseForm):
         return u'\n'.join(output)
 
     def column_length(self):
+        """Get the length of the longest column after wrapping."""
         return (len(self.fields) + self.columns - 1) / self.columns

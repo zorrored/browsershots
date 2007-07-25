@@ -156,7 +156,7 @@ INSTALLED_APPS = (
 # if that file exists in the same folder as settings.py.
 try:
     from secrets import *
-    if 'EXTRA_APPS' in locals():
-        INSTALLED_APPS = INSTALLED_APPS + EXTRA_APPS
 except ImportError:
     pass
+if 'EXTRA_APPS' in locals():
+    INSTALLED_APPS += EXTRA_APPS

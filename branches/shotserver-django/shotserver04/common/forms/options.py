@@ -28,7 +28,7 @@ from django import newforms as forms
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 from shotserver04.factories.models import ScreenSize, ColorDepth
-from shotserver04.common import last_poll_timeout, int_or_none
+from shotserver04.common import int_or_none
 from datetime import datetime, timedelta
 
 
