@@ -277,7 +277,7 @@ class RequestGroup(models.Model):
             parts.append(', ' + _(u"%(count)d uploaded") % locals())
         parts.append(u' (<a href="%s">%s</a>)' % (
             self.get_absolute_url(), capfirst(_("details"))))
-        return _(u"<li>%s</li>") % ''.join(parts)
+        return u"<li>%s</li>" % ''.join(parts)
 
     def queue_estimates(self):
         """
