@@ -26,6 +26,15 @@ __author__ = "$Author$"
 
 from django import newforms as forms
 
+try:
+    all()
+except NameError:
+    def all(sequence):
+        for element in sequence:
+            if not bool(element):
+                return False
+        return True
+
 
 class BrowsersForm(forms.BaseForm):
     """
