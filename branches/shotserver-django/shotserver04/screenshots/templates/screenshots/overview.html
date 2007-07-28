@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Recent screenshots" %}{% endblock %}
+{% block title %}{{ _("recent screenshots")|capfirst }}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Recent screenshots" %}</h1>
+<h1>{{ _("recent screenshots")|capfirst }}</h1>
 
 {{ previews }}
 {% endblock %}
