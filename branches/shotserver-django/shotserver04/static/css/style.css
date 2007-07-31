@@ -258,3 +258,18 @@ div#selectors {
   font-size: smaller;
   margin: 16px 16px 0;
 }
+
+div.paginator {
+  position: absolute;
+  right: 0;
+  margin: 1em 0 1em 1em;
+}
+div.paginator a.page {
+  padding: 0 4px;
+  border: 1px solid #ccc;
+}
+div.paginator a.current {
+  border: 1px solid black;
+  background-color: #ccc;
+  color: black;
+}

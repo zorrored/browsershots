@@ -8,6 +8,14 @@
 <h1>{{ _("website overview")|capfirst }}</h1>
 <p>{% blocktrans with website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
+{% if pages_list %}
+<div class="paginator">
+Pages:
+{% for link in pages_list %}{{ link }}
+{% endfor %}
+</div>
+{% endif %}
+
 {% for request_group in request_group_list %}
 <h2 class="requestgroup">{{ request_group|human_link }}</h2>
 <ul class="requestgroup">

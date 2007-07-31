@@ -25,6 +25,8 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.shortcuts import render_to_response, get_object_or_404
+from django.http import Http404
+from django.core.paginator import ObjectPaginator
 from shotserver04.websites.models import Website
 from shotserver04.browsers.models import Browser, BrowserGroup
 from shotserver04.factories.models import Factory
@@ -51,8 +53,11 @@ def details(http_request, url):
     """
     Show details for a selected website.
     """
+    page = 1
     if url.isdigit():
         website = get_object_or_404(Website, id=int(url))
+        if 'page' in http_request.GET:
+            page = int(http_request.GET['page'])
     else:
         if http_request.META['QUERY_STRING']:
             url += '?' + http_request.META['QUERY_STRING']
@@ -64,8 +69,21 @@ def details(http_request, url):
     preload_foreign_keys(browsers, browser_group=browser_groups)
     factories = Factory.objects.all()
     preload_foreign_keys(factories, operating_system=True)
-    request_group_list = website.requestgroup_set.all()
-    for index, request_group in enumerate(request_group_list):
+    request_groups = website.requestgroup_set.all()
+    paginator = ObjectPaginator(request_groups, num_per_page=5, orphans=2)
+    if page < 1 or page > paginator.pages:
+        raise Http404('Requested page out of range.')
+    request_group_list = paginator.get_page(page - 1)
+    pages_list = []
+    if paginator.pages > 1:
+        for number in range(1, paginator.pages + 1):
+            extra_classes = ''
+            if page == number:
+                extra_classes = ' current'
+            pages_list.append(
+                u'<a class="page%s" href="%s?page=%d">%d</a>' % (
+                extra_classes, website.get_numeric_url(), number, number))
+    for index, request_group in enumerate(request_groups):
         request_group._index = len(request_group_list) - index
         request_group._browser_groups_cache = browser_groups
         request_group._browsers_cache = browsers

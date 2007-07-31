@@ -107,6 +107,10 @@ class Website(models.Model):
         else:
             return '/' + self.url
 
+    def get_numeric_url(self):
+        """Get absolute URL, in numeric format."""
+        return '/websites/%d/' % self.id
+
     def count_profanities(self):
         """
         Count profanities in page content.
