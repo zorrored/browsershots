@@ -24,6 +24,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import os
 from xmlrpclib import Fault, Binary
 from datetime import datetime
 from shotserver04.common import serializable, get_or_fault
@@ -98,6 +99,8 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Make smaller preview images
     for size in PREVIEW_SIZES:
         storage.scale(ppmname, size, hashkey)
+    # Delete temporary PPM file
+    os.unlink(ppmname)
     # Save screenshot in database
     website = request.request_group.website
     screenshot = Screenshot(hashkey=hashkey,
