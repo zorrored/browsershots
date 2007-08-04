@@ -85,7 +85,7 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Profanity filter
 PROFANITIES_LIST = """
 asshat asshead asshole cunt fuck gook nigger shit
-porn p0rn pr0n boys girls chicks babe cock
+porn p0rn pr0n boys girls chicks babe cock bukkake
 sex xxx nude nudist naked bitcafe stile omglol
 """.lower().split()
 
