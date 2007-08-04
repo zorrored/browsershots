@@ -91,16 +91,19 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Store and check screenshot file
     hashkey = storage.save_upload(screenshot)
     ppmname = storage.pngtoppm(hashkey)
-    magic, width, height = storage.read_pnm_header(ppmname)
-    if request.request_group.width and width != request.request_group.width:
-        raise Fault(412,
-            u"The screenshot is %d pixels wide, not %d as requested." %
-            (width, request.request_group.width))
-    # Make smaller preview images
-    for size in PREVIEW_SIZES:
-        storage.scale(ppmname, size, hashkey)
-    # Delete temporary PPM file
-    os.unlink(ppmname)
+    try:
+        magic, width, height = storage.read_pnm_header(ppmname)
+        if (request.request_group.width and
+            request.request_group.width != width):
+            raise Fault(412,
+                u"The screenshot is %d pixels wide, not %d as requested." %
+                (width, request.request_group.width))
+        # Make smaller preview images
+        for size in PREVIEW_SIZES:
+            storage.scale(ppmname, size, hashkey)
+    finally:
+        # Delete temporary PPM file
+        os.unlink(ppmname)
     # Save screenshot in database
     website = request.request_group.website
     screenshot = Screenshot(hashkey=hashkey,
