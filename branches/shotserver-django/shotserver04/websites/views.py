@@ -69,7 +69,7 @@ def details(http_request, url):
     preload_foreign_keys(browsers, browser_group=browser_groups)
     factories = Factory.objects.all()
     preload_foreign_keys(factories, operating_system=True)
-    request_groups = website.requestgroup_set.all()
+    request_groups = list(website.requestgroup_set.all())
     paginator = ObjectPaginator(request_groups, num_per_page=5, orphans=2)
     if page < 1 or page > paginator.pages:
         raise Http404('Requested page out of range.')
@@ -84,7 +84,7 @@ def details(http_request, url):
                 u'<a class="page%s" href="%s?page=%d">%d</a>' % (
                 extra_classes, website.get_numeric_url(), number, number))
     for index, request_group in enumerate(request_groups):
-        request_group._index = len(request_group_list) - index
+        request_group._index = len(request_groups) - index
         request_group._browser_groups_cache = browser_groups
         request_group._browsers_cache = browsers
         request_group._factories_cache = factories
