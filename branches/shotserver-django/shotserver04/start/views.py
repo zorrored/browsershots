@@ -93,7 +93,7 @@ def start(http_request):
             url_form.fields['url'].initial = http_request.GET['url']
         multi_column(browser_forms)
         selectors = ' |\n'.join(selector_links(browser_forms))
-        return render_to_response('start.html', locals())
+        return render_to_response('start/start.html', locals())
     # Create screenshot requests and redirect to website overview.
     values = {
         'ip': http_request.META['REMOTE_ADDR'],
