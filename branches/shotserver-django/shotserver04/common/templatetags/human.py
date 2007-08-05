@@ -153,6 +153,14 @@ def human_datetime(timestamp):
     return timestamp.strftime('%Y-%m-%d %H:%M:%S')
 
 
+@register.filter
+def human_date(timestamp):
+    """
+    Short human-readable formatting of date.
+    """
+    return timestamp.strftime('%Y-%m-%d')
+
+
 if __name__ == '__main__':
     import doctest
     _ = lambda x: x

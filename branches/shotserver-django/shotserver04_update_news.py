@@ -34,7 +34,7 @@ import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 import sys
 import re
-import time
+from datetime import datetime
 import urllib2
 from shotserver04 import settings
 from shotserver04.start.models import NewsItem
@@ -48,19 +48,17 @@ find_items = re.compile(
 
 updated = []
 rss = urllib2.urlopen('http://trac.browsershots.org/blog?format=rss').read()
-for title, pubdate, url in find_items(rss):
-    timetuple = time.strptime(pubdate, '%a, %d %b %Y %H:%M:%S %Z')
-    date = '%04d-%02d-%02d' % timetuple[:3]
+for title, date_string, url in find_items(rss):
+    pubdate = datetime.strptime(date_string, '%a, %d %b %Y %H:%M:%S %Z')
+    print date_string
     print pubdate
-    print timetuple
-    print date
     print title
     print url
     print
     item, created = NewsItem.objects.get_or_create(
-        url=url, defaults={'date': date, 'title': title})
-    if item.date != date or item.title != title:
-        item.date = date
+        url=url, defaults={'pubdate': pubdate, 'title': title})
+    if item.pubdate != pubdate or item.title != title:
+        item.pubdate = pubdate
         item.title = title
         item.save()
     updated.append(item.id)
