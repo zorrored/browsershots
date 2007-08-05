@@ -279,7 +279,7 @@ div.paginator a.current {
 div.extra-content { padding-top: 1em; }
 div.extra-content div { float: left; }
 div#about {
-  width: 500px;
-  margin-right: 40px;
+  width: 20em;
+  margin-right: 2em;
 }
-div#news { width: 300px; }
+div#news { width: 20em; }
