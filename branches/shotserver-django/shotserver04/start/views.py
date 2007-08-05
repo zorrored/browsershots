@@ -31,10 +31,10 @@ from django.shortcuts import render_to_response
 from django.utils.text import capfirst
 from shotserver04.common import int_or_none, last_poll_timeout
 from shotserver04.common.preload import preload_foreign_keys
-from shotserver04.common.forms.url import UrlForm
-from shotserver04.common.forms.browsers import BrowsersForm
-from shotserver04.common.forms.features import FeaturesForm
-from shotserver04.common.forms.options import OptionsForm
+from shotserver04.start.forms.url import UrlForm
+from shotserver04.start.forms.browsers import BrowsersForm
+from shotserver04.start.forms.features import FeaturesForm
+from shotserver04.start.forms.options import OptionsForm
 from shotserver04.factories.models import Factory
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup, Browser
