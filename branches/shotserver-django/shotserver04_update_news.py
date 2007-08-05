@@ -34,6 +34,7 @@ import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 import sys
 import re
+import time
 from datetime import datetime
 import urllib2
 from shotserver04 import settings
@@ -49,7 +50,8 @@ find_items = re.compile(
 updated = []
 rss = urllib2.urlopen('http://trac.browsershots.org/blog?format=rss').read()
 for title, date_string, url in find_items(rss):
-    pubdate = datetime.strptime(date_string, '%a, %d %b %Y %H:%M:%S %Z')
+    date_tuple = time.strptime(date_string, '%a, %d %b %Y %H:%M:%S %Z')
+    pubdate = datetime(*date_tuple[:6])
     print date_string
     print pubdate
     print title
