@@ -263,6 +263,8 @@ div.paginator {
   position: absolute;
   right: 0;
   margin: 1em 0 1em 1em;
+  text-align: right;
+  width: 400px;
 }
 div.paginator a.page {
   padding: 0 4px;
@@ -273,3 +275,11 @@ div.paginator a.current {
   background-color: #ccc;
   color: black;
 }
+
+div.extra-content { padding-top: 1em; }
+div.extra-content div { float: left; }
+div#about {
+  width: 500px;
+  margin-right: 40px;
+}
+div#news { width: 300px; }

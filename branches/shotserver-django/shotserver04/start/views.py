@@ -31,6 +31,7 @@ from django.shortcuts import render_to_response
 from django.utils.text import capfirst
 from shotserver04.common import int_or_none, last_poll_timeout
 from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.start.models import NewsItem
 from shotserver04.start.forms.url import UrlForm
 from shotserver04.start.forms.browsers import BrowsersForm
 from shotserver04.start.forms.features import FeaturesForm
@@ -93,6 +94,7 @@ def start(http_request):
             url_form.fields['url'].initial = http_request.GET['url']
         multi_column(browser_forms)
         selectors = ' |\n'.join(selector_links(browser_forms))
+        news_list = NewsItem.objects.all()[:10]
         return render_to_response('start/start.html', locals())
     # Create screenshot requests and redirect to website overview.
     values = {

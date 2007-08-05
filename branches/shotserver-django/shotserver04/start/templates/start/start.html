@@ -51,4 +51,29 @@
 </div>
 </div>
 </form>
+
+<div class="extra-content">
+<div id="about">
+<h2>What is this?</h2>
+<p>
+{{ _("Browsershots makes screenshots of your web design in different browsers.") }}
+{{ _("It is a free open-source online service created by Johann C. Rocholl.") }}
+{{ _("When you submit your web address, it will be added to the job queue.") }}
+{{ _("A number of distributed computers will open your website in their browser.") }}
+{{ _("Then they will make screenshots and upload them to the central server here.") }}
+</p>
+</div>
+
+{% if news_list %}
+<div id="news">
+<h2><a href="http://trac.browsershots.org/blog">Latest News</a></h2>
+<ul>
+{% load human %}
+{% for entry in news_list %}
+<li>{{ entry|human_link }} <span class="news-date">{{ entry.date }}</span></li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+</div>
 {% endblock %}
