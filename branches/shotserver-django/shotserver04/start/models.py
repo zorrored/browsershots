@@ -9,6 +9,9 @@ class NewsItem(models.Model):
     class Admin:
         pass
 
+    class Meta:
+        ordering = ('-date', 'url')
+
     def __unicode__(self):
         return self.title
 
