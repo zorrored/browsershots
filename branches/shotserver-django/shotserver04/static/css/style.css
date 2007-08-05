@@ -277,9 +277,25 @@ div.paginator a.current {
 }
 
 div.extra-content { padding-top: 1em; }
+div.extra-content h2 { margin-bottom: 0; }
 div.extra-content div { float: left; }
 div#about {
   width: 20em;
   margin-right: 2em;
 }
+div#about p { margin: 0; }
 div#news { width: 20em; }
+div#news ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+div#news li {
+  text-indent: -2em;
+  padding: 0;
+  margin: 0 0 0 2em;
+}
+.news-date {
+  font-size: 80%;
+  color: gray;
+}
