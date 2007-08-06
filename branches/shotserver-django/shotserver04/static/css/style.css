@@ -99,7 +99,7 @@ dt { font-weight: bold; }
 div.background {
   clear: both;
   background-repeat: repeat-x;
-  padding: 0 0 16px;
+  padding: 0;
 }
 div.background h2 { margin: 0; }
 
@@ -256,7 +256,8 @@ tr.inactive td.browser { text-decoration: line-through; }
 
 div#selectors {
   font-size: smaller;
-  margin: 16px 16px 0;
+  margin: 0;
+  padding: 8px 16px;
 }
 
 div.paginator {
@@ -276,21 +277,23 @@ div.paginator a.current {
   color: black;
 }
 
-div.extra-content { padding-top: 1em; }
+div.extra-content {
+  padding: 1em 0;
+}
 div.extra-content h2 { margin-bottom: 0; }
 div.extra-content div { float: left; }
 div#about {
-  width: 20em;
-  margin-right: 2em;
+  width: 21em;
+  margin-right: 3em;
 }
 div#about p { margin: 0; }
-div#news { width: 20em; }
-div#news ul {
+div#news { width: 21em; }
+div.extra-content ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
-div#news li {
+div.extra-content li {
   text-indent: -2em;
   padding: 0;
   margin: 0 0 0 2em;

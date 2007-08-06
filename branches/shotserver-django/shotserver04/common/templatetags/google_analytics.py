@@ -26,7 +26,6 @@ __author__ = "$Author$"
 
 from django import template
 from django.conf import settings
-from django.utils import translation
 
 register = template.Library()
 
