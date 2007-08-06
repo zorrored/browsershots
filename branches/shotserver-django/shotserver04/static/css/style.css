@@ -11,6 +11,7 @@ div#content {
   top: 20px;
   left: 50px;
   right: 50px;
+  padding: 0 0 1em;
 }
 
 div#setlang {
@@ -284,7 +285,7 @@ div.extra-content h2 { margin-bottom: 0; }
 div.extra-content div { float: left; }
 div#about {
   width: 21em;
-  margin-right: 3em;
+  margin-right: 4em;
 }
 div#about p { margin: 0; }
 div#news { width: 21em; }
