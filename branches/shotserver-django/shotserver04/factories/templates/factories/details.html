@@ -94,4 +94,13 @@
 {{ screenshot.preview_div_with_browser }}
 {% endfor %}
 {% endif %}
+
+{% if problems_list %}
+<a name="problems"><h2>{{ _("recent problem reports")|capfirst }}</h2></a>
+<ul>
+{% for problem in problems_list %}
+<li>{{ problem|human_link }}</li>
+{% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

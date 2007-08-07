@@ -285,3 +285,30 @@ class Screenshot(models.Model):
             self.factory.operating_system.__unicode__(show_codename=False),
             self.hashkey,
             )).lower().replace(' ', '-') + '.png'
+
+
+class ProblemReport(models.Model):
+    screenshot = models.ForeignKey(Screenshot,
+        verbose_name=_("screenshot"), raw_id_admin=True)
+    code = models.IntegerField(
+        _("error code"))
+    message = models.CharField(
+        _("error message"), maxlength=200)
+    reported = models.DateTimeField(
+        _("reported"), auto_now_add=True)
+    ip = models.IPAddressField(
+        _("IP address"))
+
+    class Admin:
+        pass
+
+    class Meta:
+        verbose_name = _("problem report")
+        verbose_name_plural = _("problem reports")
+
+    def __unicode__(self):
+        return self.message
+
+    def get_absolute_url(self):
+        """Get URL for problem screenshot."""
+        return self.screenshot.get_absolute_url()

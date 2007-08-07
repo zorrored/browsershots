@@ -32,7 +32,7 @@ from shotserver04 import settings
 from shotserver04.common import last_poll_timeout
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
-from shotserver04.screenshots.models import Screenshot
+from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.preload import preload_foreign_keys
 
 
@@ -75,6 +75,8 @@ def details(http_request, name):
     admin_logged_in = http_request.user.id == factory.admin_id
     show_commands = admin_logged_in and True in [
         bool(browser.command) for browser in browser_list]
+    problems_list = ProblemReport.objects.filter(
+        screenshot__factory=factory)[:10]
     return render_to_response('factories/details.html', locals())
 
 
