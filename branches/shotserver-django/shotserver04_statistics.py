@@ -45,25 +45,12 @@ ONE_HOUR_AGO = datetime.now() - timedelta(0, 3600, 0)
 ONE_DAY_AGO = datetime.now() - timedelta(1, 0, 0)
 
 
-def median(values):
-    """
-    Return the lower median of a list of values.
-    """
-    if not values:
-        return None
-    values = list(values)
-    values.sort()
-    return values[len(values) / 2]
-
-
 for factory in Factory.objects.all():
     factory.uploads_per_hour = Screenshot.objects.filter(
         factory=factory, uploaded__gte=ONE_HOUR_AGO).count()
     factory.uploads_per_day = Screenshot.objects.filter(
         factory=factory, uploaded__gte=ONE_DAY_AGO).count()
     browsers = Browser.objects.filter(factory=factory)
-    factory.queue_estimate = median(
-        [browser.queue_estimate for browser in browsers if browser.active])
     factory.save()
     for browser in browsers:
         browser.uploads_per_hour = Screenshot.objects.filter(

@@ -115,8 +115,8 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Update timestamps and estimates
     now = datetime.now()
     factory.last_upload = now
+    factory.queue_estimate = (now - request.request_group.submitted).seconds
     factory.save()
     browser.last_upload = now
-    browser.queue_estimate = (now - request.request_group.submitted).seconds
     browser.save()
     return hashkey
