@@ -448,7 +448,8 @@ class Request(models.Model):
         if not len(browsers):
             return _("unavailable")
         else:
-            estimates = [browser.queue_estimate for browser in browsers]
+            estimates = [browser.factory.queue_estimate
+                         for browser in browsers]
             estimates.sort()
             median = estimates[len(estimates) / 2]
             seconds = max(60, median - queued_seconds)
