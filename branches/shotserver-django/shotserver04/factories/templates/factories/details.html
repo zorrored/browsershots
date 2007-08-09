@@ -99,7 +99,7 @@
 <a name="problems"><h2>{{ _("recent problem reports")|capfirst }}</h2></a>
 <ul>
 {% for problem in problems_list %}
-<li>{{ problem|human_link }}</li>
+<li>{{ problem|human_link }} ({% blocktrans with problem.reported|timesince as interval %}{{ interval }} ago{% endblocktrans %})</li>
 {% endfor %}
 </ul>
 {% endif %}
