@@ -300,11 +300,14 @@ class ProblemReport(models.Model):
         _("IP address"))
 
     class Admin:
-        pass
+        list_display = ('message', 'code', 'reported', 'ip')
+        list_filter = ('code', 'ip')
+        date_hierarchy = 'reported'
 
     class Meta:
         verbose_name = _("problem report")
         verbose_name_plural = _("problem reports")
+        ordering = ('-reported', )
 
     def __unicode__(self):
         return self.message
