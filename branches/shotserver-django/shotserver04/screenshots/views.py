@@ -52,7 +52,7 @@ PROBLEM_CHOICES = [
 
     (601, _("There is a dialog box in front of the browser window.")),
     (602, _("The browser window is not maximized.")),
-    (602, _("The page is not finished loading.")),
+    (603, _("The page is not finished loading.")),
 
     (999, ''),
     ]
