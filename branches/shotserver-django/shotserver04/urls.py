@@ -34,7 +34,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from django.conf.urls.defaults import patterns, include
+from django.conf.urls.defaults import *
 from shotserver04 import settings
 
 
