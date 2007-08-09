@@ -32,6 +32,17 @@ __author__ = "$Author$"
 
 import sys
 import os
+import fcntl
+
+# Allow a single instance of this script only
+LOCKFILENAME = os.path.join('/var/lock', os.path.basename(sys.argv[0]))
+LOCKFILE = open(LOCKFILENAME, 'w')
+try:
+    fcntl.flock(LOCKFILE.fileno(), fcntl.LOCK_EX|fcntl.LOCK_NB)
+except IOError, e:
+    if e.errno == 11:
+        sys.exit(1)
+
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
 from shotserver04 import settings
