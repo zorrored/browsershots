@@ -1,81 +1,80 @@
-# Bulgarian translation for shotserver
-# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
-# This file is distributed under the same license as the shotserver package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: shotserver\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-10 00:33-0700\n"
-"PO-Revision-Date: 2007-08-02 12:37+0000\n"
-"Last-Translator: Evgeni Vasilev <aquilax@gmail.com>\n"
-"Language-Team: Bulgarian <bg@li.org>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-08-10 04:38:17+0000\n"
 
 #: factories/models.py:47 factories/templates/factories/details.html:26
 #: sponsors/models.py:36 websites/models.py:49 browsers/models.py:39
 #: browsers/models.py:62 platforms/models.py:36 platforms/models.py:60
 #: platforms/models.py:89
 msgid "name"
-msgstr "име"
+msgstr ""
 
 #: factories/models.py:48
 msgid "Hostname (lowercase)"
-msgstr "име на хост (малки букви)"
+msgstr ""
 
 #: factories/models.py:50
 msgid "administrator"
-msgstr "администратор"
+msgstr ""
 
 #: factories/models.py:52 factories/templates/factories/details.html:16
 #: sponsors/models.py:44 screenshots/templates/screenshots/details.html:44
 msgid "sponsor"
-msgstr "спонсор"
+msgstr ""
 
 #: factories/models.py:54
 msgid "hardware architecture"
-msgstr "хардуерна архитектура"
+msgstr ""
 
 #: factories/models.py:56 factories/templates/factories/details.html:11
 #: screenshots/templates/screenshots/details.html:52 platforms/models.py:73
 msgid "operating system"
-msgstr "операционна система"
+msgstr ""
 
 #: factories/models.py:58 requests/models.py:69
 msgid "IP"
-msgstr "IP адрес"
+msgstr ""
 
 #: factories/models.py:59
 msgid "The last poll came from this IP address."
-msgstr "Последната заявка дойде от този IP адрес"
+msgstr ""
 
 #: factories/models.py:61
 msgid "last poll"
-msgstr "последна заявка"
+msgstr ""
 
 #: factories/models.py:63 factories/templates/factories/details.html:32
 #: browsers/models.py:115
 msgid "last upload"
-msgstr "последно качване"
+msgstr ""
 
 #: factories/models.py:65 factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17 browsers/models.py:117
 msgid "uploads per hour"
-msgstr "качвания за час"
+msgstr ""
 
 #: factories/models.py:67 factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18 browsers/models.py:119
 msgid "uploads per day"
-msgstr "качвания за ден"
+msgstr ""
 
 #: factories/models.py:69
 msgid "queue estimate"
-msgstr "средно време в опашката"
+msgstr ""
 
 #: factories/models.py:70
 msgid "Seconds between screenshot request and upload."
@@ -84,7 +83,7 @@ msgstr ""
 #: factories/models.py:72 factories/templates/factories/details.html:13
 #: nonces/models.py:43 browsers/models.py:121
 msgid "created"
-msgstr "създаден"
+msgstr ""
 
 #: factories/models.py:95 factories/models.py:188 factories/models.py:214
 #: messages/models.py:36 requests/models.py:365
@@ -92,43 +91,43 @@ msgstr "създаден"
 #: screenshots/templates/screenshots/details.html:40 nonces/models.py:37
 #: browsers/models.py:87
 msgid "factory"
-msgstr "фабрика"
+msgstr ""
 
 #: factories/models.py:96 common/templates/base.html:25
 msgid "factories"
-msgstr "фабрики"
+msgstr ""
 
 #: factories/models.py:191 screenshots/models.py:85
 msgid "width"
-msgstr "широчина"
+msgstr ""
 
 #: factories/models.py:193 screenshots/models.py:87
 msgid "height"
-msgstr "височина"
+msgstr ""
 
 #: factories/models.py:200 start/forms/options.py:66
 msgid "screen size"
-msgstr "размер на екрана"
+msgstr ""
 
 #: factories/models.py:201 factories/templates/factories/details.html:66
 msgid "screen sizes"
-msgstr "размери на екрана"
+msgstr ""
 
 #: factories/models.py:217 requests/models.py:59
 msgid "bits per pixel"
-msgstr "бита за пиксел"
+msgstr ""
 
 #: factories/models.py:224 start/forms/options.py:68
 msgid "color depth"
-msgstr "дълбочина на цвета"
+msgstr ""
 
 #: factories/models.py:225 factories/templates/factories/details.html:79
 msgid "color depths"
-msgstr "дълбочини на цвета"
+msgstr ""
 
 #: factories/views.py:47 start/views.py:63
 msgid "out of service"
-msgstr "не е в оксплоатация"
+msgstr ""
 
 #: factories/views.py:48 start/views.py:65
 msgid "No active screenshot factories."
@@ -152,15 +151,15 @@ msgstr ""
 
 #: factories/templates/factories/details.html:14
 msgid "admin"
-msgstr "администратор"
+msgstr ""
 
 #: factories/templates/factories/details.html:20
 msgid "installed browsers"
-msgstr "инсталирани браузъри"
+msgstr ""
 
 #: factories/templates/factories/details.html:27
 msgid "short version"
-msgstr "кратка версия"
+msgstr ""
 
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:24 browsers/models.py:52
@@ -188,7 +187,7 @@ msgstr ""
 
 #: factories/templates/factories/details.html:35 browsers/models.py:109
 msgid "command"
-msgstr "команда"
+msgstr ""
 
 #: factories/templates/factories/details.html:58
 msgid "No browsers registered for this factory."
@@ -202,7 +201,7 @@ msgstr ""
 #: factories/templates/factories/details.html:74
 #: factories/templates/factories/details.html:87
 msgid "default only"
-msgstr "само по подразбиране"
+msgstr ""
 
 #: factories/templates/factories/details.html:92
 #: screenshots/templates/screenshots/overview.html:4
@@ -253,13 +252,12 @@ msgid "screenshot"
 msgstr ""
 
 #: feedback/models.py:48
-#, fuzzy
 msgid "comment"
-msgstr "команда"
+msgstr ""
 
 #: messages/models.py:38 screenshots/models.py:294
 msgid "error code"
-msgstr "код на грешката"
+msgstr ""
 
 #: messages/models.py:40 screenshots/models.py:296
 msgid "error message"
@@ -267,7 +265,7 @@ msgstr ""
 
 #: messages/models.py:42
 msgid "occurred"
-msgstr "възникна"
+msgstr ""
 
 #: messages/models.py:50
 msgid "factory error message"
@@ -605,11 +603,11 @@ msgstr ""
 
 #: start/views.py:66
 msgid "Please try again later."
-msgstr "Моля опитайте по-късно"
+msgstr ""
 
 #: start/views.py:139
 msgid "select all"
-msgstr "избери всички"
+msgstr ""
 
 #: start/views.py:140
 msgid "deselect all"
@@ -666,9 +664,8 @@ msgid "XML-RPC interface"
 msgstr ""
 
 #: start/templates/start/start.html:83
-#, fuzzy
 msgid "source code"
-msgstr "код на грешката"
+msgstr ""
 
 #: start/templates/start/start.html:84
 msgid "downloads"
@@ -904,9 +901,8 @@ msgid "on %(platform)s"
 msgstr ""
 
 #: screenshots/models.py:298
-#, fuzzy
 msgid "reported"
-msgstr "създаден"
+msgstr ""
 
 #: screenshots/models.py:300 nonces/models.py:41
 msgid "IP address"
@@ -926,9 +922,9 @@ msgid "This is not %(browser)s."
 msgstr ""
 
 #: screenshots/views.py:46
-#, fuzzy, python-format
+#, python-format
 msgid "This is not %(operating_system)s."
-msgstr "операционна система"
+msgstr ""
 
 #: screenshots/views.py:48
 #, python-format
