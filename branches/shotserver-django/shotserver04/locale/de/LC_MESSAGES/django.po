@@ -211,7 +211,7 @@ msgstr "aktuelle Screenshots"
 
 #: factories/templates/factories/details.html:99
 msgid "recent problem reports"
-msgstr "aktuelle Problemberichte"
+msgstr "aktuelle Problem-Meldungen"
 
 #: factories/templates/factories/details.html:102
 #, python-format
@@ -295,11 +295,11 @@ msgstr "Login"
 
 #: common/templates/404.html:3 common/templates/404.html.py:6
 msgid "page not found"
-msgstr ""
+msgstr "Seite nicht gefunden"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr ""
+msgstr "Die angeforderte Seite wurde nicht gefunden."
 
 #: points/models.py:42
 msgid "sender"
@@ -593,63 +593,63 @@ msgid "submit"
 msgstr "abschicken"
 
 #: start/templates/start/start.html:58
-#, fuzzy
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
-msgstr "Teste dein Webdesign in verschiedenen Browsern"
+msgstr ""
+"Browsershots macht Screenshots von deinem Webdesign in verschiedenen "
+"Browsern."
 
 #: start/templates/start/start.html:59
 msgid "It is a free open-source online service created by Johann C. Rocholl."
-msgstr ""
+msgstr "Es ist ein freier Open-Source Online-Service von Johann C. Rocholl."
 
 #: start/templates/start/start.html:60
 msgid "When you submit your web address, it will be added to the job queue."
-msgstr ""
+msgstr "Wenn du deine Webadresse einträgst, kommt sie in die Warteschlange."
 
 #: start/templates/start/start.html:61
 msgid ""
 "A number of distributed computers will open your website in their browser."
 msgstr ""
+"Einige verteilte Computer werden deine Webseite in ihrem Browser öffnen."
 
 #: start/templates/start/start.html:62
 msgid ""
 "Then they will make screenshots and upload them to the central server here."
 msgstr ""
+"Dann machen sie Screenshots und laden sie hier zum zentralen Server hoch."
 
 #: start/templates/start/start.html:68
 msgid "latest news"
-msgstr ""
+msgstr "Nachrichten"
 
 #: start/templates/start/start.html:79
 msgid "project links"
-msgstr ""
+msgstr "Projekt-Links"
 
 #: start/templates/start/start.html:81
-#, fuzzy
 msgid "documentation"
-msgstr "Domain"
+msgstr "Dokumentation"
 
 #: start/templates/start/start.html:82
 msgid "XML-RPC interface"
-msgstr ""
+msgstr "XML-RPC-Schnittstelle"
 
 #: start/templates/start/start.html:83
-#, fuzzy
 msgid "source code"
-msgstr "Fehlernummer"
+msgstr "Quellcode"
 
 #: start/templates/start/start.html:84
 msgid "downloads"
-msgstr ""
+msgstr "Downloads"
 
 #: start/templates/start/start.html:85
 msgid "mailing lists"
-msgstr ""
+msgstr "Mailinglisten"
 
 #: start/templates/start/start.html:86
-#, fuzzy
 msgid "translations"
-msgstr "Transaktionen"
+msgstr "Übersetzung"
 
 #: start/forms/features.py:37 start/forms/options.py:38
 #: start/forms/options.py:51
@@ -873,9 +873,8 @@ msgid "on %(platform)s"
 msgstr "auf %(platform)s"
 
 #: screenshots/models.py:298
-#, fuzzy
 msgid "reported"
-msgstr "erstellt"
+msgstr "gemeldet"
 
 #: screenshots/models.py:300 nonces/models.py:41
 msgid "IP address"
@@ -883,61 +882,60 @@ msgstr "IP-Adresse"
 
 #: screenshots/models.py:308
 msgid "problem report"
-msgstr ""
+msgstr "Problem-Meldung"
 
 #: screenshots/models.py:309
 msgid "problem reports"
-msgstr ""
+msgstr "Problem-Meldungen"
 
 #: screenshots/views.py:45
-#, fuzzy, python-format
+#, python-format
 msgid "This is not %(browser)s."
-msgstr "mit %(browser)s"
+msgstr "Das ist nicht %(browser)s."
 
 #: screenshots/views.py:46
-#, fuzzy, python-format
+#, python-format
 msgid "This is not %(operating_system)s."
-msgstr "Betriebssysteme"
+msgstr "Das ist nicht %(operating_system)s."
 
 #: screenshots/views.py:48
 #, python-format
 msgid "Javascript is not %(javascript)s."
-msgstr ""
+msgstr "Javascript ist nicht %(javascript)s."
 
 #: screenshots/views.py:49
 #, python-format
 msgid "Java is not %(java)s."
-msgstr ""
+msgstr "Java ist nicht %(java)s."
 
 #: screenshots/views.py:50
 #, python-format
 msgid "Flash is not %(flash)s."
-msgstr ""
+msgstr "Flash ist nicht %(flash)s."
 
 #: screenshots/views.py:51
 msgid "A language pack needs to be installed."
-msgstr ""
+msgstr "Ein Sprachpaket muss installiert werden."
 
 #: screenshots/views.py:53
 msgid "There is a dialog box in front of the browser window."
-msgstr ""
+msgstr "Vor dem Browser ist ein Dialogfenster."
 
 #: screenshots/views.py:54
 msgid "The browser window is not maximized."
-msgstr ""
+msgstr "Das Browserfenster ist nicht maximiert."
 
 #: screenshots/views.py:55
-#, fuzzy
 msgid "The page is not finished loading."
-msgstr "andere Seiten auf der gleichen Domain"
+msgstr "Die Seite ist noch nicht fertig geladen."
 
 #: screenshots/views.py:98
 msgid "HTML is not allowed here."
-msgstr ""
+msgstr "HTML ist hier nicht erlaubt."
 
 #: screenshots/views.py:102
 msgid "URLs are not allowed here."
-msgstr ""
+msgstr "URLs sind hier nicht erlaubt."
 
 #: screenshots/templates/screenshots/details.html:56
 msgid "dimensions"
@@ -957,7 +955,7 @@ msgstr "Seite geladen"
 
 #: screenshots/templates/screenshots/details.html:79
 msgid "report a problem with this screenshot"
-msgstr ""
+msgstr "ein Problem mit diesem Screenshot melden"
 
 #: nonces/models.py:54
 msgid "nonce"
@@ -1092,35 +1090,3 @@ msgstr "z.B. i686 / PPC"
 #: platforms/models.py:100
 msgid "architectures"
 msgstr "Architekturen"
-
-#~ msgid "title"
-#~ msgstr "Titel"
-
-#~ msgid "problem type"
-#~ msgstr "Problemtyp"
-
-#~ msgid "problem types"
-#~ msgstr "Problemtypen"
-
-#, fuzzy
-#~ msgid "description"
-#~ msgstr "Position"
-
-#, fuzzy
-#~ msgid "order"
-#~ msgstr "Nummer"
-
-#, fuzzy
-#~ msgid "problem"
-#~ msgstr "Profil"
-
-#, fuzzy
-#~ msgid "problems"
-#~ msgstr "Profil"
-
-#, fuzzy
-#~ msgid "comment"
-#~ msgstr "Befehl"
-
-#~ msgid "Recent screenshots"
-#~ msgstr "Aktuelle Screenshots"
