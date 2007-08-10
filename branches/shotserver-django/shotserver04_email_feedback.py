@@ -38,7 +38,7 @@ from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.templatetags import human
 
-SINCE = datetime.now() - timedelta(days=1)
+HOURS = 3 * 24
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 3
 MAX_ORPHANS = 2
@@ -67,7 +67,7 @@ def example_urls(problems):
 for factory in Factory.objects.all():
     problems = ProblemReport.objects.filter(
         screenshot__factory=factory,
-        reported__gte=SINCE)
+        reported__gte=datetime.now() - timedelta(hours=HOURS))
     if not len(problems):
         continue
     codes = {}
@@ -76,13 +76,13 @@ for factory in Factory.objects.all():
             codes[problem.code] = []
         codes[problem.code].append(problem)
     body = [u"Hi %s," % factory.admin.first_name, '',
-            u"This is a daily user feedback report from Browsershots 0.4."]
+            u"This is an automated user feedback report from Browsershots 0.4."]
     if len(problems) == 1:
-        body.append(u"In the last 24 hours, there was one %s for" %
-                    (ProblemReport._meta.verbose_name))
+        body.append(u"In the last %d hours, there was one %s for" % (
+            HOURS, ProblemReport._meta.verbose_name))
     else:
-        body.append(u"In the last 24 hours, there were %d %s for" %
-                    (len(problems), ProblemReport._meta.verbose_name_plural))
+        body.append(u"In the last %d hours, there were %d %s for" % (
+            HOURS, len(problems), ProblemReport._meta.verbose_name_plural))
     body.append(PREFIX + factory.get_absolute_url())
     keys = codes.keys()
     keys.sort()
@@ -92,11 +92,13 @@ for factory in Factory.objects.all():
         else:
             body.extend(example_urls(codes[code]))
     body.extend(['', "Thanks for your time,", "Browsershots"])
+    subject = "Problem report for screenshot factory %s" % factory.name
     body = '\n'.join(body)
+    print '=' * len(subject)
+    print subject
+    print '=' * len(subject)
     print body
     continue
-    send_mail(
-        "Problem report for screenshot factory %s" % factory.name,
-        body, to='johann@browsershots.org')
+    send_mail(subject, body, to='johann@browsershots.org')
         #to=factory.admin.email,
         #bcc='johann@browsershots.org')
