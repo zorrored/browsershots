@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-10 00:33-0700\n"
+"POT-Creation-Date: 2007-08-10 00:44-0700\n"
 "PO-Revision-Date: 2007-07-31 04:11+0000\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <de@li.org>\n"
@@ -211,57 +210,13 @@ msgid "recent screenshots"
 msgstr "aktuelle Screenshots"
 
 #: factories/templates/factories/details.html:99
-#, fuzzy
 msgid "recent problem reports"
-msgstr "aktuelle Screenshots"
+msgstr "aktuelle Problemberichte"
 
 #: factories/templates/factories/details.html:102
-#, fuzzy, python-format
+#, python-format
 msgid "%(interval)s ago"
-msgstr "eingetragen vor %(interval)s"
-
-#: feedback/models.py:7
-#, fuzzy
-msgid "title"
-msgstr "aktivieren"
-
-#: feedback/models.py:13 feedback/models.py:22
-msgid "problem type"
-msgstr ""
-
-#: feedback/models.py:14
-msgid "problem types"
-msgstr ""
-
-#: feedback/models.py:26
-#, fuzzy
-msgid "description"
-msgstr "Position"
-
-#: feedback/models.py:28
-#, fuzzy
-msgid "order"
-msgstr "Nummer"
-
-#: feedback/models.py:35 feedback/models.py:46
-#, fuzzy
-msgid "problem"
-msgstr "Profil"
-
-#: feedback/models.py:36
-#, fuzzy
-msgid "problems"
-msgstr "Profil"
-
-#: feedback/models.py:44 points/models.py:48 requests/models.py:374
-#: screenshots/models.py:105 screenshots/models.py:292
-msgid "screenshot"
-msgstr "Screenshot"
-
-#: feedback/models.py:48
-#, fuzzy
-msgid "comment"
-msgstr "Befehl"
+msgstr "vor %(interval)s"
 
 #: messages/models.py:38 screenshots/models.py:294
 msgid "error code"
@@ -353,6 +308,11 @@ msgstr "Absender"
 #: points/models.py:45
 msgid "receiver"
 msgstr "Empfänger"
+
+#: points/models.py:48 requests/models.py:374 screenshots/models.py:105
+#: screenshots/models.py:292
+msgid "screenshot"
+msgstr "Screenshot"
 
 #: points/models.py:51 points/models.py:81 points/models.py:115
 msgid "points"
@@ -1132,6 +1092,35 @@ msgstr "z.B. i686 / PPC"
 #: platforms/models.py:100
 msgid "architectures"
 msgstr "Architekturen"
+
+#~ msgid "title"
+#~ msgstr "Titel"
+
+#~ msgid "problem type"
+#~ msgstr "Problemtyp"
+
+#~ msgid "problem types"
+#~ msgstr "Problemtypen"
+
+#, fuzzy
+#~ msgid "description"
+#~ msgstr "Position"
+
+#, fuzzy
+#~ msgid "order"
+#~ msgstr "Nummer"
+
+#, fuzzy
+#~ msgid "problem"
+#~ msgstr "Profil"
+
+#, fuzzy
+#~ msgid "problems"
+#~ msgstr "Profil"
+
+#, fuzzy
+#~ msgid "comment"
+#~ msgstr "Befehl"
 
 #~ msgid "Recent screenshots"
 #~ msgstr "Aktuelle Screenshots"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-10 00:33-0700\n"
+"POT-Creation-Date: 2007-08-10 00:44-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,43 +218,6 @@ msgstr ""
 msgid "%(interval)s ago"
 msgstr ""
 
-#: feedback/models.py:7
-msgid "title"
-msgstr ""
-
-#: feedback/models.py:13 feedback/models.py:22
-msgid "problem type"
-msgstr ""
-
-#: feedback/models.py:14
-msgid "problem types"
-msgstr ""
-
-#: feedback/models.py:26
-msgid "description"
-msgstr ""
-
-#: feedback/models.py:28
-msgid "order"
-msgstr ""
-
-#: feedback/models.py:35 feedback/models.py:46
-msgid "problem"
-msgstr ""
-
-#: feedback/models.py:36
-msgid "problems"
-msgstr ""
-
-#: feedback/models.py:44 points/models.py:48 requests/models.py:374
-#: screenshots/models.py:105 screenshots/models.py:292
-msgid "screenshot"
-msgstr ""
-
-#: feedback/models.py:48
-msgid "comment"
-msgstr ""
-
 #: messages/models.py:38 screenshots/models.py:294
 msgid "error code"
 msgstr ""
@@ -344,6 +307,11 @@ msgstr ""
 
 #: points/models.py:45
 msgid "receiver"
+msgstr ""
+
+#: points/models.py:48 requests/models.py:374 screenshots/models.py:105
+#: screenshots/models.py:292
+msgid "screenshot"
 msgstr ""
 
 #: points/models.py:51 points/models.py:81 points/models.py:115
