@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # browsershots.org - Test your web design in different browsers
 # Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -56,8 +57,11 @@ APPEND_SLASH = False
 LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = (
-    ('en', 'English'),
-    ('de', 'Deutsch'),
+    ('bg', u'Български'),
+    ('de', u'Deutsch'),
+    ('en', u'English'),
+    ('es', u'Español'),
+    ('tr', u'Türkçe'),
     )
 
 SITE_ID = 1
