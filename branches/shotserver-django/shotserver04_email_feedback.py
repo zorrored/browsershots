@@ -41,7 +41,7 @@ from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.templatetags import human
 
 DEBUG = True
-HOURS = 3 * 24
+HOURS = 24
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 3
 MAX_ORPHANS = 2
@@ -95,7 +95,9 @@ for factory in Factory.objects.all():
         else:
             body.extend(example_urls(codes[code]))
     body.extend(['', "Thanks for your time,", "Browsershots"])
-    subject = "Problem report for screenshot factory %s" % factory.name
+
+    subject = "[browsershots] %d problem reports for %s" % (
+        len(problems), factory.name)
     body = '\n'.join(body)
     from_email = u'%s <%s>' % settings.ADMINS[0]
     recipient_list=[u'%s %s <%s>' % (
@@ -109,7 +111,5 @@ for factory in Factory.objects.all():
         print '=' * len(subject)
         print body
     else:
-        recipient_list = ['Test R. Boy <test@jogg.de>']
-        send_mail(subject, body, from_email, recipient_list)
-        #to=factory.admin.email,
-        #bcc='johann@browsershots.org')
+        EmailMessage(subject, body, from_email, recipient_list,
+                     bcc=[from_email]).send()
