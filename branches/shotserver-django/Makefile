@@ -48,3 +48,12 @@ customsql :
 	./django_dump.py -p shotserver04 -i \
 	Architecture Platform OperatingSystem \
 	Javascript Java Flash Engine BrowserGroup
+
+rosetta-import :
+	tar xzvf rosetta-shotserver.tar.gz
+	ls rosetta-shotserver/*.po \
+	| xargs -n1 basename | sed s/\\.po// \
+	| xargs -iname bash -c " \
+		mkdir -p shotserver04/locale/name/LC_MESSAGES ; \
+		cp rosetta-shotserver/name.po \
+		shotserver04/locale/name/LC_MESSAGES/django.po"
