@@ -50,10 +50,26 @@ customsql :
 	Javascript Java Flash Engine BrowserGroup
 
 rosetta-import :
+	rm -rf rosetta-shotserver
 	tar xzvf rosetta-shotserver.tar.gz
+	cp rosetta-shotserver/shotserver.pot \
+	   shotserver04/locale/en/LC_MESSAGES/django.po
 	ls rosetta-shotserver/*.po \
 	| xargs -n1 basename | sed s/\\.po// \
 	| xargs -iname bash -c " \
 		mkdir -p shotserver04/locale/name/LC_MESSAGES ; \
 		cp rosetta-shotserver/name.po \
 		shotserver04/locale/name/LC_MESSAGES/django.po"
+
+rosetta-export :
+	rm -rf rosetta-shotserver
+	mkdir rosetta-shotserver
+	cp shotserver04/locale/en/LC_MESSAGES/django.po \
+	   rosetta-shotserver/shotserver.pot
+	ls shotserver04/locale/*/LC_MESSAGES/django.po \
+	| grep -v /en/ | cut -d / -f 3 \
+	| xargs -iname bash -c " \
+		cp shotserver04/locale/name/LC_MESSAGES/django.po \
+		rosetta-shotserver/name.po"
+	rm rosetta-shotserver.tar.gz
+	tar czvf rosetta-shotserver.tar.gz rosetta-shotserver
