@@ -35,13 +35,16 @@ import os
 import fcntl
 
 # Allow a single instance of this script only
-LOCKFILENAME = os.path.join('/var/lock', os.path.basename(sys.argv[0]))
+LOCKFILENAME = os.path.join('/var/lock',
+    os.path.splitext(os.path.basename(sys.argv[0]))[0] + '.pid')
 LOCKFILE = open(LOCKFILENAME, 'w')
 try:
     fcntl.flock(LOCKFILE.fileno(), fcntl.LOCK_EX|fcntl.LOCK_NB)
 except IOError, e:
     if e.errno == 11:
         sys.exit(1)
+LOCKFILE.write(str(os.getpid()) + '\n')
+LOCKFILE.truncate()
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
