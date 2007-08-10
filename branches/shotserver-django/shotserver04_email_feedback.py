@@ -31,13 +31,16 @@ __author__ = "$Author$"
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from shotserver04 import settings
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.templatetags import human
 
+DEBUG = True
 HOURS = 3 * 24
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 3
@@ -94,11 +97,19 @@ for factory in Factory.objects.all():
     body.extend(['', "Thanks for your time,", "Browsershots"])
     subject = "Problem report for screenshot factory %s" % factory.name
     body = '\n'.join(body)
-    print '=' * len(subject)
-    print subject
-    print '=' * len(subject)
-    print body
-    continue
-    send_mail(subject, body, to='johann@browsershots.org')
+    from_email = u'%s <%s>' % settings.ADMINS[0]
+    recipient_list=[u'%s %s <%s>' % (
+        factory.admin.first_name, factory.admin.last_name,
+        factory.admin.email)]
+    if DEBUG:
+        print '=' * len(subject)
+        print 'From:', from_email.encode('utf-8')
+        print 'To:', u', '.join(recipient_list).encode('utf-8')
+        print subject
+        print '=' * len(subject)
+        print body
+    else:
+        recipient_list = ['Test R. Boy <test@jogg.de>']
+        send_mail(subject, body, from_email, recipient_list)
         #to=factory.admin.email,
         #bcc='johann@browsershots.org')
