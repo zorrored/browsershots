@@ -48,14 +48,9 @@ def png_filename(hashkey, size=ORIGINAL_SIZE):
 def makedirs(path):
     """
     Make directory (and parents) if necessary.
-    Raise xmlrpclib.Fault if an error occurs.
     """
-    if os.path.exists(path):
-        return
-    try:
+    if not os.path.exists(path):
         os.makedirs(path)
-    except OSError, error:
-        raise Fault(500, error)
 
 
 def save_upload(screenshot):
@@ -64,12 +59,9 @@ def save_upload(screenshot):
     """
     hashkey = crypto.random_md5()
     makedirs(png_path(hashkey))
-    try:
-        outfile = file(png_filename(hashkey), 'wb')
-        outfile.write(screenshot.data)
-        outfile.close()
-    except IOError, error:
-        raise Fault(500, error)
+    outfile = file(png_filename(hashkey), 'wb')
+    outfile.write(screenshot.data)
+    outfile.close()
     return hashkey
 
 
@@ -86,11 +78,11 @@ def pngtoppm(hashkey):
         errorname = png_filename(hashkey, 'error')
         os.system('mv "%s" "%s"' % (pngname, errorname))
         raise Fault(415,
-            'Could not decode uploaded PNG file (hashkey %s).' % hashkey)
+            "Could not decode uploaded PNG file (hashkey %s)." % hashkey)
     if not os.path.exists(ppmname):
-        raise Fault(500, 'Decoded screenshot file not found.')
+        raise Fault(500, "Decoded screenshot file not found.")
     if os.path.getsize(ppmname) == 0:
-        raise Fault(500, 'Decoded screenshot file is empty.')
+        raise Fault(500, "Decoded screenshot file is empty.")
     return ppmname
 
 
@@ -102,7 +94,7 @@ def read_pnm_header(ppmname):
     match = HEADER_MATCH(header)
     if match is None:
         raise Fault(500,
-            'Could not read PNM header after decoding uploaded PNG file.')
+            "Could not read PNM header after decoding uploaded PNG file.")
     return (
         match.group(1),
         int(match.group(2)),
