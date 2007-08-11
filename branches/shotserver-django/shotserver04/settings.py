@@ -78,7 +78,7 @@ MEDIA_ROOT = ''
 # Example: "http://media.lawrence.com"
 MEDIA_URL = ''
 
-PNG_ROOT = '/var/www/browsershots.org/png/'
+PNG_ROOT = '/var/www/v04.browsershots.org/png/'
 PNG_URL = 'http://png.browsershots.org/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
