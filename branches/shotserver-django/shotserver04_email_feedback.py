@@ -31,7 +31,7 @@ __author__ = "$Author$"
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from shotserver04 import settings
@@ -40,7 +40,7 @@ from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.templatetags import human
 
-DEBUG = True
+DEBUG = False
 HOURS = 24
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 3
