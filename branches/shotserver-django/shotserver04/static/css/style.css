@@ -289,11 +289,12 @@ div.extra-content {
 div.extra-content h2 { margin-bottom: 0; }
 div.extra-content div { float: left; }
 div#about {
-  width: 21em;
+  width: 19em;
   margin-right: 4em;
 }
 div#about p { margin: 0; }
-div#news { width: 21em; }
+div#news { width: 19em; }
+div#links { margin-right: 4em; }
 div.extra-content ul {
   margin: 0;
   padding: 0;
