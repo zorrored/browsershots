@@ -9,7 +9,7 @@
 
 {% block content %}
 <h1>{% trans "Test your web design in different browsers" %}</h1>
-<form action="/" method="post" name="startform">
+<form action="/" method="post" id="startform">
 {% for error in url_form.url.errors %}
 <p class="admonition error">{{ error }}</p>
 {% endfor %}
