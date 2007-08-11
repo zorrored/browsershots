@@ -68,6 +68,7 @@ def find_data_files(data_dirnames=None):
         if (dirpath.endswith('/LC_MESSAGES') or
             dirpath.endswith('/static/css') or
             dirpath.endswith('/static/js') or
+            dirpath.endswith('/static/logos/234x60') or
             dirpath.endswith('/sql')):
             files = [os.path.join(dirpath, f) for f in filenames]
             yield (dirpath, files)
