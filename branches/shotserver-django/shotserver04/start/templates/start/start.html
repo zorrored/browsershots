@@ -52,6 +52,18 @@
 </form>
 
 <div class="extra-content">
+<div id="links">
+<h2>{{ _("project links")|capfirst }}</h2>
+<ul>
+<li><a href="http://trac.browsershots.org/">{{ _("documentation")|capfirst }}</a></li>
+<li><a href="http://api.browsershots.org/">{{ _("XML-RPC interface")|capfirst }}</a></li>
+<li><a href="http://svn.browsershots.org/">{{ _("source code")|capfirst }}</a></li>
+<li><a href="http://browsershots.org/downloads/">{{ _("downloads")|capfirst }}</a></li>
+<li><a href="http://lists.browsershots.org/">{{ _("mailing lists")|capfirst }}</a></li>
+<li><a href="https://translations.launchpad.net/shotserver/0.4/+pots/shotserver">{{ _("translations")|capfirst }}</a></li>
+</ul>
+</div>
+
 <div id="about">
 <h2>What is this?</h2>
 <p>
@@ -74,18 +86,6 @@
 </ul>
 </div>
 {% endif %}
-
-<div id="links">
-<h2>{{ _("project links")|capfirst }}</h2>
-<ul>
-<li><a href="http://trac.browsershots.org/">{{ _("documentation")|capfirst }}</a></li>
-<li><a href="http://api.browsershots.org/">{{ _("XML-RPC interface")|capfirst }}</a></li>
-<li><a href="http://svn.browsershots.org/">{{ _("source code")|capfirst }}</a></li>
-<li><a href="http://browsershots.org/downloads/">{{ _("downloads")|capfirst }}</a></li>
-<li><a href="http://lists.browsershots.org/">{{ _("mailing lists")|capfirst }}</a></li>
-<li><a href="https://translations.launchpad.net/shotserver/0.4/+pots/shotserver">{{ _("translations")|capfirst }}</a></li>
-</ul>
-</div>
 
 {% if sponsors_list %}
 <div id="sponsors">
