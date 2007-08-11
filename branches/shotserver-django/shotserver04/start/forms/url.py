@@ -83,11 +83,11 @@ class UrlForm(forms.Form):
         print self.url_parts
         if self.url_parts[0] not in SUPPORTED_SCHEMES:
             raise ValidationError(
-                _("URL scheme %(scheme)s is not supported.") %
-                {'scheme': self.url_parts[0]})
+                unicode(_("URL scheme %(scheme)s is not supported.") %
+                        {'scheme': self.url_parts[0]}))
         if not self.url_parts[1]:
             raise ValidationError(
-                _("Malformed URL (server name not specified)."))
+                unicode(_("Malformed URL (server name not specified).")))
         self.netloc_parts = split_netloc(self.url_parts[1])
         print self.netloc_parts
 
@@ -147,7 +147,7 @@ class UrlForm(forms.Form):
                 raise
             transaction.rollback()
             raise ValidationError(
-                _("Malformed URL (database integrity error)."))
+                unicode(_("Malformed URL (database integrity error).")))
         # Update content cache
         if not created:
             website.content = self.cleaned_data['content']
