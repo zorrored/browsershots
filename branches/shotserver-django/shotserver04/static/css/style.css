@@ -60,6 +60,11 @@ p.debug {
 .debug :link { color: gray; }
 .debug :visited { color: gray; }
 
+p.footer {
+  clear: both;
+  font-size: smaller;
+}
+
 table { border-collapse: collapse; }
 th, td { padding: 0 1ex 4px 0; }
 tr.row1 { background-color: #EEE; }

@@ -26,50 +26,22 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import template
-from django.db import connection
 from django.utils.text import capfirst
+from shotserver04 import settings
 
 register = template.Library()
 
-JAVASCRIPT = u"""
-document.getElementById('sql-queries').style.display='block';
-""".strip()
-
-LINK_TEMPLATE = u"""
-<a href="%s" onclick="%s" name="sql">%s</a>
-""".strip()
-
-TABLE_TEMPLATE = u"""
-<table class="debug" id="sql-queries" style="display:none">
-%s
-</table>
-""".strip()
-
 
 @register.simple_tag
-def sql_link():
+def hosting_provider():
     """
-    Display an HTML link to display the queries table.
+    Display an HTML link to the hosting provider.
     """
-    if not connection.queries:
+    if (not hasattr(settings, 'HOSTING_PROVIDER') or
+        not settings.HOSTING_PROVIDER or
+        not hasattr(settings, 'HOSTING_PROVIDER_URL') or
+        not settings.HOSTING_PROVIDER_URL):
         return ''
-    caption = capfirst(_(u"%(count)d database queries")) % {
-        'count': len(connection.queries)}
-    return '| ' + LINK_TEMPLATE % ('#sql', JAVASCRIPT, caption)
-
-
-@register.simple_tag
-def sql_queries():
-    """
-    Display an HTML table with all SQL queries for this HTTP request.
-    """
-    if not connection.queries:
-        return ''
-    rows = []
-    for index, query in enumerate(connection.queries):
-        rows.append(u'<tr class="%s"><td>%s</td><td>%s</td></tr>' % (
-            'row%d' % (index % 2 + 1),
-            query['time'],
-            query['sql'].replace('","', '", "'),
-            ))
-    return TABLE_TEMPLATE % '\n'.join(rows)
+    link = '<a href="%s">%s</a>' % (settings.HOSTING_PROVIDER_URL,
+                                    settings.HOSTING_PROVIDER)
+    return '| ' + capfirst(_("hosted by %(provider)s")) % {'provider': link}
