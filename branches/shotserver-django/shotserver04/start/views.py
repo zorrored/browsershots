@@ -40,6 +40,7 @@ from shotserver04.factories.models import Factory
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.requests.models import RequestGroup, Request
+from shotserver04.sponsors.models import Sponsor
 
 BROWSER_COLUMNS = 5
 
@@ -95,6 +96,7 @@ def start(http_request):
         multi_column(browser_forms)
         selectors = ' |\n'.join(selector_links(browser_forms))
         news_list = NewsItem.objects.all()[:10]
+        sponsors_list = Sponsor.objects.filter(premium=True)
         return render_to_response('start/start.html', locals())
     # Create screenshot requests and redirect to website overview.
     values = {

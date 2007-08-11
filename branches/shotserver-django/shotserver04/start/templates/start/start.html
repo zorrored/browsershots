@@ -87,6 +87,17 @@
 </ul>
 </div>
 
+{% if sponsors_list %}
+<div id="sponsors">
+<h2>{{ _("premium sponsors")|capfirst }}</a></h2>
+<ul class="no-bullet">
+{% for sponsor in sponsors_list %}
+<li>{{ sponsor.logo }}</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+
 <div class="clear">&nbsp;</div>
 </div>
 {% endblock %}

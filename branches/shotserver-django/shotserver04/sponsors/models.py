@@ -34,11 +34,17 @@ class Sponsor(models.Model):
 
     name = models.CharField(
         _('name'), maxlength=50)
+    slug = models.SlugField(
+        _('slug'), maxlength=50, prepopulate_from=('name', ),
+        help_text=_("This is used to generate the link to the logo image."))
     url = models.URLField(
         _('URL'), maxlength=400, unique=True)
+    premium = models.BooleanField(
+        _('premium'),
+        help_text=_("Premium sponsors are shown on the front page."))
 
     class Admin:
-        list_display = ('__unicode__', 'url')
+        list_display = ('name', 'slug', 'url', 'premium')
 
     class Meta:
         verbose_name = _('sponsor')
@@ -51,3 +57,13 @@ class Sponsor(models.Model):
     def get_absolute_url(self):
         """Get URL for sponsor links."""
         return self.url
+
+    def get_logo_url(self, size=(234, 60)):
+        """Get absolute URL of logo image."""
+        return '/static/logos/%dx%d/%s.png' % (size[0], size[1], self.slug)
+
+    def logo(self, size=(234, 60)):
+        """Get HTML image with link to sponsor website."""
+        img = '<img width="%d" height="%d" src="%s" alt="%s" />' % (
+            size[0], size[1], self.get_logo_url(size), self.name)
+        return '<a href="%s">%s</a>' % (self.url, img)
