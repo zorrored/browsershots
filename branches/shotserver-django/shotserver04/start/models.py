@@ -28,8 +28,8 @@ from django.db import models
 
 
 class NewsItem(models.Model):
-    title = models.CharField(maxlength=200)
-    url = models.CharField(maxlength=200)
+    title = models.CharField(max_length=200)
+    url = models.CharField(max_length=200)
     pubdate = models.DateTimeField()
 
     class Admin:

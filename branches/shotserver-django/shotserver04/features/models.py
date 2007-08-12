@@ -59,7 +59,7 @@ class Javascript(models.Model):
     """
 
     version = models.CharField(
-        _('version'), maxlength=30, unique=True,
+        _('version'), max_length=30, unique=True,
         help_text=_("e.g. 1.4 / 1.5 / 1.6"))
 
     class Admin:
@@ -80,7 +80,7 @@ class Java(models.Model):
     """
 
     version = models.CharField(
-        _('version'), maxlength=30, unique=True,
+        _('version'), max_length=30, unique=True,
         help_text=_("e.g. 1.4 / 1.5 / 1.6"))
 
     class Admin:
@@ -101,7 +101,7 @@ class Flash(models.Model):
     """
 
     version = models.CharField(
-        _('version'), maxlength=30, unique=True,
+        _('version'), max_length=30, unique=True,
         help_text=_("e.g. 5 / 6 / 7 / 8 / 9"))
 
     class Admin:

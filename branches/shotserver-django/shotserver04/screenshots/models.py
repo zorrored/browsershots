@@ -74,7 +74,7 @@ class Screenshot(models.Model):
     Uploaded screenshot files.
     """
     hashkey = models.SlugField(
-        _('hashkey'), maxlength=32, unique=True)
+        _('hashkey'), max_length=32, unique=True)
     website = models.ForeignKey(Website,
         verbose_name=_('website'), raw_id_admin=True)
     factory = models.ForeignKey(Factory,
@@ -293,7 +293,7 @@ class ProblemReport(models.Model):
     code = models.IntegerField(
         _("error code"))
     message = models.CharField(
-        _("error message"), maxlength=200)
+        _("error message"), max_length=200)
     reported = models.DateTimeField(
         _("reported"), auto_now_add=True)
     ip = models.IPAddressField(

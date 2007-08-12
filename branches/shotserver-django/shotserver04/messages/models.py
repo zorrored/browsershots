@@ -37,7 +37,7 @@ class FactoryError(models.Model):
     code = models.IntegerField(
         _("error code"))
     message = models.CharField(
-        _("error message"), maxlength=600)
+        _("error message"), max_length=600)
     occurred = models.DateTimeField(
         _("occurred"), auto_now_add=True)
 

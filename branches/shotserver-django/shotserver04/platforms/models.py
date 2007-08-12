@@ -33,7 +33,7 @@ class Platform(models.Model):
     Screenshot factory platforms like Linux / Windows / Mac.
     """
     name = models.CharField(
-        _('name'), maxlength=30,
+        _('name'), max_length=30,
         help_text="e.g. Linux / Windows / Mac")
     position = models.IntegerField(
         _('position'), blank=True, null=True)
@@ -57,13 +57,13 @@ class OperatingSystem(models.Model):
     platform = models.ForeignKey(Platform,
         verbose_name=_('platform'))
     name = models.CharField(
-        _('name'), maxlength=30)
+        _('name'), max_length=30)
     version = models.CharField(
-        _('version'), maxlength=30, blank=True)
+        _('version'), max_length=30, blank=True)
     codename = models.CharField(
-        _('codename'), maxlength=30, blank=True)
+        _('codename'), max_length=30, blank=True)
     maker = models.CharField(
-        _('maker'), maxlength=30, blank=True)
+        _('maker'), max_length=30, blank=True)
 
     class Admin:
         list_display = ('platform', 'name', 'version', 'codename', 'maker')
@@ -86,7 +86,7 @@ class Architecture(models.Model):
     Hardware architectures like i686 / PPC.
     """
     name = models.CharField(
-        _('name'), maxlength=30,
+        _('name'), max_length=30,
         help_text=_('e.g. i686 / PPC'))
 
     def __unicode__(self):

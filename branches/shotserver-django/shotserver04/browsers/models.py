@@ -36,10 +36,10 @@ class Engine(models.Model):
     Browser rendering engines like Gecko / KHTML / AppleWebKit.
     """
     name = models.CharField(
-        _('name'), maxlength=30,
+        _('name'), max_length=30,
         help_text=_("e.g. Gecko / KHTML / AppleWebKit"))
     maker = models.CharField(
-        _('maker'), maxlength=30, blank=True)
+        _('maker'), max_length=30, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -59,10 +59,10 @@ class BrowserGroup(models.Model):
     Browser names like Firefox / MSIE / Safari.
     """
     name = models.CharField(
-        _('name'), maxlength=30,
+        _('name'), max_length=30,
         help_text=_("e.g. Firefox / MSIE / Safari"))
     maker = models.CharField(
-        _('maker'), maxlength=30, blank=True)
+        _('maker'), max_length=30, blank=True)
     terminal = models.BooleanField(
         _('terminal'), help_text=_("Is this a text-mode browser?"))
 
@@ -86,11 +86,11 @@ class Browser(models.Model):
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     user_agent = models.CharField(
-        _('user agent'), maxlength=200)
+        _('user agent'), max_length=200)
     browser_group = models.ForeignKey(BrowserGroup,
         verbose_name=_('browser group'))
     version = models.CharField(
-        _('version'), maxlength=20)
+        _('version'), max_length=20)
     major = models.IntegerField(
         _('major'))
     minor = models.IntegerField(
@@ -98,7 +98,7 @@ class Browser(models.Model):
     engine = models.ForeignKey(Engine,
         verbose_name=_('engine'), blank=True)
     engine_version = models.CharField(
-        _('engine version'), maxlength=20, blank=True)
+        _('engine version'), max_length=20, blank=True)
     javascript = models.ForeignKey(Javascript,
         verbose_name=_('Javascript'))
     java = models.ForeignKey(Java,
@@ -106,7 +106,7 @@ class Browser(models.Model):
     flash = models.ForeignKey(Flash,
         verbose_name=_('Flash'))
     command = models.CharField(
-        _('command'), maxlength=80, blank=True,
+        _('command'), max_length=80, blank=True,
         help_text=_("Leave empty to use default command."))
     active = models.BooleanField(
         _('active'), default=True,

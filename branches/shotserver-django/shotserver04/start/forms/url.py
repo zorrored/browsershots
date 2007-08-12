@@ -49,7 +49,7 @@ class UrlForm(forms.Form):
     URL input form.
     """
     url = forms.CharField(
-        max_length=Website._meta.get_field('url').maxlength,
+        max_length=Website._meta.get_field('url').max_length,
         label=_("Enter your web address here:"))
 
     def clean_url(self):

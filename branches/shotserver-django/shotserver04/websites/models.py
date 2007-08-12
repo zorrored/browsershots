@@ -46,7 +46,7 @@ class Domain(models.Model):
     """
 
     name = models.CharField(
-        _('name'), maxlength=200, unique=True)
+        _('name'), max_length=200, unique=True)
     submitted = models.DateTimeField(
         _('submitted'), auto_now_add=True)
 
@@ -72,7 +72,7 @@ class Website(models.Model):
     """
 
     url = models.URLField(
-        _('URL'), maxlength=400, unique=True,
+        _('URL'), max_length=400, unique=True,
         validator_list=[has_slash_after_hostname])
     domain = models.ForeignKey(Domain,
         verbose_name=_('domain'), raw_id_admin=True)

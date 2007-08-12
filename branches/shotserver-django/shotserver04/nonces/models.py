@@ -36,7 +36,7 @@ class Nonce(models.Model):
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     hashkey = models.SlugField(
-        _('hashkey'), maxlength=32, unique=True)
+        _('hashkey'), max_length=32, unique=True)
     ip = models.IPAddressField(
         _('IP address'))
     created = models.DateTimeField(
