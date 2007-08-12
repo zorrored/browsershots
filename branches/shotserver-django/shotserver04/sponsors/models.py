@@ -38,7 +38,7 @@ class Sponsor(models.Model):
         _('slug'), max_length=50, prepopulate_from=('name', ),
         help_text=_("This is used to generate the link to the logo image."))
     url = models.URLField(
-        _('URL'), max_length=400, unique=True)
+        _('URL'), max_length=400, unique=True, verify_exists=False)
     premium = models.BooleanField(
         _('premium'),
         help_text=_("Premium sponsors are shown on the front page."))
