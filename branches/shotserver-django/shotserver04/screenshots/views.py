@@ -26,11 +26,12 @@ __author__ = "$Author$"
 
 import cgi
 import zipfile
-import cStringIO
+import tempfile
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django import newforms as forms
 from django.utils.translation import ugettext_lazy as _
+from django.core.servers.basehttp import FileWrapper
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.screenshots import storage
@@ -146,17 +147,15 @@ def download_zip(http_request, request_group_id):
     request_group = get_object_or_404(RequestGroup, id=request_group_id)
     requests = request_group.request_set.filter(screenshot__isnull=False)
     preload_foreign_keys(requests, screenshot=True)
-    temp = cStringIO.StringIO()
+    temp = tempfile.TemporaryFile()
     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_STORED)
     for request in requests:
         filename = storage.png_filename(request.screenshot.hashkey)
         archive.write(filename, str(request.screenshot.png_filename()))
     archive.close()
     # Send result to browser
-    response = HttpResponse(mimetype='application/zip')
+    response = HttpResponse(FileWrapper(temp), content_type='application/zip')
     response['Content-Disposition'] = 'attachment' # ; filename=screenshots.zip
     response['Content-Length'] = temp.tell()
     temp.seek(0)
-    response.write(temp.read())
-    temp.close()
     return response
