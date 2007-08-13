@@ -39,8 +39,9 @@ from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.templatetags import human
+import sys
 
-DEBUG = False
+DEBUG = '--debug' in sys.argv
 HOURS = 24
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 3
