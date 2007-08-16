@@ -66,4 +66,4 @@ class Sponsor(models.Model):
         """Get HTML image with link to sponsor website."""
         img = '<img width="%d" height="%d" src="%s" alt="%s" />' % (
             size[0], size[1], self.get_logo_url(size), self.name)
-        return '<a href="%s">%s</a>' % (self.url, img)
+        return '<a href="%s">%s</a>' % (self.get_absolute_url(), img)
