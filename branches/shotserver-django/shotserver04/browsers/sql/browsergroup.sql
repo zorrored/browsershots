@@ -21,6 +21,6 @@ INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (20,
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (21,'Kazehakase','',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (22,'BonEcho','Mozilla',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (23,'DeerPark','Mozilla',False);
-INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (24,'MineField','Mozilla',False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (24,'Minefield','Mozilla',False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal") VALUES (25,'GranParadiso','Mozilla',False);
 SELECT setval('browsers_browsergroup_id_seq', (SELECT max("id") FROM "browsers_browsergroup"));
