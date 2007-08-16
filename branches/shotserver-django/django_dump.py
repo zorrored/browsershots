@@ -61,23 +61,31 @@ def dump(options, model):
                                 model._meta.module_name + '.sql')
         outfile = open(filename, 'w')
     elif options.source:
-        dirname = os.path.join(options.source, model.app_label, 'sql')
+        dirname = os.path.join(options.source, model._meta.app_label, 'sql')
+        filename = os.path.join(dirname, model._meta.module_name + '.sql')
+        outfile = open(filename, 'w')
+    elif options.output:
+        dirname = os.path.join(options.output, model._meta.app_label)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
         filename = os.path.join(dirname, model._meta.module_name + '.sql')
         outfile = open(filename, 'w')
     else:
         outfile = sys.stdout
-    for instance in model.objects.all().order_by('id'):
+    for instance in model.objects.all().order_by(model._meta.fields[0].column):
         outfile.write(sql(instance) + '\n')
     pk_sql = """SELECT setval('%s_id_seq', (SELECT max("id") FROM %s));""" % (
         model._meta.db_table, backend.quote_name(model._meta.db_table))
     outfile.write(pk_sql + '\n')
 
 
-def dump_by_name(options, model_name):
+def dump_by_name(options, model_name=None):
     from django.db import models
     for app in models.get_apps():
         for model in models.get_models(app):
-            if model_name in (model.__name__, model._meta.db_table):
+            if options.all:
+                dump(options, model)
+            elif model_name in (model.__name__, model._meta.db_table):
                 return dump(options, model)
 
 
@@ -89,17 +97,26 @@ def _main():
                           description=__doc__.strip())
     parser.add_option('-p', '--project',
                       help="import models from PROJECT")
+    parser.add_option('-o', '--output', type='string',
+                      help="save SQL in this folder")
+    parser.add_option('-s', '--source', type='string',
+                      help="save custom SQL in project source")
     parser.add_option('-i', '--install', action='store_true',
                       help="save custom SQL in installed project")
-    parser.add_option('-s', '--source',
-                      help="save custom SQL in project source")
+    parser.add_option('-a', '--all', action='store_true',
+                      help="dump all models")
     (options, args) = parser.parse_args()
-    if not args:
-        parser.error("no models specified")
     if options.project:
         os.environ['DJANGO_SETTINGS_MODULE'] = options.project + '.settings'
-    for model_name in args:
-        dump_by_name(options, model_name)
+    if options.all:
+        if args:
+            parser.error("no extra models allowed with --all")
+        dump_by_name(options)
+    else:
+        if not args:
+            parser.error("no models specified")
+        for model_name in args:
+            dump_by_name(options, model_name)
 
 
 if __name__ == '__main__':
