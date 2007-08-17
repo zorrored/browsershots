@@ -49,6 +49,11 @@ customsql :
 	Architecture Platform OperatingSystem \
 	Javascript Java Flash Engine BrowserGroup
 
+export :
+	./django_dump.py -p shotserver04 -o export \
+	User Sponsor Factory ScreenSize ColorDepth Browser
+	tar -cjf shotserver04.`date +%y%m%d-%H%M%S`.export.tar.bz2 export
+
 rosetta-import :
 	rm -rf rosetta-shotserver
 	tar xzvf rosetta-shotserver.tar.gz
