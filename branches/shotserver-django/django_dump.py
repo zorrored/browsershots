@@ -41,9 +41,13 @@ def sql(instance):
                    for f in instance._meta.fields]
     db_values = []
     for f in instance._meta.fields:
-        value = repr(f.get_db_prep_save(f.pre_save(instance, True)))
-        if value.startswith("u'"):
-            value = value[1:]
+        value = f.get_db_prep_save(f.pre_save(instance, True))
+        if isinstance(value, basestring):
+            value = "'%s'" % value.encode('utf-8').replace('\\', r'\\')
+        elif value is None:
+            value = 'NULL'
+        else:
+            value = str(value)
         db_values.append(value)
     return 'INSERT INTO %s (%s) VALUES (%s);' % (
         backend.quote_name(instance._meta.db_table),
