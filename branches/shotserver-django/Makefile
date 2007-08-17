@@ -54,6 +54,16 @@ export :
 	User Sponsor Factory ScreenSize ColorDepth Browser
 	tar -cjf shotserver04.`date +%y%m%d-%H%M%S`.export.tar.bz2 export
 
+import :
+	rm -rf export
+	tar -xjf shotserver04.export.tar.bz2
+	psql shotserver04 < export/auth/user.sql
+	psql shotserver04 < export/sponsors/sponsor.sql
+	psql shotserver04 < export/factories/factory.sql
+	psql shotserver04 < export/factories/screensize.sql
+	psql shotserver04 < export/factories/colordepth.sql
+	psql shotserver04 < export/browsers/browser.sql
+
 rosetta-import :
 	rm -rf rosetta-shotserver
 	tar xzvf rosetta-shotserver.tar.gz
