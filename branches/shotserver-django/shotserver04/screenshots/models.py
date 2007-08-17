@@ -33,6 +33,29 @@ from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots import storage
 
+PROBLEM_CHOICES = {
+    101: _("This is not the requested browser."),
+    102: _("This is not the requested operating system."),
+
+    201: _("This is not the requested Javascript version."),
+    202: _("This is not the requested Java version."),
+    203: _("This is not the requested Flash version."),
+    204: _("A language pack needs to be installed."),
+
+    601: _("There is a dialog box in front of the browser window."),
+    602: _("The browser window is not maximized."),
+    603: _("The page is not finished loading."),
+    }
+
+PROBLEM_CHOICES_EXPLICIT = {
+    101: _("This is not %(browser)s."),
+    102: _("This is not %(operating_system)s."),
+
+    201: _("Javascript is not %(javascript)s."),
+    202: _("Java is not %(java)s."),
+    203: _("Flash is not %(flash)s."),
+    }
+
 
 class ScreenshotManager(models.Manager):
     """
@@ -310,8 +333,40 @@ class ProblemReport(models.Model):
         ordering = ('-reported', )
 
     def __unicode__(self):
-        return self.message
+        return unicode(self.get_message_explicit())
 
     def get_absolute_url(self):
         """Get URL for problem screenshot."""
         return self.screenshot.get_absolute_url()
+
+    def get_message(self):
+        """
+        Get generic problem message, e.g.
+        "This is not the requested browser."
+        """
+        if self.code in PROBLEM_CHOICES:
+            return PROBLEM_CHOICES[self.code]
+        else:
+            return self.message
+
+    def get_message_explicit(self):
+        """
+        Get explicit problem message, e.g.
+        "This is not Firefox 2.0."
+        """
+        if self.code in PROBLEM_CHOICES_EXPLICIT:
+            message = unicode(PROBLEM_CHOICES_EXPLICIT[self.code])
+            if '%(browser)s' in message:
+                browser = unicode(self.screenshot.browser)
+            if '%(operating_system)s' in message:
+                operating_system = unicode(
+                    self.screenshot.factory.operating_system)
+            if '%(java)s' in message:
+                java = unicode(self.screenshot.browser.java)
+            if '%(javascript)s' in message:
+                javascript = unicode(self.screenshot.browser.javascript)
+            if '%(flash)s' in message:
+                flash = unicode(self.screenshot.browser.flash)
+            return message % locals()
+        else:
+            return self.get_message()
