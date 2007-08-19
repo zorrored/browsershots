@@ -80,7 +80,7 @@ class UrlForm(forms.Form):
         """
         url = self.cleaned_data['url']
         self.url_parts = list(urlparse.urlsplit(url, 'http'))
-        print self.url_parts
+        # print self.url_parts
         if self.url_parts[0] not in SUPPORTED_SCHEMES:
             raise ValidationError(
                 unicode(_("URL scheme %(scheme)s is not supported.") %
@@ -89,7 +89,7 @@ class UrlForm(forms.Form):
             raise ValidationError(
                 unicode(_("Malformed URL (server name not specified).")))
         self.netloc_parts = split_netloc(self.url_parts[1])
-        print self.netloc_parts
+        # print self.netloc_parts
 
     def add_slash(self):
         """
