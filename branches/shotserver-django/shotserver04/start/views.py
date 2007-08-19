@@ -99,14 +99,21 @@ def start(http_request):
         sponsors_list = Sponsor.objects.filter(premium=True)
         return render_to_response('start/start.html', locals())
     # Create screenshot requests and redirect to website overview.
+    expire = datetime.now() + timedelta(minutes=30)
     values = {
         'ip': http_request.META['REMOTE_ADDR'],
         'website': url_form.cleaned_data['website'],
-        'expire': datetime.now() + timedelta(minutes=30),
         }
     values.update(options_form.cleaned_data)
     values.update(features_form.cleaned_data)
-    request_group = RequestGroup.objects.create(**values)
+    existing = RequestGroup.objects.filter(
+        expire__gte=datetime.now(), **values).order_by('-submitted')
+    if len(existing):
+        request_group = existing[0]
+        request_group.expire = expire
+        request_group.save()
+    else:
+        request_group = RequestGroup.objects.create(expire=expire, **values)
     for browser_form in browser_forms:
         create_platform_requests(
             request_group, browser_form.platform, browser_form)
@@ -147,7 +154,6 @@ def create_platform_requests(request_group, platform, browser_form):
     Create screenshots requests for selected browsers on one platform.
     """
     platform_lower = platform.name.lower().replace(' ', '-')
-    result = []
     for name in browser_form.fields:
         if not browser_form.cleaned_data[name]:
             continue # Browser not selected
@@ -156,11 +162,10 @@ def create_platform_requests(request_group, platform, browser_form):
             continue # Different platform
         browser_group = BrowserGroup.objects.get(
             name__iexact=browser_name.replace('-', ' '))
-        result.append(Request.objects.create(
+        Request.objects.get_or_create(
             request_group=request_group,
             platform=platform,
             browser_group=browser_group,
             major=int_or_none(major),
             minor=int_or_none(minor),
-            ))
-    return result
+            )
