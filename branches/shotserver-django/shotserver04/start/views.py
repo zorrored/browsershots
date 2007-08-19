@@ -104,8 +104,8 @@ def start(http_request):
         'website': url_form.cleaned_data['website'],
         'expire': datetime.now() + timedelta(minutes=30),
         }
-    values.update(options_form.cleaned_dict())
-    values.update(features_form.cleaned_dict())
+    values.update(options_form.cleaned_data)
+    values.update(features_form.cleaned_data)
     request_group = RequestGroup.objects.create(**values)
     for browser_form in browser_forms:
         create_platform_requests(

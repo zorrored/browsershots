@@ -79,15 +79,14 @@ class FeaturesForm(forms.Form):
         self['java'].field.choices = get_active(Java, browsers)
         self['flash'].field.choices = get_active(Flash, browsers)
 
-    def cleaned_dict(self):
-        """
-        Get features from their tables.
-        """
-        return {
-            'javascript': feature_or_none(
-                Javascript, self.cleaned_data['javascript']),
-            'java': feature_or_none(
-                Java, self.cleaned_data['java']),
-            'flash': feature_or_none(
-                Flash, self.cleaned_data['flash']),
-            }
+    def clean_javascript(self):
+        """Load matching Javascript version from database."""
+        return feature_or_none(Javascript, self.cleaned_data['javascript'])
+
+    def clean_java(self):
+        """Load matching Java version from database."""
+        return feature_or_none(Java, self.cleaned_data['java'])
+
+    def clean_flash(self):
+        """Load matching Flash version from database."""
+        return feature_or_none(Flash, self.cleaned_data['flash'])

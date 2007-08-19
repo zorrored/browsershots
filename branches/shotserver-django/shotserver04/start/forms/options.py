@@ -62,23 +62,22 @@ class OptionsForm(forms.Form):
     """
     Request options input form.
     """
-    screen_size = forms.ChoiceField(
+    width = forms.ChoiceField(
         label=_("screen size"), initial='dontcare')
-    color_depth = forms.ChoiceField(
+    bits_per_pixel = forms.ChoiceField(
         label=_("color depth"), initial='dontcare')
 
     def load_choices(self, factories):
         """
         Load available choices from the database.
         """
-        self['screen_size'].field.choices = screen_size_choices(factories)
-        self['color_depth'].field.choices = color_depth_choices(factories)
+        self['width'].field.choices = screen_size_choices(factories)
+        self['bits_per_pixel'].field.choices = color_depth_choices(factories)
 
-    def cleaned_dict(self):
-        """
-        Convert options to integer and timestamp.
-        """
-        return {
-            'width': int_or_none(self.cleaned_data['screen_size']),
-            'bits_per_pixel': int_or_none(self.cleaned_data['color_depth']),
-            }
+    def clean_width(self):
+        """Convert screen size to integer."""
+        return int_or_none(self.cleaned_data['width'])
+
+    def clean_bits_per_pixel(self):
+        """Convert color depth to integer."""
+        return int_or_none(self.cleaned_data['bits_per_pixel'])
