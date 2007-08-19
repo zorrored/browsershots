@@ -30,47 +30,49 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.db import connection
 from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
-from shotserver04.browsers.models import BrowserGroup
+from shotserver04.browsers.models import BrowserGroup, Browser
 
 
 def overview(http_request):
     """
     Show statistics about pending requests.
     """
+    requests = Request.objects.filter(
+        screenshot__isnull=True,
+        request_group__expire__gt=datetime.now())
+    browser_requests = {}
+    platform_ids = set()
+    browser_group_ids = set()
+    for request in requests:
+        browser = (request.platform_id, request.browser_group_id,
+                   request.major, request.minor)
+        browser_requests[browser] = browser_requests.get(browser, 0) + 1
+        platform_ids.add(request.platform_id)
+        browser_group_ids.add(request.browser_group_id)
+    platforms = dict([(p.id, p)
+        for p in Platform.objects.filter(id__in=platform_ids)])
+    browser_groups = dict([(b.id, b)
+        for b in BrowserGroup.objects.filter(id__in=browser_group_ids)])
+    browsers = Browser.objects.filter(browser_group__in=browser_group_ids)
     browser_list = []
-    cursor = connection.cursor()
-    cursor.execute("""
-SELECT platform_id, browser_group_id, major, minor,
-SUM(browsers_browser.uploads_per_hour) AS uploads_per_hour,
-SUM(browsers_browser.uploads_per_day) AS uploads_per_day
-FROM browsers_browser
-JOIN factories_factory ON factories_factory.id = factory_id
-JOIN browsers_browsergroup ON browsers_browsergroup.id = browser_group_id
-JOIN platforms_operatingsystem
-ON platforms_operatingsystem.id = operating_system_id
-GROUP BY platform_id, browser_group_id, major, minor
-""")
-    for row in cursor.fetchall():
-        (platform_id, browser_group_id, major, minor,
-         uploads_per_hour, uploads_per_day) = row
-        pending_requests = Request.objects.filter(
-            platform=platform_id,
-            browser_group=browser_group_id,
-            major=major,
-            minor=minor,
-            screenshot__isnull=True,
-            request_group__expire__gt=datetime.now(),
-            ).count()
-        if not pending_requests:
-            continue
+    for key in browser_requests.keys():
+        platform_id, browser_group_id, major, minor = key
+        uploads_per_hour = sum([b.uploads_per_hour for b in browsers
+            if b.browser_group_id == browser_group_id
+            and b.major == major and b.minor == minor
+            and b.uploads_per_hour])
+        uploads_per_day = sum([b.uploads_per_day for b in browsers
+            if b.browser_group_id == browser_group_id
+            and b.major == major and b.minor == minor
+            and b.uploads_per_day])
         browser_list.append({
-            'platform': Platform.objects.get(id=platform_id),
-            'browser_group': BrowserGroup.objects.get(id=browser_group_id),
+            'platform': platforms[platform_id],
+            'browser_group': browser_groups[browser_group_id],
             'major': major,
             'minor': minor,
             'uploads_per_hour': uploads_per_hour or '',
             'uploads_per_day': uploads_per_day or '',
-            'pending_requests': pending_requests,
+            'pending_requests': browser_requests[key],
             })
     return render_to_response('requests/overview.html', locals())
 
