@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}{{ form_title|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ form_title|capfirst }}</h1>
+<form action="{{ form_action }}" method="post">
+<table>
+{{ form }}
+<tr><th></th><td><input type="submit" value="{{ form_submit }}" /></td></tr>
+</table>
+</form>
+{% endblock %}
