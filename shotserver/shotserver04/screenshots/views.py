@@ -156,10 +156,9 @@ def details(http_request, hashkey):
             return HttpResponseRedirect(
                 request.factory.get_absolute_url() + '#problems')
     length = len(PROBLEM_CHOICES)
-    select_message = "document.problem_form.code[%d].checked=true" % length
+    select = "document.forms['problem_form'].code[%d].checked=true" % length
     message_field = problem_form['message'].as_text(
-        {'onclick': select_message,
-         'onchange': 'if (this.value) ' + select_message})
+        {'onclick': select, 'onchange': 'if (this.value) ' + select})
     return render_to_response('screenshots/details.html', locals())
 
 
