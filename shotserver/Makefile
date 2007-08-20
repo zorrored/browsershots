@@ -40,6 +40,11 @@ properties :
 	find -name "*.py" | xargs svn propset svn:keywords "Rev Date Author"
 	find -name "*.py" | xargs svn propset svn:eol-style native
 
+documentation :
+	wget -O - http://trac.browsershots.org/wiki/FrequentlyAskedQuestions?format=txt | fold -s -w 76 > FAQ
+	wget -O - http://trac.browsershots.org/wiki/InstallServer?format=txt | fold -s -w 76 > INSTALL
+	wget -O - http://trac.browsershots.org/wiki/Authors?format=txt | fold -s -w 76 > AUTHORS
+
 backup :
 	pg_dump shotserver04 | bzip2 \
 	> /tmp/shotserver04.`date +%y%m%d-%H%M%S`.sql.bz2
