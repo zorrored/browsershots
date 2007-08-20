@@ -25,6 +25,7 @@ __author__ = "$Author$"
 import cgi
 import zipfile
 import tempfile
+from datetime import timedelta
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django import newforms as forms
@@ -43,23 +44,45 @@ WIDTH = 80 # pixels
 MARGIN = 12 # pixels
 
 
+def recent_screenshots():
+    """
+    Iterator for the most recent screenshots, one per website.
+    """
+    screenshots = list(Screenshot.objects.recent())
+    preload_foreign_keys(screenshots, website=True)
+    preload_foreign_keys(screenshots, browser__browser_group=True)
+    for screenshot in screenshots:
+        if screenshot.website.profanities > settings.PROFANITIES_ALLOWED:
+            # Hide screenshots that are not safe for work
+            continue
+        if (screenshot.browser.browser_group.unusual or
+            screenshot.browser.browser_group.terminal):
+            # Find a better representative for this website
+            better = Screenshot.objects.filter(
+                website=screenshot.website_id,
+                browser__browser_group__unusual=False,
+                browser__browser_group__terminal=False,
+                uploaded__gte=screenshot.uploaded - timedelta(minutes=30))
+            better = better.order_by('-uploaded')[:1]
+            if len(better):
+                website = screenshot._website_cache
+                screenshot = better[0]
+                screenshot._website_cache = website
+        yield screenshot
+
+
 def overview(http_request):
     """
     Full-screen display of recent screenshots (one per website).
     """
     columns = [[0, index * (WIDTH + MARGIN)] for index in range(COLUMNS)]
     previews = []
-    screenshots = list(Screenshot.objects.recent())
-    preload_foreign_keys(screenshots, website=True)
-    for screenshot in screenshots:
-        if screenshot.website.profanities > settings.PROFANITIES_ALLOWED:
-            continue
+    for screenshot in recent_screenshots():
         width = WIDTH
         height = screenshot.height * width / screenshot.width
         columns.sort()
         top, left = columns[0]
-        previews.append(
-            screenshot.preview_div(
+        previews.append(screenshot.preview_div(
             style=u"left:%dpx;top:%dpx;position:absolute" % (left, top),
             title=screenshot.website.url,
             href=screenshot.website.get_absolute_url()))

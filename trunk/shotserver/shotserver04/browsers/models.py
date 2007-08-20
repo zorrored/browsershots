@@ -63,9 +63,11 @@ class BrowserGroup(models.Model):
         _('maker'), max_length=30, blank=True)
     terminal = models.BooleanField(
         _('terminal'), help_text=_("Is this a text-mode browser?"))
+    unusual = models.BooleanField(
+        _('unusual'), help_text=_("Hide from recent screenshot overview?"))
 
     class Admin:
-        list_display = ('name', 'maker')
+        list_display = ('name', 'maker', 'terminal', 'unusual')
         search_fields = ('name', 'maker')
 
     class Meta:
