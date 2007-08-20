@@ -203,10 +203,11 @@ class Screenshot(models.Model):
         HTML link to next or previous screenshot in a group.
         """
         if not screenshot:
-            return u'<img src="/static/css/%s-gray.png" alt="%s">' % (img, alt)
+            return u'<img src="/static/css/%s-gray.png" alt="%s" />' % (
+                img, alt)
         return ''.join((
             u'<a href="%s">' % screenshot.get_absolute_url(),
-            u'<img src="/static/css/%s.png" alt="%s">' % (img, alt),
+            u'<img src="/static/css/%s.png" alt="%s" />' % (img, alt),
             u'</a>',
             ))
 
