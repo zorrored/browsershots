@@ -14,6 +14,11 @@ pylint :
 	| grep -v "Unused argument 'http_request'" \
 	| grep -v "Access to a protected member _meta" \
 	| grep -v "Undefined variable '_'" \
+	| grep -v "Unused variable" \
+	| grep -v "Access to a protected member _meta" \
+	| grep -v "Access to a protected member _signature" \
+	| grep -v 'Invalid name "register"' \
+	| grep -v 'Invalid name "dispatcher"' \
 	| grep -v "E1101" \
 	| grep -v "W0142"
 

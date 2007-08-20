@@ -75,10 +75,16 @@ def overview(http_request):
 
 
 class ProblemForm(forms.Form):
+    """
+    Simple form for user feedback about screenshot problems.
+    """
     code = forms.ChoiceField(widget=forms.RadioSelect)
     message = forms.CharField(max_length=200, required=False)
 
     def clean_message(self):
+        """
+        Disallow HTML and URL spam in user-supplied problem messages.
+        """
         message = self.cleaned_data['message'].lower()
         if '<' in message and '>' in message:
             raise forms.ValidationError(

@@ -263,13 +263,10 @@ def error_page(error):
 
 def get_browser(http_request):
     """
-    Get browser from POST or GET, and check admin permissions.
+    Get browser from POST data, and check admin permissions.
     """
     try:
-        if 'browser' in http_request.POST:
-            browser_id = int(http_request.POST.get('browser', ''))
-        else:
-            browser_id = int(http_request.GET.get('browser', ''))
+        browser_id = int(http_request.POST.get('browser', ''))
     except (KeyError, ValueError):
         raise InvalidRequest(
             "You must specify a numeric browser ID.")
@@ -288,34 +285,34 @@ def get_browser(http_request):
 
 @login_required
 def deactivate(http_request):
+    """
+    Deactivate the specified browser.
+    """
     try:
         browser = get_browser(http_request)
         if not browser.active:
             raise InvalidRequest("This browser is already inactive.")
     except InvalidRequest, error:
         return error_page(error)
-    # Deactivate browser if this is a proper post request
-    if http_request.POST:
-        browser.active = False
-        browser.save()
-        return HttpResponseRedirect(browser.factory.get_absolute_url())
-    return activation_form(http_request, browser, 'deactivate')
+    browser.active = False
+    browser.save()
+    return HttpResponseRedirect(browser.factory.get_absolute_url())
 
 
 @login_required
 def activate(http_request):
+    """
+    Activate the specified browser.
+    """
     try:
         browser = get_browser(http_request)
         if browser.active:
             raise InvalidRequest("This browser is already active.")
     except InvalidRequest, error:
         return error_page(error)
-    # Deactivate browser if this is a proper post request
-    if http_request.POST:
-        data = dict((field.name, getattr(browser, field.name))
-                    for field in Browser._meta.fields)
-        delete_or_deactivate_similar_browsers(data, exclude=browser)
-        browser.active = True
-        browser.save()
-        return HttpResponseRedirect(browser.factory.get_absolute_url())
-    return activation_form(http_request, browser)
+    data = dict((field.name, getattr(browser, field.name))
+                for field in Browser._meta.fields)
+    delete_or_deactivate_similar_browsers(data, exclude=browser)
+    browser.active = True
+    browser.save()
+    return HttpResponseRedirect(browser.factory.get_absolute_url())

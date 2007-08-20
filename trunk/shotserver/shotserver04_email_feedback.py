@@ -79,8 +79,10 @@ for factory in Factory.objects.all():
         if not problem.code in codes:
             codes[problem.code] = []
         codes[problem.code].append(problem)
-    body = [u"Hi %s," % factory.admin.first_name, '',
-            u"This is an automated user feedback report from Browsershots 0.4."]
+    body = [
+        u"Hi %s," % factory.admin.first_name, '',
+        u"This is an automated user feedback report from Browsershots 0.4.",
+        ]
     if len(problems) == 1:
         body.append(u"In the last %d hours, there was one %s for" % (
             HOURS, ProblemReport._meta.verbose_name))
