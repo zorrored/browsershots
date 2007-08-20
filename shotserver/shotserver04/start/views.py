@@ -104,12 +104,14 @@ def start(http_request):
         }
     values.update(options_form.cleaned_data)
     values.update(features_form.cleaned_data)
+    match_values = {}
     for key in values:
         if values[key] is None:
-            del values[key]
-            values[key + '__isnull'] = True
+            match_values[key + '__isnull'] = True
+        else:
+            match_values[key] = values[key]
     existing = RequestGroup.objects.filter(
-        expire__gte=datetime.now(), **values).order_by('-submitted')
+        expire__gte=datetime.now(), **match_values).order_by('-submitted')
     if len(existing):
         request_group = existing[0]
         request_group.expire = expire
