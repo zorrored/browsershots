@@ -96,7 +96,7 @@
 {% endif %}
 
 {% if problems_list %}
-<a name="problems"><h2>{{ _("recent problem reports")|capfirst }}</h2></a>
+<h2><a name="problems">{{ _("recent problem reports")|capfirst }}</a></h2>
 <ul>
 {% for problem in problems_list %}
 <li>{{ problem|human_link }} ({% blocktrans with problem.reported|timesince as interval %}{{ interval }} ago{% endblocktrans %})</li>
