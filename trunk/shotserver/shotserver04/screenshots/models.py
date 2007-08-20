@@ -143,11 +143,19 @@ class Screenshot(models.Model):
         """URL for large preview image."""
         return self.get_png_url(size=512)
 
+    def get_preview_height(self, width=160):
+        """Calculate zoomed height."""
+        return self.height * width / self.width
+
+    def get_large_height(self):
+        """Calculate zoomed height for large preview."""
+        return self.get_preview_height(width=512)
+
     def preview_img(self, width=160, title=None):
         """
         HTML img with screenshot preview.
         """
-        height = self.height * width / self.width
+        height = self.get_preview_height(width)
         style = 'width:%spx;height:%spx;z-index:0' % (width / 2, height / 2)
         if title is None:
             title = unicode(self.browser)
@@ -165,7 +173,7 @@ class Screenshot(models.Model):
         """
         HTML div with screenshot preview image and link.
         """
-        auto_height = self.height * width / self.width
+        auto_height = self.get_preview_height(width)
         if height is None:
             height = auto_height
         if caption:
