@@ -80,7 +80,7 @@ width="512" height="{{ screenshot.get_large_height }}"
 
 {% if problem_form %}
 <div id="problem-report" class="clear">
-<a name="report"><h2>{{ _("report a problem with this screenshot")|capfirst }}</h2></a>
+<h2><a name="report">{{ _("Report a problem with this screenshot?") }}</a></h2>
 <form action="#report" method="post" name="problem_form">
 <ul class="no-bullets">
 {% for choice in problem_form.fields.code.choices %}
