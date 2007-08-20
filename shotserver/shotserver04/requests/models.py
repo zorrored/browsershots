@@ -127,9 +127,11 @@ class RequestGroup(models.Model):
         if not almost_fresh:
             text = """
 <form action="/requests/extend/" method="post">
+<div>
 %s
 <input type="hidden" name="request_group_id" value="%d" />
 <input type="submit" name="submit" value="%s" />
+</div>
 </form>
 """.strip() % (text, self.id, unicode(capfirst(_("extend"))))
         return '<li>%s</li>' % text
