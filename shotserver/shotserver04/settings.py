@@ -97,10 +97,6 @@ PROFANITIES_ALLOWED = 1
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 
-# Get your own reCAPTCHA keys from http://recaptcha.net/api/getkey
-RECAPTCHA_PUBLIC_KEY = '6LdxGQAAAAAAA...'
-RECAPTCHA_PRIVATE_KEY = '6LdxGQAAAAAAA...'
-
 # Account number for Google Analytics, e.g. UA-123456-7
 GOOGLE_ANALYTICS_ACCOUNT = ''
 
@@ -139,7 +135,6 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.admin',
-    #'django_openidconsumer',
     'shotserver04.start',
     'shotserver04.accounts',
     'shotserver04.common',
@@ -150,7 +145,6 @@ INSTALLED_APPS = (
     'shotserver04.browsers',
     'shotserver04.websites',
     'shotserver04.requests',
-    'shotserver04.recaptcha',
     'shotserver04.screenshots',
     'shotserver04.nonces',
     'shotserver04.xmlrpc',
