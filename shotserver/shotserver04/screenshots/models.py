@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import os
+import cgi
 from django.db import models, backend
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
@@ -150,6 +151,7 @@ class Screenshot(models.Model):
         style = 'width:%spx;height:%spx;z-index:0' % (width / 2, height / 2)
         if title is None:
             title = unicode(self.browser)
+        title = cgi.escape(title, quote=True)
         return ' '.join((
             u'<img class="preview" style="%s"' % style,
             u'src="%s"' % self.get_png_url(width),
@@ -174,7 +176,8 @@ class Screenshot(models.Model):
             title = unicode(self.browser)
         lines = ['<div class="preview" style="%s">' % style]
         lines.append(u'<a href="%s">%s</a>' %
-            (href, self.preview_img(width=2*width, title=title)))
+            (cgi.escape(href, quote=True),
+             self.preview_img(width=2*width, title=title)))
         if caption is True:
             caption = '<br />'.join((
                 unicode(self.browser),
