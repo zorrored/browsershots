@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load human %}
+
+{% block title %}{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<h1>{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}</h1>
+
+<table>
+<tr class="row1"><th>{{ _("operating system")|capfirst }}:</th><td>{{ factory.operating_system }}</td></tr>
+<tr class="row2"><th>{{ _("architecture")|capfirst }}:</th><td>{{ factory.architecture }}</td></tr>
+<tr class="row1"><th>{{ _("created")|capfirst }}:</th><td>{{ factory.created }}</td></tr>
+<tr class="row2"><th>{{ _("admin")|capfirst }}:</th><td>{{ factory.admin }}</td></tr>
+{% if factory.sponsor %}
+<tr class="row1"><th>{{ _("sponsor")|capfirst }}:</th><td>{{ factory.sponsor }}</td></tr>
+{% endif %}
+</table>
+
+<h2>{{ _("installed browsers")|capfirst }}</h2>
+
+{% if browser_list %}
+<table class="vertical browsers">
+<thead>
+<tr>
+<th>{{ _("name")|capfirst|human_br }}</th>
+<th>{{ _("short version")|capfirst|human_br }}</th>
+<th>{{ _("engine")|capfirst|human_br }}</th>
+<th>{{ _("Javascript")|human_br }}</th>
+<th>{{ _("Java")|human_br }}</th>
+<th>{{ _("Flash")|human_br }}</th>
+<th>{{ _("last upload")|capfirst|human_br }}</th>
+<th>{{ _("uploads per hour")|capfirst|human_br }}</th>
+<th>{{ _("uploads per day")|capfirst|human_br }}</th>
+{% if show_commands %}<th>{{ _("command")|capfirst|human_br }}</th>{% endif %}
+{% if admin_logged_in %}<th></th>{% endif %}
+</tr>
+</thead>
+<tbody>
+{% for browser in browser_list %}
+<tr class="{% cycle row1,row2 %}{% if browser.active %} active{% else %} inactive{% endif%}" title="{{ browser.user_agent }}">
+<td class="browser">{{ browser }}</td>
+<td>{{ browser.major }}.{{ browser.minor }}</td>
+<td>{% if browser.engine %}{{ browser.engine }}{% endif %} {{ browser.engine_version }}</td>
+<td>{{ browser.javascript }}</td>
+<td>{{ browser.java }}</td>
+<td>{{ browser.flash }}</td>
+<td>{{ browser.last_upload|human_timesince }}</td>
+<td>{% if browser.uploads_per_hour %}{{ browser.uploads_per_hour }}{% endif %}</td>
+<td>{% if browser.uploads_per_day %}{{ browser.uploads_per_day }}{% endif %}</td>
+{% if show_commands %}<td>{{ browser.command }}</td>{% endif %}
+{% if admin_logged_in %}<td>{{ browser.activation_form }}</td>{% endif %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<p class="admonition warning">{{ _("No browsers registered for this factory.") }}</p>
+{% endif %}
+
+{% if admin_logged_in %}
+<p><a href="/browsers/add/?factory={{ factory.name }}">{{ _("Register this browser for screenshots?") }}</a></p>
+{% endif %}
+
+<div style="float: left; margin: 0 2em 0 0;">
+<h2>{{ _("screen sizes")|capfirst }}</h2>
+{% if screensize_list %}
+<ul>
+{% for screensize in screensize_list %}
+<li>{{ screensize }}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>{{ _("default only")|capfirst }}.</p>
+{% endif %}
+</div>
+
+<div style="float: left; margin: 0 2em 0 0;">
+<h2>{{ _("color depths")|capfirst }}</h2>
+{% if colordepth_list %}
+<ul>
+{% for colordepth in colordepth_list %}
+<li>{{ colordepth }} bits per pixel</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>{{ _("default only")|capfirst }}.</p>
+{% endif %}
+</div>
+
+{% if screenshot_list %}
+<h2>{{ _("recent screenshots")|capfirst }}</h2>
+{% for screenshot in screenshot_list|dictsort:"id" %}
+{{ screenshot.preview_div_with_browser }}
+{% endfor %}
+{% endif %}
+
+{% if problems_list %}
+<h2><a name="problems">{{ _("recent problem reports")|capfirst }}</a></h2>
+<ul>
+{% for problem in problems_list %}
+<li>{{ problem|human_link }} ({% blocktrans with problem.reported|timesince as interval %}{{ interval }} ago{% endblocktrans %})</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

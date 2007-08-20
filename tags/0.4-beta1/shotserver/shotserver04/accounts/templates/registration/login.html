@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ _("login")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ _("sign in")|capfirst }}</h1>
+
+{% if form.has_errors %}
+<p class="admonition error">
+{{ _("Your username and password didn't match.") }}
+{{ _("Please try again.") }}
+</p>
+{% endif %}
+
+<div id="login">
+<form action="/accounts/login/" method="post" id="login-form">
+  <div class="form-row">
+    <label for="id_username">{{ _("username")|capfirst }}:</label> <input type="text" name="username" id="id_username" />
+  </div>
+  <div class="form-row">
+    <label for="id_password">{{ _("password")|capfirst }}:</label> <input type="password" name="password" id="id_password" />
+  </div>
+  <div class="submit-row">
+    <label>&nbsp;</label> <input type="submit" value="{{ _("sign in")|capfirst }}" />
+  </div>
+</form>
+
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script>
+</div>
+
+<p>{{ status }}</p>
+{% endblock content %}
