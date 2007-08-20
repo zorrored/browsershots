@@ -27,7 +27,6 @@ __author__ = "$Author$"
 from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
-from django.db import connection
 from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup, Browser

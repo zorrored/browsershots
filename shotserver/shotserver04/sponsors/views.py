@@ -30,5 +30,9 @@ from shotserver04.sponsors.models import Sponsor
 
 
 def redirect(http_request, slug):
+    """
+    Redirect to sponsor website.
+    This is used to count outgoing clicks in access.log.
+    """
     sponsor = get_object_or_404(Sponsor, slug=slug)
     return HttpResponseRedirect(sponsor.url)

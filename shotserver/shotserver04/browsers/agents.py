@@ -166,9 +166,9 @@ def safari_version(build):
     module_dir = os.path.dirname(__file__)
     uamatrix_filename = os.path.join(module_dir, 'uamatrix.xml')
     uamatrix = open(uamatrix_filename).read()
-    for safari_version, safari_build in uamatrix_findall(uamatrix):
-        if safari_build == build:
-            return safari_version
+    for matrix_version, matrix_build in uamatrix_findall(uamatrix):
+        if matrix_build == build:
+            return matrix_version
     return build
 
 

@@ -160,6 +160,9 @@ class Browser(models.Model):
         return (group & major & minor & javascript & java & flash)
 
     def activation_form(self):
+        """
+        Simple HTML form to activate or deactivate this browser.
+        """
         if self.active:
             action = '/browsers/deactivate/'
             submit_value = capfirst(_("deactivate"))

@@ -311,6 +311,10 @@ class Screenshot(models.Model):
 
 
 class ProblemReport(models.Model):
+    """
+    User feedback about problems with a screenshot, e.g.
+    This is not the requested browser version.
+    """
     screenshot = models.ForeignKey(Screenshot,
         verbose_name=_("screenshot"), raw_id_admin=True)
     code = models.IntegerField(
