@@ -42,7 +42,7 @@ import sys
 DEBUG = '--debug' in sys.argv
 HOURS = 72
 PREFIX = 'http://' + Site.objects.all()[0].domain
-MAX_EXAMPLES = 3
+MAX_EXAMPLES = 5
 MAX_ORPHANS = 2
 
 
