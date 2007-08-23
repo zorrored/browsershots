@@ -40,7 +40,7 @@ from shotserver04.common.templatetags import human
 import sys
 
 DEBUG = '--debug' in sys.argv
-HOURS = 24
+HOURS = 72
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 3
 MAX_ORPHANS = 2
@@ -49,14 +49,14 @@ MAX_ORPHANS = 2
 def all_reports(problems):
     for problem in problems:
         yield ''
-        yield '%s (Code %d)' % (problem.message, problem.code)
+        yield u'%s (Code %d)' % (problem.get_message(), problem.code)
         yield PREFIX + problem.screenshot.get_absolute_url()
 
 
 def example_urls(problems):
     urls = set([problem.screenshot.get_absolute_url() for problem in problems])
     yield ''
-    yield '%s (Code %d)' % (problems[0].message, problems[0].code)
+    yield u'%s (Code %d)' % (problems[0].get_message(), problems[0].code)
     orphans = len(problems) - MAX_EXAMPLES
     if orphans > MAX_ORPHANS:
         orphans = 0
