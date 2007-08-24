@@ -52,6 +52,10 @@ class RedirectMiddleware(object):
         subdomain = host.lower().split('.')[0]
         if subdomain in ('api', 'xmlrpc') and first_part == '':
             return http.HttpResponsePermanentRedirect('/xmlrpc/')
+        # Fix double slash after http: or https:
+        if first_part in ('http:', 'https:') and len(parts) >= 2 and parts[1]:
+            new_path = request.get_full_path().replace(':/', '://', 1)
+            return http.HttpResponsePermanentRedirect(new_path)
         # Add trailing slash if path starts with an installed app name
         if self.installed_app(first_part) and not (
             request.path.endswith('/') or '.' in last_part):
