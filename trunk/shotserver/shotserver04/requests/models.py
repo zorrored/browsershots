@@ -434,6 +434,8 @@ class Request(models.Model):
         """
         kwargs = dict(browser_filters)
         kwargs['browser_group'] = self.browser_group_id
+        if self.platform is not None:
+            kwargs['factory__operating_system__platform_id'] = self.platform_id
         if self.major is not None:
             kwargs['major'] = self.major
         if self.minor is not None:
