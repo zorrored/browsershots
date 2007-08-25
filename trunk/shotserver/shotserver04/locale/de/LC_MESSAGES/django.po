@@ -195,9 +195,8 @@ msgstr "Keine Browser eingetragen für diese Fabrik."
 
 #: factories/templates/factories/details.html:62
 #: accounts/templates/accounts/profile.html:25
-#, fuzzy
 msgid "Register this browser for screenshots?"
-msgstr "Diesen Browser für Screenshots eintragen!"
+msgstr "Diesen Browser für Screenshots eintragen?"
 
 #: factories/templates/factories/details.html:74
 #: factories/templates/factories/details.html:87
@@ -272,7 +271,7 @@ msgstr "%(count)d Datenbank-Queries"
 #: common/templatetags/hosting_provider.py:45
 #, python-format
 msgid "hosted by %(provider)s"
-msgstr ""
+msgstr "Gehostet bei %(provider)s"
 
 #: common/templates/base.html:24
 msgid "home"
@@ -309,7 +308,7 @@ msgstr "Die angeforderte Seite wurde nicht gefunden."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
-msgstr ""
+msgstr "interner Serverfehler"
 
 #: points/models.py:40
 msgid "sender"
@@ -397,24 +396,23 @@ msgstr "bezahlte Punkte"
 
 #: sponsors/models.py:36
 msgid "slug"
-msgstr ""
+msgstr "Slug"
 
 #: sponsors/models.py:37
 msgid "This is used to generate the link to the logo image."
-msgstr ""
+msgstr "Wird verwendet, um den Link zum Logo-Bild zu erzeugen."
 
 #: sponsors/models.py:39 websites/models.py:73
 msgid "URL"
 msgstr "URL"
 
 #: sponsors/models.py:41
-#, fuzzy
 msgid "premium"
-msgstr "vorige"
+msgstr "premium"
 
 #: sponsors/models.py:42
 msgid "Premium sponsors are shown on the front page."
-msgstr ""
+msgstr "Premium-Sponsoren werden auf der Startseite angezeigt."
 
 #: sponsors/models.py:49
 msgid "sponsors"
@@ -678,9 +676,8 @@ msgid "latest news"
 msgstr "Nachrichten"
 
 #: start/templates/start/start.html:92
-#, fuzzy
 msgid "premium sponsors"
-msgstr "Sponsoren"
+msgstr "Premium-Sponsoren"
 
 #: start/forms/features.py:35 start/forms/options.py:36
 #: start/forms/options.py:49
@@ -869,26 +866,24 @@ msgid "Flash versions"
 msgstr "Flash-Versionen"
 
 #: screenshots/models.py:36
-#, fuzzy
 msgid "This is not the requested browser."
-msgstr "Das ist nicht %(browser)s."
+msgstr "Das ist nicht der richtige Browser."
 
 #: screenshots/models.py:37
-#, fuzzy
 msgid "This is not the requested operating system."
-msgstr "Das ist nicht %(operating_system)s."
+msgstr "Das ist nicht das richtige Betriebssystem."
 
 #: screenshots/models.py:39
 msgid "This is not the requested Javascript version."
-msgstr ""
+msgstr "Das ist nicht die richtige Javascript-Version."
 
 #: screenshots/models.py:40
 msgid "This is not the requested Java version."
-msgstr ""
+msgstr "Das ist nicht die richtige Java-Version."
 
 #: screenshots/models.py:41
 msgid "This is not the requested Flash version."
-msgstr ""
+msgstr "Das ist nicht die richtige Flash-Version."
 
 #: screenshots/models.py:42
 msgid "A language pack needs to be installed."
@@ -992,7 +987,7 @@ msgstr "URLs sind hier nicht erlaubt."
 
 #: screenshots/templates/screenshots/details.html:14
 msgid "Click for full size."
-msgstr ""
+msgstr "Anklicken für Originalgröße."
 
 #: screenshots/templates/screenshots/details.html:60
 msgid "dimensions"
@@ -1011,9 +1006,8 @@ msgid "page loaded"
 msgstr "Seite geladen"
 
 #: screenshots/templates/screenshots/details.html:83
-#, fuzzy
 msgid "Report a problem with this screenshot?"
-msgstr "ein Problem mit diesem Screenshot melden"
+msgstr "Ein Problem mit diesem Screenshot melden?"
 
 #: nonces/models.py:52
 msgid "nonce"
@@ -1049,12 +1043,11 @@ msgstr "Ist dies ein Textmodus-Browser?"
 
 #: browsers/models.py:67
 msgid "unusual"
-msgstr ""
+msgstr "ungewöhnlich"
 
 #: browsers/models.py:67
-#, fuzzy
 msgid "Hide from recent screenshot overview?"
-msgstr "aktuelle Screenshots"
+msgstr "Nicht auf der aktuellen Screenshotsübersicht anzeigen?"
 
 #: browsers/models.py:75
 msgid "browser groups"
