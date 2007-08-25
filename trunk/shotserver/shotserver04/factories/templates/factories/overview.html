@@ -2,10 +2,10 @@
 {% load i18n %}
 {% load human %}
 
-{% block title %}{% trans "Screenshot Factories" %}{% endblock %}
+{% block title %}{{ _("screenshot factories")|capfirst }}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Screenshot Factories" %}</h1>
+<h1>{{ _("screenshot factories")|capfirst }}</h1>
 
 <table class="factories vertical">
 <thead>
