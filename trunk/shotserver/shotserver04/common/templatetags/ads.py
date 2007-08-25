@@ -25,8 +25,13 @@ __author__ = "$Author$"
 from django import template
 from shotserver04 import settings
 
-register = template.Library()
+LEADERBOARD_TEMPLATE = """\
+<div class="ad leaderboard clear">
+%s
+</div>
+"""
 
+register = template.Library()
 
 @register.simple_tag
 def ads_leaderboard():
@@ -36,4 +41,4 @@ def ads_leaderboard():
     if (not hasattr(settings, 'ADS_LEADERBOARD') or
         not settings.ADS_LEADERBOARD):
         return ''
-    return settings.ADS_LEADERBOARD
+    return LEADERBOARD_TEMPLATE % settings.ADS_LEADERBOARD.strip()
