@@ -1,13 +1,9 @@
-# Browsershots ShotServer 0.4
-# Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
-# This file is distributed under the same license as the shotserver package.
-#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver 0.4\n"
-"Report-Msgid-Bugs-To: Johann C. Rocholl <johann@browsershots.org>\n"
-"POT-Creation-Date: 2007-08-10 00:44-0700\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-24 20:50-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,120 +11,120 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: factories/models.py:47 factories/templates/factories/details.html:26
-#: sponsors/models.py:36 websites/models.py:49 browsers/models.py:39
-#: browsers/models.py:62 platforms/models.py:36 platforms/models.py:60
-#: platforms/models.py:89
+#: factories/models.py:45 factories/templates/factories/details.html:26
+#: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
+#: browsers/models.py:60 platforms/models.py:34 platforms/models.py:58
+#: platforms/models.py:87
 msgid "name"
 msgstr ""
 
-#: factories/models.py:48
+#: factories/models.py:46
 msgid "Hostname (lowercase)"
 msgstr ""
 
-#: factories/models.py:50
+#: factories/models.py:48
 msgid "administrator"
 msgstr ""
 
-#: factories/models.py:52 factories/templates/factories/details.html:16
-#: sponsors/models.py:44 screenshots/templates/screenshots/details.html:44
+#: factories/models.py:50 factories/templates/factories/details.html:16
+#: sponsors/models.py:48 screenshots/templates/screenshots/details.html:48
 msgid "sponsor"
 msgstr ""
 
-#: factories/models.py:54
+#: factories/models.py:52
 msgid "hardware architecture"
 msgstr ""
 
-#: factories/models.py:56 factories/templates/factories/details.html:11
-#: screenshots/templates/screenshots/details.html:52 platforms/models.py:73
+#: factories/models.py:54 factories/templates/factories/details.html:11
+#: screenshots/templates/screenshots/details.html:56 platforms/models.py:71
 msgid "operating system"
 msgstr ""
 
-#: factories/models.py:58 requests/models.py:69
+#: factories/models.py:56 requests/models.py:67
 msgid "IP"
 msgstr ""
 
-#: factories/models.py:59
+#: factories/models.py:57
 msgid "The last poll came from this IP address."
 msgstr ""
 
-#: factories/models.py:61
+#: factories/models.py:59
 msgid "last poll"
 msgstr ""
 
-#: factories/models.py:63 factories/templates/factories/details.html:32
+#: factories/models.py:61 factories/templates/factories/details.html:32
 #: browsers/models.py:115
 msgid "last upload"
 msgstr ""
 
-#: factories/models.py:65 factories/templates/factories/details.html:33
+#: factories/models.py:63 factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17 browsers/models.py:117
 msgid "uploads per hour"
 msgstr ""
 
-#: factories/models.py:67 factories/templates/factories/details.html:34
+#: factories/models.py:65 factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18 browsers/models.py:119
 msgid "uploads per day"
 msgstr ""
 
-#: factories/models.py:69
+#: factories/models.py:67
 msgid "queue estimate"
 msgstr ""
 
-#: factories/models.py:70
+#: factories/models.py:68
 msgid "Seconds between screenshot request and upload."
 msgstr ""
 
-#: factories/models.py:72 factories/templates/factories/details.html:13
-#: nonces/models.py:43 browsers/models.py:121
+#: factories/models.py:70 factories/templates/factories/details.html:13
+#: nonces/models.py:41 browsers/models.py:121
 msgid "created"
 msgstr ""
 
-#: factories/models.py:95 factories/models.py:188 factories/models.py:214
-#: messages/models.py:36 requests/models.py:365
-#: accounts/templates/accounts/profile.html:31 screenshots/models.py:81
-#: screenshots/templates/screenshots/details.html:40 nonces/models.py:37
+#: factories/models.py:93 factories/models.py:186 factories/models.py:212
+#: messages/models.py:34 requests/models.py:365
+#: accounts/templates/accounts/profile.html:31 screenshots/models.py:103
+#: screenshots/templates/screenshots/details.html:44 nonces/models.py:35
 #: browsers/models.py:87
 msgid "factory"
 msgstr ""
 
-#: factories/models.py:96 common/templates/base.html:25
+#: factories/models.py:94 common/templates/base.html:27
 msgid "factories"
 msgstr ""
 
-#: factories/models.py:191 screenshots/models.py:85
+#: factories/models.py:189 screenshots/models.py:107
 msgid "width"
 msgstr ""
 
-#: factories/models.py:193 screenshots/models.py:87
+#: factories/models.py:191 screenshots/models.py:109
 msgid "height"
 msgstr ""
 
-#: factories/models.py:200 start/forms/options.py:66
+#: factories/models.py:198 start/forms/options.py:64
 msgid "screen size"
 msgstr ""
 
-#: factories/models.py:201 factories/templates/factories/details.html:66
+#: factories/models.py:199 factories/templates/factories/details.html:66
 msgid "screen sizes"
 msgstr ""
 
-#: factories/models.py:217 requests/models.py:59
+#: factories/models.py:215 requests/models.py:57
 msgid "bits per pixel"
 msgstr ""
 
-#: factories/models.py:224 start/forms/options.py:68
+#: factories/models.py:222 start/forms/options.py:66
 msgid "color depth"
 msgstr ""
 
-#: factories/models.py:225 factories/templates/factories/details.html:79
+#: factories/models.py:223 factories/templates/factories/details.html:79
 msgid "color depths"
 msgstr ""
 
-#: factories/views.py:47 start/views.py:63
+#: factories/views.py:45 start/views.py:62
 msgid "out of service"
 msgstr ""
 
-#: factories/views.py:48 start/views.py:65
+#: factories/views.py:46 start/views.py:64
 msgid "No active screenshot factories."
 msgstr ""
 
@@ -144,7 +140,7 @@ msgid "Screenshot Factory %(name)s"
 msgstr ""
 
 #: factories/templates/factories/details.html:12
-#: screenshots/templates/screenshots/details.html:48 platforms/models.py:99
+#: screenshots/templates/screenshots/details.html:52 platforms/models.py:97
 msgid "architecture"
 msgstr ""
 
@@ -161,26 +157,26 @@ msgid "short version"
 msgstr ""
 
 #: factories/templates/factories/details.html:28
-#: screenshots/templates/screenshots/details.html:24 browsers/models.py:52
+#: screenshots/templates/screenshots/details.html:28 browsers/models.py:50
 #: browsers/models.py:99
 msgid "engine"
 msgstr ""
 
-#: factories/templates/factories/details.html:29 requests/models.py:61
-#: start/forms/features.py:68
-#: screenshots/templates/screenshots/details.html:28 browsers/models.py:103
+#: factories/templates/factories/details.html:29 requests/models.py:59
+#: start/forms/features.py:66
+#: screenshots/templates/screenshots/details.html:32 browsers/models.py:103
 msgid "Javascript"
 msgstr ""
 
-#: factories/templates/factories/details.html:30 requests/models.py:63
-#: start/forms/features.py:70
-#: screenshots/templates/screenshots/details.html:32 browsers/models.py:105
+#: factories/templates/factories/details.html:30 requests/models.py:61
+#: start/forms/features.py:68
+#: screenshots/templates/screenshots/details.html:36 browsers/models.py:105
 msgid "Java"
 msgstr ""
 
-#: factories/templates/factories/details.html:31 requests/models.py:65
-#: start/forms/features.py:72
-#: screenshots/templates/screenshots/details.html:36 browsers/models.py:107
+#: factories/templates/factories/details.html:31 requests/models.py:63
+#: start/forms/features.py:70
+#: screenshots/templates/screenshots/details.html:40 browsers/models.py:107
 msgid "Flash"
 msgstr ""
 
@@ -194,7 +190,7 @@ msgstr ""
 
 #: factories/templates/factories/details.html:62
 #: accounts/templates/accounts/profile.html:25
-msgid "Register this browser for screenshots!"
+msgid "Register this browser for screenshots?"
 msgstr ""
 
 #: factories/templates/factories/details.html:74
@@ -217,78 +213,83 @@ msgstr ""
 msgid "%(interval)s ago"
 msgstr ""
 
-#: messages/models.py:38 screenshots/models.py:294
+#: messages/models.py:36 screenshots/models.py:331
 msgid "error code"
 msgstr ""
 
-#: messages/models.py:40 screenshots/models.py:296
+#: messages/models.py:38 screenshots/models.py:333
 msgid "error message"
 msgstr ""
 
-#: messages/models.py:42
+#: messages/models.py:40
 msgid "occurred"
 msgstr ""
 
-#: messages/models.py:50
+#: messages/models.py:48
 msgid "factory error message"
 msgstr ""
 
-#: messages/models.py:51
+#: messages/models.py:49
 msgid "factory error messages"
 msgstr ""
 
-#: common/templatetags/human.py:51
+#: common/templatetags/human.py:49
 #, python-format
 msgid "%(seconds)d s"
 msgstr ""
 
-#: common/templatetags/human.py:54 requests/models.py:455
+#: common/templatetags/human.py:52 requests/models.py:457
 #, python-format
 msgid "%(minutes)d min"
 msgstr ""
 
-#: common/templatetags/human.py:57
+#: common/templatetags/human.py:55
 #, python-format
 msgid "%(hours)d h"
 msgstr ""
 
-#: common/templatetags/human.py:59
+#: common/templatetags/human.py:57
 #, python-format
 msgid "%(days)d d"
 msgstr ""
 
-#: common/templatetags/human.py:104
+#: common/templatetags/human.py:102
 #, python-format
 msgid "%(bytes)s bytes"
 msgstr ""
 
-#: common/templatetags/sql_queries.py:56
+#: common/templatetags/sql_queries.py:54
 #, python-format
 msgid "%(count)d database queries"
 msgstr ""
 
-#: common/templates/base.html:22
-msgid "home"
-msgstr ""
-
-#: common/templates/base.html:23 screenshots/models.py:106
-#: screenshots/models.py:252
-msgid "screenshots"
+#: common/templatetags/hosting_provider.py:45
+#, python-format
+msgid "hosted by %(provider)s"
 msgstr ""
 
 #: common/templates/base.html:24
-msgid "queue"
+msgid "home"
+msgstr ""
+
+#: common/templates/base.html:25 screenshots/models.py:128
+#: screenshots/models.py:285
+msgid "screenshots"
 msgstr ""
 
 #: common/templates/base.html:26
+msgid "queue"
+msgstr ""
+
+#: common/templates/base.html:28
 msgid "search"
 msgstr ""
 
-#: common/templates/base.html:33
+#: common/templates/base.html:35
 msgid "logout"
 msgstr ""
 
-#: common/templates/base.html:35 accounts/templates/registration/login.html:4
+#: common/templates/base.html:37 accounts/templates/registration/login.html:4
 msgid "login"
 msgstr ""
 
@@ -300,60 +301,64 @@ msgstr ""
 msgid "The requested page was not found."
 msgstr ""
 
-#: points/models.py:42
+#: common/templates/500.html:3 common/templates/500.html.py:6
+msgid "internal server error"
+msgstr ""
+
+#: points/models.py:40
 msgid "sender"
 msgstr ""
 
-#: points/models.py:45
+#: points/models.py:43
 msgid "receiver"
 msgstr ""
 
-#: points/models.py:48 requests/models.py:374 screenshots/models.py:105
-#: screenshots/models.py:292
+#: points/models.py:46 requests/models.py:374 screenshots/models.py:127
+#: screenshots/models.py:329
 msgid "screenshot"
 msgstr ""
 
-#: points/models.py:51 points/models.py:81 points/models.py:115
+#: points/models.py:49 points/models.py:79 points/models.py:113
 msgid "points"
 msgstr ""
 
-#: points/models.py:53
+#: points/models.py:51
 msgid "paid"
 msgstr ""
 
-#: points/models.py:56
+#: points/models.py:54
 msgid "transaction"
 msgstr ""
 
-#: points/models.py:57
+#: points/models.py:55
 msgid "transactions"
 msgstr ""
 
-#: points/models.py:77 points/models.py:111
+#: points/models.py:75 points/models.py:109
 msgid "user"
 msgstr ""
 
-#: points/models.py:79
+#: points/models.py:77
 msgid "considered"
 msgstr ""
 
-#: points/models.py:84
+#: points/models.py:82
 msgid "balance"
 msgstr ""
 
-#: points/models.py:85
+#: points/models.py:83
 msgid "balances"
 msgstr ""
 
-#: points/models.py:113 requests/models.py:388
+#: points/models.py:111 requests/models.py:388
 msgid "request"
 msgstr ""
 
-#: points/models.py:118
+#: points/models.py:116
 msgid "bid"
 msgstr ""
 
-#: points/models.py:119
+#: points/models.py:117
 msgid "bids"
 msgstr ""
 
@@ -384,56 +389,72 @@ msgstr ""
 msgid "points paid"
 msgstr ""
 
-#: sponsors/models.py:38 websites/models.py:75
+#: sponsors/models.py:36
+msgid "slug"
+msgstr ""
+
+#: sponsors/models.py:37
+msgid "This is used to generate the link to the logo image."
+msgstr ""
+
+#: sponsors/models.py:39 websites/models.py:73
 msgid "URL"
 msgstr ""
 
-#: sponsors/models.py:45
+#: sponsors/models.py:41
+msgid "premium"
+msgstr ""
+
+#: sponsors/models.py:42
+msgid "Premium sponsors are shown on the front page."
+msgstr ""
+
+#: sponsors/models.py:49
 msgid "sponsors"
 msgstr ""
 
-#: requests/models.py:53 websites/models.py:94 screenshots/models.py:79
+#: requests/models.py:51 websites/models.py:92 screenshots/models.py:101
 msgid "website"
 msgstr ""
 
-#: requests/models.py:55
+#: requests/models.py:53
 msgid "screen width"
 msgstr ""
 
-#: requests/models.py:57
+#: requests/models.py:55
 msgid "screen height"
 msgstr ""
 
-#: requests/models.py:67
+#: requests/models.py:65
 msgid "submitter"
 msgstr ""
 
-#: requests/models.py:71 websites/models.py:51 websites/models.py:86
+#: requests/models.py:69 websites/models.py:49 websites/models.py:84
 msgid "submitted"
 msgstr ""
 
-#: requests/models.py:73
+#: requests/models.py:71
 msgid "expire"
 msgstr ""
 
-#: requests/models.py:90 requests/models.py:355
+#: requests/models.py:88 requests/models.py:355
 msgid "request group"
 msgstr ""
 
-#: requests/models.py:91
+#: requests/models.py:89
 msgid "request groups"
 msgstr ""
 
-#: requests/models.py:98
+#: requests/models.py:96
 msgid "screenshot request group"
 msgstr ""
 
-#: requests/models.py:115
+#: requests/models.py:113
 #, python-format
 msgid "submitted %(interval)s ago"
 msgstr ""
 
-#: requests/models.py:128
+#: requests/models.py:126
 #, python-format
 msgid "expires in %(interval)s"
 msgstr ""
@@ -442,12 +463,12 @@ msgstr ""
 msgid "extend"
 msgstr ""
 
-#: requests/models.py:151 start/forms/options.py:43
+#: requests/models.py:151 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
 msgstr ""
 
-#: requests/models.py:154 start/forms/options.py:56
+#: requests/models.py:154 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
 msgstr ""
@@ -493,7 +514,7 @@ msgid "download %(count)d screenshots"
 msgstr ""
 
 #: requests/models.py:357 requests/templates/requests/overview.html:14
-#: platforms/models.py:48 platforms/models.py:58
+#: platforms/models.py:46 platforms/models.py:56
 msgid "platform"
 msgstr ""
 
@@ -514,7 +535,7 @@ msgid "locked"
 msgstr ""
 
 #: requests/models.py:369 requests/templates/requests/overview.html:15
-#: screenshots/models.py:83 screenshots/templates/screenshots/details.html:20
+#: screenshots/models.py:105 screenshots/templates/screenshots/details.html:24
 #: browsers/models.py:143
 msgid "browser"
 msgstr ""
@@ -527,8 +548,8 @@ msgstr ""
 msgid "requests"
 msgstr ""
 
-#: requests/models.py:410 screenshots/models.py:89
-#: screenshots/templates/screenshots/details.html:72
+#: requests/models.py:410 screenshots/models.py:111
+#: screenshots/templates/screenshots/details.html:76
 msgid "uploaded"
 msgstr ""
 
@@ -544,7 +565,7 @@ msgstr ""
 msgid "starting"
 msgstr ""
 
-#: requests/models.py:449
+#: requests/models.py:451
 msgid "unavailable"
 msgstr ""
 
@@ -568,15 +589,15 @@ msgstr ""
 msgid "for %(url)s"
 msgstr ""
 
-#: start/views.py:66
+#: start/views.py:65
 msgid "Please try again later."
 msgstr ""
 
-#: start/views.py:139
+#: start/views.py:152
 msgid "select all"
 msgstr ""
 
-#: start/views.py:140
+#: start/views.py:153
 msgid "deselect all"
 msgstr ""
 
@@ -585,117 +606,120 @@ msgid "Test your web design in different browsers"
 msgstr ""
 
 #: start/templates/start/start.html:19
-#: recaptcha/templates/recaptcha/recaptcha.html:17
-#: screenshots/templates/screenshots/details.html:90
+#: screenshots/templates/screenshots/details.html:94
 #: browsers/templates/browsers/add.html:19
 msgid "submit"
 msgstr ""
 
+#: start/templates/start/start.html:56
+msgid "project links"
+msgstr ""
+
 #: start/templates/start/start.html:58
+msgid "documentation"
+msgstr ""
+
+#: start/templates/start/start.html:59
+msgid "mailing lists"
+msgstr ""
+
+#: start/templates/start/start.html:60
+msgid "XML-RPC interface"
+msgstr ""
+
+#: start/templates/start/start.html:61
+msgid "source code"
+msgstr ""
+
+#: start/templates/start/start.html:62
+msgid "downloads"
+msgstr ""
+
+#: start/templates/start/start.html:63
+msgid "translations"
+msgstr ""
+
+#: start/templates/start/start.html:70
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
 msgstr ""
 
-#: start/templates/start/start.html:59
+#: start/templates/start/start.html:71
 msgid "It is a free open-source online service created by Johann C. Rocholl."
 msgstr ""
 
-#: start/templates/start/start.html:60
+#: start/templates/start/start.html:72
 msgid "When you submit your web address, it will be added to the job queue."
 msgstr ""
 
-#: start/templates/start/start.html:61
+#: start/templates/start/start.html:73
 msgid ""
 "A number of distributed computers will open your website in their browser."
 msgstr ""
 
-#: start/templates/start/start.html:62
+#: start/templates/start/start.html:74
 msgid ""
 "Then they will make screenshots and upload them to the central server here."
 msgstr ""
 
-#: start/templates/start/start.html:68
+#: start/templates/start/start.html:80
 msgid "latest news"
 msgstr ""
 
-#: start/templates/start/start.html:79
-msgid "project links"
+#: start/templates/start/start.html:92
+msgid "premium sponsors"
 msgstr ""
 
-#: start/templates/start/start.html:81
-msgid "documentation"
-msgstr ""
-
-#: start/templates/start/start.html:82
-msgid "XML-RPC interface"
-msgstr ""
-
-#: start/templates/start/start.html:83
-msgid "source code"
-msgstr ""
-
-#: start/templates/start/start.html:84
-msgid "downloads"
-msgstr ""
-
-#: start/templates/start/start.html:85
-msgid "mailing lists"
-msgstr ""
-
-#: start/templates/start/start.html:86
-msgid "translations"
-msgstr ""
-
-#: start/forms/features.py:37 start/forms/options.py:38
-#: start/forms/options.py:51
+#: start/forms/features.py:35 start/forms/options.py:36
+#: start/forms/options.py:49
 msgid "don't care"
 msgstr ""
 
-#: start/forms/features.py:45 features/models.py:38
+#: start/forms/features.py:43 features/models.py:36
 #: browsers/templates/browsers/add.html:43
 #: browsers/templates/browsers/add.html:47
 msgid "disabled"
 msgstr ""
 
-#: start/forms/features.py:48 features/models.py:36
+#: start/forms/features.py:46 features/models.py:34
 #: browsers/templates/browsers/add.html:43
 msgid "enabled"
 msgstr ""
 
-#: start/forms/url.py:53
+#: start/forms/url.py:51
 msgid "Enter your web address here:"
 msgstr ""
 
-#: start/forms/url.py:86
+#: start/forms/url.py:84
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr ""
 
-#: start/forms/url.py:90
+#: start/forms/url.py:88
 msgid "Malformed URL (server name not specified)."
 msgstr ""
 
-#: start/forms/url.py:110
+#: start/forms/url.py:108
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:112
+#: start/forms/url.py:110
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:114
+#: start/forms/url.py:112
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:118
+#: start/forms/url.py:116
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr ""
 
-#: start/forms/url.py:150
+#: start/forms/url.py:148
 msgid "Malformed URL (database integrity error)."
 msgstr ""
 
@@ -750,35 +774,35 @@ msgstr ""
 msgid "username"
 msgstr ""
 
-#: accounts/templates/registration/login.html:22 browsers/views.py:46
+#: accounts/templates/registration/login.html:22 browsers/views.py:44
 msgid "password"
 msgstr ""
 
-#: websites/models.py:40
+#: websites/models.py:38
 msgid "Missing slash after the hostname."
 msgstr ""
 
-#: websites/models.py:59 websites/models.py:78
+#: websites/models.py:57 websites/models.py:76
 msgid "domain"
 msgstr ""
 
-#: websites/models.py:60
+#: websites/models.py:58
 msgid "domains"
 msgstr ""
 
-#: websites/models.py:80
+#: websites/models.py:78
 msgid "content"
 msgstr ""
 
-#: websites/models.py:82
+#: websites/models.py:80
 msgid "profanities"
 msgstr ""
 
-#: websites/models.py:84
+#: websites/models.py:82
 msgid "fetched"
 msgstr ""
 
-#: websites/models.py:95
+#: websites/models.py:93
 msgid "websites"
 msgstr ""
 
@@ -795,193 +819,225 @@ msgstr ""
 msgid "other pages on the same domain"
 msgstr ""
 
-#: features/models.py:62 features/models.py:83 features/models.py:104
-#: browsers/models.py:93 platforms/models.py:62
+#: features/models.py:60 features/models.py:81 features/models.py:102
+#: browsers/models.py:93 platforms/models.py:60
 msgid "version"
 msgstr ""
 
-#: features/models.py:63 features/models.py:84
+#: features/models.py:61 features/models.py:82
 msgid "e.g. 1.4 / 1.5 / 1.6"
 msgstr ""
 
-#: features/models.py:69
+#: features/models.py:67
 msgid "Javascript version"
 msgstr ""
 
-#: features/models.py:70
+#: features/models.py:68
 msgid "Javascript versions"
 msgstr ""
 
-#: features/models.py:90
+#: features/models.py:88
 msgid "Java version"
 msgstr ""
 
-#: features/models.py:91
+#: features/models.py:89
 msgid "Java versions"
 msgstr ""
 
-#: features/models.py:105
+#: features/models.py:103
 msgid "e.g. 5 / 6 / 7 / 8 / 9"
 msgstr ""
 
-#: features/models.py:111
+#: features/models.py:109
 msgid "Flash version"
 msgstr ""
 
-#: features/models.py:112
+#: features/models.py:110
 msgid "Flash versions"
 msgstr ""
 
-#: screenshots/models.py:77 nonces/models.py:39
-msgid "hashkey"
+#: screenshots/models.py:36
+msgid "This is not the requested browser."
 msgstr ""
 
-#: screenshots/models.py:224
-msgid "first"
+#: screenshots/models.py:37
+msgid "This is not the requested operating system."
 msgstr ""
 
-#: screenshots/models.py:225
-msgid "previous"
+#: screenshots/models.py:39
+msgid "This is not the requested Javascript version."
 msgstr ""
 
-#: screenshots/models.py:226
-msgid "next"
+#: screenshots/models.py:40
+msgid "This is not the requested Java version."
 msgstr ""
 
-#: screenshots/models.py:227
-msgid "last"
+#: screenshots/models.py:41
+msgid "This is not the requested Flash version."
 msgstr ""
 
-#: screenshots/models.py:238
-#, python-format
-msgid "%(index)d out of %(total)d"
+#: screenshots/models.py:42
+msgid "A language pack needs to be installed."
 msgstr ""
 
-#: screenshots/models.py:262
-#, python-format
-msgid "with %(browser)s"
+#: screenshots/models.py:44
+msgid "There is a dialog box in front of the browser window."
 msgstr ""
 
-#: screenshots/models.py:273
-#, python-format
-msgid "on %(platform)s"
+#: screenshots/models.py:45
+msgid "The browser window is not maximized."
 msgstr ""
 
-#: screenshots/models.py:298
-msgid "reported"
+#: screenshots/models.py:46
+msgid "The page is not finished loading."
 msgstr ""
 
-#: screenshots/models.py:300 nonces/models.py:41
-msgid "IP address"
-msgstr ""
-
-#: screenshots/models.py:308
-msgid "problem report"
-msgstr ""
-
-#: screenshots/models.py:309
-msgid "problem reports"
-msgstr ""
-
-#: screenshots/views.py:45
+#: screenshots/models.py:50
 #, python-format
 msgid "This is not %(browser)s."
 msgstr ""
 
-#: screenshots/views.py:46
+#: screenshots/models.py:51
 #, python-format
 msgid "This is not %(operating_system)s."
 msgstr ""
 
-#: screenshots/views.py:48
+#: screenshots/models.py:53
 #, python-format
 msgid "Javascript is not %(javascript)s."
 msgstr ""
 
-#: screenshots/views.py:49
+#: screenshots/models.py:54
 #, python-format
 msgid "Java is not %(java)s."
 msgstr ""
 
-#: screenshots/views.py:50
+#: screenshots/models.py:55
 #, python-format
 msgid "Flash is not %(flash)s."
 msgstr ""
 
-#: screenshots/views.py:51
-msgid "A language pack needs to be installed."
+#: screenshots/models.py:99 nonces/models.py:37
+msgid "hashkey"
 msgstr ""
 
-#: screenshots/views.py:53
-msgid "There is a dialog box in front of the browser window."
+#: screenshots/models.py:257
+msgid "first"
 msgstr ""
 
-#: screenshots/views.py:54
-msgid "The browser window is not maximized."
+#: screenshots/models.py:258
+msgid "previous"
 msgstr ""
 
-#: screenshots/views.py:55
-msgid "The page is not finished loading."
+#: screenshots/models.py:259
+msgid "next"
 msgstr ""
 
-#: screenshots/views.py:98
+#: screenshots/models.py:260
+msgid "last"
+msgstr ""
+
+#: screenshots/models.py:271
+#, python-format
+msgid "%(index)d out of %(total)d"
+msgstr ""
+
+#: screenshots/models.py:295
+#, python-format
+msgid "with %(browser)s"
+msgstr ""
+
+#: screenshots/models.py:306
+#, python-format
+msgid "on %(platform)s"
+msgstr ""
+
+#: screenshots/models.py:335
+msgid "reported"
+msgstr ""
+
+#: screenshots/models.py:337 nonces/models.py:39
+msgid "IP address"
+msgstr ""
+
+#: screenshots/models.py:345
+msgid "problem report"
+msgstr ""
+
+#: screenshots/models.py:346
+msgid "problem reports"
+msgstr ""
+
+#: screenshots/views.py:112
 msgid "HTML is not allowed here."
 msgstr ""
 
-#: screenshots/views.py:102
+#: screenshots/views.py:116
 msgid "URLs are not allowed here."
 msgstr ""
 
-#: screenshots/templates/screenshots/details.html:56
-msgid "dimensions"
+#: screenshots/templates/screenshots/details.html:14
+msgid "Click for full size."
 msgstr ""
 
 #: screenshots/templates/screenshots/details.html:60
-msgid "file size"
+msgid "dimensions"
 msgstr ""
 
 #: screenshots/templates/screenshots/details.html:64
-msgid "requested"
+msgid "file size"
 msgstr ""
 
 #: screenshots/templates/screenshots/details.html:68
+msgid "requested"
+msgstr ""
+
+#: screenshots/templates/screenshots/details.html:72
 msgid "page loaded"
 msgstr ""
 
-#: screenshots/templates/screenshots/details.html:79
-msgid "report a problem with this screenshot"
+#: screenshots/templates/screenshots/details.html:83
+msgid "Report a problem with this screenshot?"
 msgstr ""
 
-#: nonces/models.py:54
+#: nonces/models.py:52
 msgid "nonce"
 msgstr ""
 
-#: nonces/models.py:55
+#: nonces/models.py:53
 msgid "nonces"
 msgstr ""
 
-#: browsers/models.py:40
+#: browsers/models.py:38
 msgid "e.g. Gecko / KHTML / AppleWebKit"
 msgstr ""
 
-#: browsers/models.py:42 browsers/models.py:65 platforms/models.py:66
+#: browsers/models.py:40 browsers/models.py:63 platforms/models.py:64
 msgid "maker"
 msgstr ""
 
-#: browsers/models.py:53
+#: browsers/models.py:51
 msgid "engines"
 msgstr ""
 
-#: browsers/models.py:63
+#: browsers/models.py:61
 msgid "e.g. Firefox / MSIE / Safari"
 msgstr ""
 
-#: browsers/models.py:67
+#: browsers/models.py:65
 msgid "terminal"
 msgstr ""
 
-#: browsers/models.py:67
+#: browsers/models.py:65
 msgid "Is this a text-mode browser?"
+msgstr ""
+
+#: browsers/models.py:67
+msgid "unusual"
+msgstr ""
+
+#: browsers/models.py:67
+msgid "Hide from recent screenshot overview?"
 msgstr ""
 
 #: browsers/models.py:75
@@ -1012,15 +1068,15 @@ msgstr ""
 msgid "browsers"
 msgstr ""
 
-#: browsers/models.py:165
+#: browsers/models.py:168
 msgid "deactivate"
 msgstr ""
 
-#: browsers/models.py:168
+#: browsers/models.py:171
 msgid "activate"
 msgstr ""
 
-#: browsers/views.py:148
+#: browsers/views.py:146
 msgid "Password mismatch."
 msgstr ""
 
@@ -1056,26 +1112,26 @@ msgid ""
 "(email)s."
 msgstr ""
 
-#: platforms/models.py:39
+#: platforms/models.py:37
 msgid "position"
 msgstr ""
 
-#: platforms/models.py:49
+#: platforms/models.py:47
 msgid "platforms"
 msgstr ""
 
-#: platforms/models.py:64
+#: platforms/models.py:62
 msgid "codename"
 msgstr ""
 
-#: platforms/models.py:74
+#: platforms/models.py:72
 msgid "operating systems"
 msgstr ""
 
-#: platforms/models.py:90
+#: platforms/models.py:88
 msgid "e.g. i686 / PPC"
 msgstr ""
 
-#: platforms/models.py:100
+#: platforms/models.py:98
 msgid "architectures"
 msgstr ""
