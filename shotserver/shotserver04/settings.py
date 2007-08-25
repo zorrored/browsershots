@@ -56,9 +56,11 @@ LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = (
     ('bg', u'Български'),
+    ('cs', u'Česky'),
     ('de', u'Deutsch'),
     ('en', u'English'),
     ('es', u'Español'),
+    ('it', 'Italiano'),
     ('tr', u'Türkçe'),
     )
 
