@@ -5,10 +5,10 @@
 <script src="/static/js/select.js" type="text/javascript"></script>
 {% endblock %}
 
-{% block title %}{% trans "Test your web design in different browsers" %} - Browsershots{% endblock %}
+{% block title %}{{ _("Test your web design in different browsers")|capfirst }}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Test your web design in different browsers" %}</h1>
+<h1>{{ _("Test your web design in different browsers")|capfirst }}</h1>
 <form action="/" method="post" id="startform">
 {% for error in url_form.url.errors %}
 <p class="admonition error">{{ error }}</p>
