@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-24 20:50-0700\n"
+"POT-Creation-Date: 2007-08-24 21:14-0700\n"
 "PO-Revision-Date: 2007-08-23 13:00+0000\n"
 "Last-Translator: Vojtech Vondra <mailbox@ameeck.net>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -646,6 +646,10 @@ msgstr "ke stažení"
 #: start/templates/start/start.html:63
 msgid "translations"
 msgstr "překlady"
+
+#: start/templates/start/start.html:68
+msgid "What is Browsershots?"
+msgstr ""
 
 #: start/templates/start/start.html:70
 msgid ""

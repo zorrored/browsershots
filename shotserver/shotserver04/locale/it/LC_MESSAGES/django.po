@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-24 20:50-0700\n"
+"POT-Creation-Date: 2007-08-24 21:14-0700\n"
 "PO-Revision-Date: 2007-08-23 08:12+0000\n"
 "Last-Translator: Clasprea <clasprea@libero.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -645,6 +645,10 @@ msgstr "downloads"
 #: start/templates/start/start.html:63
 msgid "translations"
 msgstr "traduzioni"
+
+#: start/templates/start/start.html:68
+msgid "What is Browsershots?"
+msgstr ""
 
 #: start/templates/start/start.html:70
 msgid ""
