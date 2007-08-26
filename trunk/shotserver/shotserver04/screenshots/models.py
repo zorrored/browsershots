@@ -63,27 +63,30 @@ class ScreenshotManager(models.Manager):
 
     def _quote(self, name):
         """Quote column name, with table name."""
+        from django.db import connection
+        qn = connection.ops.quote_name
         return '%s.%s' % (
-            backend.quote_name(self.model._meta.db_table),
-            backend.quote_name(name))
+            qn(self.model._meta.db_table),
+            qn(name))
 
     def recent(self):
         """
         Get recent screenshots, but only one per website.
         """
         from django.db import connection
+        qn = connection.ops.quote_name
         cursor = connection.cursor()
         fields = ','.join(
             [self._quote(field.column) for field in self.model._meta.fields])
         cursor.execute("""
             SELECT """ + fields + """
-            FROM """ + backend.quote_name(self.model._meta.db_table) + """
+            FROM """ + qn(self.model._meta.db_table) + """
             WHERE """ + self._quote('id') + """ IN (
                 SELECT MAX(""" + self._quote('id') + """)
-                AS """ + backend.quote_name('maximum') + """
-                FROM  """ + backend.quote_name(self.model._meta.db_table) + """
+                AS """ + qn('maximum') + """
+                FROM  """ + qn(self.model._meta.db_table) + """
                 GROUP BY """ + self._quote('website_id') + """
-                ORDER BY """ + backend.quote_name('maximum') + """ DESC
+                ORDER BY """ + qn('maximum') + """ DESC
                 LIMIT 60)
             ORDER BY """ + self._quote('id') + """ DESC
             """)
