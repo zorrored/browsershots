@@ -76,11 +76,3 @@ def details(http_request, name):
     problems_list = ProblemReport.objects.filter(
         screenshot__factory=factory)[:10]
     return render_to_response('factories/details.html', locals())
-
-
-@login_required
-def add(http_request):
-    """
-    Create a new screenshot factory.
-    """
-    return render_to_response('factories/edit.html', locals())
