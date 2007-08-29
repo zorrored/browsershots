@@ -172,4 +172,5 @@ def create_platform_requests(request_group, platform, browser_form):
             browser_group=browser_group,
             major=int_or_none(major),
             minor=int_or_none(minor),
+            bid=0,
             )
