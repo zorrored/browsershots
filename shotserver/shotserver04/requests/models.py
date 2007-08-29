@@ -354,13 +354,15 @@ class Request(models.Model):
     request_group = models.ForeignKey(RequestGroup,
         verbose_name=_('request group'), raw_id_admin=True)
     platform = models.ForeignKey(Platform,
-        verbose_name=_('platform'), blank=True, null=True)
+        verbose_name=_('platform'))
     browser_group = models.ForeignKey(BrowserGroup,
         verbose_name=_('browser group'))
     major = models.IntegerField(
         _('major'), blank=True, null=True)
     minor = models.IntegerField(
         _('minor'), blank=True, null=True)
+    bid = models.IntegerField(
+        _('bid'))
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'), blank=True, null=True)
     locked = models.DateTimeField(
@@ -380,6 +382,7 @@ class Request(models.Model):
             'request_group',
             'platform',
             ('browser_group', 'major', 'minor'),
+            'bid',
             )}),
             )
         list_display = ('browser_group', 'major', 'minor', 'platform')
