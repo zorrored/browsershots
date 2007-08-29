@@ -25,9 +25,13 @@ __author__ = "$Author$"
 from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
+from shotserver04.common import last_poll_timeout
 from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
+from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
+from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.templatetags import human
 
 
 def overview(http_request):
@@ -74,12 +78,54 @@ def overview(http_request):
     return render_to_response('requests/overview.html', locals())
 
 
+def queue_estimate(request, active_browsers, queued_seconds):
+    """
+    Remaining queue estimate for the fastest matching browser for this request.
+    """
+    estimates = []
+    for browser in active_browsers:
+        if (browser.factory.operating_system.platform_id ==
+                request.platform_id and
+            browser.browser_group_id == request.browser_group_id and
+            (browser.major == request.major or request.major is None) and
+            (browser.minor == request.minor or request.minor is None)):
+            estimates.append(browser.factory.queue_estimate)
+    if not estimates:
+        return _("unavailable")
+    seconds = max(60, min(estimates) - queued_seconds)
+    minutes = (seconds + 30) / 60
+    return _("%(minutes)d min") % {'minutes': minutes}
+
+
 def details(http_request, request_group_id):
     """
     Show details about the selected request group.
     """
     request_group = get_object_or_404(RequestGroup, id=request_group_id)
+    queued = datetime.now() - request_group.submitted
+    queued_seconds = queued.seconds + queued.days * 24 * 3600
     website = request_group.website
+    active_factories = Factory.objects.filter(
+        last_poll__gte=last_poll_timeout())
+    active_browsers = Browser.objects.filter(factory__in=active_factories)
+    preload_foreign_keys(active_browsers,
+                         factory=active_factories,
+                         factory__operating_system=True,
+                         browser_group=True)
+    requests = request_group.request_set.all()
+    platform_queue_estimates = []
+    for platform in Platform.objects.all():
+        estimates = []
+        for request in requests:
+            if request.platform_id == platform.id:
+                estimates.append({
+                    'browser': request.browser_string(),
+                    'status': request.status() or queue_estimate(
+                        request, active_browsers, queued_seconds),
+                    })
+        if estimates:
+            estimates.sort()
+            platform_queue_estimates.append((platform, estimates))
     return render_to_response('requests/details.html', locals())
 
 
