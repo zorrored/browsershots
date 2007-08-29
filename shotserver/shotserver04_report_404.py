@@ -25,7 +25,7 @@ log_match = re.compile(r"""
 """, re.VERBOSE).match
 
 
-def categorize(matches, key, max_examples=MAX_EXAMPLES):
+def categorize(matches, key, preposition='from', max_examples=MAX_EXAMPLES):
     categories = {}
     for match in matches:
         value = match.group(key)
@@ -46,14 +46,16 @@ def categorize(matches, key, max_examples=MAX_EXAMPLES):
             category += ' (%s)' % socket.getfqdn(category)
         if count == len(matches):
             count = 'all'
-        print INDENT, count, 'from', key, category
+        print INDENT, count, preposition, key, category
     if stop < len(counts):
         rest = sum([count[0] for count in counts[stop:]])
-        print INDENT, rest, 'from', len(counts) - stop, 'other', key + 's'
+        print INDENT, rest, preposition, len(counts) - stop, 'other', key + 's'
 
 
 def error_details(matches):
-    categorize(matches, 'path', max_examples=10)
+    categorize(matches, 'path', preposition='for', max_examples=10)
+    categorize(matches, 'status', preposition='with')
+    categorize(matches, 'method', preposition='with')
     categorize(matches, 'ip')
     categorize(matches, 'referer')
     categorize(matches, 'useragent')
