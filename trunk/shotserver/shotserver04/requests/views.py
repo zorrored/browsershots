@@ -25,6 +25,7 @@ __author__ = "$Author$"
 from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
+from django.utils.translation import ugettext as _
 from shotserver04.common import last_poll_timeout
 from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
