@@ -145,4 +145,4 @@ def extend(http_request):
     request_group = get_object_or_404(RequestGroup, pk=request_group_id)
     request_group.expire = datetime.now() + timedelta(minutes=30)
     request_group.save()
-    return HttpResponseRedirect(http_request.META['HTTP_REFERER'])
+    return HttpResponseRedirect(request_group.website.get_absolute_url())
