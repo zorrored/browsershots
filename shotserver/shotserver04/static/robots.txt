@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /screenshots/
+Disallow: /websites/
+Disallow: /png/
+Disallow: /static/
+Disallow: /media/
