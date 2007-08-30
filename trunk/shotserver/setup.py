@@ -64,6 +64,7 @@ def find_data_files(data_dirnames=None):
                     unified_path = os.path.join(unified_path, basename)
                 yield (unified_path, files)
         if (dirpath.endswith('/LC_MESSAGES') or
+            dirpath.endswith('/static') or
             dirpath.endswith('/static/css') or
             dirpath.endswith('/static/js') or
             dirpath.endswith('/static/logos/234x60') or
