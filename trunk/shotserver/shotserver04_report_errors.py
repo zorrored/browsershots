@@ -4,6 +4,7 @@ import sys
 import re
 import socket
 
+PREFIX = sys.argv[-1].startswith('http') and sys.argv[-1].rstrip('/') or ''
 NUMERIC = '-n' in sys.argv # No DNS queries if called with -n argument.
 MAX_EXAMPLES = 5 # Can be overriden with the max_examples parameter.
 ORPHANS = 3 # Show more examples if only few are left.
@@ -36,7 +37,8 @@ def plural(noun):
         return  noun + 's'
 
 
-def categorize(matches, key, preposition='from', max_examples=MAX_EXAMPLES):
+def categorize(matches, key, preposition='from',
+               max_examples=MAX_EXAMPLES, prefix=None):
     """
     Show the most common values for a selected key.
     """
@@ -54,7 +56,10 @@ def categorize(matches, key, preposition='from', max_examples=MAX_EXAMPLES):
         stop = len(counts)
     for index in range(stop):
         count, category = counts[index]
-        if key == 'ip' and not NUMERIC:
+        if key == 'path' and prefix:
+            category = PREFIX + category
+            key = 'url'
+        elif key == 'ip' and not NUMERIC:
             category += ' (%s)' % socket.getfqdn(category)
         if count == len(matches):
             count = 'all'
@@ -70,7 +75,8 @@ def error_details(matches):
     """
     Show details about this group of errors.
     """
-    categorize(matches, 'path', preposition='for', max_examples=10)
+    categorize(matches, 'path', preposition='for',
+               max_examples=10, prefix=PREFIX)
     categorize(matches, 'status', preposition='with')
     categorize(matches, 'method', preposition='with')
     categorize(matches, 'ip')
