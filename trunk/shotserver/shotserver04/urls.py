@@ -54,9 +54,6 @@ urlpatterns = patterns('',
     (r'^admin/', include('django.contrib.admin.urls')),
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^(?P<url>https?://.+)$', 'shotserver04.websites.views.details'),
-    (r'^openid/$', 'django_openidconsumer.views.begin'),
-    (r'^openid/complete/$', 'django_openidconsumer.views.complete'),
-    (r'^openid/signout/$', 'django_openidconsumer.views.signout'),
     *load_app_patterns('shotserver04.', ignore=['common', 'start']))
 
 
