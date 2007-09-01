@@ -42,8 +42,11 @@ def overview(http_request):
     factory_list = Factory.objects.select_related().filter(
         last_poll__gt=last_poll_timeout()).order_by('-uploads_per_day')
     if not len(factory_list):
-        error_title = capfirst(_("out of service"))
-        error_message = _("No active screenshot factories.")
+        error_title = _("out of service")
+        error_message = ' '.join((
+            _("No active screenshot factories."),
+            _("Please try again later."),
+            ))
         return render_to_response('error.html', locals())
     return render_to_response('factories/overview.html', locals())
 
