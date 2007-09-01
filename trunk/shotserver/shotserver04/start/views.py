@@ -119,10 +119,10 @@ def start(http_request):
         request_group.save()
     else:
         request_group = RequestGroup.objects.create(expire=expire, **values)
-    bid = domain_priority(url_form.cleaned_data['domain'].name) and 1 or 0
+    priority = domain_priority(url_form.cleaned_data['domain'].name) and 1 or 0
     for browser_form in browser_forms:
         create_platform_requests(
-            request_group, browser_form.platform, browser_form, bid)
+            request_group, browser_form.platform, browser_form, priority)
     # Make sure that the redirect will show the new request group
     transaction.commit()
     # return render_to_response('debug.html', locals())
@@ -164,7 +164,8 @@ def selector_links(browser_forms):
     yield link_template % ('-' * total, capfirst(_('deselect all')))
 
 
-def create_platform_requests(request_group, platform, browser_form, bid=0):
+def create_platform_requests(request_group, platform, browser_form,
+                             priority=0):
     """
     Create screenshots requests for selected browsers on one platform.
     """
@@ -183,5 +184,5 @@ def create_platform_requests(request_group, platform, browser_form, bid=0):
             browser_group=browser_group,
             major=int_or_none(major),
             minor=int_or_none(minor),
-            bid=bid,
+            priority=priority,
             )
