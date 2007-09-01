@@ -38,10 +38,13 @@ def plural(noun):
 
 
 def categorize(matches, key, preposition='from',
-               max_examples=MAX_EXAMPLES, prefix=None):
+               max_examples=MAX_EXAMPLES, prefix=None,
+               display_key=None):
     """
     Show the most common values for a selected key.
     """
+    if display_key is None:
+        display_key = key
     categories = {}
     for match in matches:
         value = match.group(key)
@@ -58,14 +61,16 @@ def categorize(matches, key, preposition='from',
         count, category = counts[index]
         if key == 'path' and prefix:
             category = PREFIX + category
-            key = 'url'
         elif key == 'ip' and not NUMERIC:
             category += ' (%s)' % socket.getfqdn(category)
         if count == len(matches):
             count = 'all'
             if key == 'path' and category.count('/') == 1:
                 break
-        print count, preposition, key, category
+        print count, preposition,
+        if display_key:
+            print display_key,
+        print category
     if stop < len(counts):
         rest = sum([count[0] for count in counts[stop:]])
         print rest, preposition, len(counts) - stop, 'other', plural(key)
@@ -76,10 +81,10 @@ def error_details(matches):
     Show details about this group of errors.
     """
     categorize(matches, 'path', preposition='for',
-               max_examples=10, prefix=PREFIX)
+               max_examples=10, prefix=PREFIX, display_key='')
     categorize(matches, 'status', preposition='with')
     categorize(matches, 'method', preposition='with')
-    categorize(matches, 'ip')
+    categorize(matches, 'ip', display_key='')
     categorize(matches, 'referer')
     categorize(matches, 'useragent')
 
