@@ -90,7 +90,9 @@ def queue_estimate(request, active_browsers, queued_seconds):
             browser.browser_group_id == request.browser_group_id and
             (browser.major == request.major or request.major is None) and
             (browser.minor == request.minor or request.minor is None)):
-            estimates.append(browser.factory.queue_estimate)
+            estimate = browser.factory.queue_estimate
+            if estimate:
+                estimates.append(estimate)
     if not estimates:
         return _("unavailable")
     seconds = max(60, min(estimates) - queued_seconds)
@@ -108,12 +110,14 @@ def details(http_request, request_group_id):
     website = request_group.website
     active_factories = Factory.objects.filter(
         last_poll__gte=last_poll_timeout())
-    active_browsers = Browser.objects.filter(factory__in=active_factories)
-    preload_foreign_keys(active_browsers,
-                         factory=active_factories,
-                         factory__operating_system=True,
-                         browser_group=True)
+    active_browsers = Browser.objects.filter(
+        factory__in=active_factories,
+        active=True)
+    browser_groups = BrowserGroup.objects.all()
+    preload_foreign_keys(active_browsers, browser_group=browser_groups,
+        factory=active_factories, factory__operating_system=True)
     requests = request_group.request_set.all()
+    preload_foreign_keys(requests, browser_group=browser_groups)
     platform_queue_estimates = []
     for platform in Platform.objects.all():
         estimates = []
