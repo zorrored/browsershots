@@ -49,7 +49,7 @@ def find_and_lock_request(factory, features):
     matches = matches.filter(
         models.Q(locked__isnull=True) | models.Q(locked__lt=five_minutes_ago))
     matches = matches.order_by(
-        '-bid', 'requests_request__request_group.submitted')
+        '-priority', 'requests_request__request_group.submitted')
     matches = matches[:1]
     # time.sleep(0.1) # For test_overload.py
     if len(matches) == 0:

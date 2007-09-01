@@ -361,8 +361,8 @@ class Request(models.Model):
         _('major'), blank=True, null=True)
     minor = models.IntegerField(
         _('minor'), blank=True, null=True)
-    bid = models.IntegerField(
-        _('bid'))
+    priority = models.IntegerField(
+        _('priority'))
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'), blank=True, null=True)
     locked = models.DateTimeField(
@@ -382,7 +382,7 @@ class Request(models.Model):
             'request_group',
             'platform',
             ('browser_group', 'major', 'minor'),
-            'bid',
+            'priority',
             )}),
             )
         list_display = ('browser_group', 'major', 'minor', 'platform')
