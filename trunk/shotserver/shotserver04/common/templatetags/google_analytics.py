@@ -22,7 +22,6 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-import os
 from django import template
 from django.conf import settings
 
@@ -39,7 +38,7 @@ urchinTracker();
 
 
 @register.simple_tag
-def google_analytics():
+def google_analytics(secure=False):
     """
     Include Javascript for Google Analytics, if account is configured.
     """
@@ -47,7 +46,7 @@ def google_analytics():
         return ''
     if not settings.GOOGLE_ANALYTICS_ACCOUNT:
         return ''
-    if 'HTTPS' in os.environ and os.environ['HTTPS'] == 'on':
+    if secure:
         url = 'https://ssl.google-analytics.com/urchin.js'
     else:
         url = 'http://www.google-analytics.com/urchin.js'
