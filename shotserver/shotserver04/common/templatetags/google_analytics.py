@@ -47,7 +47,7 @@ def google_analytics():
         return ''
     if not settings.GOOGLE_ANALYTICS_ACCOUNT:
         return ''
-    if 'HTTPS' in os.environ and os.environ[HTTPS] == 'on':
+    if 'HTTPS' in os.environ and os.environ['HTTPS'] == 'on':
         url = 'https://ssl.google-analytics.com/urchin.js'
     else:
         url = 'http://www.google-analytics.com/urchin.js'
