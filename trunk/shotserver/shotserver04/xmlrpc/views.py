@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.http import HttpResponse, Http404
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from shotserver04 import settings
 from shotserver04.xmlrpc.dispatcher import Dispatcher
@@ -46,7 +47,8 @@ def xmlrpc(http_request):
         return response
     else:
         method_list = dispatcher.list_methods(http_request)
-        return render_to_response('xmlrpc/method_list.html', locals())
+        return render_to_response('xmlrpc/method_list.html', locals(),
+            context_instance=RequestContext(http_request))
 
 
 def method_help(http_request, method_name):
@@ -76,7 +78,8 @@ def method_help(http_request, method_name):
     for method in dispatcher.funcs:
         docstring = docstring.replace(
             method, u'<a href="../%s/">%s</a>' % (method, method))
-    return render_to_response('xmlrpc/method_help.html', locals())
+    return render_to_response('xmlrpc/method_help.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 dispatcher = Dispatcher()

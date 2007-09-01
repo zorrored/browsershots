@@ -25,6 +25,7 @@ __author__ = "$Author$"
 from datetime import datetime, timedelta
 from django.db import transaction
 from django.http import HttpResponseRedirect
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.text import capfirst
 from shotserver04 import settings
@@ -65,7 +66,8 @@ def start(http_request):
             _("No active screenshot factories."),
             _("Please try again later."),
             ))
-        return render_to_response('error.html', locals())
+        return render_to_response('error.html', locals(),
+            context_instance=RequestContext(http_request))
     features_form.load_choices(active_browsers)
     options_form.load_choices(active_factories)
     # Validate posted data.
@@ -96,7 +98,8 @@ def start(http_request):
         selectors = ' |\n'.join(selector_links(browser_forms))
         news_list = NewsItem.objects.all()[:10]
         sponsors_list = Sponsor.objects.filter(premium=True)
-        return render_to_response('start/start.html', locals())
+        return render_to_response('start/start.html', locals(),
+            context_instance=RequestContext(http_request))
     # Create screenshot requests and redirect to website overview.
     expire = datetime.now() + timedelta(minutes=30)
     values = {
@@ -125,7 +128,8 @@ def start(http_request):
             request_group, browser_form.platform, browser_form, priority)
     # Make sure that the redirect will show the new request group
     transaction.commit()
-    # return render_to_response('debug.html', locals())
+    # return render_to_response('debug.html', locals(),
+    #     context_instance=RequestContext(http_request))
     return HttpResponseRedirect(values['website'].get_absolute_url())
 
 

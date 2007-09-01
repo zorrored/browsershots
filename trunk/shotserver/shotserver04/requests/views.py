@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
+from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.utils.translation import ugettext as _
 from shotserver04.common import last_poll_timeout
@@ -76,7 +77,8 @@ def overview(http_request):
             'uploads_per_day': uploads_per_day or '',
             'pending_requests': browser_requests[key],
             })
-    return render_to_response('requests/overview.html', locals())
+    return render_to_response('requests/overview.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 def queue_estimate(request, active_browsers, queued_seconds):
@@ -131,7 +133,8 @@ def details(http_request, request_group_id):
         if estimates:
             estimates.sort()
             platform_queue_estimates.append((platform, estimates))
-    return render_to_response('requests/details.html', locals())
+    return render_to_response('requests/details.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 def extend(http_request):
@@ -141,12 +144,14 @@ def extend(http_request):
     error_title = "Invalid request"
     if not http_request.POST:
         error_message = "You must send a POST request to this page."
-        return render_to_response('error.html', locals())
+        return render_to_response('error.html', locals(),
+            context_instance=RequestContext(http_request))
     try:
         request_group_id = int(http_request.POST['request_group_id'])
     except (KeyError, ValueError):
         error_message = "You must specify a numeric request group ID."
-        return render_to_response('error.html', locals())
+        return render_to_response('error.html', locals(),
+            context_instance=RequestContext(http_request))
     request_group = get_object_or_404(RequestGroup, pk=request_group_id)
     request_group.expire = datetime.now() + timedelta(minutes=30)
     request_group.save()

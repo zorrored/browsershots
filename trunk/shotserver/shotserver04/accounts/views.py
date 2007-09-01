@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from shotserver04 import settings
 from shotserver04.factories.models import Factory
@@ -45,4 +46,5 @@ def profile(http_request):
         from shotserver04.points import views as points
         latest = points.latest_balance(http_request.user)
         current_balance = latest.current_balance()
-    return render_to_response('accounts/profile.html', locals())
+    return render_to_response('accounts/profile.html', locals(),
+        context_instance=RequestContext(http_request))
