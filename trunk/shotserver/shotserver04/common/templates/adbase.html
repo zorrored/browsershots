@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
 {% block leaderboard %}
+{% if not http_request.is_secure %}
+{% if not http_request.user.is_authenticated %}
 {% load ads %}{% ads_leaderboard %}
+{% endif %}
+{% endif %}
 {% endblock %}
