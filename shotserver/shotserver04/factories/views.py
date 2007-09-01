@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 from django.http import Http404
 from django.utils.text import capfirst
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from shotserver04 import settings
@@ -47,8 +48,10 @@ def overview(http_request):
             _("No active screenshot factories."),
             _("Please try again later."),
             ))
-        return render_to_response('error.html', locals())
-    return render_to_response('factories/overview.html', locals())
+        return render_to_response('error.html', locals(),
+            context_instance=RequestContext(http_request))
+    return render_to_response('factories/overview.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 def details(http_request, name):
@@ -78,4 +81,5 @@ def details(http_request, name):
         bool(browser.command) for browser in browser_list]
     problems_list = ProblemReport.objects.filter(
         screenshot__factory=factory)[:10]
-    return render_to_response('factories/details.html', locals())
+    return render_to_response('factories/details.html', locals(),
+        context_instance=RequestContext(http_request))
