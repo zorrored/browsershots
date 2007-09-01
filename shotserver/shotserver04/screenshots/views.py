@@ -26,6 +26,7 @@ import cgi
 import zipfile
 import tempfile
 from datetime import timedelta
+from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django import newforms as forms
@@ -92,7 +93,8 @@ def overview(http_request):
         u'<div class="previews" style="height:%dpx">' % columns[-1][0])
     previews.append('</div>')
     previews = '\n'.join(previews)
-    return render_to_response('screenshots/overview.html', locals())
+    return render_to_response('screenshots/overview.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 class ProblemForm(forms.Form):
@@ -159,7 +161,8 @@ def details(http_request, hashkey):
     select = "document.forms['problem_form'].code[%d].checked=true" % length
     message_field = problem_form['message'].as_text(
         {'onclick': select, 'onchange': 'if (this.value) ' + select})
-    return render_to_response('screenshots/details.html', locals())
+    return render_to_response('screenshots/details.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 def download_zip(http_request, request_group_id):

@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import Http404
 from django.core.paginator import ObjectPaginator
@@ -44,7 +45,8 @@ def overview(http_request):
             website_list = website_list.filter(url__contains=search)
     website_list = website_list.order_by('-submitted')
     website_list = website_list[:100]
-    return render_to_response('websites/overview.html', locals())
+    return render_to_response('websites/overview.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 def details(http_request, url):
@@ -90,4 +92,5 @@ def details(http_request, url):
         request_group._website_cache._domain_cache = domain
     # Get other websites on the same domain
     domain_website_list = domain.website_set.exclude(id=website.id)
-    return render_to_response('websites/details.html', locals())
+    return render_to_response('websites/details.html', locals(),
+        context_instance=RequestContext(http_request))

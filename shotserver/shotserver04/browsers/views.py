@@ -28,6 +28,7 @@ from django.http import HttpResponseRedirect
 from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
@@ -145,7 +146,8 @@ def add(http_request):
                 password_form.errors['password'] = ErrorList(
                     [_("Password mismatch.")])
     if not password_valid:
-        return render_to_response('browsers/add.html', locals())
+        return render_to_response('browsers/add.html', locals(),
+            context_instance=RequestContext(http_request))
     # Activate or add browser in the database
     activate_or_add_browser(form.cleaned_data)
     # Save IP address, to guess the factory when adding the next browser
@@ -248,7 +250,7 @@ class PermissionDenied(InvalidRequest):
     pass
 
 
-def error_page(error):
+def error_page(http_request, error):
     """
     Render a simple error message.
     """
@@ -256,7 +258,8 @@ def error_page(error):
     if isinstance(error, PermissionDenied):
         error_title = "permission denied"
     error_message = error.args[0]
-    return render_to_response('error.html', locals())
+    return render_to_response('error.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 def get_browser(http_request):
@@ -291,7 +294,7 @@ def deactivate(http_request):
         if not browser.active:
             raise InvalidRequest("This browser is already inactive.")
     except InvalidRequest, error:
-        return error_page(error)
+        return error_page(http_request, error)
     browser.active = False
     browser.save()
     return HttpResponseRedirect(browser.factory.get_absolute_url())
@@ -307,7 +310,7 @@ def activate(http_request):
         if browser.active:
             raise InvalidRequest("This browser is already active.")
     except InvalidRequest, error:
-        return error_page(error)
+        return error_page(http_request, error)
     data = dict((field.name, getattr(browser, field.name))
                 for field in Browser._meta.fields)
     delete_or_deactivate_similar_browsers(data, exclude=browser)
