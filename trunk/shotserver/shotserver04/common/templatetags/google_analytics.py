@@ -28,7 +28,7 @@ from django.conf import settings
 register = template.Library()
 
 JAVASCRIPT = u"""
-<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+<script src="%s" type="text/javascript">
 </script>
 <script type="text/javascript">
 _uacct = "%s";
@@ -38,7 +38,7 @@ urchinTracker();
 
 
 @register.simple_tag
-def google_analytics():
+def google_analytics(secure=False):
     """
     Include Javascript for Google Analytics, if account is configured.
     """
@@ -46,4 +46,8 @@ def google_analytics():
         return ''
     if not settings.GOOGLE_ANALYTICS_ACCOUNT:
         return ''
-    return JAVASCRIPT % settings.GOOGLE_ANALYTICS_ACCOUNT
+    if secure:
+        url = 'https://ssl.google-analytics.com/urchin.js'
+    else:
+        url = 'http://www.google-analytics.com/urchin.js'
+    return JAVASCRIPT % (url, settings.GOOGLE_ANALYTICS_ACCOUNT)

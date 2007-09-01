@@ -38,6 +38,6 @@
 {% endif %}
 </div>
 {% load google_analytics %}
-{% google_analytics %}
+{% google_analytics http_request.is_secure %}
 </body>
 </html>
