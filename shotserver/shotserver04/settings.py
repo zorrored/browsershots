@@ -85,11 +85,12 @@ PNG_URL = 'http://png.browsershots.org/'
 # Each one should be a callable that takes the request object as its
 # only parameter and returns a dictionary to add to the context.
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.request',
+    #'django.core.context_processors.auth',
+    #'django.core.context_processors.debug',
+    #'django.core.context_processors.i18n',
+    #'django.core.context_processors.media',
+    #'django.core.context_processors.request',
+    'shotserver04.common.context_processors.http_request',
     )
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
