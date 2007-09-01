@@ -15,8 +15,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Show a table with SQL queries for the current HTTP request, for
-debugging and optimizing.
+Display an HTML link to the hosting provider in the page footer.
 """
 
 __revision__ = "$Rev$"
