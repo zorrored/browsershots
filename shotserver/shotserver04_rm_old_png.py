@@ -9,10 +9,12 @@
 # You can use the following command to find good candidates:
 # find /var/www/v04.browsershots.org/png/160 -atime +10
 
-import sys
 import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
+import sys
 import glob
 import time
+from shotserver04.screenshots.models import Screenshot
 
 NOW = time.time()
 EXPIRE_DAYS = 10
@@ -36,7 +38,13 @@ def _main():
         if max(atimes) > EXPIRE:
             continue
         print hashkey, len(atimes), max(atimes)
-
+        print 'delete', hashkey
+        Screenshot.objects.filter(hashkey=hashkey).delete()
+        for filename in filenames:
+            print 'unlink', filename
+            os.unlink(filename)
+        break
 
 if __name__ == '__main__':
+    print EXPIRE
     _main()
