@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.contrib.auth.decorators import login_required
+from django import newforms as forms
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from shotserver04 import settings
@@ -47,4 +48,14 @@ def profile(http_request):
         latest = points.latest_balance(http_request.user)
         current_balance = latest.current_balance()
     return render_to_response('accounts/profile.html', locals(),
+        context_instance=RequestContext(http_request))
+
+
+class RegistrationForm(forms.Form):
+    email = forms.EmailField()
+
+
+def register(http_request):
+    form = RegistrationForm(http_request.POST or None)
+    return render_to_response('accounts/register.html', locals(),
         context_instance=RequestContext(http_request))

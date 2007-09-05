@@ -29,4 +29,6 @@ urlpatterns = patterns('',
         {'template_name': 'accounts/login.html'}),
     (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
     (r'^profile/$', 'shotserver04.accounts.views.profile'),
+    (r'^register/$', 'shotserver04.accounts.views.register'),
+    (r'^forgotten/$', 'shotserver04.accounts.views.forgotten'),
 )
