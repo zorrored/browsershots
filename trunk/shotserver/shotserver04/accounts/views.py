@@ -26,6 +26,7 @@ from django.contrib.auth.decorators import login_required
 from django import newforms as forms
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.core.mail import send_mail
 from shotserver04 import settings
 from shotserver04.factories.models import Factory
 from shotserver04.messages.models import FactoryError
@@ -57,5 +58,26 @@ class RegistrationForm(forms.Form):
 
 def register(http_request):
     form = RegistrationForm(http_request.POST or None)
+    if form.is_valid():
+        email = form.cleaned_data['email']
+        message = """\
+Welcome to Browsershots!
+
+If you have not requested this registration email, you may ignore it.
+
+Click the following link (or copy it into your browser's address bar)
+to verify your email address and finish the registration process:
+
+http://browsershots.org/accounts/register/%s
+
+Cheers,
+Browsershots
+"""
+        send_mail("Browsershots account registration", message,
+                  'noreply@browsershots.org',
+                  ['johann@browsershots.org'],
+                  fail_silently=False)
+        return render_to_response('accounts/sent.html', locals(),
+            context_instance=RequestContext(http_request))
     return render_to_response('accounts/register.html', locals(),
         context_instance=RequestContext(http_request))
