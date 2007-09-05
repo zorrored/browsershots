@@ -27,6 +27,7 @@ def png_filename(folder, hashkey):
 
 
 def _main():
+    screenshot_count = unlink_count = 0
     for candidate in sys.stdin:
         basename = os.path.basename(candidate.rstrip())
         if len(basename) != 36:
@@ -34,17 +35,23 @@ def _main():
         hashkey = basename[:32]
         filenames = [png_filename(folder, hashkey) for folder in FOLDERS]
         filenames = filter(os.path.exists, filenames)
+        if not filenames:
+            continue
         atimes = [os.stat(filename).st_atime for filename in filenames]
         if max(atimes) > EXPIRE:
             continue
-        print hashkey, len(atimes), max(atimes)
-        print 'delete', hashkey
+        # print chr(13), hashkey, len(atimes), max(atimes),
+        # print 'delete', hashkey
         Screenshot.objects.filter(hashkey=hashkey).delete()
+        screenshot_count += 1
         for filename in filenames:
-            print 'unlink', filename
+            # print 'unlink', filename
             os.unlink(filename)
-        break
+        unlink_count += len(filenames)
+    print "deleted %d screenshots (%d files)" % (
+        screenshot_count, unlink_count)
+
 
 if __name__ == '__main__':
-    print EXPIRE
+    # print EXPIRE
     _main()
