@@ -132,8 +132,8 @@ class RegistrationForm(forms.Form):
     User registration form.
     """
     username = forms.CharField(max_length=20)
-    firstname = forms.CharField(max_length=40)
-    lastname = forms.CharField(max_length=40)
+    first_name = forms.CharField(max_length=40)
+    last_name = forms.CharField(max_length=40)
     password = forms.CharField(max_length=40, widget=forms.PasswordInput)
     repeat = forms.CharField(max_length=40, widget=forms.PasswordInput)
 
@@ -187,8 +187,8 @@ _("The verification email was requested more than 30 minutes ago."))
         form_javascript = "document.getElementById('id_username').focus()"
         return render_to_response('form.html', locals(),
             context_instance=RequestContext(http_request))
-    user.firstname = form.cleaned_data['firstname']
-    user.lastname = form.cleaned_data['lastname']
+    user.first_name = form.cleaned_data['first_name']
+    user.last_name = form.cleaned_data['last_name']
     user.save()
     return success_page(http_request, _("Account created"),
         _("A new user account was created."),
