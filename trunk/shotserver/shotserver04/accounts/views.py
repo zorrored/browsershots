@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 from datetime import datetime, timedelta
 from psycopg import IntegrityError
+import socket
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
@@ -101,17 +102,19 @@ http://%(domain)s/accounts/register/%(hashkey)s/
 Cheers,
 Browsershots
 """ % locals()
-    send_mail("Browsershots account registration", message,
-              'noreply@browsershots.org',
-              ['johann@browsershots.org'],
-              fail_silently=False)
+    try:
+        send_mail("Browsershots account registration", message,
+                  'noreply@browsershots.org',
+                  ['johann@browsershots.org'],
+                  fail_silently=False)
+    except socket.error, e:
+        return error_page(http_request, _("email error"),
+            _("Could not send email."), str(e))
     hide_hashkey(hashkey)
     return success_page(http_request, _("email sent"),
-        _("A registration email was sent to %(email)s.") % locals(),
-        extra_messages=[
+_("A registration email was sent to %(email)s.") % locals(),
 _("Check your email inbox and follow the instructions in the message."),
-_("If your email provider uses graylisting, it may take a few minutes."),
-])
+_("If your email provider uses graylisting, it may take a few minutes."))
 
 
 def hide_hashkey(hashkey):
@@ -187,10 +190,6 @@ _("The verification email was requested more than 30 minutes ago."))
     user.firstname = form.cleaned_data['firstname']
     user.lastname = form.cleaned_data['lastname']
     user.save()
-    success_title = _("Account created")
-    success_message = _("A new user account was created.")
-    extra_messages = [
-        _("Click the link in the top right corner to log in."),
-        ]
-    return render_to_response('success.html', locals(),
-        context_instance=RequestContext(http_request))
+    return success_page(http_request, _("Account created"),
+        _("A new user account was created."),
+        _("Click the link in the top right corner to log in."))
