@@ -75,7 +75,8 @@ def email(http_request):
     """
     if http_request.user.is_authenticated():
         return error_page(http_request, _("Already signed in"),
-_("You already have a user account, and you're currently signed in."))
+_("You already have a user account, and you're currently signed in."),
+_("Please log out and then try again."))
     form = EmailForm(http_request.POST or None)
     if not form.is_valid():
         form_title = _("email verification")
@@ -137,14 +138,49 @@ class RegistrationForm(forms.Form):
     password = forms.CharField(max_length=40, widget=forms.PasswordInput)
     repeat = forms.CharField(max_length=40, widget=forms.PasswordInput)
 
+    def clean_username(self):
+        """
+        Check that the username is sensible.
+        """
+        USERNAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
+        USERNAME_CHAR = USERNAME_CHAR_FIRST + '0123456789_-'
+        username = self.cleaned_data['username']
+        if username[0] not in USERNAME_CHAR_FIRST:
+            raise forms.ValidationError(unicode(
+                _("Username must start with a lowercase letter.")))
+        for index in range(len(username)):
+            if username[index] not in USERNAME_CHAR:
+                raise forms.ValidationError(unicode(
+_("Username may contain only lowercase letters, digits, underscore, hyphen.")))
+        return username
+
+    def clean_password(self):
+        """
+        Check that the password is long enough.
+        """
+        PASSWORD_MIN_LENGTH = 8
+        password = self.cleaned_data['password']
+        if len(password) < PASSWORD_MIN_LENGTH:
+            raise forms.ValidationError(unicode(
+                _("The password must have %d or more characters.")) %
+                PASSWORD_MIN_LENGTH)
+        if password.isdigit():
+            raise forms.ValidationError(unicode(
+                _("The password must not be completely numeric.")))
+        return password
+
     def clean_repeat(self):
         """
-        Check that the password repeat is the same.
+        Check that the password and repeat is the same.
         """
-        if self.cleaned_data['repeat'] != self.cleaned_data['password']:
+        if 'password' not in self.cleaned_data:
+            return
+        password = self.cleaned_data['password']
+        repeat = self.cleaned_data['repeat']
+        if repeat != password:
             raise forms.ValidationError(unicode(
                 _("Repeat password is not the same.")))
-        return self.cleaned_data['repeat']
+        return repeat
 
     def create_user(self, email):
         """
