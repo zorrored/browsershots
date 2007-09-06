@@ -77,6 +77,13 @@ def email(http_request):
         return error_page(http_request, _("Already signed in"),
 _("You already have a user account, and you're currently signed in."),
 _("Please log out and then try again."))
+    ip = http_request.META['REMOTE_ADDR']
+    nonces_per_day = Nonce.objects.filter(ip=ip,
+       created__gt=datetime.now() - timedelta(hours=24)).count()
+    if nonces_per_day >= 3:
+        return error_page(http_request, _("too many verification emails"),
+_("There were too many email requests from your IP in the last 24 hours."),
+_("Please try again later."))
     form = EmailForm(http_request.POST or None)
     if not form.is_valid():
         form_title = _("email verification")
@@ -87,7 +94,6 @@ _("Please log out and then try again."))
             context_instance=RequestContext(http_request))
     email = form.cleaned_data['email']
     hashkey = crypto.random_md5()
-    ip = http_request.META['REMOTE_ADDR']
     Nonce.objects.create(email=email, hashkey=hashkey, ip=ip)
     domain = Site.objects.get_current().domain
     message = """\
@@ -235,6 +241,7 @@ _("The verification email was requested more than 30 minutes ago."))
     user.first_name = form.cleaned_data['first_name']
     user.last_name = form.cleaned_data['last_name']
     user.save()
+    nonce.delete()
     return success_page(http_request, _("Account created"),
         _("A new user account was created."),
         _("Click the link in the top right corner to log in."))
