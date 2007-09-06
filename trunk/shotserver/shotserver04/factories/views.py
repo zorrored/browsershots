@@ -28,7 +28,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from shotserver04 import settings
-from shotserver04.common import last_poll_timeout
+from shotserver04.common import last_poll_timeout, error_page
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
@@ -43,13 +43,9 @@ def overview(http_request):
     factory_list = Factory.objects.select_related().filter(
         last_poll__gt=last_poll_timeout()).order_by('-uploads_per_day')
     if not len(factory_list):
-        error_title = _("out of service")
-        error_message = ' '.join((
+        return error_page(http_request, _("out of service"),
             _("No active screenshot factories."),
-            _("Please try again later."),
-            ))
-        return render_to_response('error.html', locals(),
-            context_instance=RequestContext(http_request))
+            _("Please try again later."))
     return render_to_response('factories/overview.html', locals(),
         context_instance=RequestContext(http_request))
 

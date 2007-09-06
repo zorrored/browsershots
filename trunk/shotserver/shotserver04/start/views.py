@@ -29,7 +29,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.text import capfirst
 from shotserver04 import settings
-from shotserver04.common import int_or_none, last_poll_timeout
+from shotserver04.common import int_or_none, last_poll_timeout, error_page
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.start.models import NewsItem
 from shotserver04.start.forms.url import UrlForm
@@ -61,13 +61,9 @@ def start(http_request):
         factory__in=active_factories,
         active=True)
     if not active_browsers:
-        error_title = _("out of service")
-        error_message = ' '.join((
+        return error_page(http_request, _("out of service"),
             _("No active screenshot factories."),
-            _("Please try again later."),
-            ))
-        return render_to_response('error.html', locals(),
-            context_instance=RequestContext(http_request))
+            _("Please try again later."))
     features_form.load_choices(active_browsers)
     options_form.load_choices(active_factories)
     # Validate posted data.
