@@ -5,4 +5,7 @@
 {% block content %}
 <h1>{{ error_title|capfirst }}</h1>
 <p class="admonition error">{{ error_message }}</p>
+{% for message in extra_messages %}
+<p>{{ message }}</p>
+{% endfor %}
 {% endblock %}

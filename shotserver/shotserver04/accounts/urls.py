@@ -26,9 +26,11 @@ from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('',
     (r'^login/$', 'django.contrib.auth.views.login',
-        {'template_name': 'accounts/login.html'}),
+         {'template_name': 'accounts/login.html'}),
     (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
     (r'^profile/$', 'shotserver04.accounts.views.profile'),
-    (r'^register/$', 'shotserver04.accounts.views.register'),
-    (r'^forgotten/$', 'shotserver04.accounts.views.forgotten'),
+    (r'^register/$', 'shotserver04.accounts.views.email'),
+    (r'^register/(?P<hashkey>[0-9a-f]{32})/$',
+         'shotserver04.accounts.views.register'),
+    (r'^forgotten/$', 'shotserver04.accounts.views.email'),
 )

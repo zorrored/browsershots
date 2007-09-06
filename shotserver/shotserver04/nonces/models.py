@@ -31,12 +31,14 @@ class Nonce(models.Model):
     """
     Authentication nonce for password encryption.
     """
-    factory = models.ForeignKey(Factory,
-        verbose_name=_('factory'))
     hashkey = models.SlugField(
         _('hashkey'), max_length=32, unique=True)
     ip = models.IPAddressField(
         _('IP address'))
+    factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'), null=True, blank=True)
+    email = models.EmailField(
+        verbose_name=_('email'), null=True, blank=True)
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
 
@@ -44,7 +46,7 @@ class Nonce(models.Model):
         return self.hashkey
 
     class Admin:
-        list_display = ('hashkey', 'ip', 'created', 'factory')
+        list_display = ('hashkey', 'ip', 'factory', 'email', 'created')
         list_filter = ('factory', )
         date_hierarchy = 'created'
 
