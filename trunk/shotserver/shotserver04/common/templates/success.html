@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ success_title|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ success_title|capfirst }}</h1>
+<p class="admonition success">{{ success_message }}</p>
+{% for message in extra_messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% endblock %}
