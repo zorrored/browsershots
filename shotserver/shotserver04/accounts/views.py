@@ -87,7 +87,7 @@ _("Please try again later."))
     form = EmailForm(http_request.POST or None)
     if not form.is_valid():
         form_title = _("email verification")
-        form_action = '/accounts/register/'
+        form_action = '/accounts/email/'
         form_submit = _("send email")
         form_javascript = "document.getElementById('id_email').focus()"
         return render_to_response('form.html', locals(),
