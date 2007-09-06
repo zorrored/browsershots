@@ -135,8 +135,10 @@ class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=20)
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
-    password = forms.CharField(max_length=40, widget=forms.PasswordInput)
-    repeat = forms.CharField(max_length=40, widget=forms.PasswordInput)
+    password = forms.CharField(max_length=40,
+        widget=forms.PasswordInput(render_value=False))
+    repeat = forms.CharField(max_length=40,
+        widget=forms.PasswordInput(render_value=False))
 
     def clean_username(self):
         """
@@ -152,6 +154,9 @@ class RegistrationForm(forms.Form):
             if username[index] not in USERNAME_CHAR:
                 raise forms.ValidationError(unicode(
 _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
+        if username in 'admin administrator root webmaster'.split():
+            raise forms.ValidationError(unicode(
+                _("This username is reserved.")))
         return username
 
     def clean_password(self):
