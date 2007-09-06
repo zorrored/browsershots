@@ -32,6 +32,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
+from shotserver04.common import error_page
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.browsers import agents
@@ -242,24 +243,12 @@ WHERE """ + where, params)
 
 class InvalidRequest(Exception):
     """Not a valid post request."""
-    pass
+    title = _("invalid request")
 
 
 class PermissionDenied(InvalidRequest):
     """User not logged in as factory admin."""
-    pass
-
-
-def error_page(http_request, error):
-    """
-    Render a simple error message.
-    """
-    error_title = "invalid request"
-    if isinstance(error, PermissionDenied):
-        error_title = "permission denied"
-    error_message = error.args[0]
-    return render_to_response('error.html', locals(),
-        context_instance=RequestContext(http_request))
+    title = _("permission denied")
 
 
 def get_browser(http_request):
@@ -292,9 +281,9 @@ def deactivate(http_request):
     try:
         browser = get_browser(http_request)
         if not browser.active:
-            raise InvalidRequest("This browser is already inactive.")
+            raise InvalidRequest(_("This browser is already inactive."))
     except InvalidRequest, error:
-        return error_page(http_request, error)
+        return error_page(http_request, error.title, error.args[0])
     browser.active = False
     browser.save()
     return HttpResponseRedirect(browser.factory.get_absolute_url())
@@ -310,7 +299,7 @@ def activate(http_request):
         if browser.active:
             raise InvalidRequest("This browser is already active.")
     except InvalidRequest, error:
-        return error_page(http_request, error)
+        return error_page(http_request, error.title, error.args[0])
     data = dict((field.name, getattr(browser, field.name))
                 for field in Browser._meta.fields)
     delete_or_deactivate_similar_browsers(data, exclude=browser)
