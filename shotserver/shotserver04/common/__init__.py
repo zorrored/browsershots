@@ -103,17 +103,22 @@ def serializable(func):
     return wrapper
 
 
-def error_page(http_request, result_title, result_message,
-               extra_messages=None):
-    """Render error page with title and message."""
-    result_class = 'error'
+def result_page(http_request, result_class, result_title, result_message,
+                *extra_messages):
+    """Render result page with title and message."""
     return render_to_response('result.html', locals(),
         context_instance=RequestContext(http_request))
 
 
-def success_page(http_request, result_title, result_message,
-                 extra_messages=None):
+def error_page(http_request, result_title, result_message, *extra_messages):
     """Render error page with title and message."""
-    result_class = 'success'
-    return render_to_response('result.html', locals(),
-        context_instance=RequestContext(http_request))
+    return result_page(http_request, 'error',
+                       result_title, result_message,
+                       *extra_messages)
+
+
+def success_page(http_request, result_title, result_message, *extra_messages):
+    """Render success page with title and message."""
+    return result_page(http_request, 'success',
+                       result_title, result_message,
+                       *extra_messages)
