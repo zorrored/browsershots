@@ -78,7 +78,7 @@ def email(http_request):
 _("You already have a user account, and you're currently signed in."),
 _("Please log out and then try again."))
     ip = http_request.META['REMOTE_ADDR']
-    nonces_per_day = Nonce.objects.filter(ip=ip,
+    nonces_per_day = Nonce.objects.filter(ip=ip, email__isnull=False,
        created__gt=datetime.now() - timedelta(hours=24)).count()
     if nonces_per_day >= 3:
         return error_page(http_request, _("too many verification emails"),
@@ -111,10 +111,9 @@ Browsershots
 """ % locals()
     try:
         send_mail("Browsershots email verification", message,
-                  'noreply@browsershots.org',
-                  ['johann@browsershots.org'],
+                  'noreply@browsershots.org', [email],
                   fail_silently=False)
-    except socket.error, e:
+    except Exception, e:
         return error_page(http_request, _("email error"),
             _("Could not send email."), str(e))
     hide_hashkey(hashkey)
