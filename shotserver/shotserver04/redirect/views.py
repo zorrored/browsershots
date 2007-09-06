@@ -26,6 +26,7 @@ from xmlrpclib import Fault
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
+from shotserver04.common import error_page
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
@@ -71,7 +72,4 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
     except Fault, fault:
         FactoryError.objects.create(factory=factory,
             code=fault.faultCode, message=fault.faultString)
-        error_title = "redirect error"
-        error_message = fault.faultString
-        return render_to_response('error.html', locals(),
-            context_instance=RequestContext(http_request))
+        return error_page(http_request, "redirect error", fault.faultString)
