@@ -26,6 +26,8 @@ import sys
 import xmlrpclib
 import psycopg
 from django.db import connection, transaction
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 from datetime import datetime, timedelta
 
 MAX_ATTEMPTS = 10
@@ -99,3 +101,19 @@ def serializable(func):
     wrapper.__name__ = func.__name__
     wrapper.__doc__ = func.__doc__
     return wrapper
+
+
+def error_page(http_request, result_title, result_message,
+               extra_messages=None):
+    """Render error page with title and message."""
+    result_class = 'error'
+    return render_to_response('result.html', locals(),
+        context_instance=RequestContext(http_request))
+
+
+def success_page(http_request, result_title, result_message,
+                 extra_messages=None):
+    """Render error page with title and message."""
+    result_class = 'success'
+    return render_to_response('result.html', locals(),
+        context_instance=RequestContext(http_request))

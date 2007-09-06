@@ -37,6 +37,7 @@ from shotserver04 import settings
 from shotserver04.factories.models import Factory
 from shotserver04.messages.models import FactoryError
 from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common import error_page, success_page
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
 
@@ -71,6 +72,9 @@ def email(http_request):
     """
     Ask user for email address, then send verification message.
     """
+    if http_request.user.is_authenticated():
+        return error_page(http_request, _("Already signed in"),
+_("You already have a user account, and you're currently signed in."))
     form = EmailForm(http_request.POST or None)
     if not form.is_valid():
         form_title = _("email verification")
@@ -102,15 +106,12 @@ Browsershots
               ['johann@browsershots.org'],
               fail_silently=False)
     hide_hashkey(hashkey)
-    success_title = _("email sent")
-    success_message = (
-_("A registration email was sent to %(email)s.") % locals())
-    extra_messages = [
+    return success_page(http_request, _("email sent"),
+        _("A registration email was sent to %(email)s.") % locals(),
+        extra_messages=[
 _("Check your email inbox and follow the instructions in the message."),
 _("If your email provider uses graylisting, it may take a few minutes."),
-]
-    return render_to_response('success.html', locals(),
-        context_instance=RequestContext(http_request))
+])
 
 
 def hide_hashkey(hashkey):
@@ -192,10 +193,4 @@ _("The verification email was requested more than 30 minutes ago."))
         _("Click the link in the top right corner to log in."),
         ]
     return render_to_response('success.html', locals(),
-        context_instance=RequestContext(http_request))
-
-
-def error_page(http_request, error_title, error_message):
-    """Render error page with title and message."""
-    return render_to_response('error.html', locals(),
         context_instance=RequestContext(http_request))
