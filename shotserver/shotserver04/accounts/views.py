@@ -93,7 +93,7 @@ _("Please log out and then try again."))
     message = """\
 Welcome to Browsershots!
 
-If you have not requested this registration email, you may ignore it.
+If you have not requested this verification email, you may ignore it.
 
 Click the following link (or copy it into your browser's address bar)
 to verify your email address and finish the registration process:
@@ -104,7 +104,7 @@ Cheers,
 Browsershots
 """ % locals()
     try:
-        send_mail("Browsershots account registration", message,
+        send_mail("Browsershots email verification", message,
                   'noreply@browsershots.org',
                   ['johann@browsershots.org'],
                   fail_silently=False)
@@ -113,7 +113,7 @@ Browsershots
             _("Could not send email."), str(e))
     hide_hashkey(hashkey)
     return success_page(http_request, _("email sent"),
-_("A registration email was sent to %(email)s.") % locals(),
+_("A verification email was sent to %(email)s.") % locals(),
 _("Check your email inbox and follow the instructions in the message."),
 _("If your email provider uses graylisting, it may take a few minutes."))
 
@@ -204,8 +204,12 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
 
 def register(http_request, hashkey):
     """
-    Register a new user, if email verification was successful.
+    Register a new user, after successful email verification.
     """
+    if http_request.user.is_authenticated():
+        return error_page(http_request, _("Already signed in"),
+_("You already have a user account, and you're currently signed in."),
+_("Please log out and then try again."))
     nonce = get_object_or_404(Nonce, hashkey=hashkey)
     ip = http_request.META['REMOTE_ADDR']
     if nonce.ip != ip:
