@@ -4,3 +4,8 @@ Disallow: /websites/
 Disallow: /png/
 Disallow: /static/
 Disallow: /media/
+
+User-agent: Mediapartners-Google
+Disallow: /png/
+Disallow: /static/
+Disallow: /media/
