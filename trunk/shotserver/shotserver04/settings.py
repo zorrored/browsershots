@@ -57,10 +57,14 @@ LANGUAGE_CODE = 'en-us'
 LANGUAGES = (
     ('bg', u'Български'),
     ('cs', u'Česky'),
+    ('da', u'Dansk'),
     ('de', u'Deutsch'),
     ('en', u'English'),
     ('es', u'Español'),
-    ('it', 'Italiano'),
+    ('fr', u'Français'),
+    ('it', u'Italiano'),
+    ('lt', u'Lietuviškai')
+    ('ru', u'Русский'),
     ('tr', u'Türkçe'),
     )
 
