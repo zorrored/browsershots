@@ -29,6 +29,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django import newforms as forms
+from django.db import transaction
 from django.newforms.util import ErrorList
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
@@ -201,6 +202,7 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
             return User.objects.create_user(self.cleaned_data['username'],
                 email, self.cleaned_data['password'])
         except IntegrityError, e:
+            transaction.rollback()
             if 'duplicate' in str(e).lower():
                 self.errors['username'] = ErrorList([
                     _("This username is already taken.")])
