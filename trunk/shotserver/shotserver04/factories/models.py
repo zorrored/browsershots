@@ -53,18 +53,18 @@ class Factory(models.Model):
     operating_system = models.ForeignKey(OperatingSystem,
         verbose_name=_('operating system'))
     ip = models.IPAddressField(
-        _('IP'), blank=True, null=True,
+        _('IP'), blank=True, null=True, editable=False,
         help_text=_("The last poll came from this IP address."))
     last_poll = models.DateTimeField(
-        _('last poll'), blank=True, null=True)
+        _('last poll'), blank=True, null=True, editable=False)
     last_upload = models.DateTimeField(
-        _('last upload'), blank=True, null=True)
+        _('last upload'), blank=True, null=True, editable=False)
     uploads_per_hour = models.IntegerField(
-        _('uploads per hour'), blank=True, null=True)
+        _('uploads per hour'), blank=True, null=True, editable=False)
     uploads_per_day = models.IntegerField(
-        _('uploads per day'), blank=True, null=True)
+        _('uploads per day'), blank=True, null=True, editable=False)
     queue_estimate = models.IntegerField(
-        _('queue estimate'), blank=True, null=True,
+        _('queue estimate'), blank=True, null=True, editable=False,
         help_text=_("Seconds between screenshot request and upload."))
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
