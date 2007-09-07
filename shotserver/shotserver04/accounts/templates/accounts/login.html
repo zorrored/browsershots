@@ -6,6 +6,11 @@
 {% block content %}
 <h1>{{ _("log in")|capfirst }}</h1>
 
+{% if http_request.user.is_authenticated %}
+<p class="admonition error">{{ _("You're already signed in.") }}</p>
+<p>{{ _("Please log out and then try again.") }}</p>
+{% else %}
+
 {% if form.has_errors %}
 <p class="admonition error">
 {{ _("Your username and password didn't match.") }}
@@ -30,5 +35,6 @@ document.getElementById('id_username').focus()
 <li><a href="../forgotten/">{{ _("Forgot your password?") }}</a></li>
 <li><a href="../register/">{{ _("Create a new account?") }}</a></li>
 </ul>
+{% endif %}
 {% endif %}
 {% endblock %}

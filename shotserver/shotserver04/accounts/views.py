@@ -74,9 +74,9 @@ def email(http_request):
     Ask user for email address, then send verification message.
     """
     if http_request.user.is_authenticated():
-        return error_page(http_request, _("Already signed in"),
-_("You already have a user account, and you're currently signed in."),
-_("Please log out and then try again."))
+        return error_page(http_request, _("already signed in"),
+                          _("You're already signed in."),
+                          _("Please log out and then try again."))
     ip = http_request.META['REMOTE_ADDR']
     nonces_per_day = Nonce.objects.filter(ip=ip, email__isnull=False,
        created__gt=datetime.now() - timedelta(hours=24)).count()
