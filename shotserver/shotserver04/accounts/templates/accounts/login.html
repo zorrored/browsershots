@@ -30,11 +30,8 @@
 document.getElementById('id_username').focus()
 </script>
 
-{% if registration_enabled %}
 <ul>
-<li><a href="../forgotten/">{{ _("Forgot your password?") }}</a></li>
-<li><a href="../register/">{{ _("Create a new account?") }}</a></li>
+<li><a href="../email/">{{ _("Create a new account?") }}</a></li>
 </ul>
-{% endif %}
 {% endif %}
 {% endblock %}
