@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-30 13:10-0700\n"
-"PO-Revision-Date: 2007-08-26 16:40+0000\n"
-"Last-Translator: Kent <mcgreedy@gmail.com>\n"
+"POT-Creation-Date: 2007-09-06 22:24-0700\n"
+"PO-Revision-Date: 2007-09-01 20:17+0000\n"
+"Last-Translator: Kent Grady <mcgreedy@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-08-26 16:48:28+0000\n"
+"X-Rosetta-Export-Date: 2007-09-03 01:38:16+0000\n"
 
 #: factories/models.py:45 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -82,14 +82,14 @@ msgid "Seconds between screenshot request and upload."
 msgstr "Sekunder mellem screenshot forespørgsel og upload."
 
 #: factories/models.py:70 factories/templates/factories/details.html:13
-#: nonces/models.py:41 browsers/models.py:121
+#: nonces/models.py:43 browsers/models.py:121
 msgid "created"
 msgstr "oprettet"
 
 #: factories/models.py:93 factories/models.py:186 factories/models.py:212
 #: messages/models.py:34 requests/models.py:367
-#: accounts/templates/accounts/profile.html:31 screenshots/models.py:106
-#: screenshots/templates/screenshots/details.html:56 nonces/models.py:35
+#: accounts/templates/accounts/profile.html:38 screenshots/models.py:106
+#: screenshots/templates/screenshots/details.html:56 nonces/models.py:39
 #: browsers/models.py:87
 msgid "factory"
 msgstr "fabrik"
@@ -110,7 +110,7 @@ msgstr "højde"
 msgid "screen size"
 msgstr "skærm størrelse"
 
-#: factories/models.py:199 factories/templates/factories/details.html:66
+#: factories/models.py:199 factories/templates/factories/details.html:68
 msgid "screen sizes"
 msgstr "skærm størrelser"
 
@@ -122,29 +122,58 @@ msgstr "bits per pixel"
 msgid "color depth"
 msgstr "farve dybde (color depth)"
 
-#: factories/models.py:223 factories/templates/factories/details.html:79
+#: factories/models.py:223 factories/templates/factories/details.html:81
 msgid "color depths"
 msgstr "farve dybder (color depths)"
 
-#: factories/views.py:45 start/views.py:63
+#: factories/views.py:50 start/views.py:64
 msgid "out of service"
 msgstr "ude af drift"
 
-#: factories/views.py:46 start/views.py:65
+#: factories/views.py:51 start/views.py:65
 msgid "No active screenshot factories."
-msgstr "Ingen aktive skærmbilledfabrikker."
+msgstr "Ingen aktive screenshot fabrikker."
+
+#: factories/views.py:52 start/views.py:66 accounts/views.py:87
+msgid "Please try again later."
+msgstr "Prøv venligst igen senere."
+
+#: factories/views.py:98
+msgid "Name must start with a lowercase letter."
+msgstr ""
+
+#: factories/views.py:102
+msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
+msgstr ""
+
+#: factories/views.py:105
+msgid "This name is reserved."
+msgstr ""
+
+#: factories/views.py:122
+msgid "This name is already taken."
+msgstr ""
+
+#: factories/views.py:138
+#, fuzzy
+msgid "register a new screenshot factory"
+msgstr "Ingen aktive screenshot fabrikker."
+
+#: factories/views.py:139
+#, fuzzy
+msgid "register"
+msgstr "modtager"
 
 #: factories/templates/factories/overview.html:5
 #: factories/templates/factories/overview.html:8
-#, fuzzy
 msgid "screenshot factories"
-msgstr "Skærmbilledfabrikker"
+msgstr "screenshot fabrikker"
 
 #: factories/templates/factories/details.html:5
 #: factories/templates/factories/details.html:8
 #, python-format
 msgid "Screenshot Factory %(name)s"
-msgstr "Skærmbilledfabrik %(name)s"
+msgstr "Screenshot fabrik %(name)s"
 
 #: factories/templates/factories/details.html:12
 #: screenshots/templates/screenshots/details.html:64 platforms/models.py:97
@@ -195,27 +224,27 @@ msgstr "kommando (command)"
 msgid "No browsers registered for this factory."
 msgstr "Ingen browsere registrerede for denne fabrik"
 
-#: factories/templates/factories/details.html:62
-#: accounts/templates/accounts/profile.html:25
+#: factories/templates/factories/details.html:63
+#: accounts/templates/accounts/profile.html:30
 msgid "Register this browser for screenshots?"
 msgstr "Registrer denne browser for screenshots?"
 
-#: factories/templates/factories/details.html:74
-#: factories/templates/factories/details.html:87
+#: factories/templates/factories/details.html:76
+#: factories/templates/factories/details.html:89
 msgid "default only"
 msgstr "standard kun"
 
-#: factories/templates/factories/details.html:92
+#: factories/templates/factories/details.html:94
 #: screenshots/templates/screenshots/overview.html:4
 #: screenshots/templates/screenshots/overview.html:7
 msgid "recent screenshots"
 msgstr "seneste screenshots"
 
-#: factories/templates/factories/details.html:99
+#: factories/templates/factories/details.html:101
 msgid "recent problem reports"
 msgstr "seneste problem rapporter"
 
-#: factories/templates/factories/details.html:102
+#: factories/templates/factories/details.html:104
 #, python-format
 msgid "%(interval)s ago"
 msgstr "%(interval)s siden"
@@ -245,7 +274,8 @@ msgstr "fabrik fejl beskeder"
 msgid "%(seconds)d s"
 msgstr "%(seconds)d s"
 
-#: common/templatetags/human.py:52 requests/models.py:460 requests/views.py:98
+#: common/templatetags/human.py:52 requests/models.py:460
+#: requests/views.py:102
 #, python-format
 msgid "%(minutes)d min"
 msgstr "%(minutes)d min"
@@ -270,7 +300,7 @@ msgstr "%(bytes)s bytes"
 msgid "%(count)d database queries"
 msgstr "%(count)d database forespørgsler"
 
-#: common/templatetags/hosting_provider.py:45
+#: common/templatetags/hosting_provider.py:44
 #, python-format
 msgid "hosted by %(provider)s"
 msgstr "hosted af %(provider)s"
@@ -361,7 +391,7 @@ msgstr "balancer"
 msgid "request"
 msgstr "anmodning"
 
-#: points/models.py:116 requests/models.py:365
+#: points/models.py:116
 msgid "bid"
 msgstr "bud"
 
@@ -384,7 +414,7 @@ msgid "This is your private account page. Only you can see it."
 msgstr "Dette er din private bruger side. Kun du kan se den."
 
 #: points/templates/points/overview.html:14
-#: accounts/templates/accounts/profile.html:50
+#: accounts/templates/accounts/profile.html:57
 msgid "account balance"
 msgstr "konto balance"
 
@@ -540,6 +570,10 @@ msgstr "stor"
 msgid "minor"
 msgstr "mindre"
 
+#: requests/models.py:365
+msgid "priority"
+msgstr ""
+
 #: requests/models.py:369
 msgid "locked"
 msgstr "låst"
@@ -575,15 +609,14 @@ msgstr "indlæser"
 msgid "starting"
 msgstr "starter"
 
-#: requests/models.py:454 requests/views.py:95
+#: requests/models.py:454 requests/views.py:99
 msgid "unavailable"
 msgstr "ikke tilgængelig"
 
 #: requests/templates/requests/overview.html:5
 #: requests/templates/requests/overview.html:8
-#, fuzzy
 msgid "screenshot request queue"
-msgstr "Screenshot anmodning kø"
+msgstr "screenshot anmodnings kø"
 
 #: requests/templates/requests/overview.html:16
 msgid "pending requests"
@@ -599,10 +632,6 @@ msgstr "Ingen afventende anmodninger."
 #, python-format
 msgid "for %(url)s"
 msgstr "til %(url)s"
-
-#: start/views.py:66
-msgid "Please try again later."
-msgstr "Prøv venligst igen senere."
 
 #: start/views.py:163
 msgid "select all"
@@ -744,27 +773,173 @@ msgstr "Serveren svarede ikke indenfor %d sekunder."
 msgid "Malformed URL (database integrity error)."
 msgstr "Ukorrekt URL (database integritets fejl)."
 
+#: accounts/views.py:78
+msgid "already signed in"
+msgstr ""
+
+#: accounts/views.py:79 accounts/templates/accounts/login.html:10
+msgid "You're already signed in."
+msgstr ""
+
+#: accounts/views.py:80 accounts/views.py:219
+#: accounts/templates/accounts/login.html:11
+#, fuzzy
+msgid "Please log out and then try again."
+msgstr "Forsøg venligst igen."
+
+#: accounts/views.py:85
+msgid "too many verification emails"
+msgstr ""
+
+#: accounts/views.py:86
+msgid "There were too many email requests from your IP in the last 24 hours."
+msgstr ""
+
+#: accounts/views.py:90
+msgid "email verification"
+msgstr ""
+
+#: accounts/views.py:92
+#, fuzzy
+msgid "send email"
+msgstr "afsender"
+
+#: accounts/views.py:118
+msgid "email error"
+msgstr ""
+
+#: accounts/views.py:119
+msgid "Could not send email."
+msgstr ""
+
+#: accounts/views.py:121
+#, fuzzy
+msgid "email sent"
+msgstr "mailing liste"
+
+#: accounts/views.py:122
+#, python-format
+msgid "A verification email was sent to %(email)s."
+msgstr ""
+
+#: accounts/views.py:123
+msgid "Check your email inbox and follow the instructions in the message."
+msgstr ""
+
+#: accounts/views.py:124
+msgid "If your email provider uses graylisting, it may take a few minutes."
+msgstr ""
+
+#: accounts/views.py:158
+msgid "Username must start with a lowercase letter."
+msgstr ""
+
+#: accounts/views.py:162
+msgid ""
+"Username may contain only lowercase letters, digits, underscore, hyphen."
+msgstr ""
+
+#: accounts/views.py:165
+msgid "This username is reserved."
+msgstr ""
+
+#: accounts/views.py:176
+#, python-format
+msgid "The password must have %d or more characters."
+msgstr ""
+
+#: accounts/views.py:180
+msgid "The password must not be completely numeric."
+msgstr ""
+
+#: accounts/views.py:193
+msgid "Repeat password is not the same."
+msgstr ""
+
+#: accounts/views.py:208
+msgid "This username is already taken."
+msgstr ""
+
+#: accounts/views.py:217
+msgid "Already signed in"
+msgstr ""
+
+#: accounts/views.py:218
+msgid "You already have a user account, and you're currently signed in."
+msgstr ""
+
+#: accounts/views.py:223
+#, fuzzy
+msgid "Wrong IP address"
+msgstr "IP-adresse"
+
+#: accounts/views.py:224
+msgid "The verification email was requested from a different IP address."
+msgstr ""
+
+#: accounts/views.py:226
+msgid "Bad verification code"
+msgstr ""
+
+#: accounts/views.py:227
+msgid "The verification code has no email address."
+msgstr ""
+
+#: accounts/views.py:229
+msgid "Verification code expired"
+msgstr ""
+
+#: accounts/views.py:230
+msgid "The verification email was requested more than 30 minutes ago."
+msgstr ""
+
+#: accounts/views.py:236
+msgid "create a new account"
+msgstr ""
+
+#: accounts/views.py:238
+#, fuzzy
+msgid "create account"
+msgstr "konto"
+
+#: accounts/views.py:246
+#, fuzzy
+msgid "Account created"
+msgstr "oprettet"
+
+#: accounts/views.py:247
+msgid "A new user account was created."
+msgstr ""
+
+#: accounts/views.py:248
+msgid "Click the link in the top right corner to log in."
+msgstr ""
+
 #: accounts/templates/accounts/login.html:4
 #: accounts/templates/accounts/login.html:7
-#: accounts/templates/accounts/login.html:20
+#: accounts/templates/accounts/login.html:25
 msgid "log in"
 msgstr "login"
 
-#: accounts/templates/accounts/login.html:11
+#: accounts/templates/accounts/login.html:16
 msgid "Your username and password didn't match."
 msgstr "Der var en fejl i det indtastede brugernavn og kodeord."
 
-#: accounts/templates/accounts/login.html:12
+#: accounts/templates/accounts/login.html:17
 msgid "Please try again."
 msgstr "Forsøg venligst igen."
 
-#: accounts/templates/accounts/login.html:18
+#: accounts/templates/accounts/login.html:23
 msgid "username"
 msgstr "brugernavn"
 
-#: accounts/templates/accounts/login.html:19 browsers/views.py:44
+#: accounts/templates/accounts/login.html:24 browsers/views.py:46
 msgid "password"
 msgstr "kodeord"
+
+#: accounts/templates/accounts/login.html:34
+msgid "Create a new account?"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:5
 msgid "profile"
@@ -774,23 +949,28 @@ msgstr "profil"
 msgid "This is your private profile page. Only you can see it."
 msgstr "Dette er din private profil. Kun du kan se den."
 
-#: accounts/templates/accounts/profile.html:14
+#: accounts/templates/accounts/profile.html:15
 msgid "your screenshot factories"
 msgstr "dinne screenshot fabrikker"
 
-#: accounts/templates/accounts/profile.html:27
+#: accounts/templates/accounts/profile.html:29
+#, fuzzy
+msgid "Register a new screenshot factory?"
+msgstr "Anmod om nye screenshots?"
+
+#: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
 msgstr "seneste fabrik-fejl"
 
-#: accounts/templates/accounts/profile.html:32
+#: accounts/templates/accounts/profile.html:39
 msgid "code"
 msgstr "kode"
 
-#: accounts/templates/accounts/profile.html:33
+#: accounts/templates/accounts/profile.html:40
 msgid "message"
 msgstr "besked"
 
-#: accounts/templates/accounts/profile.html:34
+#: accounts/templates/accounts/profile.html:41
 msgid "age"
 msgstr "alder"
 
@@ -933,7 +1113,7 @@ msgstr "Java er ikke %(java)s."
 msgid "Flash is not %(flash)s."
 msgstr "Flash er ikke %(flash)s."
 
-#: screenshots/models.py:102 nonces/models.py:37
+#: screenshots/models.py:102 nonces/models.py:35
 msgid "hashkey"
 msgstr "hash nøgle"
 
@@ -972,7 +1152,7 @@ msgstr "på %(platform)s"
 msgid "reported"
 msgstr "rapporteret"
 
-#: screenshots/models.py:340 nonces/models.py:39
+#: screenshots/models.py:340 nonces/models.py:37
 msgid "IP address"
 msgstr "IP-adresse"
 
@@ -984,11 +1164,11 @@ msgstr "fejl-rapport"
 msgid "problem reports"
 msgstr "fejl-rapporter"
 
-#: screenshots/views.py:112
+#: screenshots/views.py:114
 msgid "HTML is not allowed here."
 msgstr "HTML er ikke tilladt her."
 
-#: screenshots/views.py:116
+#: screenshots/views.py:118
 msgid "URLs are not allowed here."
 msgstr "URL er ikke tilladt her."
 
@@ -1016,11 +1196,16 @@ msgstr "side indlæst"
 msgid "Report a problem with this screenshot?"
 msgstr "Rapporter en fejl med dette screenshot?"
 
-#: nonces/models.py:52
+#: nonces/models.py:41
+#, fuzzy
+msgid "email"
+msgstr "detaljer"
+
+#: nonces/models.py:54
 msgid "nonce"
 msgstr "nonce"
 
-#: nonces/models.py:53
+#: nonces/models.py:55
 msgid "nonces"
 msgstr "nonce'er"
 
@@ -1092,9 +1277,22 @@ msgstr "deaktiver"
 msgid "activate"
 msgstr "aktivér"
 
-#: browsers/views.py:146
+#: browsers/views.py:148
 msgid "Password mismatch."
 msgstr "Uidentiske kodeord"
+
+#: browsers/views.py:246
+#, fuzzy
+msgid "invalid request"
+msgstr "afventer anmodninger"
+
+#: browsers/views.py:251
+msgid "permission denied"
+msgstr ""
+
+#: browsers/views.py:284
+msgid "This browser is already inactive."
+msgstr ""
 
 #: browsers/templates/browsers/add.html:5
 #: browsers/templates/browsers/add.html:8
