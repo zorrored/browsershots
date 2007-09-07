@@ -22,11 +22,15 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from django.http import Http404
+from psycopg import IntegrityError
+from django.http import Http404, HttpResponseRedirect
 from django.utils.text import capfirst
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from django import newforms as forms
+from django.newforms.util import ErrorList
 from shotserver04 import settings
 from shotserver04.common import last_poll_timeout, error_page
 from shotserver04.factories.models import Factory
@@ -79,3 +83,60 @@ def details(http_request, name):
         screenshot__factory=factory)[:10]
     return render_to_response('factories/details.html', locals(),
         context_instance=RequestContext(http_request))
+
+
+class FactoryBase(forms.BaseForm):
+    def clean_name(self):
+        """
+        Check that the factory name is sensible.
+        """
+        NAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
+        NAME_CHAR = NAME_CHAR_FIRST + '0123456789_-'
+        name = self.cleaned_data['name']
+        if name[0] not in NAME_CHAR_FIRST:
+            raise forms.ValidationError(unicode(
+                _("Name must start with a lowercase letter.")))
+        for index in range(len(name)):
+            if name[index] not in NAME_CHAR:
+                raise forms.ValidationError(unicode(
+_("Name may contain only lowercase letters, digits, underscore, hyphen.")))
+        if name in 'localhost server factory shotfactory add'.split():
+            raise forms.ValidationError(unicode(
+                _("This name is reserved.")))
+        return name
+
+    def create_factory(self, admin):
+        """
+        Try to create the factory in the database.
+        Return None if the factory name is already taken.
+        """
+        factory = self.save(commit=False)
+        factory.admin = admin
+        try:
+            factory.save()
+            return factory
+        except IntegrityError, e:
+            transaction.rollback()
+            if 'duplicate' in str(e).lower():
+                self.errors['name'] = ErrorList([
+                    _("This name is already taken.")])
+            else:
+                self.errors[forms.NON_FIELD_ERRORS] = ErrorList([str(e)])
+
+
+FactoryForm = forms.form_for_model(Factory, form=FactoryBase,
+    fields=('name', 'architecture', 'operating_system'))
+
+
+@login_required
+def add(http_request):
+    factory = None
+    form = FactoryForm(http_request.POST or None)
+    if form.is_valid():
+        factory = form.create_factory(http_request.user)
+    if not factory:
+        form_title = _("register a new screenshot factory")
+        form_submit = _("register")
+        return render_to_response('form.html', locals(),
+            context_instance=RequestContext(http_request))
+    return HttpResponseRedirect(factory.get_absolute_url())
