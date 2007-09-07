@@ -63,7 +63,7 @@ LANGUAGES = (
     ('es', u'Español'),
     ('fr', u'Français'),
     ('it', u'Italiano'),
-    ('lt', u'Lietuviškai')
+    ('lt', u'Lietuviškai'),
     ('ru', u'Русский'),
     ('tr', u'Türkçe'),
     )
