@@ -1,4 +1,4 @@
-# Turkish translation for shotserver
+# Lithuanian translation for shotserver
 # Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
@@ -8,43 +8,43 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-06 22:25-0700\n"
-"PO-Revision-Date: 2007-08-03 16:19+0000\n"
-"Last-Translator: Ali Servet Dönmez <asd@pittle.org>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"POT-Creation-Date: 2007-09-06 22:24-0700\n"
+"PO-Revision-Date: 2007-09-02 19:03+0000\n"
+"Last-Translator: Rytis <rytis.s@gmail.com>\n"
+"Language-Team: Lithuanian <lt@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-03 01:38:18+0000\n"
+"X-Rosetta-Export-Date: 2007-09-03 01:38:10+0000\n"
 
 #: factories/models.py:45 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
 #: browsers/models.py:60 platforms/models.py:34 platforms/models.py:58
 #: platforms/models.py:87
 msgid "name"
-msgstr "ad"
+msgstr "pavadinimas"
 
 #: factories/models.py:46
 msgid "Hostname (lowercase)"
-msgstr "Kullanılan bilgisayarın adı (küçük harfler ile)"
+msgstr "Kompiuterio vardas (mažosiomis raidėmis)"
 
 #: factories/models.py:48
 msgid "administrator"
-msgstr "yönetici"
+msgstr "administratorius"
 
 #: factories/models.py:50 factories/templates/factories/details.html:16
 #: sponsors/models.py:48 screenshots/templates/screenshots/details.html:60
 msgid "sponsor"
-msgstr "destekleyici"
+msgstr "sponsorius"
 
 #: factories/models.py:52
 msgid "hardware architecture"
-msgstr "donanım yapısı"
+msgstr "sistemos architektūra"
 
 #: factories/models.py:54 factories/templates/factories/details.html:11
 #: screenshots/templates/screenshots/details.html:68 platforms/models.py:71
 msgid "operating system"
-msgstr "işletim sistemi"
+msgstr "operacinė sistema"
 
 #: factories/models.py:56 requests/models.py:67
 msgid "IP"
@@ -52,39 +52,39 @@ msgstr "IP"
 
 #: factories/models.py:57
 msgid "The last poll came from this IP address."
-msgstr "Son yoklama bu IP adresinden gelmiş."
+msgstr "Paskutinė užklausa atėjo iš šio IP adreso."
 
 #: factories/models.py:59
 msgid "last poll"
-msgstr "son yoklama"
+msgstr "paskutinė užklausa"
 
 #: factories/models.py:61 factories/templates/factories/details.html:32
 #: browsers/models.py:115
 msgid "last upload"
-msgstr "son yükleme"
+msgstr "paskutinis įkėlimas"
 
 #: factories/models.py:63 factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17 browsers/models.py:117
 msgid "uploads per hour"
-msgstr "saat başına yükleme"
+msgstr "įkėlimų per valandą"
 
 #: factories/models.py:65 factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18 browsers/models.py:119
 msgid "uploads per day"
-msgstr "gün başına yükleme"
+msgstr "įkėlimų per dieną"
 
 #: factories/models.py:67
 msgid "queue estimate"
-msgstr "kuyruk kestirme"
+msgstr "numatomas laukimas eilėje"
 
 #: factories/models.py:68
 msgid "Seconds between screenshot request and upload."
-msgstr ""
+msgstr "Sekundės tarp nuotraukos užklausos ir įkėlimo"
 
 #: factories/models.py:70 factories/templates/factories/details.html:13
 #: nonces/models.py:43 browsers/models.py:121
 msgid "created"
-msgstr "yaratıldı"
+msgstr "sukurta"
 
 #: factories/models.py:93 factories/models.py:186 factories/models.py:212
 #: messages/models.py:34 requests/models.py:367
@@ -92,51 +92,51 @@ msgstr "yaratıldı"
 #: screenshots/templates/screenshots/details.html:56 nonces/models.py:39
 #: browsers/models.py:87
 msgid "factory"
-msgstr "fabrika"
+msgstr "gamykla"
 
 #: factories/models.py:94 common/templates/base.html:27
 msgid "factories"
-msgstr "fabrikalar"
+msgstr "gamyklos"
 
 #: factories/models.py:189 screenshots/models.py:110
 msgid "width"
-msgstr "en"
+msgstr "plotis"
 
 #: factories/models.py:191 screenshots/models.py:112
 msgid "height"
-msgstr "boy"
+msgstr "aukštis"
 
 #: factories/models.py:198 start/forms/options.py:64
 msgid "screen size"
-msgstr "ekran boyutu"
+msgstr "ekrano matmenys"
 
 #: factories/models.py:199 factories/templates/factories/details.html:68
 msgid "screen sizes"
-msgstr "ekran boyutları"
+msgstr "ekranų dydžiai"
 
 #: factories/models.py:215 requests/models.py:57
 msgid "bits per pixel"
-msgstr "pixel başına bit"
+msgstr "bitų vienam taškui"
 
 #: factories/models.py:222 start/forms/options.py:66
 msgid "color depth"
-msgstr "renk derinliği"
+msgstr "spalvų gylis"
 
 #: factories/models.py:223 factories/templates/factories/details.html:81
 msgid "color depths"
-msgstr "renk derinlikleri"
+msgstr "spalvų gyliai"
 
 #: factories/views.py:50 start/views.py:64
 msgid "out of service"
-msgstr "işlevsiz"
+msgstr "neveikia"
 
 #: factories/views.py:51 start/views.py:65
 msgid "No active screenshot factories."
-msgstr "Etkin ekran görüntüsü fabrikası yok."
+msgstr "Nėra aktyvių nuotraukų gamyklų."
 
 #: factories/views.py:52 start/views.py:66 accounts/views.py:87
 msgid "Please try again later."
-msgstr "Lütfen daha sonra tekrar deneyin."
+msgstr ""
 
 #: factories/views.py:98
 msgid "Name must start with a lowercase letter."
@@ -157,53 +157,52 @@ msgstr ""
 #: factories/views.py:138
 #, fuzzy
 msgid "register a new screenshot factory"
-msgstr "Etkin ekran görüntüsü fabrikası yok."
+msgstr "Nėra aktyvių nuotraukų gamyklų."
 
 #: factories/views.py:139
 #, fuzzy
 msgid "register"
-msgstr "alıcı"
+msgstr "gavėjas"
 
 #: factories/templates/factories/overview.html:5
 #: factories/templates/factories/overview.html:8
-#, fuzzy
 msgid "screenshot factories"
-msgstr "Ekran görüntüsü fabrikaları"
+msgstr "nuotraukų gamyklos"
 
 #: factories/templates/factories/details.html:5
 #: factories/templates/factories/details.html:8
 #, python-format
 msgid "Screenshot Factory %(name)s"
-msgstr ""
+msgstr "Ekrano nuotraukų gamykla %(name)s"
 
 #: factories/templates/factories/details.html:12
 #: screenshots/templates/screenshots/details.html:64 platforms/models.py:97
 msgid "architecture"
-msgstr "yapı"
+msgstr "architektūra"
 
 #: factories/templates/factories/details.html:14
 msgid "admin"
-msgstr "yönetici"
+msgstr "administratorius"
 
 #: factories/templates/factories/details.html:20
 msgid "installed browsers"
-msgstr "kurulu tarayıcılar"
+msgstr "įdiegtos naršyklės"
 
 #: factories/templates/factories/details.html:27
 msgid "short version"
-msgstr "kısa sürüm"
+msgstr "trumpa versija"
 
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:40 browsers/models.py:50
 #: browsers/models.py:99
 msgid "engine"
-msgstr "motor"
+msgstr "variklis"
 
 #: factories/templates/factories/details.html:29 requests/models.py:59
 #: start/forms/features.py:66
 #: screenshots/templates/screenshots/details.html:44 browsers/models.py:103
 msgid "Javascript"
-msgstr "Java betiği"
+msgstr "Javascript"
 
 #: factories/templates/factories/details.html:30 requests/models.py:61
 #: start/forms/features.py:68
@@ -214,39 +213,36 @@ msgstr "Java"
 #: factories/templates/factories/details.html:31 requests/models.py:63
 #: start/forms/features.py:70
 #: screenshots/templates/screenshots/details.html:52 browsers/models.py:107
-#, fuzzy
 msgid "Flash"
 msgstr "Flash"
 
 #: factories/templates/factories/details.html:35 browsers/models.py:109
 msgid "command"
-msgstr "komut"
+msgstr "komanda"
 
 #: factories/templates/factories/details.html:58
 msgid "No browsers registered for this factory."
-msgstr "Bu fabrika için kayıtlı tarayıcı yok."
+msgstr "Šioje gamykloje nėra registruotų naršyklių."
 
 #: factories/templates/factories/details.html:63
 #: accounts/templates/accounts/profile.html:30
-#, fuzzy
 msgid "Register this browser for screenshots?"
-msgstr "Bu tarayıcıyı ekran görüntüsü için kaydet!"
+msgstr "Registruoti šią naršyklę ekrano nuotraukoms?"
 
 #: factories/templates/factories/details.html:76
 #: factories/templates/factories/details.html:89
 msgid "default only"
-msgstr "yalnızca varsayılan"
+msgstr ""
 
 #: factories/templates/factories/details.html:94
 #: screenshots/templates/screenshots/overview.html:4
 #: screenshots/templates/screenshots/overview.html:7
 msgid "recent screenshots"
-msgstr "yakın zaman ekran görüntüleri"
+msgstr "naujos ekrano nuotraukos"
 
 #: factories/templates/factories/details.html:101
-#, fuzzy
 msgid "recent problem reports"
-msgstr "yakın zaman ekran görüntüleri"
+msgstr ""
 
 #: factories/templates/factories/details.html:104
 #, python-format
@@ -255,23 +251,23 @@ msgstr ""
 
 #: messages/models.py:36 screenshots/models.py:334
 msgid "error code"
-msgstr "hata kodu"
+msgstr "klaidos kodas"
 
 #: messages/models.py:38 screenshots/models.py:336
 msgid "error message"
-msgstr "hata iletisi"
+msgstr "klaidos žinutė"
 
 #: messages/models.py:40
 msgid "occurred"
-msgstr "ortaya çıktı"
+msgstr "įvyko"
 
 #: messages/models.py:48
 msgid "factory error message"
-msgstr "fabrika hata iletisi"
+msgstr "gamyklos klaidos žinutė"
 
 #: messages/models.py:49
 msgid "factory error messages"
-msgstr "fabrika hata iletileri"
+msgstr "gamyklos klaidos žinutės"
 
 #: common/templatetags/human.py:49
 #, python-format
@@ -310,77 +306,74 @@ msgid "hosted by %(provider)s"
 msgstr ""
 
 #: common/templates/base.html:24
-#, fuzzy
 msgid "home"
-msgstr "ev"
+msgstr "namai"
 
 #: common/templates/base.html:25 screenshots/models.py:131
 #: screenshots/models.py:288
 msgid "screenshots"
-msgstr "ekran görüntüleri"
+msgstr "ekrano nuotraukos"
 
 #: common/templates/base.html:26
 msgid "queue"
-msgstr "kuyruk"
+msgstr "eilė"
 
 #: common/templates/base.html:28
-#, fuzzy
 msgid "search"
-msgstr "arama"
+msgstr "paieška"
 
 #: common/templates/base.html:35
 msgid "logout"
-msgstr "oturum kapat"
+msgstr "atsijungti"
 
 #: common/templates/base.html:37
 msgid "login"
-msgstr "oturum aç"
+msgstr "prisijungti"
 
 #: common/templates/404.html:3 common/templates/404.html.py:6
 msgid "page not found"
-msgstr ""
+msgstr "puslapis nerastas"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr ""
+msgstr "Užklaustas puslapis nerastas."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
-msgstr ""
+msgstr "vidinė serverio klaida"
 
 #: points/models.py:40
 msgid "sender"
-msgstr "gönderen"
+msgstr "siuntėjas"
 
 #: points/models.py:43
 msgid "receiver"
-msgstr "alıcı"
+msgstr "gavėjas"
 
 #: points/models.py:46 requests/models.py:376 screenshots/models.py:130
 #: screenshots/models.py:332
 msgid "screenshot"
-msgstr "ekran görüntüsü"
+msgstr "ekrano nuotrauka"
 
 #: points/models.py:49 points/models.py:79 points/models.py:113
 msgid "points"
-msgstr ""
+msgstr "taškai"
 
 #: points/models.py:51
-#, fuzzy
 msgid "paid"
-msgstr "ödendi"
+msgstr "sumokėta"
 
 #: points/models.py:54
 msgid "transaction"
-msgstr ""
+msgstr "transakcija"
 
 #: points/models.py:55
 msgid "transactions"
-msgstr ""
+msgstr "transakcijos"
 
 #: points/models.py:75 points/models.py:109
 msgid "user"
-msgstr "kullanıcı"
+msgstr "vartotojas"
 
 #: points/models.py:77
 msgid "considered"
@@ -388,15 +381,15 @@ msgstr ""
 
 #: points/models.py:82
 msgid "balance"
-msgstr ""
+msgstr "balansas"
 
 #: points/models.py:83
 msgid "balances"
-msgstr ""
+msgstr "balansai"
 
 #: points/models.py:111 requests/models.py:391
 msgid "request"
-msgstr "istek"
+msgstr ""
 
 #: points/models.py:116
 msgid "bid"
@@ -408,7 +401,7 @@ msgstr ""
 
 #: points/templates/points/overview.html:5
 msgid "account"
-msgstr "hesap"
+msgstr "abonementas"
 
 #: points/templates/points/overview.html:8
 #: accounts/templates/accounts/profile.html:8
@@ -419,7 +412,6 @@ msgstr ""
 #: points/templates/points/overview.html:11
 msgid "This is your private account page. Only you can see it."
 msgstr ""
-"Bu sizin özel hesap sayfanızdır. Bu sayfayı yalnızca siz görebilirsiniz."
 
 #: points/templates/points/overview.html:14
 #: accounts/templates/accounts/profile.html:57
@@ -444,7 +436,7 @@ msgstr ""
 
 #: sponsors/models.py:39 websites/models.py:73
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: sponsors/models.py:41
 msgid "premium"
@@ -456,27 +448,27 @@ msgstr ""
 
 #: sponsors/models.py:49
 msgid "sponsors"
-msgstr "destekleyiciler"
+msgstr ""
 
 #: requests/models.py:51 websites/models.py:92 screenshots/models.py:104
 msgid "website"
-msgstr "web sitesi"
+msgstr ""
 
 #: requests/models.py:53
 msgid "screen width"
-msgstr "ekran genişliği"
+msgstr ""
 
 #: requests/models.py:55
 msgid "screen height"
-msgstr "ekran yüksekliği"
+msgstr ""
 
 #: requests/models.py:65
 msgid "submitter"
-msgstr "gönderen"
+msgstr ""
 
 #: requests/models.py:69 websites/models.py:49 websites/models.py:84
 msgid "submitted"
-msgstr "gönderildi"
+msgstr ""
 
 #: requests/models.py:71
 msgid "expire"
@@ -484,15 +476,15 @@ msgstr ""
 
 #: requests/models.py:88 requests/models.py:355
 msgid "request group"
-msgstr "istek grubu"
+msgstr ""
 
 #: requests/models.py:89
 msgid "request groups"
-msgstr "istek grupları"
+msgstr ""
 
 #: requests/models.py:96
 msgid "screenshot request group"
-msgstr "ekran görüntüsü istek grubu"
+msgstr ""
 
 #: requests/models.py:113
 #, python-format
@@ -520,7 +512,7 @@ msgstr ""
 
 #: requests/models.py:206
 msgid "Your screenshots will appear here when they are uploaded."
-msgstr "Ekran görüntüleriniz yüklendikleri zaman burada belireceklerdir."
+msgstr ""
 
 #: requests/models.py:208
 msgid "[Reload this page] or bookmark it and come back later."
@@ -620,9 +612,8 @@ msgstr ""
 
 #: requests/templates/requests/overview.html:5
 #: requests/templates/requests/overview.html:8
-#, fuzzy
 msgid "screenshot request queue"
-msgstr "ekran görüntüsü istek grubu"
+msgstr ""
 
 #: requests/templates/requests/overview.html:16
 msgid "pending requests"
@@ -641,22 +632,21 @@ msgstr ""
 
 #: start/views.py:163
 msgid "select all"
-msgstr "tümünü seç"
+msgstr ""
 
 #: start/views.py:164
-#, fuzzy
 msgid "deselect all"
-msgstr "tüm seçileni bırak"
+msgstr ""
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
-msgstr "Web tasarımınızı farklı tarayıcılarda deneyin"
+msgstr ""
 
 #: start/templates/start/start.html:19
 #: screenshots/templates/screenshots/details.html:106
 #: browsers/templates/browsers/add.html:19
 msgid "submit"
-msgstr "gönder"
+msgstr ""
 
 #: start/templates/start/start.html:56
 msgid "project links"
@@ -675,9 +665,8 @@ msgid "XML-RPC interface"
 msgstr ""
 
 #: start/templates/start/start.html:61
-#, fuzzy
 msgid "source code"
-msgstr "hata kodu"
+msgstr ""
 
 #: start/templates/start/start.html:62
 msgid "downloads"
@@ -692,10 +681,9 @@ msgid "What is Browsershots?"
 msgstr ""
 
 #: start/templates/start/start.html:70
-#, fuzzy
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
-msgstr "Web tasarımınızı farklı tarayıcılarda deneyin"
+msgstr ""
 
 #: start/templates/start/start.html:71
 msgid "It is a free open-source online service created by Johann C. Rocholl."
@@ -720,31 +708,28 @@ msgid "latest news"
 msgstr ""
 
 #: start/templates/start/start.html:92
-#, fuzzy
 msgid "premium sponsors"
-msgstr "destekleyiciler"
+msgstr ""
 
 #: start/forms/features.py:35 start/forms/options.py:36
 #: start/forms/options.py:49
 msgid "don't care"
-msgstr "umursama"
+msgstr ""
 
 #: start/forms/features.py:43 features/models.py:36
 #: browsers/templates/browsers/add.html:43
 #: browsers/templates/browsers/add.html:47
-#, fuzzy
 msgid "disabled"
-msgstr "etkisiz"
+msgstr ""
 
 #: start/forms/features.py:46 features/models.py:34
 #: browsers/templates/browsers/add.html:43
-#, fuzzy
 msgid "enabled"
-msgstr "etkin"
+msgstr ""
 
 #: start/forms/url.py:51
 msgid "Enter your web address here:"
-msgstr "Web adresinizi buraya girin:"
+msgstr ""
 
 #: start/forms/url.py:84
 #, python-format
@@ -753,7 +738,7 @@ msgstr ""
 
 #: start/forms/url.py:88
 msgid "Malformed URL (server name not specified)."
-msgstr "Kusurlu URL (sunucu adı belirtilmemiş)."
+msgstr ""
 
 #: start/forms/url.py:108
 #, python-format
@@ -777,7 +762,7 @@ msgstr ""
 
 #: start/forms/url.py:148
 msgid "Malformed URL (database integrity error)."
-msgstr "Kusurlu URL (veritabanı bütünlüğü hatası)."
+msgstr ""
 
 #: accounts/views.py:78
 msgid "already signed in"
@@ -807,7 +792,7 @@ msgstr ""
 #: accounts/views.py:92
 #, fuzzy
 msgid "send email"
-msgstr "gönderen"
+msgstr "siuntėjas"
 
 #: accounts/views.py:118
 msgid "email error"
@@ -903,12 +888,12 @@ msgstr ""
 #: accounts/views.py:238
 #, fuzzy
 msgid "create account"
-msgstr "hesap"
+msgstr "abonementas"
 
 #: accounts/views.py:246
 #, fuzzy
 msgid "Account created"
-msgstr "yaratıldı"
+msgstr "sukurta"
 
 #: accounts/views.py:247
 msgid "A new user account was created."
@@ -959,7 +944,7 @@ msgstr ""
 #: accounts/templates/accounts/profile.html:29
 #, fuzzy
 msgid "Register a new screenshot factory?"
-msgstr "Etkin ekran görüntüsü fabrikası yok."
+msgstr "Nėra aktyvių nuotraukų gamyklų."
 
 #: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
@@ -1152,9 +1137,8 @@ msgid "on %(platform)s"
 msgstr ""
 
 #: screenshots/models.py:338
-#, fuzzy
 msgid "reported"
-msgstr "yaratıldı"
+msgstr ""
 
 #: screenshots/models.py:340 nonces/models.py:37
 msgid "IP address"
@@ -1241,9 +1225,8 @@ msgid "unusual"
 msgstr ""
 
 #: browsers/models.py:67
-#, fuzzy
 msgid "Hide from recent screenshot overview?"
-msgstr "yakın zaman ekran görüntüleri"
+msgstr ""
 
 #: browsers/models.py:75
 msgid "browser groups"
@@ -1286,9 +1269,8 @@ msgid "Password mismatch."
 msgstr ""
 
 #: browsers/views.py:246
-#, fuzzy
 msgid "invalid request"
-msgstr "istek"
+msgstr ""
 
 #: browsers/views.py:251
 msgid "permission denied"
@@ -1321,7 +1303,7 @@ msgstr ""
 
 #: browsers/templates/browsers/add.html:28
 msgid "other options"
-msgstr ""
+msgstr "kiti pasirinkimai"
 
 #: browsers/templates/browsers/add.html:29
 #, python-format
@@ -1332,28 +1314,24 @@ msgstr ""
 
 #: platforms/models.py:37
 msgid "position"
-msgstr ""
+msgstr "pozicija"
 
 #: platforms/models.py:47
 msgid "platforms"
-msgstr ""
+msgstr "platformos"
 
 #: platforms/models.py:62
 msgid "codename"
-msgstr ""
+msgstr "kodinis vardas"
 
 #: platforms/models.py:72
 msgid "operating systems"
-msgstr ""
+msgstr "operacinės sistemos"
 
 #: platforms/models.py:88
 msgid "e.g. i686 / PPC"
-msgstr ""
+msgstr "pvz., i686 / PPC"
 
 #: platforms/models.py:98
 msgid "architectures"
-msgstr ""
-
-#, fuzzy
-#~ msgid "comment"
-#~ msgstr "komut"
+msgstr "architektūros"
