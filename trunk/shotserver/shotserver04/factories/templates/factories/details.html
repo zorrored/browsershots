@@ -59,7 +59,9 @@
 {% endif %}
 
 {% if admin_logged_in %}
-<p><a href="/browsers/add/?factory={{ factory.name }}">{{ _("Register this browser for screenshots?") }}</a></p>
+<ul>
+<li><a href="/browsers/add/?factory={{ factory.name }}">{{ _("Register this browser for screenshots?") }}</a></li>
+</ul>
 {% endif %}
 
 <div style="float: left; margin: 0 2em 0 0;">

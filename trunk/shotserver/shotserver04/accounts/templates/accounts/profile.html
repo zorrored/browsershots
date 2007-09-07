@@ -11,6 +11,7 @@
 {{ _("This is your private profile page. Only you can see it.") }}
 </p>
 
+{% if factory_list %}
 <h2>{{ _("your screenshot factories")|capfirst }}</h2>
 <table class="factories vertical">
 <thead>
@@ -22,7 +23,13 @@
 {% endfor %}
 </tbody>
 </table>
-<p><a href="/browsers/add/">{{ _("Register this browser for screenshots?") }}</a></p>
+{% endif %}
+
+<ul>
+<li><a href="/factories/add/">{{ _("Register a new screenshot factory?") }}</a></li>
+<li><a href="/browsers/add/">{{ _("Register this browser for screenshots?") }}</a></li>
+</ul>
+
 {% if error_list %}
 <h2>{{ _("recent factory errors")|capfirst }}</h2>
 <table class="errors vertical">
