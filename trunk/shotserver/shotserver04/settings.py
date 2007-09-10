@@ -55,18 +55,18 @@ APPEND_SLASH = False
 LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = (
-    ('bg', u'Български'),
+    #('bg', u'Български'),
     ('cs', u'Česky'),
     ('da', u'Dansk'),
     ('de', u'Deutsch'),
     ('en', u'English'),
-    ('es', u'Español'),
+    #('es', u'Español'),
     ('fr', u'Français'),
-    ('it', u'Italiano'),
-    ('lt', u'Lietuviškai'),
+    #('it', u'Italiano'),
+    #('lt', u'Lietuviškai'),
     ('pt-br', u'Português'),
-    ('ru', u'Русский'),
-    ('tr', u'Türkçe'),
+    #('ru', u'Русский'),
+    #('tr', u'Türkçe'),
     )
 
 SITE_ID = 1
