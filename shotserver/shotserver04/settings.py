@@ -64,6 +64,7 @@ LANGUAGES = (
     ('fr', u'Français'),
     ('it', u'Italiano'),
     ('lt', u'Lietuviškai'),
+    ('pt-br', u'Português'),
     ('ru', u'Русский'),
     ('tr', u'Türkçe'),
     )
