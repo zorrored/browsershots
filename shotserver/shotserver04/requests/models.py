@@ -385,7 +385,9 @@ class Request(models.Model):
             'priority',
             )}),
             )
-        list_display = ('browser_group', 'major', 'minor', 'platform')
+        list_display = ('browser_group', 'major', 'minor',
+                        'platform', 'priority')
+        list_filter = ('browser_group', 'platform')
 
     class Meta:
         verbose_name = _('request')
