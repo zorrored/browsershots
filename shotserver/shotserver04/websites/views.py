@@ -61,6 +61,7 @@ def details(http_request, url):
     else:
         if http_request.META['QUERY_STRING']:
             url += '?' + http_request.META['QUERY_STRING']
+        url = url.replace(' ', '%20')
         website = get_object_or_404(Website, url=url)
     # Use caching to reduce number of SQL queries
     domain = website.domain
