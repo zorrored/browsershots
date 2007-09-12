@@ -168,6 +168,7 @@ INSTALLED_APPS = (
     'shotserver04.xmlrpc',
     'shotserver04.redirect',
     'shotserver04.messages',
+    'shotserver04.status',
 )
 
 # Override secret settings from secrets.py,
