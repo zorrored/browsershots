@@ -1,0 +1,61 @@
+{% extends "adbase.html" %}
+{% load human %}
+
+{% block title %}{{ _("usage report")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ _("usage report")|capfirst }}</h1>
+
+<table class="websites vertical">
+<thead>
+<tr>
+<th>{{ _("website")|capfirst }}</th>
+<th>{{ _("request groups per day")|capfirst }}</th>
+</tr>
+</thead>
+<tbody>
+{% for website in website_list %}
+<tr class="{% cycle row1,row2 %}">
+<td>{{ website|human_link }}</td>
+<td>{{ website.request_groups_per_day }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<table class="domains vertical">
+<thead>
+<tr>
+<th>{{ _("domain")|capfirst }}</th>
+<th>{{ _("request groups per day")|capfirst }}</th>
+</tr>
+</thead>
+<tbody>
+{% for domain in domain_list %}
+<tr class="{% cycle row1,row2 %}">
+<td>{{ domain }}</td>
+<td>{{ domain.request_groups_per_day }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<table class="ips vertical">
+<thead>
+<tr>
+<th>{{ _("IP") }}</th>
+<th>{{ _("FQDN") }}</th>
+<th>{{ _("request groups per day")|capfirst }}</th>
+</tr>
+</thead>
+<tbody>
+{% for ip, fqdn, request_groups_per_day in ip_list %}
+<tr class="{% cycle row1,row2 %}">
+<td>{{ ip }}</td>
+<td>{{ fqdn }}</td>
+<td>{{ request_groups_per_day }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}
