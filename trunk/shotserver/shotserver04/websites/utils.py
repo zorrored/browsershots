@@ -130,7 +130,7 @@ def http_get_path(connection, path):
     # Send request
     try:
         headers = {"User-Agent": "Browsershots URL Check"}
-        connection.request('GET', path, headers=headers)
+        connection.request('GET', path.encode('utf-8'), headers=headers)
     except socket.error, error:
         raise RequestError(connection.host, error)
     # Read response
