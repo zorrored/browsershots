@@ -81,6 +81,10 @@ width="512" height="{{ screenshot.get_large_height }}"
 <td>{{ request.request_group.submitted|human_datetime }}</td>
 </tr>
 <tr>
+<th>{{ _("started")|capfirst }}:</th>
+<td>{{ request.locked|human_datetime }}</td>
+</tr>
+<tr>
 <th>{{ _("page loaded")|capfirst }}:</th>
 <td>{{ request.redirected|human_datetime }}</td>
 </tr>
