@@ -102,7 +102,11 @@ width="512" height="{{ screenshot.get_large_height }}"
 <ul class="no-bullets">
 {% for choice in problem_form.fields.code.choices %}
 {% if choice.1 %}<li><label><input type="radio" value="{{ choice.0 }}" name="code" /> {{ choice.1 }}</label></li>{% endif %}{% endfor %}
-<li><input type="radio" value="999" name="code" /> {{ message_field }}</li>
+<li>
+<input type="radio" value="999" name="code" />
+{{ message_field }}
+<span class="hint">{{ problem_form.fields.message.help_text }}</span>
+</li>
 </ul>
 {% for error in problem_form.message.errors %}
 <p class="admonition error">{{ error }}</p>
