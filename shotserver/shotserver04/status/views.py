@@ -2,9 +2,11 @@ import socket
 from django.db import connection
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
 from shotserver04.websites.models import Website, Domain
 
 
+@login_required
 def usage(http_request):
     cursor = connection.cursor()
     # Most frequently requested websites
