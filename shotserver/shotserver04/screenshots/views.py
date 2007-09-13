@@ -102,7 +102,8 @@ class ProblemForm(forms.Form):
     Simple form for user feedback about screenshot problems.
     """
     code = forms.ChoiceField(widget=forms.RadioSelect)
-    message = forms.CharField(max_length=200, required=False)
+    message = forms.CharField(max_length=200, required=False,
+        help_text="Please write in English if possible.")
 
     def clean_message(self):
         """
