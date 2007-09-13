@@ -202,12 +202,10 @@ class RequestGroup(models.Model):
                 result.append(self.zip_link(len(screenshots), total_bytes))
             return '\n'.join(result)
         elif self.is_pending():
-            appear = unicode(_(
-                u"Your screenshots will appear here when they are uploaded."))
-            bookmark = bracket_link("", unicode(_(
-                u"[Reload this page] or bookmark it and come back later.")))
-            hint = '<br />\n'.join((appear, bookmark))
-            return u'<p class="admonition hint">%s</p>' % hint
+            return u'<p class="admonition hint">%s<br />\n%s</p>' % (
+_("Your screenshots will appear here when they are uploaded."),
+bracket_link(self.website.get_absolute_url(),
+_("[Reload this page] or bookmark it and come back later.")))
         else:
             hint = _(u"Your screenshot requests have expired.")
             return u'<p class="admonition warning">%s</p>' % hint
