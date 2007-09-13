@@ -40,7 +40,7 @@ from shotserver04.common.templatetags import human
 import sys
 
 DEBUG = '--debug' in sys.argv
-HOURS = 72
+DAYS = 7
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 5
 MAX_ORPHANS = 2
@@ -69,7 +69,7 @@ def example_urls(problems):
 for factory in Factory.objects.all():
     problems = ProblemReport.objects.filter(
         screenshot__factory=factory,
-        reported__gte=datetime.now() - timedelta(hours=HOURS))
+        reported__gte=datetime.now() - timedelta(days=DAYS))
     if not len(problems):
         continue
     codes = {}
@@ -82,11 +82,11 @@ for factory in Factory.objects.all():
         u"This is an automated user feedback report from Browsershots 0.4.",
         ]
     if len(problems) == 1:
-        body.append(u"In the last %d hours, there was one %s for" % (
-            HOURS, ProblemReport._meta.verbose_name))
+        body.append(u"In the last %d days, there was one %s for" % (
+            DAYS, ProblemReport._meta.verbose_name))
     else:
-        body.append(u"In the last %d hours, there were %d %s for" % (
-            HOURS, len(problems), ProblemReport._meta.verbose_name_plural))
+        body.append(u"In the last %d days, there were %d %s for" % (
+            DAYS, len(problems), ProblemReport._meta.verbose_name_plural))
     body.append(PREFIX + factory.get_absolute_url())
     keys = codes.keys()
     keys.sort()
