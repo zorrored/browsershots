@@ -20,9 +20,21 @@
 
 <form action="/accounts/login/" method="post">
 <table>
-<tr><th><label for="id_username">{{ _("username")|capfirst }}:</label></th><td>{{ form.username }}</td></tr>
-<tr><th><label for="id_password">{{ _("password")|capfirst }}:</label></th><td>{{ form.password }}</td></tr>
-<tr><th></th><td><input type="submit" value="{{ _("log in")|capfirst }}" /></td></tr>
+<tr>
+<th><label for="id_username">{{ _("username")|capfirst }}:</label></th>
+<td>{{ form.username }}</td>
+</tr>
+<tr>
+<th><label for="id_password">{{ _("password")|capfirst }}:</label></th>
+<td>{{ form.password }}</td>
+</tr>
+<tr>
+<th></th>
+<td>
+<input type="submit" value="{{ _("log in")|capfirst }}" />
+<input type="hidden" name="next" value="{{ next }}" />
+</td>
+</tr>
 </table>
 </form>
 
