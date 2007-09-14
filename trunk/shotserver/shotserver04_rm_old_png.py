@@ -17,7 +17,7 @@ import time
 from shotserver04.screenshots.models import Screenshot
 
 NOW = time.time()
-EXPIRE_DAYS = 10
+EXPIRE_DAYS = 8
 EXPIRE = NOW - EXPIRE_DAYS * 24 * 3600
 FOLDERS = glob.glob('/var/www/v04.browsershots.org/png/*')
 
