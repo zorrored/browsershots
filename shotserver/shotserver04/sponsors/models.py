@@ -39,7 +39,9 @@ class Sponsor(models.Model):
         _('URL'), max_length=400, unique=True, verify_exists=False)
     premium = models.BooleanField(
         _('premium'),
-        help_text=_("Premium sponsors are shown on the front page."))
+        help_text=_("Premium sponsors are always shown on the front page."))
+    front_page = models.BooleanField(
+        _('front page'), editable=False, default=False)
 
     class Admin:
         list_display = ('name', 'slug', 'url', 'premium')
