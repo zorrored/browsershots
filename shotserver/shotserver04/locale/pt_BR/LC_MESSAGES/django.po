@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-10 12:02-0700\n"
-"PO-Revision-Date: 2007-09-09 16:46+0000\n"
-"Last-Translator: Eclesiastes <felipe@regex.pro.br>\n"
+"POT-Creation-Date: 2007-09-14 13:05-0700\n"
+"PO-Revision-Date: 2007-09-10 23:57+0000\n"
+"Last-Translator: diogo <diogo86@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-10 18:28:49+0000\n"
+"X-Rosetta-Export-Date: 2007-09-14 19:58:32+0000\n"
 
 #: factories/models.py:45 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -34,7 +34,7 @@ msgid "administrator"
 msgstr "Administrador"
 
 #: factories/models.py:50 factories/templates/factories/details.html:16
-#: sponsors/models.py:48 screenshots/templates/screenshots/details.html:60
+#: sponsors/models.py:50 screenshots/templates/screenshots/details.html:60
 msgid "sponsor"
 msgstr "Responsável"
 
@@ -48,6 +48,7 @@ msgid "operating system"
 msgstr "Sistema operacional"
 
 #: factories/models.py:56 requests/models.py:67
+#: status/templates/status/usage.html:50
 msgid "IP"
 msgstr "IP"
 
@@ -88,7 +89,7 @@ msgid "created"
 msgstr "criado"
 
 #: factories/models.py:93 factories/models.py:186 factories/models.py:212
-#: messages/models.py:34 requests/models.py:367
+#: messages/models.py:34 requests/models.py:365
 #: accounts/templates/accounts/profile.html:38 screenshots/models.py:106
 #: screenshots/templates/screenshots/details.html:56 nonces/models.py:39
 #: browsers/models.py:87
@@ -275,7 +276,7 @@ msgid "%(seconds)d s"
 msgstr "%(seconds)d s"
 
 #: common/templatetags/human.py:52 requests/models.py:460
-#: requests/views.py:102
+#: requests/views.py:115
 #, python-format
 msgid "%(minutes)d min"
 msgstr "%(minutes)d min"
@@ -350,7 +351,7 @@ msgstr "remetente"
 msgid "receiver"
 msgstr "receptor"
 
-#: points/models.py:46 requests/models.py:376 screenshots/models.py:130
+#: points/models.py:46 requests/models.py:374 screenshots/models.py:130
 #: screenshots/models.py:332
 msgid "screenshot"
 msgstr "screenshot"
@@ -382,11 +383,11 @@ msgstr "considerado"
 
 #: points/models.py:82
 msgid "balance"
-msgstr ""
+msgstr "saldo"
 
 #: points/models.py:83
 msgid "balances"
-msgstr ""
+msgstr "saldos"
 
 #: points/models.py:111 requests/models.py:391
 msgid "request"
@@ -446,14 +447,21 @@ msgid "premium"
 msgstr "premium"
 
 #: sponsors/models.py:42
-msgid "Premium sponsors are shown on the front page."
+#, fuzzy
+msgid "Premium sponsors are always shown on the front page."
 msgstr "Patrocinadores Premium são mostrados na primeira página."
 
-#: sponsors/models.py:49
+#: sponsors/models.py:44
+#, fuzzy
+msgid "front page"
+msgstr "não se preocupe"
+
+#: sponsors/models.py:51
 msgid "sponsors"
 msgstr "patrocinadores"
 
 #: requests/models.py:51 websites/models.py:92 screenshots/models.py:104
+#: status/templates/status/usage.html:16
 msgid "website"
 msgstr "página de Internet"
 
@@ -477,7 +485,7 @@ msgstr "enviado"
 msgid "expire"
 msgstr "expira"
 
-#: requests/models.py:88 requests/models.py:355
+#: requests/models.py:88 requests/models.py:353
 #, fuzzy
 msgid "request group"
 msgstr "grupo solicitante"
@@ -489,7 +497,7 @@ msgstr "grupos solicitantes"
 
 #: requests/models.py:96
 msgid "screenshot request group"
-msgstr ""
+msgstr "grupo requerente da screenshot"
 
 #: requests/models.py:113
 #, python-format
@@ -523,70 +531,70 @@ msgstr "Seus screenshots irão aparecer aqui quando eles forem enviados."
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr "[Atualize esta página] ou adicione nos favoritos para voltar depois."
 
-#: requests/models.py:212
+#: requests/models.py:210
 msgid "Your screenshot requests have expired."
 msgstr "Sua requisição de screenshot expirou."
 
-#: requests/models.py:271
+#: requests/models.py:269
 #, python-format
 msgid "%(count)d starting"
 msgstr "%(count)d iniciando"
 
-#: requests/models.py:274
+#: requests/models.py:272
 #, python-format
 msgid "%(count)d loading"
 msgstr "%(count)d carregando"
 
-#: requests/models.py:277
+#: requests/models.py:275
 #, python-format
 msgid "%(count)d uploaded"
 msgstr "%(count)d enviados"
 
-#: requests/models.py:279
+#: requests/models.py:277
 msgid "details"
 msgstr "detalhes"
 
-#: requests/models.py:338
+#: requests/models.py:336
 msgid "download all screenshots"
 msgstr "baixar todos screenshots"
 
-#: requests/models.py:341
+#: requests/models.py:339
 #, python-format
 msgid "download %(count)d screenshots"
 msgstr "baixar %(count)d screenshots"
 
-#: requests/models.py:357 requests/templates/requests/overview.html:14
+#: requests/models.py:355 requests/templates/requests/overview.html:14
 #: platforms/models.py:46 platforms/models.py:56
 msgid "platform"
 msgstr "plataforma"
 
-#: requests/models.py:359 browsers/models.py:74 browsers/models.py:91
+#: requests/models.py:357 browsers/models.py:74 browsers/models.py:91
 msgid "browser group"
 msgstr "grupo de navegadores"
 
-#: requests/models.py:361 browsers/models.py:95
+#: requests/models.py:359 browsers/models.py:95
 msgid "major"
 msgstr "maior"
 
-#: requests/models.py:363 browsers/models.py:97
+#: requests/models.py:361 browsers/models.py:97
 msgid "minor"
 msgstr "menor"
 
-#: requests/models.py:365
+#: requests/models.py:363
 msgid "priority"
 msgstr "prioridade"
 
-#: requests/models.py:369
+#: requests/models.py:367
 msgid "locked"
 msgstr "bloqueado"
 
-#: requests/models.py:371 requests/templates/requests/overview.html:15
+#: requests/models.py:369 requests/templates/requests/overview.html:15
 #: screenshots/models.py:108 screenshots/templates/screenshots/details.html:36
 #: browsers/models.py:143
 msgid "browser"
 msgstr "navegador"
 
-#: requests/models.py:374
+#: requests/models.py:372
 msgid "redirected"
 msgstr "redirecionado"
 
@@ -595,7 +603,7 @@ msgid "requests"
 msgstr "requisições"
 
 #: requests/models.py:413 screenshots/models.py:114
-#: screenshots/templates/screenshots/details.html:88
+#: screenshots/templates/screenshots/details.html:92
 msgid "uploaded"
 msgstr "enviado"
 
@@ -611,7 +619,7 @@ msgstr "carregando"
 msgid "starting"
 msgstr "iniciando"
 
-#: requests/models.py:454 requests/views.py:99
+#: requests/models.py:454 requests/views.py:112
 msgid "unavailable"
 msgstr "indisponível"
 
@@ -648,7 +656,7 @@ msgid "Test your web design in different browsers"
 msgstr "Teste seu layout em diferentes navegadores"
 
 #: start/templates/start/start.html:19
-#: screenshots/templates/screenshots/details.html:106
+#: screenshots/templates/screenshots/details.html:114
 #: browsers/templates/browsers/add.html:19
 msgid "submit"
 msgstr "enviar"
@@ -771,7 +779,7 @@ msgstr "O servidor falhou em responder em até %d segundos."
 
 #: start/forms/url.py:148
 msgid "Malformed URL (database integrity error)."
-msgstr ""
+msgstr "URL inválida (erro de integridade do banco de dados)."
 
 #: accounts/views.py:78
 #, fuzzy
@@ -807,7 +815,7 @@ msgstr "enviar email"
 
 #: accounts/views.py:118
 msgid "email error"
-msgstr ""
+msgstr "erro no email"
 
 #: accounts/views.py:119
 msgid "Could not send email."
@@ -829,6 +837,7 @@ msgstr "Verifique seu email e siga as instruções na mensagem."
 #: accounts/views.py:124
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
+"Se o seu provedor de email utilizar graylist, isso pode levar alguns minutos."
 
 #: accounts/views.py:158
 msgid "Username must start with a lowercase letter."
@@ -917,7 +926,7 @@ msgstr "Clique no link no canto superior direito para logar."
 
 #: accounts/templates/accounts/login.html:4
 #: accounts/templates/accounts/login.html:7
-#: accounts/templates/accounts/login.html:25
+#: accounts/templates/accounts/login.html:34
 msgid "log in"
 msgstr "entrar"
 
@@ -929,15 +938,15 @@ msgstr "Seu nome de usuário e senha não conferem."
 msgid "Please try again."
 msgstr "Por favor, tente novamente."
 
-#: accounts/templates/accounts/login.html:23
+#: accounts/templates/accounts/login.html:24
 msgid "username"
 msgstr "Nome de usuário"
 
-#: accounts/templates/accounts/login.html:24 browsers/views.py:46
+#: accounts/templates/accounts/login.html:28 browsers/views.py:46
 msgid "password"
 msgstr "senha"
 
-#: accounts/templates/accounts/login.html:34
+#: accounts/templates/accounts/login.html:46
 msgid "Create a new account?"
 msgstr "Criar uma nova conta?"
 
@@ -959,7 +968,7 @@ msgstr "Registrar uma nova fábrica de screenshot?"
 
 #: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
-msgstr ""
+msgstr "erros recentes na fábrica"
 
 #: accounts/templates/accounts/profile.html:39
 msgid "code"
@@ -978,6 +987,7 @@ msgid "Missing slash after the hostname."
 msgstr "Faltando / depois do hostname."
 
 #: websites/models.py:57 websites/models.py:76
+#: status/templates/status/usage.html:33
 msgid "domain"
 msgstr "domínio"
 
@@ -1164,11 +1174,11 @@ msgstr "reportar problema"
 msgid "problem reports"
 msgstr "problemas reportados"
 
-#: screenshots/views.py:114
+#: screenshots/views.py:115
 msgid "HTML is not allowed here."
 msgstr "HTML não é permitido aqui."
 
-#: screenshots/views.py:118
+#: screenshots/views.py:119
 msgid "URLs are not allowed here."
 msgstr "URLs não são permitidas aqui."
 
@@ -1190,10 +1200,15 @@ msgid "requested"
 msgstr "requisitado"
 
 #: screenshots/templates/screenshots/details.html:84
+#, fuzzy
+msgid "started"
+msgstr "iniciando"
+
+#: screenshots/templates/screenshots/details.html:88
 msgid "page loaded"
 msgstr "página carregada"
 
-#: screenshots/templates/screenshots/details.html:95
+#: screenshots/templates/screenshots/details.html:99
 msgid "Report a problem with this screenshot?"
 msgstr "Reportar um problema nesta screenshot?"
 
@@ -1354,3 +1369,12 @@ msgstr "ex: i686 / PPC"
 #: platforms/models.py:98
 msgid "architectures"
 msgstr "arquiteturas"
+
+#: status/templates/status/usage.html:4 status/templates/status/usage.html:7
+#, fuzzy
+msgid "usage report"
+msgstr "reportar problema"
+
+#: status/templates/status/usage.html:51
+msgid "FQDN"
+msgstr ""

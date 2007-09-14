@@ -64,9 +64,12 @@ LANGUAGES = (
     ('fr', u'Français'),
     #('it', u'Italiano'),
     #('lt', u'Lietuviškai'),
+    ('nl', u'Nederlands'),
+    ('pl', u'Polski'),
     ('pt-br', u'Português'),
     #('ru', u'Русский'),
     #('tr', u'Türkçe'),
+    #('zh-tw', u'中文'),
     )
 
 SITE_ID = 1
