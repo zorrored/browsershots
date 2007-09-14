@@ -56,18 +56,15 @@ def overview(http_request):
         for p in Platform.objects.filter(id__in=platform_ids)])
     browser_groups = dict([(b.id, b)
         for b in BrowserGroup.objects.filter(id__in=browser_group_ids)])
-    browsers = Browser.objects.filter(browser_group__in=browser_group_ids)
+    browsers = Browser.objects.filter(
+        browser_group__in=browser_group_ids,
+        uploads_per_day__gt=0)
+    preload_foreign_keys(browsers, factory__operating_system=True)
     browser_list = []
     for key in browser_requests.keys():
         platform_id, browser_group_id, major, minor = key
-        uploads_per_hour = sum([b.uploads_per_hour for b in browsers
-            if b.browser_group_id == browser_group_id
-            and b.major == major and b.minor == minor
-            and b.uploads_per_hour])
-        uploads_per_day = sum([b.uploads_per_day for b in browsers
-            if b.browser_group_id == browser_group_id
-            and b.major == major and b.minor == minor
-            and b.uploads_per_day])
+        uploads_per_hour, uploads_per_day = count_uploads(
+            browsers, platform_id, browser_group_id, major, minor)
         browser_list.append({
             'platform': platforms[platform_id],
             'browser_group': browser_groups[browser_group_id],
@@ -79,6 +76,22 @@ def overview(http_request):
             })
     return render_to_response('requests/overview.html', locals(),
         context_instance=RequestContext(http_request))
+
+
+def count_uploads(browsers, platform_id, browser_group_id, major, minor):
+    """
+    Count uploads per hour and per day from all matching browsers.
+    """
+    uploads_per_hour = uploads_per_day = 0
+    for b in browsers:
+        if (b.factory.operating_system.platform_id == platform_id
+            and b.browser_group_id == browser_group_id
+            and b.major == major and b.minor == minor):
+            if b.uploads_per_hour:
+                uploads_per_hour += b.uploads_per_hour
+            if b.uploads_per_day:
+                uploads_per_day += b.uploads_per_day
+    return uploads_per_hour, uploads_per_day
 
 
 def queue_estimate(request, active_browsers, queued_seconds):
