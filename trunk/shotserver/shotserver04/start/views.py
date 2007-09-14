@@ -93,7 +93,7 @@ def start(http_request):
         multi_column(browser_forms)
         selectors = ' |\n'.join(selector_links(browser_forms))
         news_list = NewsItem.objects.all()[:10]
-        sponsors_list = Sponsor.objects.filter(premium=True)
+        sponsors_list = Sponsor.objects.filter(front_page=True)
         return render_to_response('start/start.html', locals(),
             context_instance=RequestContext(http_request))
     # Create screenshot requests and redirect to website overview.
