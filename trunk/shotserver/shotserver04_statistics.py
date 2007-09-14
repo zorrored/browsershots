@@ -47,6 +47,7 @@ LOCKFILE.truncate()
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
 from shotserver04 import settings
+from shotserver04.sponsors.models import Sponsor
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot
@@ -55,21 +56,38 @@ from shotserver04.websites.utils import count_profanities, http_get, HTTPError
 
 ONE_HOUR_AGO = datetime.now() - timedelta(0, 3600, 0)
 ONE_DAY_AGO = datetime.now() - timedelta(1, 0, 0)
+PREMIUM_UPLOADS_PER_DAY = 4800
 
-
-for factory in Factory.objects.all():
+# Count uploads per day and hour for factories, browsers, sponsors
+sponsor_uploads_per_day = {}
+factories = Factory.objects.all()
+for factory in factories:
     factory.uploads_per_hour = Screenshot.objects.filter(
         factory=factory, uploaded__gte=ONE_HOUR_AGO).count()
     factory.uploads_per_day = Screenshot.objects.filter(
         factory=factory, uploaded__gte=ONE_DAY_AGO).count()
-    browsers = Browser.objects.filter(factory=factory)
     factory.save()
+    if factory.sponsor_id is not None:
+        sponsor_uploads_per_day[factory.sponsor_id] = (
+            sponsor_uploads_per_day.get(factory.sponsor_id, 0) +
+            factory.uploads_per_day)
+    browsers = Browser.objects.filter(factory=factory)
     for browser in browsers:
         browser.uploads_per_hour = Screenshot.objects.filter(
             browser=browser, uploaded__gte=ONE_HOUR_AGO).count()
         browser.uploads_per_day = Screenshot.objects.filter(
             browser=browser, uploaded__gte=ONE_DAY_AGO).count()
         browser.save()
+
+# Show premium sponsors on the front page and very active factories
+sponsors = Sponsor.objects.all()
+for sponsor in sponsors:
+    front_page = sponsor.premium or (
+        sponsor.id in sponsor_uploads_per_day and
+        sponsor_uploads_per_day[sponsor.id] >= PREMIUM_UPLOADS_PER_DAY)
+    if sponsor.front_page != front_page:
+        sponsor.front_page = front_page
+        sponsor.save()
 
 
 if '--content' in sys.argv:
