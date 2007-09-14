@@ -13,7 +13,7 @@
 <tr class="row1"><th>{{ _("created")|capfirst }}:</th><td>{{ factory.created }}</td></tr>
 <tr class="row2"><th>{{ _("admin")|capfirst }}:</th><td>{{ factory.admin }}</td></tr>
 {% if factory.sponsor %}
-<tr class="row1"><th>{{ _("sponsor")|capfirst }}:</th><td>{{ factory.sponsor }}</td></tr>
+<tr class="row1"><th>{{ _("sponsor")|capfirst }}:</th><td>{{ factory.sponsor|human_link }}</td></tr>
 {% endif %}
 </table>
 
