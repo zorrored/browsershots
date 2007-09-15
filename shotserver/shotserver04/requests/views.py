@@ -120,7 +120,9 @@ def details(http_request, request_group_id):
     Show details about the selected request group.
     """
     request_group = get_object_or_404(RequestGroup, id=request_group_id)
-    queued = datetime.now() - request_group.submitted
+    now = datetime.now()
+    expired = request_group.expire < now
+    queued = now - request_group.submitted
     queued_seconds = queued.seconds + queued.days * 24 * 3600
     website = request_group.website
     active_factories = Factory.objects.filter(
@@ -138,10 +140,12 @@ def details(http_request, request_group_id):
         estimates = []
         for request in requests:
             if request.platform_id == platform.id:
+                status = (request.status() or
+                    (expired and _("expired")) or
+                    queue_estimate(request, active_browsers, queued_seconds))
                 estimates.append({
                     'browser': request.browser_string(),
-                    'status': request.status() or queue_estimate(
-                        request, active_browsers, queued_seconds),
+                    'status': status,
                     })
         if estimates:
             estimates.sort()
