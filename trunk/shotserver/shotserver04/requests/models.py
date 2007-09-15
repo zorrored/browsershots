@@ -217,18 +217,18 @@ _("[Reload this page] or bookmark it and come back later.")))
         parts = []
         requests = self.request_set.all()
         count = requests.count()
-        parts.append(u"%(count)d browsers selected" % locals())
+        parts.append(_("%(count)d browsers selected") % locals())
         queuing = requests.filter(screenshot__isnull=True)
         count = queuing.filter(factory__isnull=False,
                                browser__isnull=True).count()
         if count:
-            parts.append(', ' + _(u"%(count)d starting") % locals())
+            parts.append(', ' + _("%(count)d starting") % locals())
         count = queuing.filter(browser__isnull=False).count()
         if count:
-            parts.append(', ' + _(u"%(count)d loading") % locals())
+            parts.append(', ' + _("%(count)d loading") % locals())
         count = requests.filter(screenshot__isnull=False).count()
         if count:
-            parts.append(', ' + _(u"%(count)d uploaded") % locals())
+            parts.append(', ' + _("%(count)d uploaded") % locals())
         parts.append(u' (<a href="%s">%s</a>)' % (
             self.get_absolute_url(), capfirst(_("details"))))
         return u"<li>%s</li>" % ''.join(parts)
