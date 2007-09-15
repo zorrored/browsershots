@@ -210,50 +210,6 @@ _("[Reload this page] or bookmark it and come back later.")))
             hint = _(u"Your screenshot requests have expired.")
             return u'<p class="admonition warning">%s</p>' % hint
 
-    def matching_factories(self):
-        """
-        Get active factories that match this request group.
-        """
-        # Active factories
-        kwargs = {'last_poll__gte': last_poll_timeout()}
-        factories = set([factory.id
-            for factory in Factory.objects.filter(**kwargs)])
-        # Factories that support the requested screen size
-        kwargs = {}
-        if self.width:
-            kwargs['width'] = self.width
-        if self.height:
-            kwargs['height'] = self.height
-        if kwargs:
-            factories &= set([screen_size.factory_id
-                for screen_size in ScreenSize.objects.filter(**kwargs)])
-        # Factories that support the requested color depth
-        if self.bits_per_pixel:
-            kwargs = {'bits_per_pixel': self.bits_per_pixel}
-            factories &= set([color_depth.factory_id
-                for color_depth in ColorDepth.objects.filter(**kwargs)])
-        return factories
-
-    def matching_browser_filters(self):
-        """
-        Get active browsers that match this request group.
-        """
-        kwargs = {'active': True,
-                  'factory__in': self.matching_factories()}
-        if self.javascript_id == 2:
-            kwargs['javascript__id__gte'] = self.javascript_id
-        elif self.javascript_id:
-            kwargs['javascript'] = self.javascript_id
-        if self.java_id == 2:
-            kwargs['java__id__gte'] = self.java_id
-        elif self.java_id:
-            kwargs['java'] = self.java_id
-        if self.flash_id == 2:
-            kwargs['flash__id__gte'] = self.flash_id
-        elif self.flash_id:
-            kwargs['flash'] = self.flash_id
-        return kwargs
-
     def queue_overview(self):
         """
         Quick overview of queuing screenshots requests.
@@ -276,40 +232,6 @@ _("[Reload this page] or bookmark it and come back later.")))
         parts.append(u' (<a href="%s">%s</a>)' % (
             self.get_absolute_url(), capfirst(_("details"))))
         return u"<li>%s</li>" % ''.join(parts)
-
-    def queue_estimates(self):
-        """
-        Queue estimates for pending screenshot requests.
-        """
-        queued = datetime.now() - self.submitted
-        queued_seconds = queued.seconds + queued.days * 24 * 3600
-        filters = self.matching_browser_filters()
-        requests = self.request_set.all()
-        self.preload_cache()
-        preload_foreign_keys(requests,
-            browser_group=self._browser_groups_cache)
-        tables = {}
-        for request in requests:
-            estimate = (request.status() or
-                        request.queue_estimate(filters, queued_seconds))
-            table = tables.get(request.platform_id, [])
-            table.append(u'<tr><td>%s</td><td>%s</td></tr>' % (
-                request.browser_string(), estimate))
-            tables[request.platform_id] = table
-        # return repr(tables)
-        result = []
-        for platform in Platform.objects.all():
-            if platform.id in tables:
-                tables[platform.id].sort()
-                result.append('<div class="estimates">')
-                result.append('<h3>%s</h3>' % platform.name)
-                result.append('<table>')
-                result.extend(tables[platform.id])
-                result.append('</table>')
-                result.append('</div>')
-        if result:
-            result.append('<br class="clear" />')
-        return '\n'.join(result)
 
     def index(self):
         """
@@ -430,34 +352,6 @@ class Request(models.Model):
             raise Fault(423,
                 u"Request %d was locked by factory %s." %
                 (self.id, self.factory.name))
-
-    def matching_browsers(self, browser_filters):
-        """
-        Get all browsers that can process this request.
-        """
-        kwargs = dict(browser_filters)
-        kwargs['browser_group'] = self.browser_group_id
-        if self.platform is not None:
-            kwargs['factory__operating_system__platform_id'] = self.platform_id
-        if self.major is not None:
-            kwargs['major'] = self.major
-        if self.minor is not None:
-            kwargs['minor'] = self.minor
-        return list(Browser.objects.filter(**kwargs))
-
-    def queue_estimate(self, browser_filters, queued_seconds=0):
-        """
-        Get human-readable queue estimate.
-        """
-        browsers = self.matching_browsers(browser_filters)
-        if not len(browsers):
-            return _("unavailable")
-        else:
-            minimum = min([browser.factory.queue_estimate
-                           for browser in browsers])
-            seconds = max(60, minimum - queued_seconds)
-            minutes = (seconds + 30) / 60
-            return _("%(minutes)d min") % {'minutes': minutes}
 
 
 def bracket_link(href, text):
