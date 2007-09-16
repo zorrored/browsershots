@@ -37,7 +37,9 @@
 <span id="account-signin"><a href="/accounts/login/">{{ _("login")|capfirst }}</a></span>
 {% endif %}
 </div>
+{% if http_request %}
 {% load google_analytics %}
 {% google_analytics http_request.is_secure %}
+{% endif %}
 </body>
 </html>
