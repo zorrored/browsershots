@@ -32,6 +32,11 @@ from shotserver04.platforms.models import Architecture, OperatingSystem
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.common.templatetags import human
 
+FACTORY_FIELDS = (
+    'name', 'operating_system', 'architecture',
+    'last_poll', 'last_upload',
+    'uploads_per_hour', 'uploads_per_day',
+    'queue_estimate', 'created')
 FACTORY_FIELDS_HIDE = ('created', )
 FACTORY_FIELDS_SECONDS = ('queue_estimate')
 FACTORY_FIELDS_TIMESINCE = ('last_poll', 'last_upload', 'created')
@@ -74,19 +79,11 @@ class Factory(models.Model):
             (None, {'fields': ('name', 'admin', 'sponsor')}),
             ('Platform', {'fields': ('architecture', 'operating_system')}),
             )
-        search_fields = (
-            'name',
-            'platform__name',
-            'operating_system__name',
-            'operating_system__codename',
-            'operating_system__version',
-            'operating_system__distro',
-            'architecture__name',
-            )
-        list_display = ('name', 'operating_system', 'architecture',
-                        'last_poll', 'last_upload',
-                        'uploads_per_hour', 'uploads_per_day',
-                        'queue_estimate', 'created')
+        search_fields = ('name', 'admin__username',
+                         'admin__first_name', 'admin__last_name')
+        list_display = ('name', 'operating_system',
+                        'created', 'last_poll', 'admin')
+        list_filter = ('operating_system', )
         date_hierarchy = 'created'
 
     class Meta:
@@ -145,7 +142,7 @@ class Factory(models.Model):
         HTML table header cells for factory list.
         """
         fields = []
-        for field in cls._meta.admin.list_display:
+        for field in FACTORY_FIELDS: # cls._meta.admin.list_display:
             if field in FACTORY_FIELDS_HIDE:
                 continue
             try:
@@ -160,7 +157,7 @@ class Factory(models.Model):
         HTML table row cells for this factory.
         """
         fields = []
-        for field in self._meta.admin.list_display:
+        for field in FACTORY_FIELDS: # self._meta.admin.list_display:
             if field in FACTORY_FIELDS_HIDE:
                 continue
             value = getattr(self, field)
