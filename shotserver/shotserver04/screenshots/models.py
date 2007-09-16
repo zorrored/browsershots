@@ -148,7 +148,7 @@ class Screenshot(models.Model):
 
     def get_preview_height(self, width=160):
         """Calculate zoomed height."""
-        return self.height * width / self.width
+        return (self.height * width + self.width / 2) / self.width
 
     def get_large_height(self):
         """Calculate zoomed height for large preview."""
