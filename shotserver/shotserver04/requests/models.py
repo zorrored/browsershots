@@ -76,8 +76,7 @@ class RequestGroup(models.Model):
             'website',
             ('width', 'bits_per_pixel'),
             ('javascript', 'java', 'flash'),
-            'submitter',
-            'expire',
+            'user', 'expire',
             )}),
             )
         list_display = ('__unicode__', 'width', 'javascript', 'java', 'flash')
