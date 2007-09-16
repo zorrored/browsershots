@@ -5,12 +5,14 @@
 {% block head_extra %}
 <script type="text/javascript" src="/static/js/jquery.js"></script>
 <script type="text/javascript">
+// <![CDATA[
 $(function(){
-$("div#report-form").hide();
-$("a#report").click(function(){
-$("div#report-form").toggle();
+  $("div#report-form").hide();
+  $("a#report").click(function(){
+    $("div#report-form").toggle();
+  });
 });
-});
+// ]]>
 </script>
 {% endblock %}
 
