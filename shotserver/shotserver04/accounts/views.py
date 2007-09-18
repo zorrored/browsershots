@@ -25,24 +25,83 @@ __author__ = "$Author$"
 from datetime import datetime, timedelta
 from psycopg import IntegrityError
 import socket
+from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django import newforms as forms
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.newforms.util import ErrorList
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.factories.models import Factory
 from shotserver04.messages.models import FactoryError
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.common import error_page, success_page
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
+
+
+def logout_required(func):
+    def wrapper(http_request, *args, **kwargs):
+        if http_request.user.is_authenticated():
+            return error_page(http_request, _("You're already signed in"),
+                _("Please log out and then try again."))
+        return func(http_request, *args, **kwargs)
+    return wrapper
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=20)
+    password = forms.CharField(max_length=40,
+        widget=forms.PasswordInput(render_value=False))
+
+
+@logout_required
+def login(http_request):
+    """
+    Show login form and then log in, if correct password was submitted.
+    """
+    next = http_request.REQUEST.get('next', '')
+    if not next or '//' in next or ' ' in next:
+        next = settings.LOGIN_REDIRECT_URL
+    form = LoginForm(http_request.POST or None)
+    form_errors = []
+    user = None
+    if form.is_valid():
+        if not http_request.session.test_cookie_worked():
+            form_errors.append(_("Please enable cookies in your browser."))
+        else:
+            user = auth.authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'])
+            if user is None:
+                form_errors.append(_("Incorrect username or password."))
+            elif not user.is_active:
+                form_errors.append(_("This account is inactive."))
+    if form_errors or not user:
+        form_title = _("Welcome to Browsershots!")
+        form_submit = _("let me in")
+        form_hidden = '<input type="hidden" name="next" value="%s" />' % next
+        http_request.session.set_test_cookie()
+        return render_to_response('form.html', locals(),
+            context_instance=RequestContext(http_request))
+    auth.login(http_request, user)
+    http_request.session.delete_test_cookie()
+    return HttpResponseRedirect(next)
+
+
+def logout(http_request):
+    auth.logout(http_request)
+    result_title = _("logged out")
+    result_class = 'success'
+    result_message = _("You have successfully logged out.")
+    return render_to_response('result.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 @login_required
@@ -93,14 +152,11 @@ Browsershots
 """ % locals()
 
 
+@logout_required
 def email(http_request):
     """
     Ask user for email address, then send verification message.
     """
-    if http_request.user.is_authenticated():
-        return error_page(http_request, _("already signed in"),
-                          _("You're already signed in."),
-                          _("Please log out and then try again."))
     ip = http_request.META['REMOTE_ADDR']
     nonces_per_day = Nonce.objects.filter(ip=ip, email__isnull=False,
        created__gt=datetime.now() - timedelta(hours=24)).count()
@@ -237,15 +293,12 @@ class RegistrationForm(UserForm, PasswordForm):
                 self.errors[forms.NON_FIELD_ERRORS] = ErrorList([str(e)])
 
 
+@logout_required
 def verify(http_request, hashkey):
     """
     Register a new user or set a new password,
     after successful email verification.
     """
-    if http_request.user.is_authenticated():
-        return error_page(http_request, _("Already signed in"),
-_("You already have a user account, and you're currently signed in."),
-_("Please log out and then try again."))
     nonce = get_object_or_404(Nonce, hashkey=hashkey)
     ip = http_request.META['REMOTE_ADDR']
     if nonce.ip != ip:
