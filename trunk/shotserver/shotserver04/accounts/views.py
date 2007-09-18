@@ -70,6 +70,30 @@ class EmailForm(forms.Form):
     email = forms.EmailField()
 
 
+def email_message(domain, hashkey, user):
+    if user:
+        salutation = _("Hi %(first_name)s!") % {'first_name': user.first_name}
+        what = "set a new password"
+        action = 'password'
+    else:
+        salutation = _("Welcome to Browsershots!")
+        what = "finish the registration process"
+        action = 'register'
+    return """\
+%(salutation)s
+
+If you have not requested this verification email, you may ignore it.
+
+Click the following link (or copy it into your browser's address bar)
+to verify your email address and %(what)s:
+
+http://%(domain)s/accounts/%(action)s/%(hashkey)s/
+
+Cheers,
+Browsershots
+""" % locals()
+
+
 def email(http_request):
     """
     Ask user for email address, then send verification message.
@@ -94,22 +118,14 @@ _("Please try again later."))
         return render_to_response('form.html', locals(),
             context_instance=RequestContext(http_request))
     email = form.cleaned_data['email']
+    user = None
+    users = User.objects.filter(email=email)
+    if len(users):
+        user = users[0]
     hashkey = crypto.random_md5()
     Nonce.objects.create(email=email, hashkey=hashkey, ip=ip)
     domain = Site.objects.get_current().domain
-    message = """\
-Welcome to Browsershots!
-
-If you have not requested this verification email, you may ignore it.
-
-Click the following link (or copy it into your browser's address bar)
-to verify your email address and finish the registration process:
-
-http://%(domain)s/accounts/register/%(hashkey)s/
-
-Cheers,
-Browsershots
-""" % locals()
+    message = email_message(domain, hashkey, user)
     try:
         send_mail("Browsershots email verification", message,
                   'noreply@browsershots.org', [email],
@@ -167,7 +183,7 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
 
     def clean_password(self):
         """
-        Check that the password is long enough.
+        Check that the password is long enough and not too silly.
         """
         PASSWORD_MIN_LENGTH = 8
         password = self.cleaned_data['password']
