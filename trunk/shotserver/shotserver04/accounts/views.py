@@ -267,7 +267,7 @@ _("The verification email was requested more than 30 minutes ago."))
 def change_password(http_request, nonce, user):
     form = PasswordForm(http_request.POST or None)
     if not form.is_valid():
-        form_title = _("change your password")
+        form_title = _("choose a new password")
         form_action = '/accounts/verify/%s/' % nonce.hashkey
         form_submit = _("change password")
         form_javascript = "document.getElementById('id_password').focus()"
