@@ -87,6 +87,13 @@ def login(http_request):
         form_title = _("Welcome to Browsershots!")
         form_submit = _("let me in")
         form_hidden = '<input type="hidden" name="next" value="%s" />' % next
+        form_extra = u"""
+<ul>
+<li><a href="../email/">%s</a></li>
+<li><a href="../email/">%s</a></li>
+</ul>
+""".strip() % (_("Forgot your password?"),
+               _("Create a new account?"))
         http_request.session.set_test_cookie()
         return render_to_response('form.html', locals(),
             context_instance=RequestContext(http_request))
