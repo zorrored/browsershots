@@ -74,8 +74,6 @@ class Website(models.Model):
         validator_list=[has_slash_after_hostname])
     domain = models.ForeignKey(Domain,
         verbose_name=_('domain'), raw_id_admin=True)
-    content = models.TextField(
-        _('content'), blank=True)
     profanities = models.IntegerField(
         _('profanities'), blank=True, null=True)
     fetched = models.DateTimeField(
@@ -108,13 +106,3 @@ class Website(models.Model):
     def get_numeric_url(self):
         """Get absolute URL, in numeric format."""
         return '/websites/%d/' % self.id
-
-    def count_profanities(self):
-        """
-        Count profanities in page content.
-        """
-        text = ' '.join((self.url, self.content)).lower()
-        for word in settings.PROFANITIES_LIST:
-            count = text.count(word)
-            if count:
-                yield {'word': word, 'count': count}

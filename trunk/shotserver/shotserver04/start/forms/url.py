@@ -59,7 +59,8 @@ class UrlForm(forms.Form):
         self.add_slash()
         self.cleaned_data['content'] = self.http_get()
         self.cleaned_data['profanities'] = count_profanities(
-            settings.PROFANITIES_LIST, self.cleaned_data['content'])
+            settings.PROFANITIES_LIST,
+            self.cleaned_data['url'] + ' ' + self.cleaned_data['content'])
         self.cleaned_data['domain'] = self.get_or_create_domain()
         self.cleaned_data['website'] = self.get_or_create_website()
         return self.cleaned_data['url']
@@ -135,7 +136,7 @@ class UrlForm(forms.Form):
         """
         defaults = {}
         defaults['domain'] = self.cleaned_data['domain']
-        defaults['content'] = self.cleaned_data['content']
+        # defaults['content'] = self.cleaned_data['content']
         defaults['profanities'] = self.cleaned_data['profanities']
         try:
             website, created = Website.objects.get_or_create(
@@ -148,7 +149,7 @@ class UrlForm(forms.Form):
                 unicode(_("Malformed URL (database integrity error).")))
         # Update content cache
         if not created:
-            website.content = self.cleaned_data['content']
+            # website.content = self.cleaned_data['content']
             website.profanities = self.cleaned_data['profanities']
             website.fetched = datetime.now()
             website.save()
