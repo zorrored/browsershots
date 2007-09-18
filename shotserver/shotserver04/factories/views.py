@@ -137,6 +137,7 @@ def add(http_request):
     if not factory:
         form_title = _("register a new screenshot factory")
         form_submit = _("register")
+        form_javascript = "document.getElementById('id_name').focus()"
         return render_to_response('form.html', locals(),
             context_instance=RequestContext(http_request))
     return HttpResponseRedirect(factory.get_absolute_url())
