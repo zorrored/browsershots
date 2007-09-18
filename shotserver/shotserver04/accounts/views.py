@@ -278,6 +278,7 @@ def change_password(http_request, nonce, user):
 
 def register(http_request, nonce):
     form = RegistrationForm(http_request.POST or None)
+    user = None
     if form.is_valid():
         user = form.create_user(nonce.email)
     if user is None:
