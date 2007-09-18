@@ -30,6 +30,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django import newforms as forms
 from django.db import transaction
+from django.http import HttpResponse
 from django.newforms.util import ErrorList
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
@@ -79,7 +80,7 @@ def email_message(domain, hashkey, user):
         salutation = _("Welcome to Browsershots!")
         what = "finish the registration process"
         action = 'register'
-    return """\
+    return u"""\
 %(salutation)s
 
 If you have not requested this verification email, you may ignore it.
@@ -225,10 +226,19 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
             else:
                 self.errors[forms.NON_FIELD_ERRORS] = ErrorList([str(e)])
 
-def register(http_request, hashkey):
-    """
-    Register a new user, after successful email verification.
-    """
+
+class PasswordForm(forms.Form):
+    password = forms.CharField(max_length=40,
+        widget=forms.PasswordInput(render_value=False))
+    repeat = forms.CharField(max_length=40,
+        widget=forms.PasswordInput(render_value=False))
+
+
+PasswordForm.clean_password = RegistrationForm.clean_password
+PasswordForm.clean_repeat = RegistrationForm.clean_repeat
+
+
+def check_nonce(http_request, hashkey):
     if http_request.user.is_authenticated():
         return error_page(http_request, _("Already signed in"),
 _("You already have a user account, and you're currently signed in."),
@@ -244,10 +254,29 @@ _("The verification code has no email address."))
     if nonce.created < datetime.now() - timedelta(minutes=30):
         return error_page(http_request, _("Verification code expired"),
 _("The verification email was requested more than 30 minutes ago."))
-    form = RegistrationForm(http_request.POST or None)
+    return nonce
+
+
+def register(http_request, hashkey):
+    """
+    Register a new user or set a new password,
+    after successful email verification.
+    """
+    nonce = check_nonce(http_request, hashkey)
+    if isinstance(nonce, HttpResponse):
+        return nonce
     user = None
-    if form.is_valid():
-        user = form.create_user(nonce.email)
+    users = User.objects.filter(email=email)
+    if len(users):
+        user = users[0]
+    if user:
+        form = PasswordForm(http_request.POST or None)
+        if form.is_valid():
+            update_password()
+    else:
+        form = RegistrationForm(http_request.POST or None)
+        if form.is_valid():
+            user = form.create_user(nonce.email)
     if user is None:
         form_title = _("create a new account")
         form_action = '/accounts/register/%s/' % hashkey
