@@ -1,9 +1,22 @@
+import os
 import socket
 from django.db import connection
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from shotserver04 import settings
 from shotserver04.websites.models import Website, Domain
+
+
+@login_required
+def overview(http_request):
+    load_averages = '%.2f %.2f %.2f' % os.getloadavg()
+    stat = os.statvfs(settings.PNG_ROOT)
+    total_disk_space = stat.f_blocks * stat.f_frsize
+    free_disk_space = stat.f_bavail * stat.f_frsize
+    free_disk_percent = 100 * stat.f_bavail / stat.f_blocks
+    return render_to_response('status/overview.html', locals(),
+        context_instance=RequestContext(http_request))
 
 
 @login_required
