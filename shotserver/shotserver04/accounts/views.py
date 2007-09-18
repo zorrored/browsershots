@@ -75,11 +75,9 @@ def email_message(domain, hashkey, user):
     if user:
         salutation = _("Hi %(first_name)s!") % {'first_name': user.first_name}
         what = "set a new password"
-        action = 'password'
     else:
         salutation = _("Welcome to Browsershots!")
         what = "finish the registration process"
-        action = 'register'
     return u"""\
 %(salutation)s
 
@@ -88,7 +86,7 @@ If you have not requested this verification email, you may ignore it.
 Click the following link (or copy it into your browser's address bar)
 to verify your email address and %(what)s:
 
-http://%(domain)s/accounts/%(action)s/%(hashkey)s/
+http://%(domain)s/accounts/verify/%(hashkey)s/
 
 Cheers,
 Browsershots
@@ -151,17 +149,13 @@ def hide_hashkey(hashkey):
             query['sql'] = query['sql'].replace(hashkey, '[hidden]')
 
 
-class RegistrationForm(forms.Form):
+class UserForm(forms.Form):
     """
-    User registration form.
+    Username and realname.
     """
     username = forms.CharField(max_length=20)
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
-    password = forms.CharField(max_length=40,
-        widget=forms.PasswordInput(render_value=False))
-    repeat = forms.CharField(max_length=40,
-        widget=forms.PasswordInput(render_value=False))
 
     def clean_username(self):
         """
@@ -181,6 +175,16 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
             raise forms.ValidationError(unicode(
                 _("This username is reserved.")))
         return username
+
+
+class PasswordForm(forms.Form):
+    """
+    Password and repeat.
+    """
+    password = forms.CharField(max_length=40,
+        widget=forms.PasswordInput(render_value=False))
+    repeat = forms.CharField(max_length=40,
+        widget=forms.PasswordInput(render_value=False))
 
     def clean_password(self):
         """
@@ -210,6 +214,12 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
                 _("Repeat password is not the same.")))
         return repeat
 
+
+class RegistrationForm(UserForm, PasswordForm):
+    """
+    User registration form, mixed from user and password form.
+    """
+
     def create_user(self, email):
         """
         Try to create the user in the database.
@@ -227,18 +237,11 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
                 self.errors[forms.NON_FIELD_ERRORS] = ErrorList([str(e)])
 
 
-class PasswordForm(forms.Form):
-    password = forms.CharField(max_length=40,
-        widget=forms.PasswordInput(render_value=False))
-    repeat = forms.CharField(max_length=40,
-        widget=forms.PasswordInput(render_value=False))
-
-
-PasswordForm.clean_password = RegistrationForm.clean_password
-PasswordForm.clean_repeat = RegistrationForm.clean_repeat
-
-
-def check_nonce(http_request, hashkey):
+def verify(http_request, hashkey):
+    """
+    Register a new user or set a new password,
+    after successful email verification.
+    """
     if http_request.user.is_authenticated():
         return error_page(http_request, _("Already signed in"),
 _("You already have a user account, and you're currently signed in."),
@@ -254,32 +257,32 @@ _("The verification code has no email address."))
     if nonce.created < datetime.now() - timedelta(minutes=30):
         return error_page(http_request, _("Verification code expired"),
 _("The verification email was requested more than 30 minutes ago."))
-    return nonce
-
-
-def register(http_request, hashkey):
-    """
-    Register a new user or set a new password,
-    after successful email verification.
-    """
-    nonce = check_nonce(http_request, hashkey)
-    if isinstance(nonce, HttpResponse):
-        return nonce
-    user = None
-    users = User.objects.filter(email=email)
+    users = User.objects.filter(email=nonce.email)
     if len(users):
-        user = users[0]
-    if user:
-        form = PasswordForm(http_request.POST or None)
-        if form.is_valid():
-            update_password()
+        return change_password(http_request, nonce, users[0])
     else:
-        form = RegistrationForm(http_request.POST or None)
-        if form.is_valid():
-            user = form.create_user(nonce.email)
+        return register(http_request, nonce)
+
+
+def change_password(http_request, nonce, user):
+    form = PasswordForm(http_request.POST or None)
+    if form.is_valid():
+        pass
+    form_title = _("change your password")
+    form_action = '/accounts/verify/%s/' % nonce.hashkey
+    form_submit = _("change password")
+    form_javascript = "document.getElementById('id_password').focus()"
+    return render_to_response('form.html', locals(),
+        context_instance=RequestContext(http_request))
+
+
+def register(http_request, nonce):
+    form = RegistrationForm(http_request.POST or None)
+    if form.is_valid():
+        user = form.create_user(nonce.email)
     if user is None:
         form_title = _("create a new account")
-        form_action = '/accounts/register/%s/' % hashkey
+        form_action = '/accounts/verify/%s/' % nonce.hashkey
         form_submit = _("create account")
         form_javascript = "document.getElementById('id_username').focus()"
         return render_to_response('form.html', locals(),
