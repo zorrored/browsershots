@@ -94,6 +94,7 @@ def login(http_request):
 </ul>
 """.strip() % (_("Forgot your password?"),
                _("Create a new account?"))
+        form_javascript = "document.getElementById('id_username').focus()"
         http_request.session.set_test_cookie()
         return render_to_response('form.html', locals(),
             context_instance=RequestContext(http_request))
