@@ -266,14 +266,19 @@ _("The verification email was requested more than 30 minutes ago."))
 
 def change_password(http_request, nonce, user):
     form = PasswordForm(http_request.POST or None)
-    if form.is_valid():
-        pass
-    form_title = _("change your password")
-    form_action = '/accounts/verify/%s/' % nonce.hashkey
-    form_submit = _("change password")
-    form_javascript = "document.getElementById('id_password').focus()"
-    return render_to_response('form.html', locals(),
-        context_instance=RequestContext(http_request))
+    if not form.is_valid():
+        form_title = _("change your password")
+        form_action = '/accounts/verify/%s/' % nonce.hashkey
+        form_submit = _("change password")
+        form_javascript = "document.getElementById('id_password').focus()"
+        return render_to_response('form.html', locals(),
+            context_instance=RequestContext(http_request))
+    user.set_password(form.cleaned_data['password'])
+    user.save()
+    nonce.delete()
+    return success_page(http_request, _("Password changed"),
+        _("Your new password was saved."),
+        _("Click the link in the top right corner to log in."))
 
 
 def register(http_request, nonce):
