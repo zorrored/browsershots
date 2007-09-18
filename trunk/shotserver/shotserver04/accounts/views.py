@@ -277,7 +277,7 @@ def change_password(http_request, nonce, user):
     user.save()
     nonce.delete()
     return success_page(http_request, _("Password changed"),
-        _("Your new password was saved."),
+        _("Your new password has been saved."),
         _("Click the link in the top right corner to log in."))
 
 
