@@ -1,4 +1,4 @@
-# Spanish translation for shotserver
+# Basque translation for shotserver
 # Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
@@ -9,208 +9,199 @@ msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-18 17:40-0700\n"
-"PO-Revision-Date: 2007-08-05 11:43+0000\n"
-"Last-Translator: Piajeno <manuel@estrategiasmoviles.com>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2007-09-16 14:50+0000\n"
+"Last-Translator: 3ARRANO.com <3arrano@3arrano.com>\n"
+"Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:22+0000\n"
+"X-Rosetta-Export-Date: 2007-09-18 23:48:48+0000\n"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
 #: browsers/models.py:60 platforms/models.py:34 platforms/models.py:58
 #: platforms/models.py:87
 msgid "name"
-msgstr "nombre"
+msgstr "izena"
 
 #: factories/models.py:51
-#, fuzzy
 msgid "Hostname (lowercase)"
-msgstr "Nombe del host"
+msgstr "Ostalari-izena (minuskulaz)"
 
 #: factories/models.py:53
 msgid "administrator"
-msgstr "administrador"
+msgstr "administratzailea"
 
 #: factories/models.py:55 factories/templates/factories/details.html:16
 #: sponsors/models.py:50 screenshots/templates/screenshots/details.html:62
 msgid "sponsor"
-msgstr "patrocinador"
+msgstr "babeslea"
 
 #: factories/models.py:57
 msgid "hardware architecture"
-msgstr "arquitectura de hardware"
+msgstr "hardware arkitektura"
 
 #: factories/models.py:59 factories/templates/factories/details.html:11
 #: screenshots/templates/screenshots/details.html:70 platforms/models.py:71
 msgid "operating system"
-msgstr "sistema operativo"
+msgstr "sistema eragilea"
 
 #: factories/models.py:61 requests/models.py:67
 #: status/templates/status/usage.html:50
 msgid "IP"
-msgstr "IP"
+msgstr "IPa"
 
 #: factories/models.py:62
 msgid "The last poll came from this IP address."
-msgstr "La última encuesta vino de la siguiente dirección IP"
+msgstr "Azken bozka IP helbide honetatik eman zen."
 
 #: factories/models.py:64
 msgid "last poll"
-msgstr "Última encuesta"
+msgstr "azken bozka"
 
 #: factories/models.py:66 factories/templates/factories/details.html:32
 #: browsers/models.py:115
 msgid "last upload"
-msgstr "Última carga"
+msgstr "azken igoera"
 
 #: factories/models.py:68 factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17 browsers/models.py:117
 msgid "uploads per hour"
-msgstr "Cargas por hora"
+msgstr "igoerak orduko"
 
 #: factories/models.py:70 factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18 browsers/models.py:119
 msgid "uploads per day"
-msgstr "Cargas por día"
+msgstr "igoerak eguneko"
 
 #: factories/models.py:72
 msgid "queue estimate"
-msgstr "Cola estimada"
+msgstr "gutxi gora-beherako ilara"
 
 #: factories/models.py:73
 msgid "Seconds between screenshot request and upload."
-msgstr ""
+msgstr "Argazki eskaera eta igoeraren arteko segundoak."
 
 #: factories/models.py:75 factories/templates/factories/details.html:13
 #: nonces/models.py:43 browsers/models.py:121
 msgid "created"
-msgstr "creado"
+msgstr "sortua"
 
 #: factories/models.py:90 factories/models.py:183 factories/models.py:209
 #: messages/models.py:34 requests/models.py:286
 #: accounts/templates/accounts/profile.html:38 screenshots/models.py:106
 #: screenshots/templates/screenshots/details.html:58 nonces/models.py:39
 #: browsers/models.py:87
-#, fuzzy
 msgid "factory"
-msgstr "Fábrica"
+msgstr "faktoria"
 
 #: factories/models.py:91 common/templates/base.html:27
-#, fuzzy
 msgid "factories"
-msgstr "Fábricas"
+msgstr "faktoriak"
 
 #: factories/models.py:186 screenshots/models.py:110
 msgid "width"
-msgstr "ancho"
+msgstr "zabalera"
 
 #: factories/models.py:188 screenshots/models.py:112
 msgid "height"
-msgstr "alto"
+msgstr "garaiera"
 
 #: factories/models.py:195 start/forms/options.py:64
 msgid "screen size"
-msgstr "Tamaño de pantalla"
+msgstr "pantaila-neurria"
 
 #: factories/models.py:196 factories/templates/factories/details.html:68
 msgid "screen sizes"
-msgstr "Tamaños de pantalla"
+msgstr "pantaila-neurriak"
 
 #: factories/models.py:212 requests/models.py:57
 msgid "bits per pixel"
-msgstr "bits por píxel"
+msgstr "bit/pixel"
 
 #: factories/models.py:219 start/forms/options.py:66
 msgid "color depth"
-msgstr "profundidad de color"
+msgstr "kolore sakontasuna"
 
 #: factories/models.py:220 factories/templates/factories/details.html:81
 msgid "color depths"
-msgstr "profundidad de colores"
+msgstr "kolore sakontasunak"
 
 #: factories/views.py:50 start/views.py:64
 msgid "out of service"
-msgstr "fuera de servicio"
+msgstr "zerbitzutik at"
 
 #: factories/views.py:51 start/views.py:65
-#, fuzzy
 msgid "No active screenshot factories."
-msgstr "No hay fábricas de pantalla activas"
+msgstr "Ez dago argazki faktoriarik lanean."
 
 #: factories/views.py:52 start/views.py:66 accounts/views.py:166
 msgid "Please try again later."
-msgstr "Por favor, inténtelo más tarde"
+msgstr "Mesedez saiatu geroago."
 
 #: factories/views.py:98
 msgid "Name must start with a lowercase letter."
-msgstr ""
+msgstr "Izena minuskulaz hasi behar da."
 
 #: factories/views.py:102
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
-msgstr ""
+msgstr "Izenak minuskulak, zenbakiak, azpimarrak eta gidoiak eduki ditzake."
 
 #: factories/views.py:105
 msgid "This name is reserved."
-msgstr ""
+msgstr "Izen hau hartuta dago."
 
 #: factories/views.py:122
 msgid "This name is already taken."
-msgstr ""
+msgstr "Izen hau dagoeneko hartuta dago."
 
 #: factories/views.py:138
-#, fuzzy
 msgid "register a new screenshot factory"
-msgstr "No hay fábricas de pantalla activas"
+msgstr "argazki faktoria berria sortu"
 
 #: factories/views.py:139
-#, fuzzy
 msgid "register"
-msgstr "receptor"
+msgstr "sortu"
 
 #: factories/templates/factories/overview.html:5
 #: factories/templates/factories/overview.html:8
-#, fuzzy
 msgid "screenshot factories"
-msgstr "Fábricas de pantallas"
+msgstr "argazki faktoriak"
 
 #: factories/templates/factories/details.html:5
 #: factories/templates/factories/details.html:8
-#, fuzzy, python-format
+#, python-format
 msgid "Screenshot Factory %(name)s"
-msgstr "Fábrica de pantalla %(name)s"
+msgstr "%(name)s Argazki Faktoria"
 
 #: factories/templates/factories/details.html:12
 #: screenshots/templates/screenshots/details.html:66 platforms/models.py:97
 msgid "architecture"
-msgstr "arquitectura"
+msgstr "arkitektura"
 
 #: factories/templates/factories/details.html:14
-#, fuzzy
 msgid "admin"
 msgstr "admin"
 
 #: factories/templates/factories/details.html:20
-#, fuzzy
 msgid "installed browsers"
-msgstr "Navegadores instalados"
+msgstr "instalatutako nabigatzaileak"
 
 #: factories/templates/factories/details.html:27
 msgid "short version"
-msgstr "versión corta"
+msgstr "bertsio laburra"
 
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:42 browsers/models.py:50
 #: browsers/models.py:99
 msgid "engine"
-msgstr "motor"
+msgstr "motorea"
 
 #: factories/templates/factories/details.html:29 requests/models.py:59
 #: start/forms/features.py:66
 #: screenshots/templates/screenshots/details.html:46 browsers/models.py:103
 msgid "Javascript"
-msgstr "JavaScript"
+msgstr "Javascript"
 
 #: factories/templates/factories/details.html:30 requests/models.py:61
 #: start/forms/features.py:68
@@ -221,70 +212,64 @@ msgstr "Java"
 #: factories/templates/factories/details.html:31 requests/models.py:63
 #: start/forms/features.py:70
 #: screenshots/templates/screenshots/details.html:54 browsers/models.py:107
-#, fuzzy
 msgid "Flash"
 msgstr "Flash"
 
 #: factories/templates/factories/details.html:35 browsers/models.py:109
 msgid "command"
-msgstr "comando"
+msgstr "agindua"
 
 #: factories/templates/factories/details.html:58
-#, fuzzy
 msgid "No browsers registered for this factory."
-msgstr "No se han registrado navegadores para ésta fábrica"
+msgstr "Faktoria honek ez dauka nabigatzailerik."
 
 #: factories/templates/factories/details.html:63
 #: accounts/templates/accounts/profile.html:30
-#, fuzzy
 msgid "Register this browser for screenshots?"
-msgstr "Registrar este navegador para capturar pantallas!"
+msgstr "Nabigatzaile hau erregistratu argazkientzat?"
 
 #: factories/templates/factories/details.html:76
 #: factories/templates/factories/details.html:89
-#, fuzzy
 msgid "default only"
-msgstr "sólo predeterminado"
+msgstr "lehenetsia soilik"
 
 #: factories/templates/factories/details.html:94
 #: screenshots/templates/screenshots/overview.html:4
 #: screenshots/templates/screenshots/overview.html:7
 msgid "recent screenshots"
-msgstr "capturas de pantalla recientes"
+msgstr "azken argazkiak"
 
 #: factories/templates/factories/details.html:101
-#, fuzzy
 msgid "recent problem reports"
-msgstr "capturas de pantalla recientes"
+msgstr "azken akats jakinarazpenak"
 
 #: factories/templates/factories/details.html:104
 #, python-format
 msgid "%(interval)s ago"
-msgstr ""
+msgstr "duela %(interval)s"
 
 #: messages/models.py:36 screenshots/models.py:334
 msgid "error code"
-msgstr "código de error"
+msgstr "akats kodea"
 
 #: messages/models.py:38 screenshots/models.py:336
 msgid "error message"
-msgstr "mensaje de error"
+msgstr "akats mezua"
 
 #: messages/models.py:40
 msgid "occurred"
-msgstr "ocurrido"
+msgstr ""
 
 #: messages/models.py:48
-#, fuzzy
 msgid "factory error message"
-msgstr "mensaje de error de la fábrica"
+msgstr "faktoriaren akats mezua"
 
 #: messages/models.py:49
 msgid "factory error messages"
-msgstr "mensajes de error de la fábrica"
+msgstr "faktoriaren akats mezuak"
 
 #: common/templatetags/human.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "%(seconds)d s"
 msgstr "%(seconds)d s"
 
@@ -301,96 +286,96 @@ msgstr "%(hours)d h"
 #: common/templatetags/human.py:57
 #, python-format
 msgid "%(days)d d"
-msgstr "%(days)d d"
+msgstr "%(days)d e"
 
 #: common/templatetags/human.py:102
 #, python-format
 msgid "%(bytes)s bytes"
-msgstr "%(bytes)s bytes"
+msgstr "%(bytes)s byte"
 
 #: common/templatetags/sql_queries.py:54
 #, python-format
 msgid "%(count)d database queries"
-msgstr "%(count)d consultas a la base de datos"
+msgstr "%(count)d datu baseko kontsulta"
 
 #: common/templatetags/hosting_provider.py:44
 #, python-format
 msgid "hosted by %(provider)s"
-msgstr ""
+msgstr "ostatzailea: %(provider)s"
 
 #: common/templates/base.html:24
 msgid "home"
-msgstr "Inicio"
+msgstr "sarrera"
 
 #: common/templates/base.html:25 screenshots/models.py:131
 #: screenshots/models.py:288
 msgid "screenshots"
-msgstr "capturas de pantalla"
+msgstr "argazkiak"
 
 #: common/templates/base.html:26
 msgid "queue"
-msgstr "cola"
+msgstr "ilara"
 
 #: common/templates/base.html:28
 msgid "search"
-msgstr "buscar"
+msgstr "bilatu"
 
 #: common/templates/base.html:34
 msgid "signed in as"
-msgstr ""
+msgstr "saioa hasita:"
 
 #: common/templates/base.html:35
 msgid "logout"
-msgstr "cerrar sesión"
+msgstr "saioa amaitu"
 
 #: common/templates/base.html:37
 msgid "login"
-msgstr "inicio de sesión"
+msgstr "saioa hasi"
 
 #: common/templates/404.html:3 common/templates/404.html.py:6
 msgid "page not found"
-msgstr ""
+msgstr "ez da orria aurkitu"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr ""
+msgstr "Eskatutako orria ez da aurkitu."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
-msgstr ""
+msgstr "zerbitzariaren barne akatsa"
 
 #: points/models.py:40
 msgid "sender"
-msgstr "emisor"
+msgstr "bidaltzailea"
 
 #: points/models.py:43
 msgid "receiver"
-msgstr "receptor"
+msgstr "hartzailea"
 
 #: points/models.py:46 requests/models.py:295 screenshots/models.py:130
 #: screenshots/models.py:332
 msgid "screenshot"
-msgstr "captura de pantalla"
+msgstr "argazkia"
 
 #: points/models.py:49 points/models.py:79 points/models.py:113
 msgid "points"
-msgstr "puntos"
+msgstr "puntuak"
 
 #: points/models.py:51
 msgid "paid"
-msgstr "pagado"
+msgstr "ordainduta"
 
 #: points/models.py:54
 msgid "transaction"
-msgstr ""
+msgstr "eragiketa"
 
 #: points/models.py:55
 msgid "transactions"
-msgstr ""
+msgstr "eragiketak"
 
 #: points/models.py:75 points/models.py:109
 msgid "user"
-msgstr ""
+msgstr "erabiltzailea"
 
 #: points/models.py:77
 msgid "considered"
@@ -464,9 +449,8 @@ msgid "Premium sponsors are always shown on the front page."
 msgstr ""
 
 #: sponsors/models.py:44
-#, fuzzy
 msgid "front page"
-msgstr "no interesa"
+msgstr ""
 
 #: sponsors/models.py:51
 msgid "sponsors"
@@ -526,12 +510,12 @@ msgstr ""
 #: requests/models.py:150 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
-msgstr "%(width)d píxeles de ancho"
+msgstr ""
 
 #: requests/models.py:153 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
-msgstr "%(color_depth)d bits por píxel"
+msgstr ""
 
 #: requests/models.py:205
 msgid "Your screenshots will appear here when they are uploaded."
@@ -644,9 +628,8 @@ msgstr ""
 
 #: requests/templates/requests/overview.html:5
 #: requests/templates/requests/overview.html:8
-#, fuzzy
 msgid "screenshot request queue"
-msgstr "capturas de pantalla"
+msgstr ""
 
 #: requests/templates/requests/overview.html:16
 msgid "pending requests"
@@ -665,21 +648,21 @@ msgstr ""
 
 #: start/views.py:163
 msgid "select all"
-msgstr "seleccionar todo"
+msgstr ""
 
 #: start/views.py:164
 msgid "deselect all"
-msgstr "deseleccionar todo"
+msgstr ""
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
-msgstr "Pruebe su diseño web en distintos navegadores"
+msgstr ""
 
 #: start/templates/start/start.html:19
 #: screenshots/templates/screenshots/details.html:116
 #: browsers/templates/browsers/add.html:19
 msgid "submit"
-msgstr "enviar"
+msgstr ""
 
 #: start/templates/start/start.html:56
 msgid "project links"
@@ -698,9 +681,8 @@ msgid "XML-RPC interface"
 msgstr ""
 
 #: start/templates/start/start.html:61
-#, fuzzy
 msgid "source code"
-msgstr "código de error"
+msgstr ""
 
 #: start/templates/start/start.html:62
 msgid "downloads"
@@ -715,10 +697,9 @@ msgid "What is Browsershots?"
 msgstr ""
 
 #: start/templates/start/start.html:70
-#, fuzzy
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
-msgstr "Pruebe su diseño web en distintos navegadores"
+msgstr ""
 
 #: start/templates/start/start.html:71
 msgid "It is a free open-source online service created by Johann C. Rocholl."
@@ -743,62 +724,61 @@ msgid "latest news"
 msgstr ""
 
 #: start/templates/start/start.html:92
-#, fuzzy
 msgid "premium sponsors"
-msgstr "patrocinador"
+msgstr ""
 
 #: start/forms/features.py:35 start/forms/options.py:36
 #: start/forms/options.py:49
 msgid "don't care"
-msgstr "no interesa"
+msgstr ""
 
 #: start/forms/features.py:43 features/models.py:36
 #: browsers/templates/browsers/add.html:43
 #: browsers/templates/browsers/add.html:47
 msgid "disabled"
-msgstr "Deshabilitado"
+msgstr ""
 
 #: start/forms/features.py:46 features/models.py:34
 #: browsers/templates/browsers/add.html:43
 msgid "enabled"
-msgstr "Habilitado"
+msgstr ""
 
 #: start/forms/url.py:51
 msgid "Enter your web address here:"
-msgstr "Ingrese su dirección web aquí"
+msgstr ""
 
 #: start/forms/url.py:85
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
-msgstr "Esquema de URL %(scheme)s no soportado."
+msgstr ""
 
 #: start/forms/url.py:89
 msgid "Malformed URL (server name not specified)."
-msgstr "URL mal ingresada (no se especificó nombre del servidor)"
+msgstr ""
 
 #: start/forms/url.py:109
 #, python-format
 msgid "Could not connect to %(hostname)s."
-msgstr "No se pudo conectar a %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:111
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
-msgstr "No se pudo enviar la petición HTTP a %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:113
 #, python-format
 msgid "Could not get page content from %(hostname)s."
-msgstr "No se pudo obtener el contenido de la página %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:117
 #, python-format
 msgid "Server failed to respond within %d seconds."
-msgstr "El servidor no respondió luego de %d segundos."
+msgstr ""
 
 #: start/forms/url.py:149
 msgid "Malformed URL (database integrity error)."
-msgstr "URL mal ingresada (error de integridad de la base de datos)."
+msgstr ""
 
 #: accounts/views.py:52
 msgid "You're already signed in"
@@ -831,7 +811,7 @@ msgstr ""
 #: accounts/views.py:100
 #, fuzzy
 msgid "logged out"
-msgstr "cerrar sesión"
+msgstr "saioa amaitu"
 
 #: accounts/views.py:102
 msgid "You have successfully logged out."
@@ -850,9 +830,8 @@ msgid "email verification"
 msgstr ""
 
 #: accounts/views.py:171
-#, fuzzy
 msgid "send email"
-msgstr "emisor"
+msgstr ""
 
 #: accounts/views.py:189
 msgid "email error"
@@ -962,9 +941,8 @@ msgid "create account"
 msgstr ""
 
 #: accounts/views.py:353
-#, fuzzy
 msgid "Account created"
-msgstr "creado"
+msgstr ""
 
 #: accounts/views.py:354
 msgid "A new user account was created."
@@ -983,9 +961,8 @@ msgid "your screenshot factories"
 msgstr ""
 
 #: accounts/templates/accounts/profile.html:29
-#, fuzzy
 msgid "Register a new screenshot factory?"
-msgstr "No hay fábricas de pantalla activas"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
@@ -1175,9 +1152,8 @@ msgid "on %(platform)s"
 msgstr ""
 
 #: screenshots/models.py:338
-#, fuzzy
 msgid "reported"
-msgstr "creado"
+msgstr ""
 
 #: screenshots/models.py:340 nonces/models.py:37
 msgid "IP address"
@@ -1268,9 +1244,8 @@ msgid "unusual"
 msgstr ""
 
 #: browsers/models.py:67
-#, fuzzy
 msgid "Hide from recent screenshot overview?"
-msgstr "capturas de pantalla recientes"
+msgstr ""
 
 #: browsers/models.py:75
 msgid "browser groups"
@@ -1390,14 +1365,9 @@ msgid "server status"
 msgstr ""
 
 #: status/templates/status/usage.html:4 status/templates/status/usage.html:7
-#, fuzzy
 msgid "usage report"
-msgstr "creado"
+msgstr ""
 
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr ""
-
-#, fuzzy
-#~ msgid "comment"
-#~ msgstr "comando"
