@@ -1,5 +1,6 @@
 import os
 import socket
+from datetime import datetime, timedelta
 from django.db import connection
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -10,7 +11,13 @@ from shotserver04.websites.models import Website, Domain
 
 @login_required
 def overview(http_request):
+    # Local time and server uptime.
+    local_time = datetime.now()
+    uptime = float(open("/proc/uptime").read().split()[0])
+    started = local_time - timedelta(seconds=uptime)
+    # Load averages.
     load_averages = '%.2f %.2f %.2f' % os.getloadavg()
+    # Free disk space.
     stat = os.statvfs(settings.PNG_ROOT)
     total_disk_space = stat.f_blocks * stat.f_frsize
     free_disk_space = stat.f_bavail * stat.f_frsize
