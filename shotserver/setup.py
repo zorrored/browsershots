@@ -67,6 +67,8 @@ def find_data_files(data_dirnames=None):
             dirpath.endswith('/static') or
             dirpath.endswith('/static/css') or
             dirpath.endswith('/static/js') or
+            dirpath.endswith('/static/icons/browser') or
+            dirpath.endswith('/static/icons/os') or
             dirpath.endswith('/static/logos/234x60') or
             dirpath.endswith('/sql')):
             files = [os.path.join(dirpath, f) for f in filenames]
