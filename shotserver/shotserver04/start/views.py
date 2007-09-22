@@ -79,6 +79,8 @@ def start(http_request):
     browser_forms = []
     for platform in Platform.objects.all():
         browser_form = BrowsersForm(active_browsers, platform, post)
+        browser_form.platform_name = \
+            unicode(platform).lower().replace(' ', '-')
         if browser_form.is_bound:
             browser_form.full_clean()
         if browser_form.fields:
