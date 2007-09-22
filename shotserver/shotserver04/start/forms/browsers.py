@@ -55,9 +55,12 @@ class BrowsersForm(forms.BaseForm):
                 label += ' ' + str(browser.major)
                 if browser.minor is not None:
                     label += '.' + str(browser.minor)
+            platform_name = platform.name.lower().replace(' ', '-')
+            browser_name = browser.browser_group.name
+            browser_name = browser_name.lower().replace(' ', '-')
             name = '_'.join((
-                platform.name.lower().replace(' ', '-'),
-                browser.browser_group.name.lower().replace(' ', '-'),
+                platform_name,
+                browser_name,
                 str(browser.major),
                 str(browser.minor),
                 ))
@@ -73,6 +76,8 @@ class BrowsersForm(forms.BaseForm):
                     and other.major == browser.major])
             field = forms.BooleanField(
                 label=label, initial=initial, required=False)
+            field.platform_name = platform_name
+            field.browser_name = browser_name
             field_dict[name] = field
         field_names = field_dict.keys()
         field_names.sort()
@@ -88,9 +93,11 @@ class BrowsersForm(forms.BaseForm):
                 if not fields:
                     break
                 field = fields.pop(0)
-                output.append(unicode(self[field]) +
-                    u' <label for="id_%s">%s</label><br />' % (
-                    field, self[field].label))
+                img = u'<img src="/static/icons/browser/%s.png" alt="" />' % (
+                    self.fields[field].browser_name)
+                label = u' <label for="id_%s">%s %s</label><br />' % (
+                    field, self[field].label, img)
+                output.append(unicode(self[field]) + label)
             output.append('</div>')
         return u'\n'.join(output)
 

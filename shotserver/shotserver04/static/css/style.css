@@ -171,6 +171,9 @@ div.browsers div.not_last {
 .request_options {
   padding-top: 16px;
 }
+.browsers_column img {
+  vertical-align: middle;
+}
 
 div.large-preview { position: relative; }
 div.previous-screenshot {
