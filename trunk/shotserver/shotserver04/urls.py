@@ -54,7 +54,8 @@ urlpatterns = patterns('',
     (r'^admin/', include('django.contrib.admin.urls')),
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^(?P<url>https?://.+)$', 'shotserver04.websites.views.details'),
-    *load_app_patterns('shotserver04.', ignore=['common', 'start']))
+    *load_app_patterns('shotserver04.', ignore=[
+        'common', 'start', 'messages', 'nonces', 'features', 'platforms']))
 
 
 def get_static_path():

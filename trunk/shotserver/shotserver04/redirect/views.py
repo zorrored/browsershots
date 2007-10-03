@@ -26,7 +26,7 @@ from xmlrpclib import Fault
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
-from shotserver04.common import error_page
+from shotserver04.common import error_page, result_page
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory
 from shotserver04.requests.models import Request
@@ -73,3 +73,12 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
         FactoryError.objects.create(factory=factory,
             code=fault.faultCode, message=fault.faultString)
         return error_page(http_request, "redirect error", fault.faultString)
+
+
+def redirect_help(http_request):
+    """
+    Help message.
+    """
+    return result_page(http_request, 'hint', "Redirect",
+        "This page is used to redirect the browser for screenshots.",
+        "It must be loaded with appropriate parameters.")
