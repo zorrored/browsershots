@@ -55,15 +55,18 @@ APPEND_SLASH = False
 LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = (
+    #('ar', u'العربية'),
     #('bg', u'Български'),
     ('cs', u'Česky'),
     ('da', u'Dansk'),
     ('de', u'Deutsch'),
     ('en', u'English'),
-    #('es', u'Español'),
+    ('es', u'Español'),
+    #('eu', u'Euskara'),
     ('fr', u'Français'),
     #('it', u'Italiano'),
     #('lt', u'Lietuviškai'),
+    ('nb', u'Bokmål'),
     ('nl', u'Nederlands'),
     ('pl', u'Polski'),
     ('pt-br', u'Português'),
