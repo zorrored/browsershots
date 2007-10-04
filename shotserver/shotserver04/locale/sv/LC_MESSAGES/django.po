@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-18 17:40-0700\n"
+"POT-Creation-Date: 2007-10-04 10:20-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Pipecity <pipecity@hotmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -17,36 +17,551 @@ msgstr ""
 "X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#~ msgid "already signed in"
-#~ msgstr "redan inloggad"
+#: accounts/views.py:52
+#, fuzzy
+msgid "You're already signed in"
+msgstr "Du är redan inloggad."
 
-#~ msgid "Already signed in"
-#~ msgstr "Redan inloggad"
+#: accounts/views.py:53
+msgid "Please log out and then try again."
+msgstr "Var god logga ut och försök igen."
 
-#~ msgid "You already have a user account, and you're currently signed in."
-#~ msgstr "Du har redan ett användarkonto och du är förnuvarande inloggad."
+#: accounts/views.py:77
+msgid "Please enable cookies in your browser."
+msgstr ""
 
-#~ msgid "log in"
-#~ msgstr "logga in"
+#: accounts/views.py:83
+#, fuzzy
+msgid "Incorrect username or password."
+msgstr "Ditt användarnamn och lösenord stämmer inte överens."
 
-#~ msgid "Please try again."
-#~ msgstr "Var god försök igen."
+#: accounts/views.py:85
+#, fuzzy
+msgid "This account is inactive."
+msgstr "Denna webbläsare är redan inaktiverad."
 
-#~ msgid "username"
-#~ msgstr "användarnamn"
+#: accounts/views.py:87 accounts/views.py:146
+#, fuzzy
+msgid "Welcome to Browsershots!"
+msgstr "Vad är Browsershots?"
 
-#~ msgid "Create a new account?"
-#~ msgstr "Skapa ett nytt konto?"
+#: accounts/views.py:88
+msgid "let me in"
+msgstr ""
 
-#~ msgid "content"
-#~ msgstr "innehåll"
+#: accounts/views.py:95
+msgid "Forgot your password?"
+msgstr ""
 
-#: factories/models.py:50 factories/templates/factories/details.html:26
-#: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
-#: browsers/models.py:60 platforms/models.py:34 platforms/models.py:58
-#: platforms/models.py:87
+#: accounts/views.py:96
+msgid "Create a new account?"
+msgstr "Skapa ett nytt konto?"
+
+#: accounts/views.py:108
+#, fuzzy
+msgid "logged out"
+msgstr "utloggad"
+
+#: accounts/views.py:110
+msgid "You have successfully logged out."
+msgstr ""
+
+#: accounts/views.py:143 accounts/templates/accounts/profile.html:8
+#, python-format
+msgid "Hi %(first_name)s!"
+msgstr "Hej %(first_name)s!"
+
+#: accounts/views.py:172
+msgid "too many verification emails"
+msgstr "för många epostbekräftningar"
+
+#: accounts/views.py:173
+msgid "There were too many email requests from your IP in the last 24 hours."
+msgstr ""
+"Det är för många epostbegäranden från din IP inom de senaste 24 timmarna."
+
+#: accounts/views.py:174 factories/views.py:52 start/views.py:66
+msgid "Please try again later."
+msgstr "Var god försök senare."
+
+#: accounts/views.py:177
+msgid "email verification"
+msgstr "epostbekräftning"
+
+#: accounts/views.py:179
+msgid "send email"
+msgstr "skicka epost"
+
+#: accounts/views.py:197
+msgid "email error"
+msgstr "epostfel"
+
+#: accounts/views.py:198
+msgid "Could not send email."
+msgstr "Kunde inte skicka epostmeddelande"
+
+#: accounts/views.py:200
+msgid "email sent"
+msgstr "epostmeddelande skickat"
+
+#: accounts/views.py:201
+#, python-format
+msgid "A verification email was sent to %(email)s."
+msgstr "En epostbekräftelse skickades till %(email)s."
+
+#: accounts/views.py:202
+msgid "Check your email inbox and follow the instructions in the message."
+msgstr "Gå till din inkorg och följ intruktionerna i meddelandet."
+
+#: accounts/views.py:203
+msgid "If your email provider uses graylisting, it may take a few minutes."
+msgstr ""
+"Om din epostleverantör använder grålistning kan det ta ett par minuter."
+
+#: accounts/views.py:233
+msgid "Username must start with a lowercase letter."
+msgstr "Användarnamn måste börja med en liten bokstav."
+
+#: accounts/views.py:237
+msgid ""
+"Username may contain only lowercase letters, digits, underscore, hyphen."
+msgstr ""
+"Användarnamn får endast innehålla små bokstäver, siffror, undertecken, "
+"bindestreck."
+
+#: accounts/views.py:240
+msgid "This username is reserved."
+msgstr "Detta användarnamn är reserverat."
+
+#: accounts/views.py:261
+#, python-format
+msgid "The password must have %d or more characters."
+msgstr "Lösenordet måste innehålla %d eller fler tecken."
+
+#: accounts/views.py:265
+msgid "The password must not be completely numeric."
+msgstr "Lösenordet får inte bestå endast av siffror."
+
+#: accounts/views.py:278
+msgid "Repeat password is not the same."
+msgstr "Lösenorden stämmer inte överens."
+
+#: accounts/views.py:299
+msgid "This username is already taken."
+msgstr "Detta användarnamn används redan."
+
+#: accounts/views.py:313
+msgid "Wrong IP address"
+msgstr "Fel IP adress"
+
+#: accounts/views.py:314
+msgid "The verification email was requested from a different IP address."
+msgstr "Epostbeskräftelsen var begärt från en annan IP adress."
+
+#: accounts/views.py:316
+msgid "Bad verification code"
+msgstr "Felaktig bekräftningskod"
+
+#: accounts/views.py:317
+msgid "The verification code has no email address."
+msgstr "Bekräftelsekoden har ingen epostadress."
+
+#: accounts/views.py:319
+msgid "Verification code expired"
+msgstr "Bekräftningskoden har förfallit"
+
+#: accounts/views.py:320
+msgid "The verification email was requested more than 30 minutes ago."
+msgstr "Epostbekräftelsen var begärt för mer än 30 minuter sedan."
+
+#: accounts/views.py:331
+msgid "choose a new password"
+msgstr ""
+
+#: accounts/views.py:333
+#, fuzzy
+msgid "change password"
+msgstr "lösenord"
+
+#: accounts/views.py:340
+#, fuzzy
+msgid "Password changed"
+msgstr "Lösenorden stämmer inte överens."
+
+#: accounts/views.py:341
+msgid "Your new password has been saved."
+msgstr ""
+
+#: accounts/views.py:342 accounts/views.py:363
+msgid "Click the link in the top right corner to log in."
+msgstr "Klicka på länken i övre högra hörnet för att logga in."
+
+#: accounts/views.py:351
+msgid "create a new account"
+msgstr "skapa ett nytt konto"
+
+#: accounts/views.py:353
+msgid "create account"
+msgstr "skapa konto"
+
+#: accounts/views.py:361
+msgid "Account created"
+msgstr "Konto skapat"
+
+#: accounts/views.py:362
+msgid "A new user account was created."
+msgstr "Ett nytt användarkonto skapades."
+
+#: accounts/templates/accounts/profile.html:5
+msgid "profile"
+msgstr "profil"
+
+#: accounts/templates/accounts/profile.html:11
+msgid "This is your private profile page. Only you can see it."
+msgstr "Detta är din privata profilsida. Endast du kan se den."
+
+#: accounts/templates/accounts/profile.html:15
+msgid "your screenshot factories"
+msgstr "dina skärmbildsfabriker"
+
+#: accounts/templates/accounts/profile.html:29
+msgid "Register a new screenshot factory?"
+msgstr "Registrera en ny skärmbildsfabrik?"
+
+#: accounts/templates/accounts/profile.html:30
+#: factories/templates/factories/details.html:63
+msgid "Register this browser for screenshots?"
+msgstr "Registrera denna webbläsare för skärmbilder?"
+
+#: accounts/templates/accounts/profile.html:34
+msgid "recent factory errors"
+msgstr "senaste fabriksfel"
+
+#: accounts/templates/accounts/profile.html:38 browsers/models.py:87
+#: factories/models.py:90 factories/models.py:183 factories/models.py:209
+#: messages/models.py:34 nonces/models.py:39 requests/models.py:286
+#: screenshots/models.py:106 screenshots/templates/screenshots/details.html:58
+msgid "factory"
+msgstr "fabrik"
+
+#: accounts/templates/accounts/profile.html:39
+msgid "code"
+msgstr "kod"
+
+#: accounts/templates/accounts/profile.html:40
+msgid "message"
+msgstr "meddelande"
+
+#: accounts/templates/accounts/profile.html:41
+msgid "age"
+msgstr "ålder"
+
+#: accounts/templates/accounts/profile.html:57
+msgid "account balance"
+msgstr "kontosaldo"
+
+#: browsers/models.py:37 browsers/models.py:60 factories/models.py:50
+#: factories/templates/factories/details.html:26 platforms/models.py:34
+#: platforms/models.py:58 platforms/models.py:87 sponsors/models.py:34
+#: websites/models.py:47
 msgid "name"
 msgstr "namn"
+
+#: browsers/models.py:38
+msgid "e.g. Gecko / KHTML / AppleWebKit"
+msgstr "t.ex. Gecko / KHTML / AppleWebKit"
+
+#: browsers/models.py:40 browsers/models.py:63 platforms/models.py:64
+msgid "maker"
+msgstr "skapare"
+
+#: browsers/models.py:50 browsers/models.py:99
+#: factories/templates/factories/details.html:28
+#: screenshots/templates/screenshots/details.html:42
+msgid "engine"
+msgstr "motor"
+
+#: browsers/models.py:51
+msgid "engines"
+msgstr "motorer"
+
+#: browsers/models.py:61
+msgid "e.g. Firefox / MSIE / Safari"
+msgstr "t.ex. Firefox / MSIE / Safari"
+
+#: browsers/models.py:65
+msgid "terminal"
+msgstr "terminal"
+
+#: browsers/models.py:65
+msgid "Is this a text-mode browser?"
+msgstr "Är detta en textwebbläsare?"
+
+#: browsers/models.py:67
+msgid "unusual"
+msgstr "ovanlig"
+
+#: browsers/models.py:67
+msgid "Hide from recent screenshot overview?"
+msgstr "Göm från senaste skärmbildsöversikt?"
+
+#: browsers/models.py:74 browsers/models.py:91 requests/models.py:278
+msgid "browser group"
+msgstr "webbläsargrupp"
+
+#: browsers/models.py:75
+msgid "browser groups"
+msgstr "Webbläsargrupper"
+
+#: browsers/models.py:89
+msgid "user agent"
+msgstr "användaragent"
+
+#: browsers/models.py:93 features/models.py:60 features/models.py:81
+#: features/models.py:102 platforms/models.py:60
+msgid "version"
+msgstr "version"
+
+#: browsers/models.py:95 requests/models.py:280
+msgid "major"
+msgstr "större"
+
+#: browsers/models.py:97 requests/models.py:282
+msgid "minor"
+msgstr "mindre"
+
+#: browsers/models.py:101
+msgid "engine version"
+msgstr "motorversion"
+
+#: browsers/models.py:103 factories/templates/factories/details.html:29
+#: requests/models.py:59 screenshots/templates/screenshots/details.html:46
+#: start/forms/features.py:66
+msgid "Javascript"
+msgstr "Javascript"
+
+#: browsers/models.py:105 factories/templates/factories/details.html:30
+#: requests/models.py:61 screenshots/templates/screenshots/details.html:50
+#: start/forms/features.py:68
+msgid "Java"
+msgstr "Java"
+
+#: browsers/models.py:107 factories/templates/factories/details.html:31
+#: requests/models.py:63 screenshots/templates/screenshots/details.html:54
+#: start/forms/features.py:70
+msgid "Flash"
+msgstr "Flash"
+
+#: browsers/models.py:109 factories/templates/factories/details.html:35
+msgid "command"
+msgstr "kommando"
+
+#: browsers/models.py:110
+msgid "Leave empty to use default command."
+msgstr "Lämna tom för att använda standard kommando."
+
+#: browsers/models.py:112
+msgid "active"
+msgstr "aktiv"
+
+#: browsers/models.py:113
+msgid "Designates that this browser is currently installed."
+msgstr "Markera att denna webbläsare är för nuvarande installerad."
+
+#: browsers/models.py:115 factories/models.py:66
+#: factories/templates/factories/details.html:32
+msgid "last upload"
+msgstr "senaste uppladdning"
+
+#: browsers/models.py:117 factories/models.py:68
+#: factories/templates/factories/details.html:33
+#: requests/templates/requests/overview.html:17
+msgid "uploads per hour"
+msgstr "uppladdningar per timme"
+
+#: browsers/models.py:119 factories/models.py:70
+#: factories/templates/factories/details.html:34
+#: requests/templates/requests/overview.html:18
+msgid "uploads per day"
+msgstr "uppladdningar per dag"
+
+#: browsers/models.py:121 factories/models.py:75
+#: factories/templates/factories/details.html:13 nonces/models.py:43
+msgid "created"
+msgstr "skapad"
+
+#: browsers/models.py:143 requests/models.py:290
+#: requests/templates/requests/overview.html:15 screenshots/models.py:108
+#: screenshots/templates/screenshots/details.html:38
+msgid "browser"
+msgstr "webbläsare"
+
+#: browsers/models.py:144
+msgid "browsers"
+msgstr "webbläsare"
+
+#: browsers/models.py:168
+msgid "deactivate"
+msgstr "avaktivera"
+
+#: browsers/models.py:171
+msgid "activate"
+msgstr "aktivera"
+
+#: browsers/views.py:46
+msgid "password"
+msgstr "lösenord"
+
+#: browsers/views.py:148
+msgid "Password mismatch."
+msgstr "Lösenorden stämmer inte överens."
+
+#: browsers/views.py:246
+msgid "invalid request"
+msgstr "ogiltig begäran"
+
+#: browsers/views.py:251
+msgid "permission denied"
+msgstr "åtkomst nekad"
+
+#: browsers/views.py:284
+msgid "This browser is already inactive."
+msgstr "Denna webbläsare är redan inaktiverad."
+
+#: browsers/templates/browsers/add.html:5
+#: browsers/templates/browsers/add.html:8
+msgid "add a new browser version"
+msgstr "lägg till en ny webbläsarversion"
+
+#: browsers/templates/browsers/add.html:19
+#: screenshots/templates/screenshots/details.html:116
+#: start/templates/start/start.html:19
+msgid "submit"
+msgstr "skicka"
+
+#: browsers/templates/browsers/add.html:22
+msgid "updates"
+msgstr "uppdateringar"
+
+#: browsers/templates/browsers/add.html:24
+msgid ""
+"You can also use this page when you've changed settings or updated the "
+"browser."
+msgstr ""
+"Du kan också använda denna sida när du har ändrat inställningar eller "
+"uppdaterat webbläsaren."
+
+#: browsers/templates/browsers/add.html:25
+msgid ""
+"If the same browser is already registered for your factory, it will be "
+"replaced."
+msgstr ""
+"Om samma webbläsare redan är registrerad för din fabrik kommer den att "
+"ersättas."
+
+#: browsers/templates/browsers/add.html:28
+msgid "other options"
+msgstr "andra alternativ"
+
+#: browsers/templates/browsers/add.html:29
+#, python-format
+msgid ""
+"If your browser group or rendering engine is not available, please write to %"
+"(email)s."
+msgstr ""
+"Om din webbläsargrupp eller rendringsmotor inte är tillgänglig, var god "
+"skriv till %(email)s."
+
+#: browsers/templates/browsers/add.html:43 features/models.py:34
+#: start/forms/features.py:46
+msgid "enabled"
+msgstr "aktiverad"
+
+#: browsers/templates/browsers/add.html:43
+#: browsers/templates/browsers/add.html:47 features/models.py:36
+#: start/forms/features.py:43
+msgid "disabled"
+msgstr "avaktiverad"
+
+#: common/templates/404.html:3 common/templates/404.html.py:6
+msgid "page not found"
+msgstr "sida hittades inte"
+
+#: common/templates/404.html:7
+msgid "The requested page was not found."
+msgstr "The begärda sidan hittades inte"
+
+#: common/templates/500.html:3 common/templates/500.html.py:6
+msgid "internal server error"
+msgstr "internt serverfel"
+
+#: common/templates/base.html:24
+msgid "home"
+msgstr "hem"
+
+#: common/templates/base.html:25 screenshots/models.py:131
+#: screenshots/models.py:288
+msgid "screenshots"
+msgstr "skärmbilder"
+
+#: common/templates/base.html:26
+msgid "queue"
+msgstr "kö"
+
+#: common/templates/base.html:27 factories/models.py:91
+msgid "factories"
+msgstr "fabriker"
+
+#: common/templates/base.html:28
+msgid "search"
+msgstr "sök"
+
+#: common/templates/base.html:34
+msgid "signed in as"
+msgstr "inloggad som"
+
+#: common/templates/base.html:35
+msgid "logout"
+msgstr "utloggad"
+
+#: common/templates/base.html:37
+msgid "login"
+msgstr "logga in"
+
+#: common/templatetags/hosting_provider.py:44
+#, python-format
+msgid "hosted by %(provider)s"
+msgstr "hostad av %(provider)s"
+
+#: common/templatetags/human.py:49
+#, python-format
+msgid "%(seconds)d s"
+msgstr "%(seconds)d s"
+
+#: common/templatetags/human.py:52 requests/views.py:115
+#, python-format
+msgid "%(minutes)d min"
+msgstr "%(minutes)d min"
+
+#: common/templatetags/human.py:55
+#, python-format
+msgid "%(hours)d h"
+msgstr "%(hours)d h"
+
+#: common/templatetags/human.py:57
+#, python-format
+msgid "%(days)d d"
+msgstr "%(days)d d"
+
+#: common/templatetags/human.py:102
+#, python-format
+msgid "%(bytes)s bytes"
+msgstr "%(bytes)s bytes"
+
+#: common/templatetags/sql_queries.py:54
+#, python-format
+msgid "%(count)d database queries"
+msgstr "%(count)d databasfrågor"
 
 #: factories/models.py:51
 msgid "Hostname (lowercase)"
@@ -57,7 +572,7 @@ msgid "administrator"
 msgstr "administratör"
 
 #: factories/models.py:55 factories/templates/factories/details.html:16
-#: sponsors/models.py:50 screenshots/templates/screenshots/details.html:62
+#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:50
 msgid "sponsor"
 msgstr "sponsor"
 
@@ -66,7 +581,7 @@ msgid "hardware architecture"
 msgstr "hårdvaruarkitektur"
 
 #: factories/models.py:59 factories/templates/factories/details.html:11
-#: screenshots/templates/screenshots/details.html:70 platforms/models.py:71
+#: platforms/models.py:71 screenshots/templates/screenshots/details.html:70
 msgid "operating system"
 msgstr "operativsystem"
 
@@ -83,21 +598,6 @@ msgstr "Den senaste sökningen kom från denna IP adress"
 msgid "last poll"
 msgstr "senaste sökning"
 
-#: factories/models.py:66 factories/templates/factories/details.html:32
-#: browsers/models.py:115
-msgid "last upload"
-msgstr "senaste uppladdning"
-
-#: factories/models.py:68 factories/templates/factories/details.html:33
-#: requests/templates/requests/overview.html:17 browsers/models.py:117
-msgid "uploads per hour"
-msgstr "uppladdningar per timme"
-
-#: factories/models.py:70 factories/templates/factories/details.html:34
-#: requests/templates/requests/overview.html:18 browsers/models.py:119
-msgid "uploads per day"
-msgstr "uppladdningar per dag"
-
 #: factories/models.py:72
 msgid "queue estimate"
 msgstr "köuppskattning"
@@ -105,23 +605,6 @@ msgstr "köuppskattning"
 #: factories/models.py:73
 msgid "Seconds between screenshot request and upload."
 msgstr "Sekunder mellan skärmbildsbegäran och uppladdning"
-
-#: factories/models.py:75 factories/templates/factories/details.html:13
-#: nonces/models.py:43 browsers/models.py:121
-msgid "created"
-msgstr "skapad"
-
-#: factories/models.py:90 factories/models.py:183 factories/models.py:209
-#: messages/models.py:34 requests/models.py:286
-#: accounts/templates/accounts/profile.html:38 screenshots/models.py:106
-#: screenshots/templates/screenshots/details.html:58 nonces/models.py:39
-#: browsers/models.py:87
-msgid "factory"
-msgstr "fabrik"
-
-#: factories/models.py:91 common/templates/base.html:27
-msgid "factories"
-msgstr "fabriker"
 
 #: factories/models.py:186 screenshots/models.py:110
 msgid "width"
@@ -159,10 +642,6 @@ msgstr "trasig"
 msgid "No active screenshot factories."
 msgstr "Inga aktiva skärmbildsfabriker."
 
-#: factories/views.py:52 start/views.py:66 accounts/views.py:166
-msgid "Please try again later."
-msgstr "Var god försök senare."
-
 #: factories/views.py:98
 msgid "Name must start with a lowercase letter."
 msgstr "Namn måste starta med en liten bokstav."
@@ -188,19 +667,14 @@ msgstr "registrera en ny skärmbildsfabrik"
 msgid "register"
 msgstr "registrera"
 
-#: factories/templates/factories/overview.html:5
-#: factories/templates/factories/overview.html:8
-msgid "screenshot factories"
-msgstr "skärmbildsfabriker"
-
 #: factories/templates/factories/details.html:5
 #: factories/templates/factories/details.html:8
 #, python-format
 msgid "Screenshot Factory %(name)s"
 msgstr "Skärmbildsfabrik %(name)s"
 
-#: factories/templates/factories/details.html:12
-#: screenshots/templates/screenshots/details.html:66 platforms/models.py:97
+#: factories/templates/factories/details.html:12 platforms/models.py:97
+#: screenshots/templates/screenshots/details.html:66
 msgid "architecture"
 msgstr "arkitektur"
 
@@ -216,42 +690,9 @@ msgstr "installerade webbläsare"
 msgid "short version"
 msgstr "kort version"
 
-#: factories/templates/factories/details.html:28
-#: screenshots/templates/screenshots/details.html:42 browsers/models.py:50
-#: browsers/models.py:99
-msgid "engine"
-msgstr "motor"
-
-#: factories/templates/factories/details.html:29 requests/models.py:59
-#: start/forms/features.py:66
-#: screenshots/templates/screenshots/details.html:46 browsers/models.py:103
-msgid "Javascript"
-msgstr "Javascript"
-
-#: factories/templates/factories/details.html:30 requests/models.py:61
-#: start/forms/features.py:68
-#: screenshots/templates/screenshots/details.html:50 browsers/models.py:105
-msgid "Java"
-msgstr "Java"
-
-#: factories/templates/factories/details.html:31 requests/models.py:63
-#: start/forms/features.py:70
-#: screenshots/templates/screenshots/details.html:54 browsers/models.py:107
-msgid "Flash"
-msgstr "Flash"
-
-#: factories/templates/factories/details.html:35 browsers/models.py:109
-msgid "command"
-msgstr "kommando"
-
 #: factories/templates/factories/details.html:58
 msgid "No browsers registered for this factory."
 msgstr "Ingen webbläsare är registrerad för denna fabrik."
-
-#: factories/templates/factories/details.html:63
-#: accounts/templates/accounts/profile.html:30
-msgid "Register this browser for screenshots?"
-msgstr "Registrera denna webbläsare för skärmbilder?"
 
 #: factories/templates/factories/details.html:76
 #: factories/templates/factories/details.html:89
@@ -273,6 +714,43 @@ msgstr "senaste felrapporter"
 msgid "%(interval)s ago"
 msgstr "%(interval)s sen"
 
+#: factories/templates/factories/overview.html:5
+#: factories/templates/factories/overview.html:8
+msgid "screenshot factories"
+msgstr "skärmbildsfabriker"
+
+#: features/models.py:61 features/models.py:82
+msgid "e.g. 1.4 / 1.5 / 1.6"
+msgstr "t.ex. 1.4 / 1.5 / 1.6"
+
+#: features/models.py:67
+msgid "Javascript version"
+msgstr "Javascript version"
+
+#: features/models.py:68
+msgid "Javascript versions"
+msgstr "Javascript versioner"
+
+#: features/models.py:88
+msgid "Java version"
+msgstr "Java version"
+
+#: features/models.py:89
+msgid "Java versions"
+msgstr "Java versioner"
+
+#: features/models.py:103
+msgid "e.g. 5 / 6 / 7 / 8 / 9"
+msgstr "t.ex. 5 / 6 / 7 / 8 / 9"
+
+#: features/models.py:109
+msgid "Flash version"
+msgstr "Flash version"
+
+#: features/models.py:110
+msgid "Flash versions"
+msgstr "Flash versioner"
+
 #: messages/models.py:36 screenshots/models.py:334
 msgid "error code"
 msgstr "felkod"
@@ -293,198 +771,57 @@ msgstr "fabriksfelmeddelande"
 msgid "factory error messages"
 msgstr "fabriksfelmeddelanden"
 
-#: common/templatetags/human.py:49
-#, python-format
-msgid "%(seconds)d s"
-msgstr "%(seconds)d s"
+#: nonces/models.py:35 screenshots/models.py:102
+msgid "hashkey"
+msgstr "hashnyckel"
 
-#: common/templatetags/human.py:52 requests/views.py:115
-#, python-format
-msgid "%(minutes)d min"
-msgstr "%(minutes)d min"
+#: nonces/models.py:37 screenshots/models.py:340
+msgid "IP address"
+msgstr "IP adress"
 
-#: common/templatetags/human.py:55
-#, python-format
-msgid "%(hours)d h"
-msgstr "%(hours)d h"
+#: nonces/models.py:41
+msgid "email"
+msgstr "epost"
 
-#: common/templatetags/human.py:57
-#, python-format
-msgid "%(days)d d"
-msgstr "%(days)d d"
+#: nonces/models.py:54
+msgid "nonce"
+msgstr ""
 
-#: common/templatetags/human.py:102
-#, python-format
-msgid "%(bytes)s bytes"
-msgstr "%(bytes)s bytes"
+#: nonces/models.py:55
+msgid "nonces"
+msgstr ""
 
-#: common/templatetags/sql_queries.py:54
-#, python-format
-msgid "%(count)d database queries"
-msgstr "%(count)d databasfrågor"
+#: platforms/models.py:37
+msgid "position"
+msgstr "position"
 
-#: common/templatetags/hosting_provider.py:44
-#, python-format
-msgid "hosted by %(provider)s"
-msgstr "hostad av %(provider)s"
+#: platforms/models.py:46 platforms/models.py:56 requests/models.py:276
+#: requests/templates/requests/overview.html:14
+msgid "platform"
+msgstr "platform"
 
-#: common/templates/base.html:24
-msgid "home"
-msgstr "hem"
+#: platforms/models.py:47
+msgid "platforms"
+msgstr "platformar"
 
-#: common/templates/base.html:25 screenshots/models.py:131
-#: screenshots/models.py:288
-msgid "screenshots"
-msgstr "skärmbilder"
+#: platforms/models.py:62
+msgid "codename"
+msgstr "kodnamn"
 
-#: common/templates/base.html:26
-msgid "queue"
-msgstr "kö"
+#: platforms/models.py:72
+msgid "operating systems"
+msgstr "operativsystem"
 
-#: common/templates/base.html:28
-msgid "search"
-msgstr "sök"
+#: platforms/models.py:88
+msgid "e.g. i686 / PPC"
+msgstr "t.ex. i686 / PPC"
 
-#: common/templates/base.html:34
-msgid "signed in as"
-msgstr "inloggad som"
+#: platforms/models.py:98
+msgid "architectures"
+msgstr "arkitekturer"
 
-#: common/templates/base.html:35
-msgid "logout"
-msgstr "utloggad"
-
-#: common/templates/base.html:37
-msgid "login"
-msgstr "logga in"
-
-#: common/templates/404.html:3 common/templates/404.html.py:6
-msgid "page not found"
-msgstr "sida hittades inte"
-
-#: common/templates/404.html:7
-msgid "The requested page was not found."
-msgstr "The begärda sidan hittades inte"
-
-#: common/templates/500.html:3 common/templates/500.html.py:6
-msgid "internal server error"
-msgstr "internt serverfel"
-
-#: points/models.py:40
-msgid "sender"
-msgstr "avsändare"
-
-#: points/models.py:43
-msgid "receiver"
-msgstr "mottagare"
-
-#: points/models.py:46 requests/models.py:295 screenshots/models.py:130
-#: screenshots/models.py:332
-msgid "screenshot"
-msgstr "skärmbild"
-
-#: points/models.py:49 points/models.py:79 points/models.py:113
-msgid "points"
-msgstr "punkter"
-
-#: points/models.py:51
-msgid "paid"
-msgstr "betald"
-
-#: points/models.py:54
-msgid "transaction"
-msgstr "transaktion"
-
-#: points/models.py:55
-msgid "transactions"
-msgstr "transaktioner"
-
-#: points/models.py:75 points/models.py:109
-msgid "user"
-msgstr "användare"
-
-#: points/models.py:77
-#, fuzzy
-msgid "considered"
-msgstr "tänkt på"
-
-#: points/models.py:82
-msgid "balance"
-msgstr "saldo"
-
-#: points/models.py:83
-msgid "balances"
-msgstr "saldo"
-
-#: points/models.py:111 requests/models.py:312
-msgid "request"
-msgstr "begäran"
-
-#: points/models.py:116
-msgid "bid"
-msgstr "bud"
-
-#: points/models.py:117
-msgid "bids"
-msgstr "bud"
-
-#: points/templates/points/overview.html:5
-msgid "account"
-msgstr "konto"
-
-#: points/templates/points/overview.html:8 accounts/views.py:135
-#: accounts/templates/accounts/profile.html:8
-#, python-format
-msgid "Hi %(first_name)s!"
-msgstr "Hej %(first_name)s!"
-
-#: points/templates/points/overview.html:11
-msgid "This is your private account page. Only you can see it."
-msgstr "Detta är din privata kontosida. Endast du kan se den."
-
-#: points/templates/points/overview.html:14
-#: accounts/templates/accounts/profile.html:57
-msgid "account balance"
-msgstr "kontosaldo"
-
-#: points/templates/points/overview.html:18
-msgid "points received"
-msgstr "poäng mottaget"
-
-#: points/templates/points/overview.html:31
-msgid "points paid"
-msgstr "poäng betalt"
-
-#: sponsors/models.py:36
-#, fuzzy
-msgid "slug"
-msgstr "kula"
-
-#: sponsors/models.py:37
-msgid "This is used to generate the link to the logo image."
-msgstr "Detta är till för att generera länken till logotypen"
-
-#: sponsors/models.py:39 websites/models.py:73
-msgid "URL"
-msgstr "URL"
-
-#: sponsors/models.py:41
-msgid "premium"
-msgstr "premium"
-
-#: sponsors/models.py:42
-msgid "Premium sponsors are always shown on the front page."
-msgstr "Premiumsponsorer syns alltid på förstasidan."
-
-#: sponsors/models.py:44
-msgid "front page"
-msgstr "förstasida"
-
-#: sponsors/models.py:51
-msgid "sponsors"
-msgstr "sponsorer"
-
-#: requests/models.py:51 websites/models.py:90 screenshots/models.py:104
-#: status/templates/status/usage.html:16
+#: requests/models.py:51 screenshots/models.py:104
+#: status/templates/status/usage.html:16 websites/models.py:90
 msgid "website"
 msgstr "webbsida"
 
@@ -590,23 +927,6 @@ msgstr "ladda ner alla skärmbilder"
 msgid "download %(count)d screenshots"
 msgstr "ladda ner %(count)d skärmbilder"
 
-#: requests/models.py:276 requests/templates/requests/overview.html:14
-#: platforms/models.py:46 platforms/models.py:56
-msgid "platform"
-msgstr "platform"
-
-#: requests/models.py:278 browsers/models.py:74 browsers/models.py:91
-msgid "browser group"
-msgstr "webbläsargrupp"
-
-#: requests/models.py:280 browsers/models.py:95
-msgid "major"
-msgstr "större"
-
-#: requests/models.py:282 browsers/models.py:97
-msgid "minor"
-msgstr "mindre"
-
 #: requests/models.py:284
 msgid "priority"
 msgstr "prioritet"
@@ -615,15 +935,17 @@ msgstr "prioritet"
 msgid "locked"
 msgstr "låst"
 
-#: requests/models.py:290 requests/templates/requests/overview.html:15
-#: screenshots/models.py:108 screenshots/templates/screenshots/details.html:38
-#: browsers/models.py:143
-msgid "browser"
-msgstr "webbläsare"
-
 #: requests/models.py:293
 msgid "redirected"
 msgstr "omdirigerad"
+
+#: requests/models.py:295 screenshots/models.py:130 screenshots/models.py:332
+msgid "screenshot"
+msgstr "skärmbild"
+
+#: requests/models.py:312
+msgid "request"
+msgstr "begäran"
 
 #: requests/models.py:313
 msgid "requests"
@@ -654,6 +976,13 @@ msgstr "inte tillgänglig"
 msgid "expired"
 msgstr "förfallit"
 
+#: requests/templates/requests/details.html:9
+#: screenshots/templates/screenshots/details.html:23
+#: websites/templates/websites/details.html:9
+#, python-format
+msgid "for %(url)s"
+msgstr "för %(url)s"
+
 #: requests/templates/requests/overview.html:5
 #: requests/templates/requests/overview.html:8
 msgid "screenshot request queue"
@@ -667,30 +996,228 @@ msgstr "väntande begäranden"
 msgid "No pending requests."
 msgstr "Inga väntande begäranden."
 
-#: requests/templates/requests/details.html:9
-#: websites/templates/websites/details.html:9
-#: screenshots/templates/screenshots/details.html:23
-#, python-format
-msgid "for %(url)s"
-msgstr "för %(url)s"
+#: screenshots/models.py:36
+msgid "This is not the requested browser."
+msgstr "Detta är inte den begärda webbläsaren."
 
-#: start/views.py:163
+#: screenshots/models.py:37
+msgid "This is not the requested operating system."
+msgstr "Detta är inte det begärda operativsystemet."
+
+#: screenshots/models.py:39
+msgid "This is not the requested Javascript version."
+msgstr "Detta är inte den begärda Javascript versionen."
+
+#: screenshots/models.py:40
+msgid "This is not the requested Java version."
+msgstr "Detta är inte den begärda Java versionen."
+
+#: screenshots/models.py:41
+msgid "This is not the requested Flash version."
+msgstr "Detta är inte den begärda Flash versionen."
+
+#: screenshots/models.py:42
+msgid "A language pack needs to be installed."
+msgstr "Ett språkpaket behövs installeras."
+
+#: screenshots/models.py:44
+msgid "There is a dialog box in front of the browser window."
+msgstr "Det är en dialogruta framför webbläsarfönstret."
+
+#: screenshots/models.py:45
+msgid "The browser window is not maximized."
+msgstr "Webbläsarfönstret är inte maximerat."
+
+#: screenshots/models.py:46
+msgid "The page is not finished loading."
+msgstr "Sidan har inte laddat färdigt."
+
+#: screenshots/models.py:50
+#, python-format
+msgid "This is not %(browser)s."
+msgstr "Detta är inte %(browser)s."
+
+#: screenshots/models.py:51
+#, python-format
+msgid "This is not %(operating_system)s."
+msgstr "Detta är inte %(operating_system)s."
+
+#: screenshots/models.py:53
+#, python-format
+msgid "Javascript is not %(javascript)s."
+msgstr "Javascript är inte %(javascript)s."
+
+#: screenshots/models.py:54
+#, python-format
+msgid "Java is not %(java)s."
+msgstr "Java är inte %(java)s."
+
+#: screenshots/models.py:55
+#, python-format
+msgid "Flash is not %(flash)s."
+msgstr "Flash är inte %(flash)s."
+
+#: screenshots/models.py:260
+msgid "first"
+msgstr "första"
+
+#: screenshots/models.py:261
+msgid "previous"
+msgstr "föregående"
+
+#: screenshots/models.py:262
+msgid "next"
+msgstr "nästa"
+
+#: screenshots/models.py:263
+msgid "last"
+msgstr "sista"
+
+#: screenshots/models.py:274
+#, python-format
+msgid "%(index)d out of %(total)d"
+msgstr "%(index)d av %(total)d"
+
+#: screenshots/models.py:298
+#, python-format
+msgid "with %(browser)s"
+msgstr "med %(browser)s"
+
+#: screenshots/models.py:309
+#, python-format
+msgid "on %(platform)s"
+msgstr "på %(platform)s"
+
+#: screenshots/models.py:338
+msgid "reported"
+msgstr "rapporterad"
+
+#: screenshots/models.py:348
+msgid "problem report"
+msgstr "problemrapport"
+
+#: screenshots/models.py:349
+msgid "problem reports"
+msgstr "problemrapporter"
+
+#: screenshots/views.py:115
+msgid "HTML is not allowed here."
+msgstr "HTML är inte tillåtet här."
+
+#: screenshots/views.py:119
+msgid "URLs are not allowed here."
+msgstr "URLer är inte tillåtna här."
+
+#: screenshots/templates/screenshots/details.html:28
+msgid "Click for full size."
+msgstr "Klicka för helstorlek."
+
+#: screenshots/templates/screenshots/details.html:74
+msgid "dimensions"
+msgstr "dimensioner"
+
+#: screenshots/templates/screenshots/details.html:78
+msgid "file size"
+msgstr "filstorlek"
+
+#: screenshots/templates/screenshots/details.html:82
+msgid "requested"
+msgstr "begärd"
+
+#: screenshots/templates/screenshots/details.html:86
+msgid "started"
+msgstr "startad"
+
+#: screenshots/templates/screenshots/details.html:90
+msgid "page loaded"
+msgstr "sida laddad"
+
+#: screenshots/templates/screenshots/details.html:101
+msgid "Report a problem with this screenshot?"
+msgstr "Rapportera ett problem med denna skärmbild?"
+
+#: sponsors/models.py:36
+#, fuzzy
+msgid "slug"
+msgstr "kula"
+
+#: sponsors/models.py:37
+msgid "This is used to generate the link to the logo image."
+msgstr "Detta är till för att generera länken till logotypen"
+
+#: sponsors/models.py:39 websites/models.py:73
+msgid "URL"
+msgstr "URL"
+
+#: sponsors/models.py:41
+msgid "premium"
+msgstr "premium"
+
+#: sponsors/models.py:42
+msgid "Premium sponsors are always shown on the front page."
+msgstr "Premiumsponsorer syns alltid på förstasidan."
+
+#: sponsors/models.py:44
+msgid "front page"
+msgstr "förstasida"
+
+#: sponsors/models.py:51
+msgid "sponsors"
+msgstr "sponsorer"
+
+#: start/views.py:165
 msgid "select all"
 msgstr "välj alla"
 
-#: start/views.py:164
+#: start/views.py:166
 msgid "deselect all"
 msgstr "välja inga"
+
+#: start/forms/features.py:35 start/forms/options.py:36
+#: start/forms/options.py:49
+msgid "don't care"
+msgstr "spelar ingen roll"
+
+#: start/forms/url.py:51
+msgid "Enter your web address here:"
+msgstr "Mata in din webbadress här:"
+
+#: start/forms/url.py:85
+#, python-format
+msgid "URL scheme %(scheme)s is not supported."
+msgstr "URL schemat %(scheme)s stöds inte."
+
+#: start/forms/url.py:89
+msgid "Malformed URL (server name not specified)."
+msgstr "Felformaterad URL (servernamn angavs inte)."
+
+#: start/forms/url.py:109
+#, python-format
+msgid "Could not connect to %(hostname)s."
+msgstr "Kunde inte ansluta till %(hostname)s."
+
+#: start/forms/url.py:111
+#, python-format
+msgid "Could not send HTTP request to %(hostname)s."
+msgstr "Kunde inte skicka HTTP begäran till %(hostname)s."
+
+#: start/forms/url.py:113
+#, python-format
+msgid "Could not get page content from %(hostname)s."
+msgstr "Kunde inte hämta sidinnehåll från %(hostname)s."
+
+#: start/forms/url.py:117
+#, python-format
+msgid "Server failed to respond within %d seconds."
+msgstr "Servern misslyckades att svara inom %d sekunder."
+
+#: start/forms/url.py:149
+msgid "Malformed URL (database integrity error)."
+msgstr "Felformaterad URL (databasintegritetsfel)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
 msgstr "Testa din webbdesign i en annan webbläsare"
-
-#: start/templates/start/start.html:19
-#: screenshots/templates/screenshots/details.html:116
-#: browsers/templates/browsers/add.html:19
-msgid "submit"
-msgstr "skicka"
 
 #: start/templates/start/start.html:56
 msgid "project links"
@@ -759,277 +1286,27 @@ msgstr "senaste nytt"
 msgid "premium sponsors"
 msgstr "premium sponsorer"
 
-#: start/forms/features.py:35 start/forms/options.py:36
-#: start/forms/options.py:49
-msgid "don't care"
-msgstr "spelar ingen roll"
-
-#: start/forms/features.py:43 features/models.py:36
-#: browsers/templates/browsers/add.html:43
-#: browsers/templates/browsers/add.html:47
-msgid "disabled"
-msgstr "avaktiverad"
-
-#: start/forms/features.py:46 features/models.py:34
-#: browsers/templates/browsers/add.html:43
-msgid "enabled"
-msgstr "aktiverad"
-
-#: start/forms/url.py:51
-msgid "Enter your web address here:"
-msgstr "Mata in din webbadress här:"
-
-#: start/forms/url.py:85
-#, python-format
-msgid "URL scheme %(scheme)s is not supported."
-msgstr "URL schemat %(scheme)s stöds inte."
-
-#: start/forms/url.py:89
-msgid "Malformed URL (server name not specified)."
-msgstr "Felformaterad URL (servernamn angavs inte)."
-
-#: start/forms/url.py:109
-#, python-format
-msgid "Could not connect to %(hostname)s."
-msgstr "Kunde inte ansluta till %(hostname)s."
-
-#: start/forms/url.py:111
-#, python-format
-msgid "Could not send HTTP request to %(hostname)s."
-msgstr "Kunde inte skicka HTTP begäran till %(hostname)s."
-
-#: start/forms/url.py:113
-#, python-format
-msgid "Could not get page content from %(hostname)s."
-msgstr "Kunde inte hämta sidinnehåll från %(hostname)s."
-
-#: start/forms/url.py:117
-#, python-format
-msgid "Server failed to respond within %d seconds."
-msgstr "Servern misslyckades att svara inom %d sekunder."
-
-#: start/forms/url.py:149
-msgid "Malformed URL (database integrity error)."
-msgstr "Felformaterad URL (databasintegritetsfel)."
-
-#: accounts/views.py:52
-#, fuzzy
-msgid "You're already signed in"
-msgstr "Du är redan inloggad."
-
-#: accounts/views.py:53
-msgid "Please log out and then try again."
-msgstr "Var god logga ut och försök igen."
-
-#: accounts/views.py:77
-msgid "Please enable cookies in your browser."
+#: status/templates/status/overview.html:4
+#: status/templates/status/overview.html:7
+msgid "server status"
 msgstr ""
 
-#: accounts/views.py:83
-#, fuzzy
-msgid "Incorrect username or password."
-msgstr "Ditt användarnamn och lösenord stämmer inte överens."
+#: status/templates/status/usage.html:4 status/templates/status/usage.html:7
+msgid "usage report"
+msgstr "användningsrapport"
 
-#: accounts/views.py:85
-#, fuzzy
-msgid "This account is inactive."
-msgstr "Denna webbläsare är redan inaktiverad."
+#: status/templates/status/usage.html:33 websites/models.py:57
+#: websites/models.py:76
+msgid "domain"
+msgstr "domän"
 
-#: accounts/views.py:87 accounts/views.py:138
-#, fuzzy
-msgid "Welcome to Browsershots!"
-msgstr "Vad är Browsershots?"
-
-#: accounts/views.py:88
-msgid "let me in"
-msgstr ""
-
-#: accounts/views.py:100
-#, fuzzy
-msgid "logged out"
-msgstr "utloggad"
-
-#: accounts/views.py:102
-msgid "You have successfully logged out."
-msgstr ""
-
-#: accounts/views.py:164
-msgid "too many verification emails"
-msgstr "för många epostbekräftningar"
-
-#: accounts/views.py:165
-msgid "There were too many email requests from your IP in the last 24 hours."
-msgstr ""
-"Det är för många epostbegäranden från din IP inom de senaste 24 timmarna."
-
-#: accounts/views.py:169
-msgid "email verification"
-msgstr "epostbekräftning"
-
-#: accounts/views.py:171
-msgid "send email"
-msgstr "skicka epost"
-
-#: accounts/views.py:189
-msgid "email error"
-msgstr "epostfel"
-
-#: accounts/views.py:190
-msgid "Could not send email."
-msgstr "Kunde inte skicka epostmeddelande"
-
-#: accounts/views.py:192
-msgid "email sent"
-msgstr "epostmeddelande skickat"
-
-#: accounts/views.py:193
-#, python-format
-msgid "A verification email was sent to %(email)s."
-msgstr "En epostbekräftelse skickades till %(email)s."
-
-#: accounts/views.py:194
-msgid "Check your email inbox and follow the instructions in the message."
-msgstr "Gå till din inkorg och följ intruktionerna i meddelandet."
-
-#: accounts/views.py:195
-msgid "If your email provider uses graylisting, it may take a few minutes."
-msgstr ""
-"Om din epostleverantör använder grålistning kan det ta ett par minuter."
-
-#: accounts/views.py:225
-msgid "Username must start with a lowercase letter."
-msgstr "Användarnamn måste börja med en liten bokstav."
-
-#: accounts/views.py:229
-msgid ""
-"Username may contain only lowercase letters, digits, underscore, hyphen."
-msgstr ""
-"Användarnamn får endast innehålla små bokstäver, siffror, undertecken, "
-"bindestreck."
-
-#: accounts/views.py:232
-msgid "This username is reserved."
-msgstr "Detta användarnamn är reserverat."
-
-#: accounts/views.py:253
-#, python-format
-msgid "The password must have %d or more characters."
-msgstr "Lösenordet måste innehålla %d eller fler tecken."
-
-#: accounts/views.py:257
-msgid "The password must not be completely numeric."
-msgstr "Lösenordet får inte bestå endast av siffror."
-
-#: accounts/views.py:270
-msgid "Repeat password is not the same."
-msgstr "Lösenorden stämmer inte överens."
-
-#: accounts/views.py:291
-msgid "This username is already taken."
-msgstr "Detta användarnamn används redan."
-
-#: accounts/views.py:305
-msgid "Wrong IP address"
-msgstr "Fel IP adress"
-
-#: accounts/views.py:306
-msgid "The verification email was requested from a different IP address."
-msgstr "Epostbeskräftelsen var begärt från en annan IP adress."
-
-#: accounts/views.py:308
-msgid "Bad verification code"
-msgstr "Felaktig bekräftningskod"
-
-#: accounts/views.py:309
-msgid "The verification code has no email address."
-msgstr "Bekräftelsekoden har ingen epostadress."
-
-#: accounts/views.py:311
-msgid "Verification code expired"
-msgstr "Bekräftningskoden har förfallit"
-
-#: accounts/views.py:312
-msgid "The verification email was requested more than 30 minutes ago."
-msgstr "Epostbekräftelsen var begärt för mer än 30 minuter sedan."
-
-#: accounts/views.py:323
-msgid "choose a new password"
-msgstr ""
-
-#: accounts/views.py:325
-#, fuzzy
-msgid "change password"
-msgstr "lösenord"
-
-#: accounts/views.py:332
-#, fuzzy
-msgid "Password changed"
-msgstr "Lösenorden stämmer inte överens."
-
-#: accounts/views.py:333
-msgid "Your new password has been saved."
-msgstr ""
-
-#: accounts/views.py:334 accounts/views.py:355
-msgid "Click the link in the top right corner to log in."
-msgstr "Klicka på länken i övre högra hörnet för att logga in."
-
-#: accounts/views.py:343
-msgid "create a new account"
-msgstr "skapa ett nytt konto"
-
-#: accounts/views.py:345
-msgid "create account"
-msgstr "skapa konto"
-
-#: accounts/views.py:353
-msgid "Account created"
-msgstr "Konto skapat"
-
-#: accounts/views.py:354
-msgid "A new user account was created."
-msgstr "Ett nytt användarkonto skapades."
-
-#: accounts/templates/accounts/profile.html:5
-msgid "profile"
-msgstr "profil"
-
-#: accounts/templates/accounts/profile.html:11
-msgid "This is your private profile page. Only you can see it."
-msgstr "Detta är din privata profilsida. Endast du kan se den."
-
-#: accounts/templates/accounts/profile.html:15
-msgid "your screenshot factories"
-msgstr "dina skärmbildsfabriker"
-
-#: accounts/templates/accounts/profile.html:29
-msgid "Register a new screenshot factory?"
-msgstr "Registrera en ny skärmbildsfabrik?"
-
-#: accounts/templates/accounts/profile.html:34
-msgid "recent factory errors"
-msgstr "senaste fabriksfel"
-
-#: accounts/templates/accounts/profile.html:39
-msgid "code"
-msgstr "kod"
-
-#: accounts/templates/accounts/profile.html:40
-msgid "message"
-msgstr "meddelande"
-
-#: accounts/templates/accounts/profile.html:41
-msgid "age"
-msgstr "ålder"
+#: status/templates/status/usage.html:51
+msgid "FQDN"
+msgstr "FQDN"
 
 #: websites/models.py:38
 msgid "Missing slash after the hostname."
 msgstr "Saknat snedtecken efter värdnamnet."
-
-#: websites/models.py:57 websites/models.py:76
-#: status/templates/status/usage.html:33
-msgid "domain"
-msgstr "domän"
 
 #: websites/models.py:58
 msgid "domains"
@@ -1060,362 +1337,72 @@ msgstr "Begär nya skärmbilder?"
 msgid "other pages on the same domain"
 msgstr "andra sidor på samma domän"
 
-#: features/models.py:60 features/models.py:81 features/models.py:102
-#: browsers/models.py:93 platforms/models.py:60
-msgid "version"
-msgstr "version"
-
-#: features/models.py:61 features/models.py:82
-msgid "e.g. 1.4 / 1.5 / 1.6"
-msgstr "t.ex. 1.4 / 1.5 / 1.6"
-
-#: features/models.py:67
-msgid "Javascript version"
-msgstr "Javascript version"
-
-#: features/models.py:68
-msgid "Javascript versions"
-msgstr "Javascript versioner"
-
-#: features/models.py:88
-msgid "Java version"
-msgstr "Java version"
-
-#: features/models.py:89
-msgid "Java versions"
-msgstr "Java versioner"
-
-#: features/models.py:103
-msgid "e.g. 5 / 6 / 7 / 8 / 9"
-msgstr "t.ex. 5 / 6 / 7 / 8 / 9"
-
-#: features/models.py:109
-msgid "Flash version"
-msgstr "Flash version"
-
-#: features/models.py:110
-msgid "Flash versions"
-msgstr "Flash versioner"
-
-#: screenshots/models.py:36
-msgid "This is not the requested browser."
-msgstr "Detta är inte den begärda webbläsaren."
-
-#: screenshots/models.py:37
-msgid "This is not the requested operating system."
-msgstr "Detta är inte det begärda operativsystemet."
-
-#: screenshots/models.py:39
-msgid "This is not the requested Javascript version."
-msgstr "Detta är inte den begärda Javascript versionen."
-
-#: screenshots/models.py:40
-msgid "This is not the requested Java version."
-msgstr "Detta är inte den begärda Java versionen."
-
-#: screenshots/models.py:41
-msgid "This is not the requested Flash version."
-msgstr "Detta är inte den begärda Flash versionen."
-
-#: screenshots/models.py:42
-msgid "A language pack needs to be installed."
-msgstr "Ett språkpaket behövs installeras."
-
-#: screenshots/models.py:44
-msgid "There is a dialog box in front of the browser window."
-msgstr "Det är en dialogruta framför webbläsarfönstret."
-
-#: screenshots/models.py:45
-msgid "The browser window is not maximized."
-msgstr "Webbläsarfönstret är inte maximerat."
-
-#: screenshots/models.py:46
-msgid "The page is not finished loading."
-msgstr "Sidan har inte laddat färdigt."
-
-#: screenshots/models.py:50
-#, python-format
-msgid "This is not %(browser)s."
-msgstr "Detta är inte %(browser)s."
-
-#: screenshots/models.py:51
-#, python-format
-msgid "This is not %(operating_system)s."
-msgstr "Detta är inte %(operating_system)s."
-
-#: screenshots/models.py:53
-#, python-format
-msgid "Javascript is not %(javascript)s."
-msgstr "Javascript är inte %(javascript)s."
-
-#: screenshots/models.py:54
-#, python-format
-msgid "Java is not %(java)s."
-msgstr "Java är inte %(java)s."
-
-#: screenshots/models.py:55
-#, python-format
-msgid "Flash is not %(flash)s."
-msgstr "Flash är inte %(flash)s."
-
-#: screenshots/models.py:102 nonces/models.py:35
-msgid "hashkey"
-msgstr "hashnyckel"
-
-#: screenshots/models.py:260
-msgid "first"
-msgstr "första"
-
-#: screenshots/models.py:261
-msgid "previous"
-msgstr "föregående"
-
-#: screenshots/models.py:262
-msgid "next"
-msgstr "nästa"
-
-#: screenshots/models.py:263
-msgid "last"
-msgstr "sista"
-
-#: screenshots/models.py:274
-#, python-format
-msgid "%(index)d out of %(total)d"
-msgstr "%(index)d av %(total)d"
-
-#: screenshots/models.py:298
-#, python-format
-msgid "with %(browser)s"
-msgstr "med %(browser)s"
-
-#: screenshots/models.py:309
-#, python-format
-msgid "on %(platform)s"
-msgstr "på %(platform)s"
-
-#: screenshots/models.py:338
-msgid "reported"
-msgstr "rapporterad"
-
-#: screenshots/models.py:340 nonces/models.py:37
-msgid "IP address"
-msgstr "IP adress"
-
-#: screenshots/models.py:348
-msgid "problem report"
-msgstr "problemrapport"
-
-#: screenshots/models.py:349
-msgid "problem reports"
-msgstr "problemrapporter"
-
-#: screenshots/views.py:115
-msgid "HTML is not allowed here."
-msgstr "HTML är inte tillåtet här."
-
-#: screenshots/views.py:119
-msgid "URLs are not allowed here."
-msgstr "URLer är inte tillåtna här."
-
-#: screenshots/templates/screenshots/details.html:28
-msgid "Click for full size."
-msgstr "Klicka för helstorlek."
-
-#: screenshots/templates/screenshots/details.html:74
-msgid "dimensions"
-msgstr "dimensioner"
-
-#: screenshots/templates/screenshots/details.html:78
-msgid "file size"
-msgstr "filstorlek"
-
-#: screenshots/templates/screenshots/details.html:82
-msgid "requested"
-msgstr "begärd"
-
-#: screenshots/templates/screenshots/details.html:86
-msgid "started"
-msgstr "startad"
-
-#: screenshots/templates/screenshots/details.html:90
-msgid "page loaded"
-msgstr "sida laddad"
-
-#: screenshots/templates/screenshots/details.html:101
-msgid "Report a problem with this screenshot?"
-msgstr "Rapportera ett problem med denna skärmbild?"
-
-#: nonces/models.py:41
-msgid "email"
-msgstr "epost"
-
-#: nonces/models.py:54
-msgid "nonce"
-msgstr ""
-
-#: nonces/models.py:55
-msgid "nonces"
-msgstr ""
-
-#: browsers/models.py:38
-msgid "e.g. Gecko / KHTML / AppleWebKit"
-msgstr "t.ex. Gecko / KHTML / AppleWebKit"
-
-#: browsers/models.py:40 browsers/models.py:63 platforms/models.py:64
-msgid "maker"
-msgstr "skapare"
-
-#: browsers/models.py:51
-msgid "engines"
-msgstr "motorer"
-
-#: browsers/models.py:61
-msgid "e.g. Firefox / MSIE / Safari"
-msgstr "t.ex. Firefox / MSIE / Safari"
-
-#: browsers/models.py:65
-msgid "terminal"
-msgstr "terminal"
-
-#: browsers/models.py:65
-msgid "Is this a text-mode browser?"
-msgstr "Är detta en textwebbläsare?"
-
-#: browsers/models.py:67
-msgid "unusual"
-msgstr "ovanlig"
-
-#: browsers/models.py:67
-msgid "Hide from recent screenshot overview?"
-msgstr "Göm från senaste skärmbildsöversikt?"
-
-#: browsers/models.py:75
-msgid "browser groups"
-msgstr "Webbläsargrupper"
-
-#: browsers/models.py:89
-msgid "user agent"
-msgstr "användaragent"
-
-#: browsers/models.py:101
-msgid "engine version"
-msgstr "motorversion"
-
-#: browsers/models.py:110
-msgid "Leave empty to use default command."
-msgstr "Lämna tom för att använda standard kommando."
-
-#: browsers/models.py:112
-msgid "active"
-msgstr "aktiv"
-
-#: browsers/models.py:113
-msgid "Designates that this browser is currently installed."
-msgstr "Markera att denna webbläsare är för nuvarande installerad."
-
-#: browsers/models.py:144
-msgid "browsers"
-msgstr "webbläsare"
-
-#: browsers/models.py:168
-msgid "deactivate"
-msgstr "avaktivera"
-
-#: browsers/models.py:171
-msgid "activate"
-msgstr "aktivera"
-
-#: browsers/views.py:46
-msgid "password"
-msgstr "lösenord"
-
-#: browsers/views.py:148
-msgid "Password mismatch."
-msgstr "Lösenorden stämmer inte överens."
-
-#: browsers/views.py:246
-msgid "invalid request"
-msgstr "ogiltig begäran"
-
-#: browsers/views.py:251
-msgid "permission denied"
-msgstr "åtkomst nekad"
-
-#: browsers/views.py:284
-msgid "This browser is already inactive."
-msgstr "Denna webbläsare är redan inaktiverad."
-
-#: browsers/templates/browsers/add.html:5
-#: browsers/templates/browsers/add.html:8
-msgid "add a new browser version"
-msgstr "lägg till en ny webbläsarversion"
-
-#: browsers/templates/browsers/add.html:22
-msgid "updates"
-msgstr "uppdateringar"
-
-#: browsers/templates/browsers/add.html:24
-msgid ""
-"You can also use this page when you've changed settings or updated the "
-"browser."
-msgstr ""
-"Du kan också använda denna sida när du har ändrat inställningar eller "
-"uppdaterat webbläsaren."
-
-#: browsers/templates/browsers/add.html:25
-msgid ""
-"If the same browser is already registered for your factory, it will be "
-"replaced."
-msgstr ""
-"Om samma webbläsare redan är registrerad för din fabrik kommer den att "
-"ersättas."
-
-#: browsers/templates/browsers/add.html:28
-msgid "other options"
-msgstr "andra alternativ"
-
-#: browsers/templates/browsers/add.html:29
-#, python-format
-msgid ""
-"If your browser group or rendering engine is not available, please write to "
-"%(email)s."
-msgstr ""
-"Om din webbläsargrupp eller rendringsmotor inte är tillgänglig, var god "
-"skriv till %(email)s."
-
-#: platforms/models.py:37
-msgid "position"
-msgstr "position"
-
-#: platforms/models.py:47
-msgid "platforms"
-msgstr "platformar"
-
-#: platforms/models.py:62
-msgid "codename"
-msgstr "kodnamn"
-
-#: platforms/models.py:72
-msgid "operating systems"
-msgstr "operativsystem"
-
-#: platforms/models.py:88
-msgid "e.g. i686 / PPC"
-msgstr "t.ex. i686 / PPC"
-
-#: platforms/models.py:98
-msgid "architectures"
-msgstr "arkitekturer"
-
-#: status/templates/status/overview.html:4
-#: status/templates/status/overview.html:7
-msgid "server status"
-msgstr ""
-
-#: status/templates/status/usage.html:4 status/templates/status/usage.html:7
-msgid "usage report"
-msgstr "användningsrapport"
-
-#: status/templates/status/usage.html:51
-msgid "FQDN"
-msgstr "FQDN"
+#~ msgid "sender"
+#~ msgstr "avsändare"
+
+#~ msgid "receiver"
+#~ msgstr "mottagare"
+
+#~ msgid "points"
+#~ msgstr "punkter"
+
+#~ msgid "paid"
+#~ msgstr "betald"
+
+#~ msgid "transaction"
+#~ msgstr "transaktion"
+
+#~ msgid "transactions"
+#~ msgstr "transaktioner"
+
+#~ msgid "user"
+#~ msgstr "användare"
+
+#, fuzzy
+#~ msgid "considered"
+#~ msgstr "tänkt på"
+
+#~ msgid "balance"
+#~ msgstr "saldo"
+
+#~ msgid "balances"
+#~ msgstr "saldo"
+
+#~ msgid "bid"
+#~ msgstr "bud"
+
+#~ msgid "bids"
+#~ msgstr "bud"
+
+#~ msgid "account"
+#~ msgstr "konto"
+
+#~ msgid "This is your private account page. Only you can see it."
+#~ msgstr "Detta är din privata kontosida. Endast du kan se den."
+
+#~ msgid "points received"
+#~ msgstr "poäng mottaget"
+
+#~ msgid "points paid"
+#~ msgstr "poäng betalt"
+
+#~ msgid "already signed in"
+#~ msgstr "redan inloggad"
+
+#~ msgid "Already signed in"
+#~ msgstr "Redan inloggad"
+
+#~ msgid "You already have a user account, and you're currently signed in."
+#~ msgstr "Du har redan ett användarkonto och du är förnuvarande inloggad."
+
+#~ msgid "log in"
+#~ msgstr "logga in"
+
+#~ msgid "Please try again."
+#~ msgstr "Var god försök igen."
+
+#~ msgid "username"
+#~ msgstr "användarnamn"
+
+#~ msgid "content"
+#~ msgstr "innehåll"
