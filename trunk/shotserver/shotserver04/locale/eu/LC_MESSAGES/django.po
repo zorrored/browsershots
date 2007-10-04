@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-18 17:40-0700\n"
-"PO-Revision-Date: 2007-09-16 14:50+0000\n"
+"PO-Revision-Date: 2007-09-21 18:48+0000\n"
 "Last-Translator: 3ARRANO.com <3arrano@3arrano.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:48+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -403,17 +403,17 @@ msgstr ""
 
 #: points/templates/points/overview.html:5
 msgid "account"
-msgstr ""
+msgstr "kontua"
 
 #: points/templates/points/overview.html:8 accounts/views.py:135
 #: accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
-msgstr ""
+msgstr "Aupa %(first_name)s!"
 
 #: points/templates/points/overview.html:11
 msgid "This is your private account page. Only you can see it."
-msgstr ""
+msgstr "Hau zure kontuaren orri pribatua da. Zuk bakarrik ikus dezakezu."
 
 #: points/templates/points/overview.html:14
 #: accounts/templates/accounts/profile.html:57
@@ -438,11 +438,11 @@ msgstr ""
 
 #: sponsors/models.py:39 websites/models.py:73
 msgid "URL"
-msgstr ""
+msgstr "URLa"
 
 #: sponsors/models.py:41
 msgid "premium"
-msgstr ""
+msgstr "premium"
 
 #: sponsors/models.py:42
 msgid "Premium sponsors are always shown on the front page."
@@ -459,15 +459,15 @@ msgstr ""
 #: requests/models.py:51 websites/models.py:90 screenshots/models.py:104
 #: status/templates/status/usage.html:16
 msgid "website"
-msgstr ""
+msgstr "webgunea"
 
 #: requests/models.py:53
 msgid "screen width"
-msgstr ""
+msgstr "pantailaren zabalera"
 
 #: requests/models.py:55
 msgid "screen height"
-msgstr ""
+msgstr "pantailaren garaiera"
 
 #: requests/models.py:65
 msgid "submitter"
@@ -496,12 +496,12 @@ msgstr ""
 #: requests/models.py:112
 #, python-format
 msgid "submitted %(interval)s ago"
-msgstr ""
+msgstr "orain dela %(interval)s"
 
 #: requests/models.py:125
 #, python-format
 msgid "expires in %(interval)s"
-msgstr ""
+msgstr "iraungitze-data: %(interval)s"
 
 #: requests/models.py:135
 msgid "extend"
@@ -510,29 +510,29 @@ msgstr ""
 #: requests/models.py:150 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
-msgstr ""
+msgstr "%(width)d pixel zabal"
 
 #: requests/models.py:153 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
-msgstr ""
+msgstr "%(color_depth)d bit/pixel"
 
 #: requests/models.py:205
 msgid "Your screenshots will appear here when they are uploaded."
-msgstr ""
+msgstr "Zure pantaila-argazkiak hemen erakutsiko dira igo bezain laster."
 
 #: requests/models.py:207
 msgid "[Reload this page] or bookmark it and come back later."
-msgstr ""
+msgstr "[Berritu orri hau] edo lastermarka egin eta itzuli geroago."
 
 #: requests/models.py:209
 msgid "Your screenshot requests have expired."
-msgstr ""
+msgstr "Zure argazki eskariak iraungi egin dira."
 
 #: requests/models.py:219
 #, python-format
 msgid "%(count)d browsers selected"
-msgstr ""
+msgstr "%(count)d nabigatzaile aukeratuta"
 
 #: requests/models.py:224
 #, python-format
@@ -581,38 +581,38 @@ msgstr ""
 
 #: requests/models.py:284
 msgid "priority"
-msgstr ""
+msgstr "lehentasuna"
 
 #: requests/models.py:288
 msgid "locked"
-msgstr ""
+msgstr "blokeatuta"
 
 #: requests/models.py:290 requests/templates/requests/overview.html:15
 #: screenshots/models.py:108 screenshots/templates/screenshots/details.html:38
 #: browsers/models.py:143
 msgid "browser"
-msgstr ""
+msgstr "nabigatzailea"
 
 #: requests/models.py:293
 msgid "redirected"
-msgstr ""
+msgstr "berbideratuta"
 
 #: requests/models.py:313
 msgid "requests"
-msgstr ""
+msgstr "eskariak"
 
 #: requests/models.py:334 screenshots/models.py:114
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
-msgstr ""
+msgstr "igota"
 
 #: requests/models.py:336
 msgid "failed"
-msgstr ""
+msgstr "huts egin du"
 
 #: requests/models.py:338
 msgid "loading"
-msgstr ""
+msgstr "eskuratzen"
 
 #: requests/models.py:340
 msgid "starting"
@@ -652,17 +652,17 @@ msgstr ""
 
 #: start/views.py:164
 msgid "deselect all"
-msgstr ""
+msgstr "deshautatu dena"
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
-msgstr ""
+msgstr "Frogatu zure web diseinua nabigatzaile ezberdinekin"
 
 #: start/templates/start/start.html:19
 #: screenshots/templates/screenshots/details.html:116
 #: browsers/templates/browsers/add.html:19
 msgid "submit"
-msgstr ""
+msgstr "bidali"
 
 #: start/templates/start/start.html:56
 msgid "project links"
@@ -670,27 +670,27 @@ msgstr ""
 
 #: start/templates/start/start.html:58
 msgid "documentation"
-msgstr ""
+msgstr "dokumentazioa"
 
 #: start/templates/start/start.html:59
 msgid "mailing lists"
-msgstr ""
+msgstr "posta zerrendak"
 
 #: start/templates/start/start.html:60
 msgid "XML-RPC interface"
-msgstr ""
+msgstr "XML-RPC interfazea"
 
 #: start/templates/start/start.html:61
 msgid "source code"
-msgstr ""
+msgstr "iturburu kodea"
 
 #: start/templates/start/start.html:62
 msgid "downloads"
-msgstr ""
+msgstr "jaitsierak"
 
 #: start/templates/start/start.html:63
 msgid "translations"
-msgstr ""
+msgstr "itzulpenak"
 
 #: start/templates/start/start.html:68
 msgid "What is Browsershots?"
@@ -736,49 +736,49 @@ msgstr ""
 #: browsers/templates/browsers/add.html:43
 #: browsers/templates/browsers/add.html:47
 msgid "disabled"
-msgstr ""
+msgstr "ezgaituta"
 
 #: start/forms/features.py:46 features/models.py:34
 #: browsers/templates/browsers/add.html:43
 msgid "enabled"
-msgstr ""
+msgstr "gaituta"
 
 #: start/forms/url.py:51
 msgid "Enter your web address here:"
-msgstr ""
+msgstr "Sartu zure web helbidea hemen:"
 
 #: start/forms/url.py:85
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
-msgstr ""
+msgstr "Ez da %(scheme)s URL eskema onartzen."
 
 #: start/forms/url.py:89
 msgid "Malformed URL (server name not specified)."
-msgstr ""
+msgstr "Gaizki eratutako URLa (zerbitzari izena ez da zehaztu)."
 
 #: start/forms/url.py:109
 #, python-format
 msgid "Could not connect to %(hostname)s."
-msgstr ""
+msgstr "Ezin izan da %(hostname)s helbidera konektatu."
 
 #: start/forms/url.py:111
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
-msgstr ""
+msgstr "Ezin izan da HTTP eskaria bidali %(hostname)s helbidera."
 
 #: start/forms/url.py:113
 #, python-format
 msgid "Could not get page content from %(hostname)s."
-msgstr ""
+msgstr "Ezin izan da %(hostname)s orriko edukia eskuratu."
 
 #: start/forms/url.py:117
 #, python-format
 msgid "Server failed to respond within %d seconds."
-msgstr ""
+msgstr "Zerbitzariak ez du %d segundoren buruan erantzun."
 
 #: start/forms/url.py:149
 msgid "Malformed URL (database integrity error)."
-msgstr ""
+msgstr "Gaizki eratutako URLa (datubasearen osotasun akatsa)."
 
 #: accounts/views.py:52
 msgid "You're already signed in"
@@ -827,32 +827,32 @@ msgstr ""
 
 #: accounts/views.py:169
 msgid "email verification"
-msgstr ""
+msgstr "eposta egiaztaketa"
 
 #: accounts/views.py:171
 msgid "send email"
-msgstr ""
+msgstr "mezua bidali"
 
 #: accounts/views.py:189
 msgid "email error"
-msgstr ""
+msgstr "eposta akatsa"
 
 #: accounts/views.py:190
 msgid "Could not send email."
-msgstr ""
+msgstr "Ezin izan da mezua bidali."
 
 #: accounts/views.py:192
 msgid "email sent"
-msgstr ""
+msgstr "mezua bidalita"
 
 #: accounts/views.py:193
 #, python-format
 msgid "A verification email was sent to %(email)s."
-msgstr ""
+msgstr "Egiaztaketa mezua bidali da %(email)s helbidera."
 
 #: accounts/views.py:194
 msgid "Check your email inbox and follow the instructions in the message."
-msgstr ""
+msgstr "Begiratu zure sarrerako ontzia eta jarraitu mezuko argibideak."
 
 #: accounts/views.py:195
 msgid "If your email provider uses graylisting, it may take a few minutes."
@@ -860,12 +860,14 @@ msgstr ""
 
 #: accounts/views.py:225
 msgid "Username must start with a lowercase letter."
-msgstr ""
+msgstr "Erabiltzaile-izena minuskulaz hasi behar da."
 
 #: accounts/views.py:229
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
+"Erabiltzaile-izenak minuskulak, zenbakiak, azpimarrak eta gidoiak soilik "
+"eduki ditzake."
 
 #: accounts/views.py:232
 msgid "This username is reserved."
@@ -1331,8 +1333,8 @@ msgstr ""
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 
 #: platforms/models.py:37

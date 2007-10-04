@@ -3,19 +3,43 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-18 17:40-0700\n"
-"PO-Revision-Date: 2007-09-18 11:47+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Pipecity <pipecity@hotmail.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:50+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#~ msgid "already signed in"
+#~ msgstr "redan inloggad"
+
+#~ msgid "Already signed in"
+#~ msgstr "Redan inloggad"
+
+#~ msgid "You already have a user account, and you're currently signed in."
+#~ msgstr "Du har redan ett användarkonto och du är förnuvarande inloggad."
+
+#~ msgid "log in"
+#~ msgstr "logga in"
+
+#~ msgid "Please try again."
+#~ msgstr "Var god försök igen."
+
+#~ msgid "username"
+#~ msgstr "användarnamn"
+
+#~ msgid "Create a new account?"
+#~ msgstr "Skapa ett nytt konto?"
+
+#~ msgid "content"
+#~ msgstr "innehåll"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -1353,8 +1377,8 @@ msgstr "andra alternativ"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 "Om din webbläsargrupp eller rendringsmotor inte är tillgänglig, var god "
 "skriv till %(email)s."
@@ -1395,27 +1419,3 @@ msgstr "användningsrapport"
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr "FQDN"
-
-#~ msgid "already signed in"
-#~ msgstr "redan inloggad"
-
-#~ msgid "Already signed in"
-#~ msgstr "Redan inloggad"
-
-#~ msgid "You already have a user account, and you're currently signed in."
-#~ msgstr "Du har redan ett användarkonto och du är förnuvarande inloggad."
-
-#~ msgid "log in"
-#~ msgstr "logga in"
-
-#~ msgid "Please try again."
-#~ msgstr "Var god försök igen."
-
-#~ msgid "username"
-#~ msgstr "användarnamn"
-
-#~ msgid "Create a new account?"
-#~ msgstr "Skapa ett nytt konto?"
-
-#~ msgid "content"
-#~ msgstr "innehåll"

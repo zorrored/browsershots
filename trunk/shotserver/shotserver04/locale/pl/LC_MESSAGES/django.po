@@ -3,19 +3,43 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-18 17:40-0700\n"
-"PO-Revision-Date: 2007-09-18 13:18+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Marcin Krol <hawk@limanowa.net>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:46+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#~ msgid "already signed in"
+#~ msgstr "już zalogowany"
+
+#~ msgid "Already signed in"
+#~ msgstr "Już zalogowany"
+
+#~ msgid "You already have a user account, and you're currently signed in."
+#~ msgstr "Posiadasz już konto i jesteś aktualnie zalogowany."
+
+#~ msgid "log in"
+#~ msgstr "zaloguj"
+
+#~ msgid "Please try again."
+#~ msgstr "Spróbuj ponownie."
+
+#~ msgid "username"
+#~ msgstr "nazwa użytkownika"
+
+#~ msgid "Create a new account?"
+#~ msgstr "Utworzyć nowe konto?"
+
+#~ msgid "content"
+#~ msgstr "zawartość"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -145,7 +169,8 @@ msgstr "Nazwa musi zaczynać się od małej litery."
 
 #: factories/views.py:102
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
-msgstr "Nazwa może zawierać tylko małe litery, cyfry, podkreślenie i myślnik."
+msgstr ""
+"Nazwa może zawierać tylko małe litery, cyfry, podkreślenie i myślnik."
 
 #: factories/views.py:105
 msgid "This name is reserved."
@@ -523,7 +548,8 @@ msgstr "Twoje zrzuty ekranu będą tu widoczne po wgraniu ich na serwer."
 
 #: requests/models.py:207
 msgid "[Reload this page] or bookmark it and come back later."
-msgstr "[Odśwież tę stronę] lub dodaj do zakładek (ulubionych) i wróć poźniej."
+msgstr ""
+"[Odśwież tę stronę] lub dodaj do zakładek (ulubionych) i wróć poźniej."
 
 #: requests/models.py:209
 msgid "Your screenshot requests have expired."
@@ -929,7 +955,8 @@ msgstr "Kod potwierdzający wygasł"
 
 #: accounts/views.py:312
 msgid "The verification email was requested more than 30 minutes ago."
-msgstr "Żądanie emaila potwierdzającego miało miejce więcej niż 40 minut temu."
+msgstr ""
+"Żądanie emaila potwierdzającego miało miejce więcej niż 40 minut temu."
 
 #: accounts/views.py:323
 msgid "choose a new password"
@@ -1356,8 +1383,8 @@ msgstr "inne opcje"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 "jeżeli jakaś grupa przeglądarek lub silnik renderujący nie jest dostępny "
 "wyślij email na adres %(email)s."
@@ -1398,27 +1425,3 @@ msgstr "raport używalności"
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr "FQDN"
-
-#~ msgid "already signed in"
-#~ msgstr "już zalogowany"
-
-#~ msgid "Already signed in"
-#~ msgstr "Już zalogowany"
-
-#~ msgid "You already have a user account, and you're currently signed in."
-#~ msgstr "Posiadasz już konto i jesteś aktualnie zalogowany."
-
-#~ msgid "log in"
-#~ msgstr "zaloguj"
-
-#~ msgid "Please try again."
-#~ msgstr "Spróbuj ponownie."
-
-#~ msgid "username"
-#~ msgstr "nazwa użytkownika"
-
-#~ msgid "Create a new account?"
-#~ msgstr "Utworzyć nowe konto?"
-
-#~ msgid "content"
-#~ msgstr "zawartość"

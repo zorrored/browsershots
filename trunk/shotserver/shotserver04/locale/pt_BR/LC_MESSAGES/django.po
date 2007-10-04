@@ -3,19 +3,52 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-18 17:40-0700\n"
-"PO-Revision-Date: 2007-09-10 23:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: diogo <diogo86@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:38+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#, fuzzy
+#~ msgid "already signed in"
+#~ msgstr "já autenticado"
+
+#, fuzzy
+#~ msgid "You're already signed in."
+#~ msgstr "Você já está autenticado."
+
+#, fuzzy
+#~ msgid "Already signed in"
+#~ msgstr "Já autenticado"
+
+#~ msgid "You already have a user account, and you're currently signed in."
+#~ msgstr "Você já tem uma conta, e está logado."
+
+#~ msgid "log in"
+#~ msgstr "entrar"
+
+#~ msgid "Your username and password didn't match."
+#~ msgstr "Seu nome de usuário e senha não conferem."
+
+#~ msgid "Please try again."
+#~ msgstr "Por favor, tente novamente."
+
+#~ msgid "username"
+#~ msgstr "Nome de usuário"
+
+#~ msgid "Create a new account?"
+#~ msgstr "Criar uma nova conta?"
+
+#~ msgid "content"
+#~ msgstr "conteúdo"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -708,11 +741,13 @@ msgstr "O que é Browsershots?"
 #: start/templates/start/start.html:70
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
-msgstr "Browsershots tira screenshots do seu layout em diferentes navegadores."
+msgstr ""
+"Browsershots tira screenshots do seu layout em diferentes navegadores."
 
 #: start/templates/start/start.html:71
 msgid "It is a free open-source online service created by Johann C. Rocholl."
-msgstr "Ele é um serviço livre de código-aberto criado por Johann C. Rocholl."
+msgstr ""
+"Ele é um serviço livre de código-aberto criado por Johann C. Rocholl."
 
 #: start/templates/start/start.html:72
 msgid "When you submit your web address, it will be added to the job queue."
@@ -794,9 +829,8 @@ msgid "Malformed URL (database integrity error)."
 msgstr "URL inválida (erro de integridade do banco de dados)."
 
 #: accounts/views.py:52
-#, fuzzy
 msgid "You're already signed in"
-msgstr "Você já está autenticado."
+msgstr ""
 
 #: accounts/views.py:53
 msgid "Please log out and then try again."
@@ -807,28 +841,24 @@ msgid "Please enable cookies in your browser."
 msgstr ""
 
 #: accounts/views.py:83
-#, fuzzy
 msgid "Incorrect username or password."
-msgstr "Seu nome de usuário e senha não conferem."
+msgstr ""
 
 #: accounts/views.py:85
-#, fuzzy
 msgid "This account is inactive."
-msgstr "Este navegador já está inativo."
+msgstr ""
 
 #: accounts/views.py:87 accounts/views.py:138
-#, fuzzy
 msgid "Welcome to Browsershots!"
-msgstr "O que é Browsershots?"
+msgstr ""
 
 #: accounts/views.py:88
 msgid "let me in"
 msgstr ""
 
 #: accounts/views.py:100
-#, fuzzy
 msgid "logged out"
-msgstr "sair"
+msgstr ""
 
 #: accounts/views.py:102
 msgid "You have successfully logged out."
@@ -938,14 +968,12 @@ msgid "choose a new password"
 msgstr ""
 
 #: accounts/views.py:325
-#, fuzzy
 msgid "change password"
-msgstr "senha"
+msgstr ""
 
 #: accounts/views.py:332
-#, fuzzy
 msgid "Password changed"
-msgstr "Senha incorreta."
+msgstr ""
 
 #: accounts/views.py:333
 msgid "Your new password has been saved."
@@ -1361,8 +1389,8 @@ msgstr "outras opções"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 "Se o seu grupo de navegador ou motor de renderização não estiver disponível, "
 "por favor escreva para %(email)s."
@@ -1404,29 +1432,3 @@ msgstr "reportar problema"
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr ""
-
-#, fuzzy
-#~ msgid "already signed in"
-#~ msgstr "já autenticado"
-
-#, fuzzy
-#~ msgid "Already signed in"
-#~ msgstr "Já autenticado"
-
-#~ msgid "You already have a user account, and you're currently signed in."
-#~ msgstr "Você já tem uma conta, e está logado."
-
-#~ msgid "log in"
-#~ msgstr "entrar"
-
-#~ msgid "Please try again."
-#~ msgstr "Por favor, tente novamente."
-
-#~ msgid "username"
-#~ msgstr "Nome de usuário"
-
-#~ msgid "Create a new account?"
-#~ msgstr "Criar uma nova conta?"
-
-#~ msgid "content"
-#~ msgstr "conteúdo"

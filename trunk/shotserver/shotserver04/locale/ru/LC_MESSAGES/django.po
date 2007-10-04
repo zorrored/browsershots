@@ -3,19 +3,25 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-18 17:41-0700\n"
-"PO-Revision-Date: 2007-08-29 21:20+0000\n"
+"POT-Creation-Date: 2007-09-18 17:40-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kavu <kavu13@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:34+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#~ msgid "Please try again."
+#~ msgstr "Попробуйте еще раз."
+
+#~ msgid "username"
+#~ msgstr "Имя пользователя"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -931,9 +937,8 @@ msgid "choose a new password"
 msgstr ""
 
 #: accounts/views.py:325
-#, fuzzy
 msgid "change password"
-msgstr "пароль"
+msgstr ""
 
 #: accounts/views.py:332
 msgid "Password changed"
@@ -1355,8 +1360,8 @@ msgstr "другие опции"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 
 #: platforms/models.py:37
@@ -1395,9 +1400,3 @@ msgstr ""
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr ""
-
-#~ msgid "Please try again."
-#~ msgstr "Попробуйте еще раз."
-
-#~ msgid "username"
-#~ msgstr "Имя пользователя"
