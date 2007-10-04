@@ -3,19 +3,43 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-18 17:41-0700\n"
-"PO-Revision-Date: 2007-09-16 17:56+0000\n"
+"POT-Creation-Date: 2007-09-18 17:40-0700\n"
+"PO-Revision-Date: 2007-09-21 07:58+0000\n"
 "Last-Translator: Ferdi Meijerink <launchpad@floep.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:41+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#~ msgid "already signed in"
+#~ msgstr "reeds aangemeld"
+
+#~ msgid "Already signed in"
+#~ msgstr "Reeds aangemeld."
+
+#~ msgid "You already have a user account, and you're currently signed in."
+#~ msgstr "Je hebt reeds een account en je bent momenteel aangemeld."
+
+#~ msgid "log in"
+#~ msgstr "aanmelden"
+
+#~ msgid "Please try again."
+#~ msgstr "Probeer het opnieuw."
+
+#~ msgid "username"
+#~ msgstr "gebruikersnaam"
+
+#~ msgid "Create a new account?"
+#~ msgstr "Wil je een nieuw account aanmaken?"
+
+#~ msgid "content"
+#~ msgstr "inhoud"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -788,9 +812,8 @@ msgid "Malformed URL (database integrity error)."
 msgstr "Misvormde URL (database-integriteitsfout)."
 
 #: accounts/views.py:52
-#, fuzzy
 msgid "You're already signed in"
-msgstr "Je ben al aangemeld."
+msgstr "Je ben reeds aangemeld."
 
 #: accounts/views.py:53
 msgid "Please log out and then try again."
@@ -798,35 +821,31 @@ msgstr "Log uit en probeer het opnieuw."
 
 #: accounts/views.py:77
 msgid "Please enable cookies in your browser."
-msgstr ""
+msgstr "Schakel cookies in in je browser."
 
 #: accounts/views.py:83
-#, fuzzy
 msgid "Incorrect username or password."
 msgstr "Gebruikersnaam en/of wachtwoord onjuist."
 
 #: accounts/views.py:85
-#, fuzzy
 msgid "This account is inactive."
-msgstr "Deze browser is al inactief."
+msgstr "Dit account is niet actief."
 
 #: accounts/views.py:87 accounts/views.py:138
-#, fuzzy
 msgid "Welcome to Browsershots!"
-msgstr "Wat is Browsershots?"
+msgstr "Welkom bij Browsershots!"
 
 #: accounts/views.py:88
 msgid "let me in"
-msgstr ""
+msgstr "laat me erin"
 
 #: accounts/views.py:100
-#, fuzzy
 msgid "logged out"
-msgstr "afmelden"
+msgstr "afgemeld"
 
 #: accounts/views.py:102
 msgid "You have successfully logged out."
-msgstr ""
+msgstr "Je hebt je succesvol afgemeld."
 
 #: accounts/views.py:164
 msgid "too many verification emails"
@@ -834,7 +853,8 @@ msgstr "Teveel verificatie-e-mails"
 
 #: accounts/views.py:165
 msgid "There were too many email requests from your IP in the last 24 hours."
-msgstr "Er waren teveel e-mailaanvragen vanaf jouw IP in de afgelopen 24 uur."
+msgstr ""
+"Er waren teveel e-mailaanvragen vanaf jouw IP in de afgelopen 24 uur."
 
 #: accounts/views.py:169
 msgid "email verification"
@@ -929,21 +949,19 @@ msgstr "De verificatie-e-mail is meer dan een haf uur geleden aangevraagd."
 
 #: accounts/views.py:323
 msgid "choose a new password"
-msgstr ""
+msgstr "kies een nieuw wachtwoord"
 
 #: accounts/views.py:325
-#, fuzzy
 msgid "change password"
-msgstr "wachtwoord"
+msgstr "verander wachtwoord"
 
 #: accounts/views.py:332
-#, fuzzy
 msgid "Password changed"
-msgstr "Wachtwoorden komen niet overeen."
+msgstr "Wachtwoord is gewijzigd"
 
 #: accounts/views.py:333
 msgid "Your new password has been saved."
-msgstr ""
+msgstr "Je wachtwoord is opgeslagen"
 
 #: accounts/views.py:334 accounts/views.py:355
 msgid "Click the link in the top right corner to log in."
@@ -1352,8 +1370,8 @@ msgstr "overige opties"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 "Als jouw browsergroep of rendering-engine niet beschikbaar is, stuur dan een "
 "bericht naar %(email)s."
@@ -1385,7 +1403,7 @@ msgstr "architecturen"
 #: status/templates/status/overview.html:4
 #: status/templates/status/overview.html:7
 msgid "server status"
-msgstr ""
+msgstr "serverstatus"
 
 #: status/templates/status/usage.html:4 status/templates/status/usage.html:7
 msgid "usage report"
@@ -1394,27 +1412,3 @@ msgstr "probleemmelding"
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr "FQDN"
-
-#~ msgid "already signed in"
-#~ msgstr "reeds aangemeld"
-
-#~ msgid "Already signed in"
-#~ msgstr "Reeds aangemeld."
-
-#~ msgid "You already have a user account, and you're currently signed in."
-#~ msgstr "Je hebt reeds een account en je bent momenteel aangemeld."
-
-#~ msgid "log in"
-#~ msgstr "aanmelden"
-
-#~ msgid "Please try again."
-#~ msgstr "Probeer het opnieuw."
-
-#~ msgid "username"
-#~ msgstr "gebruikersnaam"
-
-#~ msgid "Create a new account?"
-#~ msgstr "Wil je een nieuw account aanmaken?"
-
-#~ msgid "content"
-#~ msgstr "inhoud"

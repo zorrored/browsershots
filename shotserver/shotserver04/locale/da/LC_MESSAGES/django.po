@@ -3,19 +3,46 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-18 17:40-0700\n"
-"PO-Revision-Date: 2007-09-16 23:10+0000\n"
+"PO-Revision-Date: 2007-09-19 19:21+0000\n"
 "Last-Translator: Kent Grady <mcgreedy@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:29+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#~ msgid "already signed in"
+#~ msgstr "allerede logget ind"
+
+#~ msgid "Already signed in"
+#~ msgstr "Du er allerede logget ind"
+
+#~ msgid "You already have a user account, and you're currently signed in."
+#~ msgstr "Du har allerede en bruger-konto og du er logget ind."
+
+#~ msgid "log in"
+#~ msgstr "login"
+
+#~ msgid "Please try again."
+#~ msgstr "Forsøg venligst igen."
+
+#~ msgid "username"
+#~ msgstr "brugernavn"
+
+#~ msgid "Create a new account?"
+#~ msgstr "Lav en ny bruger-konto?"
+
+#~ msgid "content"
+#~ msgstr "indhold"
+
+#~ msgid "sign in"
+#~ msgstr "log in"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -790,7 +817,6 @@ msgid "Malformed URL (database integrity error)."
 msgstr "Ukorrekt URL (database integritets fejl)."
 
 #: accounts/views.py:52
-#, fuzzy
 msgid "You're already signed in"
 msgstr "Du er allerede logget ind."
 
@@ -800,35 +826,31 @@ msgstr "Log venligst ud og prøv så igen."
 
 #: accounts/views.py:77
 msgid "Please enable cookies in your browser."
-msgstr ""
+msgstr "TIllad venligst 'cookies' i din browser."
 
 #: accounts/views.py:83
-#, fuzzy
 msgid "Incorrect username or password."
-msgstr "Der var en fejl i det indtastede brugernavn og kodeord."
+msgstr "Der var en fejl i det indtastede brugernavn eller kodeord."
 
 #: accounts/views.py:85
-#, fuzzy
 msgid "This account is inactive."
-msgstr "Denne browser er allerede inaktiv."
+msgstr "Denne konto er inaktiv."
 
 #: accounts/views.py:87 accounts/views.py:138
-#, fuzzy
 msgid "Welcome to Browsershots!"
-msgstr "Hvad er Browsershots?"
+msgstr "Velkommen til Browsershots!"
 
 #: accounts/views.py:88
 msgid "let me in"
-msgstr ""
+msgstr "luk mig ind"
 
 #: accounts/views.py:100
-#, fuzzy
 msgid "logged out"
-msgstr "logud"
+msgstr "logget ud"
 
 #: accounts/views.py:102
 msgid "You have successfully logged out."
-msgstr ""
+msgstr "Du er nu logget ud."
 
 #: accounts/views.py:164
 msgid "too many verification emails"
@@ -929,21 +951,19 @@ msgstr "Verifikations e-mailen blev sendt for mere end 30 minutter siden."
 
 #: accounts/views.py:323
 msgid "choose a new password"
-msgstr ""
+msgstr "vælg et nyt kodeorod"
 
 #: accounts/views.py:325
-#, fuzzy
 msgid "change password"
-msgstr "kodeord"
+msgstr "skift kodeord"
 
 #: accounts/views.py:332
-#, fuzzy
 msgid "Password changed"
-msgstr "Uidentiske kodeord"
+msgstr "Kodeord ændret"
 
 #: accounts/views.py:333
 msgid "Your new password has been saved."
-msgstr ""
+msgstr "Dit nye kodeord er blevet gemt."
 
 #: accounts/views.py:334 accounts/views.py:355
 msgid "Click the link in the top right corner to log in."
@@ -1352,8 +1372,8 @@ msgstr "andre muligheder"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 "Hvis din browser gruppe eller operativ system ikke er til at komme i kontakt "
 "med, så skriv venligst til %(email)s."
@@ -1385,7 +1405,7 @@ msgstr "arkitekturer"
 #: status/templates/status/overview.html:4
 #: status/templates/status/overview.html:7
 msgid "server status"
-msgstr ""
+msgstr "server status"
 
 #: status/templates/status/usage.html:4 status/templates/status/usage.html:7
 msgid "usage report"
@@ -1394,30 +1414,3 @@ msgstr "forbrugs-rapport"
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr "FQDN"
-
-#~ msgid "already signed in"
-#~ msgstr "allerede logget ind"
-
-#~ msgid "Already signed in"
-#~ msgstr "Du er allerede logget ind"
-
-#~ msgid "You already have a user account, and you're currently signed in."
-#~ msgstr "Du har allerede en bruger-konto og du er logget ind."
-
-#~ msgid "log in"
-#~ msgstr "login"
-
-#~ msgid "Please try again."
-#~ msgstr "Forsøg venligst igen."
-
-#~ msgid "username"
-#~ msgstr "brugernavn"
-
-#~ msgid "Create a new account?"
-#~ msgstr "Lav en ny bruger-konto?"
-
-#~ msgid "content"
-#~ msgstr "indhold"
-
-#~ msgid "sign in"
-#~ msgstr "log in"

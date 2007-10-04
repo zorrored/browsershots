@@ -3,19 +3,37 @@
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-18 17:40-0700\n"
-"PO-Revision-Date: 2007-08-23 13:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Vojtech Vondra <mailbox@ameeck.net>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Rosetta-Export-Date: 2007-09-18 23:48:26+0000\n"
+"X-Launchpad-Export-Date: 2007-10-04 16:19+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#~ msgid "log in"
+#~ msgstr "přihlásit se"
+
+#~ msgid "Your username and password didn't match."
+#~ msgstr "Vaše uživatelské jméno a heslo nesouhlasí."
+
+#~ msgid "Please try again."
+#~ msgstr "Zkuste to prosím znovu."
+
+#~ msgid "username"
+#~ msgstr "uživatelské jméno"
+
+#~ msgid "content"
+#~ msgstr "obsah"
+
+#~ msgid "sign in"
+#~ msgstr "přihlásit se"
 
 #: factories/models.py:50 factories/templates/factories/details.html:26
 #: sponsors/models.py:34 websites/models.py:47 browsers/models.py:37
@@ -529,7 +547,8 @@ msgstr "Váš screenshoty se zde objeví, jakmile budou nahrány."
 
 #: requests/models.py:207
 msgid "[Reload this page] or bookmark it and come back later."
-msgstr "[Aktualizujte tuto stránku] nebo si ji zazáložkujte a přijďte později."
+msgstr ""
+"[Aktualizujte tuto stránku] nebo si ji zazáložkujte a přijďte později."
 
 #: requests/models.py:209
 msgid "Your screenshot requests have expired."
@@ -804,9 +823,8 @@ msgid "Please enable cookies in your browser."
 msgstr ""
 
 #: accounts/views.py:83
-#, fuzzy
 msgid "Incorrect username or password."
-msgstr "Vaše uživatelské jméno a heslo nesouhlasí."
+msgstr ""
 
 #: accounts/views.py:85
 msgid "This account is inactive."
@@ -821,9 +839,8 @@ msgid "let me in"
 msgstr ""
 
 #: accounts/views.py:100
-#, fuzzy
 msgid "logged out"
-msgstr "odhlásit se"
+msgstr ""
 
 #: accounts/views.py:102
 msgid "You have successfully logged out."
@@ -932,14 +949,12 @@ msgid "choose a new password"
 msgstr ""
 
 #: accounts/views.py:325
-#, fuzzy
 msgid "change password"
-msgstr "heslo"
+msgstr ""
 
 #: accounts/views.py:332
-#, fuzzy
 msgid "Password changed"
-msgstr "Heslo nesouhlasí."
+msgstr ""
 
 #: accounts/views.py:333
 msgid "Your new password has been saved."
@@ -1360,8 +1375,8 @@ msgstr "další možnosti"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to %"
-"(email)s."
+"If your browser group or rendering engine is not available, please write to "
+"%(email)s."
 msgstr ""
 "Pokud váše skupina prohlížečů nebo vykreslovací engine není dostupný, "
 "napište na %(email)s."
@@ -1403,18 +1418,3 @@ msgstr "ohlášení chyby"
 #: status/templates/status/usage.html:51
 msgid "FQDN"
 msgstr ""
-
-#~ msgid "log in"
-#~ msgstr "přihlásit se"
-
-#~ msgid "Please try again."
-#~ msgstr "Zkuste to prosím znovu."
-
-#~ msgid "username"
-#~ msgstr "uživatelské jméno"
-
-#~ msgid "content"
-#~ msgstr "obsah"
-
-#~ msgid "sign in"
-#~ msgstr "přihlásit se"
