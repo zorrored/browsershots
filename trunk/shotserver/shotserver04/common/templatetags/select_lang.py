@@ -28,13 +28,10 @@ from django.utils import translation
 
 register = template.Library()
 
-JAVASCRIPT = u"""
-document.location.href='/i18n/setlang/?language='+
-this.form.language.options[this.form.language.options.selectedIndex].value;
-""".strip().replace('\n', '')
+JAVASCRIPT = "this.form.submit()"
 
 FORM_TEMPLATE = u"""
-<form action="/i18n/setlang/" method="get">
+<form action="/i18n/setlang/" method="post">
 <div id="setlang">
 <select name="language" id="language" onchange="%s">
 %s
