@@ -96,5 +96,5 @@ rosetta-export :
 	| xargs -iname bash -c " \
 		cp shotserver04/locale/name/LC_MESSAGES/django.po \
 		rosetta-shotserver/shotserver-name.po"
-	rm launchpad-import.tar.gz
+	rm -f launchpad-import.tar.gz
 	tar czvf launchpad-import.tar.gz rosetta-shotserver
