@@ -17,9 +17,10 @@ import time
 from shotserver04.screenshots.models import Screenshot
 
 NOW = time.time()
-EXPIRE_DAYS = 8
+EXPIRE_DAYS = 6
 EXPIRE = NOW - EXPIRE_DAYS * 24 * 3600
-FOLDERS = glob.glob('/var/www/v04.browsershots.org/png/*')
+PNG_ROOT = '/var/www/v04.browsershots.org/png/'
+FOLDERS = glob.glob(PNG_ROOT + '*')
 
 
 def png_filename(folder, hashkey):
@@ -27,6 +28,14 @@ def png_filename(folder, hashkey):
 
 
 def _main():
+    stat = os.statvfs(PNG_ROOT)
+    total_disk_space = stat.f_blocks * stat.f_frsize
+    free_disk_space = stat.f_bavail * stat.f_frsize
+    free_disk_percent = 100 * stat.f_bavail / stat.f_blocks
+    if free_disk_percent >= 10:
+        print "%d bytes free (%d%%)" % (free_disk_space, free_disk_percent)
+        return 0
+    # Delete old screenshots
     screenshot_count = unlink_count = 0
     for candidate in sys.stdin:
         basename = os.path.basename(candidate.rstrip())
