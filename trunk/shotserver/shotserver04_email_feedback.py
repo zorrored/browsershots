@@ -40,6 +40,8 @@ from shotserver04.common.templatetags import human
 import sys
 
 DEBUG = '--debug' in sys.argv
+FACTORIES = [arg for arg in sys.argv if not arg.startswith('-')]
+
 DAYS = 7
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 5
@@ -66,7 +68,11 @@ def example_urls(problems):
         yield "... (%d more)" % (len(problems) - MAX_EXAMPLES - orphans)
 
 
-for factory in Factory.objects.all():
+if FACTORIES:
+    factories = Factory.objects.filter(name__in=FACTORIES)
+else:
+    factories = Factory.objects.all()
+for factory in factories:
     problems = ProblemReport.objects.filter(
         screenshot__factory=factory,
         reported__gte=datetime.now() - timedelta(days=DAYS))
