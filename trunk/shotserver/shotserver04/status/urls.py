@@ -27,4 +27,5 @@ from django.conf.urls.defaults import patterns
 urlpatterns = patterns('shotserver04.status.views',
     (r'^$', 'overview'),
     (r'^usage/$', 'usage'),
+    (r'^usage/(?P<usage_interval>\d+[dh])/$', 'usage'),
 )
