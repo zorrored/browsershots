@@ -93,10 +93,10 @@ class BrowsersForm(forms.BaseForm):
                 if not fields:
                     break
                 field = fields.pop(0)
-                img = u'<img src="/static/icons/browser/%s.png" alt="" />' % (
-                    self.fields[field].browser_name)
-                label = u' <label for="id_%s">%s %s</label><br />' % (
-                    field, self[field].label, img)
+                #img = u'<img src="/static/icons/browser/%s.png" alt="" />' % (
+                #    self.fields[field].browser_name)
+                label = u' <label for="id_%s">%s</label><br />' % (
+                    field, self[field].label)
                 output.append(unicode(self[field]) + label)
             output.append('</div>')
         return u'\n'.join(output)
