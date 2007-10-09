@@ -7,7 +7,7 @@
 <h1>{{ _("usage report")|capfirst }}</h1>
 
 <p class="admonition hint">Top-ten lists by the number of request
-groups submitted in the last {{ usage_interval }}.</p>
+groups submitted in the last {{ plaintext }}.</p>
 
 <p>Choose other intervals:
 {% for interval in usage_intervals_list %}{% ifequal interval usage_interval %}<strong>{{ interval }}</strong>
