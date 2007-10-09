@@ -9,6 +9,11 @@
 <p class="admonition hint">Top-ten lists by the number of request
 groups submitted in the last {{ usage_interval }}.</p>
 
+<p>Choose other intervals:
+{% for interval in usage_intervals_list %}{% ifequal interval usage_interval %}<strong>{{ interval }}</strong>
+{% else %}<a href="/status/usage/{{ interval }}/">{{ interval }}</a>
+{% endifequal %}{% endfor %}</p>
+
 <table class="websites vertical floatleft">
 <thead>
 <tr>
