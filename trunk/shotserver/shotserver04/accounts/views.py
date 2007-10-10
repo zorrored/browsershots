@@ -56,8 +56,8 @@ def logout_required(func):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(max_length=20)
-    password = forms.CharField(max_length=40,
+    username = forms.CharField(max_length=20, label=_("Username"))
+    password = forms.CharField(max_length=40, label=_("Password"),
         widget=forms.PasswordInput(render_value=False))
 
 
