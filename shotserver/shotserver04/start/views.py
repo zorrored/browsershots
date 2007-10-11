@@ -101,9 +101,12 @@ def start(http_request):
     # Create screenshot requests and redirect to website overview.
     expire = datetime.now() + timedelta(minutes=30)
     values = {
-        'ip': http_request.META['REMOTE_ADDR'],
         'website': url_form.cleaned_data['website'],
+        'ip': http_request.META['REMOTE_ADDR'],
+        'user': None,
         }
+    if http_request.user.is_authenticated():
+        values['user'] = http_request.user
     values.update(options_form.cleaned_data)
     values.update(features_form.cleaned_data)
     match_values = {}

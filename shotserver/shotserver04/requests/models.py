@@ -79,7 +79,9 @@ class RequestGroup(models.Model):
             'user', 'expire',
             )}),
             )
-        list_display = ('__unicode__', 'width', 'javascript', 'java', 'flash')
+        list_display = ('__unicode__', 'width',
+                        'javascript', 'java', 'flash',
+                        'user', 'ip')
         search_fields = ('website__url', )
         date_hierarchy = 'submitted'
 
