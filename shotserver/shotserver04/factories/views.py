@@ -26,14 +26,14 @@ from psycopg import IntegrityError
 from django.http import Http404, HttpResponseRedirect
 from django.utils.text import capfirst
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django import newforms as forms
 from django.newforms.util import ErrorList
 from shotserver04 import settings
 from shotserver04.common import last_poll_timeout, error_page
-from shotserver04.factories.models import Factory
+from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.preload import preload_foreign_keys
@@ -54,14 +54,95 @@ def overview(http_request):
         context_instance=RequestContext(http_request))
 
 
+class ScreenSizeForm(forms.Form):
+    width = forms.IntegerField(widget=forms.TextInput(attrs={'size': 3}))
+    height = forms.IntegerField(widget=forms.TextInput(attrs={'size': 3}))
+
+    def clean_width(self):
+        width = self.cleaned_data['width']
+        if width < 640:
+            raise forms.ValidationError(_("Value %d is too small.") % width)
+        if width > 1600:
+            raise forms.ValidationError(_("Value %d is too big.") % width)
+        return width
+
+    def clean_height(self):
+        height = self.cleaned_data['height']
+        if height < 480:
+            raise forms.ValidationError(_("Value %d is too small.") % height)
+        if height > 1200:
+            raise forms.ValidationError(_("Value %d is too big.") % height)
+        return height
+
+
+class ColorDepthForm(forms.Form):
+    depth = forms.IntegerField(widget=forms.TextInput(attrs={'size': 2}))
+
+    def clean_depth(self):
+        depth = self.cleaned_data['depth']
+        if depth < 1:
+            raise forms.ValidationError(_("Value %d is too small.") % depth)
+        if depth > 32:
+            raise forms.ValidationError(_("Value %d is too big.") % depth)
+        return depth
+
+
+def details_post(factory, screensize_form, colordepth_form, post):
+    if screensize_form.is_valid():
+        try:
+            ScreenSize.objects.create(factory=factory,
+                width = screensize_form.cleaned_data['width'],
+                height = screensize_form.cleaned_data['height'])
+            return HttpResponseRedirect(
+                factory.get_absolute_url() + '#screensizes')
+        except IntegrityError, e:
+            transaction.rollback()
+            if 'duplicate' in str(e).lower():
+                screensize_form.errors['width'] = [_("Duplicate.")]
+            else:
+                screensize_form.errors['width'] = [_("Invalid data.")]
+    if colordepth_form.is_valid():
+        try:
+            ColorDepth.objects.create(factory=factory,
+                bits_per_pixel = colordepth_form.cleaned_data['depth'])
+            return HttpResponseRedirect(
+                factory.get_absolute_url() + '#colordepths')
+        except IntegrityError, e:
+            transaction.rollback()
+            if 'duplicate' in str(e).lower():
+                colordepth_form.errors['depth'] = [_("Duplicate.")]
+            else:
+                colordepth_form.errors['depth'] = [_("Invalid data.")]
+    for action in post:
+        parts = action.split('_')
+        if parts[0] == 'remove' and parts[1] == 'size':
+            width, height = map(int, parts[2].split('x'))
+            ScreenSize.objects.filter(
+                factory=factory, width=width, height=height).delete()
+            return HttpResponseRedirect(
+                factory.get_absolute_url() + '#screensizes')
+        if parts[0] == 'remove' and parts[1] == 'depth':
+            depth = int(parts[2])
+            ColorDepth.objects.filter(
+                factory=factory, bits_per_pixel=depth).delete()
+            return HttpResponseRedirect(
+                factory.get_absolute_url() + '#colordepths')
+
+
 def details(http_request, name):
     """
     Get detailed information about a screenshot factory.
     """
-    try:
-        factory = Factory.objects.get(name=name)
-    except Factory.DoesNotExist:
-        raise Http404
+    factory = get_object_or_404(Factory, name=name)
+    screensize_form = ScreenSizeForm(
+        'add_size' in http_request.POST and http_request.POST or None)
+    colordepth_form = ColorDepthForm(
+        'add_depth' in http_request.POST and http_request.POST or None)
+    if http_request.POST:
+        response = details_post(factory,
+            screensize_form, colordepth_form, http_request.POST)
+        if response:
+            return response
     browser_list = list(Browser.objects.filter(factory=factory.id))
     preload_foreign_keys(browser_list,
                          browser_group=True,

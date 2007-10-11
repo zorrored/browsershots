@@ -27,5 +27,5 @@ from django.conf.urls.defaults import patterns
 urlpatterns = patterns('shotserver04.factories.views',
     (r'^$', 'overview'),
     (r'^add/$', 'add'),
-    (r'^(?P<name>\S+)/$', 'details'),
+    (r'^(?P<name>[\w-]+)/$', 'details'),
 )
