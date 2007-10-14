@@ -26,10 +26,11 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import Http404
 from django.core.paginator import ObjectPaginator
-from shotserver04.websites.models import Website
+from shotserver04.websites.models import Website, Domain
 from shotserver04.browsers.models import Browser, BrowserGroup
 from shotserver04.factories.models import Factory
 from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.websites import extract_domain
 
 
 def overview(http_request):
@@ -49,6 +50,17 @@ def overview(http_request):
         context_instance=RequestContext(http_request))
 
 
+def unknown_url(http_request, url):
+    """
+    Error page for unknown URL.
+    """
+    domains = Domain.objects.filter(name=extract_domain(url, remove_www=True))
+    if len(domains):
+        domain_website_list = domains[0].website_set.all()
+    return render_to_response('websites/unknown.html', locals(),
+        context_instance=RequestContext(http_request))
+
+
 def details(http_request, url):
     """
     Show details for a selected website.
@@ -62,7 +74,10 @@ def details(http_request, url):
         if http_request.META['QUERY_STRING']:
             url += '?' + http_request.META['QUERY_STRING']
         url = url.replace(' ', '%20')
-        website = get_object_or_404(Website, url=url)
+        try:
+            website = Website.objects.get(url=url)
+        except Website.DoesNotExist:
+            return unknown_url(http_request, url)
     # Use caching to reduce number of SQL queries
     domain = website.domain
     browser_groups = BrowserGroup.objects.all()
