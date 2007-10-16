@@ -30,7 +30,7 @@ from shotserver04.websites.models import Website, Domain
 from shotserver04.browsers.models import Browser, BrowserGroup
 from shotserver04.factories.models import Factory
 from shotserver04.common.preload import preload_foreign_keys
-from shotserver04.websites import extract_domain
+from shotserver04.websites import normalize_url, extract_domain
 
 
 def overview(http_request):
@@ -73,7 +73,7 @@ def details(http_request, url):
     else:
         if http_request.META['QUERY_STRING']:
             url += '?' + http_request.META['QUERY_STRING']
-        url = url.replace(' ', '%20')
+        url = normalize_url(url) # Replace ' ' with '%20' etc.
         try:
             website = Website.objects.get(url=url)
         except Website.DoesNotExist:

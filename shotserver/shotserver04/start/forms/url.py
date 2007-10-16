@@ -36,6 +36,7 @@ from shotserver04.websites.utils import \
      split_netloc, http_get, count_profanities, \
      HTTP_TIMEOUT, HTTPError, ConnectError, RequestError
 from shotserver04.websites.models import Domain, Website
+from shotserver04.websites import normalize_url
 
 SUPPORTED_SCHEMES = ['http', 'https']
 
@@ -54,6 +55,7 @@ class UrlForm(forms.Form):
         """
         Clean URL and attempt HTTP GET request.
         """
+        self.cleaned_data['url'] = normalize_url(self.cleaned_data['url'])
         self.add_scheme()
         self.split_url()
         self.add_slash()
