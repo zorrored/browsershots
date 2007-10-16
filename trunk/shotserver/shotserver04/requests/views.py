@@ -170,9 +170,9 @@ def extend(http_request):
     request_group = get_object_or_404(RequestGroup, pk=request_group_id)
     if request_group.expire < datetime.now():
         delta = datetime.now() - request_group.expire
-        minutes = (delta.seconds + 30) / 60 + delta.days * 24 * 60
+        minutes = min(1, delta.seconds / 60 + delta.days * 24 * 60)
         return error_page(http_request, _("request group expired"),
-            _("This request group already expired, %d minutes ago.") % minutes,
+            _("This request group already expired %d minutes ago.") % minutes,
             '<a href="/?url=%s">%s</a>' % (
                 urllib.quote(request_group.website.url),
                 _("Request new screenshots?")))
