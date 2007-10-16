@@ -22,6 +22,32 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import urllib
+
+
+def normalize_url(url):
+    """
+    Normalize URL for storage in the database (and retrieval).
+
+    >>> normalize_url('http://www.example.com/')
+    u'http://www.example.com/'
+    >>> normalize_url(u'http://www.example.com/\xfc')
+    u'http://www.example.com/\\xfc'
+    >>> normalize_url('http://www.example.com/%C3')
+    u'http://www.example.com/\\xc3'
+    >>> normalize_url('http://www.example.com/%C3%BC')
+    u'http://www.example.com/\\xfc'
+    >>> normalize_url('http://www.example.com/space here')
+    u'http://www.example.com/space%20here'
+    """
+    if isinstance(url, unicode):
+        url = url.encode('utf-8')
+    result = urllib.unquote(url).replace(' ', '%20')
+    try:
+        return result.decode('utf-8')
+    except UnicodeDecodeError:
+        return result.decode('latin-1')
+
 
 def extract_domain(url, remove_www=False):
     """
