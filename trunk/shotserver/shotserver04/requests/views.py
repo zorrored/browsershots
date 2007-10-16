@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import urllib
 from datetime import datetime, timedelta
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
@@ -159,14 +160,22 @@ def extend(http_request):
     Extend the expiration timeout of a screenshot request group.
     """
     if not http_request.POST:
-        return error_page(http_request, "invalid request",
-            "You must send a POST request to this page.")
+        return error_page(http_request, _("invalid request"),
+            _("You must send a POST request to this page."))
     try:
         request_group_id = int(http_request.POST['request_group_id'])
     except (KeyError, ValueError):
-        return error_page(http_request, "invalid request",
-            "You must specify a numeric request group ID.")
+        return error_page(http_request, _("invalid request"),
+            _("You must specify a numeric request group ID."))
     request_group = get_object_or_404(RequestGroup, pk=request_group_id)
+    if request_group.expire < datetime.now():
+        delta = datetime.now() - request_group.expire
+        minutes = (delta.seconds + 30) / 60 + delta.days * 24 * 60
+        return error_page(http_request, _("request group expired"),
+            _("This request group already expired, %d minutes ago.") % minutes,
+            '<a href="/?url=%s">%s</a>' % (
+                urllib.quote(request_group.website.url),
+                _("Request new screenshots?")))
     request_group.expire = datetime.now() + timedelta(minutes=30)
     request_group.save()
     return HttpResponseRedirect(request_group.website.get_absolute_url())
