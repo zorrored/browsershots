@@ -70,8 +70,10 @@ LIMIT 10
     rows = cursor.fetchall()
     ip_list = [(row[0], socket.getfqdn(row[0]), row[1]) for row in rows]
     plaintext = usage_interval.replace('d', ' days').replace('h', ' hours')
-    if plaintext == '1 hours': plaintext = 'hour'
-    if plaintext == '7 days': plaintext = 'week'
+    if plaintext == '1 hours':
+        plaintext = 'hour'
+    if plaintext == '7 days':
+        plaintext = 'week'
     usage_intervals_list = '1h 4h 12h 24h 2d 4d 7d 14d 30d 120d 365d'.split()
     return render_to_response('status/usage.html', locals(),
         context_instance=RequestContext(http_request))
