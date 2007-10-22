@@ -33,6 +33,7 @@ LEADERBOARD_TEMPLATE = """\
 
 register = template.Library()
 
+
 @register.simple_tag
 def ads_leaderboard():
     """

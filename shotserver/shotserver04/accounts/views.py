@@ -47,7 +47,14 @@ from shotserver04.nonces.models import Nonce
 
 
 def logout_required(func):
+    """
+    The opposite of the login_required decorator.
+    """
+
     def wrapper(http_request, *args, **kwargs):
+        """
+        Display an error page if the user is already signed in.
+        """
         if http_request.user.is_authenticated():
             return error_page(http_request, _("You're already signed in"),
                 _("Please log out and then try again."))

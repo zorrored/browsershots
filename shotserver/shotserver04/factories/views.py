@@ -168,6 +168,7 @@ def details(http_request, name):
 
 
 class FactoryBase(forms.BaseForm):
+
     def clean_name(self):
         """
         Check that the factory name is sensible.
