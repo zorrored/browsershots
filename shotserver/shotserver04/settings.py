@@ -23,6 +23,8 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+# import deseb
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
