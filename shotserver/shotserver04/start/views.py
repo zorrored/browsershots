@@ -28,6 +28,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
 from shotserver04.common import int_or_none, last_poll_timeout, error_page
 from shotserver04.common.preload import preload_foreign_keys

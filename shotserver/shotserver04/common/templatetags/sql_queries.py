@@ -26,6 +26,7 @@ __author__ = "$Author$"
 from django import template
 from django.db import connection
 from django.utils.text import capfirst
+from django.utils.translation import ugettext_lazy as _
 
 register = template.Library()
 
