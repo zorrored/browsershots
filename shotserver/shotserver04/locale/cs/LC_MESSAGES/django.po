@@ -7,203 +7,214 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-09 20:30-0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2007-10-23 07:38+0200\n"
+"PO-Revision-Date: 2007-10-20 20:43+0000\n"
 "Last-Translator: Vojtech Vondra <mailbox@ameeck.net>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-10-10 00:29+0000\n"
+"X-Launchpad-Export-Date: 2007-10-23 05:09+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: accounts/views.py:52
+#: accounts/views.py:59
 msgid "You're already signed in"
-msgstr ""
+msgstr "Již jste přihlášen"
 
-#: accounts/views.py:53
+#: accounts/views.py:60
 #, fuzzy
 msgid "Please log out and then try again."
 msgstr "Zkuste to prosím znovu."
 
-#: accounts/views.py:77
-msgid "Please enable cookies in your browser."
-msgstr ""
+#: accounts/views.py:66
+#, fuzzy
+msgid "Username"
+msgstr "uživatelské jméno"
 
-#: accounts/views.py:83
+#: accounts/views.py:67
+#, fuzzy
+msgid "Password"
+msgstr "heslo"
+
+#: accounts/views.py:84
+msgid "Please enable cookies in your browser."
+msgstr "Povolte ve svém prohlížeči cookies, prosím."
+
+#: accounts/views.py:90
 msgid "Incorrect username or password."
 msgstr ""
 
-#: accounts/views.py:85
+#: accounts/views.py:92
 msgid "This account is inactive."
 msgstr ""
 
-#: accounts/views.py:87 accounts/views.py:146
+#: accounts/views.py:94 accounts/views.py:153
 msgid "Welcome to Browsershots!"
 msgstr ""
 
-#: accounts/views.py:88
+#: accounts/views.py:95
 msgid "let me in"
 msgstr ""
 
-#: accounts/views.py:95
+#: accounts/views.py:102
 msgid "Forgot your password?"
 msgstr ""
 
-#: accounts/views.py:96
+#: accounts/views.py:103
 msgid "Create a new account?"
 msgstr ""
 
-#: accounts/views.py:108
+#: accounts/views.py:115
 msgid "logged out"
 msgstr ""
 
-#: accounts/views.py:110
+#: accounts/views.py:117
 msgid "You have successfully logged out."
 msgstr ""
 
-#: accounts/views.py:143 accounts/templates/accounts/profile.html:8
+#: accounts/views.py:150 accounts/templates/accounts/profile.html:8
+#: points/templates/points/overview.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
 msgstr "Zdravím %(first_name)s!"
 
-#: accounts/views.py:172
+#: accounts/views.py:179
 msgid "too many verification emails"
 msgstr ""
 
-#: accounts/views.py:173
+#: accounts/views.py:180
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr ""
 
-#: accounts/views.py:174 factories/views.py:52 start/views.py:66
+#: accounts/views.py:181 factories/views.py:53 start/views.py:67
 msgid "Please try again later."
 msgstr "Prosíme, zkuste znovu později."
 
-#: accounts/views.py:177
+#: accounts/views.py:184
 msgid "email verification"
 msgstr ""
 
-#: accounts/views.py:179
+#: accounts/views.py:186
 #, fuzzy
 msgid "send email"
 msgstr "odesílatel"
 
-#: accounts/views.py:197
+#: accounts/views.py:204
 msgid "email error"
 msgstr ""
 
-#: accounts/views.py:198
+#: accounts/views.py:205
 msgid "Could not send email."
 msgstr ""
 
-#: accounts/views.py:200
+#: accounts/views.py:207
 #, fuzzy
 msgid "email sent"
 msgstr "mailing listy"
 
-#: accounts/views.py:201
+#: accounts/views.py:208
 #, python-format
 msgid "A verification email was sent to %(email)s."
 msgstr ""
 
-#: accounts/views.py:202
+#: accounts/views.py:209
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr ""
 
-#: accounts/views.py:203
+#: accounts/views.py:210
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
 
-#: accounts/views.py:233
+#: accounts/views.py:240
 msgid "Username must start with a lowercase letter."
 msgstr ""
 
-#: accounts/views.py:237
+#: accounts/views.py:244
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 
-#: accounts/views.py:240
+#: accounts/views.py:247
 msgid "This username is reserved."
 msgstr ""
 
-#: accounts/views.py:261
+#: accounts/views.py:268
 #, python-format
 msgid "The password must have %d or more characters."
 msgstr ""
 
-#: accounts/views.py:265
+#: accounts/views.py:272
 msgid "The password must not be completely numeric."
 msgstr ""
 
-#: accounts/views.py:278
+#: accounts/views.py:285
 msgid "Repeat password is not the same."
 msgstr ""
 
-#: accounts/views.py:299
+#: accounts/views.py:306
 msgid "This username is already taken."
 msgstr ""
 
-#: accounts/views.py:313
+#: accounts/views.py:320
 #, fuzzy
 msgid "Wrong IP address"
 msgstr "IP adresa"
 
-#: accounts/views.py:314
+#: accounts/views.py:321
 msgid "The verification email was requested from a different IP address."
 msgstr ""
 
-#: accounts/views.py:316
+#: accounts/views.py:323
 msgid "Bad verification code"
 msgstr ""
 
-#: accounts/views.py:317
+#: accounts/views.py:324
 msgid "The verification code has no email address."
 msgstr ""
 
-#: accounts/views.py:319
+#: accounts/views.py:326
 msgid "Verification code expired"
 msgstr ""
 
-#: accounts/views.py:320
+#: accounts/views.py:327
 msgid "The verification email was requested more than 30 minutes ago."
 msgstr ""
 
-#: accounts/views.py:331
+#: accounts/views.py:338
 msgid "choose a new password"
 msgstr ""
 
-#: accounts/views.py:333
+#: accounts/views.py:340
 msgid "change password"
 msgstr ""
 
-#: accounts/views.py:340
+#: accounts/views.py:347
 msgid "Password changed"
 msgstr ""
 
-#: accounts/views.py:341
+#: accounts/views.py:348
 msgid "Your new password has been saved."
 msgstr ""
 
-#: accounts/views.py:342 accounts/views.py:363
+#: accounts/views.py:349 accounts/views.py:370
 msgid "Click the link in the top right corner to log in."
 msgstr ""
 
-#: accounts/views.py:351
+#: accounts/views.py:358
 msgid "create a new account"
 msgstr ""
 
-#: accounts/views.py:353
+#: accounts/views.py:360
 #, fuzzy
 msgid "create account"
 msgstr "účet"
 
-#: accounts/views.py:361
+#: accounts/views.py:368
 #, fuzzy
 msgid "Account created"
 msgstr "Vytvořeno"
 
-#: accounts/views.py:362
+#: accounts/views.py:369
 msgid "A new user account was created."
 msgstr ""
 
@@ -236,7 +247,7 @@ msgstr "poslední chyby stroje"
 
 #: accounts/templates/accounts/profile.html:38 browsers/models.py:87
 #: factories/models.py:90 factories/models.py:183 factories/models.py:209
-#: messages/models.py:34 nonces/models.py:39 requests/models.py:286
+#: messages/models.py:35 nonces/models.py:39 requests/models.py:288
 #: screenshots/models.py:106 screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "stroj"
@@ -254,12 +265,13 @@ msgid "age"
 msgstr "věk"
 
 #: accounts/templates/accounts/profile.html:57
+#: points/templates/points/overview.html:14
 msgid "account balance"
 msgstr "zůstatek na účtu"
 
 #: browsers/models.py:37 browsers/models.py:60 factories/models.py:50
 #: factories/templates/factories/details.html:26 platforms/models.py:34
-#: platforms/models.py:58 platforms/models.py:87 sponsors/models.py:34
+#: platforms/models.py:58 platforms/models.py:87 sponsors/models.py:35
 #: websites/models.py:47
 msgid "name"
 msgstr "název"
@@ -303,7 +315,7 @@ msgstr ""
 msgid "Hide from recent screenshot overview?"
 msgstr "poslední screenshoty"
 
-#: browsers/models.py:74 browsers/models.py:91 requests/models.py:278
+#: browsers/models.py:74 browsers/models.py:91 requests/models.py:280
 msgid "browser group"
 msgstr "skupina prohlížečů"
 
@@ -320,11 +332,11 @@ msgstr "označení"
 msgid "version"
 msgstr "verze"
 
-#: browsers/models.py:95 requests/models.py:280
+#: browsers/models.py:95 requests/models.py:282
 msgid "major"
 msgstr "major"
 
-#: browsers/models.py:97 requests/models.py:282
+#: browsers/models.py:97 requests/models.py:284
 msgid "minor"
 msgstr "minor"
 
@@ -388,7 +400,7 @@ msgstr "nahrání za den"
 msgid "created"
 msgstr "Vytvořeno"
 
-#: browsers/models.py:143 requests/models.py:290
+#: browsers/models.py:143 requests/models.py:292
 #: requests/templates/requests/overview.html:15 screenshots/models.py:108
 #: screenshots/templates/screenshots/details.html:38
 msgid "browser"
@@ -414,7 +426,7 @@ msgstr "heslo"
 msgid "Password mismatch."
 msgstr "Heslo nesouhlasí."
 
-#: browsers/views.py:246
+#: browsers/views.py:246 requests/views.py:163 requests/views.py:168
 #, fuzzy
 msgid "invalid request"
 msgstr "čekající požadavky"
@@ -530,32 +542,32 @@ msgstr "přihlásit se"
 msgid "hosted by %(provider)s"
 msgstr ""
 
-#: common/templatetags/human.py:49
+#: common/templatetags/human.py:50
 #, python-format
 msgid "%(seconds)d s"
 msgstr "%(seconds)d s"
 
-#: common/templatetags/human.py:52 requests/views.py:115
+#: common/templatetags/human.py:53 requests/views.py:116
 #, python-format
 msgid "%(minutes)d min"
 msgstr "%(minutes)d min"
 
-#: common/templatetags/human.py:55
+#: common/templatetags/human.py:56
 #, python-format
 msgid "%(hours)d h"
 msgstr "%(hours)d h"
 
-#: common/templatetags/human.py:57
+#: common/templatetags/human.py:58
 #, python-format
 msgid "%(days)d d"
 msgstr "%(days)d d"
 
-#: common/templatetags/human.py:102
+#: common/templatetags/human.py:103
 #, python-format
 msgid "%(bytes)s bytes"
 msgstr "%(bytes)s bytů"
 
-#: common/templatetags/sql_queries.py:54
+#: common/templatetags/sql_queries.py:55
 #, python-format
 msgid "%(count)d database queries"
 msgstr "%(count)d dotazů na databázi"
@@ -569,7 +581,7 @@ msgid "administrator"
 msgstr "administrátor"
 
 #: factories/models.py:55 factories/templates/factories/details.html:16
-#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:50
+#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:51
 msgid "sponsor"
 msgstr "sponzor"
 
@@ -583,7 +595,7 @@ msgid "operating system"
 msgstr "operační systém"
 
 #: factories/models.py:61 requests/models.py:67
-#: status/templates/status/usage.html:50
+#: status/templates/status/usage.html:55
 msgid "IP"
 msgstr "IP"
 
@@ -615,11 +627,12 @@ msgstr "výška"
 msgid "screen size"
 msgstr "velikost obrazovky"
 
-#: factories/models.py:196 factories/templates/factories/details.html:68
+#: factories/models.py:196 factories/templates/factories/details.html:70
 msgid "screen sizes"
 msgstr "velikosti obrazovek"
 
-#: factories/models.py:212 requests/models.py:57
+#: factories/models.py:212 factories/templates/factories/details.html:101
+#: factories/templates/factories/details.html:107 requests/models.py:57
 msgid "bits per pixel"
 msgstr "bitů na pixel"
 
@@ -627,40 +640,58 @@ msgstr "bitů na pixel"
 msgid "color depth"
 msgstr "barevná hloubka"
 
-#: factories/models.py:220 factories/templates/factories/details.html:81
+#: factories/models.py:220 factories/templates/factories/details.html:96
 msgid "color depths"
 msgstr "barevné hloubky"
 
-#: factories/views.py:50 start/views.py:64
+#: factories/views.py:51 start/views.py:65
 msgid "out of service"
 msgstr "mimo provoz"
 
-#: factories/views.py:51 start/views.py:65
+#: factories/views.py:52 start/views.py:66
 msgid "No active screenshot factories."
 msgstr "Žádné aktivní stroje."
 
-#: factories/views.py:98
+#: factories/views.py:65 factories/views.py:73 factories/views.py:85
+#, python-format
+msgid "Value %d is too small."
+msgstr ""
+
+#: factories/views.py:67 factories/views.py:75 factories/views.py:87
+#, python-format
+msgid "Value %d is too big."
+msgstr ""
+
+#: factories/views.py:102 factories/views.py:114
+msgid "Duplicate."
+msgstr ""
+
+#: factories/views.py:104 factories/views.py:116
+msgid "Invalid data."
+msgstr ""
+
+#: factories/views.py:181
 msgid "Name must start with a lowercase letter."
 msgstr ""
 
-#: factories/views.py:102
+#: factories/views.py:185
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 
-#: factories/views.py:105
+#: factories/views.py:188
 msgid "This name is reserved."
 msgstr ""
 
-#: factories/views.py:122
+#: factories/views.py:205
 msgid "This name is already taken."
 msgstr ""
 
-#: factories/views.py:138
+#: factories/views.py:221
 #, fuzzy
 msgid "register a new screenshot factory"
 msgstr "Žádné aktivní stroje."
 
-#: factories/views.py:139
+#: factories/views.py:222
 #, fuzzy
 msgid "register"
 msgstr "příjemce"
@@ -692,22 +723,32 @@ msgstr "zkrácená verze"
 msgid "No browsers registered for this factory."
 msgstr "Žádné prohlížeče nejsou registrovány pro tento stroj."
 
-#: factories/templates/factories/details.html:76
-#: factories/templates/factories/details.html:89
+#: factories/templates/factories/details.html:77
+#: factories/templates/factories/details.html:102
+msgid "add"
+msgstr ""
+
+#: factories/templates/factories/details.html:83
+#: factories/templates/factories/details.html:108
+msgid "remove"
+msgstr ""
+
+#: factories/templates/factories/details.html:87
+#: factories/templates/factories/details.html:112
 msgid "default only"
 msgstr "pouze výchozí"
 
-#: factories/templates/factories/details.html:94
+#: factories/templates/factories/details.html:119
 #: screenshots/templates/screenshots/overview.html:4
 #: screenshots/templates/screenshots/overview.html:7
 msgid "recent screenshots"
 msgstr "poslední screenshoty"
 
-#: factories/templates/factories/details.html:101
+#: factories/templates/factories/details.html:126
 msgid "recent problem reports"
 msgstr "poslední chybové hlášení"
 
-#: factories/templates/factories/details.html:104
+#: factories/templates/factories/details.html:129
 #, python-format
 msgid "%(interval)s ago"
 msgstr "před %(interval)s"
@@ -750,23 +791,23 @@ msgstr "Verze Flashe"
 msgid "Flash versions"
 msgstr "Verze Flashe"
 
-#: messages/models.py:36 screenshots/models.py:334
+#: messages/models.py:37 screenshots/models.py:334
 msgid "error code"
 msgstr "kód chyby"
 
-#: messages/models.py:38 screenshots/models.py:336
+#: messages/models.py:39 screenshots/models.py:336
 msgid "error message"
 msgstr "chybové hlášení"
 
-#: messages/models.py:40
+#: messages/models.py:41
 msgid "occurred"
 msgstr "stalo se"
 
-#: messages/models.py:48
+#: messages/models.py:49
 msgid "factory error message"
 msgstr "chybové hlášení stroje"
 
-#: messages/models.py:49
+#: messages/models.py:50
 msgid "factory error messages"
 msgstr "chybová hlášení stroje"
 
@@ -795,7 +836,7 @@ msgstr ""
 msgid "position"
 msgstr "pozice"
 
-#: platforms/models.py:46 platforms/models.py:56 requests/models.py:276
+#: platforms/models.py:46 platforms/models.py:56 requests/models.py:278
 #: requests/templates/requests/overview.html:14
 msgid "platform"
 msgstr "platforma"
@@ -820,8 +861,81 @@ msgstr "např. i686 / PPC"
 msgid "architectures"
 msgstr "architektury"
 
+#: points/models.py:42
+msgid "sender"
+msgstr "odesílatel"
+
+#: points/models.py:45
+msgid "receiver"
+msgstr "příjemce"
+
+#: points/models.py:48 requests/models.py:297 screenshots/models.py:130
+#: screenshots/models.py:332
+msgid "screenshot"
+msgstr "screenshot"
+
+#: points/models.py:51 points/models.py:81 points/models.py:115
+msgid "points"
+msgstr "bodů"
+
+#: points/models.py:53
+msgid "paid"
+msgstr "placeno"
+
+#: points/models.py:56
+msgid "transaction"
+msgstr "transakce"
+
+#: points/models.py:57
+msgid "transactions"
+msgstr "transakce"
+
+#: points/models.py:77 points/models.py:111
+msgid "user"
+msgstr "uživatel"
+
+#: points/models.py:79
+msgid "considered"
+msgstr "zváženo"
+
+#: points/models.py:84
+msgid "balance"
+msgstr "zůstatek"
+
+#: points/models.py:85
+msgid "balances"
+msgstr "zůstatky"
+
+#: points/models.py:113 requests/models.py:314
+msgid "request"
+msgstr "dotaz"
+
+#: points/models.py:118
+msgid "bid"
+msgstr "přihození"
+
+#: points/models.py:119
+msgid "bids"
+msgstr "přihození"
+
+#: points/templates/points/overview.html:5
+msgid "account"
+msgstr "účet"
+
+#: points/templates/points/overview.html:11
+msgid "This is your private account page. Only you can see it."
+msgstr "Toto je soukromá stránka vašeho účtu. Jenom vy k ní máte přístup."
+
+#: points/templates/points/overview.html:18
+msgid "points received"
+msgstr "obdržených bodů"
+
+#: points/templates/points/overview.html:31
+msgid "points paid"
+msgstr "zaplacených bodů"
+
 #: requests/models.py:51 screenshots/models.py:104
-#: status/templates/status/usage.html:16 websites/models.py:90
+#: status/templates/status/usage.html:21 websites/models.py:90
 msgid "website"
 msgstr "webová stránka"
 
@@ -845,135 +959,151 @@ msgstr "navrhovatel"
 msgid "expire"
 msgstr "vyprší"
 
-#: requests/models.py:87 requests/models.py:274
+#: requests/models.py:89 requests/models.py:276
 msgid "request group"
 msgstr "skupina požadavků"
 
-#: requests/models.py:88
+#: requests/models.py:90
 msgid "request groups"
 msgstr "skupiny požadavků"
 
-#: requests/models.py:95
+#: requests/models.py:97
 msgid "screenshot request group"
 msgstr "skupina požadavků na screenshoty"
 
-#: requests/models.py:112
+#: requests/models.py:114
 #, python-format
 msgid "submitted %(interval)s ago"
 msgstr "zasláno před %(interval)s"
 
-#: requests/models.py:125
+#: requests/models.py:127
 #, python-format
 msgid "expires in %(interval)s"
 msgstr "vyprší za %(interval)s"
 
-#: requests/models.py:135
+#: requests/models.py:137
 msgid "extend"
 msgstr "rozšířit"
 
-#: requests/models.py:150 start/forms/options.py:41
+#: requests/models.py:152 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
 msgstr "%(width)d pixelů široké"
 
-#: requests/models.py:153 start/forms/options.py:54
+#: requests/models.py:155 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
 msgstr "%(color_depth)d bitů na pixel"
 
-#: requests/models.py:205
+#: requests/models.py:207
 msgid "Your screenshots will appear here when they are uploaded."
 msgstr "Váš screenshoty se zde objeví, jakmile budou nahrány."
 
-#: requests/models.py:207
+#: requests/models.py:209
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr "[Aktualizujte tuto stránku] nebo si ji zazáložkujte a přijďte později."
 
-#: requests/models.py:209
+#: requests/models.py:211
 msgid "Your screenshot requests have expired."
 msgstr "Vaše požadavky vypršely."
 
-#: requests/models.py:219
+#: requests/models.py:221
 #, python-format
 msgid "%(count)d browsers selected"
 msgstr ""
 
-#: requests/models.py:224
+#: requests/models.py:226
 #, python-format
 msgid "%(count)d starting"
 msgstr "začíná %(count)d"
 
-#: requests/models.py:227
+#: requests/models.py:229
 #, python-format
 msgid "%(count)d loading"
 msgstr "načítá %(count)d"
 
-#: requests/models.py:230
+#: requests/models.py:232
 #, python-format
 msgid "%(count)d uploaded"
 msgstr "%(count)d nahráno"
 
-#: requests/models.py:232
+#: requests/models.py:234
 msgid "details"
 msgstr "podrobnosti"
 
-#: requests/models.py:257
+#: requests/models.py:259
 msgid "download all screenshots"
 msgstr "stáhnout všechny screenshoty"
 
-#: requests/models.py:260
+#: requests/models.py:262
 #, python-format
 msgid "download %(count)d screenshots"
 msgstr "stáhnout %(count)d screenshotů"
 
-#: requests/models.py:284
+#: requests/models.py:286
 msgid "priority"
 msgstr ""
 
-#: requests/models.py:288
+#: requests/models.py:290
 msgid "locked"
 msgstr "zamknuto"
 
-#: requests/models.py:293
+#: requests/models.py:295
 msgid "redirected"
 msgstr "přesměrováno"
 
-#: requests/models.py:295 screenshots/models.py:130 screenshots/models.py:332
-msgid "screenshot"
-msgstr "screenshot"
-
-#: requests/models.py:312
-msgid "request"
-msgstr "dotaz"
-
-#: requests/models.py:313
+#: requests/models.py:315
 msgid "requests"
 msgstr "požadavků"
 
-#: requests/models.py:334 screenshots/models.py:114
+#: requests/models.py:336 screenshots/models.py:114
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
 msgstr "nahráno"
 
-#: requests/models.py:336
+#: requests/models.py:338
 msgid "failed"
 msgstr "selhalo"
 
-#: requests/models.py:338
+#: requests/models.py:340
 msgid "loading"
 msgstr "načítá se"
 
-#: requests/models.py:340
+#: requests/models.py:342
 msgid "starting"
 msgstr "spouštím"
 
-#: requests/views.py:112
+#: requests/views.py:113
 msgid "unavailable"
 msgstr "nedostupný"
 
-#: requests/views.py:144
+#: requests/views.py:145
 msgid "expired"
 msgstr ""
+
+#: requests/views.py:164
+#, fuzzy
+msgid "You must send a POST request to this page."
+msgstr "Nelze zaslat HTTP požadavek na %(hostname)s."
+
+#: requests/views.py:169
+msgid "You must specify a numeric request group ID."
+msgstr ""
+
+#: requests/views.py:174
+#, fuzzy
+msgid "request group expired"
+msgstr "skupina požadavků"
+
+#: requests/views.py:175
+#, python-format
+msgid "This request group already expired %d minutes ago."
+msgstr ""
+
+#: requests/views.py:178 websites/templates/websites/details.html:33
+#: websites/templates/websites/unknown.html:14
+msgid "Request new screenshots?"
+msgstr "Zaslat požadavek na nové screenshoty?"
 
 #: requests/templates/requests/details.html:9
 #: screenshots/templates/screenshots/details.html:23
@@ -1140,41 +1270,41 @@ msgstr "Stránka načtena"
 msgid "Report a problem with this screenshot?"
 msgstr "nahlásit problém s tímto screenshotem"
 
-#: sponsors/models.py:36
+#: sponsors/models.py:37
 msgid "slug"
 msgstr ""
 
-#: sponsors/models.py:37
+#: sponsors/models.py:38
 msgid "This is used to generate the link to the logo image."
 msgstr ""
 
-#: sponsors/models.py:39 websites/models.py:73
+#: sponsors/models.py:40 websites/models.py:73
 msgid "URL"
 msgstr "URL"
 
-#: sponsors/models.py:41
+#: sponsors/models.py:42
 #, fuzzy
 msgid "premium"
 msgstr "předchozí"
 
-#: sponsors/models.py:42
+#: sponsors/models.py:43
 msgid "Premium sponsors are always shown on the front page."
 msgstr ""
 
-#: sponsors/models.py:44
+#: sponsors/models.py:45
 #, fuzzy
 msgid "front page"
 msgstr "nechat být"
 
-#: sponsors/models.py:51
+#: sponsors/models.py:52
 msgid "sponsors"
 msgstr "sponzoři"
 
-#: start/views.py:165
+#: start/views.py:169
 msgid "select all"
 msgstr "označit vše"
 
-#: start/views.py:166
+#: start/views.py:170
 msgid "deselect all"
 msgstr "odznačit vše"
 
@@ -1183,40 +1313,40 @@ msgstr "odznačit vše"
 msgid "don't care"
 msgstr "nechat být"
 
-#: start/forms/url.py:51
+#: start/forms/url.py:52
 msgid "Enter your web address here:"
 msgstr "Zadejte vaši stránku:"
 
-#: start/forms/url.py:85
+#: start/forms/url.py:87
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "Schéma URL %(scheme)s není povoleno"
 
-#: start/forms/url.py:89
+#: start/forms/url.py:91
 msgid "Malformed URL (server name not specified)."
 msgstr "Neplatná URL (není zvolen název serveru)"
 
-#: start/forms/url.py:109
+#: start/forms/url.py:111
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Nelze se připojit k %(hostname)s."
 
-#: start/forms/url.py:111
+#: start/forms/url.py:113
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Nelze zaslat HTTP požadavek na %(hostname)s."
 
-#: start/forms/url.py:113
+#: start/forms/url.py:115
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Nelze získat obsah stránky z %(hostname)s."
 
-#: start/forms/url.py:117
+#: start/forms/url.py:119
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Server neodpovědel během %d vteřin."
 
-#: start/forms/url.py:149
+#: start/forms/url.py:151
 msgid "Malformed URL (database integrity error)."
 msgstr "Neplatná URL (chyba integrity databáze)."
 
@@ -1300,12 +1430,12 @@ msgstr ""
 msgid "usage report"
 msgstr "ohlášení chyby"
 
-#: status/templates/status/usage.html:33 websites/models.py:57
+#: status/templates/status/usage.html:38 websites/models.py:57
 #: websites/models.py:76
 msgid "domain"
 msgstr "doména"
 
-#: status/templates/status/usage.html:51
+#: status/templates/status/usage.html:56
 msgid "FQDN"
 msgstr ""
 
@@ -1334,61 +1464,20 @@ msgstr "webové stránky"
 msgid "website overview"
 msgstr "přehled stránek"
 
-#: websites/templates/websites/details.html:33
-msgid "Request new screenshots?"
-msgstr "Zaslat požadavek na nové screenshoty?"
-
 #: websites/templates/websites/details.html:37
+#: websites/templates/websites/unknown.html:18
 msgid "other pages on the same domain"
 msgstr "Další stránky na stejné doméně"
 
-#~ msgid "sender"
-#~ msgstr "odesílatel"
+#: websites/templates/websites/unknown.html:5
+#: websites/templates/websites/unknown.html:8
+#, fuzzy
+msgid "unknown website"
+msgstr "webová stránka"
 
-#~ msgid "receiver"
-#~ msgstr "příjemce"
-
-#~ msgid "points"
-#~ msgstr "bodů"
-
-#~ msgid "paid"
-#~ msgstr "placeno"
-
-#~ msgid "transaction"
-#~ msgstr "transakce"
-
-#~ msgid "transactions"
-#~ msgstr "transakce"
-
-#~ msgid "user"
-#~ msgstr "uživatel"
-
-#~ msgid "considered"
-#~ msgstr "zváženo"
-
-#~ msgid "balance"
-#~ msgstr "zůstatek"
-
-#~ msgid "balances"
-#~ msgstr "zůstatky"
-
-#~ msgid "bid"
-#~ msgstr "přihození"
-
-#~ msgid "bids"
-#~ msgstr "přihození"
-
-#~ msgid "account"
-#~ msgstr "účet"
-
-#~ msgid "This is your private account page. Only you can see it."
-#~ msgstr "Toto je soukromá stránka vašeho účtu. Jenom vy k ní máte přístup."
-
-#~ msgid "points received"
-#~ msgstr "obdržených bodů"
-
-#~ msgid "points paid"
-#~ msgstr "zaplacených bodů"
+#: websites/templates/websites/unknown.html:11
+msgid "This address was never submitted, or removed after inactivity."
+msgstr ""
 
 #~ msgid "log in"
 #~ msgstr "přihlásit se"
@@ -1398,9 +1487,6 @@ msgstr "Další stránky na stejné doméně"
 
 #~ msgid "Please try again."
 #~ msgstr "Zkuste to prosím znovu."
-
-#~ msgid "username"
-#~ msgstr "uživatelské jméno"
 
 #~ msgid "content"
 #~ msgstr "obsah"
