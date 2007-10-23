@@ -1,5 +1,5 @@
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (1,1,'Debian','3.1','Sarge','');
-INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (2,1,'Debian','3.2','Etch','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (2,1,'Debian','4.0','Etch','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (3,1,'PLD','2.0','Ac','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (4,1,'Gentoo','2006.0','','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (5,1,'Ubuntu','5.10','Breezy Badger','Canonical');
@@ -18,4 +18,11 @@ INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","co
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (18,1,'Fedora','7','','Red Hat');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (19,1,'PLD','3.0','Th','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (20,1,'Arch','','Current','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (21,1,'Debian','3.0','Woody','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (22,1,'SUSE','10.0','','SUSE');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (23,1,'SUSE','10.1','','SUSE');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (24,1,'SUSE','10.2','','SUSE');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (25,1,'Gentoo','2006.1','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (26,1,'Gentoo','2007.0','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (27,1,'Ubuntu','7.10','Gutsy Gibbon','Canonical');
 SELECT setval('platforms_operatingsystem_id_seq', (SELECT max("id") FROM "platforms_operatingsystem"));
