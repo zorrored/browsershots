@@ -23,5 +23,9 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 
-def http_request(http_request):
-    return {'http_request': http_request}
+def http_request(request):
+    """
+    Add the HTTP request to the request context, but as
+    'http_request' rather than 'request' to avoid name clash.
+    """
+    return {'http_request': request}

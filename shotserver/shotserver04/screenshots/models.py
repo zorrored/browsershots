@@ -24,7 +24,7 @@ __author__ = "$Author$"
 
 import os
 import cgi
-from django.db import models, backend
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
 from shotserver04.websites.models import Website

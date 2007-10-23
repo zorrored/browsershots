@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 from django import template
 from django.utils.text import capfirst
+from django.utils.translation import ugettext as _
 from shotserver04 import settings
 
 register = template.Library()

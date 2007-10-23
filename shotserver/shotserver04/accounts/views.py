@@ -24,14 +24,14 @@ __author__ = "$Author$"
 
 from datetime import datetime, timedelta
 from psycopg import IntegrityError
-import socket
+import smtplib
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django import newforms as forms
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.newforms.util import ErrorList
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
@@ -44,6 +44,10 @@ from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.common import error_page, success_page
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
+
+USERNAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
+USERNAME_CHAR = USERNAME_CHAR_FIRST + '0123456789_-'
+PASSWORD_MIN_LENGTH = 8
 
 
 def logout_required(func):
@@ -63,6 +67,9 @@ def logout_required(func):
 
 
 class LoginForm(forms.Form):
+    """
+    Simple login form.
+    """
     username = forms.CharField(max_length=20, label=_("Username"))
     password = forms.CharField(max_length=40, label=_("Password"),
         widget=forms.PasswordInput(render_value=False))
@@ -111,6 +118,9 @@ def login(http_request):
 
 
 def logout(http_request):
+    """
+    De-authenticate the current user.
+    """
     auth.logout(http_request)
     result_title = _("logged out")
     result_class = 'success'
@@ -146,6 +156,9 @@ class EmailForm(forms.Form):
 
 
 def email_message(domain, hashkey, user):
+    """
+    Email template for verification message.
+    """
     if user:
         salutation = _("Hi %(first_name)s!") % {'first_name': user.first_name}
         what = "set a new password"
@@ -187,25 +200,25 @@ _("Please try again later."))
         form_javascript = "document.getElementById('id_email').focus()"
         return render_to_response('form.html', locals(),
             context_instance=RequestContext(http_request))
-    email = form.cleaned_data['email']
+    address = form.cleaned_data['email']
     user = None
-    users = User.objects.filter(email=email)
+    users = User.objects.filter(email=address)
     if len(users):
         user = users[0]
     hashkey = crypto.random_md5()
-    Nonce.objects.create(email=email, hashkey=hashkey, ip=ip)
+    Nonce.objects.create(email=address, hashkey=hashkey, ip=ip)
     domain = Site.objects.get_current().domain
     message = email_message(domain, hashkey, user)
     try:
         send_mail("Browsershots email verification", message,
-                  'noreply@browsershots.org', [email],
+                  'noreply@browsershots.org', [address],
                   fail_silently=False)
-    except Exception, e:
+    except smtplib.SMTPException, e:
         return error_page(http_request, _("email error"),
             _("Could not send email."), str(e))
     hide_hashkey(hashkey)
     return success_page(http_request, _("email sent"),
-_("A verification email was sent to %(email)s.") % locals(),
+_("A verification email was sent to %(address)s.") % locals(),
 _("Check your email inbox and follow the instructions in the message."),
 _("If your email provider uses graylisting, it may take a few minutes."))
 
@@ -232,8 +245,6 @@ class UserForm(forms.Form):
         """
         Check that the username is sensible.
         """
-        USERNAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
-        USERNAME_CHAR = USERNAME_CHAR_FIRST + '0123456789_-'
         username = self.cleaned_data['username']
         if username[0] not in USERNAME_CHAR_FIRST:
             raise forms.ValidationError(unicode(
@@ -261,7 +272,6 @@ class PasswordForm(forms.Form):
         """
         Check that the password is long enough and not too silly.
         """
-        PASSWORD_MIN_LENGTH = 8
         password = self.cleaned_data['password']
         if len(password) < PASSWORD_MIN_LENGTH:
             raise forms.ValidationError(unicode(
@@ -291,14 +301,14 @@ class RegistrationForm(UserForm, PasswordForm):
     User registration form, mixed from user and password form.
     """
 
-    def create_user(self, email):
+    def create_user(self, address):
         """
         Try to create the user in the database.
         Return None if the username is already taken.
         """
         try:
             return User.objects.create_user(self.cleaned_data['username'],
-                email, self.cleaned_data['password'])
+                address, self.cleaned_data['password'])
         except IntegrityError, e:
             transaction.rollback()
             if 'duplicate' in str(e).lower():
@@ -333,6 +343,9 @@ _("The verification email was requested more than 30 minutes ago."))
 
 
 def change_password(http_request, nonce, user):
+    """
+    Change password after email verification.
+    """
     form = PasswordForm(http_request.POST or None)
     if not form.is_valid():
         form_title = _("choose a new password")
@@ -350,6 +363,9 @@ def change_password(http_request, nonce, user):
 
 
 def register(http_request, nonce):
+    """
+    Register a new user after email verification.
+    """
     form = RegistrationForm(http_request.POST or None)
     user = None
     if form.is_valid():

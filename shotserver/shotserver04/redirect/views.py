@@ -24,8 +24,7 @@ __author__ = "$Author$"
 
 from xmlrpclib import Fault
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404
 from shotserver04.common import error_page, result_page
 from shotserver04.nonces import xmlrpc as nonces
 from shotserver04.factories.models import Factory

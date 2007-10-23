@@ -33,12 +33,12 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import filesizeformat
 from shotserver04.websites.models import Website
 from shotserver04.platforms.models import Platform
-from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
+from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
-from shotserver04.common import lock_timeout, last_poll_timeout
+from shotserver04.common import lock_timeout
 from shotserver04.common.preload import preload_foreign_keys
 
 
