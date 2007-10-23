@@ -23,8 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from psycopg import IntegrityError
-from django.http import Http404, HttpResponseRedirect
-from django.utils.text import capfirst
+from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response, get_object_or_404
@@ -38,6 +37,9 @@ from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.preload import preload_foreign_keys
+
+FACTORY_NAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
+FACTORY_NAME_CHAR = FACTORY_NAME_CHAR_FIRST + '0123456789_-'
 
 
 def overview(http_request):
@@ -56,10 +58,17 @@ def overview(http_request):
 
 
 class ScreenSizeForm(forms.Form):
+    """
+    Add or remove screen resolutions for a factory.
+    """
+
     width = forms.IntegerField(widget=forms.TextInput(attrs={'size': 3}))
     height = forms.IntegerField(widget=forms.TextInput(attrs={'size': 3}))
 
     def clean_width(self):
+        """
+        Check that the screen width is within sensible limits.
+        """
         width = self.cleaned_data['width']
         if width < 640:
             raise forms.ValidationError(_("Value %d is too small.") % width)
@@ -68,6 +77,9 @@ class ScreenSizeForm(forms.Form):
         return width
 
     def clean_height(self):
+        """
+        Check that the screen height is within sensible limits.
+        """
         height = self.cleaned_data['height']
         if height < 480:
             raise forms.ValidationError(_("Value %d is too small.") % height)
@@ -77,9 +89,15 @@ class ScreenSizeForm(forms.Form):
 
 
 class ColorDepthForm(forms.Form):
+    """
+    Add or remove color depths for a factory.
+    """
     depth = forms.IntegerField(widget=forms.TextInput(attrs={'size': 2}))
 
     def clean_depth(self):
+        """
+        Check that the color depth within sensible limits.
+        """
         depth = self.cleaned_data['depth']
         if depth < 1:
             raise forms.ValidationError(_("Value %d is too small.") % depth)
@@ -89,6 +107,10 @@ class ColorDepthForm(forms.Form):
 
 
 def details_post(factory, screensize_form, colordepth_form, post):
+    """
+    Process a post request to the details page,
+    e.g. to add or remove a screen size or color depth.
+    """
     if screensize_form.is_valid():
         try:
             ScreenSize.objects.create(factory=factory,
@@ -117,7 +139,10 @@ def details_post(factory, screensize_form, colordepth_form, post):
     for action in post:
         parts = action.split('_')
         if parts[0] == 'remove' and parts[1] == 'size':
-            width, height = map(int, parts[2].split('x'))
+            width_height = parts[2].split('x'))
+            assert len(width_height) == 2
+            width = int(width_height[0])
+            height = int(width_height[1])
             ScreenSize.objects.filter(
                 factory=factory, width=width, height=height).delete()
             return HttpResponseRedirect(
@@ -168,19 +193,20 @@ def details(http_request, name):
 
 
 class FactoryBase(forms.BaseForm):
+    """
+    Special methods for FactoryForm (created below using form_for_model).
+    """
 
     def clean_name(self):
         """
         Check that the factory name is sensible.
         """
-        NAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
-        NAME_CHAR = NAME_CHAR_FIRST + '0123456789_-'
         name = self.cleaned_data['name']
-        if name[0] not in NAME_CHAR_FIRST:
+        if name[0] not in FACTORY_NAME_CHAR_FIRST:
             raise forms.ValidationError(unicode(
                 _("Name must start with a lowercase letter.")))
         for index in range(len(name)):
-            if name[index] not in NAME_CHAR:
+            if name[index] not in FACTORY_NAME_CHAR:
                 raise forms.ValidationError(unicode(
 _("Name may contain only lowercase letters, digits, underscore, hyphen.")))
         if name in 'localhost server factory shotfactory add'.split():
@@ -213,6 +239,9 @@ FactoryForm = forms.form_for_model(Factory, form=FactoryBase,
 
 @login_required
 def add(http_request):
+    """
+    Add a new screenshot factory.
+    """
     factory = None
     form = FactoryForm(http_request.POST or None)
     if form.is_valid():

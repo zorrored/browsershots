@@ -1,3 +1,7 @@
+"""
+Server status views.
+"""
+
 import os
 import socket
 from datetime import datetime, timedelta
@@ -11,6 +15,9 @@ from shotserver04.websites.models import Website, Domain
 
 @login_required
 def overview(http_request):
+    """
+    Server status overview.
+    """
     # Local time and server uptime.
     local_time = datetime.now()
     uptime = float(open("/proc/uptime").read().split()[0])
@@ -28,6 +35,9 @@ def overview(http_request):
 
 @login_required
 def usage(http_request, usage_interval='7d'):
+    """
+    Show the heaviest users in the last 7 days (or other timeframe).
+    """
     cursor = connection.cursor()
     # Most frequently requested websites
     cursor.execute("""\

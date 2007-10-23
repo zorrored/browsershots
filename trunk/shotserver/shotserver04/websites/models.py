@@ -26,7 +26,6 @@ import cgi
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core import validators
-from shotserver04 import settings
 
 
 def has_slash_after_hostname(field_data, all_data):
