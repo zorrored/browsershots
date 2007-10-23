@@ -139,7 +139,7 @@ def details_post(factory, screensize_form, colordepth_form, post):
     for action in post:
         parts = action.split('_')
         if parts[0] == 'remove' and parts[1] == 'size':
-            width_height = parts[2].split('x'))
+            width_height = parts[2].split('x')
             assert len(width_height) == 2
             width = int(width_height[0])
             height = int(width_height[1])
