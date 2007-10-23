@@ -125,7 +125,7 @@ def details(http_request, hashkey):
     Show large preview and detailed information about a screenshot.
     """
     screenshot = get_object_or_404(Screenshot, hashkey=hashkey)
-    request = Request.objects.get(screenshot=screenshot)
+    request = get_object_or_404(Request, screenshot=screenshot)
     problem_form = ProblemForm(http_request.POST)
     requested = {
         'browser': unicode(screenshot.browser),
