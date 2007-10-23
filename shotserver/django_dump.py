@@ -36,8 +36,8 @@ from pprint import pprint
 
 
 def sql(instance):
-    from django.db import backend
-    field_names = [backend.quote_name(f.column)
+    from django.db import connection
+    field_names = [connection.ops.quote_name(f.column)
                    for f in instance._meta.fields]
     db_values = []
     for f in instance._meta.fields:
@@ -50,22 +50,26 @@ def sql(instance):
             value = str(value)
         db_values.append(value)
     return 'INSERT INTO %s (%s) VALUES (%s);' % (
-        backend.quote_name(instance._meta.db_table),
+        connection.ops.quote_name(instance._meta.db_table),
         ','.join(field_names),
         ','.join(db_values),
         )
 
 
 def dump(options, model):
-    from django.db import backend
+    from django.db import connection
     if options.install:
         module = sys.modules[model.__module__]
         dirname = os.path.dirname(os.path.normpath(module.__file__))
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
         filename = os.path.join(dirname, 'sql',
                                 model._meta.module_name + '.sql')
         outfile = open(filename, 'w')
     elif options.source:
         dirname = os.path.join(options.source, model._meta.app_label, 'sql')
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
         filename = os.path.join(dirname, model._meta.module_name + '.sql')
         outfile = open(filename, 'w')
     elif options.output:
@@ -79,7 +83,7 @@ def dump(options, model):
     for instance in model.objects.all().order_by(model._meta.fields[0].column):
         outfile.write(sql(instance) + '\n')
     pk_sql = """SELECT setval('%s_id_seq', (SELECT max("id") FROM %s));""" % (
-        model._meta.db_table, backend.quote_name(model._meta.db_table))
+        model._meta.db_table, connection.ops.quote_name(model._meta.db_table))
     outfile.write(pk_sql + '\n')
 
 
