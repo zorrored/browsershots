@@ -12,7 +12,7 @@ INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") V
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (12,'W3M','',True,False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (13,'SeaMonkey','Mozilla',False,False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (14,'Flock','Mozilla',False,True);
-INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (15,'Navigator','Netscape',False,False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (15,'Navigator','Netscape',False,True);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (16,'Phoenix','Mozilla',False,False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (17,'Firebird','Mozilla',False,False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (18,'Dillo','',False,True);
