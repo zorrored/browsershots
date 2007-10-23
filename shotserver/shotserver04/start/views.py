@@ -44,6 +44,9 @@ from shotserver04.requests.models import RequestGroup, Request
 from shotserver04.sponsors.models import Sponsor
 
 BROWSER_COLUMNS = 5
+SELECTOR_TEMPLATE = u"""
+<a href="javascript:select_browsers('%s')" onfocus="this.blur()">%s</a>
+""".strip()
 
 
 def start(http_request):
@@ -163,11 +166,8 @@ def selector_links(browser_forms):
     Links to select or unselect all browsers.
     """
     total = sum([len(form.fields) for form in browser_forms])
-    link_template = """
-<a href="javascript:select_browsers('%s')" onfocus="this.blur()">%s</a>
-""".strip()
-    yield link_template % ('+' * total, capfirst(_('select all')))
-    yield link_template % ('-' * total, capfirst(_('deselect all')))
+    yield SELECTOR_TEMPLATE % ('+' * total, capfirst(_('select all')))
+    yield SELECTOR_TEMPLATE % ('-' * total, capfirst(_('deselect all')))
 
 
 def create_platform_requests(request_group, platform, browser_form,
