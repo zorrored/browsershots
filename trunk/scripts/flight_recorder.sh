@@ -35,10 +35,6 @@ that this script (or a symlink to it) is in one of these folders:
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 """
 
-__revision__ = "$Rev: 1464 $"
-__date__ = "$Date: 2007-06-08 22:12:43 +0200 (Fri, 08 Jun 2007) $"
-__author__ = "$Author: johann $"
-
 DATE=`date +%H%M`
 LOGDIR=/var/log/flight
 mkdir -p $LOGDIR
