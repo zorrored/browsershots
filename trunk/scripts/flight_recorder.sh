@@ -21,19 +21,17 @@
 # ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-"""
-This script will dump the output of top(1) to files named like this:
-/var/log/flight/top-HHMM.log (with HHMM replaced by the current time)
-
-It is useful to diagnose crashes, performance issues, and intrusions.
-To enable this script, add the following line to /etc/crontab:
-* *     * * *   root    flight_recorder.sh
-
-Make sure that line comes after the following in /etc/crontab, and
-that this script (or a symlink to it) is in one of these folders:
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-"""
+#
+# This script will dump the output of top(1) to files named like this:
+# /var/log/flight/top-HHMM.log (HHMM is the current time)
+#
+# It is useful to diagnose crashes, performance issues and intrusions.
+# To enable this script, add the following line to /etc/crontab:
+# * *     * * *   root    flight_recorder.sh
+#
+# Make sure that line comes after the following in /etc/crontab, and
+# that this script (or a symlink to it) is in one of these folders:
+# PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 DATE=`date +%H%M`
 LOGDIR=/var/log/flight
