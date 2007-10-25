@@ -34,7 +34,9 @@ from shotserver04.settings import PNG_ROOT
 FOLDERS = glob.glob(os.path.join(PNG_ROOT, '*'))
 CANDIDATE_FOLDER = os.path.join(PNG_ROOT, '160')
 MAX_CANDIDATES = 5000
-MIN_FREE_PERCENT = 10
+MIN_FREE_PERCENT = 15
+if len(sys.argv) == 2:
+    MIN_FREE_PERCENT = float(sys.argv[-1])
 
 
 def timestamp(when=None):
