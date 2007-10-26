@@ -1,0 +1,20 @@
+{% extends "adbase.html" %}
+{% load i18n %}
+{% load human %}
+
+{% block title %}{{ _("screenshot factories")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ _("screenshot factories")|capfirst }}</h1>
+
+<table class="factories vertical">
+<thead>
+<tr>{{ factory_table_header }}</tr>
+</thead>
+<tbody>
+{% for factory in factory_list %}
+<tr class="{% cycle row1,row2 %}">{{ factory.table_row }}</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+INSERT INTO "features_javascript" ("id","version") VALUES (1,'disabled');
+INSERT INTO "features_javascript" ("id","version") VALUES (2,'enabled');
+INSERT INTO "features_javascript" ("id","version") VALUES (3,'1.0');
+INSERT INTO "features_javascript" ("id","version") VALUES (4,'1.1');
+INSERT INTO "features_javascript" ("id","version") VALUES (5,'1.2');
+INSERT INTO "features_javascript" ("id","version") VALUES (6,'1.3');
+INSERT INTO "features_javascript" ("id","version") VALUES (7,'1.4');
+INSERT INTO "features_javascript" ("id","version") VALUES (8,'1.5');
+INSERT INTO "features_javascript" ("id","version") VALUES (9,'1.6');
+INSERT INTO "features_javascript" ("id","version") VALUES (10,'1.7');
+INSERT INTO "features_javascript" ("id","version") VALUES (11,'1.8');
+INSERT INTO "features_javascript" ("id","version") VALUES (12,'1.9');
+INSERT INTO "features_javascript" ("id","version") VALUES (13,'2.0');
+SELECT setval('features_javascript_id_seq', (SELECT max("id") FROM "features_javascript"));

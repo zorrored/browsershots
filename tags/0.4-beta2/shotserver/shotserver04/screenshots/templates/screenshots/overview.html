@@ -1,0 +1,10 @@
+{% extends "adbase.html" %}
+{% load i18n %}
+
+{% block title %}{{ _("recent screenshots")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ _("recent screenshots")|capfirst }}</h1>
+
+{{ previews }}
+{% endblock %}
