@@ -40,13 +40,19 @@ properties :
 
 documentation :
 	wget -O - http://trac.browsershots.org/wiki/InstallServer?format=txt \
+	| recode CR-LF..data \
 	| sed s/InstallServerApache/INSTALL.APACHE/ \
 	| fold -s -w 76 > INSTALL
 	wget -O - http://trac.browsershots.org/wiki/InstallServerApache?format=txt \
+	| recode CR-LF..data \
 	| sed s/InstallServer/INSTALL/ \
 	| fold -s -w 76 > INSTALL.APACHE
-	wget -O - http://trac.browsershots.org/wiki/FrequentlyAskedQuestions?format=txt | fold -s -w 76 > FAQ
-	wget -O - http://trac.browsershots.org/wiki/Authors?format=txt | fold -s -w 76 > AUTHORS
+	wget -O - http://trac.browsershots.org/wiki/FrequentlyAskedQuestions?format=txt \
+	| recode CR-LF..data \
+	| fold -s -w 76 > FAQ
+	wget -O - http://trac.browsershots.org/wiki/Authors?format=txt \
+	| recode CR-LF..data \
+	| fold -s -w 76 > AUTHORS
 
 backup :
 	pg_dump shotserver04 | bzip2 \
