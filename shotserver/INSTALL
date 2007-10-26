@@ -41,7 +41,7 @@ Use Subversion to check out the latest development version of the software
 (the same code that is running on http://v04.browsershots.org/):
 
 {{{
-svn checkout http://svn.browsershots.org/branches/shotserver-django
+svn checkout http://svn.browsershots.org/trunk/shotserver
 }}}
 
 For the quick-start development server, you don't need to install the 
@@ -50,7 +50,7 @@ server from your local copy. Only for use with a real web server like
 Apache, you would do the following:
 
 {{{
-cd shotserver-django
+cd shotserver
 sudo python setup.py install
 }}}
 
@@ -78,7 +78,7 @@ logout
 
 Let Django create the database tables for you:
 {{{
-cd shotserver-django/shotserver04
+cd shotserver/shotserver04
 ./manage.py syncdb
 }}}
 
@@ -111,7 +111,7 @@ to the database '''shotserver04''' and to the directory
 '''/var/www/browsershots.org/png/'''.
 
 {{{
-cd shotserver-django/shotserver04
+cd shotserver/shotserver04
 ./manage.py runserver
 }}}
 
@@ -155,4 +155,4 @@ browsers manually or change their settings.
 After you get the development server to run, you may want to switch to a 
 real web server for performance and stability. See the 
 [http://www.djangoproject.com/documentation/modpython/ Django 
-documentation] for details.
+documentation] for details, and INSTALL.APACHE for example configuration.
