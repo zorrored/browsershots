@@ -53,7 +53,7 @@ reset : backup
 	shotserver04/manage.py syncdb
 
 customsql :
-	./django_dump.py -p shotserver04 -s shotserver04 \
+	django_dump.py -p shotserver04 -s shotserver04 \
 	Architecture Platform OperatingSystem \
 	Javascript Java Flash Engine BrowserGroup
 
