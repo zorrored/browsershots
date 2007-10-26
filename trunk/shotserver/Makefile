@@ -39,8 +39,13 @@ properties :
 	find -name "*.py" | xargs svn propset svn:eol-style native
 
 documentation :
+	wget -O - http://trac.browsershots.org/wiki/InstallServer?format=txt \
+	| sed s/InstallServerApache/INSTALL.APACHE/ \
+	| fold -s -w 76 > INSTALL
+	wget -O - http://trac.browsershots.org/wiki/InstallServerApache?format=txt \
+	| sed s/InstallServer/INSTALL/ \
+	| fold -s -w 76 > INSTALL.APACHE
 	wget -O - http://trac.browsershots.org/wiki/FrequentlyAskedQuestions?format=txt | fold -s -w 76 > FAQ
-	wget -O - http://trac.browsershots.org/wiki/InstallServer?format=txt | fold -s -w 76 > INSTALL
 	wget -O - http://trac.browsershots.org/wiki/Authors?format=txt | fold -s -w 76 > AUTHORS
 
 backup :
