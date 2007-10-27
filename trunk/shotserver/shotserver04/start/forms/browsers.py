@@ -24,10 +24,21 @@ __author__ = "$Author$"
 
 from django import newforms as forms
 
-try:
-    all([])
-except NameError:
-    all = lambda sequence: not sequence or min(map(bool, sequence))
+
+def is_latest_minor_version(browser, platform, active_browsers):
+    """
+    Check if this browser has the newest minor version among all of
+    the same browsers with the same major version number on the same
+    platform. Used for default browser selection on start page.
+    """
+    for other in active_browsers:
+        if (other.browser_group != browser.browser_group or
+            other.major != browser.major or
+            other.factory.operating_system.platform_id != platform.id):
+            continue
+        if other.minor > browser.minor:
+            return False
+    return True
 
 
 class BrowsersForm(forms.BaseForm):
@@ -65,11 +76,8 @@ class BrowsersForm(forms.BaseForm):
             if data:
                 initial = name in data and 'on' in data[name]
             else:
-                initial = all([
-                    other.minor <= browser.minor
-                    for other in active_browsers
-                    if other.browser_group == browser.browser_group
-                    and other.major == browser.major])
+                initial = is_latest_minor_version(
+                    browser, platform, active_browsers)
             field = forms.BooleanField(
                 label=label, initial=initial, required=False)
             field.platform_name = platform_name
