@@ -5,6 +5,7 @@ function setZoom(img, dir, width, height, margin, zIndex, delay) {
       img.style.height=height;
       img.style.margin=margin;
       img.style.zIndex=zIndex;
+      img.parentNode.parentNode.style.zIndex=zIndex;
     }
   }, delay);
 }
