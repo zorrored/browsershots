@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 import re
 import urlparse
+import socket
 from datetime import datetime
 from psycopg import IntegrityError
 from django import newforms as forms
@@ -34,7 +35,8 @@ from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
 from shotserver04.websites.utils import \
      split_netloc, http_get, count_profanities, \
-     HTTP_TIMEOUT, HTTPError, ConnectError, RequestError
+     HTTP_TIMEOUT, HTTPError, ConnectError, RequestError, \
+     dotted_ip, long_ip, bit_mask, slash_mask
 from shotserver04.websites.models import Domain, Website
 from shotserver04.websites import normalize_url
 
@@ -58,6 +60,7 @@ class UrlForm(forms.Form):
         self.cleaned_data['url'] = normalize_url(self.cleaned_data['url'])
         self.add_scheme()
         self.split_url()
+        self.check_server_ip()
         self.add_slash()
         self.cleaned_data['content'] = self.http_get()
         self.cleaned_data['profanities'] = count_profanities(
@@ -91,6 +94,24 @@ class UrlForm(forms.Form):
                 unicode(_("Malformed URL (server name not specified).")))
         self.netloc_parts = split_netloc(self.url_parts[1])
         # print self.netloc_parts
+
+    def check_server_ip(self):
+        """
+        Check if server IP is disallowed in settings.py.
+        """
+        ip = socket.gethostbyname(self.netloc_parts[2])
+        server = long_ip(ip)
+        # print 'server', server, dotted_ip(server), ip
+        for disallowed in settings.DISALLOWED_SERVER_IP_LIST:
+            mask = bit_mask(32)
+            if '/' in disallowed:
+                disallowed, bits = disallowed.split('/', 1)
+                mask = slash_mask(int(bits))
+            identifier = long_ip(disallowed) & mask
+            masked = server & mask
+            if masked == identifier:
+                raise ValidationError(unicode(
+                    _("Server IP address %(ip)s is disallowed.") % locals()))
 
     def add_slash(self):
         """

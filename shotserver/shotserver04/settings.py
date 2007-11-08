@@ -124,6 +124,27 @@ bitch adult pussy boob
 # Tolerate a small number of profane words
 PROFANITIES_ALLOWED = 1
 
+# Block requests for screenshots of special IP addresses
+DISALLOWED_SERVER_IP_LIST = """
+0.0.0.0/8
+10.0.0.0/8
+14.0.0.0/8
+127.0.0.0/8
+128.0.0.0/16
+169.254.0.0/16
+172.16.0.0/12
+191.255.0.0/16
+192.0.0.0/24
+192.0.2.0/24
+192.88.99.0/24
+192.168.0.0/16
+198.18.0.0/15
+223.255.255.0/24
+224.0.0.0/4
+240.0.0.0/4
+255.255.255.255
+""".split()
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 
