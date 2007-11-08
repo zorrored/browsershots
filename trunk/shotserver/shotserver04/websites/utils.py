@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import socket
+import struct
 import httplib
 import urlparse
 
@@ -154,6 +155,50 @@ def count_profanities(profanities, content):
     for word in profanities:
         result += content.count(word)
     return result
+
+
+def dotted_ip(long_ip):
+    """
+    >>> dotted_ip(2130706433)
+    '127.0.0.1'
+    """
+    return socket.inet_ntoa(struct.pack('!L', long_ip))
+
+
+def long_ip(dotted_ip):
+    """
+    >>> long_ip('127.0.0.1')
+    2130706433
+    """
+    return struct.unpack('!L', socket.inet_aton(dotted_ip))[0]
+
+
+def bit_mask(bits):
+    """
+    >>> bit_mask(32)
+    4294967295L
+    >>> bit_mask(0)
+    0L
+    >>> bit_mask(8)
+    255L
+    >>> bit_mask(24)
+    16777215L
+    """
+    return (1L << bits) - 1
+
+
+def slash_mask(bits):
+    """
+    >>> slash_mask(32)
+    4294967295L
+    >>> slash_mask(0)
+    0L
+    >>> slash_mask(8)
+    4278190080L
+    >>> slash_mask(24)
+    4294967040L
+    """
+    return bit_mask(32) - bit_mask(32 - bits)
 
 
 if __name__ == '__main__':
