@@ -96,6 +96,14 @@ width="512" height="{{ screenshot.get_large_height }}"
 </tr>
 </table>
 
+<div id="try-again" class="clear">
+<p>
+<a href="/?browsers={{ screenshot.browser.browser_group.name|lower }}&amp;url={{ screenshot.website.url }}">Request a new screenshot of {{ screenshot.browser.browser_group.name }}?</a><br />
+<a href="/?browsers={{ screenshot.factory.operating_system.platform.name|lower }}_{{ screenshot.browser.browser_group.name|lower }}&amp;url={{ screenshot.website.url }}">Request a new screenshot of {{ screenshot.browser.browser_group.name }} on {{ screenshot.factory.operating_system.platform.name }}?</a><br />
+<a href="/?browsers={{ screenshot.factory.operating_system.platform.name|lower }}_{{ screenshot.browser.browser_group.name|lower }}_{{ screenshot.browser.major }}_{{ screenshot.browser.minor }}&amp;url={{ screenshot.website.url }}">Request a new screenshot of {{ screenshot.browser.browser_group.name }} {{ screenshot.browser.major }}.{{ screenshot.browser.minor }} on {{ screenshot.factory.operating_system.platform.name }}?</a><br />
+</p>
+</div>
+
 {% if problem_form %}
 <div id="problem-report" class="clear">
 <p><a id="report" name="report" href="#report">{{ _("Report a problem with this screenshot?") }}</a></p>
