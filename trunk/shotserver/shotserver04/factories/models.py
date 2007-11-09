@@ -37,7 +37,7 @@ FACTORY_FIELDS = (
     'last_poll', 'last_upload',
     'uploads_per_hour', 'uploads_per_day',
     'queue_estimate', 'created')
-FACTORY_FIELDS_HIDE = ('created', )
+FACTORY_FIELDS_HIDE = ('architecture', 'created', )
 FACTORY_FIELDS_SECONDS = ('queue_estimate')
 FACTORY_FIELDS_TIMESINCE = ('last_poll', 'last_upload', 'created')
 
