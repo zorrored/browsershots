@@ -79,10 +79,15 @@ def start(http_request):
                          factory=active_factories,
                          factory__operating_system=True,
                          browser_group=True)
+    # Select browsers according to GET request
+    selected_browsers = None
+    if 'browsers' in http_request.GET:
+        selected_browsers = http_request.GET['browsers'].split()
     # Browser forms for each platform.
     browser_forms = []
     for platform in Platform.objects.all():
-        browser_form = BrowsersForm(active_browsers, platform, post)
+        browser_form = BrowsersForm(active_browsers, platform,
+                                    post, selected_browsers)
         browser_form.platform_name = \
             unicode(platform).lower().replace(' ', '-')
         if browser_form.is_bound:
