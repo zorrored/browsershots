@@ -49,7 +49,8 @@ class BrowsersForm(forms.BaseForm):
     errors = {}
     base_fields = forms.forms.SortedDictFromList()
 
-    def __init__(self, active_browsers, platform, data=None):
+    def __init__(self, active_browsers, platform,
+                 data=None, selected_browsers=None):
         forms.BaseForm.__init__(self, data)
         self.platform = platform
         self.columns = 1
@@ -73,8 +74,13 @@ class BrowsersForm(forms.BaseForm):
                 ))
             if name in field_dict:
                 continue
-            if data:
+            if data is not None:
                 initial = name in data and 'on' in data[name]
+            elif selected_browsers is not None:
+                initial = False
+                for sel in selected_browsers:
+                    if sel in name:
+                        initial = True
             else:
                 initial = is_latest_minor_version(
                     browser, platform, active_browsers)
