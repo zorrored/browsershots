@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 PHOTO_UPLOAD_PATH = '/var/www/v04.browsershots.org/static/applicants'
 
 
-class Candidate(models.Model):
+class Applicant(models.Model):
     user = models.ForeignKey(User, editable=False)
 
     degree = models.CharField(max_length=100, blank=True)
@@ -12,9 +12,11 @@ class Candidate(models.Model):
     location = models.CharField(max_length=100, blank=True)
 
     cambridge = models.CharField(max_length=100, blank=True,
-        help_text="Are you willing to move to Cambridge, MA?")
+        help_text="Are you willing to move to Cambridge, MA" +
+                  " for the summer of 2008?")
     bay_area = models.CharField(max_length=100, blank=True,
-        help_text="Are you willing to move to Mountain View, CA?")
+        help_text="Are you willing to move to Mountain View, CA" +
+                  " for the beginning of 2009?")
 
     age = models.IntegerField(blank=True, null=True)
     languages = models.CharField(max_length=100, blank=True)
@@ -33,6 +35,9 @@ class Candidate(models.Model):
     networking = models.CharField(max_length=200, blank=True)
     open_source = models.CharField(max_length=200, blank=True,
         help_text="Have you contributed to any open-source projects?")
+    music = models.CharField(max_length=200, blank=True,
+        help_text="Do you play a musical instrument?" +
+                  " Who's your favorite band/artist?")
     urls = models.TextField(max_length=2000, blank=True,
         help_text="Please list URLs for any or all of the" +
         " above questions, one per line.")
