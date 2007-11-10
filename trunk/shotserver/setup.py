@@ -43,11 +43,19 @@ lib_dir = os.path.join(root_dir, 'shotserver04')
 
 def find_packages():
     for dirpath, dirnames, filenames in os.walk(lib_dir):
-        for i, dirname in enumerate(dirnames):
+        # print dirpath, dirnames
+        for i in range(len(dirnames) - 1, -1, -1):
+            dirname = dirnames[i]
             if dirname.startswith('.'):
                 del dirnames[i]
-        if '__init__.py' in filenames:
-            yield dirpath[len(root_dir):].lstrip(os.sep).replace(os.sep, '.')
+            else:
+                init = os.path.join(dirpath, dirname, '__init__.py')
+                if os.path.exists(init):
+                    package = os.path.join(dirpath[len(root_dir):], dirname)
+                    package = package.lstrip(os.sep)
+                    package = package.replace(os.sep, '.')
+                    print package
+                    yield package
 
 
 def find_data_files(data_dirnames=None):
