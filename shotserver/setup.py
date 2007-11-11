@@ -75,7 +75,7 @@ def find_data_files(data_dirnames=None):
     """
     Find data files to install.
     """
-    for dirpath, dirnames, filenames in os.walk(lib_dir):
+    for dirpath, dirnames, filenames in symlink_walk(lib_dir):
         for i, dirname in enumerate(dirnames):
             if dirname.startswith('.'):
                 del dirnames[i]
