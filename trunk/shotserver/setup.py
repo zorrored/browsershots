@@ -41,16 +41,40 @@ root_dir = os.path.dirname(__file__)
 lib_dir = os.path.join(root_dir, 'shotserver04')
 
 
+def symlink_walk(top, topdown=True, onerror=None):
+    """
+    Like os.walk, but also descend into symlinked directories.
+    """
+    for dirpath, dirnames, filenames in os.walk(top, topdown, onerror):
+        if topdown:
+            yield dirpath, dirnames, filenames
+        for dirname in dirnames:
+            fullpath = os.path.join(dirpath, dirname)
+            if os.path.islink(fullpath):
+                for subdirpath, subdirnames, subfilenames in \
+                        symlink_walk(fullpath, topdown, onerror):
+                    yield subdirpath, subdirnames, subfilenames
+        if not topdown:
+            yield dirpath, dirnames, filenames
+
+
 def find_packages():
-    for dirpath, dirnames, filenames in os.walk(lib_dir):
-        for i, dirname in enumerate(dirnames):
+    """
+    Find Python source packages to install.
+    """
+    for dirpath, dirnames, filenames in symlink_walk(lib_dir):
+        for dirname in dirnames:
             if dirname.startswith('.'):
-                del dirnames[i]
+                dirnames.remove(dirname)
         if '__init__.py' in filenames:
+            # print dirpath[len(root_dir):].lstrip(os.sep).replace(os.sep, '.')
             yield dirpath[len(root_dir):].lstrip(os.sep).replace(os.sep, '.')
 
 
 def find_data_files(data_dirnames=None):
+    """
+    Find data files to install.
+    """
     for dirpath, dirnames, filenames in os.walk(lib_dir):
         for i, dirname in enumerate(dirnames):
             if dirname.startswith('.'):
@@ -79,6 +103,9 @@ def find_data_files(data_dirnames=None):
 
 
 def find_scripts():
+    """
+    Find executable scripts to install.
+    """
     return glob('shotserver04_*.py')
 
 
