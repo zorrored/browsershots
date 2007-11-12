@@ -40,7 +40,7 @@ from shotserver04.common.templatetags import human
 import sys
 
 DEBUG = '--debug' in sys.argv
-FACTORIES = [arg for arg in sys.argv if not arg.startswith('-')]
+FACTORIES = [arg for arg in sys.argv[1:] if not arg.startswith('-')]
 
 DAYS = 7
 PREFIX = 'http://' + Site.objects.all()[0].domain
