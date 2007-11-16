@@ -17,7 +17,7 @@
 </div>
 <script type="text/javascript">document.getElementById("searchbar").focus();</script>
 
-{% if website_list %}
+{% if request_group_list %}
 <table>
 <thead>
 <tr>
@@ -26,10 +26,10 @@
 </tr>
 </thead>
 <tbody>
-{% for website in website_list %}
+{% for request_group in request_group_list %}
 <tr class="{% cycle row1,row2 %}">
-<td>{{ website.submitted|human_timesince }}</td>
-<td>{{ website|human_link }}</td>
+<td>{{ request_group.submitted|human_timesince }}</td>
+<td>{{ request_group.website|human_link }}</td>
 </tr>
 {% endfor %}
 </tbody>
