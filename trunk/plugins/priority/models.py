@@ -36,7 +36,7 @@ class UserPriority(models.Model):
         list_display = ('user', 'priority', 'expire')
 
     def __unicode__(self):
-        return u"Priority %d for %d" % (self.priority, self.user)
+        return u"Priority %d for %s" % (self.priority, self.user)
 
 
 class DomainPriority(models.Model):
@@ -48,4 +48,4 @@ class DomainPriority(models.Model):
         list_display = ('domain', 'priority', 'expire')
 
     def __unicode__(self):
-        return u"Priority %d for %d" % (self.priority, self.domain)
+        return u"Priority %d for %s" % (self.priority, self.domain)
