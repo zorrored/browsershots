@@ -262,8 +262,10 @@ _("[Reload this page] or bookmark it and come back later.")))
                 _("download %(count)d screenshots") % locals()))
         if bytes is not None:
             text += ' (%s)' % filesizeformat(bytes).replace(' ', '&nbsp;')
-        return u'<p><a href="/screenshots/%s">%s</a></p>' % (
-            self.zip_filename(), text)
+        div = u'<div class="floatleft">%s</div>'
+        link = u'<a href="/screenshots/%s">%s</a>'
+        return div % link % (self.zip_filename(), text)
+
 
 
 class Request(models.Model):
