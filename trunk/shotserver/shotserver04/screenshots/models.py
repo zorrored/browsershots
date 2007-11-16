@@ -27,6 +27,7 @@ import cgi
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
+from django.contrib.auth.models import User
 from shotserver04.websites.models import Website
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
@@ -69,7 +70,7 @@ class ScreenshotManager(models.Manager):
             qn(self.model._meta.db_table),
             qn(name))
 
-    def recent(self):
+    def recent(self, user=None):
         """
         Get recent screenshots, but only one per website.
         """
@@ -78,6 +79,10 @@ class ScreenshotManager(models.Manager):
         cursor = connection.cursor()
         fields = ','.join(
             [self._quote(field.column) for field in self.model._meta.fields])
+        if user is None or user.is_anonymous():
+            user_filter = qn('user_id') + ' IS NULL'
+        else:
+            user_filter = qn('user_id') + ' = ' + str(user.id)
         cursor.execute("""
             SELECT """ + fields + """
             FROM """ + qn(self.model._meta.db_table) + """
@@ -85,6 +90,7 @@ class ScreenshotManager(models.Manager):
                 SELECT MAX(""" + self._quote('id') + """)
                 AS """ + qn('maximum') + """
                 FROM  """ + qn(self.model._meta.db_table) + """
+                WHERE """ + user_filter + """
                 GROUP BY """ + self._quote('website_id') + """
                 ORDER BY """ + qn('maximum') + """ DESC
                 LIMIT 60)
@@ -100,6 +106,8 @@ class Screenshot(models.Model):
     """
     hashkey = models.SlugField(
         _('hashkey'), max_length=32, unique=True)
+    user = models.ForeignKey(User, blank=True, null=True,
+        verbose_name=_('user'), raw_id_admin=True)
     website = models.ForeignKey(Website,
         verbose_name=_('website'), raw_id_admin=True)
     factory = models.ForeignKey(Factory,
@@ -112,6 +120,7 @@ class Screenshot(models.Model):
         _('height'))
     uploaded = models.DateTimeField(
         _('uploaded'), auto_now_add=True)
+
     objects = ScreenshotManager()
 
     class Admin:

@@ -80,6 +80,7 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     nonces.verify(http_request, factory, encrypted_password)
     request_id = request
     request = get_or_fault(Request, pk=request_id)
+    request_group = request.request_group
     # Make sure the request was locked by this factory
     request.check_factory_lock(factory)
     # Make sure the request was redirected by the browser
@@ -92,11 +93,10 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     ppmname = storage.pngtoppm(hashkey)
     try:
         magic, width, height = storage.read_pnm_header(ppmname)
-        if (request.request_group.width and
-            request.request_group.width != width):
+        if (request_group.width and request_group.width != width):
             raise Fault(412,
                 u"The screenshot is %d pixels wide, not %d as requested." %
-                (width, request.request_group.width))
+                (width, request_group.width))
         # Make smaller preview images
         for size in PREVIEW_SIZES:
             storage.scale(ppmname, size, hashkey)
@@ -104,17 +104,16 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
         # Delete temporary PPM file
         os.unlink(ppmname)
     # Save screenshot in database
-    website = request.request_group.website
     screenshot = Screenshot(hashkey=hashkey,
-        website=website, factory=factory, browser=browser,
-        width=width, height=height)
+        user=request_group.user, website=request_group.website,
+        factory=factory, browser=browser, width=width, height=height)
     screenshot.save()
     # Close the request
     close_request(request_id, factory, screenshot)
     # Update timestamps and estimates
     now = datetime.now()
     factory.last_upload = now
-    factory.queue_estimate = (now - request.request_group.submitted).seconds
+    factory.queue_estimate = (now - request_group.submitted).seconds
     factory.save()
     browser.last_upload = now
     browser.save()
