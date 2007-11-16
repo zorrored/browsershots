@@ -45,11 +45,11 @@ WIDTH = 80 # pixels
 MARGIN = 12 # pixels
 
 
-def recent_screenshots():
+def recent_screenshots(user=None):
     """
     Iterator for the most recent screenshots, one per website.
     """
-    screenshots = list(Screenshot.objects.recent())
+    screenshots = list(Screenshot.objects.recent(user))
     preload_foreign_keys(screenshots, website=True)
     preload_foreign_keys(screenshots, browser__browser_group=True)
     for screenshot in screenshots:
@@ -78,7 +78,7 @@ def overview(http_request):
     """
     columns = [[0, index * (WIDTH + MARGIN)] for index in range(COLUMNS)]
     previews = []
-    for screenshot in recent_screenshots():
+    for screenshot in recent_screenshots(http_request.user):
         width = WIDTH
         height = screenshot.height * width / screenshot.width
         columns.sort()
