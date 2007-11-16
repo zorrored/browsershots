@@ -32,6 +32,8 @@ def user_uploads_per_day(user):
     Get the total number of screenshot uploads in the last 24 hours
     for this screenshot factory admin.
     """
+    if user.is_anonymous():
+        return 0
     return sum([f.uploads_per_day
                 for f in Factory.objects.filter(admin=user)])
 
@@ -40,6 +42,8 @@ def user_priority(user):
     """
     Get the best active priority for this user.
     """
+    if user.is_anonymous():
+        return 0
     priorities = [p.priority for p in UserPriority.objects.filter(
         user=user, expire__gte=datetime.now())]
     priorities.append(user_uploads_per_day(user) / 1000)
