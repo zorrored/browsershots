@@ -144,7 +144,12 @@ def start(http_request):
         request_group.save()
     else:
         request_group = RequestGroup.objects.create(expire=expire, **values)
-    priority = domain_priority(url_form.cleaned_data['domain'].name) and 1 or 0
+    # Get priority processing for domain or user.
+    priority = 0
+    if 'shotserver04.priority' in settings.INSTALLED_APPS:
+        from shotserver04.priority import domain_priority, user_priority
+        priority = max(domain_priority(url_form.cleaned_data['domain']),
+                       user_priority(http_request.user))
     for browser_form in browser_forms:
         create_platform_requests(
             request_group, browser_form.platform, browser_form, priority)
@@ -153,15 +158,6 @@ def start(http_request):
     # return render_to_response('debug.html', locals(),
     #     context_instance=RequestContext(http_request))
     return HttpResponseRedirect(values['website'].get_absolute_url())
-
-
-def domain_priority(domain_name):
-    """
-    Check if domain priority is enabled for this domain name.
-    """
-    return (hasattr(settings, 'PRIORITY_DOMAINS') and
-            domain_name in settings.PRIORITY_DOMAINS and
-            settings.PRIORITY_DOMAINS[domain_name] > datetime.now())
 
 
 def multi_column(browser_forms):
