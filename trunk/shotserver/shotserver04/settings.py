@@ -145,6 +145,9 @@ DISALLOWED_SERVER_IP_LIST = """
 255.255.255.255
 """.split()
 
+# If you set this to False, only registered users can submit requests.
+ALLOW_ANONYMOUS_REQUESTS = True
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 
