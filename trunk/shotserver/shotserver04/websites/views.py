@@ -38,19 +38,20 @@ def overview(http_request):
     """
     List recently requested websites, with keyword search filter.
     """
-    group_list = RequestGroup.objects
+    request_group_list = RequestGroup.objects
     search_query = http_request.GET.get('q', '')
     for search in search_query.split():
         if search.islower(): # Case insensitive search
-            group_list = group_list.filter(website__url__icontains=search)
+            request_group_list = request_group_list.filter(
+                website__url__icontains=search)
         else: # Case sensitive search if mixed case in query
-            group_list = group_list.filter(website__url__contains=search)
+            request_group_list = request_group_list.filter(
+                website__url__contains=search)
     if http_request.user.is_anonymous():
-        group_list = group_list.filter(user__isnull=True)
+        request_group_list = request_group_list.filter(user__isnull=True)
     else:
-        group_list = group_list.filter(user=http_request.user)
-    group_list = group_list.order_by('-submitted')
-    website_list = [group.website for group in group_list[:60]]
+        request_group_list = request_group_list.filter(user=http_request.user)
+    request_group_list = request_group_list.order_by('-submitted')[:60]
     return render_to_response('websites/overview.html', locals(),
         context_instance=RequestContext(http_request))
 
