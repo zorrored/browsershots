@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import urllib
 from datetime import datetime, timedelta
 from django.db import transaction
 from django.http import HttpResponseRedirect
@@ -53,6 +54,17 @@ def start(http_request):
     """
     Front page with URL input, browser chooser, and options.
     """
+    if (http_request.user.is_anonymous() and
+        hasattr(settings, 'ALLOW_ANONYMOUS_REQUESTS') and
+        not settings.ALLOW_ANONYMOUS_REQUESTS):
+        url = '/'
+        if http_request.META['QUERY_STRING']:
+            url += '?' + http_request.META['QUERY_STRING']
+        return error_page(http_request, _("login required"),
+            _("Anonymous screenshot requests are not allowed."),
+            u'<a href="/accounts/login/?next=%s">%s</a>' % (
+                urllib.quote(url),
+                _("Please log in with your username and password.")))
     # Initialize forms.
     post = http_request.POST or None
     url_form = UrlForm(post)
