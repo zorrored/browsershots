@@ -28,6 +28,7 @@ from django.http import Http404
 from django.core.paginator import ObjectPaginator
 from shotserver04.websites.models import Website, Domain
 from shotserver04.browsers.models import Browser, BrowserGroup
+from shotserver04.requests.models import RequestGroup
 from shotserver04.factories.models import Factory
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.websites import normalize_url, extract_domain
@@ -35,17 +36,21 @@ from shotserver04.websites import normalize_url, extract_domain
 
 def overview(http_request):
     """
-    List websites, with keyword search filter.
+    List recently requested websites, with keyword search filter.
     """
-    website_list = Website.objects
+    group_list = RequestGroup.objects
     search_query = http_request.GET.get('q', '')
     for search in search_query.split():
         if search.islower(): # Case insensitive search
-            website_list = website_list.filter(url__icontains=search)
+            group_list = group_list.filter(website__url__icontains=search)
         else: # Case sensitive search if mixed case in query
-            website_list = website_list.filter(url__contains=search)
-    website_list = website_list.order_by('-submitted')
-    website_list = website_list[:100]
+            group_list = group_list.filter(website__url__contains=search)
+    if http_request.user.is_anonymous():
+        group_list = group_list.filter(user__isnull=True)
+    else:
+        group_list = group_list.filter(user=http_request.user)
+    group_list = group_list.order_by('-submitted')
+    website_list = [group.website for group in group_list[:60]]
     return render_to_response('websites/overview.html', locals(),
         context_instance=RequestContext(http_request))
 
