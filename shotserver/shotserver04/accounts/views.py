@@ -47,7 +47,7 @@ from shotserver04.nonces.models import Nonce
 
 USERNAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
 USERNAME_CHAR = USERNAME_CHAR_FIRST + '0123456789_-'
-PASSWORD_MIN_LENGTH = 8
+PASSWORD_MIN_LENGTH = 6
 
 
 def logout_required(func):
@@ -332,9 +332,9 @@ _("The verification email was requested from a different IP address."))
     if not nonce.email:
         return error_page(http_request, _("Bad verification code"),
 _("The verification code has no email address."))
-    if nonce.created < datetime.now() - timedelta(minutes=30):
+    if nonce.created < datetime.now() - timedelta(hours=24):
         return error_page(http_request, _("Verification code expired"),
-_("The verification email was requested more than 30 minutes ago."))
+_("The verification email was requested more than 24 hours ago."))
     users = User.objects.filter(email=nonce.email)
     if len(users):
         return change_password(http_request, nonce, users[0])
