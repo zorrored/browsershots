@@ -28,11 +28,15 @@ __author__ = "$Author$"
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    ('Johann C. Rocholl', 'johann@browsershots.org'),
-)
+# Sender address for automated messages from Django.
+DEFAULT_FROM_EMAIL = 'noreply@example.com'
 
-MANAGERS = ADMINS
+# Send error 500 messages to these email addresses,
+# but only if DEBUG is False.
+ADMINS = (
+    ('Your Name', 'you@example.com'),
+    ('Other Name', 'other@example.com'),
+)
 
 DATABASE_ENGINE = 'postgresql' # 'postgresql', 'mysql', 'sqlite3', 'ado_mssql'.
 DATABASE_NAME = 'shotserver04' # Or path to database file if using sqlite3.
