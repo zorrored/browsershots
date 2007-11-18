@@ -174,6 +174,24 @@ class Factory(models.Model):
             fields.append(u'<td>%s</td>' % value)
         return ''.join(fields)
 
+    def supports_screen_size(self, width, height):
+        """Return true if the requested screen size is supported."""
+        return self.screensize_set.filter(
+                width=width, height=height).count() >= 1
+
+    def supports_screen_width(self, width):
+        """Return true if the requested screen width is supported."""
+        return self.screensize_set.filter(width=width).count() >= 1
+
+    def supports_screen_height(self, height):
+        """Return true if the requested screen height is supported."""
+        return self.screensize_set.filter(height=height).count() >= 1
+
+    def supports_color_depth(self, bits_per_pixel):
+        """Return true if the requested screen height is supported."""
+        return self.colordepth_set.filter(
+            bits_per_pixel=bits_per_pixel).count() >= 1
+
 
 class ScreenSize(models.Model):
     """
