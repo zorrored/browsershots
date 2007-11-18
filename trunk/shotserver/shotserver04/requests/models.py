@@ -38,8 +38,9 @@ from shotserver04.browsers.models import BrowserGroup, Browser
 from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
-from shotserver04.common import lock_timeout
+from shotserver04.common import lock_timeout, last_poll_timeout
 from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.features import satisfies
 
 
 class RequestGroup(models.Model):
@@ -109,7 +110,9 @@ class RequestGroup(models.Model):
             screenshot__isnull=True).count()
 
     def time_since_submitted(self):
-        """Human-readable formatting of interval since submitted."""
+        """
+        Human-readable formatting of interval since submitted.
+        """
         return '<li>%s</li>' % (
             capfirst(_("submitted %(interval)s ago")) %
             {'interval': timesince(self.submitted)})
@@ -124,18 +127,14 @@ class RequestGroup(models.Model):
         if almost_fresh:
             remaining = timedelta(minutes=30)
         interval = timeuntil(now + remaining, now)
-        text = capfirst(_("expires in %(interval)s")) % {'interval': interval}
+        expire = capfirst(_("expires in %(interval)s")) % \
+            {'interval': interval}
         if not almost_fresh:
-            text = """
-<form action="/requests/extend/" method="post">
-<div>
-%s
+            expire += """
 <input type="hidden" name="request_group_id" value="%d" />
 <input type="submit" name="submit" value="%s" />
-</div>
-</form>
-""".strip() % (text, self.id, unicode(capfirst(_("extend"))))
-        return '<li>%s</li>' % text
+""".rstrip() % (self.id, unicode(capfirst(_("extend"))))
+        return '<li>%s</li>' % (expire)
 
     def options(self):
         """
@@ -230,9 +229,85 @@ _("[Reload this page] or bookmark it and come back later.")))
         count = requests.filter(screenshot__isnull=False).count()
         if count:
             parts.append(', ' + _("%(count)d uploaded") % locals())
-        parts.append(u' (<a href="%s">%s</a>)' % (
-            self.get_absolute_url(), capfirst(_("details"))))
         return u"<li>%s</li>" % ''.join(parts)
+
+    def matching_factories(self):
+        """
+        Get active factories that are compatible with this request group.
+        """
+        factories = Factory.objects.filter(
+            last_poll__gte=last_poll_timeout())
+        result = []
+        for factory in factories:
+            if self.width and self.height:
+                if not factory.supports_screen_size(self.width, self.height):
+                    continue
+            elif self.width:
+                if not factory.supports_screen_width(self.width):
+                    continue
+            elif self.height:
+                if not factory.supports_screen_height(self.height):
+                    continue
+            if self.bits_per_pixel:
+                if not factory.supports_color_depth(self.bits_per_pixel):
+                    continue
+            result.append(factory)
+        preload_foreign_keys(result, operating_system=True)
+        return result
+
+    def matching_browsers(self):
+        """
+        Get active browsers that are compatible with this request group.
+        """
+        factories = self.matching_factories()
+        browsers = Browser.objects.filter(
+            factory__in=factories,
+            active=True)
+        result = []
+        for browser in browsers:
+            if not satisfies(browser.java_id, self.java_id):
+                continue
+            if not satisfies(browser.javascript_id, self.javascript_id):
+                continue
+            if not satisfies(browser.flash_id, self.flash_id):
+                continue
+            result.append(browser)
+        preload_foreign_keys(result, factory=factories)
+        return result
+
+    def queue_estimate(self):
+        """
+        One-line info for estimated remaining queue wait.
+        """
+        self.preload_cache()
+        browsers = self.matching_browsers()
+        preload_foreign_keys(browsers,
+                             browser_group=self._browser_groups_cache)
+        requests = self.request_set.filter(screenshot__isnull=True)
+        preload_foreign_keys(requests,
+                             browser_group=self._browser_groups_cache)
+        now = datetime.now()
+        elapsed = now - self.submitted
+        elapsed = elapsed.seconds + elapsed.days * 24 * 3600
+        estimates = []
+        for request in requests:
+            estimate = request.queue_estimate(browsers)
+            if estimate:
+                estimates.append(estimate - elapsed)
+        if not estimates:
+            return ''
+        min_seconds = max(180, min(estimates) + 30)
+        max_seconds = max(180, max(estimates) + 30)
+        if min_seconds == max_seconds:
+            estimate = timeuntil(now + timedelta(seconds=min_seconds))
+        else:
+            estimate = _("%(min_seconds)s to %(max_seconds)s") % (
+                timeuntil(now + timedelta(seconds=min_seconds)),
+                timeuntil(now + timedelta(seconds=max_seconds)))
+        link = u'<a href="%s">%s</a>' % (
+            self.get_absolute_url(), capfirst(_("details")))
+        return u'<li>%s: %s (%s)</li>' % (
+            capfirst(_("queue estimate")), estimate, link)
 
     def index(self):
         """
@@ -355,6 +430,22 @@ class Request(models.Model):
             raise Fault(423,
                 u"Request %d was locked by factory %s." %
                 (self.id, self.factory.name))
+
+    def queue_estimate(self, matching_browsers):
+        """
+        Queue estimate for the fastest matching browser for this request.
+        """
+        result = None
+        for browser in matching_browsers:
+            operating_system = browser.factory.operating_system
+            if (operating_system.platform_id == self.platform_id and
+                browser.browser_group_id == self.browser_group_id and
+                (browser.major == self.major or self.major is None) and
+                (browser.minor == self.minor or self.minor is None)):
+                estimate = browser.factory.queue_estimate
+                if estimate and (result is None or estimate < result):
+                    result = estimate
+        return result
 
 
 def bracket_link(href, text):
