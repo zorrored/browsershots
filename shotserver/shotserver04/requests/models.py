@@ -106,8 +106,10 @@ class RequestGroup(models.Model):
 
     def is_pending(self):
         """True if there are pending screenshot requests in this group."""
-        return self.expire > datetime.now() and self.request_set.filter(
-            screenshot__isnull=True).count()
+        if not hasattr(self, '_pending'):
+            self._pending = self.expire > datetime.now() and \
+                self.request_set.filter(screenshot__isnull=True).count()
+        return self._pending
 
     def time_since_submitted(self):
         """
