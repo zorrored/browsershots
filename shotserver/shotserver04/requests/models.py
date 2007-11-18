@@ -301,9 +301,9 @@ _("[Reload this page] or bookmark it and come back later.")))
         if min_seconds == max_seconds:
             estimate = timeuntil(now + timedelta(seconds=min_seconds))
         else:
-            estimate = _("%(min_seconds)s to %(max_seconds)s") % (
-                timeuntil(now + timedelta(seconds=min_seconds)),
-                timeuntil(now + timedelta(seconds=max_seconds)))
+            min_interval = timeuntil(now + timedelta(seconds=min_seconds))
+            max_interval = timeuntil(now + timedelta(seconds=max_seconds))
+            estimate = _("%(min_interval)s to %(max_interval)s") % locals()
         link = u'<a href="%s">%s</a>' % (
             self.get_absolute_url(), capfirst(_("details")))
         return u'<li>%s: %s (%s)</li>' % (
