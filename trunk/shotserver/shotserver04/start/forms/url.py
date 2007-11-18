@@ -99,7 +99,13 @@ class UrlForm(forms.Form):
         """
         Check if server IP is disallowed in settings.py.
         """
-        ip = socket.gethostbyname(self.netloc_parts[2])
+        try:
+            hostname = self.netloc_parts[2]
+            ip = socket.gethostbyname(hostname)
+        except socket.error:
+            raise ValidationError(unicode(
+                _("Could not resolve IP address for %(hostname)s.") %
+                locals()))
         server = long_ip(ip)
         # print 'server', server, dotted_ip(server), ip
         for disallowed in settings.DISALLOWED_SERVER_IP_LIST:
