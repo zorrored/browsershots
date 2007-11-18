@@ -94,45 +94,18 @@ def count_uploads(browsers, platform_id, browser_group_id, major, minor):
     return uploads_per_hour, uploads_per_day
 
 
-def queue_estimate(request, active_browsers, queued_seconds):
-    """
-    Remaining queue estimate for the fastest matching browser for this request.
-    """
-    estimates = []
-    for browser in active_browsers:
-        if (browser.factory.operating_system.platform_id ==
-                request.platform_id and
-            browser.browser_group_id == request.browser_group_id and
-            (browser.major == request.major or request.major is None) and
-            (browser.minor == request.minor or request.minor is None)):
-            estimate = browser.factory.queue_estimate
-            if estimate:
-                estimates.append(estimate)
-    if not estimates:
-        return _("unavailable")
-    seconds = max(60, min(estimates) - queued_seconds)
-    minutes = (seconds + 30) / 60
-    return _("%(minutes)d min") % {'minutes': minutes}
-
-
 def details(http_request, request_group_id):
     """
     Show details about the selected request group.
     """
     request_group = get_object_or_404(RequestGroup, id=request_group_id)
     now = datetime.now()
-    expired = request_group.expire < now
-    queued = now - request_group.submitted
-    queued_seconds = queued.seconds + queued.days * 24 * 3600
+    elapsed = now - request_group.submitted
+    elapsed = elapsed.seconds + elapsed.days * 24 * 3600
     website = request_group.website
-    active_factories = Factory.objects.filter(
-        last_poll__gte=last_poll_timeout())
-    active_browsers = Browser.objects.filter(
-        factory__in=active_factories,
-        active=True)
+    matching_browsers = request_group.matching_browsers()
     browser_groups = BrowserGroup.objects.all()
-    preload_foreign_keys(active_browsers, browser_group=browser_groups,
-        factory=active_factories, factory__operating_system=True)
+    preload_foreign_keys(matching_browsers, browser_group=browser_groups)
     requests = request_group.request_set.all()
     preload_foreign_keys(requests, browser_group=browser_groups)
     platform_queue_estimates = []
@@ -140,9 +113,17 @@ def details(http_request, request_group_id):
         estimates = []
         for request in requests:
             if request.platform_id == platform.id:
-                status = (request.status() or
-                    (expired and _("expired")) or
-                    queue_estimate(request, active_browsers, queued_seconds))
+                status = request.status()
+                if request_group.expire < now and not status:
+                    status = _("expired")
+                if not status:
+                    estimate = request.queue_estimate(matching_browsers)
+                    if estimate is None:
+                        status = _("unavailable")
+                    else:
+                        seconds = max(180, estimate - elapsed)
+                        minutes = (seconds + 30) / 60
+                        status = _("%(minutes)d min") % locals()
                 estimates.append({
                     'browser': request.browser_string(),
                     'status': status,
