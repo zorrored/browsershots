@@ -231,6 +231,11 @@ p.admonition {
   background-position: 4px 4px;
   border: 1px solid;
 }
+p.new {
+  background-image: url(new.png);
+  background-color: #fed;
+  border-color: #ff8000;
+}
 p.hint {
   background-image: url(lightbulb.png);
   background-color: #eee;
