@@ -21,3 +21,14 @@ Configure available Javascript, Java, Flash versions.
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
+
+
+def satisfies(candidate_id, requested_id):
+    """
+    Check if the candidate version satisfies the requested version.
+    """
+    if requested_id is None:
+        return True
+    if requested_id == 2 and candidate_id >= 2:
+        return True
+    return candidate_id == requested_id
