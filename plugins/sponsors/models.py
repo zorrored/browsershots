@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
 
 class Sponsor(models.Model):
@@ -67,4 +68,5 @@ class Sponsor(models.Model):
         """Get HTML image with link to sponsor website."""
         img = '<img width="%d" height="%d" src="%s" alt="%s" />' % (
             size[0], size[1], self.get_logo_url(size), self.name)
-        return '<a href="%s">%s</a>' % (self.get_absolute_url(), img)
+        return mark_safe(
+            '<a href="%s">%s</a>' % (self.get_absolute_url(), img))
