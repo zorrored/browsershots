@@ -8,7 +8,7 @@
 <h1>{{ _("website overview")|capfirst }}</h1>
 <p>{% blocktrans with website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
-{{ website_details_head_extra }}
+{{ website_details_head_extra|safe }}
 
 {% if pages_list %}
 <div class="paginator">
