@@ -124,8 +124,8 @@ if sys.argv[1] == 'test':
 
 setup(
     name = 'ShotServer',
-    version = '0.4-alpha1',
-    url = 'http://v04.browsershots.org/',
+    version = '0.4-beta3',
+    url = 'http://browsershots.org/',
     author = 'Johann C. Rocholl',
     author_email = 'johann@browsershots.org',
     description = 'Test your web design in different browsers',
