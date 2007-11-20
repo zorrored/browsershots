@@ -125,17 +125,17 @@ class RequestGroup(models.Model):
         """
         now = datetime.now()
         remaining = self.expire - now
-        almost_fresh = remaining >= timedelta(minutes=29, seconds=50)
-        if almost_fresh:
+        disabled = ''
+        if remaining >= timedelta(minutes=29, seconds=50):
             remaining = timedelta(minutes=30)
+            disabled = ' disabled="disabled"'
         interval = timeuntil(now + remaining, now)
         expire = capfirst(_("expires in %(interval)s")) % \
             {'interval': interval}
-        if not almost_fresh:
-            expire += """
+        expire += """
 <input type="hidden" name="request_group_id" value="%d" />
-<input type="submit" name="submit" value="%s" />
-""".rstrip() % (self.id, unicode(capfirst(_("extend"))))
+<input type="submit" name="submit" value="%s" %s/>
+""".rstrip() % (self.id, unicode(capfirst(_("extend"))), disabled)
         return '<li>%s</li>' % (expire)
 
     def options(self):
