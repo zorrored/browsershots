@@ -29,6 +29,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.text import capfirst
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
 from shotserver04.common import int_or_none, last_poll_timeout, error_page
@@ -114,7 +115,7 @@ def start(http_request):
         if 'url' in http_request.GET:
             url_form.fields['url'].initial = http_request.GET['url']
         multi_column(browser_forms)
-        selectors = ' |\n'.join(selector_links(browser_forms))
+        selectors = mark_safe(' |\n'.join(selector_links(browser_forms)))
         news_list = NewsItem.objects.all()[:10]
         sponsors_list = Sponsor.objects.filter(front_page=True)
         return render_to_response('start/start.html', locals(),

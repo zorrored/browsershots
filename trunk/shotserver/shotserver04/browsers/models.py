@@ -25,6 +25,7 @@ __author__ = "$Author$"
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
+from django.utils.safestring import mark_safe
 from shotserver04.factories.models import Factory
 from shotserver04.features.models import Javascript, Java, Flash
 
@@ -170,9 +171,9 @@ class Browser(models.Model):
             action = '/browsers/activate/'
             submit_value = capfirst(_("activate"))
         browser_id = self.id
-        return u"""
+        return mark_safe(u"""
 <form action="%(action)s" method="post">
 <input type="hidden" name="browser" value="%(browser_id)s" />
 <input type="submit" name="submit" value="%(submit_value)s" />
 </form>
-""" % locals()
+""" % locals())
