@@ -53,6 +53,7 @@ def overview(http_request):
     else:
         request_group_list = request_group_list.filter(user=http_request.user)
     request_group_list = request_group_list.order_by('-submitted')[:60]
+    preload_foreign_keys(request_group_list, website=True)
     return render_to_response('websites/overview.html', locals(),
         context_instance=RequestContext(http_request))
 
