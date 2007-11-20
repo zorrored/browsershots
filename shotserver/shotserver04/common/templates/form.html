@@ -9,12 +9,12 @@
 <p class="admonition error">{{ error }}</p>
 {% endfor %}
 
-{{ form_extra_before }}
+{{ form_extra_before|safe }}
 <form action="{{ form_action }}" method="post">
 <table>
 {{ form }}
 <tr><th></th><td>
-{{ form_hidden }}
+{{ form_hidden|safe }}
 <input type="submit" value="{{ form_submit|capfirst }}" />
 </td></tr>
 </table>
@@ -24,5 +24,5 @@
 {{ form_javascript }}
 </script>
 {% endif %}
-{{ form_extra }}
+{{ form_extra|safe }}
 {% endblock %}
