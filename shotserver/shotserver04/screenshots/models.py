@@ -27,6 +27,7 @@ import cgi
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
+from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from shotserver04.websites.models import Website
 from shotserver04.factories.models import Factory
@@ -172,13 +173,13 @@ class Screenshot(models.Model):
         if title is None:
             title = unicode(self.browser)
         title = cgi.escape(title, quote=True)
-        return ' '.join((
+        return mark_safe(' '.join((
             u'<img class="preview" style="%s"' % style,
             u'src="%s"' % self.get_png_url(width),
             u'alt="%s" title="%s"' % (title, title),
             u'onmouseover="larger(this,%s,%s)"' % (width, height),
             u'onmouseout="smaller(this,%s,%s)" />' % (width, height),
-            ))
+            )))
 
     def preview_div(self, width=80, height=None, style="float:left",
                     title=None, caption=None, href=None):
@@ -208,7 +209,7 @@ class Screenshot(models.Model):
                 u'<div class="caption" style="padding-top:%dpx">%s</div>' %
                 (auto_height, caption))
         lines.append('</div>')
-        return '\n'.join(lines)
+        return mark_safe('\n'.join(lines))
 
     def preview_div_with_browser(self):
         """Shortcut for templates."""
@@ -223,13 +224,14 @@ class Screenshot(models.Model):
         HTML link to next or previous screenshot in a group.
         """
         if not screenshot:
-            return u'<img src="/static/css/%s-gray.png" alt="%s" />' % (
-                img, alt)
-        return ''.join((
+            return mark_safe(
+                u'<img src="/static/css/%s-gray.png" alt="%s" />' %
+                (img, alt))
+        return mark_safe(''.join((
             u'<a href="%s">' % screenshot.get_absolute_url(),
             u'<img src="/static/css/%s.png" alt="%s" />' % (img, alt),
             u'</a>',
-            ))
+            )))
 
     def get_first(self, **kwargs):
         """Get the first screenshot in a group."""
@@ -265,12 +267,12 @@ class Screenshot(models.Model):
         previous = self.not_me(self.get_previous(**kwargs))
         next = self.not_me(self.get_next(**kwargs))
         last = self.not_me(self.get_last(**kwargs))
-        return '\n'.join((
+        return mark_safe('\n'.join((
             self.arrow(first, 'first', capfirst(_("first"))),
             self.arrow(previous, 'previous', capfirst(_("previous"))),
             self.arrow(next, 'next', capfirst(_("next"))),
             self.arrow(last, 'last', capfirst(_("last"))),
-            ))
+            )))
 
     def navigation(self, title, min_count=2, already=0, **kwargs):
         """
@@ -282,12 +284,12 @@ class Screenshot(models.Model):
         index = Screenshot.objects.filter(id__lt=self.id, **kwargs).count() + 1
         index = _(u"%(index)d out of %(total)d") % locals()
         arrows = self.arrows(**kwargs)
-        return '\n'.join((
+        return mark_safe('\n'.join((
             u'<tr>',
             u'<th>%s</th>' % arrows,
             u'<td>%s %s</td>' % (index, title),
             u'</tr>',
-            ))
+            )))
 
     def website_navigation(self):
         """

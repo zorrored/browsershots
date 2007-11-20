@@ -27,6 +27,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
 from django.utils.http import urlquote
+from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture, OperatingSystem
 from shotserver04.sponsors.models import Sponsor
@@ -150,7 +151,7 @@ class Factory(models.Model):
             except models.FieldDoesNotExist:
                 name = _(field.replace('_', ' '))
             fields.append(u'<th>%s</th>' % human.human_br(capfirst(name)))
-        return ''.join(fields)
+        return mark_safe(''.join(fields))
 
     def table_row(self):
         """
@@ -172,7 +173,7 @@ class Factory(models.Model):
             if value is None or value == 0:
                 value = ''
             fields.append(u'<td>%s</td>' % value)
-        return ''.join(fields)
+        return mark_safe(''.join(fields))
 
     def supports_screen_size(self, width, height):
         """Return true if the requested screen size is supported."""

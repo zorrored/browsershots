@@ -26,6 +26,7 @@ import cgi
 from datetime import datetime
 from django import template
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -108,9 +109,9 @@ def human_link(instance):
     """
     HTML link to the detail page.
     """
-    return u'<a href="%s">%s</a>' % (
+    return mark_safe(u'<a href="%s">%s</a>' % (
         cgi.escape(instance.get_absolute_url(), quote=True),
-        unicode(instance))
+        unicode(instance)))
 
 
 @register.filter
@@ -136,12 +137,12 @@ def human_br(text):
             candidates.append((abs(middle - index), index, char))
     candidates.sort()
     if not candidates:
-        return text
+        return mark_safe(text)
     middle, index, char = candidates[0]
     if char == '-':
-        return text[:index+1] + '<br />' + text[index+1:]
+        return mark_safe(text[:index+1] + '<br />' + text[index+1:])
     else:
-        return text[:index] + '<br />' + text[index+1:]
+        return mark_safe(text[:index] + '<br />' + text[index+1:])
 
 
 @register.filter

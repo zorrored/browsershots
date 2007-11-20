@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import newforms as forms
+from django.utils.safestring import mark_safe
 
 
 def is_latest_minor_version(browser, platform, active_browsers):
@@ -47,7 +48,7 @@ class BrowsersForm(forms.BaseForm):
     """
 
     errors = {}
-    base_fields = forms.forms.SortedDictFromList()
+    base_fields = forms.forms.SortedDict()
 
     def __init__(self, active_browsers, platform,
                  data=None, selected_browsers=None):
@@ -109,7 +110,7 @@ class BrowsersForm(forms.BaseForm):
                     field, self[field].label)
                 output.append(unicode(self[field]) + label)
             output.append('</div>')
-        return u'\n'.join(output)
+        return mark_safe(u'\n'.join(output))
 
     def column_length(self):
         """Get the length of the longest column after wrapping."""

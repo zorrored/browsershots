@@ -29,6 +29,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timesince import timesince, timeuntil
 from django.utils.text import capfirst
+from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
 from django.template.defaultfilters import filesizeformat
 from shotserver04.websites.models import Website
@@ -115,9 +116,9 @@ class RequestGroup(models.Model):
         """
         Human-readable formatting of interval since submitted.
         """
-        return '<li>%s</li>' % (
+        return mark_safe('<li>%s</li>' % (
             capfirst(_("submitted %(interval)s ago")) %
-            {'interval': timesince(self.submitted)})
+            {'interval': timesince(self.submitted)}))
 
     def time_until_expire(self):
         """
@@ -136,7 +137,7 @@ class RequestGroup(models.Model):
 <input type="hidden" name="request_group_id" value="%d" />
 <input type="submit" name="submit" value="%s" %s/>
 """.rstrip() % (self.id, unicode(capfirst(_("extend"))), disabled)
-        return '<li>%s</li>' % (expire)
+        return mark_safe('<li>%s</li>' % (expire))
 
     def options(self):
         """
@@ -159,7 +160,7 @@ class RequestGroup(models.Model):
                 result.append(u'%s %s' % (name, option))
         if not result:
             return ''
-        return '<li>%s</li>' % ', '.join(result)
+        return mark_safe('<li>%s</li>' % ', '.join(result))
 
     def preload_cache(self):
         """
@@ -202,15 +203,16 @@ class RequestGroup(models.Model):
                       for index, screenshot in screenshots]
             if len(screenshots) > 1:
                 result.append(self.zip_link(len(screenshots), total_bytes))
-            return '\n'.join(result)
+            return mark_safe('\n'.join(result))
         elif self.is_pending():
-            return u'<p class="admonition hint">%s<br />\n%s</p>' % (
+            return mark_safe(
+u'<p class="admonition hint">%s<br />\n%s</p>' % (
 _("Your screenshots will appear here when they are uploaded."),
 bracket_link(self.website.get_absolute_url(),
-_("[Reload this page] or bookmark it and come back later.")))
+_("[Reload this page] or bookmark it and come back later."))))
         else:
             hint = _(u"Your screenshot requests have expired.")
-            return u'<p class="admonition warning">%s</p>' % hint
+            return mark_safe(u'<p class="admonition warning">%s</p>' % hint)
 
     def queue_overview(self):
         """
@@ -231,7 +233,7 @@ _("[Reload this page] or bookmark it and come back later.")))
         count = requests.filter(screenshot__isnull=False).count()
         if count:
             parts.append(', ' + _("%(count)d uploaded") % locals())
-        return u"<li>%s</li>" % ''.join(parts)
+        return mark_safe(u'<li>%s</li>' % ''.join(parts))
 
     def matching_factories(self):
         """
@@ -308,8 +310,8 @@ _("[Reload this page] or bookmark it and come back later.")))
             estimate = _("%(min_interval)s to %(max_interval)s") % locals()
         link = u'<a href="%s">%s</a>' % (
             self.get_absolute_url(), capfirst(_("details")))
-        return u'<li>%s: %s (%s)</li>' % (
-            capfirst(_("queue estimate")), estimate, link)
+        return mark_safe(u'<li>%s: %s (%s)</li>' % (
+            capfirst(_("queue estimate")), estimate, link))
 
     def index(self):
         """
@@ -341,7 +343,7 @@ _("[Reload this page] or bookmark it and come back later.")))
             text += ' (%s)' % filesizeformat(bytes).replace(' ', '&nbsp;')
         div = u'<div class="floatleft">%s</div>'
         link = u'<a href="/screenshots/%s">%s</a>'
-        return div % link % (self.zip_filename(), text)
+        return mark_safe(div % link % (self.zip_filename(), text))
 
 
 

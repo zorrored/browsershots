@@ -31,6 +31,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django import newforms as forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 from django.core.servers.basehttp import FileWrapper
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot, ProblemReport
@@ -92,7 +93,7 @@ def overview(http_request):
     previews.insert(0,
         u'<div class="previews" style="height:%dpx">' % columns[-1][0])
     previews.append('</div>')
-    previews = '\n'.join(previews)
+    previews = mark_safe('\n'.join(previews))
     return render_to_response('screenshots/overview.html', locals(),
         context_instance=RequestContext(http_request))
 
