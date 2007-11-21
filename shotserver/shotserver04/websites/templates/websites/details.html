@@ -13,7 +13,7 @@
 {% if pages_list %}
 <div class="paginator">
 Pages:
-{% for link in pages_list %}{{ link }}
+{% for link in pages_list %}{{ link|safe }}
 {% endfor %}
 </div>
 {% endif %}
