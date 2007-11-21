@@ -57,12 +57,15 @@ class RedirectMiddleware(object):
             new_path = request.get_full_path().replace(':/', '://', 1)
             return http.HttpResponsePermanentRedirect(new_path)
         # Add trailing slash if path starts with an installed app name
-        if self.installed_app(first_part) and not (
-            request.path.endswith('/') or '.' in last_part):
-            new_path = request.path + '/'
-            if request.GET:
-                new_path += '?' + request.GET.urlencode()
-            return http.HttpResponsePermanentRedirect(new_path)
+        if request.path.endswith('/') or not self.installed_app(first_part):
+            return
+        # Don't add trailing slash after filenames
+        if '.' in last_part and first_part != 'xmlrpc':
+            return
+        new_path = request.path + '/'
+        if request.GET:
+            new_path += '?' + request.GET.urlencode()
+        return http.HttpResponsePermanentRedirect(new_path)
 
     def installed_app(self, name):
         """
