@@ -28,6 +28,8 @@ from datetime import datetime
 from shotserver04.common import serializable, get_or_fault
 from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import xmlrpc as nonces
+from shotserver04.factories.models import Factory
+from shotserver04.browsers.models import Browser
 from shotserver04.requests.models import Request
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
@@ -112,10 +114,12 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     close_request(request_id, factory, screenshot)
     # Update timestamps and estimates
     now = datetime.now()
+    factory = Factory.objects.get(id=factory.id) # Reload from database
     factory.last_upload = now
     if request.priority == 0:
         factory.queue_estimate = (now - request_group.submitted).seconds
     factory.save()
+    browser = Browser.objects.get(id=browser.id) # Reload from database
     browser.last_upload = now
     browser.save()
     return hashkey
