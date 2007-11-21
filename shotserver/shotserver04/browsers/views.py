@@ -153,6 +153,7 @@ def add(http_request):
     activate_or_add_browser(form.cleaned_data)
     # Save IP address, to guess the factory when adding the next browser
     factory = form.cleaned_data['factory']
+    factory = Factory.objects.get(id=factory.id) # Reload from database
     factory.ip = ip
     factory.save()
     # Redirect to factory detail page

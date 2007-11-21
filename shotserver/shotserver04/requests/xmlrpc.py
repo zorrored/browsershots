@@ -27,7 +27,7 @@ from django.db import models
 from shotserver04.common import serializable
 from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import xmlrpc as nonces
-from shotserver04.factories.models import ScreenSize, ColorDepth
+from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
@@ -127,6 +127,7 @@ def poll(http_request, factory, encrypted_password):
     # Verify authentication
     nonces.verify(http_request, factory, encrypted_password)
     # Update last_poll timestamp
+    factory = Factory.objects.get(id=factory.id) # Reload from database
     factory.last_poll = datetime.now()
     factory.ip = http_request.META['REMOTE_ADDR']
     factory.save()
