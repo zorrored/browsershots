@@ -220,20 +220,30 @@ _("[Reload this page] or bookmark it and come back later."))))
         """
         parts = []
         requests = self.request_set.all()
-        count = requests.count()
-        parts.append(_("%(count)d browsers selected") % locals())
+        total = requests.count()
+        parts.append(_("%(count)d browsers selected") % {'count': total})
+        uploaded = requests.filter(screenshot__isnull=False).count()
         queuing = requests.filter(screenshot__isnull=True)
-        count = queuing.filter(factory__isnull=False,
-                               browser__isnull=True).count()
-        if count:
-            parts.append(', ' + _("%(count)d starting") % locals())
-        count = queuing.filter(browser__isnull=False).count()
-        if count:
-            parts.append(', ' + _("%(count)d loading") % locals())
-        count = requests.filter(screenshot__isnull=False).count()
-        if count:
-            parts.append(', ' + _("%(count)d uploaded") % locals())
-        return mark_safe(u'<li>%s</li>' % ''.join(parts))
+        starting = queuing.filter(factory__isnull=False,
+                                  browser__isnull=True).count()
+        loading = queuing.filter(browser__isnull=False).count()
+        if datetime.now() < self.expire:
+            if starting:
+                parts.append(_("%(count)d starting") % {'count': starting})
+            if loading:
+                parts.append(_("%(count)d loading") % {'count': loading})
+            if uploaded:
+                parts.append(_("%(count)d uploaded") % {'count': uploaded})
+        else:
+            if uploaded:
+                parts.append(_("%(count)d uploaded") % {'count': uploaded})
+            failed = starting + loading
+            if failed:
+                parts.append(_("%(count)d failed") % {'count': failed})
+            expired = total - uploaded - failed
+            if expired:
+                parts.append(_("%(count)d expired") % {'count': expired})
+        return mark_safe(u'<li>%s</li>' % ', '.join(parts))
 
     def matching_factories(self):
         """
