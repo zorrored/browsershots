@@ -25,6 +25,7 @@ __author__ = "$Author$"
 from django.http import HttpResponse, Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.utils.safestring import mark_safe
 from shotserver04 import settings
 from shotserver04.xmlrpc.dispatcher import Dispatcher
 
@@ -78,6 +79,7 @@ def method_help(http_request, method_name):
     for method in dispatcher.funcs:
         docstring = docstring.replace(
             method, u'<a href="../%s/">%s</a>' % (method, method))
+    docstring = mark_safe(docstring)
     return render_to_response('xmlrpc/method_help.html', locals(),
         context_instance=RequestContext(http_request))
 
