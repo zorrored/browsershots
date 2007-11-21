@@ -1,4 +1,4 @@
-# Norwegian Nynorsk translation for shotserver
+# Romanian translation for shotserver
 # Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-21 12:28+0100\n"
-"PO-Revision-Date: 2007-10-21 19:31+0000\n"
+"POT-Creation-Date: 2007-11-21 12:27+0100\n"
+"PO-Revision-Date: 2007-11-06 19:56+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Norwegian Nynorsk <nn@li.org>\n"
+"Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,55 +19,55 @@ msgstr ""
 
 #: accounts/views.py:63
 msgid "You're already signed in"
-msgstr ""
+msgstr "Esti deja autentificat"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
-msgstr ""
+msgstr "Te rog deautentifica-te si incearca din nou"
 
 #: accounts/views.py:73
 msgid "Username"
-msgstr ""
+msgstr "Utilizator"
 
 #: accounts/views.py:74
 msgid "Password"
-msgstr ""
+msgstr "Parola"
 
 #: accounts/views.py:91
 msgid "Please enable cookies in your browser."
-msgstr ""
+msgstr "Te rog activeaza cookieuri in browserul tau."
 
 #: accounts/views.py:97
 msgid "Incorrect username or password."
-msgstr ""
+msgstr "Utilizator sau parola incorecta."
 
 #: accounts/views.py:99
 msgid "This account is inactive."
-msgstr ""
+msgstr "Acest cont este inactiv"
 
 #: accounts/views.py:101 accounts/views.py:166
 msgid "Welcome to Browsershots!"
-msgstr "Velkommen til Browsershots!"
+msgstr "Bun venit la Browsershots!"
 
 #: accounts/views.py:102
 msgid "let me in"
-msgstr ""
+msgstr "lasa-ma inauntru"
 
 #: accounts/views.py:109
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Ti-ai uitat parola ?"
 
 #: accounts/views.py:110
 msgid "Create a new account?"
-msgstr ""
+msgstr "Creezi un cont nou ?"
 
 #: accounts/views.py:125
 msgid "logged out"
-msgstr ""
+msgstr "deautentificat"
 
 #: accounts/views.py:127
 msgid "You have successfully logged out."
-msgstr ""
+msgstr "Deautentificarea s-a realizat cu succes."
 
 #: accounts/views.py:163 accounts/templates/accounts/profile.html:8
 #, python-format
@@ -76,146 +76,153 @@ msgstr ""
 
 #: accounts/views.py:192
 msgid "too many verification emails"
-msgstr ""
+msgstr "prea multe emailuri de verificare"
 
 #: accounts/views.py:193
 msgid "There were too many email requests from your IP in the last 24 hours."
-msgstr ""
+msgstr "Nu exista nici o cerere prin email de pe IPul tau in ultimele 24 ore."
 
 #: accounts/views.py:194 factories/views.py:55 start/views.py:83
 msgid "Please try again later."
-msgstr ""
+msgstr "Te rog incearca mai tarziu"
 
 #: accounts/views.py:197
 msgid "email verification"
-msgstr ""
+msgstr "verificare email"
 
 #: accounts/views.py:199
 msgid "send email"
-msgstr ""
+msgstr "trimite email"
 
 #: accounts/views.py:217
 msgid "email error"
-msgstr ""
+msgstr "eroare email"
 
 #: accounts/views.py:218
 msgid "Could not send email."
-msgstr ""
+msgstr "Emailul nu poate fi trimis."
 
 #: accounts/views.py:220
 msgid "email sent"
-msgstr ""
+msgstr "email trimis"
 
 #: accounts/views.py:221
-#, python-format
+#, fuzzy, python-format
 msgid "A verification email was sent to %(address)s."
-msgstr ""
+msgstr "Emailul de verificare a fost cerut de pe alta adresa IP."
 
 #: accounts/views.py:222
+#, fuzzy
 msgid "Check your email inbox and follow the instructions in the message."
-msgstr ""
+msgstr "Verifica-ti casuta de emailuri si urmeaza instructiunile din mesaj."
 
 #: accounts/views.py:223
+#, fuzzy
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
+"Daca providerul tau de email foloseste o lista gri (verificare), poate dura "
+"cateva minute."
 
 #: accounts/views.py:251
 msgid "Username must start with a lowercase letter."
-msgstr ""
+msgstr "Utilizatorul trebuie sa inceapa cu o litera mica."
 
 #: accounts/views.py:255
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
+"Utilizatorul poate contine litere mici, cifre, underscore (_), minus (-)."
 
 #: accounts/views.py:258
 msgid "This username is reserved."
-msgstr ""
+msgstr "Acest utilizator este rezervat."
 
 #: accounts/views.py:278
 #, python-format
 msgid "The password must have %d or more characters."
-msgstr ""
+msgstr "Parola trebuie sa contina %d caractere, sau mai multe."
 
 #: accounts/views.py:282
 msgid "The password must not be completely numeric."
-msgstr ""
+msgstr "Parola nu trebuie sa fie formata doar din cifre."
 
 #: accounts/views.py:295
 msgid "Repeat password is not the same."
-msgstr ""
+msgstr "Confirmarea parolei nu este aceeasi cu parola."
 
 #: accounts/views.py:316
 msgid "This username is already taken."
-msgstr ""
+msgstr "Acest utilizator exista deja."
 
 #: accounts/views.py:330
 msgid "Wrong IP address"
-msgstr ""
+msgstr "Adresa IP gresita."
 
 #: accounts/views.py:331
+#, fuzzy
 msgid "The verification email was requested from a different IP address."
-msgstr ""
+msgstr "Emailul de verificare a fost cerut de pe alta adresa IP."
 
 #: accounts/views.py:333
 msgid "Bad verification code"
-msgstr ""
+msgstr "Codul de verificare este incorect"
 
 #: accounts/views.py:334
 msgid "The verification code has no email address."
-msgstr ""
+msgstr "Codul de verificare nu corespunde unei adrese de email."
 
 #: accounts/views.py:336
 msgid "Verification code expired"
-msgstr ""
+msgstr "Codul de verificare a expirat."
 
 #: accounts/views.py:337
+#, fuzzy
 msgid "The verification email was requested more than 24 hours ago."
-msgstr ""
+msgstr "Verificarea emailului a fost cerut acum peste 30 de minute."
 
 #: accounts/views.py:351
 msgid "choose a new password"
-msgstr ""
+msgstr "Alege o parola noua"
 
 #: accounts/views.py:353
 msgid "change password"
-msgstr ""
+msgstr "schimba parola"
 
 #: accounts/views.py:360
 msgid "Password changed"
-msgstr ""
+msgstr "Parola schimbata"
 
 #: accounts/views.py:361
 msgid "Your new password has been saved."
-msgstr ""
+msgstr "Noua ta parola a fost salvata."
 
 #: accounts/views.py:362 accounts/views.py:386
 msgid "Click the link in the top right corner to log in."
-msgstr ""
+msgstr "Click pe legatura din dreapta sus pentru autentificare."
 
 #: accounts/views.py:374
 msgid "create a new account"
-msgstr ""
+msgstr "creaza un cont nou"
 
 #: accounts/views.py:376
 msgid "create account"
-msgstr ""
+msgstr "creaza cont"
 
 #: accounts/views.py:384
 msgid "Account created"
-msgstr ""
+msgstr "Cont creat"
 
 #: accounts/views.py:385
 msgid "A new user account was created."
-msgstr ""
+msgstr "Un cont nou a fost creat."
 
 #: accounts/templates/accounts/profile.html:5
 msgid "profile"
-msgstr ""
+msgstr "profil"
 
 #: accounts/templates/accounts/profile.html:11
 msgid "This is your private profile page. Only you can see it."
-msgstr ""
+msgstr "Aceasta este pagina profilului tau. Numai tu o poti vedea."
 
 #: accounts/templates/accounts/profile.html:15
 msgid "your screenshot factories"
