@@ -156,7 +156,14 @@ class UrlForm(forms.Form):
         domain_name = self.netloc_parts[2] # hostname
         if domain_name.startswith('www.'):
             domain_name = domain_name[4:]
-        domain, created = Domain.objects.get_or_create(name=domain_name)
+        try:
+            domain, created = Domain.objects.get_or_create(name=domain_name)
+        except IntegrityError, error:
+            if 'duplicate key' in str(error):
+                transaction.rollback()
+                domain = Domain.objects.get(name=domain_name)
+            else:
+                raise
         return domain
 
     def get_or_create_website(self):
@@ -171,11 +178,15 @@ class UrlForm(forms.Form):
             website, created = Website.objects.get_or_create(
                 url=self.cleaned_data['url'], defaults=defaults)
         except IntegrityError, error:
-            if not 'websites_website_url_check' in str(error):
+            if 'duplicate key' in str(error):
+                transaction.rollback()
+                website = Website.objects.get(url=self.cleaned_data['url'])
+            elif 'websites_website_url_check' in str(error):
+                transaction.rollback()
+                raise ValidationError(
+                    unicode(_("Malformed URL (database integrity error).")))
+            else:
                 raise
-            transaction.rollback()
-            raise ValidationError(
-                unicode(_("Malformed URL (database integrity error).")))
         # Update content cache
         if not created:
             # website.content = self.cleaned_data['content']
