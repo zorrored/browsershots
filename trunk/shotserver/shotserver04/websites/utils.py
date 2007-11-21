@@ -138,12 +138,14 @@ def http_get_path(connection, path):
     try:
         response = connection.getresponse()
         content = response.read(MAX_RESPONSE_SIZE)
-        try:
-            return content.decode('utf8')
-        except UnicodeDecodeError:
-            return content.decode('latin1')
     except socket.error, error:
         raise ResponseError(connection.host, error)
+    except ValueError, error:
+        raise ResponseError(connection.host, error)
+    try:
+        return content.decode('utf8')
+    except UnicodeDecodeError:
+        return content.decode('latin1')
 
 
 def count_profanities(profanities, content):
