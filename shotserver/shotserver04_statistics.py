@@ -59,39 +59,39 @@ ONE_DAY_AGO = datetime.now() - timedelta(1, 0, 0)
 PREMIUM_UPLOADS_PER_DAY = 4800
 
 # Count uploads per day and hour for factories, browsers, sponsors
-sponsor_uploads_per_day = {}
+sponsor_per_day = {}
 factories = Factory.objects.all()
 for factory in factories:
-    uploads_per_hour = Screenshot.objects.filter(
-        factory=factory, uploaded__gte=ONE_HOUR_AGO).count()
-    uploads_per_day = Screenshot.objects.filter(
-            factory=factory, uploaded__gte=ONE_DAY_AGO).count()
-    if (uploads_per_hour != factory.uploads_per_hour or
-        uploads_per_day != factory.uploads_per_day):
-        factory.update_fields(
-            uploads_per_hour=uploads_per_hour,
-            uploads_per_day=uploads_per_day)
-    if factory.sponsor_id is not None:
-        sponsor_uploads_per_day[factory.sponsor_id] = (
-            sponsor_uploads_per_day.get(factory.sponsor_id, 0) +
-            factory.uploads_per_day)
+    factory_per_hour = 0
+    factory_per_day = 0
     browsers = Browser.objects.filter(factory=factory)
     for browser in browsers:
-        uploads_per_hour = Screenshot.objects.filter(
+        browser_per_hour = Screenshot.objects.filter(
             browser=browser, uploaded__gte=ONE_HOUR_AGO).count()
-        uploads_per_day = Screenshot.objects.filter(
+        browser_per_day = Screenshot.objects.filter(
             browser=browser, uploaded__gte=ONE_DAY_AGO).count()
-        if (uploads_per_hour != browser.uploads_per_hour or
-            uploads_per_day != browser.uploads_per_day):
+        if (browser_per_hour != browser.uploads_per_hour or
+            browser_per_day != browser.uploads_per_day):
             browser.update_fields(
-                uploads_per_hour=uploads_per_hour,
-                uploads_per_day=uploads_per_day)
+                uploads_per_hour=browser_per_hour,
+                uploads_per_day=browser_per_day)
+        factory_per_hour += browser_per_hour
+        factory_per_day += browser_per_day
+    if (factory_per_hour != factory.uploads_per_hour or
+        factory_per_day != factory.uploads_per_day):
+        factory.update_fields(
+            uploads_per_hour=factory_per_hour,
+            uploads_per_day=factory_per_day)
+    if factory.sponsor_id is not None:
+        sponsor_per_day[factory.sponsor_id] = (
+            sponsor_per_day.get(factory.sponsor_id, 0) +
+            factory_per_day)
 
 # Show premium sponsors and very active factories on the front page
 sponsors = Sponsor.objects.all()
 for sponsor in sponsors:
     front_page = sponsor.premium or (
-        sponsor.id in sponsor_uploads_per_day and
-        sponsor_uploads_per_day[sponsor.id] >= PREMIUM_UPLOADS_PER_DAY)
+        sponsor.id in sponsor_per_day and
+        sponsor_per_day[sponsor.id] >= PREMIUM_UPLOADS_PER_DAY)
     if sponsor.front_page != front_page:
         sponsor.update_fields(front_page=front_page)
