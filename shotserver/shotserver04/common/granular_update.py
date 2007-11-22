@@ -45,7 +45,7 @@ def update_fields(self, **kwargs):
     for field_name in kwargs:
         field = self._meta.get_field(field_name)
         value = field.get_db_prep_save(kwargs[field_name])
-        if isself(value, basestring):
+        if isinstance(value, basestring):
             value = "'%s'" % value.encode('utf-8').replace('\\', r'\\')
         elif value is None:
             value = 'NULL'
