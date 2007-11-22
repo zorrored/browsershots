@@ -47,6 +47,7 @@ LOCKFILE.truncate()
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
 from shotserver04 import settings
+from shotserver04.common.update import update_fields
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
@@ -62,50 +63,28 @@ PREMIUM_UPLOADS_PER_DAY = 4800
 sponsor_uploads_per_day = {}
 factories = Factory.objects.all()
 for factory in factories:
-    factory.uploads_per_hour = Screenshot.objects.filter(
-        factory=factory, uploaded__gte=ONE_HOUR_AGO).count()
-    factory.uploads_per_day = Screenshot.objects.filter(
-        factory=factory, uploaded__gte=ONE_DAY_AGO).count()
-    factory.save()
+    update_fields(factory,
+        uploads_per_hour=Screenshot.objects.filter(
+            factory=factory, uploaded__gte=ONE_HOUR_AGO).count(),
+        uploads_per_day=Screenshot.objects.filter(
+            factory=factory, uploaded__gte=ONE_DAY_AGO).count())
     if factory.sponsor_id is not None:
         sponsor_uploads_per_day[factory.sponsor_id] = (
             sponsor_uploads_per_day.get(factory.sponsor_id, 0) +
             factory.uploads_per_day)
     browsers = Browser.objects.filter(factory=factory)
     for browser in browsers:
-        browser.uploads_per_hour = Screenshot.objects.filter(
-            browser=browser, uploaded__gte=ONE_HOUR_AGO).count()
-        browser.uploads_per_day = Screenshot.objects.filter(
-            browser=browser, uploaded__gte=ONE_DAY_AGO).count()
-        browser.save()
+        update_fields(browser,
+            uploads_per_hour=Screenshot.objects.filter(
+                browser=browser, uploaded__gte=ONE_HOUR_AGO).count(),
+            uploads_per_day=Screenshot.objects.filter(
+                browser=browser, uploaded__gte=ONE_DAY_AGO).count())
 
-# Show premium sponsors on the front page and very active factories
+# Show premium sponsors and very active factories on the front page
 sponsors = Sponsor.objects.all()
 for sponsor in sponsors:
     front_page = sponsor.premium or (
         sponsor.id in sponsor_uploads_per_day and
         sponsor_uploads_per_day[sponsor.id] >= PREMIUM_UPLOADS_PER_DAY)
     if sponsor.front_page != front_page:
-        sponsor.front_page = front_page
-        sponsor.save()
-
-
-if '--content' in sys.argv:
-    for website in Website.objects.order_by('fetched')[:20]:
-        print website.url
-        try:
-            website.content = http_get(website.url)
-        except HTTPError:
-            pass
-        website.fetched = datetime.now()
-        website.save()
-
-
-if '--profanities' in sys.argv:
-    for website in Website.objects.all():
-        profanities = count_profanities(
-            settings.PROFANITIES_LIST,
-            ' '.join((website.url, website.content)))
-        if website.profanities != profanities:
-            website.profanities = profanities
-            website.save()
+        update_fields(sponsor, front_page=front_page)
