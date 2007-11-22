@@ -52,7 +52,7 @@ def close_request(request_id, factory, screenshot):
         screenshot.delete()
         raise
     # Close the request
-    request.update_fields(screenshot_id=screenshot.id)
+    request.update_fields(screenshot=screenshot)
 
 
 @factory_xmlrpc
