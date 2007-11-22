@@ -58,5 +58,7 @@ def update_fields(self, **kwargs):
     sql.extend(['WHERE', 'id', '=', str(self.id)])
     sql = ' '.join(sql)
     connection.cursor().execute(sql)
-    if transaction.is_managed():
-        transaction.set_dirty()
+    transaction.commit_unless_managed()
+
+
+update_fields.alters_data = True
