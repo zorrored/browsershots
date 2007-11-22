@@ -56,9 +56,7 @@ def find_and_lock_request(factory, features):
         raise Fault(204, 'No matching request.')
     request = matches[0]
     # Lock request
-    request.factory = factory
-    request.locked = datetime.now()
-    request.save()
+    request.update_fields(factory_id=factory.id, locked=datetime.now())
     return request
 
 
@@ -127,10 +125,8 @@ def poll(http_request, factory, encrypted_password):
     # Verify authentication
     nonces.verify(http_request, factory, encrypted_password)
     # Update last_poll timestamp
-    factory = Factory.objects.get(id=factory.id) # Reload from database
-    factory.last_poll = datetime.now()
-    factory.ip = http_request.META['REMOTE_ADDR']
-    factory.save()
+    factory.update_fields(last_poll=datetime.now(),
+                          ip=http_request.META['REMOTE_ADDR'])
     # Get matching request
     request = find_and_lock_request(factory, factory.features_q())
     # Get matching browser
