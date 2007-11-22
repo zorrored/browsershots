@@ -28,24 +28,31 @@ __author__ = "$Author$"
 from django.db import connection
 
 
-def update_fields(instance, **kwargs):
+def update_fields(self, **kwargs):
     """
+    Update selected model fields in the database, but leave the other
+    fields alone. Use this rather than model.save() for performance
+    and data consistency.
+
+    You can use this as a function or add it as a method to your models:
+    import granular_update
+    class Example(models.Model):
+        name = models.CharField(max_length=20)
+        number = models.IntegerField()
+        update_fields = granular_update.update_fields
     """
-    sql = ['UPDATE', connection.ops.quote_name(instance._meta.db_table), 'SET']
-    field_names = [connection.ops.quote_name(f.column)
-                   for f in instance._meta.fields]
+    sql = ['UPDATE', connection.ops.quote_name(self._meta.db_table), 'SET']
     for field_name in kwargs:
-        field = instance._meta.get_field(field_name)
+        field = self._meta.get_field(field_name)
         value = field.get_db_prep_save(kwargs[field_name])
-        if isinstance(value, basestring):
+        if isself(value, basestring):
             value = "'%s'" % value.encode('utf-8').replace('\\', r'\\')
         elif value is None:
             value = 'NULL'
         else:
             value = str(value)
-        sql.extend((connection.ops.quote_name(field.column),
-                    '=', value, ','))
+        sql.extend((connection.ops.quote_name(field.column), '=', value, ','))
     sql.pop(-1) # Remove the last comma
-    sql.extend(['WHERE', 'id', '=', str(instance.id)])
+    sql.extend(['WHERE', 'id', '=', str(self.id)])
     sql = ' '.join(sql)
     connection.cursor().execute(sql)
