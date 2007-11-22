@@ -47,7 +47,6 @@ LOCKFILE.truncate()
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
 from shotserver04 import settings
-from shotserver04.common.update import update_fields
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
@@ -63,7 +62,7 @@ PREMIUM_UPLOADS_PER_DAY = 4800
 sponsor_uploads_per_day = {}
 factories = Factory.objects.all()
 for factory in factories:
-    update_fields(factory,
+    factory.update_fields(
         uploads_per_hour=Screenshot.objects.filter(
             factory=factory, uploaded__gte=ONE_HOUR_AGO).count(),
         uploads_per_day=Screenshot.objects.filter(
@@ -74,7 +73,7 @@ for factory in factories:
             factory.uploads_per_day)
     browsers = Browser.objects.filter(factory=factory)
     for browser in browsers:
-        update_fields(browser,
+        browser.update_fields(
             uploads_per_hour=Screenshot.objects.filter(
                 browser=browser, uploaded__gte=ONE_HOUR_AGO).count(),
             uploads_per_day=Screenshot.objects.filter(
@@ -87,4 +86,4 @@ for sponsor in sponsors:
         sponsor.id in sponsor_uploads_per_day and
         sponsor_uploads_per_day[sponsor.id] >= PREMIUM_UPLOADS_PER_DAY)
     if sponsor.front_page != front_page:
-        update_fields(sponsor, front_page=front_page)
+        sponsor.update_fields(front_page=front_page)

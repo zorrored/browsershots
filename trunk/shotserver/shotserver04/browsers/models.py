@@ -28,6 +28,7 @@ from django.utils.text import capfirst
 from django.utils.safestring import mark_safe
 from shotserver04.factories.models import Factory
 from shotserver04.features.models import Javascript, Java, Flash
+from shotserver04.common import granular_update
 
 
 class Engine(models.Model):
@@ -40,9 +41,6 @@ class Engine(models.Model):
     maker = models.CharField(
         _('maker'), max_length=30, blank=True)
 
-    def __unicode__(self):
-        return self.name
-
     class Admin:
         list_display = ('name', 'maker')
         search_fields = ('name', 'maker')
@@ -51,6 +49,11 @@ class Engine(models.Model):
         verbose_name = _('engine')
         verbose_name_plural = _('engines')
         ordering = ('name', )
+
+    update_fields = granular_update.update_fields
+
+    def __unicode__(self):
+        return self.name
 
 
 class BrowserGroup(models.Model):
@@ -75,6 +78,8 @@ class BrowserGroup(models.Model):
         verbose_name = _('browser group')
         verbose_name_plural = _('browser groups')
         ordering = ('name', )
+
+    update_fields = granular_update.update_fields
 
     def __unicode__(self):
         return self.name
@@ -144,6 +149,8 @@ class Browser(models.Model):
         verbose_name = _('browser')
         verbose_name_plural = _('browsers')
         ordering = ('user_agent', )
+
+    update_fields = granular_update.update_fields
 
     def __unicode__(self):
         return u'%s %s' % (self.browser_group.name, self.version)
