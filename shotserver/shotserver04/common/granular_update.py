@@ -25,7 +25,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from django.db import connection
+from django.db import connection, models
 
 
 def update_fields(self, **kwargs):
@@ -47,6 +47,8 @@ def update_fields(self, **kwargs):
         value = field.get_db_prep_save(kwargs[field_name])
         if isinstance(value, basestring):
             value = "'%s'" % value.encode('utf-8').replace('\\', r'\\')
+        elif isinstance(value, models.Model):
+            value = str(value.id)
         elif value is None:
             value = 'NULL'
         else:
