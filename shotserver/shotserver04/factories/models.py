@@ -32,6 +32,7 @@ from django.contrib.auth.models import User
 from shotserver04.platforms.models import Architecture, OperatingSystem
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.common.templatetags import human
+from shotserver04.common import granular_update
 
 FACTORY_FIELDS = (
     'name', 'operating_system', 'architecture',
@@ -193,6 +194,7 @@ class Factory(models.Model):
         return self.colordepth_set.filter(
             bits_per_pixel=bits_per_pixel).count() >= 1
 
+    update_fields = granular_update.update_fields
 
 class ScreenSize(models.Model):
     """
