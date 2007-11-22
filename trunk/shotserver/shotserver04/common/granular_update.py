@@ -25,7 +25,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from django.db import connection, models
+from django.db import connection, models, transaction
 
 
 def update_fields(self, **kwargs):
@@ -58,3 +58,5 @@ def update_fields(self, **kwargs):
     sql.extend(['WHERE', 'id', '=', str(self.id)])
     sql = ' '.join(sql)
     connection.cursor().execute(sql)
+    if transaction.is_managed():
+        transaction.set_dirty()
