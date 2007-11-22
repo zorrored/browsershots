@@ -34,7 +34,7 @@ from django.newforms.util import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from shotserver04 import settings
 from shotserver04.websites.utils import \
-     split_netloc, http_get, count_profanities, \
+     split_netloc, unsplit_netloc, http_get, count_profanities, \
      HTTP_TIMEOUT, HTTPError, ConnectError, RequestError, \
      dotted_ip, long_ip, bit_mask, slash_mask
 from shotserver04.websites.models import Domain, Website
@@ -60,6 +60,7 @@ class UrlForm(forms.Form):
         self.cleaned_data['url'] = normalize_url(self.cleaned_data['url'])
         self.add_scheme()
         self.split_url()
+        self.punycode_url()
         self.check_server_ip()
         self.add_slash()
         self.cleaned_data['content'] = self.http_get()
@@ -94,6 +95,19 @@ class UrlForm(forms.Form):
                 unicode(_("Malformed URL (server name not specified).")))
         self.netloc_parts = split_netloc(self.url_parts[1])
         # print self.netloc_parts
+
+    def punycode_url(self):
+        """
+        Convert url to punycode if necessary.
+        """
+        hostname = self.netloc_parts[2]
+        punycode = hostname.encode('idna').decode('ascii')
+        if punycode == hostname:
+            return
+        self.netloc_parts[2] = punycode
+        self.url_parts[1] = unsplit_netloc(*self.netloc_parts)
+        self.cleaned_data['url'] = urlparse.urlunsplit(self.url_parts)
+        # print self.cleaned_data['url']
 
     def check_server_ip(self):
         """

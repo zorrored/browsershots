@@ -89,7 +89,33 @@ def split_netloc(netloc):
         hostname, port = host.split(':', 1)
     else:
         hostname = host
-    return username, password, hostname, port
+    return [username, password, hostname, port]
+
+
+def unsplit_netloc(username, password, hostname, port):
+    """
+    Put the netloc back together from its parts.
+    >>> unsplit_netloc(None, None, 'example.com', None)
+    'example.com'
+    >>> unsplit_netloc('', '', 'example.com', '')
+    'example.com'
+    >>> unsplit_netloc('username', '', 'example.com', '8080')
+    'username@example.com:8080'
+    >>> unsplit_netloc('', 'password', 'example.com', '8080')
+    ':password@example.com:8080'
+    """
+    result = []
+    if username or password:
+        result.append(username or '')
+        if password:
+            result.append(':')
+            result.append(password or '')
+        result.append('@')
+    result.append(hostname)
+    if port:
+        result.append(':')
+        result.append(str(port))
+    return ''.join(result)
 
 
 def http_get(url):
