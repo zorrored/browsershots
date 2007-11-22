@@ -62,22 +62,30 @@ PREMIUM_UPLOADS_PER_DAY = 4800
 sponsor_uploads_per_day = {}
 factories = Factory.objects.all()
 for factory in factories:
-    factory.update_fields(
-        uploads_per_hour=Screenshot.objects.filter(
-            factory=factory, uploaded__gte=ONE_HOUR_AGO).count(),
-        uploads_per_day=Screenshot.objects.filter(
-            factory=factory, uploaded__gte=ONE_DAY_AGO).count())
+    uploads_per_hour = Screenshot.objects.filter(
+        factory=factory, uploaded__gte=ONE_HOUR_AGO).count()
+    uploads_per_day = Screenshot.objects.filter(
+            factory=factory, uploaded__gte=ONE_DAY_AGO).count()
+    if (uploads_per_hour != factory.uploads_per_hour or
+        uploads_per_day != factory.uploads_per_day):
+        factory.update_fields(
+            uploads_per_hour=uploads_per_hour,
+            uploads_per_day=uploads_per_day)
     if factory.sponsor_id is not None:
         sponsor_uploads_per_day[factory.sponsor_id] = (
             sponsor_uploads_per_day.get(factory.sponsor_id, 0) +
             factory.uploads_per_day)
     browsers = Browser.objects.filter(factory=factory)
     for browser in browsers:
-        browser.update_fields(
-            uploads_per_hour=Screenshot.objects.filter(
-                browser=browser, uploaded__gte=ONE_HOUR_AGO).count(),
-            uploads_per_day=Screenshot.objects.filter(
-                browser=browser, uploaded__gte=ONE_DAY_AGO).count())
+        uploads_per_hour = Screenshot.objects.filter(
+            browser=browser, uploaded__gte=ONE_HOUR_AGO).count()
+        uploads_per_day = Screenshot.objects.filter(
+            browser=browser, uploaded__gte=ONE_DAY_AGO).count()
+        if (uploads_per_hour != browser.uploads_per_hour or
+            uploads_per_day != browser.uploads_per_day):
+            browser.update_fields(
+                uploads_per_hour=uploads_per_hour,
+                uploads_per_day=uploads_per_day)
 
 # Show premium sponsors and very active factories on the front page
 sponsors = Sponsor.objects.all()
