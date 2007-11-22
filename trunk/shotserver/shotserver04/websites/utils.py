@@ -69,11 +69,11 @@ def split_netloc(netloc):
     Split network locator into username, password, hostname, port.
 
     >>> split_netloc('example.com')
-    (None, None, 'example.com', None)
+    [None, None, 'example.com', None]
     >>> split_netloc('user@example.com')
-    ('user', None, 'example.com', None)
+    ['user', None, 'example.com', None]
     >>> split_netloc('user:pw@example.com:80')
-    ('user', 'pw', 'example.com', '80')
+    ['user', 'pw', 'example.com', '80']
     """
     auth = username = password = None
     host = hostname = port = None
@@ -92,18 +92,19 @@ def split_netloc(netloc):
     return [username, password, hostname, port]
 
 
-def unsplit_netloc(username, password, hostname, port):
+def unsplit_netloc(parts):
     """
     Put the netloc back together from its parts.
-    >>> unsplit_netloc(None, None, 'example.com', None)
+    >>> unsplit_netloc([None, None, 'example.com', None])
     'example.com'
-    >>> unsplit_netloc('', '', 'example.com', '')
+    >>> unsplit_netloc(('', '', 'example.com', ''))
     'example.com'
-    >>> unsplit_netloc('username', '', 'example.com', '8080')
+    >>> unsplit_netloc(['username', '', 'example.com', '8080'])
     'username@example.com:8080'
-    >>> unsplit_netloc('', 'password', 'example.com', '8080')
+    >>> unsplit_netloc(['', 'password', 'example.com', '8080'])
     ':password@example.com:8080'
     """
+    username, password, hostname, port = parts
     result = []
     if username or password:
         result.append(username or '')

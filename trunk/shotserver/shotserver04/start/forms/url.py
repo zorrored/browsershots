@@ -105,7 +105,7 @@ class UrlForm(forms.Form):
         if punycode == hostname:
             return
         self.netloc_parts[2] = punycode
-        self.url_parts[1] = unsplit_netloc(*self.netloc_parts)
+        self.url_parts[1] = unsplit_netloc(self.netloc_parts)
         self.cleaned_data['url'] = urlparse.urlunsplit(self.url_parts)
         # print self.cleaned_data['url']
 
