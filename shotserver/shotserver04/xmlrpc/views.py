@@ -41,7 +41,11 @@ def xmlrpc(http_request):
     XML-RPC interface (for POST requests) and automatic human-readable
     HTML documentation (for GET requests).
     """
-    if len(http_request.POST):
+    try:
+        is_post_request = len(http_request.POST)
+    except IOError, error:
+        return HttpResponse(content=str(error), status=500)
+    if is_post_request:
         response = HttpResponse()
         response.write(dispatcher.dispatch_request(http_request))
         response['Content-length'] = str(len(response.content))
