@@ -52,8 +52,7 @@ def close_request(request_id, factory, screenshot):
         screenshot.delete()
         raise
     # Close the request
-    request.screenshot = screenshot
-    request.save()
+    request.update_fields(screenshot_id=screenshot.id)
 
 
 @factory_xmlrpc
@@ -114,12 +113,10 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     close_request(request_id, factory, screenshot)
     # Update timestamps and estimates
     now = datetime.now()
-    factory = Factory.objects.get(id=factory.id) # Reload from database
-    factory.last_upload = now
     if request.priority == 0:
-        factory.queue_estimate = (now - request_group.submitted).seconds
-    factory.save()
-    browser = Browser.objects.get(id=browser.id) # Reload from database
-    browser.last_upload = now
-    browser.save()
+        factory.update_fields(last_upload=now,
+            queue_estimate=(now - request_group.submitted).seconds)
+    else:
+        factory.update_fields(last_upload=now)
+    browser.update_fields(last_upload=now)
     return hashkey

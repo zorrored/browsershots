@@ -41,6 +41,7 @@ from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
 from shotserver04.common import lock_timeout, last_poll_timeout
 from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common import granular_update
 from shotserver04.features import satisfies
 
 
@@ -91,6 +92,8 @@ class RequestGroup(models.Model):
         verbose_name = _('request group')
         verbose_name_plural = _('request groups')
         ordering = ('-submitted', )
+
+    update_fields = granular_update.update_fields
 
     def __unicode__(self):
         """
@@ -404,6 +407,8 @@ class Request(models.Model):
     class Meta:
         verbose_name = _('request')
         verbose_name_plural = _('requests')
+
+    update_fields = granular_update.update_fields
 
     def __unicode__(self):
         return u'%s on %s' % (self.browser_string(), self.platform.name)
