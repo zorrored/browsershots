@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 from xmlrpclib import Fault
 from django.db import models
+from django.conf import settings
 from shotserver04.common import serializable
 from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import xmlrpc as nonces
@@ -127,6 +128,13 @@ def poll(http_request, factory, encrypted_password):
     # Update last_poll timestamp
     factory.update_fields(last_poll=datetime.now(),
                           ip=http_request.META['REMOTE_ADDR'])
+    if hasattr(settings, 'FACTORY_THROTTLE_INTERVAL'):
+        if factory.name in settings.FACTORY_THROTTLE_INTERVAL:
+            interval = settings.FACTORY_THROTTLE_INTERVAL[factory.name]
+            if datetime.now() - factory.last_upload < interval:
+                raise Fault(403, ' '.join((
+"Sorry, your screenshot factory is blocked for a few minutes.",
+"Please check your email for error messages from Browsershots.")))
     # Get matching request
     request = find_and_lock_request(factory, factory.features_q())
     # Get matching browser
