@@ -23,12 +23,23 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import urllib2
+from datetime import datetime
 from django.http import HttpResponse
 from django.db import transaction
 from django import newforms as forms
 from django.shortcuts import render_to_response
-from shotserver04 import settings
+from django.core.mail import mail_admins, EmailMessage
+from django.contrib.auth.models import User
+from django.conf import settings
 from shotserver04.paypal.models import PayPalLog
+from shotserver04.priority.models import UserPriority
+
+
+def guess(**kwargs):
+    users = User.objects.filter(**kwargs)
+    if len(users) == 1:
+        print repr(kwargs)
+        return users[0]
 
 
 def ipn(http_request):
@@ -65,16 +76,88 @@ def ipn(http_request):
     paypallog.save()
     transaction.commit()
     # Check the response
-    if (response == 'VERIFIED' and
-        http_request.POST['payment_status'] == 'Completed'):
-        assert PayPalLog.objects.filter(
-            txn_id=http_request.POST['txn_id']).count() == 1
-        # assert http_request.POST['receiver_email'] == 'johann@browsershots.org'
-        # assert http_request.POST['payment_currency'] == 'USD'
-        # Transaction.create(
-        #     receiver=User.objects.get(email=http_request.POST['payer_email']),
-        #     points=int(float(http_request['payment_currency']) * 50))
+    if response == 'VERIFIED':
+        payment_status = http_request.POST['payment_status']
+        if payment_status == 'Completed':
+            priority = create_user_priority(paypallog)
+            if isinstance(priority, UserPriority):
+                send_priority_email(paypallog, priority)
+        else:
+            mail_admins("Payment not completed",
+                        u"%s: %s" % (payment_status , paypallog))
+    else:
+        mail_admins("Invalid PayPal IPN",
+                    u"%s: %s" % (response, paypallog))
     return HttpResponse(response, mimetype="text/plain")
+
+
+def create_user_priority(log):
+    if UserPriority.objects.filter(txn_id=log.txn_id).count():
+        mail_admins("Already processed txn %s" % log.txn_id, log)
+        return
+    if log.receiver_email != 'johann@browsershots.org':
+        mail_admins("Wrong receiver %s" % log.receiver_email, log)
+        return
+    if not ((log.mc_currency == 'EUR' and log.mc_gross == '10.00') or
+            (log.mc_currency == 'USD' and log.mc_gross == '15.00')):
+        mail_admins("Wrong payment", log)
+        return
+    user = (
+        guess(email=log.payer_email) or
+        guess(email__iexact=log.payer_email) or
+        (log.memo and guess(username=log.memo)) or
+        (log.memo and guess(username__iexact=log.memo)) or
+        (log.memo and guess(username=log.memo.split()[-1])) or
+        (log.memo and guess(username__iexact=log.memo.split()[-1])) or
+        (log.memo and guess(username=log.memo.split(':')[-1])) or
+        (log.memo and guess(username__iexact=log.memo.split(':')[-1])) or
+        guess(first_name__iexact=log.first_name,
+              last_name__iexact=log.last_name) or
+        guess(last_name__iexact=log.last_name))
+    if not user:
+        mail_admins("Could not find user for PayPal payment", log)
+        return
+    year, month, day, hour, minute, sec = datetime.now().timetuple()[:6]
+    if month < 12:
+        month += 1
+    else:
+        year += 1
+        month = 1
+    expire = datetime(year, month, day, hour, minute, sec)
+    priority = UserPriority(
+        user=user, priority=1, expire=expire, txn_id=log.txn_id)
+    priority.save()
+    transaction.commit()
+    mail_admins(unicode(priority), log)
+    return priority
+
+
+def send_priority_email(log, priority):
+    user = priority.user
+    first_name = user.first_name
+    username = user.username
+    expire = priority.expire.strftime('%Y-%m-%d')
+    admin_name, admin_email = settings.ADMINS[0]
+    mail = EmailMessage()
+    mail.subject = "Browsershots priority processing activated"
+    mail.body = """
+Hi %(first_name)s,
+
+Thanks for supporting the Browsershots project.
+
+Priority processing has been activated for %(username)s
+until %(expire)s. Please let me know how it works for you,
+and if you have ideas for improvement.
+
+Cheers,
+%(admin_name)s
+%(admin_email)s
+""".strip() % locals()
+    mail.to = ['"%s %s" <%s>' % (user.first_name, user.last_name, user.email)]
+    mail.bcc = [admin_email]
+    mail.from_email = '"%s" <%s>' % (admin_name, admin_email)
+    # mail.headers = {'Reply-To': admin_email}
+    mail.send()
 
 
 class PayPalForm(forms.Form):
