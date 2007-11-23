@@ -111,6 +111,6 @@ rosetta-export :
 	| grep -v /en/ | cut -d / -f 3 \
 	| xargs -iname bash -c " \
 		cp shotserver04/locale/name/LC_MESSAGES/django.po \
-		rosetta-shotserver/shotserver-name.po"
+		rosetta-shotserver/name.po"
 	rm -f launchpad-import.tar.gz
 	tar czvf launchpad-import.tar.gz rosetta-shotserver
