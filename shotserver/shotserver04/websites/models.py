@@ -26,6 +26,7 @@ import cgi
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core import validators
+from shotserver04.common import granular_update
 
 
 def has_slash_after_hostname(field_data, all_data):
@@ -55,6 +56,8 @@ class Domain(models.Model):
     class Meta:
         verbose_name = _('domain')
         verbose_name_plural = _('domains')
+
+    update_fields = granular_update.update_fields
 
     def __unicode__(self):
         if len(self.name) > 60:
@@ -88,6 +91,8 @@ class Website(models.Model):
     class Meta:
         verbose_name = _('website')
         verbose_name_plural = _('websites')
+
+    update_fields = granular_update.update_fields
 
     def __unicode__(self):
         if len(self.url) >= 80:

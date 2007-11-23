@@ -195,6 +195,7 @@ class UrlForm(forms.Form):
             if 'duplicate key' in str(error):
                 transaction.rollback()
                 website = Website.objects.get(url=self.cleaned_data['url'])
+                created = False
             elif 'websites_website_url_check' in str(error):
                 transaction.rollback()
                 raise ValidationError(
@@ -203,8 +204,7 @@ class UrlForm(forms.Form):
                 raise
         # Update content cache
         if not created:
-            # website.content = self.cleaned_data['content']
-            website.profanities = self.cleaned_data['profanities']
-            website.fetched = datetime.now()
-            website.save()
+            website.update_fields(
+                profanities=self.cleaned_data['profanities'],
+                fetched=datetime.now())
         return website
