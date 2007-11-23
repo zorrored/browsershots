@@ -139,10 +139,11 @@ def start(http_request):
             match_values[key] = values[key]
     existing = RequestGroup.objects.filter(
         expire__gte=datetime.now(), **match_values).order_by('-submitted')
-    if len(existing):
+    if (len(existing) and
+        existing[0].request_set.filter(screenshot__isnull=True).count()):
+        # Previous request group is still pending, reuse it.
         request_group = existing[0]
-        request_group.expire = expire
-        request_group.save()
+        request_group.update_fields(expire=expire)
     else:
         request_group = RequestGroup.objects.create(expire=expire, **values)
     # Get priority processing for domain or user.
