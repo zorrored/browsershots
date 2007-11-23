@@ -117,7 +117,9 @@ def details(http_request, url):
     # Get other websites on the same domain
     domain_website_list = domain.website_set.exclude(id=website.id)
     # Show extra message from settings.py
-    if hasattr(settings, 'WEBSITE_DETAILS_HEAD_EXTRA'):
-        website_details_head_extra = settings.WEBSITE_DETAILS_HEAD_EXTRA
+    if (http_request.user.is_anonymous() or
+        http_request.user.userpriority_set.count() == 0):
+        if hasattr(settings, 'WEBSITE_DETAILS_HEAD_EXTRA'):
+            website_details_head_extra = settings.WEBSITE_DETAILS_HEAD_EXTRA
     return render_to_response('websites/details.html', locals(),
         context_instance=RequestContext(http_request))
