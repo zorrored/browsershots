@@ -36,9 +36,17 @@ from shotserver04.priority.models import UserPriority
 
 
 def guess(**kwargs):
+    """
+    Try to guess the user account for a PayPal transaction.
+    """
     users = User.objects.filter(**kwargs)
     if len(users) == 1:
-        print repr(kwargs)
+        return users[0]
+    iexact = {}
+    for key in kwargs:
+        iexact[key + '__iexact'] = kwargs[key]
+    users = User.objects.filter(**iexact)
+    if len(users) == 1:
         return users[0]
 
 
@@ -102,20 +110,25 @@ def create_user_priority(log):
             (log.mc_currency == 'USD' and log.mc_gross == '15.00')):
         mail_admins("Wrong payment", log)
         return
-    user = (
-        guess(email=log.payer_email) or
-        guess(email__iexact=log.payer_email) or
-        (log.memo and guess(username=log.memo)) or
-        (log.memo and guess(username__iexact=log.memo)) or
-        (log.memo and guess(username=log.memo.split()[-1])) or
-        (log.memo and guess(username__iexact=log.memo.split()[-1])) or
-        (log.memo and guess(username=log.memo.split(':')[-1])) or
-        (log.memo and guess(username__iexact=log.memo.split(':')[-1])) or
-        guess(first_name__iexact=log.first_name,
-              last_name__iexact=log.last_name) or
-        guess(last_name__iexact=log.last_name))
-    if not user:
-        mail_admins("Could not find user for PayPal payment", log)
+    user = None
+    if log.memo:
+        # Try to guess user from comment field.
+        user = (
+            guess(username=log.memo) or
+            guess(username=log.memo.split()[-1]) or
+            guess(username=log.memo.split(':')[-1].strip()))
+    if user is None:
+        # Try to guess user from email address.
+        user = (
+            guess(email=log.payer_email) or
+            guess(username=log.payer_email.split('@')[0]))
+    if user is None:
+        # Try to guess user from first and last name.
+        user = (
+            guess(first_name=log.first_name, last_name=log.last_name) or
+            guess(last_name=log.last_name))
+    if user is None:
+        mail_admins("Could not guess user for payment", log)
         return
     year, month, day, hour, minute, sec = datetime.now().timetuple()[:6]
     if month < 12:
