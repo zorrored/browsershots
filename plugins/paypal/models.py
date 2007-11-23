@@ -71,3 +71,8 @@ class PayPalLog(models.Model):
         list_display = ('txn_id', 'payment_date', 'payer_email',
                         'mc_currency', 'mc_gross', 'payment_status',
                         'response', 'posted')
+
+    def __unicode__(self):
+        return ' '.join((self.mc_currency, self.mc_gross, 'from',
+                         self.payer_email, self.first_name, self.last_name,
+                         self.memo.replace('\n', ' ')))
