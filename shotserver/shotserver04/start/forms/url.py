@@ -170,6 +170,7 @@ class UrlForm(forms.Form):
         domain_name = self.netloc_parts[2] # hostname
         if domain_name.startswith('www.'):
             domain_name = domain_name[4:]
+        transaction.commit() # Because we may need to call rollback below.
         try:
             domain, created = Domain.objects.get_or_create(name=domain_name)
         except IntegrityError, error:
@@ -188,6 +189,7 @@ class UrlForm(forms.Form):
         defaults['domain'] = self.cleaned_data['domain']
         # defaults['content'] = self.cleaned_data['content']
         defaults['profanities'] = self.cleaned_data['profanities']
+        transaction.commit() # Because we may need to call rollback below.
         try:
             website, created = Website.objects.get_or_create(
                 url=self.cleaned_data['url'], defaults=defaults)
