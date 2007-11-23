@@ -43,6 +43,7 @@ def update_fields(self, **kwargs):
     """
     sql = ['UPDATE', connection.ops.quote_name(self._meta.db_table), 'SET']
     for field_name in kwargs:
+        setattr(self, field_name, kwargs[field_name])
         field = self._meta.get_field(field_name)
         value = field.get_db_prep_save(kwargs[field_name])
         if isinstance(value, basestring):
