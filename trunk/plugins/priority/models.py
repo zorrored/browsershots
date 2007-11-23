@@ -31,12 +31,18 @@ class UserPriority(models.Model):
     user = models.ForeignKey(User, raw_id_admin=True)
     priority = models.IntegerField()
     expire = models.DateTimeField()
+    txn_id = models.CharField(max_length=40)
 
     class Admin:
-        list_display = ('user', 'priority', 'expire')
+        list_display = ('user', 'priority', 'expire', 'txn_id')
+
+    class Meta:
+        verbose_name_plural = "user priority"
+        verbose_name_plural = "user priorities"
 
     def __unicode__(self):
-        return u"Priority %d for %s" % (self.priority, self.user)
+        return u"Priority %d for %s until %s" % (
+            self.priority, self.user, self.expire.strftime('%Y-%m-%d'))
 
 
 class DomainPriority(models.Model):
@@ -47,5 +53,10 @@ class DomainPriority(models.Model):
     class Admin:
         list_display = ('domain', 'priority', 'expire')
 
+    class Meta:
+        verbose_name_plural = "domain priority"
+        verbose_name_plural = "domain priorities"
+
     def __unicode__(self):
-        return u"Priority %d for %s" % (self.priority, self.domain)
+        return u"Priority %d for %s until %s" % (
+            self.priority, self.domain, self.expire.strftime('%Y-%m-%d'))
