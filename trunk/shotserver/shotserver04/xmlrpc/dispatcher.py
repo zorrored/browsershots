@@ -25,6 +25,7 @@ __author__ = "$Author$"
 import sys
 import xmlrpclib
 from shotserver04.xmlrpc import signature
+from xml.parsers import expat
 
 
 class Dispatcher:
@@ -142,5 +143,9 @@ class Dispatcher:
 
     def dispatch_request(self, http_request):
         """Unmarshal and run an XML-RPC request."""
-        params, method = xmlrpclib.loads(http_request.raw_post_data)
+        try:
+            params, method = xmlrpclib.loads(http_request.raw_post_data)
+        except expat.ExpatError, error:
+            return xmlrpclib.dumps(
+                xmlrpclib.Fault(400, u"XML parser error: %s" % str(error)))
         return self.dispatch_and_marshal(method, http_request, params)
