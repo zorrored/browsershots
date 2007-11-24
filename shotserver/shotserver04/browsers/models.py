@@ -102,7 +102,7 @@ class Browser(models.Model):
     minor = models.IntegerField(
         _('minor'))
     engine = models.ForeignKey(Engine,
-        verbose_name=_('engine'), blank=True)
+        verbose_name=_('engine'))
     engine_version = models.CharField(
         _('engine version'), max_length=20, blank=True)
     javascript = models.ForeignKey(Javascript,
