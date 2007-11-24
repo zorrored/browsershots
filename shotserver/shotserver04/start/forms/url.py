@@ -100,9 +100,11 @@ class UrlForm(forms.Form):
         """
         Convert url to punycode if necessary.
         """
-        hostname = self.netloc_parts[2]
+        hostname = original = self.netloc_parts[2]
+        while '..' in hostname:
+            hostname = hostname.replace('..', '.')
         punycode = hostname.encode('idna').decode('ascii')
-        if punycode == hostname:
+        if punycode == original:
             return
         self.netloc_parts[2] = punycode
         self.url_parts[1] = unsplit_netloc(self.netloc_parts)
