@@ -31,6 +31,7 @@ from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 from shotserver04 import settings
 from shotserver04.common import error_page
 from shotserver04.factories.models import Factory
@@ -135,8 +136,8 @@ def add(http_request):
         [form['factory']],
         [password_form['password']],
         ]]
-    admin_email = u'<a href="mailto:%s">%s</a>' % (
-        settings.ADMINS[0][1], settings.ADMINS[0][0])
+    admin_email = mark_safe(u'<a href="mailto:%s">%s</a>' % (
+        settings.ADMINS[0][1], settings.ADMINS[0][0]))
     password_valid = False
     if form.is_valid() and password_form.is_valid():
         if password_form.cleaned_data['password']:
