@@ -21,7 +21,7 @@
 </form>
 {% if form_javascript %}
 <script type="text/javascript">
-{{ form_javascript }}
+{{ form_javascript|safe }}
 </script>
 {% endif %}
 {{ form_extra|safe }}
