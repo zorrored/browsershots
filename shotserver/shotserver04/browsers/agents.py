@@ -36,7 +36,9 @@ def get_engines():
     """
     from shotserver04.browsers.models import Engine
     khtml = gecko = msie = None
-    for engine in Engine.objects.all():
+    engines = list(Engine.objects.all())
+    engines.sort(key=lambda e: -len(e.name)) # Longer names first.
+    for engine in engines:
         if engine.name == 'Gecko':
             gecko = engine
         elif engine.name == 'KHTML':
@@ -62,7 +64,9 @@ def get_browser_groups():
     """
     from shotserver04.browsers.models import BrowserGroup
     firefox = mozilla = msie = None
-    for browser_group in BrowserGroup.objects.all():
+    browser_groups = list(BrowserGroup.objects.all())
+    browser_groups.sort(key=lambda b: -len(b.name)) # Longer names first.
+    for browser_group in browser_groups:
         if browser_group.name == 'Firefox':
             firefox = browser_group
         elif browser_group.name == 'Mozilla':
