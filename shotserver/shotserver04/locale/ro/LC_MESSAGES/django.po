@@ -7,39 +7,39 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-21 12:27+0100\n"
-"PO-Revision-Date: 2007-11-06 19:56+0000\n"
+"POT-Creation-Date: 2007-11-25 13:37+0100\n"
+"PO-Revision-Date: 2007-11-24 21:50+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-21 11:13+0000\n"
+"X-Launchpad-Export-Date: 2007-11-25 12:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: accounts/views.py:63
 msgid "You're already signed in"
-msgstr "Esti deja autentificat"
+msgstr "Eşti deja conectat"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
-msgstr "Te rog deautentifica-te si incearca din nou"
+msgstr "Te rugăm să te deconectezi şi să încerci din nou"
 
 #: accounts/views.py:73
 msgid "Username"
-msgstr "Utilizator"
+msgstr "Nume de utilizator"
 
 #: accounts/views.py:74
 msgid "Password"
-msgstr "Parola"
+msgstr "Parolă"
 
 #: accounts/views.py:91
 msgid "Please enable cookies in your browser."
-msgstr "Te rog activeaza cookieuri in browserul tau."
+msgstr "Te rugăm să activezi cookie-urile în browser-ul tău."
 
 #: accounts/views.py:97
 msgid "Incorrect username or password."
-msgstr "Utilizator sau parola incorecta."
+msgstr "Nume de utilizator incorect sau parolă incorectă."
 
 #: accounts/views.py:99
 msgid "This account is inactive."
@@ -51,40 +51,42 @@ msgstr "Bun venit la Browsershots!"
 
 #: accounts/views.py:102
 msgid "let me in"
-msgstr "lasa-ma inauntru"
+msgstr "dă-mi voie înăuntru"
 
 #: accounts/views.py:109
 msgid "Forgot your password?"
-msgstr "Ti-ai uitat parola ?"
+msgstr "Ţi-ai uitat parola?"
 
 #: accounts/views.py:110
 msgid "Create a new account?"
-msgstr "Creezi un cont nou ?"
+msgstr "Creezi un cont nou?"
 
 #: accounts/views.py:125
 msgid "logged out"
-msgstr "deautentificat"
+msgstr "deconectat"
 
 #: accounts/views.py:127
 msgid "You have successfully logged out."
-msgstr "Deautentificarea s-a realizat cu succes."
+msgstr "Deconectarea s-a realizat cu succes."
 
 #: accounts/views.py:163 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
-msgstr ""
+msgstr "Salut %(first_name)s!"
 
 #: accounts/views.py:192
 msgid "too many verification emails"
-msgstr "prea multe emailuri de verificare"
+msgstr "prea multe email-uri de verificare"
 
 #: accounts/views.py:193
 msgid "There were too many email requests from your IP in the last 24 hours."
-msgstr "Nu exista nici o cerere prin email de pe IPul tau in ultimele 24 ore."
+msgstr ""
+"Prea multe cereri email au fost trimise de la IP-ul tău în ultimele 24 de "
+"ore."
 
 #: accounts/views.py:194 factories/views.py:55 start/views.py:83
 msgid "Please try again later."
-msgstr "Te rog incearca mai tarziu"
+msgstr "Te rugăm să încerci mai târziu."
 
 #: accounts/views.py:197
 msgid "email verification"
@@ -96,125 +98,122 @@ msgstr "trimite email"
 
 #: accounts/views.py:217
 msgid "email error"
-msgstr "eroare email"
+msgstr "eroare de email"
 
 #: accounts/views.py:218
 msgid "Could not send email."
-msgstr "Emailul nu poate fi trimis."
+msgstr "Email-ul nu a putut fi trimis."
 
 #: accounts/views.py:220
 msgid "email sent"
-msgstr "email trimis"
+msgstr "email-ul a fost trimis"
 
 #: accounts/views.py:221
-#, fuzzy, python-format
+#, python-format
 msgid "A verification email was sent to %(address)s."
-msgstr "Emailul de verificare a fost cerut de pe alta adresa IP."
+msgstr "Un email de verificare a fost trimis la %(address)s."
 
 #: accounts/views.py:222
-#, fuzzy
 msgid "Check your email inbox and follow the instructions in the message."
-msgstr "Verifica-ti casuta de emailuri si urmeaza instructiunile din mesaj."
+msgstr "Verifică-ţi căsuţa de email şi urmează instrucţiunile din mesaj."
 
 #: accounts/views.py:223
-#, fuzzy
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
-"Daca providerul tau de email foloseste o lista gri (verificare), poate dura "
-"cateva minute."
+"Poate exista o mică întârziere în cazul în care furnizorul tău de servicii "
+"email foloseşte o listă gri."
 
 #: accounts/views.py:251
 msgid "Username must start with a lowercase letter."
-msgstr "Utilizatorul trebuie sa inceapa cu o litera mica."
+msgstr "Numele de utilizator trebuie să înceapă cu literă mică."
 
 #: accounts/views.py:255
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
-"Utilizatorul poate contine litere mici, cifre, underscore (_), minus (-)."
+"Numele de utilizator poate să conţină doar litere mici, cifre, caracterele _ "
+"şi -."
 
 #: accounts/views.py:258
 msgid "This username is reserved."
-msgstr "Acest utilizator este rezervat."
+msgstr "Acest nume de utilizator este rezervat."
 
 #: accounts/views.py:278
 #, python-format
 msgid "The password must have %d or more characters."
-msgstr "Parola trebuie sa contina %d caractere, sau mai multe."
+msgstr "Parola trebuie să conţină minim %d caractere."
 
 #: accounts/views.py:282
 msgid "The password must not be completely numeric."
-msgstr "Parola nu trebuie sa fie formata doar din cifre."
+msgstr "Parola nu poate fi formată în întregime din cifre."
 
 #: accounts/views.py:295
 msgid "Repeat password is not the same."
-msgstr "Confirmarea parolei nu este aceeasi cu parola."
+msgstr "Parola de confirmare nu este aceeaşi."
 
 #: accounts/views.py:316
 msgid "This username is already taken."
-msgstr "Acest utilizator exista deja."
+msgstr "Acest nume de utilizator este deja folosit."
 
 #: accounts/views.py:330
 msgid "Wrong IP address"
-msgstr "Adresa IP gresita."
+msgstr "Adresă IP greşită"
 
 #: accounts/views.py:331
-#, fuzzy
 msgid "The verification email was requested from a different IP address."
-msgstr "Emailul de verificare a fost cerut de pe alta adresa IP."
+msgstr "Email-ul de verificare a fost cerut de la o altă adresă IP."
 
 #: accounts/views.py:333
 msgid "Bad verification code"
-msgstr "Codul de verificare este incorect"
+msgstr "Cod de verificare greşit"
 
 #: accounts/views.py:334
 msgid "The verification code has no email address."
-msgstr "Codul de verificare nu corespunde unei adrese de email."
+msgstr "Codului de verificare nu îi corespunde nici o adresă de email."
 
 #: accounts/views.py:336
 msgid "Verification code expired"
-msgstr "Codul de verificare a expirat."
+msgstr "Codul de verificare a expirat"
 
 #: accounts/views.py:337
-#, fuzzy
 msgid "The verification email was requested more than 24 hours ago."
-msgstr "Verificarea emailului a fost cerut acum peste 30 de minute."
+msgstr "Email-ul de verificare a fost cerut în urmă cu mai mult de 24 de ore."
 
 #: accounts/views.py:351
 msgid "choose a new password"
-msgstr "Alege o parola noua"
+msgstr "alege-ţi o nouă parolă"
 
 #: accounts/views.py:353
 msgid "change password"
-msgstr "schimba parola"
+msgstr "schimbă-ţi parola"
 
 #: accounts/views.py:360
 msgid "Password changed"
-msgstr "Parola schimbata"
+msgstr "Parola a fost schimbată"
 
 #: accounts/views.py:361
 msgid "Your new password has been saved."
-msgstr "Noua ta parola a fost salvata."
+msgstr "Noua ta parolă a fost salvată."
 
 #: accounts/views.py:362 accounts/views.py:386
 msgid "Click the link in the top right corner to log in."
-msgstr "Click pe legatura din dreapta sus pentru autentificare."
+msgstr "Daţi click pe legătura din colţul dreapta-sus pentru conectare."
 
 #: accounts/views.py:374
 msgid "create a new account"
-msgstr "creaza un cont nou"
+msgstr "creeză un cont nou"
 
 #: accounts/views.py:376
 msgid "create account"
-msgstr "creaza cont"
+msgstr "creează-ţi un cont"
 
 #: accounts/views.py:384
 msgid "Account created"
-msgstr "Cont creat"
+msgstr "Contul a fost creat"
 
 #: accounts/views.py:385
 msgid "A new user account was created."
-msgstr "Un cont nou a fost creat."
+msgstr "Un nou cont de utilizator a fost creat."
 
 #: accounts/templates/accounts/profile.html:5
 msgid "profile"
@@ -222,245 +221,249 @@ msgstr "profil"
 
 #: accounts/templates/accounts/profile.html:11
 msgid "This is your private profile page. Only you can see it."
-msgstr "Aceasta este pagina profilului tau. Numai tu o poti vedea."
+msgstr "Aceasta este pagina profilului tău. Doar tu o poţi vedea."
 
 #: accounts/templates/accounts/profile.html:15
 msgid "your screenshot factories"
-msgstr ""
+msgstr "fabricile tale de capturi de ecran"
 
 #: accounts/templates/accounts/profile.html:29
 msgid "Register a new screenshot factory?"
-msgstr ""
+msgstr "Înregistrezi o nouă fabrică de caputri de ecran?"
 
 #: accounts/templates/accounts/profile.html:30
 #: factories/templates/factories/details.html:63
 msgid "Register this browser for screenshots?"
-msgstr ""
+msgstr "Înregistrezi acest browser pentru capturi de ecran?"
 
 #: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
-msgstr ""
+msgstr "erori de fabrică recente"
 
-#: accounts/templates/accounts/profile.html:38 browsers/models.py:88
-#: factories/models.py:91 factories/models.py:202 factories/models.py:228
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:369
+#: accounts/templates/accounts/profile.html:38 browsers/models.py:93
+#: factories/models.py:92 factories/models.py:204 factories/models.py:230
+#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
 #: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
 msgid "factory"
-msgstr ""
+msgstr "fabrică"
 
 #: accounts/templates/accounts/profile.html:39
 msgid "code"
-msgstr ""
+msgstr "cod"
 
 #: accounts/templates/accounts/profile.html:40
 msgid "message"
-msgstr ""
+msgstr "mesaj"
 
 #: accounts/templates/accounts/profile.html:41
 msgid "age"
-msgstr ""
+msgstr "vârsta"
 
 #: accounts/templates/accounts/profile.html:57
 msgid "account balance"
-msgstr ""
+msgstr "sold"
 
-#: browsers/models.py:38 browsers/models.py:61 factories/models.py:51
+#: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:26 platforms/models.py:34
-#: platforms/models.py:58 platforms/models.py:87 websites/models.py:46
+#: platforms/models.py:58 platforms/models.py:87 websites/models.py:47
 msgid "name"
-msgstr ""
+msgstr "nume"
 
-#: browsers/models.py:39
+#: browsers/models.py:40
 msgid "e.g. Gecko / KHTML / AppleWebKit"
-msgstr ""
+msgstr "de exemplu: Gecko / KHTML / AppleWebKit"
 
-#: browsers/models.py:41 browsers/models.py:64 platforms/models.py:64
+#: browsers/models.py:42 browsers/models.py:67 platforms/models.py:64
 msgid "maker"
-msgstr ""
+msgstr "producător"
 
-#: browsers/models.py:51 browsers/models.py:100
+#: browsers/models.py:49 browsers/models.py:105
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:42
 msgid "engine"
-msgstr ""
+msgstr "motor"
 
-#: browsers/models.py:52
+#: browsers/models.py:50
 msgid "engines"
-msgstr ""
+msgstr "motoare"
 
-#: browsers/models.py:62
+#: browsers/models.py:65
 msgid "e.g. Firefox / MSIE / Safari"
-msgstr ""
+msgstr "de exemplu: Firefox / MSIE / Safari"
 
-#: browsers/models.py:66
+#: browsers/models.py:69
 msgid "terminal"
-msgstr ""
+msgstr "terminal"
 
-#: browsers/models.py:66
+#: browsers/models.py:69
 msgid "Is this a text-mode browser?"
-msgstr ""
+msgstr "Acest browser poate să afişeze doar text (browser text-mode)?"
 
-#: browsers/models.py:68
+#: browsers/models.py:71
 msgid "unusual"
-msgstr ""
+msgstr "neobişnuit"
 
-#: browsers/models.py:68
+#: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
-msgstr ""
+msgstr "Neafişare în lista de capturi de ecran recente?"
 
-#: browsers/models.py:75 browsers/models.py:92 requests/models.py:361
+#: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
-msgstr ""
+msgstr "grup de browsere"
 
-#: browsers/models.py:76
+#: browsers/models.py:79
 msgid "browser groups"
-msgstr ""
+msgstr "grupuri de browsere"
 
-#: browsers/models.py:90
+#: browsers/models.py:95
 msgid "user agent"
-msgstr ""
+msgstr "user agent"
 
-#: browsers/models.py:94 features/models.py:60 features/models.py:81
+#: browsers/models.py:99 features/models.py:60 features/models.py:81
 #: features/models.py:102 platforms/models.py:60
 msgid "version"
-msgstr ""
+msgstr "versiune"
 
-#: browsers/models.py:96 requests/models.py:363
+#: browsers/models.py:101 requests/models.py:376
 msgid "major"
-msgstr ""
+msgstr "majoră"
 
-#: browsers/models.py:98 requests/models.py:365
+#: browsers/models.py:103 requests/models.py:378
 msgid "minor"
-msgstr ""
+msgstr "minoră"
 
-#: browsers/models.py:102
+#: browsers/models.py:107
 msgid "engine version"
-msgstr ""
+msgstr "versiunea motorului"
 
-#: browsers/models.py:104 factories/templates/factories/details.html:29
-#: requests/models.py:61 screenshots/templates/screenshots/details.html:46
+#: browsers/models.py:109 factories/templates/factories/details.html:29
+#: requests/models.py:62 screenshots/templates/screenshots/details.html:46
 #: start/forms/features.py:66
 msgid "Javascript"
-msgstr ""
+msgstr "Javascript"
 
-#: browsers/models.py:106 factories/templates/factories/details.html:30
-#: requests/models.py:63 screenshots/templates/screenshots/details.html:50
+#: browsers/models.py:111 factories/templates/factories/details.html:30
+#: requests/models.py:64 screenshots/templates/screenshots/details.html:50
 #: start/forms/features.py:68
 msgid "Java"
-msgstr ""
+msgstr "Java"
 
-#: browsers/models.py:108 factories/templates/factories/details.html:31
-#: requests/models.py:65 screenshots/templates/screenshots/details.html:54
+#: browsers/models.py:113 factories/templates/factories/details.html:31
+#: requests/models.py:66 screenshots/templates/screenshots/details.html:54
 #: start/forms/features.py:70
 msgid "Flash"
-msgstr ""
+msgstr "Flash"
 
-#: browsers/models.py:110 factories/templates/factories/details.html:35
+#: browsers/models.py:115 factories/templates/factories/details.html:35
 msgid "command"
-msgstr ""
+msgstr "comandă"
 
-#: browsers/models.py:111
+#: browsers/models.py:116
 msgid "Leave empty to use default command."
-msgstr ""
+msgstr "Lăsaţi această căsuţă goală pentru comanda implicită."
 
-#: browsers/models.py:113
+#: browsers/models.py:118
 msgid "active"
-msgstr ""
+msgstr "activ"
 
-#: browsers/models.py:114
+#: browsers/models.py:119
 msgid "Designates that this browser is currently installed."
-msgstr ""
+msgstr "Indică faptul că acest browser este deja instalat."
 
-#: browsers/models.py:116 factories/models.py:67
+#: browsers/models.py:121 factories/models.py:68
 #: factories/templates/factories/details.html:32
 msgid "last upload"
-msgstr ""
+msgstr "ultima încărcare"
 
-#: browsers/models.py:118 factories/models.py:69
+#: browsers/models.py:123 factories/models.py:70
 #: factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17
 msgid "uploads per hour"
-msgstr ""
+msgstr "încărcări pe oră"
 
-#: browsers/models.py:120 factories/models.py:71
+#: browsers/models.py:125 factories/models.py:72
 #: factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18
 msgid "uploads per day"
-msgstr ""
+msgstr "încărcări pe zi"
 
-#: browsers/models.py:122 factories/models.py:76
+#: browsers/models.py:127 factories/models.py:77
 #: factories/templates/factories/details.html:13 nonces/models.py:43
 msgid "created"
-msgstr ""
+msgstr "data creării"
 
-#: browsers/models.py:144 requests/models.py:373
+#: browsers/models.py:149 requests/models.py:386
 #: requests/templates/requests/overview.html:15 screenshots/models.py:117
 #: screenshots/templates/screenshots/details.html:38
 msgid "browser"
-msgstr ""
+msgstr "browser"
 
-#: browsers/models.py:145
+#: browsers/models.py:150
 msgid "browsers"
-msgstr ""
+msgstr "browsere"
 
-#: browsers/models.py:169
+#: browsers/models.py:176
 msgid "deactivate"
-msgstr ""
+msgstr "dezactivează"
 
-#: browsers/models.py:172
+#: browsers/models.py:179
 msgid "activate"
-msgstr ""
+msgstr "activează"
 
-#: browsers/views.py:46
+#: browsers/views.py:47
 msgid "password"
-msgstr ""
+msgstr "parolă"
 
-#: browsers/views.py:148
+#: browsers/views.py:149
 msgid "Password mismatch."
-msgstr ""
+msgstr "Parola nu corespunde."
 
-#: browsers/views.py:246 requests/views.py:143 requests/views.py:148
+#: browsers/views.py:245 requests/views.py:143 requests/views.py:148
 msgid "invalid request"
-msgstr ""
+msgstr "cerere invalidă"
 
-#: browsers/views.py:251
+#: browsers/views.py:250
 msgid "permission denied"
-msgstr ""
+msgstr "acces interzis"
 
-#: browsers/views.py:284
+#: browsers/views.py:283
 msgid "This browser is already inactive."
-msgstr ""
+msgstr "Acest browser esta deja inactiv."
 
 #: browsers/templates/browsers/add.html:5
 #: browsers/templates/browsers/add.html:8
 msgid "add a new browser version"
-msgstr ""
+msgstr "adaugăţi o nouă versiune de browser"
 
 #: browsers/templates/browsers/add.html:19
 #: screenshots/templates/screenshots/details.html:116
 #: start/templates/start/start.html:19
 msgid "submit"
-msgstr ""
+msgstr "trimite"
 
 #: browsers/templates/browsers/add.html:22
 msgid "updates"
-msgstr ""
+msgstr "actualizări"
 
 #: browsers/templates/browsers/add.html:24
 msgid ""
 "You can also use this page when you've changed settings or updated the "
 "browser."
 msgstr ""
+"Această pagină poate fi folosită şi după modificarea setărilor sau "
+"actualizarea browser-ului."
 
 #: browsers/templates/browsers/add.html:25
 msgid ""
 "If the same browser is already registered for your factory, it will be "
 "replaced."
 msgstr ""
+"În cazul în care acelaşi browser este deja înregistrat în fabrica ta, el va "
+"fi înlocuit."
 
 #: browsers/templates/browsers/add.html:28
 msgid "other options"
-msgstr ""
+msgstr "alte setări"
 
 #: browsers/templates/browsers/add.html:29
 #, python-format
@@ -468,893 +471,930 @@ msgid ""
 "If your browser group or rendering engine is not available, please write to %"
 "(email)s."
 msgstr ""
+"În cazul în care grupul tău de browsere sau motorul tău de randare nu este "
+"disponibil, te rugăm să trimiţi un email la %(email)s."
 
 #: browsers/templates/browsers/add.html:43 features/models.py:34
 #: start/forms/features.py:46
 msgid "enabled"
-msgstr ""
+msgstr "activat"
 
 #: browsers/templates/browsers/add.html:43
 #: browsers/templates/browsers/add.html:47 features/models.py:36
 #: start/forms/features.py:43
 msgid "disabled"
-msgstr ""
+msgstr "dezactivat"
 
 #: common/templates/404.html:3 common/templates/404.html.py:6
 msgid "page not found"
-msgstr ""
+msgstr "pagină inexistentă"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr ""
+msgstr "Pagina cerută nu a fost găsită."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
-msgstr ""
+msgstr "eroare internă de server"
 
 #: common/templates/base.html:24
 msgid "home"
-msgstr ""
+msgstr "acasă"
 
-#: common/templates/base.html:25 screenshots/models.py:141
-#: screenshots/models.py:299
+#: common/templates/base.html:25 screenshots/models.py:143
+#: screenshots/models.py:301
 msgid "screenshots"
-msgstr ""
+msgstr "capturi de ecran"
 
 #: common/templates/base.html:26
 msgid "queue"
-msgstr ""
+msgstr "coadă"
 
-#: common/templates/base.html:27 factories/models.py:92
+#: common/templates/base.html:27 factories/models.py:93
 msgid "factories"
-msgstr ""
+msgstr "fabrici"
 
 #: common/templates/base.html:28
 msgid "search"
-msgstr ""
+msgstr "căutare"
 
 #: common/templates/base.html:34
 msgid "signed in as"
-msgstr ""
+msgstr "conectat ca"
 
 #: common/templates/base.html:35
 msgid "logout"
-msgstr ""
+msgstr "deconectare"
 
 #: common/templates/base.html:37
 msgid "login"
-msgstr ""
+msgstr "conectare"
 
 #: common/templatetags/hosting_provider.py:45
 #, python-format
 msgid "hosted by %(provider)s"
-msgstr ""
+msgstr "găzduit de %(provider)s"
 
 #: common/templatetags/human.py:51
 #, python-format
 msgid "%(seconds)d s"
-msgstr ""
+msgstr "%(seconds)d s"
 
 #: common/templatetags/human.py:54 requests/views.py:126
 #, python-format
 msgid "%(minutes)d min"
-msgstr ""
+msgstr "%(minutes)d min"
 
 #: common/templatetags/human.py:57
 #, python-format
 msgid "%(hours)d h"
-msgstr ""
+msgstr "%(hours)d h"
 
 #: common/templatetags/human.py:59
 #, python-format
 msgid "%(days)d d"
-msgstr ""
+msgstr "%(days)d z"
 
 #: common/templatetags/human.py:104
 #, python-format
 msgid "%(bytes)s bytes"
-msgstr ""
+msgstr "%(bytes)s octeţi"
 
 #: common/templatetags/sql_queries.py:55
 #, python-format
 msgid "%(count)d database queries"
-msgstr ""
+msgstr "%(count)d cereri spre baza de date"
 
-#: factories/models.py:52
+#: factories/models.py:53
 msgid "Hostname (lowercase)"
-msgstr ""
+msgstr "Gazdă (cu litere mici)"
 
-#: factories/models.py:54
+#: factories/models.py:55
 msgid "administrator"
-msgstr ""
+msgstr "administrator"
 
-#: factories/models.py:56 factories/templates/factories/details.html:16
+#: factories/models.py:57 factories/templates/factories/details.html:16
 #: screenshots/templates/screenshots/details.html:62
 msgid "sponsor"
-msgstr ""
+msgstr "sponsor"
 
-#: factories/models.py:58
+#: factories/models.py:59
 msgid "hardware architecture"
-msgstr ""
+msgstr "arhitectură hardware"
 
-#: factories/models.py:60 factories/templates/factories/details.html:11
+#: factories/models.py:61 factories/templates/factories/details.html:11
 #: platforms/models.py:71 screenshots/templates/screenshots/details.html:70
 msgid "operating system"
-msgstr ""
+msgstr "sistem de operare"
 
-#: factories/models.py:62 requests/models.py:69
+#: factories/models.py:63 requests/models.py:70
 msgid "IP"
-msgstr ""
+msgstr "Adresă IP"
 
-#: factories/models.py:63
+#: factories/models.py:64
 msgid "The last poll came from this IP address."
-msgstr ""
+msgstr "Ultima cerere a fost trimisă de la această adresă IP."
 
-#: factories/models.py:65
+#: factories/models.py:66
 msgid "last poll"
-msgstr ""
+msgstr "ultima cerere"
 
-#: factories/models.py:73 requests/models.py:314
+#: factories/models.py:74 requests/models.py:327
 msgid "queue estimate"
-msgstr ""
+msgstr "estimare coadă"
 
-#: factories/models.py:74
+#: factories/models.py:75
 msgid "Seconds between screenshot request and upload."
-msgstr ""
+msgstr "Secunde diferenţă îintre cererea şi încărcarea capturii de ecran."
 
-#: factories/models.py:205 screenshots/models.py:119
+#: factories/models.py:207 screenshots/models.py:119
 msgid "width"
-msgstr ""
+msgstr "lungime"
 
-#: factories/models.py:207 screenshots/models.py:121
+#: factories/models.py:209 screenshots/models.py:121
 msgid "height"
-msgstr ""
+msgstr "lăţime"
 
-#: factories/models.py:214 start/forms/options.py:64
+#: factories/models.py:216 start/forms/options.py:64
 msgid "screen size"
-msgstr ""
+msgstr "dimensiune ecran"
 
-#: factories/models.py:215 factories/templates/factories/details.html:70
+#: factories/models.py:217 factories/templates/factories/details.html:70
 msgid "screen sizes"
-msgstr ""
+msgstr "dimensiuni ecran"
 
-#: factories/models.py:231 factories/templates/factories/details.html:101
-#: factories/templates/factories/details.html:107 requests/models.py:59
+#: factories/models.py:233 factories/templates/factories/details.html:101
+#: factories/templates/factories/details.html:107 requests/models.py:60
 msgid "bits per pixel"
-msgstr ""
+msgstr "bits per pixel"
 
-#: factories/models.py:238 start/forms/options.py:66
+#: factories/models.py:240 start/forms/options.py:66
 msgid "color depth"
-msgstr ""
+msgstr "adâncime culoare"
 
-#: factories/models.py:239 factories/templates/factories/details.html:96
+#: factories/models.py:241 factories/templates/factories/details.html:96
 msgid "color depths"
-msgstr ""
+msgstr "adâncimi culoare"
 
 #: factories/views.py:53 start/views.py:81
 msgid "out of service"
-msgstr ""
+msgstr "desfiinţat"
 
 #: factories/views.py:54 start/views.py:82
 msgid "No active screenshot factories."
-msgstr ""
+msgstr "Nu exista fabrici active de capturi de ecran."
 
 #: factories/views.py:74 factories/views.py:85 factories/views.py:103
 #, python-format
 msgid "Value %d is too small."
-msgstr ""
+msgstr "Valoarea %d este prea mică."
 
 #: factories/views.py:76 factories/views.py:87 factories/views.py:105
 #, python-format
 msgid "Value %d is too big."
-msgstr ""
+msgstr "Valoarea %d este prea mare."
 
 #: factories/views.py:124 factories/views.py:136
 msgid "Duplicate."
-msgstr ""
+msgstr "Duplicat."
 
 #: factories/views.py:126 factories/views.py:138
 msgid "Invalid data."
-msgstr ""
+msgstr "Date incorecte."
 
 #: factories/views.py:207
 msgid "Name must start with a lowercase letter."
-msgstr ""
+msgstr "Numele trebuie să înceapă cu literă mică."
 
 #: factories/views.py:211
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
-msgstr ""
+msgstr "Numele poate să conţină doar litere mici, cifre, caracterele _ şi -."
 
 #: factories/views.py:214
 msgid "This name is reserved."
-msgstr ""
+msgstr "Acest nume este rezervat."
 
 #: factories/views.py:231
 msgid "This name is already taken."
-msgstr ""
+msgstr "Acest nume este deja folosit."
 
 #: factories/views.py:250
 msgid "register a new screenshot factory"
-msgstr ""
+msgstr "înregistrează o nouă fabrică de capturi de ecran"
 
 #: factories/views.py:251
 msgid "register"
-msgstr ""
+msgstr "înregistrare"
 
 #: factories/templates/factories/details.html:5
 #: factories/templates/factories/details.html:8
 #, python-format
 msgid "Screenshot Factory %(name)s"
-msgstr ""
+msgstr "Fabrica %(name)s pentru capturi de ecran"
 
 #: factories/templates/factories/details.html:12 platforms/models.py:97
 #: screenshots/templates/screenshots/details.html:66
 msgid "architecture"
-msgstr ""
+msgstr "arhitectură"
 
 #: factories/templates/factories/details.html:14
 msgid "admin"
-msgstr ""
+msgstr "administrator"
 
 #: factories/templates/factories/details.html:20
 msgid "installed browsers"
-msgstr ""
+msgstr "browsere instalate"
 
 #: factories/templates/factories/details.html:27
 msgid "short version"
-msgstr ""
+msgstr "versiune scurtă"
 
 #: factories/templates/factories/details.html:58
 msgid "No browsers registered for this factory."
-msgstr ""
+msgstr "Nu există browsere înregistrate în această fabrică."
 
 #: factories/templates/factories/details.html:77
 #: factories/templates/factories/details.html:102
 msgid "add"
-msgstr ""
+msgstr "adaugă"
 
 #: factories/templates/factories/details.html:83
 #: factories/templates/factories/details.html:108
 msgid "remove"
-msgstr ""
+msgstr "şterge"
 
 #: factories/templates/factories/details.html:87
 #: factories/templates/factories/details.html:112
 msgid "default only"
-msgstr ""
+msgstr "doar implicit(ă)/implicite"
 
 #: factories/templates/factories/details.html:119
 #: screenshots/templates/screenshots/overview.html:4
 #: screenshots/templates/screenshots/overview.html:7
 msgid "recent screenshots"
-msgstr ""
+msgstr "capturi de ecran recente"
 
 #: factories/templates/factories/details.html:126
 msgid "recent problem reports"
-msgstr ""
+msgstr "probleme recente"
 
 #: factories/templates/factories/details.html:129
 #, python-format
 msgid "%(interval)s ago"
-msgstr ""
+msgstr "acum %(interval)s"
 
 #: factories/templates/factories/overview.html:5
 #: factories/templates/factories/overview.html:8
 msgid "screenshot factories"
-msgstr ""
+msgstr "fabrici de capturi de ecran"
 
 #: features/models.py:61 features/models.py:82
 msgid "e.g. 1.4 / 1.5 / 1.6"
-msgstr ""
+msgstr "de exemplu: 1.4 / 1.5 / 1.6"
 
 #: features/models.py:67
 msgid "Javascript version"
-msgstr ""
+msgstr "versiune Javascript"
 
 #: features/models.py:68
 msgid "Javascript versions"
-msgstr ""
+msgstr "versiuni Javascript"
 
 #: features/models.py:88
 msgid "Java version"
-msgstr ""
+msgstr "versiune Java"
 
 #: features/models.py:89
 msgid "Java versions"
-msgstr ""
+msgstr "versiuni Java"
 
 #: features/models.py:103
 msgid "e.g. 5 / 6 / 7 / 8 / 9"
-msgstr ""
+msgstr "de exemplu: 5 / 6 / 7 / 8 / 9"
 
 #: features/models.py:109
 msgid "Flash version"
-msgstr ""
+msgstr "versiune Flash"
 
 #: features/models.py:110
 msgid "Flash versions"
-msgstr ""
+msgstr "versiuni Flash"
 
-#: messages/models.py:37 screenshots/models.py:345
+#: messages/models.py:37 screenshots/models.py:347
 msgid "error code"
-msgstr ""
+msgstr "cod de eroare"
 
-#: messages/models.py:39 screenshots/models.py:347
+#: messages/models.py:39 screenshots/models.py:349
 msgid "error message"
-msgstr ""
+msgstr "mesaj de eroare"
 
 #: messages/models.py:41
 msgid "occurred"
-msgstr ""
+msgstr "apariţie"
 
 #: messages/models.py:49
 msgid "factory error message"
-msgstr ""
+msgstr "mesaj de eroare pentru fabrică"
 
 #: messages/models.py:50
 msgid "factory error messages"
-msgstr ""
+msgstr "mesaje de eroare pentru fabrică"
 
 #: nonces/models.py:35 screenshots/models.py:109
 msgid "hashkey"
-msgstr ""
+msgstr "cheie hash"
 
-#: nonces/models.py:37 screenshots/models.py:351
+#: nonces/models.py:37 screenshots/models.py:353
 msgid "IP address"
-msgstr ""
+msgstr "adresă IP"
 
 #: nonces/models.py:41
 msgid "email"
-msgstr ""
+msgstr "email"
 
 #: nonces/models.py:54
 msgid "nonce"
-msgstr ""
+msgstr "apariţie"
 
 #: nonces/models.py:55
 msgid "nonces"
-msgstr ""
+msgstr "apariţii"
 
 #: platforms/models.py:37
 msgid "position"
-msgstr ""
+msgstr "poziţie"
 
-#: platforms/models.py:46 platforms/models.py:56 requests/models.py:359
+#: platforms/models.py:46 platforms/models.py:56 requests/models.py:372
 #: requests/templates/requests/overview.html:14
 msgid "platform"
-msgstr ""
+msgstr "platformă"
 
 #: platforms/models.py:47
 msgid "platforms"
-msgstr ""
+msgstr "platforme"
 
 #: platforms/models.py:62
 msgid "codename"
-msgstr ""
+msgstr "nume de cod"
 
 #: platforms/models.py:72
 msgid "operating systems"
-msgstr ""
+msgstr "sisteme de operare"
 
 #: platforms/models.py:88
 msgid "e.g. i686 / PPC"
-msgstr ""
+msgstr "de exemplu: i686 / PPC"
 
 #: platforms/models.py:98
 msgid "architectures"
-msgstr ""
+msgstr "arhitecturi"
 
-#: requests/models.py:53 screenshots/models.py:113 websites/models.py:89
+#: requests/models.py:54 screenshots/models.py:113 websites/models.py:92
 msgid "website"
-msgstr ""
+msgstr "pagină web"
 
-#: requests/models.py:55
+#: requests/models.py:56
 msgid "screen width"
-msgstr ""
+msgstr "lungime ecran"
 
-#: requests/models.py:57
+#: requests/models.py:58
 msgid "screen height"
-msgstr ""
+msgstr "lăţime ecran"
 
-#: requests/models.py:67
+#: requests/models.py:68
 msgid "submitter"
-msgstr ""
+msgstr "trimis de"
 
-#: requests/models.py:71 websites/models.py:48 websites/models.py:81
+#: requests/models.py:72 websites/models.py:49 websites/models.py:84
 msgid "submitted"
-msgstr ""
+msgstr "trimis la"
 
-#: requests/models.py:73
+#: requests/models.py:74
 msgid "expire"
-msgstr ""
+msgstr "expiră"
 
-#: requests/models.py:91 requests/models.py:357
+#: requests/models.py:92 requests/models.py:370
 msgid "request group"
-msgstr ""
+msgstr "grupul cererii"
 
-#: requests/models.py:92
+#: requests/models.py:93
 msgid "request groups"
-msgstr ""
+msgstr "grupurile cererii"
 
-#: requests/models.py:99
+#: requests/models.py:102
 msgid "screenshot request group"
-msgstr ""
+msgstr "grupul cererii de capturi de ecran"
 
-#: requests/models.py:120
+#: requests/models.py:123
 #, python-format
 msgid "submitted %(interval)s ago"
-msgstr ""
+msgstr "trimis acum %(interval)s"
 
-#: requests/models.py:134
+#: requests/models.py:137
 #, python-format
 msgid "expires in %(interval)s"
-msgstr ""
+msgstr "expiră în %(interval)s"
 
-#: requests/models.py:139
+#: requests/models.py:142
 msgid "extend"
-msgstr ""
+msgstr "extinde"
 
-#: requests/models.py:154 start/forms/options.py:41
+#: requests/models.py:157 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
-msgstr ""
+msgstr "lungime %(width)d pixeli"
 
-#: requests/models.py:157 start/forms/options.py:54
+#: requests/models.py:160 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
-msgstr ""
+msgstr "%(color_depth)d bits per pixel"
 
-#: requests/models.py:210
+#: requests/models.py:213
 msgid "Your screenshots will appear here when they are uploaded."
-msgstr ""
+msgstr "Capturile tale de ecran vor apărea aici îndată ce sunt încărcate."
 
-#: requests/models.py:212
+#: requests/models.py:215
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr ""
+"[Reîmprospătează aceasta pagină] sau adăug-o în lista ta de bookmark-uri şi "
+"revin-o mai târziu."
 
-#: requests/models.py:214
+#: requests/models.py:217
 msgid "Your screenshot requests have expired."
-msgstr ""
+msgstr "Cererile tale de capturi de ecran au expirat."
 
-#: requests/models.py:224
+#: requests/models.py:227
 #, python-format
 msgid "%(count)d browsers selected"
-msgstr ""
-
-#: requests/models.py:229
-#, python-format
-msgid "%(count)d starting"
-msgstr ""
-
-#: requests/models.py:232
-#, python-format
-msgid "%(count)d loading"
-msgstr ""
+msgstr "%(count)d browsere selectate"
 
 #: requests/models.py:235
 #, python-format
-msgid "%(count)d uploaded"
-msgstr ""
+msgid "%(count)d starting"
+msgstr "%(count)d încep"
 
-#: requests/models.py:310
+#: requests/models.py:237
+#, python-format
+msgid "%(count)d loading"
+msgstr "%(count)d în curs"
+
+#: requests/models.py:239 requests/models.py:242
+#, python-format
+msgid "%(count)d uploaded"
+msgstr "%(count)d încărcate"
+
+#: requests/models.py:245
+#, fuzzy, python-format
+msgid "%(count)d failed"
+msgstr "%(count)d încărcate"
+
+#: requests/models.py:248
+#, fuzzy, python-format
+msgid "%(count)d expired"
+msgstr "%(count)d încărcate"
+
+#: requests/models.py:323
 #, python-format
 msgid "%(min_interval)s to %(max_interval)s"
-msgstr ""
+msgstr "între %(min_interval)s şi %(max_interval)s"
 
-#: requests/models.py:312
+#: requests/models.py:325
 msgid "details"
-msgstr ""
+msgstr "detalii"
 
-#: requests/models.py:338
+#: requests/models.py:351
 msgid "download all screenshots"
-msgstr ""
+msgstr "descarcă toate capturile de ecran"
 
-#: requests/models.py:341
+#: requests/models.py:354
 #, python-format
 msgid "download %(count)d screenshots"
-msgstr ""
+msgstr "descarcă %(count)d capturi de ecran"
 
-#: requests/models.py:367
+#: requests/models.py:380
 msgid "priority"
-msgstr ""
+msgstr "prioritate"
 
-#: requests/models.py:371
+#: requests/models.py:384
 msgid "locked"
-msgstr ""
+msgstr "blocat"
 
-#: requests/models.py:376
+#: requests/models.py:389
 msgid "redirected"
-msgstr ""
+msgstr "redirectat"
 
-#: requests/models.py:378 screenshots/models.py:140 screenshots/models.py:343
+#: requests/models.py:391 screenshots/models.py:142 screenshots/models.py:345
 msgid "screenshot"
-msgstr ""
+msgstr "captură de ecran"
 
-#: requests/models.py:395
+#: requests/models.py:408
 msgid "request"
-msgstr ""
+msgstr "cerere"
 
-#: requests/models.py:396
+#: requests/models.py:409
 msgid "requests"
-msgstr ""
+msgstr "cereri"
 
-#: requests/models.py:417 screenshots/models.py:123
+#: requests/models.py:432 screenshots/models.py:125
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
-msgstr ""
+msgstr "încărcate"
 
-#: requests/models.py:419
+#: requests/models.py:434
 msgid "failed"
-msgstr ""
+msgstr "eşuate"
 
-#: requests/models.py:421
+#: requests/models.py:436
 msgid "loading"
-msgstr ""
+msgstr "în curs"
 
-#: requests/models.py:423
+#: requests/models.py:438
 msgid "starting"
-msgstr ""
+msgstr "încep"
 
 #: requests/views.py:118
 msgid "expired"
-msgstr ""
+msgstr "expirate"
 
 #: requests/views.py:122
 msgid "unavailable"
-msgstr ""
+msgstr "nedisponibil"
 
 #: requests/views.py:144
 msgid "You must send a POST request to this page."
-msgstr ""
+msgstr "Trebuie să trimiţi o cerere POST către această pagină."
 
 #: requests/views.py:149
 msgid "You must specify a numeric request group ID."
-msgstr ""
+msgstr "Trebuie să specifici un ID numeric pentru grupul de cereri."
 
 #: requests/views.py:154
 msgid "request group expired"
-msgstr ""
+msgstr "grupul de cereri a expirat"
 
 #: requests/views.py:155
 #, python-format
 msgid "This request group already expired %d minutes ago."
-msgstr ""
+msgstr "Acest grup de cereri a expirat deja acuma %d minute."
 
 #: requests/views.py:158 websites/templates/websites/details.html:38
 #: websites/templates/websites/unknown.html:14
 msgid "Request new screenshots?"
-msgstr ""
+msgstr "Doreşti noi capturi de ecran?"
 
 #: requests/templates/requests/details.html:9
 #: screenshots/templates/screenshots/details.html:23
 #: websites/templates/websites/details.html:9
 #, python-format
 msgid "for %(url)s"
-msgstr ""
+msgstr "pentru %(url)s"
 
 #: requests/templates/requests/overview.html:5
 #: requests/templates/requests/overview.html:8
+#, fuzzy
 msgid "screenshot request queue"
-msgstr ""
+msgstr "coada cererilor de capturi de ecran"
 
 #: requests/templates/requests/overview.html:16
 msgid "pending requests"
-msgstr ""
+msgstr "cereri în aşteptare"
 
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
-msgstr ""
+msgstr "Nu există cereri în aşteptare."
 
 #: screenshots/models.py:38
 msgid "This is not the requested browser."
-msgstr ""
+msgstr "Acesta nu este browser-ul cerut."
 
 #: screenshots/models.py:39
 msgid "This is not the requested operating system."
-msgstr ""
+msgstr "Acesta nu este sistemul de operare cerut."
 
 #: screenshots/models.py:41
 msgid "This is not the requested Javascript version."
-msgstr ""
+msgstr "Aceasta nu este versiunea de Javascript cerută."
 
 #: screenshots/models.py:42
 msgid "This is not the requested Java version."
-msgstr ""
+msgstr "Aceasta nu este versiunea de Java cerută."
 
 #: screenshots/models.py:43
 msgid "This is not the requested Flash version."
-msgstr ""
+msgstr "Aceasta nu este versiunea de Flash cerută."
 
 #: screenshots/models.py:44
 msgid "A language pack needs to be installed."
-msgstr ""
+msgstr "Trebuie instalat un pachet de limbă."
 
 #: screenshots/models.py:46
 msgid "There is a dialog box in front of the browser window."
-msgstr ""
+msgstr "O căsută de dialog se află în faţa browser-ului."
 
 #: screenshots/models.py:47
 msgid "The browser window is not maximized."
-msgstr ""
+msgstr "Fereastra browser-ului nu este maximizată."
 
 #: screenshots/models.py:48
 msgid "The page is not finished loading."
-msgstr ""
+msgstr "Pagina nu a fost încărcată în întregime."
 
 #: screenshots/models.py:52
 #, python-format
 msgid "This is not %(browser)s."
-msgstr ""
+msgstr "Acesta nu este %(browser)s."
 
 #: screenshots/models.py:53
 #, python-format
 msgid "This is not %(operating_system)s."
-msgstr ""
+msgstr "Acesta nu este %(operating_system)s."
 
 #: screenshots/models.py:55
 #, python-format
 msgid "Javascript is not %(javascript)s."
-msgstr ""
+msgstr "Versiunea de Javascript nu este %(javascript)s."
 
 #: screenshots/models.py:56
 #, python-format
 msgid "Java is not %(java)s."
-msgstr ""
+msgstr "Versiunea de Java nu este %(java)s."
 
 #: screenshots/models.py:57
 #, python-format
 msgid "Flash is not %(flash)s."
-msgstr ""
+msgstr "Versiunea de Flash nu este %(flash)s."
 
 #: screenshots/models.py:111
 msgid "user"
-msgstr ""
+msgstr "utilizator"
 
-#: screenshots/models.py:271
-msgid "first"
-msgstr ""
-
-#: screenshots/models.py:272
-msgid "previous"
-msgstr ""
+#: screenshots/models.py:123
+#, fuzzy
+msgid "colors"
+msgstr "adâncimi culoare"
 
 #: screenshots/models.py:273
-msgid "next"
-msgstr ""
+#, fuzzy
+msgid "first"
+msgstr "prima pagină"
 
 #: screenshots/models.py:274
-msgid "last"
-msgstr ""
+#, fuzzy
+msgid "previous"
+msgstr "pagina anterioară"
 
-#: screenshots/models.py:285
+#: screenshots/models.py:275
+#, fuzzy
+msgid "next"
+msgstr "pagina următoare"
+
+#: screenshots/models.py:276
+#, fuzzy
+msgid "last"
+msgstr "ultima pagină"
+
+#: screenshots/models.py:287
 #, python-format
 msgid "%(index)d out of %(total)d"
-msgstr ""
+msgstr "%(index)d din %(total)d"
 
-#: screenshots/models.py:309
+#: screenshots/models.py:311
 #, python-format
 msgid "with %(browser)s"
-msgstr ""
+msgstr "cu %(browser)s"
 
-#: screenshots/models.py:320
+#: screenshots/models.py:322
 #, python-format
 msgid "on %(platform)s"
-msgstr ""
+msgstr "sub %(platform)s"
 
-#: screenshots/models.py:349
+#: screenshots/models.py:351
+#, fuzzy
 msgid "reported"
-msgstr ""
+msgstr "raportate"
 
-#: screenshots/models.py:359
+#: screenshots/models.py:361
+#, fuzzy
 msgid "problem report"
-msgstr ""
+msgstr "raport de problemă"
 
-#: screenshots/models.py:360
+#: screenshots/models.py:362
+#, fuzzy
 msgid "problem reports"
-msgstr ""
+msgstr "rapoarte de probleme"
 
 #: screenshots/views.py:116
 msgid "HTML is not allowed here."
-msgstr ""
+msgstr "Nu poţi folosi cod HTML aici."
 
 #: screenshots/views.py:120
 msgid "URLs are not allowed here."
-msgstr ""
+msgstr "Nu poţi folosi adrese URL aici."
 
 #: screenshots/templates/screenshots/details.html:28
 msgid "Click for full size."
-msgstr ""
+msgstr "Apasă pentru dimensiunea reală."
 
 #: screenshots/templates/screenshots/details.html:74
 msgid "dimensions"
-msgstr ""
+msgstr "dimensiuni"
 
 #: screenshots/templates/screenshots/details.html:78
 msgid "file size"
-msgstr ""
+msgstr "dimensiune fişier"
 
 #: screenshots/templates/screenshots/details.html:82
 msgid "requested"
-msgstr ""
+msgstr "cerute"
 
 #: screenshots/templates/screenshots/details.html:86
 msgid "started"
-msgstr ""
+msgstr "începute"
 
 #: screenshots/templates/screenshots/details.html:90
+#, fuzzy
 msgid "page loaded"
-msgstr ""
+msgstr "pagină încarcată"
 
 #: screenshots/templates/screenshots/details.html:101
 msgid "Report a problem with this screenshot?"
-msgstr ""
+msgstr "Există o problemă cu această captură de ecran?"
 
 #: start/views.py:64
 msgid "login required"
-msgstr ""
+msgstr "necesită conectare"
 
 #: start/views.py:65
 msgid "Anonymous screenshot requests are not allowed."
-msgstr ""
+msgstr "Cererile anonime de capturi de ecran sunt interzise."
 
 #: start/views.py:68
 msgid "Please log in with your username and password."
-msgstr ""
-
-#: start/views.py:183
-msgid "select all"
-msgstr ""
+msgstr "Te rugăm să te conectezi cu numele şi parola ta."
 
 #: start/views.py:184
+msgid "select all"
+msgstr "selectează toate"
+
+#: start/views.py:185
 msgid "deselect all"
-msgstr ""
+msgstr "deselectează toate"
 
 #: start/forms/features.py:35 start/forms/options.py:36
 #: start/forms/options.py:49
 msgid "don't care"
-msgstr ""
+msgstr "nu contează"
 
 #: start/forms/url.py:54
 msgid "Enter your web address here:"
-msgstr ""
+msgstr "Tastează adresa paginii tale web aici:"
 
-#: start/forms/url.py:90
+#: start/forms/url.py:91
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
-msgstr ""
+msgstr "Schema URL %(scheme)s nu este suportată."
 
-#: start/forms/url.py:94
+#: start/forms/url.py:95
 msgid "Malformed URL (server name not specified)."
-msgstr ""
+msgstr "Adresă URL deformată (numele server-ului nu a fost specificat)."
 
-#: start/forms/url.py:107
+#: start/forms/url.py:123
 #, python-format
 msgid "Could not resolve IP address for %(hostname)s."
-msgstr ""
+msgstr "Adresa IP pentru %(hostname)s nu a putut fi rezolvată."
 
-#: start/forms/url.py:120
+#: start/forms/url.py:136
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
-msgstr ""
+msgstr "Adresa IP %(ip)s este interzisă."
 
-#: start/forms/url.py:138
+#: start/forms/url.py:154
 #, python-format
 msgid "Could not connect to %(hostname)s."
-msgstr ""
+msgstr "Conectarea la %(hostname)s a eşuat."
 
-#: start/forms/url.py:140
+#: start/forms/url.py:156
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
-msgstr ""
+msgstr "Cererea HTTP nu a putut fi trimisă către %(hostname)s."
 
-#: start/forms/url.py:142
+#: start/forms/url.py:158
 #, python-format
 msgid "Could not get page content from %(hostname)s."
-msgstr ""
+msgstr "Descărcarea conţinutului de la %(hostname)s a eşuat."
 
-#: start/forms/url.py:146
+#: start/forms/url.py:162
 #, python-format
 msgid "Server failed to respond within %d seconds."
-msgstr ""
+msgstr "Serverul nu a răspuns în intervalul de %d secunde."
 
-#: start/forms/url.py:187
+#: start/forms/url.py:206
 msgid "Malformed URL (database integrity error)."
-msgstr ""
+msgstr "Adresă URL deformată (eroare legată de baza de date)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
-msgstr ""
+msgstr "Testează-ţi pagina web în diferite browsere"
 
 #: start/templates/start/start.html:56
 msgid "project links"
-msgstr ""
+msgstr "legături proiect"
 
 #: start/templates/start/start.html:58
 msgid "documentation"
-msgstr ""
+msgstr "documentaţie"
 
 #: start/templates/start/start.html:59
 msgid "mailing lists"
-msgstr ""
+msgstr "liste de email"
 
 #: start/templates/start/start.html:60
 msgid "XML-RPC interface"
-msgstr ""
+msgstr "interfaţa XML-RPC"
 
 #: start/templates/start/start.html:61
 msgid "source code"
-msgstr ""
+msgstr "codul sursă"
 
 #: start/templates/start/start.html:62
 msgid "downloads"
-msgstr ""
+msgstr "descărcări"
 
 #: start/templates/start/start.html:63
 msgid "translations"
-msgstr ""
+msgstr "traduceri"
 
 #: start/templates/start/start.html:68
 msgid "What is Browsershots?"
-msgstr ""
+msgstr "Ce este Browsershots?"
 
 #: start/templates/start/start.html:70
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
 msgstr ""
+"Browsershots creează capturi de ecran a paginii tale web în diferite "
+"browsere."
 
 #: start/templates/start/start.html:71
 msgid "It is a free open-source online service created by Johann C. Rocholl."
 msgstr ""
+"Este un serviciu online, gratuit şi open-source, creat de către Johann C. "
+"Rocholl."
 
 #: start/templates/start/start.html:72
 msgid "When you submit your web address, it will be added to the job queue."
 msgstr ""
+"În momentul în care trimiţi o adresa web, ea va fi adăugată într-o coadă."
 
 #: start/templates/start/start.html:73
 msgid ""
 "A number of distributed computers will open your website in their browser."
 msgstr ""
+"Un număr de computere repartizate vor deschide pagina ta web în browser-ul "
+"lor."
 
 #: start/templates/start/start.html:74
 msgid ""
 "Then they will make screenshots and upload them to the central server here."
 msgstr ""
+"Apoi ele vor captura imagini ale ecranului şi le vor încărca pe acest server "
+"central."
 
 #: start/templates/start/start.html:80
 msgid "latest news"
-msgstr ""
+msgstr "ultimele ştiri"
 
 #: start/templates/start/start.html:92
 msgid "premium sponsors"
-msgstr ""
+msgstr "sponsori premium"
 
-#: websites/models.py:37
+#: websites/models.py:38
 msgid "Missing slash after the hostname."
-msgstr ""
+msgstr "Slash (/) lipsă dupa numele gazdei"
 
-#: websites/models.py:56 websites/models.py:75
+#: websites/models.py:57 websites/models.py:78
 msgid "domain"
-msgstr ""
+msgstr "domeniu"
 
-#: websites/models.py:57
+#: websites/models.py:58
 msgid "domains"
-msgstr ""
+msgstr "domenii"
 
-#: websites/models.py:72
+#: websites/models.py:75
 msgid "URL"
-msgstr ""
+msgstr "Adresă URL"
 
-#: websites/models.py:77
+#: websites/models.py:80
 msgid "profanities"
 msgstr ""
 
-#: websites/models.py:79
+#: websites/models.py:82
 msgid "fetched"
 msgstr ""
 
-#: websites/models.py:90
+#: websites/models.py:93
 msgid "websites"
-msgstr ""
+msgstr "pagini web"
 
 #: websites/templates/websites/details.html:5
 #: websites/templates/websites/details.html:8
@@ -1364,13 +1404,14 @@ msgstr ""
 #: websites/templates/websites/details.html:42
 #: websites/templates/websites/unknown.html:18
 msgid "other pages on the same domain"
-msgstr ""
+msgstr "alte pagini de pe acelaşi domeniu"
 
 #: websites/templates/websites/unknown.html:5
 #: websites/templates/websites/unknown.html:8
 msgid "unknown website"
-msgstr ""
+msgstr "pagină web necunoscută"
 
 #: websites/templates/websites/unknown.html:11
 msgid "This address was never submitted, or removed after inactivity."
 msgstr ""
+"Această adresă nu a fost niciodată trimisă sau eliminată după inactivitate."

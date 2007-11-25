@@ -6,213 +6,212 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2007-10-23 07:38+0200\n"
-"PO-Revision-Date: 2007-11-20 14:57+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-11-25 13:38+0100\n"
+"PO-Revision-Date: 2007-11-22 10:01+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-21 11:13+0000\n"
+"X-Launchpad-Export-Date: 2007-11-25 12:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: accounts/views.py:59
+#: accounts/views.py:63
 msgid "You're already signed in"
 msgstr "Έχετε ήδη εισέλθει"
 
-#: accounts/views.py:60
+#: accounts/views.py:64
 msgid "Please log out and then try again."
 msgstr "Παρακαλώ βγείτε και ξαναδοκιμάστε."
 
-#: accounts/views.py:66
+#: accounts/views.py:73
 msgid "Username"
 msgstr "Όνομα χρήστη"
 
-#: accounts/views.py:67
+#: accounts/views.py:74
 msgid "Password"
 msgstr "Συνθηματικό"
 
-#: accounts/views.py:84
+#: accounts/views.py:91
 msgid "Please enable cookies in your browser."
 msgstr "Παρακαλώ ενεργοποιήστε τα cookies στον φυλλομετρητή σας."
 
-#: accounts/views.py:90
+#: accounts/views.py:97
 msgid "Incorrect username or password."
 msgstr "Λανθασμένο όνομα χρήστη ή συνθηματικό."
 
-#: accounts/views.py:92
+#: accounts/views.py:99
 msgid "This account is inactive."
 msgstr "Αυτός ο λογαριασμός χρήστης είναι ανενεργός."
 
-#: accounts/views.py:94 accounts/views.py:153
+#: accounts/views.py:101 accounts/views.py:166
 msgid "Welcome to Browsershots!"
 msgstr "Καλώς ήλθατε στο Browsershots!"
 
-#: accounts/views.py:95
+#: accounts/views.py:102
 msgid "let me in"
 msgstr "βάλε με μέσα"
 
-#: accounts/views.py:102
+#: accounts/views.py:109
 msgid "Forgot your password?"
 msgstr "Ξεχάσατε τπ συνθηματικό;"
 
-#: accounts/views.py:103
+#: accounts/views.py:110
 msgid "Create a new account?"
 msgstr "Δημιουργία νέου λογαριασμού;"
 
-#: accounts/views.py:115
+#: accounts/views.py:125
 msgid "logged out"
 msgstr "Έχετε εξέλθει"
 
-#: accounts/views.py:117
+#: accounts/views.py:127
 msgid "You have successfully logged out."
 msgstr "Έχετε εξέλθει επιτυχώς"
 
-#: accounts/views.py:150 accounts/templates/accounts/profile.html:8
-#: points/templates/points/overview.html:8
+#: accounts/views.py:163 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
 msgstr "Γειά σου %(first_name)s!"
 
-#: accounts/views.py:179
+#: accounts/views.py:192
 msgid "too many verification emails"
 msgstr "υπερβολικά πολλά email επιβεβαίωσης"
 
-#: accounts/views.py:180
+#: accounts/views.py:193
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr ""
 "Υπάρχουν υπερβολικά πολλές αιτήσης για μηνύματα από την IP διεύθυνσή σας τις "
 "τελευταίες 24 ώρες."
 
-#: accounts/views.py:181 factories/views.py:53 start/views.py:67
+#: accounts/views.py:194 factories/views.py:55 start/views.py:83
 msgid "Please try again later."
 msgstr "Παρακαλώ δοκιμάστε ξανά αργότερα."
 
-#: accounts/views.py:184
+#: accounts/views.py:197
 msgid "email verification"
 msgstr "επιβεβαίωση email"
 
-#: accounts/views.py:186
+#: accounts/views.py:199
 msgid "send email"
 msgstr "αποστολή μηνύματος"
 
-#: accounts/views.py:204
+#: accounts/views.py:217
 msgid "email error"
 msgstr "σφάλμα στο μήνυμα"
 
-#: accounts/views.py:205
+#: accounts/views.py:218
 msgid "Could not send email."
 msgstr "Δεν ήταν δυνατή η αποστολή του μηνύματος."
 
-#: accounts/views.py:207
+#: accounts/views.py:220
 msgid "email sent"
 msgstr "το μήνυμα στάλθηκε"
 
-#: accounts/views.py:208
+#: accounts/views.py:221
 #, python-format
-msgid "A verification email was sent to %(email)s."
-msgstr "Ένα μήνυμα επιβεβαίωσης στάλθηκε στο %(email)s."
+msgid "A verification email was sent to %(address)s."
+msgstr "'Ενα μήνυμα επιβεβαίωσης στάληκε στο %(address)s."
 
-#: accounts/views.py:209
+#: accounts/views.py:222
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr ""
 "Ελέγξτε τα εισερχόμενα μηνύματά σας και ακολουθήστε τις οδηγίες στο μήνυμα."
 
-#: accounts/views.py:210
+#: accounts/views.py:223
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
 "Αν ο παροχέας email χρησιμοποιεί φίλτρα, μπορεί να χρειαστούν μερικά λεπτά."
 
-#: accounts/views.py:240
+#: accounts/views.py:251
 msgid "Username must start with a lowercase letter."
 msgstr "Το όνομα χρήστη πρέπει να ξεκινά με πεζό γράμμα."
 
-#: accounts/views.py:244
+#: accounts/views.py:255
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "Το όνομα χρήστη μπορεί να περιέχει μόνο πεζά γράμματα, αριθμούς, κάτω παύλα "
 "και παύλα."
 
-#: accounts/views.py:247
+#: accounts/views.py:258
 msgid "This username is reserved."
 msgstr "Αυτό το όνομα χρήστη είναι κρατημένο."
 
-#: accounts/views.py:268
+#: accounts/views.py:278
 #, python-format
 msgid "The password must have %d or more characters."
 msgstr "Το συνθηματικό πρέπει να έχει %d ή περισσότερους χαρακτήρες."
 
-#: accounts/views.py:272
+#: accounts/views.py:282
 msgid "The password must not be completely numeric."
 msgstr "Το συνθηματικό δεν μπορεί να αποτελείται αποκλειστικά από αριθμούς."
 
-#: accounts/views.py:285
+#: accounts/views.py:295
 msgid "Repeat password is not the same."
 msgstr "Το συνθηματικό που επαναλάβατε είναι διαφορετικό."
 
-#: accounts/views.py:306
+#: accounts/views.py:316
 msgid "This username is already taken."
 msgstr "Αυτό το όνομα χρήστη είναι κρατημένο."
 
-#: accounts/views.py:320
+#: accounts/views.py:330
 msgid "Wrong IP address"
 msgstr "Λανθασμένη διεύθυνση IP."
 
-#: accounts/views.py:321
+#: accounts/views.py:331
 msgid "The verification email was requested from a different IP address."
 msgstr "Το μήνυμα επιβεβαίωσης ζητήθηκε από διαφορετική διεύθυνση IP."
 
-#: accounts/views.py:323
+#: accounts/views.py:333
 msgid "Bad verification code"
 msgstr "Λανθασμένος κωδικός επιβεβαίωσης."
 
-#: accounts/views.py:324
+#: accounts/views.py:334
 msgid "The verification code has no email address."
 msgstr "Ο κωδικός επιβεβαίωσης δεν έχει διεύθυνση email."
 
-#: accounts/views.py:326
+#: accounts/views.py:336
 msgid "Verification code expired"
 msgstr "Ο κωδικός επιβεβαίωσης έχει λήξει."
 
-#: accounts/views.py:327
-msgid "The verification email was requested more than 30 minutes ago."
-msgstr "Το μήνυμα επιβεβαίωσης ζητήθηκε πριν από περισσότερο από 30 λεπτά."
+#: accounts/views.py:337
+msgid "The verification email was requested more than 24 hours ago."
+msgstr "Το μήνυμα επιβεβαίωσης στάληκε πριν από περισσότερο από 24 ώρες."
 
-#: accounts/views.py:338
+#: accounts/views.py:351
 msgid "choose a new password"
 msgstr "επιλογή νέου συνθηματικού"
 
-#: accounts/views.py:340
+#: accounts/views.py:353
 msgid "change password"
 msgstr "αλλαγή συνθηματικού"
 
-#: accounts/views.py:347
+#: accounts/views.py:360
 msgid "Password changed"
 msgstr "Το συνθηματικό άλλαξε"
 
-#: accounts/views.py:348
+#: accounts/views.py:361
 msgid "Your new password has been saved."
 msgstr "Το νέο σας συνθηματικό έχει καταχωρηθεί."
 
-#: accounts/views.py:349 accounts/views.py:370
+#: accounts/views.py:362 accounts/views.py:386
 msgid "Click the link in the top right corner to log in."
 msgstr "Πατήστε στο σύνδεσμο στην πάνω δεξιά γωνία για να εισέλθετε."
 
-#: accounts/views.py:358
+#: accounts/views.py:374
 msgid "create a new account"
 msgstr "δημιουργία νέου λογαριασμού"
 
-#: accounts/views.py:360
+#: accounts/views.py:376
 msgid "create account"
 msgstr "δημιουργία λογαριασμού"
 
-#: accounts/views.py:368
+#: accounts/views.py:384
 msgid "Account created"
 msgstr "Ο λογαριασμός δημιουργήθηκε"
 
-#: accounts/views.py:369
+#: accounts/views.py:385
 msgid "A new user account was created."
 msgstr "Ένας νέος λογαριασμός χρήστη δημιουργήθηκε."
 
@@ -243,10 +242,10 @@ msgstr "Καταχώρηση αυτού του φυλλομετρητή για �
 msgid "recent factory errors"
 msgstr "πρόσφατα σφάλματα εργαστηρίου"
 
-#: accounts/templates/accounts/profile.html:38 browsers/models.py:87
-#: factories/models.py:90 factories/models.py:183 factories/models.py:209
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:288
-#: screenshots/models.py:106 screenshots/templates/screenshots/details.html:58
+#: accounts/templates/accounts/profile.html:38 browsers/models.py:93
+#: factories/models.py:92 factories/models.py:204 factories/models.py:230
+#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
+#: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "εργαστήριο"
 
@@ -263,175 +262,173 @@ msgid "age"
 msgstr "ηλικία"
 
 #: accounts/templates/accounts/profile.html:57
-#: points/templates/points/overview.html:14
 msgid "account balance"
 msgstr "ισορροπία λογαριασμού"
 
-#: browsers/models.py:37 browsers/models.py:60 factories/models.py:50
+#: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:26 platforms/models.py:34
-#: platforms/models.py:58 platforms/models.py:87 sponsors/models.py:35
-#: websites/models.py:47
+#: platforms/models.py:58 platforms/models.py:87 websites/models.py:47
 msgid "name"
 msgstr "Όνομα"
 
-#: browsers/models.py:38
+#: browsers/models.py:40
 msgid "e.g. Gecko / KHTML / AppleWebKit"
 msgstr "Gecko / KHTML / AppleWebKit"
 
-#: browsers/models.py:40 browsers/models.py:63 platforms/models.py:64
+#: browsers/models.py:42 browsers/models.py:67 platforms/models.py:64
 msgid "maker"
 msgstr "κατασκευαστής"
 
-#: browsers/models.py:50 browsers/models.py:99
+#: browsers/models.py:49 browsers/models.py:105
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:42
 msgid "engine"
 msgstr "μηχανή"
 
-#: browsers/models.py:51
+#: browsers/models.py:50
 msgid "engines"
 msgstr "μηχανές"
 
-#: browsers/models.py:61
+#: browsers/models.py:65
 msgid "e.g. Firefox / MSIE / Safari"
 msgstr "για παράδειγμα Firefox / MSIE / Safari"
 
-#: browsers/models.py:65
+#: browsers/models.py:69
 msgid "terminal"
 msgstr "τερματικό"
 
-#: browsers/models.py:65
+#: browsers/models.py:69
 msgid "Is this a text-mode browser?"
 msgstr "Αυτός ο φυλλομετρητής είναι σε λειτουργία απλού κειμένου;"
 
-#: browsers/models.py:67
+#: browsers/models.py:71
 msgid "unusual"
 msgstr "ασυνήθιστο"
 
-#: browsers/models.py:67
+#: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
 msgstr "Απόκρυψη από την πρόσφατη επισκόπηση στιγμιοτύπων;"
 
-#: browsers/models.py:74 browsers/models.py:91 requests/models.py:280
+#: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
 msgstr "ομάδα φυλλομετρητών"
 
-#: browsers/models.py:75
+#: browsers/models.py:79
 msgid "browser groups"
 msgstr "ομάδες φυλλομετρητών"
 
-#: browsers/models.py:89
+#: browsers/models.py:95
 msgid "user agent"
 msgstr "πράκτορας χρήστη"
 
-#: browsers/models.py:93 features/models.py:60 features/models.py:81
+#: browsers/models.py:99 features/models.py:60 features/models.py:81
 #: features/models.py:102 platforms/models.py:60
 msgid "version"
 msgstr "έκδοση"
 
-#: browsers/models.py:95 requests/models.py:282
+#: browsers/models.py:101 requests/models.py:376
 msgid "major"
 msgstr "μεγάλο"
 
-#: browsers/models.py:97 requests/models.py:284
+#: browsers/models.py:103 requests/models.py:378
 msgid "minor"
 msgstr "μικρό"
 
-#: browsers/models.py:101
+#: browsers/models.py:107
 msgid "engine version"
 msgstr "έκδοση μηχανής"
 
-#: browsers/models.py:103 factories/templates/factories/details.html:29
-#: requests/models.py:59 screenshots/templates/screenshots/details.html:46
+#: browsers/models.py:109 factories/templates/factories/details.html:29
+#: requests/models.py:62 screenshots/templates/screenshots/details.html:46
 #: start/forms/features.py:66
 msgid "Javascript"
 msgstr "Javascript"
 
-#: browsers/models.py:105 factories/templates/factories/details.html:30
-#: requests/models.py:61 screenshots/templates/screenshots/details.html:50
+#: browsers/models.py:111 factories/templates/factories/details.html:30
+#: requests/models.py:64 screenshots/templates/screenshots/details.html:50
 #: start/forms/features.py:68
 msgid "Java"
 msgstr "Java"
 
-#: browsers/models.py:107 factories/templates/factories/details.html:31
-#: requests/models.py:63 screenshots/templates/screenshots/details.html:54
+#: browsers/models.py:113 factories/templates/factories/details.html:31
+#: requests/models.py:66 screenshots/templates/screenshots/details.html:54
 #: start/forms/features.py:70
 msgid "Flash"
 msgstr "Flash"
 
-#: browsers/models.py:109 factories/templates/factories/details.html:35
+#: browsers/models.py:115 factories/templates/factories/details.html:35
 msgid "command"
 msgstr "εντολή"
 
-#: browsers/models.py:110
+#: browsers/models.py:116
 msgid "Leave empty to use default command."
 msgstr "Αφήστε άδειο για χρήση της προεπιλεγμένης εντολής."
 
-#: browsers/models.py:112
+#: browsers/models.py:118
 msgid "active"
 msgstr "ενεργό"
 
-#: browsers/models.py:113
+#: browsers/models.py:119
 msgid "Designates that this browser is currently installed."
 msgstr "Δείχνει ότι αυτό ο φυλλομετρητής είναι εγκατεστημένος."
 
-#: browsers/models.py:115 factories/models.py:66
+#: browsers/models.py:121 factories/models.py:68
 #: factories/templates/factories/details.html:32
 msgid "last upload"
 msgstr "τελευταίο ανέβασμα"
 
-#: browsers/models.py:117 factories/models.py:68
+#: browsers/models.py:123 factories/models.py:70
 #: factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17
 msgid "uploads per hour"
 msgstr "ανεβάσματα ανά ώρα"
 
-#: browsers/models.py:119 factories/models.py:70
+#: browsers/models.py:125 factories/models.py:72
 #: factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18
 msgid "uploads per day"
 msgstr "ανεβάσματα ανά ημέρα"
 
-#: browsers/models.py:121 factories/models.py:75
+#: browsers/models.py:127 factories/models.py:77
 #: factories/templates/factories/details.html:13 nonces/models.py:43
 msgid "created"
 msgstr "δημιουργήθηκε"
 
-#: browsers/models.py:143 requests/models.py:292
-#: requests/templates/requests/overview.html:15 screenshots/models.py:108
+#: browsers/models.py:149 requests/models.py:386
+#: requests/templates/requests/overview.html:15 screenshots/models.py:117
 #: screenshots/templates/screenshots/details.html:38
 msgid "browser"
 msgstr "φυλλομετρητής"
 
-#: browsers/models.py:144
+#: browsers/models.py:150
 msgid "browsers"
 msgstr "φυλλομετρητές"
 
-#: browsers/models.py:168
+#: browsers/models.py:176
 msgid "deactivate"
 msgstr "απενεργοποίηση"
 
-#: browsers/models.py:171
+#: browsers/models.py:179
 msgid "activate"
 msgstr "ενεργοποίηση"
 
-#: browsers/views.py:46
+#: browsers/views.py:47
 msgid "password"
 msgstr "συνθηματικό"
 
-#: browsers/views.py:148
+#: browsers/views.py:149
 msgid "Password mismatch."
 msgstr "Λάθος συνθηματικό."
 
-#: browsers/views.py:246 requests/views.py:163 requests/views.py:168
+#: browsers/views.py:245 requests/views.py:143 requests/views.py:148
 msgid "invalid request"
 msgstr "άκυρη αίτηση"
 
-#: browsers/views.py:251
+#: browsers/views.py:250
 msgid "permission denied"
 msgstr "δεν επιτρέπεται η πρόσβαση"
 
-#: browsers/views.py:284
+#: browsers/views.py:283
 msgid "This browser is already inactive."
 msgstr "Αυτός ο φυλλομετρητής είναι ήδη ανενεργός."
 
@@ -473,8 +470,8 @@ msgstr "άλλες επιλογές"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to "
-"%(email)s."
+"If your browser group or rendering engine is not available, please write to %"
+"(email)s."
 msgstr ""
 "Αν η ομάδα φυλλομετρητών ή η μηχανή μορφοποίησης δεν είναι διαθέσιμη, "
 "παρακαλώ γράψτε στο %(email)s."
@@ -506,8 +503,8 @@ msgstr "εσωτερικό σφάλμα εξυπηρετητή"
 msgid "home"
 msgstr "αρχή"
 
-#: common/templates/base.html:25 screenshots/models.py:131
-#: screenshots/models.py:288
+#: common/templates/base.html:25 screenshots/models.py:143
+#: screenshots/models.py:301
 msgid "screenshots"
 msgstr "στιγμιότυπα οθόνης"
 
@@ -515,7 +512,7 @@ msgstr "στιγμιότυπα οθόνης"
 msgid "queue"
 msgstr "ουρά"
 
-#: common/templates/base.html:27 factories/models.py:91
+#: common/templates/base.html:27 factories/models.py:93
 msgid "factories"
 msgstr "εργαστήρια"
 
@@ -535,32 +532,32 @@ msgstr "έξοδος"
 msgid "login"
 msgstr "είσοδος"
 
-#: common/templatetags/hosting_provider.py:44
+#: common/templatetags/hosting_provider.py:45
 #, python-format
 msgid "hosted by %(provider)s"
 msgstr "φιλοξενείται από %(provider)s"
 
-#: common/templatetags/human.py:50
+#: common/templatetags/human.py:51
 #, python-format
 msgid "%(seconds)d s"
 msgstr "%(seconds)d δευτερόλεπτα"
 
-#: common/templatetags/human.py:53 requests/views.py:116
+#: common/templatetags/human.py:54 requests/views.py:126
 #, python-format
 msgid "%(minutes)d min"
 msgstr "%(minutes)d λεπτά"
 
-#: common/templatetags/human.py:56
+#: common/templatetags/human.py:57
 #, python-format
 msgid "%(hours)d h"
 msgstr "%(hours)d ώρα(-ες)"
 
-#: common/templatetags/human.py:58
+#: common/templatetags/human.py:59
 #, python-format
 msgid "%(days)d d"
 msgstr "%(days)d μέρα(-ες)"
 
-#: common/templatetags/human.py:103
+#: common/templatetags/human.py:104
 #, python-format
 msgid "%(bytes)s bytes"
 msgstr "%(bytes)s bytes"
@@ -570,127 +567,126 @@ msgstr "%(bytes)s bytes"
 msgid "%(count)d database queries"
 msgstr "%(count)d ερωτήσεις στη βάση δεδομένων"
 
-#: factories/models.py:51
+#: factories/models.py:53
 msgid "Hostname (lowercase)"
 msgstr "Όνομα φιλοξενίας (πεζά γράμματα)"
 
-#: factories/models.py:53
+#: factories/models.py:55
 msgid "administrator"
 msgstr "διαχειριστής"
 
-#: factories/models.py:55 factories/templates/factories/details.html:16
-#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:51
+#: factories/models.py:57 factories/templates/factories/details.html:16
+#: screenshots/templates/screenshots/details.html:62
 msgid "sponsor"
 msgstr "σπόνσορας"
 
-#: factories/models.py:57
+#: factories/models.py:59
 msgid "hardware architecture"
 msgstr "αρχιτεκτονική υλικού"
 
-#: factories/models.py:59 factories/templates/factories/details.html:11
+#: factories/models.py:61 factories/templates/factories/details.html:11
 #: platforms/models.py:71 screenshots/templates/screenshots/details.html:70
 msgid "operating system"
 msgstr "λειτουργικό σύστημα"
 
-#: factories/models.py:61 requests/models.py:67
-#: status/templates/status/usage.html:55
+#: factories/models.py:63 requests/models.py:70
 msgid "IP"
 msgstr "διεύθυνση IP"
 
-#: factories/models.py:62
+#: factories/models.py:64
 msgid "The last poll came from this IP address."
 msgstr "Το τελευταίο δημοψήφισμα ήλθε από αυτή την IP διεύθυνση."
 
-#: factories/models.py:64
+#: factories/models.py:66
 msgid "last poll"
 msgstr "τελευταίο δημοψήφισμα"
 
-#: factories/models.py:72
+#: factories/models.py:74 requests/models.py:327
 msgid "queue estimate"
 msgstr "εκτίμηση ουράς"
 
-#: factories/models.py:73
+#: factories/models.py:75
 msgid "Seconds between screenshot request and upload."
 msgstr "Δευτερόλεπτα μεταξύ της αίτησης στιγμιοτύπου και του ανεβάσματος."
 
-#: factories/models.py:186 screenshots/models.py:110
+#: factories/models.py:207 screenshots/models.py:119
 msgid "width"
 msgstr "πλάτος"
 
-#: factories/models.py:188 screenshots/models.py:112
+#: factories/models.py:209 screenshots/models.py:121
 msgid "height"
 msgstr "ύψος"
 
-#: factories/models.py:195 start/forms/options.py:64
+#: factories/models.py:216 start/forms/options.py:64
 msgid "screen size"
 msgstr "μέγεθος οθόνης"
 
-#: factories/models.py:196 factories/templates/factories/details.html:70
+#: factories/models.py:217 factories/templates/factories/details.html:70
 msgid "screen sizes"
 msgstr "μεγέθη οθονών"
 
-#: factories/models.py:212 factories/templates/factories/details.html:101
-#: factories/templates/factories/details.html:107 requests/models.py:57
+#: factories/models.py:233 factories/templates/factories/details.html:101
+#: factories/templates/factories/details.html:107 requests/models.py:60
 msgid "bits per pixel"
 msgstr "bits ανά εικονοστοιχείο"
 
-#: factories/models.py:219 start/forms/options.py:66
+#: factories/models.py:240 start/forms/options.py:66
 msgid "color depth"
 msgstr "βάθος χρώματος"
 
-#: factories/models.py:220 factories/templates/factories/details.html:96
+#: factories/models.py:241 factories/templates/factories/details.html:96
 msgid "color depths"
 msgstr "βάθη χρωμάτων"
 
-#: factories/views.py:51 start/views.py:65
+#: factories/views.py:53 start/views.py:81
 msgid "out of service"
 msgstr "εκτός λειτουργίας"
 
-#: factories/views.py:52 start/views.py:66
+#: factories/views.py:54 start/views.py:82
 msgid "No active screenshot factories."
 msgstr "Δεν υπάρχουν ενεργά εργαστήρια στιγμιοτύπων."
 
-#: factories/views.py:65 factories/views.py:73 factories/views.py:85
+#: factories/views.py:74 factories/views.py:85 factories/views.py:103
 #, python-format
 msgid "Value %d is too small."
 msgstr "Η τιμή %d είναι πολύ μικρή."
 
-#: factories/views.py:67 factories/views.py:75 factories/views.py:87
+#: factories/views.py:76 factories/views.py:87 factories/views.py:105
 #, python-format
 msgid "Value %d is too big."
 msgstr "Η τιμή %d είναι πολύ μεγάλη."
 
-#: factories/views.py:102 factories/views.py:114
+#: factories/views.py:124 factories/views.py:136
 msgid "Duplicate."
 msgstr "Αντίγραφο."
 
-#: factories/views.py:104 factories/views.py:116
+#: factories/views.py:126 factories/views.py:138
 msgid "Invalid data."
 msgstr "Άκυρη πληροφορία."
 
-#: factories/views.py:181
+#: factories/views.py:207
 msgid "Name must start with a lowercase letter."
 msgstr "Το όνομα πρέπει να ξεκινά με πεζό γράμμα."
 
-#: factories/views.py:185
+#: factories/views.py:211
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "Το όνομα μπορεί να περιέχει μόνο πεζά γράμματα, αριθμούς, κάτω παύλα και "
 "παύλα."
 
-#: factories/views.py:188
+#: factories/views.py:214
 msgid "This name is reserved."
 msgstr "Αυτό το όνομα είναι κρατημένο."
 
-#: factories/views.py:205
+#: factories/views.py:231
 msgid "This name is already taken."
 msgstr "Αυτό το όνομα ήδη χρησιμοποιείται."
 
-#: factories/views.py:221
+#: factories/views.py:250
 msgid "register a new screenshot factory"
 msgstr "καταχώρηση νέου εργαστηρίου στιγμιοτύπων"
 
-#: factories/views.py:222
+#: factories/views.py:251
 msgid "register"
 msgstr "καταχώρηση"
 
@@ -788,11 +784,11 @@ msgstr "Έκδοση Flash"
 msgid "Flash versions"
 msgstr "Εκδόσεις Flash"
 
-#: messages/models.py:37 screenshots/models.py:334
+#: messages/models.py:37 screenshots/models.py:347
 msgid "error code"
 msgstr "κώδικας λάθους"
 
-#: messages/models.py:39 screenshots/models.py:336
+#: messages/models.py:39 screenshots/models.py:349
 msgid "error message"
 msgstr "μήνυμα λάθους"
 
@@ -808,11 +804,11 @@ msgstr "μήνυμα σφάλματος εργαστηρίου"
 msgid "factory error messages"
 msgstr "μηνύματα σφαλμάτων εργαστηρίου"
 
-#: nonces/models.py:35 screenshots/models.py:102
+#: nonces/models.py:35 screenshots/models.py:109
 msgid "hashkey"
 msgstr "κλειδί hash"
 
-#: nonces/models.py:37 screenshots/models.py:340
+#: nonces/models.py:37 screenshots/models.py:353
 msgid "IP address"
 msgstr "διεύθυνση IP"
 
@@ -832,7 +828,7 @@ msgstr "κωδικοί κρυπτογράφησης"
 msgid "position"
 msgstr "θέση"
 
-#: platforms/models.py:46 platforms/models.py:56 requests/models.py:278
+#: platforms/models.py:46 platforms/models.py:56 requests/models.py:372
 #: requests/templates/requests/overview.html:14
 msgid "platform"
 msgstr "πλατφόρμα"
@@ -857,252 +853,195 @@ msgstr "για παράδειγμα i686 / PPC"
 msgid "architectures"
 msgstr "αρχιτεκτονικές"
 
-#: points/models.py:42
-msgid "sender"
-msgstr "αποστολέας"
-
-#: points/models.py:45
-msgid "receiver"
-msgstr "παραλήπτης"
-
-#: points/models.py:48 requests/models.py:297 screenshots/models.py:130
-#: screenshots/models.py:332
-msgid "screenshot"
-msgstr "στιγμιότυπο"
-
-#: points/models.py:51 points/models.py:81 points/models.py:115
-msgid "points"
-msgstr "βαθμοί"
-
-#: points/models.py:53
-msgid "paid"
-msgstr "πληρωμένο"
-
-#: points/models.py:56
-msgid "transaction"
-msgstr "συναλλαγή"
-
-#: points/models.py:57
-msgid "transactions"
-msgstr "συναλλαγές"
-
-#: points/models.py:77 points/models.py:111
-msgid "user"
-msgstr "χρήστης"
-
-#: points/models.py:79
-msgid "considered"
-msgstr "θεωρούμενο"
-
-#: points/models.py:84
-msgid "balance"
-msgstr "ισορροπία"
-
-#: points/models.py:85
-msgid "balances"
-msgstr "ισορροπίες"
-
-#: points/models.py:113 requests/models.py:314
-msgid "request"
-msgstr "ζήτηση"
-
-#: points/models.py:118
-msgid "bid"
-msgstr "προσφορά"
-
-#: points/models.py:119
-msgid "bids"
-msgstr "προσφορές"
-
-#: points/templates/points/overview.html:5
-msgid "account"
-msgstr "λογαριασμός"
-
-#: points/templates/points/overview.html:11
-msgid "This is your private account page. Only you can see it."
-msgstr ""
-"Αυτή είναι η ιδιωτική σελίδα του λογαριασμού σας. Μόνο εσείς μπορείτε να τη "
-"δείτε."
-
-#: points/templates/points/overview.html:18
-msgid "points received"
-msgstr "πόντοι κερδήθηκαν"
-
-#: points/templates/points/overview.html:31
-msgid "points paid"
-msgstr "πόντοι πληρώθηκαν"
-
-#: requests/models.py:51 screenshots/models.py:104
-#: status/templates/status/usage.html:21 websites/models.py:90
+#: requests/models.py:54 screenshots/models.py:113 websites/models.py:92
 msgid "website"
 msgstr "ιστότοπος"
 
-#: requests/models.py:53
+#: requests/models.py:56
 msgid "screen width"
 msgstr "πλάτος οθόνης"
 
-#: requests/models.py:55
+#: requests/models.py:58
 msgid "screen height"
 msgstr "ύψος οθόνης"
 
-#: requests/models.py:65
+#: requests/models.py:68
 msgid "submitter"
 msgstr "υποβλήθηκε από"
 
-#: requests/models.py:69 websites/models.py:49 websites/models.py:82
+#: requests/models.py:72 websites/models.py:49 websites/models.py:84
 msgid "submitted"
 msgstr "υποβλήθηκε"
 
-#: requests/models.py:71
+#: requests/models.py:74
 msgid "expire"
 msgstr "λήγει"
 
-#: requests/models.py:89 requests/models.py:276
+#: requests/models.py:92 requests/models.py:370
 msgid "request group"
 msgstr "ομάδα αιτήσεων"
 
-#: requests/models.py:90
+#: requests/models.py:93
 msgid "request groups"
 msgstr "ομάδες αιτήσεων"
 
-#: requests/models.py:97
+#: requests/models.py:102
 msgid "screenshot request group"
 msgstr "ομάδα αίτησης στιγμιοτύπου"
 
-#: requests/models.py:114
+#: requests/models.py:123
 #, python-format
 msgid "submitted %(interval)s ago"
 msgstr "υποβλήθηκε πριν %(interval)s"
 
-#: requests/models.py:127
+#: requests/models.py:137
 #, python-format
 msgid "expires in %(interval)s"
 msgstr "λήγει  σε %(interval)s"
 
-#: requests/models.py:137
+#: requests/models.py:142
 msgid "extend"
 msgstr "επέκταση"
 
-#: requests/models.py:152 start/forms/options.py:41
+#: requests/models.py:157 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
 msgstr "πλάτος %(width)d εικονοστοιχεία"
 
-#: requests/models.py:155 start/forms/options.py:54
+#: requests/models.py:160 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
-msgstr ""
-"Copy text   \t\n"
-"%(color_depth)d bits ανά εικονοστοιχείο"
+msgstr "%(color_depth)d bits ανά εικονοστοιχείο"
 
-#: requests/models.py:207
+#: requests/models.py:213
 msgid "Your screenshots will appear here when they are uploaded."
 msgstr "Τα στιγμιότυπά σας θα εμφανιστούν εδώ μόλις ανέβουν."
 
-#: requests/models.py:209
+#: requests/models.py:215
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr ""
 "[Επαναφόρτωση της σελίδας] ή προσθήκη στους σελιδοδείκτες και επιστροφή "
 "αργότερα."
 
-#: requests/models.py:211
+#: requests/models.py:217
 msgid "Your screenshot requests have expired."
 msgstr "Οι αιτήσεις σας για στιγμιότυπα έχουν λήξει."
 
-#: requests/models.py:221
+#: requests/models.py:227
 #, python-format
 msgid "%(count)d browsers selected"
 msgstr "%(count)d φυλλομετρητές επιλέχθηκαν"
 
-#: requests/models.py:226
+#: requests/models.py:235
 #, python-format
 msgid "%(count)d starting"
-msgstr ""
-"Copy text   \t\n"
-"%(count)d αρχίζουν"
+msgstr "%(count)d αρχίζουν"
 
-#: requests/models.py:229
+#: requests/models.py:237
 #, python-format
 msgid "%(count)d loading"
 msgstr "%(count)d φορτώνουν"
 
-#: requests/models.py:232
+#: requests/models.py:239 requests/models.py:242
 #, python-format
 msgid "%(count)d uploaded"
 msgstr "%(count)d ανέβηκαν"
 
-#: requests/models.py:234
+#: requests/models.py:245
+#, fuzzy, python-format
+msgid "%(count)d failed"
+msgstr "%(count)d ανέβηκαν"
+
+#: requests/models.py:248
+#, fuzzy, python-format
+msgid "%(count)d expired"
+msgstr "%(count)d ανέβηκαν"
+
+#: requests/models.py:323
+#, python-format
+msgid "%(min_interval)s to %(max_interval)s"
+msgstr "%(min_interval)s ως %(max_interval)s"
+
+#: requests/models.py:325
 msgid "details"
 msgstr "λεπτομέρειες"
 
-#: requests/models.py:259
+#: requests/models.py:351
 msgid "download all screenshots"
 msgstr "κατέβασμα όλων των στιγμιοτύπων"
 
-#: requests/models.py:262
+#: requests/models.py:354
 #, python-format
 msgid "download %(count)d screenshots"
 msgstr "κατέβασμα %(count)d στιγμιοτύπων"
 
-#: requests/models.py:286
+#: requests/models.py:380
 msgid "priority"
 msgstr "προτεραιότητα"
 
-#: requests/models.py:290
+#: requests/models.py:384
 msgid "locked"
 msgstr "κλειδωμένο"
 
-#: requests/models.py:295
+#: requests/models.py:389
 msgid "redirected"
 msgstr "ανακατευθύνθηκε"
 
-#: requests/models.py:315
+#: requests/models.py:391 screenshots/models.py:142 screenshots/models.py:345
+msgid "screenshot"
+msgstr "στιγμιότυπο"
+
+#: requests/models.py:408
+msgid "request"
+msgstr "ζήτηση"
+
+#: requests/models.py:409
 msgid "requests"
 msgstr "αιτήσεις"
 
-#: requests/models.py:336 screenshots/models.py:114
+#: requests/models.py:432 screenshots/models.py:125
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
 msgstr "ανέβηκε"
 
-#: requests/models.py:338
+#: requests/models.py:434
 msgid "failed"
 msgstr "απέτυχε"
 
-#: requests/models.py:340
+#: requests/models.py:436
 msgid "loading"
 msgstr "φόρτωση"
 
-#: requests/models.py:342
+#: requests/models.py:438
 msgid "starting"
 msgstr "έναρξη"
 
-#: requests/views.py:113
-msgid "unavailable"
-msgstr "μη διαθέσιμο"
-
-#: requests/views.py:145
+#: requests/views.py:118
 msgid "expired"
 msgstr "έληξε"
 
-#: requests/views.py:164
+#: requests/views.py:122
+msgid "unavailable"
+msgstr "μη διαθέσιμο"
+
+#: requests/views.py:144
 msgid "You must send a POST request to this page."
 msgstr "Πρέπει να στείλετε μια αίτηση POST σε αυτή τη σελίδα."
 
-#: requests/views.py:169
+#: requests/views.py:149
 msgid "You must specify a numeric request group ID."
 msgstr "Πρέπει να ορίσετε ένα αριθμό ταυτοποίησης της ομάδας αιτήσεων."
 
-#: requests/views.py:174
+#: requests/views.py:154
 msgid "request group expired"
 msgstr "η ομάδα αιτήσεων έληξε"
 
-#: requests/views.py:175
+#: requests/views.py:155
 #, python-format
 msgid "This request group already expired %d minutes ago."
 msgstr "Αυτή η ομάδα αιτήσεων έληξε πριν %d λεπτά."
 
-#: requests/views.py:178 websites/templates/websites/details.html:33
+#: requests/views.py:158 websites/templates/websites/details.html:38
 #: websites/templates/websites/unknown.html:14
 msgid "Request new screenshots?"
 msgstr "Αίτηση νέων στιγμιοτύπων;"
@@ -1127,116 +1066,125 @@ msgstr "τρέχουσες αιτήσεις"
 msgid "No pending requests."
 msgstr "Δεν υπάρχουν τρέχουσες αιτήσεις."
 
-#: screenshots/models.py:36
+#: screenshots/models.py:38
 msgid "This is not the requested browser."
 msgstr "Αυτός δεν είναι ο ζητούμενος φυλλομετρητής."
 
-#: screenshots/models.py:37
+#: screenshots/models.py:39
 msgid "This is not the requested operating system."
 msgstr "Αυτό δεν είναι το ζητούμενο λειτουργικό σύστημα."
 
-#: screenshots/models.py:39
+#: screenshots/models.py:41
 msgid "This is not the requested Javascript version."
 msgstr "Αυτή δεν είναι η ζητούμενη έκδοση Javascript."
 
-#: screenshots/models.py:40
+#: screenshots/models.py:42
 msgid "This is not the requested Java version."
 msgstr "Αυτή δεν είναι η ζητούμενη έκδοση Java."
 
-#: screenshots/models.py:41
+#: screenshots/models.py:43
 msgid "This is not the requested Flash version."
 msgstr "Αυτή δεν είναι η ζητούμενη έκδοση Flash."
 
-#: screenshots/models.py:42
+#: screenshots/models.py:44
 msgid "A language pack needs to be installed."
 msgstr "Χρειάζεται να εγκατασταθεί ένα πακέτο γλώσσας."
 
-#: screenshots/models.py:44
+#: screenshots/models.py:46
 msgid "There is a dialog box in front of the browser window."
 msgstr ""
 "Υπάρχει ένα παράθυρο διαλόγου μπροστά από το παράθυρο του φυλλομετρητή."
 
-#: screenshots/models.py:45
+#: screenshots/models.py:47
 msgid "The browser window is not maximized."
 msgstr "Το παράθυρο του φυλλομετρητή δεν είναι μεγιστοποιημένο."
 
-#: screenshots/models.py:46
+#: screenshots/models.py:48
 msgid "The page is not finished loading."
 msgstr "Η σελίδα δεν έχει φορτώσει πλήρως."
 
-#: screenshots/models.py:50
+#: screenshots/models.py:52
 #, python-format
 msgid "This is not %(browser)s."
 msgstr "Αυτός δεν είναι ο %(browser)s."
 
-#: screenshots/models.py:51
+#: screenshots/models.py:53
 #, python-format
 msgid "This is not %(operating_system)s."
 msgstr "Αυτό δεν είναι το %(operating_system)s."
 
-#: screenshots/models.py:53
+#: screenshots/models.py:55
 #, python-format
 msgid "Javascript is not %(javascript)s."
 msgstr "η Javascript δεν είναι η %(javascript)s."
 
-#: screenshots/models.py:54
+#: screenshots/models.py:56
 #, python-format
 msgid "Java is not %(java)s."
 msgstr "η Java δεν είναι %(java)s."
 
-#: screenshots/models.py:55
+#: screenshots/models.py:57
 #, python-format
 msgid "Flash is not %(flash)s."
 msgstr "το Flash δεν είναι %(flash)s."
 
-#: screenshots/models.py:260
+#: screenshots/models.py:111
+msgid "user"
+msgstr "χρήστης"
+
+#: screenshots/models.py:123
+#, fuzzy
+msgid "colors"
+msgstr "βάθη χρωμάτων"
+
+#: screenshots/models.py:273
 msgid "first"
 msgstr "πρώτη"
 
-#: screenshots/models.py:261
+#: screenshots/models.py:274
 msgid "previous"
 msgstr "προηγούμενη"
 
-#: screenshots/models.py:262
+#: screenshots/models.py:275
 msgid "next"
 msgstr "επόμενη"
 
-#: screenshots/models.py:263
+#: screenshots/models.py:276
 msgid "last"
 msgstr "τελευταίο"
 
-#: screenshots/models.py:274
+#: screenshots/models.py:287
 #, python-format
 msgid "%(index)d out of %(total)d"
 msgstr "%(index)d από %(total)d"
 
-#: screenshots/models.py:298
+#: screenshots/models.py:311
 #, python-format
 msgid "with %(browser)s"
 msgstr "με τον %(browser)s"
 
-#: screenshots/models.py:309
+#: screenshots/models.py:322
 #, python-format
 msgid "on %(platform)s"
 msgstr "σε %(platform)s"
 
-#: screenshots/models.py:338
+#: screenshots/models.py:351
 msgid "reported"
 msgstr "αναφέρθηκαν"
 
-#: screenshots/models.py:348
+#: screenshots/models.py:361
 msgid "problem report"
 msgstr "αναφορά προβλήματος"
 
-#: screenshots/models.py:349
+#: screenshots/models.py:362
 msgid "problem reports"
 msgstr "αναφορές προβλημάτων"
 
-#: screenshots/views.py:115
+#: screenshots/views.py:116
 msgid "HTML is not allowed here."
 msgstr "Δεν επιτρέπεται η HTML εδώ."
 
-#: screenshots/views.py:119
+#: screenshots/views.py:120
 msgid "URLs are not allowed here."
 msgstr "Δεν επιτρέπονται τα URL εδώ."
 
@@ -1268,39 +1216,23 @@ msgstr "η σελίδα φόρτωσε"
 msgid "Report a problem with this screenshot?"
 msgstr "Αναφορά προβλήματος με αυτό το στιγμιότυπο;"
 
-#: sponsors/models.py:37
-msgid "slug"
-msgstr "διαχωριστικό"
+#: start/views.py:64
+msgid "login required"
+msgstr "απαιτείται είσοδος"
 
-#: sponsors/models.py:38
-msgid "This is used to generate the link to the logo image."
-msgstr "Αυτό χρησιμοποιείται για να δημιουργεί το λογότυπο."
+#: start/views.py:65
+msgid "Anonymous screenshot requests are not allowed."
+msgstr "Δεν επιτρέπονται ανώνυμες αιτήσεις για στιγμιότυπα."
 
-#: sponsors/models.py:40 websites/models.py:73
-msgid "URL"
-msgstr "Σύνδεσμος"
+#: start/views.py:68
+msgid "Please log in with your username and password."
+msgstr "Παρακαλώ εισέλθετε με το όνομα χρήστη και το συνθηματικό σας."
 
-#: sponsors/models.py:42
-msgid "premium"
-msgstr "Ανώτερο"
-
-#: sponsors/models.py:43
-msgid "Premium sponsors are always shown on the front page."
-msgstr "Οι πρωτεύοντες χορηγοί πάντα εμφανίζονται στην πρώτη σελίδα."
-
-#: sponsors/models.py:45
-msgid "front page"
-msgstr "πρώτη σελίδα"
-
-#: sponsors/models.py:52
-msgid "sponsors"
-msgstr "χορηγοί"
-
-#: start/views.py:169
+#: start/views.py:184
 msgid "select all"
 msgstr "επιλογή όλων"
 
-#: start/views.py:170
+#: start/views.py:185
 msgid "deselect all"
 msgstr "αποεπιλογή όλων"
 
@@ -1309,40 +1241,50 @@ msgstr "αποεπιλογή όλων"
 msgid "don't care"
 msgstr "Οποιοδήποτε"
 
-#: start/forms/url.py:52
+#: start/forms/url.py:54
 msgid "Enter your web address here:"
 msgstr "Γράψτε τη διεύθυνση του ιστότοπου εδώ:"
 
-#: start/forms/url.py:87
+#: start/forms/url.py:91
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "Το σχήμα URL %(scheme)s δεν υποστηρίζεται."
 
-#: start/forms/url.py:91
+#: start/forms/url.py:95
 msgid "Malformed URL (server name not specified)."
 msgstr "Κακογραμμένο URL (δεν αναφέρθηκε το όνομα του εξυπηρετητή)."
 
-#: start/forms/url.py:111
+#: start/forms/url.py:123
+#, python-format
+msgid "Could not resolve IP address for %(hostname)s."
+msgstr "Δε βρέθηκε η διεύθυνση IP για το %(hostname)s."
+
+#: start/forms/url.py:136
+#, python-format
+msgid "Server IP address %(ip)s is disallowed."
+msgstr "Η διεύθυνση IP του εξυπηρετητή %(ip)s δεν επιτρέπεται."
+
+#: start/forms/url.py:154
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Δεν ήταν δυνατή η σύνδεση στο %(hostname)s."
 
-#: start/forms/url.py:113
+#: start/forms/url.py:156
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Δεν μπόρεσε να σταλεί η αίτηση HTTP στο %(hostname)s."
 
-#: start/forms/url.py:115
+#: start/forms/url.py:158
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Δεν μπόρεσε να ληφθεί η σελίδα από το %(hostname)s,"
 
-#: start/forms/url.py:119
+#: start/forms/url.py:162
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Ο εξυπηρετητής δεν ανταποκρίθηκε για %d δευτερόλεπτα."
 
-#: start/forms/url.py:151
+#: start/forms/url.py:206
 msgid "Malformed URL (database integrity error)."
 msgstr "Κακοσυνταγμένος σύνδεσμος (σφάλμα συνοχής βάσης δεδομένων)."
 
@@ -1387,8 +1329,8 @@ msgstr "Τι είναι το Browsershots;"
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
 msgstr ""
-"Το Browserhots φτιάχνει στιγμιότυπα οθόνης της ιστοσελίδας σας σε "
-"διαφορετικούς φυλλομετρητές."
+"Το Browserhots φτιάχνει στιγμιότυπα οθόνης της ιστοσελίδας σας σε διάφορους "
+"φυλλομετρητές."
 
 #: start/templates/start/start.html:71
 msgid "It is a free open-source online service created by Johann C. Rocholl."
@@ -1414,7 +1356,7 @@ msgid ""
 "Then they will make screenshots and upload them to the central server here."
 msgstr ""
 "Μετά θα φτιάξουν στιγμιότυπα οθόνης και θα τα ανεβάσουν στον κεντρικό "
-"εξυπηρετητή εδώ,"
+"εξυπηρετητή εδώ."
 
 #: start/templates/start/start.html:80
 msgid "latest news"
@@ -1424,43 +1366,31 @@ msgstr "τελευταία νέα"
 msgid "premium sponsors"
 msgstr "μεγάλοι χορηγοί"
 
-#: status/templates/status/overview.html:4
-#: status/templates/status/overview.html:7
-msgid "server status"
-msgstr "κατάσταση εξυπηρετητή"
-
-#: status/templates/status/usage.html:4 status/templates/status/usage.html:7
-msgid "usage report"
-msgstr "αναφορά χρήσης"
-
-#: status/templates/status/usage.html:38 websites/models.py:57
-#: websites/models.py:76
-msgid "domain"
-msgstr "domain"
-
-#: status/templates/status/usage.html:56
-msgid "FQDN"
-msgstr ""
-"Copy text   \t\n"
-"FQDN"
-
 #: websites/models.py:38
 msgid "Missing slash after the hostname."
 msgstr "Λείπει η κάθετος μετά το όνομα."
+
+#: websites/models.py:57 websites/models.py:78
+msgid "domain"
+msgstr "domain"
 
 #: websites/models.py:58
 msgid "domains"
 msgstr "domains"
 
-#: websites/models.py:78
+#: websites/models.py:75
+msgid "URL"
+msgstr "Διεύθυνση"
+
+#: websites/models.py:80
 msgid "profanities"
 msgstr "βρισιές"
 
-#: websites/models.py:80
+#: websites/models.py:82
 msgid "fetched"
 msgstr "φερμένα"
 
-#: websites/models.py:91
+#: websites/models.py:93
 msgid "websites"
 msgstr "ιστότοποι"
 
@@ -1469,7 +1399,7 @@ msgstr "ιστότοποι"
 msgid "website overview"
 msgstr "επισκόπηση ιστότοπου"
 
-#: websites/templates/websites/details.html:37
+#: websites/templates/websites/details.html:42
 #: websites/templates/websites/unknown.html:18
 msgid "other pages on the same domain"
 msgstr "άλλες σελίδες στο ίδιο domain"
@@ -1481,4 +1411,4 @@ msgstr "άγνωστος ιστότοπος"
 
 #: websites/templates/websites/unknown.html:11
 msgid "This address was never submitted, or removed after inactivity."
-msgstr "Αυτή η διεύθυνση δεν υποβλήθηκε ποτέ, ή αφαιρέθει λόγω αδράνειας."
+msgstr "Αυτή η διεύθυνση δεν υποβλήθηκε ποτέ, ή αφαιρέθηκε λόγω αδράνειας."

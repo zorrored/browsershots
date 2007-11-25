@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-21 12:28+0100\n"
-"PO-Revision-Date: 2007-09-21 18:48+0000\n"
+"POT-Creation-Date: 2007-11-25 13:37+0100\n"
+"PO-Revision-Date: 2007-11-24 01:49+0000\n"
 "Last-Translator: 3ARRANO.com <3arrano@3arrano.com>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-21 11:13+0000\n"
+"X-Launchpad-Export-Date: 2007-11-25 12:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: accounts/views.py:63
@@ -108,9 +108,9 @@ msgid "email sent"
 msgstr "mezua bidalita"
 
 #: accounts/views.py:221
-#, fuzzy, python-format
+#, python-format
 msgid "A verification email was sent to %(address)s."
-msgstr "Egiaztaketa mezua bidali da %(email)s helbidera."
+msgstr ""
 
 #: accounts/views.py:222
 msgid "Check your email inbox and follow the instructions in the message."
@@ -238,9 +238,9 @@ msgstr "Nabigatzaile hau erregistratu argazkientzat?"
 msgid "recent factory errors"
 msgstr ""
 
-#: accounts/templates/accounts/profile.html:38 browsers/models.py:88
-#: factories/models.py:91 factories/models.py:202 factories/models.py:228
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:369
+#: accounts/templates/accounts/profile.html:38 browsers/models.py:93
+#: factories/models.py:92 factories/models.py:204 factories/models.py:230
+#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
 #: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "faktoria"
@@ -261,170 +261,170 @@ msgstr ""
 msgid "account balance"
 msgstr ""
 
-#: browsers/models.py:38 browsers/models.py:61 factories/models.py:51
+#: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:26 platforms/models.py:34
-#: platforms/models.py:58 platforms/models.py:87 websites/models.py:46
+#: platforms/models.py:58 platforms/models.py:87 websites/models.py:47
 msgid "name"
 msgstr "izena"
 
-#: browsers/models.py:39
+#: browsers/models.py:40
 msgid "e.g. Gecko / KHTML / AppleWebKit"
 msgstr ""
 
-#: browsers/models.py:41 browsers/models.py:64 platforms/models.py:64
+#: browsers/models.py:42 browsers/models.py:67 platforms/models.py:64
 msgid "maker"
 msgstr ""
 
-#: browsers/models.py:51 browsers/models.py:100
+#: browsers/models.py:49 browsers/models.py:105
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:42
 msgid "engine"
 msgstr "motorea"
 
-#: browsers/models.py:52
+#: browsers/models.py:50
 msgid "engines"
 msgstr ""
 
-#: browsers/models.py:62
+#: browsers/models.py:65
 msgid "e.g. Firefox / MSIE / Safari"
 msgstr ""
 
-#: browsers/models.py:66
+#: browsers/models.py:69
 msgid "terminal"
 msgstr ""
 
-#: browsers/models.py:66
+#: browsers/models.py:69
 msgid "Is this a text-mode browser?"
 msgstr ""
 
-#: browsers/models.py:68
+#: browsers/models.py:71
 msgid "unusual"
 msgstr ""
 
-#: browsers/models.py:68
+#: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
 msgstr ""
 
-#: browsers/models.py:75 browsers/models.py:92 requests/models.py:361
+#: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
 msgstr ""
 
-#: browsers/models.py:76
+#: browsers/models.py:79
 msgid "browser groups"
 msgstr ""
 
-#: browsers/models.py:90
+#: browsers/models.py:95
 msgid "user agent"
 msgstr ""
 
-#: browsers/models.py:94 features/models.py:60 features/models.py:81
+#: browsers/models.py:99 features/models.py:60 features/models.py:81
 #: features/models.py:102 platforms/models.py:60
 msgid "version"
 msgstr ""
 
-#: browsers/models.py:96 requests/models.py:363
+#: browsers/models.py:101 requests/models.py:376
 msgid "major"
 msgstr ""
 
-#: browsers/models.py:98 requests/models.py:365
+#: browsers/models.py:103 requests/models.py:378
 msgid "minor"
 msgstr ""
 
-#: browsers/models.py:102
+#: browsers/models.py:107
 msgid "engine version"
 msgstr ""
 
-#: browsers/models.py:104 factories/templates/factories/details.html:29
-#: requests/models.py:61 screenshots/templates/screenshots/details.html:46
+#: browsers/models.py:109 factories/templates/factories/details.html:29
+#: requests/models.py:62 screenshots/templates/screenshots/details.html:46
 #: start/forms/features.py:66
 msgid "Javascript"
 msgstr "Javascript"
 
-#: browsers/models.py:106 factories/templates/factories/details.html:30
-#: requests/models.py:63 screenshots/templates/screenshots/details.html:50
+#: browsers/models.py:111 factories/templates/factories/details.html:30
+#: requests/models.py:64 screenshots/templates/screenshots/details.html:50
 #: start/forms/features.py:68
 msgid "Java"
 msgstr "Java"
 
-#: browsers/models.py:108 factories/templates/factories/details.html:31
-#: requests/models.py:65 screenshots/templates/screenshots/details.html:54
+#: browsers/models.py:113 factories/templates/factories/details.html:31
+#: requests/models.py:66 screenshots/templates/screenshots/details.html:54
 #: start/forms/features.py:70
 msgid "Flash"
 msgstr "Flash"
 
-#: browsers/models.py:110 factories/templates/factories/details.html:35
+#: browsers/models.py:115 factories/templates/factories/details.html:35
 msgid "command"
 msgstr "agindua"
 
-#: browsers/models.py:111
+#: browsers/models.py:116
 msgid "Leave empty to use default command."
 msgstr ""
 
-#: browsers/models.py:113
+#: browsers/models.py:118
 msgid "active"
 msgstr ""
 
-#: browsers/models.py:114
+#: browsers/models.py:119
 msgid "Designates that this browser is currently installed."
 msgstr ""
 
-#: browsers/models.py:116 factories/models.py:67
+#: browsers/models.py:121 factories/models.py:68
 #: factories/templates/factories/details.html:32
 msgid "last upload"
 msgstr "azken igoera"
 
-#: browsers/models.py:118 factories/models.py:69
+#: browsers/models.py:123 factories/models.py:70
 #: factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17
 msgid "uploads per hour"
 msgstr "igoerak orduko"
 
-#: browsers/models.py:120 factories/models.py:71
+#: browsers/models.py:125 factories/models.py:72
 #: factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18
 msgid "uploads per day"
 msgstr "igoerak eguneko"
 
-#: browsers/models.py:122 factories/models.py:76
+#: browsers/models.py:127 factories/models.py:77
 #: factories/templates/factories/details.html:13 nonces/models.py:43
 msgid "created"
 msgstr "sortua"
 
-#: browsers/models.py:144 requests/models.py:373
+#: browsers/models.py:149 requests/models.py:386
 #: requests/templates/requests/overview.html:15 screenshots/models.py:117
 #: screenshots/templates/screenshots/details.html:38
 msgid "browser"
 msgstr "nabigatzailea"
 
-#: browsers/models.py:145
+#: browsers/models.py:150
 msgid "browsers"
 msgstr ""
 
-#: browsers/models.py:169
+#: browsers/models.py:176
 msgid "deactivate"
 msgstr ""
 
-#: browsers/models.py:172
+#: browsers/models.py:179
 msgid "activate"
 msgstr ""
 
-#: browsers/views.py:46
+#: browsers/views.py:47
 msgid "password"
 msgstr ""
 
-#: browsers/views.py:148
+#: browsers/views.py:149
 msgid "Password mismatch."
 msgstr ""
 
-#: browsers/views.py:246 requests/views.py:143 requests/views.py:148
+#: browsers/views.py:245 requests/views.py:143 requests/views.py:148
 msgid "invalid request"
 msgstr ""
 
-#: browsers/views.py:251
+#: browsers/views.py:250
 msgid "permission denied"
 msgstr ""
 
-#: browsers/views.py:284
+#: browsers/views.py:283
 msgid "This browser is already inactive."
 msgstr ""
 
@@ -493,8 +493,8 @@ msgstr "zerbitzariaren barne akatsa"
 msgid "home"
 msgstr "sarrera"
 
-#: common/templates/base.html:25 screenshots/models.py:141
-#: screenshots/models.py:299
+#: common/templates/base.html:25 screenshots/models.py:143
+#: screenshots/models.py:301
 msgid "screenshots"
 msgstr "argazkiak"
 
@@ -502,7 +502,7 @@ msgstr "argazkiak"
 msgid "queue"
 msgstr "ilara"
 
-#: common/templates/base.html:27 factories/models.py:92
+#: common/templates/base.html:27 factories/models.py:93
 msgid "factories"
 msgstr "faktoriak"
 
@@ -557,74 +557,74 @@ msgstr "%(bytes)s byte"
 msgid "%(count)d database queries"
 msgstr "%(count)d datu baseko kontsulta"
 
-#: factories/models.py:52
+#: factories/models.py:53
 msgid "Hostname (lowercase)"
 msgstr "Ostalari-izena (minuskulaz)"
 
-#: factories/models.py:54
+#: factories/models.py:55
 msgid "administrator"
 msgstr "administratzailea"
 
-#: factories/models.py:56 factories/templates/factories/details.html:16
+#: factories/models.py:57 factories/templates/factories/details.html:16
 #: screenshots/templates/screenshots/details.html:62
 msgid "sponsor"
 msgstr "babeslea"
 
-#: factories/models.py:58
+#: factories/models.py:59
 msgid "hardware architecture"
 msgstr "hardware arkitektura"
 
-#: factories/models.py:60 factories/templates/factories/details.html:11
+#: factories/models.py:61 factories/templates/factories/details.html:11
 #: platforms/models.py:71 screenshots/templates/screenshots/details.html:70
 msgid "operating system"
 msgstr "sistema eragilea"
 
-#: factories/models.py:62 requests/models.py:69
+#: factories/models.py:63 requests/models.py:70
 msgid "IP"
 msgstr "IPa"
 
-#: factories/models.py:63
+#: factories/models.py:64
 msgid "The last poll came from this IP address."
 msgstr "Azken bozka IP helbide honetatik eman zen."
 
-#: factories/models.py:65
+#: factories/models.py:66
 msgid "last poll"
 msgstr "azken bozka"
 
-#: factories/models.py:73 requests/models.py:314
+#: factories/models.py:74 requests/models.py:327
 msgid "queue estimate"
 msgstr "gutxi gora-beherako ilara"
 
-#: factories/models.py:74
+#: factories/models.py:75
 msgid "Seconds between screenshot request and upload."
 msgstr "Argazki eskaera eta igoeraren arteko segundoak."
 
-#: factories/models.py:205 screenshots/models.py:119
+#: factories/models.py:207 screenshots/models.py:119
 msgid "width"
 msgstr "zabalera"
 
-#: factories/models.py:207 screenshots/models.py:121
+#: factories/models.py:209 screenshots/models.py:121
 msgid "height"
 msgstr "garaiera"
 
-#: factories/models.py:214 start/forms/options.py:64
+#: factories/models.py:216 start/forms/options.py:64
 msgid "screen size"
 msgstr "pantaila-neurria"
 
-#: factories/models.py:215 factories/templates/factories/details.html:70
+#: factories/models.py:217 factories/templates/factories/details.html:70
 msgid "screen sizes"
 msgstr "pantaila-neurriak"
 
-#: factories/models.py:231 factories/templates/factories/details.html:101
-#: factories/templates/factories/details.html:107 requests/models.py:59
+#: factories/models.py:233 factories/templates/factories/details.html:101
+#: factories/templates/factories/details.html:107 requests/models.py:60
 msgid "bits per pixel"
 msgstr "bit/pixel"
 
-#: factories/models.py:238 start/forms/options.py:66
+#: factories/models.py:240 start/forms/options.py:66
 msgid "color depth"
 msgstr "kolore sakontasuna"
 
-#: factories/models.py:239 factories/templates/factories/details.html:96
+#: factories/models.py:241 factories/templates/factories/details.html:96
 msgid "color depths"
 msgstr "kolore sakontasunak"
 
@@ -772,11 +772,11 @@ msgstr ""
 msgid "Flash versions"
 msgstr ""
 
-#: messages/models.py:37 screenshots/models.py:345
+#: messages/models.py:37 screenshots/models.py:347
 msgid "error code"
 msgstr "akats kodea"
 
-#: messages/models.py:39 screenshots/models.py:347
+#: messages/models.py:39 screenshots/models.py:349
 msgid "error message"
 msgstr "akats mezua"
 
@@ -796,7 +796,7 @@ msgstr "faktoriaren akats mezuak"
 msgid "hashkey"
 msgstr ""
 
-#: nonces/models.py:37 screenshots/models.py:351
+#: nonces/models.py:37 screenshots/models.py:353
 msgid "IP address"
 msgstr ""
 
@@ -816,7 +816,7 @@ msgstr ""
 msgid "position"
 msgstr ""
 
-#: platforms/models.py:46 platforms/models.py:56 requests/models.py:359
+#: platforms/models.py:46 platforms/models.py:56 requests/models.py:372
 #: requests/templates/requests/overview.html:14
 msgid "platform"
 msgstr ""
@@ -841,154 +841,164 @@ msgstr ""
 msgid "architectures"
 msgstr ""
 
-#: requests/models.py:53 screenshots/models.py:113 websites/models.py:89
+#: requests/models.py:54 screenshots/models.py:113 websites/models.py:92
 msgid "website"
 msgstr "webgunea"
 
-#: requests/models.py:55
+#: requests/models.py:56
 msgid "screen width"
 msgstr "pantailaren zabalera"
 
-#: requests/models.py:57
+#: requests/models.py:58
 msgid "screen height"
 msgstr "pantailaren garaiera"
 
-#: requests/models.py:67
+#: requests/models.py:68
 msgid "submitter"
 msgstr ""
 
-#: requests/models.py:71 websites/models.py:48 websites/models.py:81
+#: requests/models.py:72 websites/models.py:49 websites/models.py:84
 msgid "submitted"
 msgstr ""
 
-#: requests/models.py:73
+#: requests/models.py:74
 msgid "expire"
 msgstr ""
 
-#: requests/models.py:91 requests/models.py:357
+#: requests/models.py:92 requests/models.py:370
 msgid "request group"
 msgstr ""
 
-#: requests/models.py:92
+#: requests/models.py:93
 msgid "request groups"
 msgstr ""
 
-#: requests/models.py:99
+#: requests/models.py:102
 msgid "screenshot request group"
 msgstr ""
 
-#: requests/models.py:120
+#: requests/models.py:123
 #, python-format
 msgid "submitted %(interval)s ago"
 msgstr "orain dela %(interval)s"
 
-#: requests/models.py:134
+#: requests/models.py:137
 #, python-format
 msgid "expires in %(interval)s"
 msgstr "iraungitze-data: %(interval)s"
 
-#: requests/models.py:139
+#: requests/models.py:142
 msgid "extend"
 msgstr ""
 
-#: requests/models.py:154 start/forms/options.py:41
+#: requests/models.py:157 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
 msgstr "%(width)d pixel zabal"
 
-#: requests/models.py:157 start/forms/options.py:54
+#: requests/models.py:160 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
 msgstr "%(color_depth)d bit/pixel"
 
-#: requests/models.py:210
+#: requests/models.py:213
 msgid "Your screenshots will appear here when they are uploaded."
 msgstr "Zure pantaila-argazkiak hemen erakutsiko dira igo bezain laster."
 
-#: requests/models.py:212
+#: requests/models.py:215
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr "[Berritu orri hau] edo lastermarka egin eta itzuli geroago."
 
-#: requests/models.py:214
+#: requests/models.py:217
 msgid "Your screenshot requests have expired."
 msgstr "Zure argazki eskariak iraungi egin dira."
 
-#: requests/models.py:224
+#: requests/models.py:227
 #, python-format
 msgid "%(count)d browsers selected"
 msgstr "%(count)d nabigatzaile aukeratuta"
 
-#: requests/models.py:229
+#: requests/models.py:235
 #, python-format
 msgid "%(count)d starting"
 msgstr ""
 
-#: requests/models.py:232
+#: requests/models.py:237
 #, python-format
 msgid "%(count)d loading"
 msgstr ""
 
-#: requests/models.py:235
+#: requests/models.py:239 requests/models.py:242
 #, python-format
 msgid "%(count)d uploaded"
 msgstr ""
 
-#: requests/models.py:310
+#: requests/models.py:245
+#, fuzzy, python-format
+msgid "%(count)d failed"
+msgstr "%(count)d datu baseko kontsulta"
+
+#: requests/models.py:248
+#, fuzzy, python-format
+msgid "%(count)d expired"
+msgstr "%(count)d nabigatzaile aukeratuta"
+
+#: requests/models.py:323
 #, python-format
 msgid "%(min_interval)s to %(max_interval)s"
 msgstr ""
 
-#: requests/models.py:312
+#: requests/models.py:325
 msgid "details"
 msgstr ""
 
-#: requests/models.py:338
+#: requests/models.py:351
 msgid "download all screenshots"
 msgstr ""
 
-#: requests/models.py:341
+#: requests/models.py:354
 #, python-format
 msgid "download %(count)d screenshots"
 msgstr ""
 
-#: requests/models.py:367
+#: requests/models.py:380
 msgid "priority"
 msgstr "lehentasuna"
 
-#: requests/models.py:371
+#: requests/models.py:384
 msgid "locked"
 msgstr "blokeatuta"
 
-#: requests/models.py:376
+#: requests/models.py:389
 msgid "redirected"
 msgstr "berbideratuta"
 
-#: requests/models.py:378 screenshots/models.py:140 screenshots/models.py:343
+#: requests/models.py:391 screenshots/models.py:142 screenshots/models.py:345
 msgid "screenshot"
 msgstr "argazkia"
 
-#: requests/models.py:395
+#: requests/models.py:408
 msgid "request"
 msgstr ""
 
-#: requests/models.py:396
+#: requests/models.py:409
 msgid "requests"
 msgstr "eskariak"
 
-#: requests/models.py:417 screenshots/models.py:123
+#: requests/models.py:432 screenshots/models.py:125
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
 msgstr "igota"
 
-#: requests/models.py:419
+#: requests/models.py:434
 msgid "failed"
 msgstr "huts egin du"
 
-#: requests/models.py:421
+#: requests/models.py:436
 msgid "loading"
 msgstr "eskuratzen"
 
-#: requests/models.py:423
+#: requests/models.py:438
 msgid "starting"
 msgstr ""
 
@@ -1107,46 +1117,51 @@ msgstr ""
 msgid "user"
 msgstr "erabiltzailea"
 
-#: screenshots/models.py:271
+#: screenshots/models.py:123
+#, fuzzy
+msgid "colors"
+msgstr "kolore sakontasunak"
+
+#: screenshots/models.py:273
 msgid "first"
 msgstr ""
 
-#: screenshots/models.py:272
+#: screenshots/models.py:274
 msgid "previous"
 msgstr ""
 
-#: screenshots/models.py:273
+#: screenshots/models.py:275
 msgid "next"
 msgstr ""
 
-#: screenshots/models.py:274
+#: screenshots/models.py:276
 msgid "last"
 msgstr ""
 
-#: screenshots/models.py:285
+#: screenshots/models.py:287
 #, python-format
 msgid "%(index)d out of %(total)d"
 msgstr ""
 
-#: screenshots/models.py:309
+#: screenshots/models.py:311
 #, python-format
 msgid "with %(browser)s"
 msgstr ""
 
-#: screenshots/models.py:320
+#: screenshots/models.py:322
 #, python-format
 msgid "on %(platform)s"
 msgstr ""
 
-#: screenshots/models.py:349
+#: screenshots/models.py:351
 msgid "reported"
 msgstr ""
 
-#: screenshots/models.py:359
+#: screenshots/models.py:361
 msgid "problem report"
 msgstr ""
 
-#: screenshots/models.py:360
+#: screenshots/models.py:362
 msgid "problem reports"
 msgstr ""
 
@@ -1199,11 +1214,11 @@ msgstr "Zure argazki eskariak iraungi egin dira."
 msgid "Please log in with your username and password."
 msgstr ""
 
-#: start/views.py:183
+#: start/views.py:184
 msgid "select all"
 msgstr ""
 
-#: start/views.py:184
+#: start/views.py:185
 msgid "deselect all"
 msgstr "deshautatu dena"
 
@@ -1216,46 +1231,46 @@ msgstr ""
 msgid "Enter your web address here:"
 msgstr "Sartu zure web helbidea hemen:"
 
-#: start/forms/url.py:90
+#: start/forms/url.py:91
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "Ez da %(scheme)s URL eskema onartzen."
 
-#: start/forms/url.py:94
+#: start/forms/url.py:95
 msgid "Malformed URL (server name not specified)."
 msgstr "Gaizki eratutako URLa (zerbitzari izena ez da zehaztu)."
 
-#: start/forms/url.py:107
+#: start/forms/url.py:123
 #, fuzzy, python-format
 msgid "Could not resolve IP address for %(hostname)s."
 msgstr "Ezin izan da HTTP eskaria bidali %(hostname)s helbidera."
 
-#: start/forms/url.py:120
+#: start/forms/url.py:136
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
 msgstr ""
 
-#: start/forms/url.py:138
+#: start/forms/url.py:154
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Ezin izan da %(hostname)s helbidera konektatu."
 
-#: start/forms/url.py:140
+#: start/forms/url.py:156
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Ezin izan da HTTP eskaria bidali %(hostname)s helbidera."
 
-#: start/forms/url.py:142
+#: start/forms/url.py:158
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Ezin izan da %(hostname)s orriko edukia eskuratu."
 
-#: start/forms/url.py:146
+#: start/forms/url.py:162
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Zerbitzariak ez du %d segundoren buruan erantzun."
 
-#: start/forms/url.py:187
+#: start/forms/url.py:206
 msgid "Malformed URL (database integrity error)."
 msgstr "Gaizki eratutako URLa (datubasearen osotasun akatsa)."
 
@@ -1326,31 +1341,31 @@ msgstr ""
 msgid "premium sponsors"
 msgstr ""
 
-#: websites/models.py:37
+#: websites/models.py:38
 msgid "Missing slash after the hostname."
 msgstr ""
 
-#: websites/models.py:56 websites/models.py:75
+#: websites/models.py:57 websites/models.py:78
 msgid "domain"
 msgstr ""
 
-#: websites/models.py:57
+#: websites/models.py:58
 msgid "domains"
 msgstr ""
 
-#: websites/models.py:72
+#: websites/models.py:75
 msgid "URL"
 msgstr "URLa"
 
-#: websites/models.py:77
+#: websites/models.py:80
 msgid "profanities"
 msgstr ""
 
-#: websites/models.py:79
+#: websites/models.py:82
 msgid "fetched"
 msgstr ""
 
-#: websites/models.py:90
+#: websites/models.py:93
 msgid "websites"
 msgstr ""
 
@@ -1399,3 +1414,6 @@ msgstr ""
 
 #~ msgid "premium"
 #~ msgstr "premium"
+
+#~ msgid "A verification email was sent to %(email)s."
+#~ msgstr "Egiaztaketa mezua bidali da %(email)s helbidera."
