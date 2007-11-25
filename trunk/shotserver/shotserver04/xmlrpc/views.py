@@ -43,7 +43,7 @@ def xmlrpc(http_request):
     """
     try:
         is_post_request = len(http_request.POST)
-    except IOError, error:
+    except (IOError, SystemError), error:
         return HttpResponse(content=str(error), status=500)
     if is_post_request:
         response = HttpResponse()
