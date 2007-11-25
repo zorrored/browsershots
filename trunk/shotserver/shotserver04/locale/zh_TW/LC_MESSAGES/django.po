@@ -7,207 +7,206 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-23 07:38+0200\n"
+"POT-Creation-Date: 2007-11-25 13:38+0100\n"
 "PO-Revision-Date: 2007-10-22 16:28+0000\n"
 "Last-Translator: Refly Kaplin <refly@refly.net>\n"
 "Language-Team: Traditional Chinese <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-21 11:13+0000\n"
+"X-Launchpad-Export-Date: 2007-11-25 12:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: accounts/views.py:59
+#: accounts/views.py:63
 msgid "You're already signed in"
 msgstr "您已經登入了"
 
-#: accounts/views.py:60
+#: accounts/views.py:64
 msgid "Please log out and then try again."
 msgstr "請登出後重試"
 
-#: accounts/views.py:66
+#: accounts/views.py:73
 msgid "Username"
 msgstr ""
 
-#: accounts/views.py:67
+#: accounts/views.py:74
 msgid "Password"
 msgstr ""
 
-#: accounts/views.py:84
+#: accounts/views.py:91
 msgid "Please enable cookies in your browser."
 msgstr "請開啟您瀏覽器的Cookies功能"
 
-#: accounts/views.py:90
+#: accounts/views.py:97
 msgid "Incorrect username or password."
 msgstr "錯誤的使用者帳號或密碼"
 
-#: accounts/views.py:92
+#: accounts/views.py:99
 msgid "This account is inactive."
 msgstr "帳號尚未啟用"
 
-#: accounts/views.py:94 accounts/views.py:153
+#: accounts/views.py:101 accounts/views.py:166
 msgid "Welcome to Browsershots!"
 msgstr "歡迎來到Browsershots!"
 
-#: accounts/views.py:95
+#: accounts/views.py:102
 msgid "let me in"
 msgstr ""
 
-#: accounts/views.py:102
+#: accounts/views.py:109
 msgid "Forgot your password?"
 msgstr "忘記密碼"
 
-#: accounts/views.py:103
+#: accounts/views.py:110
 msgid "Create a new account?"
 msgstr "建立新帳號"
 
-#: accounts/views.py:115
+#: accounts/views.py:125
 msgid "logged out"
 msgstr "已登出"
 
-#: accounts/views.py:117
+#: accounts/views.py:127
 msgid "You have successfully logged out."
 msgstr "你已經成功登出了"
 
-#: accounts/views.py:150 accounts/templates/accounts/profile.html:8
-#: points/templates/points/overview.html:8
+#: accounts/views.py:163 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
 msgstr "%(first_name)s 您好"
 
-#: accounts/views.py:179
+#: accounts/views.py:192
 msgid "too many verification emails"
 msgstr "過多的確認信"
 
-#: accounts/views.py:180
+#: accounts/views.py:193
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr "你的IP在24小時內索取過多E-mail"
 
-#: accounts/views.py:181 factories/views.py:53 start/views.py:67
+#: accounts/views.py:194 factories/views.py:55 start/views.py:83
 msgid "Please try again later."
 msgstr "請稍後再試"
 
-#: accounts/views.py:184
+#: accounts/views.py:197
 msgid "email verification"
 msgstr "信箱驗證"
 
-#: accounts/views.py:186
+#: accounts/views.py:199
 msgid "send email"
 msgstr "寄信"
 
-#: accounts/views.py:204
+#: accounts/views.py:217
 msgid "email error"
 msgstr "信箱錯誤"
 
-#: accounts/views.py:205
+#: accounts/views.py:218
 msgid "Could not send email."
 msgstr "無法寄信"
 
-#: accounts/views.py:207
+#: accounts/views.py:220
 msgid "email sent"
 msgstr "信已寄出"
 
-#: accounts/views.py:208
+#: accounts/views.py:221
 #, python-format
-msgid "A verification email was sent to %(email)s."
-msgstr "確認信已經送至%(email)s"
+msgid "A verification email was sent to %(address)s."
+msgstr ""
 
-#: accounts/views.py:209
+#: accounts/views.py:222
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr "請收信並且依照下列指示"
 
-#: accounts/views.py:210
+#: accounts/views.py:223
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
 
-#: accounts/views.py:240
+#: accounts/views.py:251
 msgid "Username must start with a lowercase letter."
 msgstr "帳號必須由小寫英文開頭"
 
-#: accounts/views.py:244
+#: accounts/views.py:255
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr "帳號僅能由小寫英文、數字、底線(_)或減號(-)所組成"
 
-#: accounts/views.py:247
+#: accounts/views.py:258
 #, fuzzy
 msgid "This username is reserved."
 msgstr "這個帳號已被保留"
 
-#: accounts/views.py:268
+#: accounts/views.py:278
 #, python-format
 msgid "The password must have %d or more characters."
 msgstr "密碼必須要有%d或更多字元"
 
-#: accounts/views.py:272
+#: accounts/views.py:282
 msgid "The password must not be completely numeric."
 msgstr "密碼不能全部都是數字"
 
-#: accounts/views.py:285
+#: accounts/views.py:295
 msgid "Repeat password is not the same."
 msgstr "確認密碼不相同"
 
-#: accounts/views.py:306
+#: accounts/views.py:316
 msgid "This username is already taken."
 msgstr "帳號已被使用"
 
-#: accounts/views.py:320
+#: accounts/views.py:330
 msgid "Wrong IP address"
 msgstr "錯誤的IP位址"
 
-#: accounts/views.py:321
+#: accounts/views.py:331
 msgid "The verification email was requested from a different IP address."
 msgstr "另外一個IP索取已經索取確認信"
 
-#: accounts/views.py:323
+#: accounts/views.py:333
 msgid "Bad verification code"
 msgstr "錯誤的驗證碼"
 
-#: accounts/views.py:324
+#: accounts/views.py:334
 msgid "The verification code has no email address."
 msgstr "驗證碼不含有E-mail"
 
-#: accounts/views.py:326
+#: accounts/views.py:336
 msgid "Verification code expired"
 msgstr "驗證碼已過期"
 
-#: accounts/views.py:327
-msgid "The verification email was requested more than 30 minutes ago."
-msgstr "驗證信已經在三十分鐘前索取過了"
+#: accounts/views.py:337
+msgid "The verification email was requested more than 24 hours ago."
+msgstr ""
 
-#: accounts/views.py:338
+#: accounts/views.py:351
 msgid "choose a new password"
 msgstr "選擇新密碼"
 
-#: accounts/views.py:340
+#: accounts/views.py:353
 msgid "change password"
 msgstr "更改密碼"
 
-#: accounts/views.py:347
+#: accounts/views.py:360
 msgid "Password changed"
 msgstr "密碼已更改"
 
-#: accounts/views.py:348
+#: accounts/views.py:361
 msgid "Your new password has been saved."
 msgstr "您的新密碼已經儲存"
 
-#: accounts/views.py:349 accounts/views.py:370
+#: accounts/views.py:362 accounts/views.py:386
 msgid "Click the link in the top right corner to log in."
 msgstr "按下右上方的連結登入"
 
-#: accounts/views.py:358
+#: accounts/views.py:374
 msgid "create a new account"
 msgstr "建立新帳號"
 
-#: accounts/views.py:360
+#: accounts/views.py:376
 msgid "create account"
 msgstr "建立帳號"
 
-#: accounts/views.py:368
+#: accounts/views.py:384
 msgid "Account created"
 msgstr "帳號已建立"
 
-#: accounts/views.py:369
+#: accounts/views.py:385
 msgid "A new user account was created."
 msgstr "新的使用者帳號已經建立"
 
@@ -236,10 +235,10 @@ msgstr "將這個瀏覽器註冊為抓圖使用"
 msgid "recent factory errors"
 msgstr ""
 
-#: accounts/templates/accounts/profile.html:38 browsers/models.py:87
-#: factories/models.py:90 factories/models.py:183 factories/models.py:209
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:288
-#: screenshots/models.py:106 screenshots/templates/screenshots/details.html:58
+#: accounts/templates/accounts/profile.html:38 browsers/models.py:93
+#: factories/models.py:92 factories/models.py:204 factories/models.py:230
+#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
+#: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "廠房"
 
@@ -256,175 +255,173 @@ msgid "age"
 msgstr "年齡"
 
 #: accounts/templates/accounts/profile.html:57
-#: points/templates/points/overview.html:14
 msgid "account balance"
 msgstr ""
 
-#: browsers/models.py:37 browsers/models.py:60 factories/models.py:50
+#: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:26 platforms/models.py:34
-#: platforms/models.py:58 platforms/models.py:87 sponsors/models.py:35
-#: websites/models.py:47
+#: platforms/models.py:58 platforms/models.py:87 websites/models.py:47
 msgid "name"
 msgstr "機器名稱"
 
-#: browsers/models.py:38
+#: browsers/models.py:40
 msgid "e.g. Gecko / KHTML / AppleWebKit"
 msgstr "例如 Gecko / KHTML / AppleWebKit"
 
-#: browsers/models.py:40 browsers/models.py:63 platforms/models.py:64
+#: browsers/models.py:42 browsers/models.py:67 platforms/models.py:64
 msgid "maker"
 msgstr "創造者"
 
-#: browsers/models.py:50 browsers/models.py:99
+#: browsers/models.py:49 browsers/models.py:105
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:42
 msgid "engine"
 msgstr "引擎"
 
-#: browsers/models.py:51
+#: browsers/models.py:50
 msgid "engines"
 msgstr "引擎"
 
-#: browsers/models.py:61
+#: browsers/models.py:65
 msgid "e.g. Firefox / MSIE / Safari"
 msgstr "例如 Firefox / MSIE / Safari"
 
-#: browsers/models.py:65
+#: browsers/models.py:69
 msgid "terminal"
 msgstr ""
 
-#: browsers/models.py:65
+#: browsers/models.py:69
 msgid "Is this a text-mode browser?"
 msgstr "這是一個文字瀏覽器嗎？"
 
-#: browsers/models.py:67
+#: browsers/models.py:71
 msgid "unusual"
 msgstr "不尋常的"
 
-#: browsers/models.py:67
+#: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
 msgstr "隱藏最近的抓圖"
 
-#: browsers/models.py:74 browsers/models.py:91 requests/models.py:280
+#: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
 msgstr "瀏覽器群組"
 
-#: browsers/models.py:75
+#: browsers/models.py:79
 msgid "browser groups"
 msgstr "瀏覽器群組"
 
-#: browsers/models.py:89
+#: browsers/models.py:95
 msgid "user agent"
 msgstr "使用者引擎"
 
-#: browsers/models.py:93 features/models.py:60 features/models.py:81
+#: browsers/models.py:99 features/models.py:60 features/models.py:81
 #: features/models.py:102 platforms/models.py:60
 msgid "version"
 msgstr ""
 
-#: browsers/models.py:95 requests/models.py:282
+#: browsers/models.py:101 requests/models.py:376
 msgid "major"
 msgstr "主要的"
 
-#: browsers/models.py:97 requests/models.py:284
+#: browsers/models.py:103 requests/models.py:378
 msgid "minor"
 msgstr "次要的"
 
-#: browsers/models.py:101
+#: browsers/models.py:107
 msgid "engine version"
 msgstr "引擎版本"
 
-#: browsers/models.py:103 factories/templates/factories/details.html:29
-#: requests/models.py:59 screenshots/templates/screenshots/details.html:46
+#: browsers/models.py:109 factories/templates/factories/details.html:29
+#: requests/models.py:62 screenshots/templates/screenshots/details.html:46
 #: start/forms/features.py:66
 msgid "Javascript"
 msgstr "JavaScript"
 
-#: browsers/models.py:105 factories/templates/factories/details.html:30
-#: requests/models.py:61 screenshots/templates/screenshots/details.html:50
+#: browsers/models.py:111 factories/templates/factories/details.html:30
+#: requests/models.py:64 screenshots/templates/screenshots/details.html:50
 #: start/forms/features.py:68
 msgid "Java"
 msgstr "Java"
 
-#: browsers/models.py:107 factories/templates/factories/details.html:31
-#: requests/models.py:63 screenshots/templates/screenshots/details.html:54
+#: browsers/models.py:113 factories/templates/factories/details.html:31
+#: requests/models.py:66 screenshots/templates/screenshots/details.html:54
 #: start/forms/features.py:70
 msgid "Flash"
 msgstr "Flash"
 
-#: browsers/models.py:109 factories/templates/factories/details.html:35
+#: browsers/models.py:115 factories/templates/factories/details.html:35
 msgid "command"
 msgstr "命令"
 
-#: browsers/models.py:110
+#: browsers/models.py:116
 msgid "Leave empty to use default command."
 msgstr "空白表示使用預設指令"
 
-#: browsers/models.py:112
+#: browsers/models.py:118
 msgid "active"
 msgstr ""
 
-#: browsers/models.py:113
+#: browsers/models.py:119
 msgid "Designates that this browser is currently installed."
 msgstr ""
 
-#: browsers/models.py:115 factories/models.py:66
+#: browsers/models.py:121 factories/models.py:68
 #: factories/templates/factories/details.html:32
 msgid "last upload"
 msgstr "最近上傳"
 
-#: browsers/models.py:117 factories/models.py:68
+#: browsers/models.py:123 factories/models.py:70
 #: factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17
 msgid "uploads per hour"
 msgstr "每小時上傳次數"
 
-#: browsers/models.py:119 factories/models.py:70
+#: browsers/models.py:125 factories/models.py:72
 #: factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18
 msgid "uploads per day"
 msgstr "每天上傳次數"
 
-#: browsers/models.py:121 factories/models.py:75
+#: browsers/models.py:127 factories/models.py:77
 #: factories/templates/factories/details.html:13 nonces/models.py:43
 msgid "created"
 msgstr "建立"
 
-#: browsers/models.py:143 requests/models.py:292
-#: requests/templates/requests/overview.html:15 screenshots/models.py:108
+#: browsers/models.py:149 requests/models.py:386
+#: requests/templates/requests/overview.html:15 screenshots/models.py:117
 #: screenshots/templates/screenshots/details.html:38
 msgid "browser"
 msgstr ""
 
-#: browsers/models.py:144
+#: browsers/models.py:150
 msgid "browsers"
 msgstr "瀏覽器"
 
-#: browsers/models.py:168
+#: browsers/models.py:176
 msgid "deactivate"
 msgstr "未啟用"
 
-#: browsers/models.py:171
+#: browsers/models.py:179
 msgid "activate"
 msgstr "啟用"
 
-#: browsers/views.py:46
+#: browsers/views.py:47
 msgid "password"
 msgstr ""
 
-#: browsers/views.py:148
+#: browsers/views.py:149
 msgid "Password mismatch."
 msgstr "密碼不符合"
 
-#: browsers/views.py:246 requests/views.py:163 requests/views.py:168
+#: browsers/views.py:245 requests/views.py:143 requests/views.py:148
 msgid "invalid request"
 msgstr "錯誤的要求"
 
-#: browsers/views.py:251
+#: browsers/views.py:250
 msgid "permission denied"
 msgstr ""
 
-#: browsers/views.py:284
+#: browsers/views.py:283
 #, fuzzy
 msgid "This browser is already inactive."
 msgstr "這個瀏覽器已經不再使用"
@@ -463,8 +460,8 @@ msgstr "其他選項"
 #: browsers/templates/browsers/add.html:29
 #, python-format
 msgid ""
-"If your browser group or rendering engine is not available, please write to "
-"%(email)s."
+"If your browser group or rendering engine is not available, please write to %"
+"(email)s."
 msgstr ""
 
 #: browsers/templates/browsers/add.html:43 features/models.py:34
@@ -494,8 +491,8 @@ msgstr "系統內部錯誤"
 msgid "home"
 msgstr "首頁"
 
-#: common/templates/base.html:25 screenshots/models.py:131
-#: screenshots/models.py:288
+#: common/templates/base.html:25 screenshots/models.py:143
+#: screenshots/models.py:301
 msgid "screenshots"
 msgstr "螢幕抓圖"
 
@@ -503,7 +500,7 @@ msgstr "螢幕抓圖"
 msgid "queue"
 msgstr "佇列"
 
-#: common/templates/base.html:27 factories/models.py:91
+#: common/templates/base.html:27 factories/models.py:93
 msgid "factories"
 msgstr "廠房"
 
@@ -523,32 +520,32 @@ msgstr "登出"
 msgid "login"
 msgstr "登入"
 
-#: common/templatetags/hosting_provider.py:44
+#: common/templatetags/hosting_provider.py:45
 #, python-format
 msgid "hosted by %(provider)s"
 msgstr "放置於 %(provider)s"
 
-#: common/templatetags/human.py:50
+#: common/templatetags/human.py:51
 #, python-format
 msgid "%(seconds)d s"
 msgstr "%(seconds)d 秒"
 
-#: common/templatetags/human.py:53 requests/views.py:116
+#: common/templatetags/human.py:54 requests/views.py:126
 #, python-format
 msgid "%(minutes)d min"
 msgstr "%(minutes)d 分"
 
-#: common/templatetags/human.py:56
+#: common/templatetags/human.py:57
 #, python-format
 msgid "%(hours)d h"
 msgstr "%(hours)d 小時"
 
-#: common/templatetags/human.py:58
+#: common/templatetags/human.py:59
 #, python-format
 msgid "%(days)d d"
 msgstr "%(days)d 天"
 
-#: common/templatetags/human.py:103
+#: common/templatetags/human.py:104
 #, python-format
 msgid "%(bytes)s bytes"
 msgstr "%(bytes)s 位元組"
@@ -558,125 +555,124 @@ msgstr "%(bytes)s 位元組"
 msgid "%(count)d database queries"
 msgstr "%(count)d 次資料庫查詢"
 
-#: factories/models.py:51
+#: factories/models.py:53
 msgid "Hostname (lowercase)"
 msgstr "主機名稱"
 
-#: factories/models.py:53
+#: factories/models.py:55
 msgid "administrator"
 msgstr "管理者"
 
-#: factories/models.py:55 factories/templates/factories/details.html:16
-#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:51
+#: factories/models.py:57 factories/templates/factories/details.html:16
+#: screenshots/templates/screenshots/details.html:62
 msgid "sponsor"
 msgstr "贊助者"
 
-#: factories/models.py:57
+#: factories/models.py:59
 msgid "hardware architecture"
 msgstr "硬體結構"
 
-#: factories/models.py:59 factories/templates/factories/details.html:11
+#: factories/models.py:61 factories/templates/factories/details.html:11
 #: platforms/models.py:71 screenshots/templates/screenshots/details.html:70
 msgid "operating system"
 msgstr "作業系統"
 
-#: factories/models.py:61 requests/models.py:67
-#: status/templates/status/usage.html:55
+#: factories/models.py:63 requests/models.py:70
 msgid "IP"
 msgstr "IP 位址"
 
-#: factories/models.py:62
+#: factories/models.py:64
 msgid "The last poll came from this IP address."
 msgstr "來自這個IP位址的最新投票"
 
-#: factories/models.py:64
+#: factories/models.py:66
 msgid "last poll"
 msgstr "上次投票"
 
-#: factories/models.py:72
+#: factories/models.py:74 requests/models.py:327
 msgid "queue estimate"
 msgstr "等候時間"
 
-#: factories/models.py:73
+#: factories/models.py:75
 msgid "Seconds between screenshot request and upload."
 msgstr "從送出請求到完成上傳間的間隔秒數"
 
-#: factories/models.py:186 screenshots/models.py:110
+#: factories/models.py:207 screenshots/models.py:119
 msgid "width"
 msgstr "寬度"
 
-#: factories/models.py:188 screenshots/models.py:112
+#: factories/models.py:209 screenshots/models.py:121
 msgid "height"
 msgstr "高度"
 
-#: factories/models.py:195 start/forms/options.py:64
+#: factories/models.py:216 start/forms/options.py:64
 msgid "screen size"
 msgstr "螢幕大小"
 
-#: factories/models.py:196 factories/templates/factories/details.html:70
+#: factories/models.py:217 factories/templates/factories/details.html:70
 msgid "screen sizes"
 msgstr "螢幕大小"
 
-#: factories/models.py:212 factories/templates/factories/details.html:101
-#: factories/templates/factories/details.html:107 requests/models.py:57
+#: factories/models.py:233 factories/templates/factories/details.html:101
+#: factories/templates/factories/details.html:107 requests/models.py:60
 msgid "bits per pixel"
 msgstr "bits"
 
-#: factories/models.py:219 start/forms/options.py:66
+#: factories/models.py:240 start/forms/options.py:66
 msgid "color depth"
 msgstr "顏色數量"
 
-#: factories/models.py:220 factories/templates/factories/details.html:96
+#: factories/models.py:241 factories/templates/factories/details.html:96
 msgid "color depths"
 msgstr "顏色數量"
 
-#: factories/views.py:51 start/views.py:65
+#: factories/views.py:53 start/views.py:81
 msgid "out of service"
 msgstr "停止服務"
 
-#: factories/views.py:52 start/views.py:66
+#: factories/views.py:54 start/views.py:82
 msgid "No active screenshot factories."
 msgstr "沒有進行中的工作"
 
-#: factories/views.py:65 factories/views.py:73 factories/views.py:85
+#: factories/views.py:74 factories/views.py:85 factories/views.py:103
 #, python-format
 msgid "Value %d is too small."
 msgstr ""
 
-#: factories/views.py:67 factories/views.py:75 factories/views.py:87
+#: factories/views.py:76 factories/views.py:87 factories/views.py:105
 #, python-format
 msgid "Value %d is too big."
 msgstr ""
 
-#: factories/views.py:102 factories/views.py:114
+#: factories/views.py:124 factories/views.py:136
 msgid "Duplicate."
 msgstr ""
 
-#: factories/views.py:104 factories/views.py:116
+#: factories/views.py:126 factories/views.py:138
 msgid "Invalid data."
 msgstr ""
 
-#: factories/views.py:181
+#: factories/views.py:207
 msgid "Name must start with a lowercase letter."
 msgstr "名稱必須是以小寫字母開頭的"
 
-#: factories/views.py:185
+#: factories/views.py:211
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr "只能使用小寫字母,數字以及底線"
 
-#: factories/views.py:188
+#: factories/views.py:214
 msgid "This name is reserved."
 msgstr "這個名稱是保留名稱"
 
-#: factories/views.py:205
+#: factories/views.py:231
 msgid "This name is already taken."
 msgstr "這個名稱已經有人使用了"
 
-#: factories/views.py:221
+#: factories/views.py:250
 msgid "register a new screenshot factory"
 msgstr "註冊一個新的抓圖機器"
 
-#: factories/views.py:222
+#: factories/views.py:251
 msgid "register"
 msgstr "註冊"
 
@@ -774,11 +770,11 @@ msgstr ""
 msgid "Flash versions"
 msgstr ""
 
-#: messages/models.py:37 screenshots/models.py:334
+#: messages/models.py:37 screenshots/models.py:347
 msgid "error code"
 msgstr "錯誤代碼"
 
-#: messages/models.py:39 screenshots/models.py:336
+#: messages/models.py:39 screenshots/models.py:349
 msgid "error message"
 msgstr "錯誤訊息"
 
@@ -794,11 +790,11 @@ msgstr "機器錯誤訊息"
 msgid "factory error messages"
 msgstr "機器錯誤訊息"
 
-#: nonces/models.py:35 screenshots/models.py:102
+#: nonces/models.py:35 screenshots/models.py:109
 msgid "hashkey"
 msgstr ""
 
-#: nonces/models.py:37 screenshots/models.py:340
+#: nonces/models.py:37 screenshots/models.py:353
 msgid "IP address"
 msgstr ""
 
@@ -818,7 +814,7 @@ msgstr ""
 msgid "position"
 msgstr ""
 
-#: platforms/models.py:46 platforms/models.py:56 requests/models.py:278
+#: platforms/models.py:46 platforms/models.py:56 requests/models.py:372
 #: requests/templates/requests/overview.html:14
 msgid "platform"
 msgstr ""
@@ -843,244 +839,193 @@ msgstr ""
 msgid "architectures"
 msgstr ""
 
-#: points/models.py:42
-msgid "sender"
-msgstr "寄件者"
-
-#: points/models.py:45
-msgid "receiver"
-msgstr "收件者"
-
-#: points/models.py:48 requests/models.py:297 screenshots/models.py:130
-#: screenshots/models.py:332
-msgid "screenshot"
-msgstr "螢幕抓圖"
-
-#: points/models.py:51 points/models.py:81 points/models.py:115
-msgid "points"
-msgstr ""
-
-#: points/models.py:53
-msgid "paid"
-msgstr ""
-
-#: points/models.py:56
-msgid "transaction"
-msgstr ""
-
-#: points/models.py:57
-msgid "transactions"
-msgstr ""
-
-#: points/models.py:77 points/models.py:111
-msgid "user"
-msgstr ""
-
-#: points/models.py:79
-msgid "considered"
-msgstr ""
-
-#: points/models.py:84
-msgid "balance"
-msgstr ""
-
-#: points/models.py:85
-msgid "balances"
-msgstr ""
-
-#: points/models.py:113 requests/models.py:314
-msgid "request"
-msgstr ""
-
-#: points/models.py:118
-msgid "bid"
-msgstr ""
-
-#: points/models.py:119
-msgid "bids"
-msgstr ""
-
-#: points/templates/points/overview.html:5
-msgid "account"
-msgstr ""
-
-#: points/templates/points/overview.html:11
-msgid "This is your private account page. Only you can see it."
-msgstr ""
-
-#: points/templates/points/overview.html:18
-msgid "points received"
-msgstr ""
-
-#: points/templates/points/overview.html:31
-msgid "points paid"
-msgstr ""
-
-#: requests/models.py:51 screenshots/models.py:104
-#: status/templates/status/usage.html:21 websites/models.py:90
+#: requests/models.py:54 screenshots/models.py:113 websites/models.py:92
 msgid "website"
 msgstr ""
 
-#: requests/models.py:53
+#: requests/models.py:56
 msgid "screen width"
 msgstr ""
 
-#: requests/models.py:55
+#: requests/models.py:58
 msgid "screen height"
 msgstr ""
 
-#: requests/models.py:65
+#: requests/models.py:68
 msgid "submitter"
 msgstr ""
 
-#: requests/models.py:69 websites/models.py:49 websites/models.py:82
+#: requests/models.py:72 websites/models.py:49 websites/models.py:84
 msgid "submitted"
 msgstr ""
 
-#: requests/models.py:71
+#: requests/models.py:74
 msgid "expire"
 msgstr ""
 
-#: requests/models.py:89 requests/models.py:276
+#: requests/models.py:92 requests/models.py:370
 msgid "request group"
 msgstr ""
 
-#: requests/models.py:90
+#: requests/models.py:93
 msgid "request groups"
 msgstr ""
 
-#: requests/models.py:97
+#: requests/models.py:102
 msgid "screenshot request group"
 msgstr ""
 
-#: requests/models.py:114
+#: requests/models.py:123
 #, python-format
 msgid "submitted %(interval)s ago"
 msgstr ""
 
-#: requests/models.py:127
+#: requests/models.py:137
 #, python-format
 msgid "expires in %(interval)s"
 msgstr ""
 
-#: requests/models.py:137
+#: requests/models.py:142
 msgid "extend"
 msgstr ""
 
-#: requests/models.py:152 start/forms/options.py:41
+#: requests/models.py:157 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
 msgstr ""
 
-#: requests/models.py:155 start/forms/options.py:54
+#: requests/models.py:160 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
 msgstr ""
 
-#: requests/models.py:207
+#: requests/models.py:213
 msgid "Your screenshots will appear here when they are uploaded."
 msgstr ""
 
-#: requests/models.py:209
+#: requests/models.py:215
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr ""
 
-#: requests/models.py:211
+#: requests/models.py:217
 msgid "Your screenshot requests have expired."
 msgstr ""
 
-#: requests/models.py:221
+#: requests/models.py:227
 #, python-format
 msgid "%(count)d browsers selected"
 msgstr ""
 
-#: requests/models.py:226
+#: requests/models.py:235
 #, python-format
 msgid "%(count)d starting"
 msgstr ""
 
-#: requests/models.py:229
+#: requests/models.py:237
 #, python-format
 msgid "%(count)d loading"
 msgstr ""
 
-#: requests/models.py:232
+#: requests/models.py:239 requests/models.py:242
 #, python-format
 msgid "%(count)d uploaded"
 msgstr ""
 
-#: requests/models.py:234
+#: requests/models.py:245
+#, fuzzy, python-format
+msgid "%(count)d failed"
+msgstr "%(count)d 次資料庫查詢"
+
+#: requests/models.py:248
+#, fuzzy, python-format
+msgid "%(count)d expired"
+msgstr "%(count)d 次資料庫查詢"
+
+#: requests/models.py:323
+#, python-format
+msgid "%(min_interval)s to %(max_interval)s"
+msgstr ""
+
+#: requests/models.py:325
 msgid "details"
 msgstr ""
 
-#: requests/models.py:259
+#: requests/models.py:351
 msgid "download all screenshots"
 msgstr ""
 
-#: requests/models.py:262
+#: requests/models.py:354
 #, python-format
 msgid "download %(count)d screenshots"
 msgstr ""
 
-#: requests/models.py:286
+#: requests/models.py:380
 msgid "priority"
 msgstr ""
 
-#: requests/models.py:290
+#: requests/models.py:384
 msgid "locked"
 msgstr ""
 
-#: requests/models.py:295
+#: requests/models.py:389
 msgid "redirected"
 msgstr ""
 
-#: requests/models.py:315
+#: requests/models.py:391 screenshots/models.py:142 screenshots/models.py:345
+msgid "screenshot"
+msgstr "螢幕抓圖"
+
+#: requests/models.py:408
+msgid "request"
+msgstr ""
+
+#: requests/models.py:409
 msgid "requests"
 msgstr ""
 
-#: requests/models.py:336 screenshots/models.py:114
+#: requests/models.py:432 screenshots/models.py:125
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
 msgstr ""
 
-#: requests/models.py:338
+#: requests/models.py:434
 msgid "failed"
 msgstr ""
 
-#: requests/models.py:340
+#: requests/models.py:436
 msgid "loading"
 msgstr ""
 
-#: requests/models.py:342
+#: requests/models.py:438
 msgid "starting"
 msgstr ""
 
-#: requests/views.py:113
-msgid "unavailable"
-msgstr ""
-
-#: requests/views.py:145
+#: requests/views.py:118
 msgid "expired"
 msgstr ""
 
-#: requests/views.py:164
+#: requests/views.py:122
+msgid "unavailable"
+msgstr ""
+
+#: requests/views.py:144
 msgid "You must send a POST request to this page."
 msgstr ""
 
-#: requests/views.py:169
+#: requests/views.py:149
 msgid "You must specify a numeric request group ID."
 msgstr ""
 
-#: requests/views.py:174
+#: requests/views.py:154
 msgid "request group expired"
 msgstr ""
 
-#: requests/views.py:175
+#: requests/views.py:155
 #, python-format
 msgid "This request group already expired %d minutes ago."
 msgstr ""
 
-#: requests/views.py:178 websites/templates/websites/details.html:33
+#: requests/views.py:158 websites/templates/websites/details.html:38
 #: websites/templates/websites/unknown.html:14
 msgid "Request new screenshots?"
 msgstr ""
@@ -1105,115 +1050,124 @@ msgstr ""
 msgid "No pending requests."
 msgstr ""
 
-#: screenshots/models.py:36
+#: screenshots/models.py:38
 msgid "This is not the requested browser."
 msgstr ""
 
-#: screenshots/models.py:37
+#: screenshots/models.py:39
 msgid "This is not the requested operating system."
 msgstr ""
 
-#: screenshots/models.py:39
+#: screenshots/models.py:41
 msgid "This is not the requested Javascript version."
 msgstr ""
 
-#: screenshots/models.py:40
+#: screenshots/models.py:42
 msgid "This is not the requested Java version."
 msgstr ""
 
-#: screenshots/models.py:41
+#: screenshots/models.py:43
 msgid "This is not the requested Flash version."
 msgstr ""
 
-#: screenshots/models.py:42
+#: screenshots/models.py:44
 msgid "A language pack needs to be installed."
 msgstr ""
 
-#: screenshots/models.py:44
+#: screenshots/models.py:46
 msgid "There is a dialog box in front of the browser window."
 msgstr ""
 
-#: screenshots/models.py:45
+#: screenshots/models.py:47
 msgid "The browser window is not maximized."
 msgstr ""
 
-#: screenshots/models.py:46
+#: screenshots/models.py:48
 msgid "The page is not finished loading."
 msgstr ""
 
-#: screenshots/models.py:50
+#: screenshots/models.py:52
 #, python-format
 msgid "This is not %(browser)s."
 msgstr ""
 
-#: screenshots/models.py:51
+#: screenshots/models.py:53
 #, python-format
 msgid "This is not %(operating_system)s."
 msgstr ""
 
-#: screenshots/models.py:53
+#: screenshots/models.py:55
 #, python-format
 msgid "Javascript is not %(javascript)s."
 msgstr ""
 
-#: screenshots/models.py:54
+#: screenshots/models.py:56
 #, python-format
 msgid "Java is not %(java)s."
 msgstr ""
 
-#: screenshots/models.py:55
+#: screenshots/models.py:57
 #, python-format
 msgid "Flash is not %(flash)s."
 msgstr ""
 
-#: screenshots/models.py:260
+#: screenshots/models.py:111
+msgid "user"
+msgstr ""
+
+#: screenshots/models.py:123
+#, fuzzy
+msgid "colors"
+msgstr "顏色數量"
+
+#: screenshots/models.py:273
 msgid "first"
 msgstr ""
 
-#: screenshots/models.py:261
+#: screenshots/models.py:274
 msgid "previous"
 msgstr ""
 
-#: screenshots/models.py:262
+#: screenshots/models.py:275
 msgid "next"
 msgstr ""
 
-#: screenshots/models.py:263
+#: screenshots/models.py:276
 msgid "last"
 msgstr ""
 
-#: screenshots/models.py:274
+#: screenshots/models.py:287
 #, python-format
 msgid "%(index)d out of %(total)d"
 msgstr ""
 
-#: screenshots/models.py:298
+#: screenshots/models.py:311
 #, python-format
 msgid "with %(browser)s"
 msgstr ""
 
-#: screenshots/models.py:309
+#: screenshots/models.py:322
 #, python-format
 msgid "on %(platform)s"
 msgstr ""
 
-#: screenshots/models.py:338
+#: screenshots/models.py:351
 msgid "reported"
 msgstr ""
 
-#: screenshots/models.py:348
+#: screenshots/models.py:361
 msgid "problem report"
 msgstr ""
 
-#: screenshots/models.py:349
+#: screenshots/models.py:362
 msgid "problem reports"
 msgstr ""
 
-#: screenshots/views.py:115
+#: screenshots/views.py:116
 msgid "HTML is not allowed here."
 msgstr ""
 
-#: screenshots/views.py:119
+#: screenshots/views.py:120
 msgid "URLs are not allowed here."
 msgstr ""
 
@@ -1245,39 +1199,23 @@ msgstr ""
 msgid "Report a problem with this screenshot?"
 msgstr ""
 
-#: sponsors/models.py:37
-msgid "slug"
+#: start/views.py:64
+msgid "login required"
 msgstr ""
 
-#: sponsors/models.py:38
-msgid "This is used to generate the link to the logo image."
+#: start/views.py:65
+msgid "Anonymous screenshot requests are not allowed."
 msgstr ""
 
-#: sponsors/models.py:40 websites/models.py:73
-msgid "URL"
+#: start/views.py:68
+msgid "Please log in with your username and password."
 msgstr ""
 
-#: sponsors/models.py:42
-msgid "premium"
-msgstr ""
-
-#: sponsors/models.py:43
-msgid "Premium sponsors are always shown on the front page."
-msgstr ""
-
-#: sponsors/models.py:45
-msgid "front page"
-msgstr ""
-
-#: sponsors/models.py:52
-msgid "sponsors"
-msgstr ""
-
-#: start/views.py:169
+#: start/views.py:184
 msgid "select all"
 msgstr ""
 
-#: start/views.py:170
+#: start/views.py:185
 msgid "deselect all"
 msgstr ""
 
@@ -1286,40 +1224,50 @@ msgstr ""
 msgid "don't care"
 msgstr ""
 
-#: start/forms/url.py:52
+#: start/forms/url.py:54
 msgid "Enter your web address here:"
 msgstr ""
 
-#: start/forms/url.py:87
+#: start/forms/url.py:91
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr ""
 
-#: start/forms/url.py:91
+#: start/forms/url.py:95
 msgid "Malformed URL (server name not specified)."
 msgstr ""
 
-#: start/forms/url.py:111
+#: start/forms/url.py:123
+#, python-format
+msgid "Could not resolve IP address for %(hostname)s."
+msgstr ""
+
+#: start/forms/url.py:136
+#, python-format
+msgid "Server IP address %(ip)s is disallowed."
+msgstr ""
+
+#: start/forms/url.py:154
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:113
+#: start/forms/url.py:156
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:115
+#: start/forms/url.py:158
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:119
+#: start/forms/url.py:162
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr ""
 
-#: start/forms/url.py:151
+#: start/forms/url.py:206
 msgid "Malformed URL (database integrity error)."
 msgstr ""
 
@@ -1390,41 +1338,31 @@ msgstr ""
 msgid "premium sponsors"
 msgstr ""
 
-#: status/templates/status/overview.html:4
-#: status/templates/status/overview.html:7
-msgid "server status"
-msgstr ""
-
-#: status/templates/status/usage.html:4 status/templates/status/usage.html:7
-msgid "usage report"
-msgstr ""
-
-#: status/templates/status/usage.html:38 websites/models.py:57
-#: websites/models.py:76
-msgid "domain"
-msgstr ""
-
-#: status/templates/status/usage.html:56
-msgid "FQDN"
-msgstr ""
-
 #: websites/models.py:38
 msgid "Missing slash after the hostname."
+msgstr ""
+
+#: websites/models.py:57 websites/models.py:78
+msgid "domain"
 msgstr ""
 
 #: websites/models.py:58
 msgid "domains"
 msgstr ""
 
-#: websites/models.py:78
-msgid "profanities"
+#: websites/models.py:75
+msgid "URL"
 msgstr ""
 
 #: websites/models.py:80
+msgid "profanities"
+msgstr ""
+
+#: websites/models.py:82
 msgid "fetched"
 msgstr ""
 
-#: websites/models.py:91
+#: websites/models.py:93
 msgid "websites"
 msgstr ""
 
@@ -1433,7 +1371,7 @@ msgstr ""
 msgid "website overview"
 msgstr ""
 
-#: websites/templates/websites/details.html:37
+#: websites/templates/websites/details.html:42
 #: websites/templates/websites/unknown.html:18
 msgid "other pages on the same domain"
 msgstr ""
@@ -1446,3 +1384,9 @@ msgstr ""
 #: websites/templates/websites/unknown.html:11
 msgid "This address was never submitted, or removed after inactivity."
 msgstr ""
+
+#~ msgid "sender"
+#~ msgstr "寄件者"
+
+#~ msgid "receiver"
+#~ msgstr "收件者"

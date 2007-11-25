@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-21 12:27+0100\n"
-"PO-Revision-Date: 2007-10-26 11:30+0000\n"
+"POT-Creation-Date: 2007-11-25 13:37+0100\n"
+"PO-Revision-Date: 2007-11-24 01:49+0000\n"
 "Last-Translator: Kent Grady <mcgreedy@gmail.com>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-21 11:13+0000\n"
+"X-Launchpad-Export-Date: 2007-11-25 12:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: accounts/views.py:63
@@ -107,9 +107,9 @@ msgid "email sent"
 msgstr "e-mail sendt"
 
 #: accounts/views.py:221
-#, fuzzy, python-format
+#, python-format
 msgid "A verification email was sent to %(address)s."
-msgstr "En verifikations e-mail blev sendt til %(email)s."
+msgstr ""
 
 #: accounts/views.py:222
 msgid "Check your email inbox and follow the instructions in the message."
@@ -237,9 +237,9 @@ msgstr "Registrer denne browser for screenshots?"
 msgid "recent factory errors"
 msgstr "seneste fabrik-fejl"
 
-#: accounts/templates/accounts/profile.html:38 browsers/models.py:88
-#: factories/models.py:91 factories/models.py:202 factories/models.py:228
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:369
+#: accounts/templates/accounts/profile.html:38 browsers/models.py:93
+#: factories/models.py:92 factories/models.py:204 factories/models.py:230
+#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
 #: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "fabrik"
@@ -260,170 +260,170 @@ msgstr "alder"
 msgid "account balance"
 msgstr "konto balance"
 
-#: browsers/models.py:38 browsers/models.py:61 factories/models.py:51
+#: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:26 platforms/models.py:34
-#: platforms/models.py:58 platforms/models.py:87 websites/models.py:46
+#: platforms/models.py:58 platforms/models.py:87 websites/models.py:47
 msgid "name"
 msgstr "navn"
 
-#: browsers/models.py:39
+#: browsers/models.py:40
 msgid "e.g. Gecko / KHTML / AppleWebKit"
 msgstr "f.eks. Gecko / KTHML /AppleWebkit"
 
-#: browsers/models.py:41 browsers/models.py:64 platforms/models.py:64
+#: browsers/models.py:42 browsers/models.py:67 platforms/models.py:64
 msgid "maker"
 msgstr "lavet af"
 
-#: browsers/models.py:51 browsers/models.py:100
+#: browsers/models.py:49 browsers/models.py:105
 #: factories/templates/factories/details.html:28
 #: screenshots/templates/screenshots/details.html:42
 msgid "engine"
 msgstr "motor"
 
-#: browsers/models.py:52
+#: browsers/models.py:50
 msgid "engines"
 msgstr "\"engines\""
 
-#: browsers/models.py:62
+#: browsers/models.py:65
 msgid "e.g. Firefox / MSIE / Safari"
 msgstr "f.eks. Firefox / MSIE / Safari"
 
-#: browsers/models.py:66
+#: browsers/models.py:69
 msgid "terminal"
 msgstr "terminal"
 
-#: browsers/models.py:66
+#: browsers/models.py:69
 msgid "Is this a text-mode browser?"
 msgstr "Er dette en \"text-mode\" browser?"
 
-#: browsers/models.py:68
+#: browsers/models.py:71
 msgid "unusual"
 msgstr "usædvanlig"
 
-#: browsers/models.py:68
+#: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
 msgstr "Gem fra seneste screenshot oversigt?"
 
-#: browsers/models.py:75 browsers/models.py:92 requests/models.py:361
+#: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
 msgstr "browser gruppe"
 
-#: browsers/models.py:76
+#: browsers/models.py:79
 msgid "browser groups"
 msgstr "browser gruppe"
 
-#: browsers/models.py:90
+#: browsers/models.py:95
 msgid "user agent"
 msgstr "\"user agent\""
 
-#: browsers/models.py:94 features/models.py:60 features/models.py:81
+#: browsers/models.py:99 features/models.py:60 features/models.py:81
 #: features/models.py:102 platforms/models.py:60
 msgid "version"
 msgstr "version"
 
-#: browsers/models.py:96 requests/models.py:363
+#: browsers/models.py:101 requests/models.py:376
 msgid "major"
 msgstr "stor"
 
-#: browsers/models.py:98 requests/models.py:365
+#: browsers/models.py:103 requests/models.py:378
 msgid "minor"
 msgstr "mindre"
 
-#: browsers/models.py:102
+#: browsers/models.py:107
 msgid "engine version"
 msgstr "\"engine version\""
 
-#: browsers/models.py:104 factories/templates/factories/details.html:29
-#: requests/models.py:61 screenshots/templates/screenshots/details.html:46
+#: browsers/models.py:109 factories/templates/factories/details.html:29
+#: requests/models.py:62 screenshots/templates/screenshots/details.html:46
 #: start/forms/features.py:66
 msgid "Javascript"
 msgstr "Javascript"
 
-#: browsers/models.py:106 factories/templates/factories/details.html:30
-#: requests/models.py:63 screenshots/templates/screenshots/details.html:50
+#: browsers/models.py:111 factories/templates/factories/details.html:30
+#: requests/models.py:64 screenshots/templates/screenshots/details.html:50
 #: start/forms/features.py:68
 msgid "Java"
 msgstr "Java"
 
-#: browsers/models.py:108 factories/templates/factories/details.html:31
-#: requests/models.py:65 screenshots/templates/screenshots/details.html:54
+#: browsers/models.py:113 factories/templates/factories/details.html:31
+#: requests/models.py:66 screenshots/templates/screenshots/details.html:54
 #: start/forms/features.py:70
 msgid "Flash"
 msgstr "Flash"
 
-#: browsers/models.py:110 factories/templates/factories/details.html:35
+#: browsers/models.py:115 factories/templates/factories/details.html:35
 msgid "command"
 msgstr "kommando (command)"
 
-#: browsers/models.py:111
+#: browsers/models.py:116
 msgid "Leave empty to use default command."
 msgstr "Lad være blank for at bruge default værdi."
 
-#: browsers/models.py:113
+#: browsers/models.py:118
 msgid "active"
 msgstr "aktiv"
 
-#: browsers/models.py:114
+#: browsers/models.py:119
 msgid "Designates that this browser is currently installed."
 msgstr "Fortæller om browseren er installeret."
 
-#: browsers/models.py:116 factories/models.py:67
+#: browsers/models.py:121 factories/models.py:68
 #: factories/templates/factories/details.html:32
 msgid "last upload"
 msgstr "sidste upload"
 
-#: browsers/models.py:118 factories/models.py:69
+#: browsers/models.py:123 factories/models.py:70
 #: factories/templates/factories/details.html:33
 #: requests/templates/requests/overview.html:17
 msgid "uploads per hour"
 msgstr "uploads per time"
 
-#: browsers/models.py:120 factories/models.py:71
+#: browsers/models.py:125 factories/models.py:72
 #: factories/templates/factories/details.html:34
 #: requests/templates/requests/overview.html:18
 msgid "uploads per day"
 msgstr "uploads per dag"
 
-#: browsers/models.py:122 factories/models.py:76
+#: browsers/models.py:127 factories/models.py:77
 #: factories/templates/factories/details.html:13 nonces/models.py:43
 msgid "created"
 msgstr "oprettet"
 
-#: browsers/models.py:144 requests/models.py:373
+#: browsers/models.py:149 requests/models.py:386
 #: requests/templates/requests/overview.html:15 screenshots/models.py:117
 #: screenshots/templates/screenshots/details.html:38
 msgid "browser"
 msgstr "browser"
 
-#: browsers/models.py:145
+#: browsers/models.py:150
 msgid "browsers"
 msgstr "browsere"
 
-#: browsers/models.py:169
+#: browsers/models.py:176
 msgid "deactivate"
 msgstr "deaktiver"
 
-#: browsers/models.py:172
+#: browsers/models.py:179
 msgid "activate"
 msgstr "aktivér"
 
-#: browsers/views.py:46
+#: browsers/views.py:47
 msgid "password"
 msgstr "kodeord"
 
-#: browsers/views.py:148
+#: browsers/views.py:149
 msgid "Password mismatch."
 msgstr "Uidentiske kodeord"
 
-#: browsers/views.py:246 requests/views.py:143 requests/views.py:148
+#: browsers/views.py:245 requests/views.py:143 requests/views.py:148
 msgid "invalid request"
 msgstr "ugyldig anmodning"
 
-#: browsers/views.py:251
+#: browsers/views.py:250
 msgid "permission denied"
 msgstr "adgang nægtet"
 
-#: browsers/views.py:284
+#: browsers/views.py:283
 msgid "This browser is already inactive."
 msgstr "Denne browser er allerede inaktiv."
 
@@ -498,8 +498,8 @@ msgstr "intern server fejl"
 msgid "home"
 msgstr "hjem"
 
-#: common/templates/base.html:25 screenshots/models.py:141
-#: screenshots/models.py:299
+#: common/templates/base.html:25 screenshots/models.py:143
+#: screenshots/models.py:301
 msgid "screenshots"
 msgstr "screenshots"
 
@@ -507,7 +507,7 @@ msgstr "screenshots"
 msgid "queue"
 msgstr "kø"
 
-#: common/templates/base.html:27 factories/models.py:92
+#: common/templates/base.html:27 factories/models.py:93
 msgid "factories"
 msgstr "fabrikker"
 
@@ -562,74 +562,74 @@ msgstr "%(bytes)s bytes"
 msgid "%(count)d database queries"
 msgstr "%(count)d database forespørgsler"
 
-#: factories/models.py:52
+#: factories/models.py:53
 msgid "Hostname (lowercase)"
 msgstr "Hostname (små tegn)"
 
-#: factories/models.py:54
+#: factories/models.py:55
 msgid "administrator"
 msgstr "administrator"
 
-#: factories/models.py:56 factories/templates/factories/details.html:16
+#: factories/models.py:57 factories/templates/factories/details.html:16
 #: screenshots/templates/screenshots/details.html:62
 msgid "sponsor"
 msgstr "sponsor"
 
-#: factories/models.py:58
+#: factories/models.py:59
 msgid "hardware architecture"
 msgstr "hardware arkitektur"
 
-#: factories/models.py:60 factories/templates/factories/details.html:11
+#: factories/models.py:61 factories/templates/factories/details.html:11
 #: platforms/models.py:71 screenshots/templates/screenshots/details.html:70
 msgid "operating system"
 msgstr "operativ system"
 
-#: factories/models.py:62 requests/models.py:69
+#: factories/models.py:63 requests/models.py:70
 msgid "IP"
 msgstr "IP"
 
-#: factories/models.py:63
+#: factories/models.py:64
 msgid "The last poll came from this IP address."
 msgstr "Den sidste afstemning kom fra denne IP adresse."
 
-#: factories/models.py:65
+#: factories/models.py:66
 msgid "last poll"
 msgstr "sidste afstemning"
 
-#: factories/models.py:73 requests/models.py:314
+#: factories/models.py:74 requests/models.py:327
 msgid "queue estimate"
 msgstr "anslået kø"
 
-#: factories/models.py:74
+#: factories/models.py:75
 msgid "Seconds between screenshot request and upload."
 msgstr "Sekunder mellem screenshot forespørgsel og upload."
 
-#: factories/models.py:205 screenshots/models.py:119
+#: factories/models.py:207 screenshots/models.py:119
 msgid "width"
 msgstr "bredde"
 
-#: factories/models.py:207 screenshots/models.py:121
+#: factories/models.py:209 screenshots/models.py:121
 msgid "height"
 msgstr "højde"
 
-#: factories/models.py:214 start/forms/options.py:64
+#: factories/models.py:216 start/forms/options.py:64
 msgid "screen size"
 msgstr "skærm størrelse"
 
-#: factories/models.py:215 factories/templates/factories/details.html:70
+#: factories/models.py:217 factories/templates/factories/details.html:70
 msgid "screen sizes"
 msgstr "skærm størrelser"
 
-#: factories/models.py:231 factories/templates/factories/details.html:101
-#: factories/templates/factories/details.html:107 requests/models.py:59
+#: factories/models.py:233 factories/templates/factories/details.html:101
+#: factories/templates/factories/details.html:107 requests/models.py:60
 msgid "bits per pixel"
 msgstr "bits per pixel"
 
-#: factories/models.py:238 start/forms/options.py:66
+#: factories/models.py:240 start/forms/options.py:66
 msgid "color depth"
 msgstr "farve dybde"
 
-#: factories/models.py:239 factories/templates/factories/details.html:96
+#: factories/models.py:241 factories/templates/factories/details.html:96
 msgid "color depths"
 msgstr "farve dybder"
 
@@ -777,11 +777,11 @@ msgstr "Flash version"
 msgid "Flash versions"
 msgstr "Flash versioner"
 
-#: messages/models.py:37 screenshots/models.py:345
+#: messages/models.py:37 screenshots/models.py:347
 msgid "error code"
 msgstr "fejl kode"
 
-#: messages/models.py:39 screenshots/models.py:347
+#: messages/models.py:39 screenshots/models.py:349
 msgid "error message"
 msgstr "fejl besked"
 
@@ -801,7 +801,7 @@ msgstr "fabrik fejl beskeder"
 msgid "hashkey"
 msgstr "hash nøgle"
 
-#: nonces/models.py:37 screenshots/models.py:351
+#: nonces/models.py:37 screenshots/models.py:353
 msgid "IP address"
 msgstr "IP-adresse"
 
@@ -821,7 +821,7 @@ msgstr "nonce'er"
 msgid "position"
 msgstr "position"
 
-#: platforms/models.py:46 platforms/models.py:56 requests/models.py:359
+#: platforms/models.py:46 platforms/models.py:56 requests/models.py:372
 #: requests/templates/requests/overview.html:14
 msgid "platform"
 msgstr "platform"
@@ -846,157 +846,167 @@ msgstr "f.eks. i686 / PPC"
 msgid "architectures"
 msgstr "arkitekturer"
 
-#: requests/models.py:53 screenshots/models.py:113 websites/models.py:89
+#: requests/models.py:54 screenshots/models.py:113 websites/models.py:92
 msgid "website"
 msgstr "hjemmeside"
 
-#: requests/models.py:55
+#: requests/models.py:56
 msgid "screen width"
 msgstr "skærm bredde"
 
-#: requests/models.py:57
+#: requests/models.py:58
 msgid "screen height"
 msgstr "skærm højde"
 
-#: requests/models.py:67
+#: requests/models.py:68
 msgid "submitter"
 msgstr "forfatter"
 
-#: requests/models.py:71 websites/models.py:48 websites/models.py:81
+#: requests/models.py:72 websites/models.py:49 websites/models.py:84
 msgid "submitted"
 msgstr "indtastet"
 
-#: requests/models.py:73
+#: requests/models.py:74
 msgid "expire"
 msgstr "udløbe"
 
-#: requests/models.py:91 requests/models.py:357
+#: requests/models.py:92 requests/models.py:370
 msgid "request group"
 msgstr "anmod om gruppe"
 
-#: requests/models.py:92
+#: requests/models.py:93
 msgid "request groups"
 msgstr "anmod om grupper"
 
-#: requests/models.py:99
+#: requests/models.py:102
 msgid "screenshot request group"
 msgstr "anmod screenshot gruppe"
 
-#: requests/models.py:120
+#: requests/models.py:123
 #, python-format
 msgid "submitted %(interval)s ago"
 msgstr "indtastet %(interval)s siden"
 
-#: requests/models.py:134
+#: requests/models.py:137
 #, python-format
 msgid "expires in %(interval)s"
 msgstr "udløber om %(interval)s"
 
-#: requests/models.py:139
+#: requests/models.py:142
 msgid "extend"
 msgstr "forlæng"
 
-#: requests/models.py:154 start/forms/options.py:41
+#: requests/models.py:157 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
 msgstr "%(width)d pixels bred"
 
-#: requests/models.py:157 start/forms/options.py:54
+#: requests/models.py:160 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
 msgstr "%(color_depth)d bits per pixel"
 
-#: requests/models.py:210
+#: requests/models.py:213
 msgid "Your screenshots will appear here when they are uploaded."
 msgstr ""
 "Dit screenshot vil blive placeret her, når det er blevet uploadet til "
 "serveren."
 
-#: requests/models.py:212
+#: requests/models.py:215
 msgid "[Reload this page] or bookmark it and come back later."
 msgstr ""
 "\"Refresh\" denne side, eller lav et bookmark af den og kom tilbage senere."
 
-#: requests/models.py:214
+#: requests/models.py:217
 msgid "Your screenshot requests have expired."
 msgstr "Dine screenshot anmodninger er udløbet."
 
-#: requests/models.py:224
+#: requests/models.py:227
 #, python-format
 msgid "%(count)d browsers selected"
 msgstr "%(count)d browsere valgt"
 
-#: requests/models.py:229
+#: requests/models.py:235
 #, python-format
 msgid "%(count)d starting"
 msgstr "%(count)d starter"
 
-#: requests/models.py:232
+#: requests/models.py:237
 #, python-format
 msgid "%(count)d loading"
 msgstr "%(count)d indlæser"
 
-#: requests/models.py:235
+#: requests/models.py:239 requests/models.py:242
 #, python-format
 msgid "%(count)d uploaded"
 msgstr "%(count)d uploadet"
 
-#: requests/models.py:310
+#: requests/models.py:245
+#, fuzzy, python-format
+msgid "%(count)d failed"
+msgstr "%(count)d uploadet"
+
+#: requests/models.py:248
+#, fuzzy, python-format
+msgid "%(count)d expired"
+msgstr "%(count)d uploadet"
+
+#: requests/models.py:323
 #, python-format
 msgid "%(min_interval)s to %(max_interval)s"
 msgstr ""
 
-#: requests/models.py:312
+#: requests/models.py:325
 msgid "details"
 msgstr "detaljer"
 
-#: requests/models.py:338
+#: requests/models.py:351
 msgid "download all screenshots"
 msgstr "download alle screenshots"
 
-#: requests/models.py:341
+#: requests/models.py:354
 #, python-format
 msgid "download %(count)d screenshots"
 msgstr "download %(count)d screenshots"
 
-#: requests/models.py:367
+#: requests/models.py:380
 msgid "priority"
 msgstr "prioritet"
 
-#: requests/models.py:371
+#: requests/models.py:384
 msgid "locked"
 msgstr "låst"
 
-#: requests/models.py:376
+#: requests/models.py:389
 msgid "redirected"
 msgstr "videresendt"
 
-#: requests/models.py:378 screenshots/models.py:140 screenshots/models.py:343
+#: requests/models.py:391 screenshots/models.py:142 screenshots/models.py:345
 msgid "screenshot"
 msgstr "screenshot"
 
-#: requests/models.py:395
+#: requests/models.py:408
 msgid "request"
 msgstr "anmodning"
 
-#: requests/models.py:396
+#: requests/models.py:409
 msgid "requests"
 msgstr "anmodninger"
 
-#: requests/models.py:417 screenshots/models.py:123
+#: requests/models.py:432 screenshots/models.py:125
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
 msgstr "uploadet"
 
-#: requests/models.py:419
+#: requests/models.py:434
 msgid "failed"
 msgstr "mislykkedes"
 
-#: requests/models.py:421
+#: requests/models.py:436
 msgid "loading"
 msgstr "indlæser"
 
-#: requests/models.py:423
+#: requests/models.py:438
 msgid "starting"
 msgstr "starter"
 
@@ -1115,46 +1125,51 @@ msgstr "Flash er ikke %(flash)s."
 msgid "user"
 msgstr "bruger"
 
-#: screenshots/models.py:271
+#: screenshots/models.py:123
+#, fuzzy
+msgid "colors"
+msgstr "farve dybder"
+
+#: screenshots/models.py:273
 msgid "first"
 msgstr "første"
 
-#: screenshots/models.py:272
+#: screenshots/models.py:274
 msgid "previous"
 msgstr "forrige"
 
-#: screenshots/models.py:273
+#: screenshots/models.py:275
 msgid "next"
 msgstr "næste"
 
-#: screenshots/models.py:274
+#: screenshots/models.py:276
 msgid "last"
 msgstr "sidste"
 
-#: screenshots/models.py:285
+#: screenshots/models.py:287
 #, python-format
 msgid "%(index)d out of %(total)d"
 msgstr "%(index)d ud af %(total)d"
 
-#: screenshots/models.py:309
+#: screenshots/models.py:311
 #, python-format
 msgid "with %(browser)s"
 msgstr "med %(browser)s"
 
-#: screenshots/models.py:320
+#: screenshots/models.py:322
 #, python-format
 msgid "on %(platform)s"
 msgstr "på %(platform)s"
 
-#: screenshots/models.py:349
+#: screenshots/models.py:351
 msgid "reported"
 msgstr "rapporteret"
 
-#: screenshots/models.py:359
+#: screenshots/models.py:361
 msgid "problem report"
 msgstr "fejl-rapport"
 
-#: screenshots/models.py:360
+#: screenshots/models.py:362
 msgid "problem reports"
 msgstr "fejl-rapporter"
 
@@ -1208,11 +1223,11 @@ msgstr "Dine screenshot anmodninger er udløbet."
 msgid "Please log in with your username and password."
 msgstr ""
 
-#: start/views.py:183
+#: start/views.py:184
 msgid "select all"
 msgstr "vælg alle"
 
-#: start/views.py:184
+#: start/views.py:185
 msgid "deselect all"
 msgstr "afvælg alle"
 
@@ -1225,46 +1240,46 @@ msgstr "ligeglad"
 msgid "Enter your web address here:"
 msgstr "Indtast din web-adresse her:"
 
-#: start/forms/url.py:90
+#: start/forms/url.py:91
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "URL skema %(scheme)s er ikke understøttet."
 
-#: start/forms/url.py:94
+#: start/forms/url.py:95
 msgid "Malformed URL (server name not specified)."
 msgstr "Ukorrekt URL (server navn er ikke speciferet)"
 
-#: start/forms/url.py:107
+#: start/forms/url.py:123
 #, fuzzy, python-format
 msgid "Could not resolve IP address for %(hostname)s."
 msgstr "Kunne ikke sende HTTP forspørgsel til %(hostname)s."
 
-#: start/forms/url.py:120
+#: start/forms/url.py:136
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
 msgstr ""
 
-#: start/forms/url.py:138
+#: start/forms/url.py:154
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Kunne ikke tilslutte til %(hostname)s"
 
-#: start/forms/url.py:140
+#: start/forms/url.py:156
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Kunne ikke sende HTTP forspørgsel til %(hostname)s."
 
-#: start/forms/url.py:142
+#: start/forms/url.py:158
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Kunne ikke hente indhold fra %(hostname)s."
 
-#: start/forms/url.py:146
+#: start/forms/url.py:162
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Serveren svarede ikke indenfor %d sekunder."
 
-#: start/forms/url.py:187
+#: start/forms/url.py:206
 msgid "Malformed URL (database integrity error)."
 msgstr "Ukorrekt URL (database integritets fejl)."
 
@@ -1341,31 +1356,31 @@ msgstr "seneste nyheder"
 msgid "premium sponsors"
 msgstr "hovedsponsorerer"
 
-#: websites/models.py:37
+#: websites/models.py:38
 msgid "Missing slash after the hostname."
 msgstr "Mangler skråstreg efter hostname."
 
-#: websites/models.py:56 websites/models.py:75
+#: websites/models.py:57 websites/models.py:78
 msgid "domain"
 msgstr "domæne"
 
-#: websites/models.py:57
+#: websites/models.py:58
 msgid "domains"
 msgstr "domæner"
 
-#: websites/models.py:72
+#: websites/models.py:75
 msgid "URL"
 msgstr "URL"
 
-#: websites/models.py:77
+#: websites/models.py:80
 msgid "profanities"
 msgstr "skældsord"
 
-#: websites/models.py:79
+#: websites/models.py:82
 msgid "fetched"
 msgstr "hentet"
 
-#: websites/models.py:90
+#: websites/models.py:93
 msgid "websites"
 msgstr "hjemmesider"
 
@@ -1389,30 +1404,6 @@ msgid "This address was never submitted, or removed after inactivity."
 msgstr ""
 "Denne adresse er aldrig blevet tilføjet, eller er blevet fjernet efter "
 "inaktivitet."
-
-#~ msgid "already signed in"
-#~ msgstr "allerede logget ind"
-
-#~ msgid "Already signed in"
-#~ msgstr "Du er allerede logget ind"
-
-#~ msgid "You already have a user account, and you're currently signed in."
-#~ msgstr "Du har allerede en bruger-konto og du er logget ind."
-
-#~ msgid "log in"
-#~ msgstr "login"
-
-#~ msgid "Please try again."
-#~ msgstr "Forsøg venligst igen."
-
-#~ msgid "username"
-#~ msgstr "brugernavn"
-
-#~ msgid "content"
-#~ msgstr "indhold"
-
-#~ msgid "sign in"
-#~ msgstr "log in"
 
 #~ msgid "sender"
 #~ msgstr "afsender"
@@ -1453,8 +1444,32 @@ msgstr ""
 #~ msgid "This is your private account page. Only you can see it."
 #~ msgstr "Dette er din private bruger side. Kun du kan se den."
 
+#~ msgid "points received"
+#~ msgstr "point modtaget"
+
 #~ msgid "points paid"
 #~ msgstr "point betalt"
+
+#~ msgid "sponsors"
+#~ msgstr "sponsorer"
+
+#~ msgid "log in"
+#~ msgstr "login"
+
+#~ msgid "sign in"
+#~ msgstr "log in"
+
+#~ msgid "Your username and password didn't match."
+#~ msgstr "Der var en fejl i det indtastede brugernavn og kodeord."
+
+#~ msgid "Please try again."
+#~ msgstr "Forsøg venligst igen."
+
+#~ msgid "username"
+#~ msgstr "brugernavn"
+
+#~ msgid "content"
+#~ msgstr "indhold"
 
 #~ msgid "slug"
 #~ msgstr "snegl"
@@ -1465,20 +1480,38 @@ msgstr ""
 #~ msgid "premium"
 #~ msgstr "hoved"
 
+#~ msgid "Premium sponsors are shown on the front page."
+#~ msgstr "Hovedsponsorer er altid vist på forsiden."
+
+#~ msgid "already signed in"
+#~ msgstr "allerede logget ind"
+
+#~ msgid "You're already signed in."
+#~ msgstr "Du er allerede logget ind."
+
+#~ msgid "A verification email was sent to %(email)s."
+#~ msgstr "En verifikations e-mail blev sendt til %(email)s."
+
+#~ msgid "Already signed in"
+#~ msgstr "Du er allerede logget ind"
+
+#~ msgid "You already have a user account, and you're currently signed in."
+#~ msgstr "Du har allerede en bruger-konto og du er logget ind."
+
+#~ msgid "The verification email was requested more than 30 minutes ago."
+#~ msgstr "Verifikations e-mailen blev sendt for mere end 30 minutter siden."
+
 #~ msgid "Premium sponsors are always shown on the front page."
 #~ msgstr "Hovedsponsorer er altid vist på forsiden."
 
 #~ msgid "front page"
 #~ msgstr "forside"
 
-#~ msgid "sponsors"
-#~ msgstr "sponsorer"
-
-#~ msgid "server status"
-#~ msgstr "server status"
-
 #~ msgid "usage report"
 #~ msgstr "forbrugs-rapport"
 
 #~ msgid "FQDN"
 #~ msgstr "FQDN"
+
+#~ msgid "server status"
+#~ msgstr "server status"
