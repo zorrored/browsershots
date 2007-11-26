@@ -7,9 +7,7 @@
 {% block content %}
 <h1>{% blocktrans with factory.name as name %}Screenshot Factory {{ name }}{% endblocktrans %}</h1>
 
-{% if admin_logged_in %}
 <form action="{{ factory.get_absolute_url }}" method="post">
-{% endif %}
 <table>
 {% if factory.sponsor %}<tr class="row2"><th>{{ _("sponsor")|capfirst }}:</th><td>{{ factory.sponsor|human_link }}</td></tr>{% endif %}
 <tr class="row1"><th>{{ _("admin")|capfirst }}:</th><td>{{ factory.admin }}</td></tr>
@@ -18,13 +16,12 @@
 <tr class="row1"><th>{{ _("hardware")|capfirst }}:</th><td>{{ factory_form.hardware }}</td></tr>
 <tr class="row2"><th>{{ _("operating system")|capfirst }}:</th><td>{{ factory_form.operating_system }}</td></tr>
 <tr><th></th><td><input type="submit" name="submit_details" value="{{ _("Submit") }}" /></td></tr>
-</table>
-</form>
 {% else %}
 {% if factory.hardware %}<tr class="row1"><th>{{ _("hardware")|capfirst }}:</th><td>{{ factory.hardware }}</td></tr>
 {% endif %}<tr class="row2"><th>{{ _("operating system")|capfirst }}:</th><td>{{ factory.operating_system }}</td></tr>
-</table>
 {% endif %}
+</table>
+</form>
 
 <h2>{{ _("installed browsers")|capfirst }}</h2>
 
