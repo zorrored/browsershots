@@ -26,6 +26,7 @@
 <h2>{{ _("installed browsers")|capfirst }}</h2>
 
 {% if browser_list %}
+<form action="{{ factory.get_absolute_url }}" method="post">
 <table class="browsers vertical">
 <thead>
 <tr>
@@ -55,11 +56,12 @@
 <td>{% if browser.uploads_per_hour %}{{ browser.uploads_per_hour }}{% endif %}</td>
 <td>{% if browser.uploads_per_day %}{{ browser.uploads_per_day }}{% endif %}</td>
 {% if show_commands %}<td>{{ browser.command }}</td>{% endif %}
-{% if admin_logged_in %}<td>{{ browser.activation_form }}</td>{% endif %}
+{% if admin_logged_in %}<td>{{ browser.activation_button }}</td>{% endif %}
 </tr>
 {% endfor %}
 </tbody>
 </table>
+</form>
 {% else %}
 <p class="admonition warning">{{ _("No browsers registered for this factory.") }}</p>
 {% endif %}

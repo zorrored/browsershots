@@ -33,10 +33,12 @@ from django import newforms as forms
 from django.newforms.util import ErrorList
 from shotserver04 import settings
 from shotserver04.common import last_poll_timeout, error_page
-from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
-from shotserver04.browsers.models import Browser
-from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
+from shotserver04.screenshots.models import Screenshot, ProblemReport
+from shotserver04.browsers.models import Browser
+from shotserver04.browsers import views as browsers_views
+
 
 FACTORY_NAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
 FACTORY_NAME_CHAR = FACTORY_NAME_CHAR_FIRST + '0123456789_-'
@@ -106,8 +108,70 @@ class ColorDepthForm(forms.Form):
         return depth
 
 
-def details_post(factory, factory_form, screensize_form, colordepth_form,
-                 post):
+class InvalidRequest(Exception):
+    """Not a valid post request."""
+    title = _("invalid request")
+
+
+class PermissionDenied(InvalidRequest):
+    """User not logged in as factory admin."""
+    title = _("permission denied")
+
+
+def get_browser(http_request, id):
+    """
+    Get browser from POST data, and check admin permissions.
+    """
+    try:
+        browser_id = int(id)
+    except (KeyError, ValueError):
+        raise InvalidRequest("You must specify a numeric browser ID.")
+    # Get browser from database
+    try:
+        browser = Browser.objects.get(id=browser_id)
+    except Browser.DoesNotExist:
+        raise InvalidRequest(
+            "Browser with id=%d does not exist." % browser_id)
+    # Permission check
+    if browser.factory.admin_id != http_request.user.id:
+        raise PermissionDenied(
+            "You don't have permission to edit this browser.")
+    return browser
+
+
+def deactivate_browser(http_request, id):
+    """
+    Deactivate the specified browser.
+    """
+    try:
+        browser = get_browser(http_request, id)
+        if not browser.active:
+            raise InvalidRequest(_("This browser is already inactive."))
+    except InvalidRequest, error:
+        return error_page(http_request, error.title, error.args[0])
+    browser.update_fields(active=False)
+    return HttpResponseRedirect(browser.factory.get_absolute_url())
+
+
+def activate_browser(http_request, id):
+    """
+    Activate the specified browser.
+    """
+    try:
+        browser = get_browser(http_request, id)
+        if browser.active:
+            raise InvalidRequest("This browser is already active.")
+    except InvalidRequest, error:
+        return error_page(http_request, error.title, error.args[0])
+    data = dict((field.name, getattr(browser, field.name))
+                for field in Browser._meta.fields)
+    browsers_views.delete_or_deactivate_similar_browsers(data, exclude=browser)
+    browser.update_fields(active=True)
+    return HttpResponseRedirect(browser.factory.get_absolute_url())
+
+
+def details_post(http_request, factory,
+                 factory_form, screensize_form, colordepth_form):
     """
     Process a post request to the details page,
     e.g. to add or remove a screen size or color depth.
@@ -142,23 +206,28 @@ def details_post(factory, factory_form, screensize_form, colordepth_form,
                 colordepth_form.errors['depth'] = [_("Duplicate.")]
             else:
                 colordepth_form.errors['depth'] = [_("Invalid data.")]
-    for action in post:
+    for action in http_request.POST:
         parts = action.split('_')
-        if parts[0] == 'remove' and parts[1] == 'size':
-            width_height = parts[2].split('x')
-            assert len(width_height) == 2
-            width = int(width_height[0])
-            height = int(width_height[1])
-            ScreenSize.objects.filter(
-                factory=factory, width=width, height=height).delete()
-            return HttpResponseRedirect(
-                factory.get_absolute_url() + '#screensizes')
-        if parts[0] == 'remove' and parts[1] == 'depth':
-            depth = int(parts[2])
-            ColorDepth.objects.filter(
-                factory=factory, bits_per_pixel=depth).delete()
-            return HttpResponseRedirect(
-                factory.get_absolute_url() + '#colordepths')
+        if len(parts) == 3:
+            if parts[0] == 'remove' and parts[1] == 'size':
+                width_height = parts[2].split('x')
+                assert len(width_height) == 2
+                width = int(width_height[0])
+                height = int(width_height[1])
+                ScreenSize.objects.filter(
+                    factory=factory, width=width, height=height).delete()
+                return HttpResponseRedirect(
+                    factory.get_absolute_url() + '#screensizes')
+            if parts[0] == 'remove' and parts[1] == 'depth':
+                depth = int(parts[2])
+                ColorDepth.objects.filter(
+                    factory=factory, bits_per_pixel=depth).delete()
+                return HttpResponseRedirect(
+                    factory.get_absolute_url() + '#colordepths')
+            if parts[0] == 'activate' and parts[1] == 'browser':
+                return activate_browser(http_request, int(parts[2]))
+            if parts[0] == 'deactivate' and parts[1] == 'browser':
+                return deactivate_browser(http_request, int(parts[2]))
 
 
 def details(http_request, name):
@@ -174,8 +243,8 @@ def details(http_request, name):
     colordepth_form = ColorDepthForm(
         'add_depth' in http_request.POST and http_request.POST or None)
     if http_request.POST:
-        response = details_post(factory,
-            factory_form, screensize_form, colordepth_form, http_request.POST)
+        response = details_post(http_request, factory,
+            factory_form, screensize_form, colordepth_form)
         if response:
             return response
     browser_list = list(Browser.objects.filter(factory=factory.id))
