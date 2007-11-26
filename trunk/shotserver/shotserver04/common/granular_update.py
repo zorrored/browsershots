@@ -42,23 +42,20 @@ def update_fields(self, **kwargs):
         update_fields = granular_update.update_fields
     """
     sql = ['UPDATE', connection.ops.quote_name(self._meta.db_table), 'SET']
+    values = []
     for field_name in kwargs:
         setattr(self, field_name, kwargs[field_name])
         field = self._meta.get_field(field_name)
         value = field.get_db_prep_save(kwargs[field_name])
-        if isinstance(value, basestring):
-            value = "'%s'" % value.encode('utf-8').replace('\\', r'\\')
-        elif isinstance(value, models.Model):
-            value = str(value.id)
-        elif value is None:
-            value = 'NULL'
-        else:
-            value = str(value)
-        sql.extend((connection.ops.quote_name(field.column), '=', value, ','))
+        if isinstance(value, models.Model):
+            value = value.id
+        sql.extend((connection.ops.quote_name(field.column), '=', '%s', ','))
+        values.append(value)
     sql.pop(-1) # Remove the last comma
-    sql.extend(['WHERE', 'id', '=', str(self.id)])
+    sql.extend(['WHERE', 'id', '=', '%s'])
+    values.append(self.id)
     sql = ' '.join(sql)
-    connection.cursor().execute(sql)
+    connection.cursor().execute(sql, values)
     transaction.commit_unless_managed()
 
 
