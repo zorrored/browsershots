@@ -167,20 +167,15 @@ class Browser(models.Model):
         flash = self.flash.features_q()
         return (group & major & minor & javascript & java & flash)
 
-    def activation_form(self):
+    def activation_button(self):
         """
-        Simple HTML form to activate or deactivate this browser.
+        Simple HTML form button to activate or deactivate this browser.
         """
         if self.active:
-            action = '/browsers/deactivate/'
-            submit_value = capfirst(_("deactivate"))
+            name = 'deactivate_browser_%d' % self.id
+            value = capfirst(_("deactivate"))
         else:
-            action = '/browsers/activate/'
-            submit_value = capfirst(_("activate"))
-        browser_id = self.id
-        return mark_safe(u"""
-<form action="%(action)s" method="post">
-<input type="hidden" name="browser" value="%(browser_id)s" />
-<input type="submit" name="submit" value="%(submit_value)s" />
-</form>
-""" % locals())
+            name = 'activate_browser_%d' % self.id
+            value = capfirst(_("activate"))
+        return mark_safe(u'<input type="submit" name="%s" value="%s" />' %
+                         (name, value))
