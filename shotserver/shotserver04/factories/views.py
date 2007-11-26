@@ -106,11 +106,17 @@ class ColorDepthForm(forms.Form):
         return depth
 
 
-def details_post(factory, screensize_form, colordepth_form, post):
+def details_post(factory, factory_form, screensize_form, colordepth_form,
+                 post):
     """
     Process a post request to the details page,
     e.g. to add or remove a screen size or color depth.
     """
+    if factory_form.is_valid():
+        factory.update_fields(
+            hardware=factory_form.cleaned_data['hardware'],
+            operating_system=factory_form.cleaned_data['operating_system'])
+        return HttpResponseRedirect(factory.get_absolute_url())
     if screensize_form.is_valid():
         try:
             ScreenSize.objects.create(factory=factory,
@@ -160,13 +166,16 @@ def details(http_request, name):
     Get detailed information about a screenshot factory.
     """
     factory = get_object_or_404(Factory, name=name)
+    factory_form = forms.form_for_instance(
+        factory, fields=('hardware', 'operating_system'))(
+        'submit_details' in http_request.POST and http_request.POST or None)
     screensize_form = ScreenSizeForm(
         'add_size' in http_request.POST and http_request.POST or None)
     colordepth_form = ColorDepthForm(
         'add_depth' in http_request.POST and http_request.POST or None)
     if http_request.POST:
         response = details_post(factory,
-            screensize_form, colordepth_form, http_request.POST)
+            factory_form, screensize_form, colordepth_form, http_request.POST)
         if response:
             return response
     browser_list = list(Browser.objects.filter(factory=factory.id))
@@ -234,7 +243,7 @@ _("Name may contain only lowercase letters, digits, underscore, hyphen.")))
 
 
 FactoryForm = forms.form_for_model(Factory, form=FactoryBase,
-    fields=('name', 'architecture', 'operating_system'))
+    fields=('name', 'hardware', 'operating_system'))
 
 
 @login_required
