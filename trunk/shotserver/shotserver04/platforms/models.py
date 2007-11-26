@@ -77,23 +77,3 @@ class OperatingSystem(models.Model):
             return u'%s %s (%s)' % (self.name, self.version, self.codename)
         else:
             return u'%s %s' % (self.name, self.version)
-
-
-class Architecture(models.Model):
-    """
-    Hardware architectures like i686 / PPC.
-    """
-    name = models.CharField(
-        _('name'), max_length=30,
-        help_text=_('e.g. i686 / PPC'))
-
-    def __unicode__(self):
-        return self.name
-
-    class Admin:
-        pass
-
-    class Meta:
-        verbose_name = _('architecture')
-        verbose_name_plural = _('architectures')
-        ordering = ('name', )

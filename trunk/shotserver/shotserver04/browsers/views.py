@@ -71,10 +71,6 @@ def guess_factory(ip, user_agent, name=None):
     for factory in factories:
         if factory.operating_system.platform.name in user_agent:
             return factory
-    # Try to match PPC or i686
-    for factory in factories:
-        if factory.architecture.name in user_agent:
-            return factory
     if factories:
         return factories[0]
 

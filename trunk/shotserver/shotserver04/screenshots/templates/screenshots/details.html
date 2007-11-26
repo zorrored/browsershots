@@ -62,10 +62,10 @@ width="512" height="{{ screenshot.get_large_height }}"
 <th>{{ _("sponsor")|capfirst }}:</th>
 <td>{{ screenshot.factory.sponsor|human_link }}</td>
 </tr>{% endif %}
-<tr>
-<th>{{ _("architecture")|capfirst }}:</th>
-<td>{{ screenshot.factory.architecture }}</td>
-</tr>
+{% if screenshot.factory.hardware %}<tr>
+<th>{{ _("hardware")|capfirst }}:</th>
+<td>{{ screenshot.factory.hardware }}</td>
+</tr>{% endif %}
 <tr>
 <th>{{ _("operating system")|capfirst }}:</th>
 <td>{{ screenshot.factory.operating_system }}</td>

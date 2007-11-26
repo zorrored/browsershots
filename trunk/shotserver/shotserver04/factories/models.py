@@ -29,17 +29,17 @@ from django.utils.text import capfirst
 from django.utils.http import urlquote
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
-from shotserver04.platforms.models import Architecture, OperatingSystem
+from shotserver04.platforms.models import OperatingSystem
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.common.templatetags import human
 from shotserver04.common import granular_update
 
 FACTORY_FIELDS = (
-    'name', 'operating_system', 'architecture',
+    'name', 'operating_system', 'hardware',
     'last_poll', 'last_upload',
     'uploads_per_hour', 'uploads_per_day',
     'queue_estimate', 'created')
-FACTORY_FIELDS_HIDE = ('architecture', 'created', )
+FACTORY_FIELDS_HIDE = ('hardware', 'created', )
 FACTORY_FIELDS_SECONDS = ('queue_estimate')
 FACTORY_FIELDS_TIMESINCE = ('last_poll', 'last_upload', 'created')
 
@@ -55,8 +55,9 @@ class Factory(models.Model):
         verbose_name=_('administrator'))
     sponsor = models.ForeignKey(Sponsor,
         verbose_name=_('sponsor'), blank=True, null=True)
-    architecture = models.ForeignKey(Architecture,
-        verbose_name=_('hardware architecture'))
+    hardware = models.CharField(
+        verbose_name=_('hardware'), max_length=200, blank=True,
+        help_text=_("e.g. ThinkPad R32, P4 1.8 GHz, 768 MB"))
     operating_system = models.ForeignKey(OperatingSystem,
         verbose_name=_('operating system'))
     ip = models.IPAddressField(
@@ -79,7 +80,7 @@ class Factory(models.Model):
     class Admin:
         fields = (
             (None, {'fields': ('name', 'admin', 'sponsor')}),
-            ('Platform', {'fields': ('architecture', 'operating_system')}),
+            ('Platform', {'fields': ('hardware', 'operating_system')}),
             )
         search_fields = ('name', 'admin__username',
                          'admin__first_name', 'admin__last_name')
