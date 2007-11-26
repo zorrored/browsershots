@@ -308,7 +308,7 @@ _("Name may contain only lowercase letters, digits, underscore, hyphen.")))
                 self.errors['name'] = ErrorList([
                     _("This name is already taken.")])
             else:
-                self.errors[forms.NON_FIELD_ERRORS] = ErrorList([str(e)])
+                self.errors[forms.forms.NON_FIELD_ERRORS] = ErrorList([str(e)])
 
 
 FactoryForm = forms.form_for_model(Factory, form=FactoryBase,
