@@ -32,7 +32,7 @@ from django.utils.text import capfirst
 from django.db import transaction
 from django.newforms.util import ValidationError
 from django.utils.translation import ugettext_lazy as _
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.websites.utils import \
      split_netloc, unsplit_netloc, http_get, count_profanities, \
      HTTP_TIMEOUT, HTTPError, ConnectError, RequestError, \
@@ -90,10 +90,10 @@ class UrlForm(forms.Form):
             raise ValidationError(
                 unicode(_("URL scheme %(scheme)s is not supported.") %
                         {'scheme': self.url_parts[0]}))
-        if not self.url_parts[1]:
+        self.netloc_parts = split_netloc(self.url_parts[1])
+        if not self.url_parts[1] or not self.netloc_parts[2]:
             raise ValidationError(
                 unicode(_("Malformed URL (server name not specified).")))
-        self.netloc_parts = split_netloc(self.url_parts[1])
         # print self.netloc_parts
 
     def punycode_url(self):
@@ -122,6 +122,9 @@ class UrlForm(forms.Form):
             raise ValidationError(unicode(
                 _("Could not resolve IP address for %(hostname)s.") %
                 locals()))
+        if (not hasattr(settings, DISALLOWED_SERVER_IP_LIST) or
+            not settings.DISALLOWED_SERVER_IP_LIST):
+            return
         server = long_ip(ip)
         # print 'server', server, dotted_ip(server), ip
         for disallowed in settings.DISALLOWED_SERVER_IP_LIST:

@@ -31,7 +31,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django import newforms as forms
 from django.newforms.util import ErrorList
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.common import last_poll_timeout, error_page
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
@@ -257,12 +257,12 @@ def details(http_request, name):
     browser_list.sort(key=lambda browser: (unicode(browser), browser.id))
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
-    if factory.screenshot_set.count():
-        screenshot_list = factory.screenshot_set.filter(
-            website__profanities__lte=settings.PROFANITIES_ALLOWED)
+    screenshot_list = factory.screenshot_set.all()
+    if screenshot_list.count():
+        if hasattr(settings, 'PROFANITIES_ALLOWED'):
+            screenshot_list = screenshot_list.filter(
+                website__profanities__lte=settings.PROFANITIES_ALLOWED)
         screenshot_list = screenshot_list.order_by('-id')[:10]
-    else:
-        screenshot_list = []
     preload_foreign_keys(screenshot_list, browser=browser_list)
     admin_logged_in = http_request.user.id == factory.admin_id
     show_commands = admin_logged_in and True in [

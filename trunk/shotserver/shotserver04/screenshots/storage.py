@@ -26,7 +26,7 @@ import re
 import os
 import tempfile
 from xmlrpclib import Fault
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.nonces import crypto
 
 ORIGINAL_SIZE = 'original'

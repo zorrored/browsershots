@@ -32,7 +32,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.common import error_page
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
