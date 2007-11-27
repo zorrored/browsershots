@@ -257,9 +257,12 @@ def details(http_request, name):
     browser_list.sort(key=lambda browser: (unicode(browser), browser.id))
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
-    screenshot_list = Screenshot.objects.filter(factory=factory,
-        website__profanities__lte=settings.PROFANITIES_ALLOWED)
-    screenshot_list = screenshot_list.order_by('-id')[:10]
+    if factory.screenshot_set.count():
+        screenshot_list = factory.screenshot_set.filter(
+            website__profanities__lte=settings.PROFANITIES_ALLOWED)
+        screenshot_list = screenshot_list.order_by('-id')[:10]
+    else:
+        screenshot_list = []
     preload_foreign_keys(screenshot_list, browser=browser_list)
     admin_logged_in = http_request.user.id == factory.admin_id
     show_commands = admin_logged_in and True in [
