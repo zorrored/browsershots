@@ -122,7 +122,7 @@ class UrlForm(forms.Form):
             raise ValidationError(unicode(
                 _("Could not resolve IP address for %(hostname)s.") %
                 locals()))
-        if (not hasattr(settings, DISALLOWED_SERVER_IP_LIST) or
+        if (not hasattr(settings, 'DISALLOWED_SERVER_IP_LIST') or
             not settings.DISALLOWED_SERVER_IP_LIST):
             return
         server = long_ip(ip)
