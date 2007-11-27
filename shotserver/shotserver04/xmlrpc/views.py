@@ -26,7 +26,7 @@ from django.http import HttpResponse, Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.utils.safestring import mark_safe
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.xmlrpc.dispatcher import Dispatcher
 
 RST_SETTINGS = {

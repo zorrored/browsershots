@@ -33,13 +33,13 @@ from django import newforms as forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.core.servers.basehttp import FileWrapper
+from django.conf import settings
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.screenshots.models import PROBLEM_CHOICES
 from shotserver04.screenshots.models import PROBLEM_CHOICES_EXPLICIT
 from shotserver04.screenshots import storage
 from shotserver04.requests.models import Request, RequestGroup
-from shotserver04 import settings
 
 COLUMNS = 10
 WIDTH = 80 # pixels
@@ -54,7 +54,8 @@ def recent_screenshots(user=None):
     preload_foreign_keys(screenshots, website=True)
     preload_foreign_keys(screenshots, browser__browser_group=True)
     for screenshot in screenshots:
-        if screenshot.website.profanities > settings.PROFANITIES_ALLOWED:
+        if (hasattr(settings, 'PROFANITIES_ALLOWED') and
+            screenshot.website.profanities > settings.PROFANITIES_ALLOWED):
             # Hide screenshots that are not safe for work
             continue
         if (screenshot.browser.browser_group.unusual or

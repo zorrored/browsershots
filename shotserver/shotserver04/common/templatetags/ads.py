@@ -23,7 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django import template
-from shotserver04 import settings
+from django.conf import settings
 
 LEADERBOARD_TEMPLATE = """\
 <div class="ad leaderboard clear">

@@ -33,7 +33,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.conf.urls.defaults import *
-from shotserver04 import settings
+from django.conf import settings
 
 
 def load_app_patterns(prefix, ignore=()):

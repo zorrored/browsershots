@@ -31,7 +31,7 @@ from django.shortcuts import render_to_response
 from django.utils.text import capfirst
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.common import int_or_none, last_poll_timeout, error_page
 from shotserver04.common.preload import preload_foreign_keys
 from shotserver04.start.models import NewsItem
