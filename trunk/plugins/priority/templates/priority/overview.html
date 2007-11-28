@@ -1,0 +1,52 @@
+{% extends "adbase.html" %}
+
+{% block title %}{{ _("priority processing")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ _("priority processing")|capfirst }}</h1>
+
+{% if user_priority_until %}
+<p>You have priority processing until {{ user_priority_until }}
+({{ user_priority_until|timeuntil }} remaining).</p>
+{% else %}
+<ul>
+<li>Your screenshot requests will be processed immediately.</li>
+<li>Get screenshots of any web address, as often as you want.</li>
+<li>Valid for a whole month, starting with activation.</li>
+<li>Automatic activation immediately upon payment.</li>
+<li>You will often get 10 to 20 screenshots within 1 to 3 minutes.</li>
+<li>No need to extend requests to avoid expiration.</li>
+<li>Your screenshots are private (only you will see them, or somebody who already knows your URL).</li>
+<li>Dedicated email support from
+<a href="mailto:johann@browsershots.org">johann@browsershots.org</a>.</li>
+<li>You're supporting an open-source project.</li>
+</ul>
+{% if http_request.user.is_anonymous %}
+<p class="admonition hint">If you want priority processing, please <a href="/accounts/login/?next=/priority/">sign in</a>.<br />
+<a href="/accounts/email/">Create a user account</a> if you don't have one.<br />
+The PayPal buttons will appear here when you're signed in.</p>
+{% else %}
+{% for symbol, amount, currency in symbol_amount_currency_list %}
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<p>
+<input type="hidden" name="cmd" value="_xclick" />
+<input type="hidden" name="business" value="johann@browsershots.org" />
+<input type="hidden" name="item_name" value="Priority processing for {{ http_request.user.username }}" />
+<input type="hidden" name="amount" value="{{ amount }}" />
+<input type="hidden" name="no_shipping" value="1" />
+<input type="hidden" name="return" value="http://browsershots.org/priority/thankyou/" />
+<input type="hidden" name="cancel_return" value="http://browsershots.org/priority/cancel/" />
+<input type="hidden" name="no_note" value="1" />
+<input type="hidden" name="currency_code" value="{{ currency }}" />
+<input type="hidden" name="lc" value="US" />
+<input type="hidden" name="bn" value="PP-BuyNowBF" />
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but01.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!"
+class="floatleft" style="margin-top:4px" />
+Priority processing for <strong>{{ http_request.user.username }}</strong><br />
+1 month for <strong>{{ symbol|safe }}{{ amount }}</strong> {{ currency }}
+</p>
+</form>
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endblock %}
