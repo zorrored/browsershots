@@ -33,3 +33,13 @@ def overview(http_request):
         ]
     return render_to_response('priority/overview.html', locals(),
         context_instance=RequestContext(http_request))
+
+
+def thankyou(http_request):
+    return render_to_response('priority/thankyou.html', locals(),
+        context_instance=RequestContext(http_request))
+
+
+def support(http_request):
+    return render_to_response('priority/support.html', locals(),
+        context_instance=RequestContext(http_request))

@@ -26,4 +26,6 @@ from django.conf.urls.defaults import patterns
 
 urlpatterns = patterns('shotserver04.priority.views',
     (r'^$', 'overview'),
+    (r'^thankyou/$', 'thankyou'),
+    (r'^support/$', 'support'),
 )
