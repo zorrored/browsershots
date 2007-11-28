@@ -29,7 +29,7 @@ from django.db import connection
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.websites.models import Website, Domain
 
 
