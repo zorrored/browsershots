@@ -118,8 +118,12 @@ def details(http_request, url):
     domain_website_list = domain.website_set.exclude(id=website.id)
     # Show extra message from settings.py
     if (http_request.user.is_anonymous() or
-        http_request.user.userpriority_set.count() == 0):
-        if hasattr(settings, 'WEBSITE_DETAILS_HEAD_EXTRA'):
-            website_details_head_extra = settings.WEBSITE_DETAILS_HEAD_EXTRA
+        not http_request.user.userpriority_set.count()):
+        website_details_head_extra = """
+<p class="admonition new">
+<a href="/priority/">Support the Browsershots project!<br />
+Get a month of priority processing for 10 Euros or 15 Dollars.</a>
+</p>
+""".strip()
     return render_to_response('websites/details.html', locals(),
         context_instance=RequestContext(http_request))
