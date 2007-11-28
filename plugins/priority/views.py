@@ -21,3 +21,15 @@ Priority views.
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
+
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+
+def overview(http_request):
+    symbol_amount_currency_list = [
+        ('&euro;', '10.00', 'EUR'),
+        ('$', '15.00', 'USD'),
+        ]
+    return render_to_response('priority/overview.html', locals(),
+        context_instance=RequestContext(http_request))
