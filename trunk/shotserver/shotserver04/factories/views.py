@@ -29,6 +29,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.db.models.query import Q
 from django import newforms as forms
 from django.newforms.util import ErrorList
 from django.conf import settings
@@ -259,9 +260,12 @@ def details(http_request, name):
     colordepth_list = factory.colordepth_set.all()
     screenshot_list = factory.screenshot_set.all()
     if screenshot_list.count():
+        q = Q(user__isnull=True)
+        if not http_request.user.is_anonymous():
+            q |= Q(user=http_request.user)
         if hasattr(settings, 'PROFANITIES_ALLOWED'):
-            screenshot_list = screenshot_list.filter(
-                website__profanities__lte=settings.PROFANITIES_ALLOWED)
+            q &= Q(website__profanities__lte=settings.PROFANITIES_ALLOWED)
+        screenshot_list = screenshot_list.filter(q)
         screenshot_list = screenshot_list.order_by('-id')[:10]
     preload_foreign_keys(screenshot_list, browser=browser_list)
     admin_logged_in = http_request.user.id == factory.admin_id
