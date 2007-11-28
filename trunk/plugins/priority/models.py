@@ -31,7 +31,7 @@ class UserPriority(models.Model):
     user = models.ForeignKey(User, raw_id_admin=True)
     priority = models.IntegerField()
     expire = models.DateTimeField()
-    txn_id = models.CharField(max_length=40)
+    txn_id = models.CharField(max_length=40, blank=True)
 
     class Admin:
         list_display = ('user', 'priority', 'expire', 'txn_id')
