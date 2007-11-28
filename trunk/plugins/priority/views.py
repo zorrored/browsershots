@@ -31,6 +31,11 @@ def overview(http_request):
         ('&euro;', '10.00', 'EUR'),
         ('$', '15.00', 'USD'),
         ]
+    user_has_priority_until = None
+    if not http_request.user.is_anonymous():
+        priorities = http_request.user.userpriority_set.order_by('-expire')
+        if len(priorities):
+            user_has_priority_until = priorities[0].expire
     return render_to_response('priority/overview.html', locals(),
         context_instance=RequestContext(http_request))
 
