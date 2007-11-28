@@ -46,7 +46,6 @@ LOCKFILE.truncate()
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
-from shotserver04 import settings
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser

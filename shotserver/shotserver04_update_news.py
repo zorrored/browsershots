@@ -35,7 +35,6 @@ import re
 import time
 from datetime import datetime
 import urllib2
-from shotserver04 import settings
 from shotserver04.start.models import NewsItem
 
 find_items = re.compile(
