@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load human %}
 
 {% block title %}{{ _("priority processing")|capfirst }}{% endblock %}
 
 {% block content %}
 <h1>{{ _("priority processing")|capfirst }}</h1>
 
-{% if user_priority_until %}
-<p>You have priority processing until {{ user_priority_until }}
-({{ user_priority_until|timeuntil }} remaining).</p>
+{% if user_has_priority_until %}
+<p>You have priority processing until {{ user_has_priority_until|human_date }}
+({{ user_has_priority_until|timeuntil }} remaining).</p>
 {% else %}
 <ul>
 <li>Your screenshot requests will be processed immediately.</li>
