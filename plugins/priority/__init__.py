@@ -35,7 +35,8 @@ def user_uploads_per_day(user):
     if user.is_anonymous():
         return 0
     return sum([f.uploads_per_day
-                for f in Factory.objects.filter(admin=user)])
+                for f in Factory.objects.filter(admin=user)
+                if f.uploads_per_day])
 
 
 def user_priority(user):
