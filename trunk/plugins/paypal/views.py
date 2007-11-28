@@ -111,18 +111,21 @@ def create_user_priority(log):
         mail_admins("Wrong payment", log)
         return
     user = None
-    if log.memo:
+    if (log.item_name and
+        log.item_name.lower().startswith('priority processing for ')):
+        user = guess(username=log.item_name.split()[-1])
+    if user is None and log.memo:
         # Try to guess user from comment field.
         user = (
             guess(username=log.memo) or
             guess(username=log.memo.split()[-1]) or
             guess(username=log.memo.split(':')[-1].strip()))
-    if user is None:
+    if user is None and log.payer_email:
         # Try to guess user from email address.
         user = (
             guess(email=log.payer_email) or
             guess(username=log.payer_email.split('@')[0]))
-    if user is None:
+    if user is None and log.last_name:
         # Try to guess user from first and last name.
         user = (
             guess(first_name=log.first_name, last_name=log.last_name) or
@@ -178,6 +181,7 @@ class PayPalForm(forms.Form):
     Simple form to generate POST requests for testing PayPal IPN.
     """
     txn_id = forms.CharField(initial='3Y366594SP996132H')
+    item_name = forms.CharField(initial='Priority processing for tester')
     payment_date = forms.CharField(initial='22:20:41 Jul 23, 2007 PDT')
     payer_id = forms.CharField(initial='UXJ9E3MSX72E4')
     payer_email = forms.EmailField(initial='payer@example.com')
