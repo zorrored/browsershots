@@ -32,7 +32,7 @@ from datetime import datetime, timedelta
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from shotserver04 import settings
+from django.conf import settings
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.browsers.models import Browser
 from shotserver04.screenshots.models import Screenshot, ProblemReport
@@ -106,8 +106,8 @@ for factory in factories:
     subject = "[browsershots] %d problem reports for %s" % (
         len(problems), factory.name)
     body = '\n'.join(body)
-    from_email = u'%s <%s>' % settings.ADMINS[0]
-    recipient_list=[u'%s %s <%s>' % (
+    from_email = u'"%s" <%s>' % settings.ADMINS[0]
+    recipient_list=[u'"%s %s" <%s>' % (
         factory.admin.first_name, factory.admin.last_name,
         factory.admin.email)]
     if DEBUG:
