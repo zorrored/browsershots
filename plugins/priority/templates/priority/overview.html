@@ -20,12 +20,13 @@
 <li>Ad-free web interface.</li>
 <li>Dedicated email support from
 <a href="mailto:johann@browsershots.org">johann@browsershots.org</a>.</li>
-<li>You're supporting an open-source project.</li>
+<li>Your payment supports an open-source project.</li>
 </ul>
 {% if http_request.user.is_anonymous %}
-<p class="admonition hint">If you want priority processing, please <a href="/accounts/login/?next=/priority/">sign in</a>.<br />
-<a href="/accounts/email/">Create a user account</a> if you don't have one.<br />
-The PayPal buttons will appear here when you're signed in.</p>
+<p class="admonition hint">The PayPal buttons will appear here when you
+<a href="/accounts/login/?next=/priority/">log in</a>.<br />
+Please <a href="/accounts/email/">create a user account</a> first
+if you don't have one.</p>
 {% else %}
 {% for symbol, amount, currency in symbol_amount_currency_list %}
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
