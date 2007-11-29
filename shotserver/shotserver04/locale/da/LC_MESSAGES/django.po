@@ -19,7 +19,7 @@ msgstr ""
 
 #: accounts/views.py:63
 msgid "You're already signed in"
-msgstr "Du er allerede logget ind."
+msgstr "Du er allerede logget ind"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
@@ -412,7 +412,7 @@ msgstr "kodeord"
 
 #: browsers/views.py:145
 msgid "Password mismatch."
-msgstr "Uidentiske kodeord"
+msgstr "Uidentiske kodeord."
 
 #: browsers/templates/browsers/add.html:5
 #: browsers/templates/browsers/add.html:8
@@ -714,7 +714,7 @@ msgstr "kort version"
 
 #: factories/templates/factories/details.html:66
 msgid "No browsers registered for this factory."
-msgstr "Ingen browsere registrerede for denne fabrik"
+msgstr "Ingen browsere registrerede for denne fabrik."
 
 #: factories/templates/factories/details.html:85
 #: factories/templates/factories/details.html:110
@@ -1242,7 +1242,7 @@ msgstr "URL skema %(scheme)s er ikke understøttet."
 
 #: start/forms/url.py:96
 msgid "Malformed URL (server name not specified)."
-msgstr "Ukorrekt URL (server navn er ikke speciferet)"
+msgstr "Ukorrekt URL (server navn er ikke speciferet)."
 
 #: start/forms/url.py:123
 #, python-format
@@ -1257,7 +1257,7 @@ msgstr "Server IP adresse %(ip)s er ikke tilladt."
 #: start/forms/url.py:157
 #, python-format
 msgid "Could not connect to %(hostname)s."
-msgstr "Kunne ikke tilslutte til %(hostname)s"
+msgstr "Kunne ikke tilslutte til %(hostname)s."
 
 #: start/forms/url.py:159
 #, python-format

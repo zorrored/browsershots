@@ -84,7 +84,7 @@ msgstr ""
 
 #: accounts/views.py:194 factories/views.py:58 start/views.py:83
 msgid "Please try again later."
-msgstr "Моля опитайте по-късно"
+msgstr "Моля опитайте по-късно."
 
 #: accounts/views.py:197
 msgid "email verification"
@@ -225,7 +225,7 @@ msgstr ""
 #: accounts/templates/accounts/profile.html:29
 #, fuzzy
 msgid "Register a new screenshot factory?"
-msgstr "размери на екрана"
+msgstr "размери на екрана?"
 
 #: accounts/templates/accounts/profile.html:30
 #: factories/templates/factories/details.html:71
@@ -578,7 +578,7 @@ msgstr "IP адрес"
 
 #: factories/models.py:65
 msgid "The last poll came from this IP address."
-msgstr "Последната заявка дойде от този IP адрес"
+msgstr "Последната заявка дойде от този IP адрес."
 
 #: factories/models.py:67
 msgid "last poll"

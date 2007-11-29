@@ -23,7 +23,7 @@ msgstr "Zaten Giriş Yaptınız"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
-msgstr "Lütfen çıkış yapın ve tekrar deneyin"
+msgstr "Lütfen çıkış yapın ve tekrar deneyin."
 
 #: accounts/views.py:73
 msgid "Username"
@@ -35,15 +35,15 @@ msgstr "Şifre"
 
 #: accounts/views.py:91
 msgid "Please enable cookies in your browser."
-msgstr "Lütfen internet tarayıcınızda cookie(çerez)leri aktif hale getirin"
+msgstr "Lütfen internet tarayıcınızda cookie(çerez)leri aktif hale getirin."
 
 #: accounts/views.py:97
 msgid "Incorrect username or password."
-msgstr "Yanlış kullanıcı adı veya şifre"
+msgstr "Yanlış kullanıcı adı veya şifre."
 
 #: accounts/views.py:99
 msgid "This account is inactive."
-msgstr "Bu hesap aktif değil"
+msgstr "Bu hesap aktif değil."
 
 #: accounts/views.py:101 accounts/views.py:166
 msgid "Welcome to Browsershots!"
@@ -99,11 +99,11 @@ msgstr "Email Gönder"
 
 #: accounts/views.py:217
 msgid "email error"
-msgstr "Email HATA!"
+msgstr "Email HATA"
 
 #: accounts/views.py:218
 msgid "Could not send email."
-msgstr "Email Gönderilemedi"
+msgstr "Email Gönderilemedi."
 
 #: accounts/views.py:220
 msgid "email sent"
@@ -232,13 +232,13 @@ msgstr ""
 #: accounts/templates/accounts/profile.html:29
 #, fuzzy
 msgid "Register a new screenshot factory?"
-msgstr "Etkin ekran görüntüsü fabrikası yok."
+msgstr "Etkin ekran görüntüsü fabrikası yok?"
 
 #: accounts/templates/accounts/profile.html:30
 #: factories/templates/factories/details.html:71
 #, fuzzy
 msgid "Register this browser for screenshots?"
-msgstr "Bu tarayıcıyı ekran görüntüsü için kaydet!"
+msgstr "Bu tarayıcıyı ekran görüntüsü için kaydet?"
 
 #: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
@@ -310,7 +310,7 @@ msgstr ""
 #: browsers/models.py:71
 #, fuzzy
 msgid "Hide from recent screenshot overview?"
-msgstr "yakın zaman ekran görüntüleri"
+msgstr "yakın zaman ekran görüntüleri?"
 
 #: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
@@ -693,7 +693,7 @@ msgstr ""
 #: factories/views.py:335
 #, fuzzy
 msgid "register a new screenshot factory"
-msgstr "Etkin ekran görüntüsü fabrikası yok."
+msgstr "Etkin ekran görüntüsü fabrikası yok"
 
 #: factories/views.py:336
 #, fuzzy
@@ -1227,7 +1227,7 @@ msgstr ""
 #: start/views.py:65
 #, fuzzy
 msgid "Anonymous screenshot requests are not allowed."
-msgstr "ekran görüntüsü istek grubu"
+msgstr "ekran görüntüsü istek grubu."
 
 #: start/views.py:68
 msgid "Please log in with your username and password."

@@ -19,7 +19,7 @@ msgstr ""
 
 #: accounts/views.py:63
 msgid "You're already signed in"
-msgstr "Vous êtes déjà connecté."
+msgstr "Vous êtes déjà connecté"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
@@ -173,7 +173,7 @@ msgstr "Le code de vérification n'a pas d'email."
 
 #: accounts/views.py:336
 msgid "Verification code expired"
-msgstr "Le code de vérification a expiré."
+msgstr "Le code de vérification a expiré"
 
 #: accounts/views.py:337
 msgid "The verification email was requested more than 24 hours ago."
@@ -189,7 +189,7 @@ msgstr "changer de mot de passe"
 
 #: accounts/views.py:360
 msgid "Password changed"
-msgstr "Mot de passe modifié."
+msgstr "Mot de passe modifié"
 
 #: accounts/views.py:361
 msgid "Your new password has been saved."
@@ -663,11 +663,11 @@ msgstr "Ce navigateur est déjà inactif."
 
 #: factories/views.py:195 factories/views.py:207
 msgid "Duplicate."
-msgstr "Dupliquer"
+msgstr "Dupliquer."
 
 #: factories/views.py:197 factories/views.py:209
 msgid "Invalid data."
-msgstr "Donnée invalide"
+msgstr "Donnée invalide."
 
 #: factories/views.py:292
 msgid "Name must start with a lowercase letter."
@@ -1284,7 +1284,7 @@ msgstr "URL erronée (Erreur d'intégrité de la base de données)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
-msgstr "Testez le design de votre site dans différents navigateurs."
+msgstr "Testez le design de votre site dans différents navigateurs"
 
 #: start/templates/start/start.html:56
 msgid "project links"

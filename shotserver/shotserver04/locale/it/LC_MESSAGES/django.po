@@ -35,7 +35,7 @@ msgstr "Password"
 
 #: accounts/views.py:91
 msgid "Please enable cookies in your browser."
-msgstr "Per favore abilita i cookie nel tuo browser"
+msgstr "Per favore abilita i cookie nel tuo browser."
 
 #: accounts/views.py:97
 msgid "Incorrect username or password."
@@ -88,7 +88,7 @@ msgstr "Riprova più tardi, per favore."
 
 #: accounts/views.py:197
 msgid "email verification"
-msgstr "Verifica email."
+msgstr "Verifica email"
 
 #: accounts/views.py:199
 msgid "send email"
@@ -100,7 +100,7 @@ msgstr "errore email"
 
 #: accounts/views.py:218
 msgid "Could not send email."
-msgstr "Impossibile inviare l'email"
+msgstr "Impossibile inviare l'email."
 
 #: accounts/views.py:220
 msgid "email sent"
@@ -109,7 +109,7 @@ msgstr "email inviata"
 #: accounts/views.py:221
 #, python-format
 msgid "A verification email was sent to %(address)s."
-msgstr "Una email di verifica è stata inviata a %(address)s"
+msgstr "Una email di verifica è stata inviata a %(address)s."
 
 #: accounts/views.py:222
 msgid "Check your email inbox and follow the instructions in the message."
@@ -165,7 +165,7 @@ msgstr "L'email di verifica è stata richiesta da un diverso indirizzo IP."
 
 #: accounts/views.py:333
 msgid "Bad verification code"
-msgstr "Codice di verifica errato."
+msgstr "Codice di verifica errato"
 
 #: accounts/views.py:334
 msgid "The verification code has no email address."
@@ -173,7 +173,7 @@ msgstr "Il codice di verifica non contiene l'indirizzo email."
 
 #: accounts/views.py:336
 msgid "Verification code expired"
-msgstr "Il codice di verifica è scaduto."
+msgstr "Il codice di verifica è scaduto"
 
 #: accounts/views.py:337
 msgid "The verification email was requested more than 24 hours ago."
@@ -181,11 +181,11 @@ msgstr "L'email di verifica è stata richiesta più di 24 ore fa."
 
 #: accounts/views.py:351
 msgid "choose a new password"
-msgstr "scegli una nuova password."
+msgstr "scegli una nuova password"
 
 #: accounts/views.py:353
 msgid "change password"
-msgstr "cambia password."
+msgstr "cambia password"
 
 #: accounts/views.py:360
 msgid "Password changed"
@@ -201,7 +201,7 @@ msgstr "Clicca sul collegamento in alto a destra per accedere."
 
 #: accounts/views.py:374
 msgid "create a new account"
-msgstr "crea un nuovo account."
+msgstr "crea un nuovo account"
 
 #: accounts/views.py:376
 msgid "create account"
@@ -478,7 +478,7 @@ msgstr "pagina non trovata"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr "La pagina richiesta non è stata trovata"
+msgstr "La pagina richiesta non è stata trovata."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
@@ -587,7 +587,7 @@ msgstr "IP"
 
 #: factories/models.py:65
 msgid "The last poll came from this IP address."
-msgstr "L'ultimo risultato proviene da questo indirizzo IP"
+msgstr "L'ultimo risultato proviene da questo indirizzo IP."
 
 #: factories/models.py:67
 msgid "last poll"
@@ -599,7 +599,7 @@ msgstr "stima della coda"
 
 #: factories/models.py:76
 msgid "Seconds between screenshot request and upload."
-msgstr "Secondi trascorsi tra la richiesta di scrreshot e l'upload"
+msgstr "Secondi trascorsi tra la richiesta di scrreshot e l'upload."
 
 #: factories/models.py:208 screenshots/models.py:119
 msgid "width"
@@ -641,12 +641,12 @@ msgstr "Nessuna Factory attiva."
 #: factories/views.py:77 factories/views.py:88 factories/views.py:106
 #, python-format
 msgid "Value %d is too small."
-msgstr "Il valore %d è troppo piccolo"
+msgstr "Il valore %d è troppo piccolo."
 
 #: factories/views.py:79 factories/views.py:90 factories/views.py:108
 #, python-format
 msgid "Value %d is too big."
-msgstr "Il valore %d è troppo grande"
+msgstr "Il valore %d è troppo grande."
 
 #: factories/views.py:114 requests/views.py:143 requests/views.py:148
 msgid "invalid request"
@@ -920,7 +920,7 @@ msgstr "[Ricarica questa pagina] o aggiungila ai preferiti e torna più tardi."
 
 #: requests/models.py:217
 msgid "Your screenshot requests have expired."
-msgstr "Le tue richieste di screenshot sono scadute"
+msgstr "Le tue richieste di screenshot sono scadute."
 
 #: requests/models.py:227
 #, python-format
@@ -1060,7 +1060,7 @@ msgstr "richieste in sospeso"
 
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
-msgstr "Nessuna richiesta in sospeso"
+msgstr "Nessuna richiesta in sospeso."
 
 #: screenshots/models.py:38
 msgid "This is not the requested browser."
@@ -1072,7 +1072,7 @@ msgstr "Questo non è il sistema operativo richiesto."
 
 #: screenshots/models.py:41
 msgid "This is not the requested Javascript version."
-msgstr "Questa non è la versione Javascript richiesta"
+msgstr "Questa non è la versione Javascript richiesta."
 
 #: screenshots/models.py:42
 msgid "This is not the requested Java version."
@@ -1176,15 +1176,15 @@ msgstr "problemi segnalati"
 
 #: screenshots/views.py:117
 msgid "HTML is not allowed here."
-msgstr "HTML non è permesso qui"
+msgstr "HTML non è permesso qui."
 
 #: screenshots/views.py:121
 msgid "URLs are not allowed here."
-msgstr "Gli URL non sono permessi qui"
+msgstr "Gli URL non sono permessi qui."
 
 #: screenshots/templates/screenshots/details.html:28
 msgid "Click for full size."
-msgstr "Clicca per la dimensione massima"
+msgstr "Clicca per la dimensione massima."
 
 #: screenshots/templates/screenshots/details.html:74
 msgid "dimensions"
@@ -1220,7 +1220,7 @@ msgstr "Non sono consentite richieste anonime di screenshot ."
 
 #: start/views.py:68
 msgid "Please log in with your username and password."
-msgstr "Accedi con il tuo nome utente e la tua password"
+msgstr "Accedi con il tuo nome utente e la tua password."
 
 #: start/views.py:184
 msgid "select all"
@@ -1280,7 +1280,7 @@ msgstr "Il server non ha risposto entro %d secondi."
 
 #: start/forms/url.py:209
 msgid "Malformed URL (database integrity error)."
-msgstr "URL errato (errore di coerenza su database)"
+msgstr "URL errato (errore di coerenza su database)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
@@ -1356,7 +1356,7 @@ msgstr "premium sponsor"
 
 #: websites/models.py:38
 msgid "Missing slash after the hostname."
-msgstr "Manca una barra dopo il nome dell'host"
+msgstr "Manca una barra dopo il nome dell'host."
 
 #: websites/models.py:57 websites/models.py:78
 msgid "domain"

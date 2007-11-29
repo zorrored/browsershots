@@ -227,7 +227,7 @@ msgstr ""
 #: accounts/templates/accounts/profile.html:29
 #, fuzzy
 msgid "Register a new screenshot factory?"
-msgstr "Nėra aktyvių nuotraukų gamyklų."
+msgstr "Nėra aktyvių nuotraukų gamyklų?"
 
 #: accounts/templates/accounts/profile.html:30
 #: factories/templates/factories/details.html:71
@@ -592,7 +592,7 @@ msgstr "numatomas laukimas eilėje"
 
 #: factories/models.py:76
 msgid "Seconds between screenshot request and upload."
-msgstr "Sekundės tarp nuotraukos užklausos ir įkėlimo"
+msgstr "Sekundės tarp nuotraukos užklausos ir įkėlimo."
 
 #: factories/models.py:208 screenshots/models.py:119
 msgid "width"
@@ -680,7 +680,7 @@ msgstr ""
 #: factories/views.py:335
 #, fuzzy
 msgid "register a new screenshot factory"
-msgstr "Nėra aktyvių nuotraukų gamyklų."
+msgstr "Nėra aktyvių nuotraukų gamyklų"
 
 #: factories/views.py:336
 #, fuzzy
@@ -1208,7 +1208,7 @@ msgstr ""
 #: start/views.py:65
 #, fuzzy
 msgid "Anonymous screenshot requests are not allowed."
-msgstr "Sekundės tarp nuotraukos užklausos ir įkėlimo"
+msgstr "Sekundės tarp nuotraukos užklausos ir įkėlimo."
 
 #: start/views.py:68
 msgid "Please log in with your username and password."

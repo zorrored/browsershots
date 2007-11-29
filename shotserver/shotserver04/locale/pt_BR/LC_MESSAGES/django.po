@@ -167,7 +167,7 @@ msgstr "Código de verificação errado"
 
 #: accounts/views.py:334
 msgid "The verification code has no email address."
-msgstr "O código de verificação não tem nenhum endereço de email"
+msgstr "O código de verificação não tem nenhum endereço de email."
 
 #: accounts/views.py:336
 msgid "Verification code expired"
@@ -638,7 +638,7 @@ msgstr "fora de serviço"
 
 #: factories/views.py:57 start/views.py:82
 msgid "No active screenshot factories."
-msgstr "Nenhuma fábrica de screenshot ativa"
+msgstr "Nenhuma fábrica de screenshot ativa."
 
 #: factories/views.py:77 factories/views.py:88 factories/views.py:106
 #, python-format

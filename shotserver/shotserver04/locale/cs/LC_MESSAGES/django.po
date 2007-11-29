@@ -236,7 +236,7 @@ msgstr "Zaslat požadavek na nové screenshoty?"
 #: factories/templates/factories/details.html:71
 #, fuzzy
 msgid "Register this browser for screenshots?"
-msgstr "Registrujte tento prohlížeč pro screenshoty!"
+msgstr "Registrujte tento prohlížeč pro screenshoty?"
 
 #: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
@@ -308,7 +308,7 @@ msgstr ""
 #: browsers/models.py:71
 #, fuzzy
 msgid "Hide from recent screenshot overview?"
-msgstr "poslední screenshoty"
+msgstr "poslední screenshoty?"
 
 #: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
@@ -480,7 +480,7 @@ msgstr "stránka nebyla nalezena"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr "požadovaná stránka nebyla nalezena"
+msgstr "požadovaná stránka nebyla nalezena."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
@@ -690,7 +690,7 @@ msgstr ""
 #: factories/views.py:335
 #, fuzzy
 msgid "register a new screenshot factory"
-msgstr "Žádné aktivní stroje."
+msgstr "Žádné aktivní stroje"
 
 #: factories/views.py:336
 #, fuzzy
@@ -1064,7 +1064,7 @@ msgstr "čekající požadavky"
 
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
-msgstr "žádné čekající požadavky"
+msgstr "žádné čekající požadavky."
 
 #: screenshots/models.py:38
 #, fuzzy
@@ -1090,7 +1090,7 @@ msgstr ""
 
 #: screenshots/models.py:44
 msgid "A language pack needs to be installed."
-msgstr "Je potřeba nainstalovat jazykový balík"
+msgstr "Je potřeba nainstalovat jazykový balík."
 
 #: screenshots/models.py:46
 msgid "There is a dialog box in front of the browser window."
@@ -1217,7 +1217,7 @@ msgstr "Stránka načtena"
 #: screenshots/templates/screenshots/details.html:101
 #, fuzzy
 msgid "Report a problem with this screenshot?"
-msgstr "nahlásit problém s tímto screenshotem"
+msgstr "nahlásit problém s tímto screenshotem?"
 
 #: start/views.py:64
 #, fuzzy
@@ -1254,11 +1254,11 @@ msgstr "Zadejte vaši stránku:"
 #: start/forms/url.py:91
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
-msgstr "Schéma URL %(scheme)s není povoleno"
+msgstr "Schéma URL %(scheme)s není povoleno."
 
 #: start/forms/url.py:96
 msgid "Malformed URL (server name not specified)."
-msgstr "Neplatná URL (není zvolen název serveru)"
+msgstr "Neplatná URL (není zvolen název serveru)."
 
 #: start/forms/url.py:123
 #, fuzzy, python-format

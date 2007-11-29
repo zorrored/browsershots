@@ -20,7 +20,7 @@ msgstr ""
 #: accounts/views.py:63
 #, fuzzy
 msgid "You're already signed in"
-msgstr "Jesteś już zalogowany."
+msgstr "Jesteś już zalogowany"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
@@ -51,7 +51,7 @@ msgstr "Ta przeglądarka jest już włączona."
 #: accounts/views.py:101 accounts/views.py:166
 #, fuzzy
 msgid "Welcome to Browsershots!"
-msgstr "Czym jest projekt Browsershots?"
+msgstr "Czym jest projekt Browsershots!"
 
 #: accounts/views.py:102
 msgid "let me in"
@@ -198,7 +198,7 @@ msgstr "hasło"
 #: accounts/views.py:360
 #, fuzzy
 msgid "Password changed"
-msgstr "Błąd hasła."
+msgstr "Błąd hasła"
 
 #: accounts/views.py:361
 msgid "Your new password has been saved."
@@ -314,7 +314,7 @@ msgstr "nietypowe"
 
 #: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
-msgstr "Nie wyświetlaj w liście ostatnich zrzutów ekranu."
+msgstr "Nie wyświetlaj w liście ostatnich zrzutów ekranu?"
 
 #: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
@@ -1183,15 +1183,15 @@ msgstr "zgłoszenia problemu"
 
 #: screenshots/views.py:117
 msgid "HTML is not allowed here."
-msgstr "HTML nie jest tu dozwolony"
+msgstr "HTML nie jest tu dozwolony."
 
 #: screenshots/views.py:121
 msgid "URLs are not allowed here."
-msgstr "URLe nie są tu dozwolone"
+msgstr "URLe nie są tu dozwolone."
 
 #: screenshots/templates/screenshots/details.html:28
 msgid "Click for full size."
-msgstr "Kliknij aby powiększyć do pełnych wymiarów"
+msgstr "Kliknij aby powiększyć do pełnych wymiarów."
 
 #: screenshots/templates/screenshots/details.html:74
 msgid "dimensions"
