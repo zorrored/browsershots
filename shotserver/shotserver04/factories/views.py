@@ -192,7 +192,8 @@ def details_post(http_request, factory,
         except IntegrityError, e:
             transaction.rollback()
             if 'duplicate' in str(e).lower():
-                screensize_form.errors['width'] = [_("Duplicate.")]
+                screensize_form.errors['width'] = [
+                    _("This screen size is already enabled.")]
             else:
                 screensize_form.errors['width'] = [_("Invalid data.")]
     if colordepth_form.is_valid():
@@ -204,7 +205,8 @@ def details_post(http_request, factory,
         except IntegrityError, e:
             transaction.rollback()
             if 'duplicate' in str(e).lower():
-                colordepth_form.errors['depth'] = [_("Duplicate.")]
+                colordepth_form.errors['depth'] = [
+                    _("This color depth is already enabled.")]
             else:
                 colordepth_form.errors['depth'] = [_("Invalid data.")]
     for action in http_request.POST:
