@@ -239,7 +239,7 @@ p.new {
 }
 p.hint {
   background-image: url(lightbulb.png);
-  background-color: #eef;
+  background-color: #ddf;
   border-color: #00f;
 }
 p.warning {
