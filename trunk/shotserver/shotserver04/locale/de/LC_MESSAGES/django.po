@@ -35,7 +35,7 @@ msgstr "Passwort"
 
 #: accounts/views.py:91
 msgid "Please enable cookies in your browser."
-msgstr "Bitte aktivieren Sie Cookies in Ihrem Browser."
+msgstr "Bitte aktiviere Cookies in deinem Browser."
 
 #: accounts/views.py:97
 msgid "Incorrect username or password."
@@ -51,7 +51,7 @@ msgstr "Willkommen bei Browsershots!"
 
 #: accounts/views.py:102
 msgid "let me in"
-msgstr "Lassen Sie mich rein"
+msgstr "Lass mich rein"
 
 #: accounts/views.py:109
 msgid "Forgot your password?"
@@ -67,7 +67,7 @@ msgstr "abgemeldet"
 
 #: accounts/views.py:127
 msgid "You have successfully logged out."
-msgstr "Sie haben sich erfolgreich abgemeldet."
+msgstr "Du hast dich erfolgreich abgemeldet."
 
 #: accounts/views.py:163 accounts/templates/accounts/profile.html:8
 #, python-format
@@ -89,7 +89,7 @@ msgstr "Bitte später erneut versuchen."
 
 #: accounts/views.py:197
 msgid "email verification"
-msgstr "Emailverifizierung"
+msgstr "Email-Überprüfung"
 
 #: accounts/views.py:199
 msgid "send email"
@@ -97,7 +97,7 @@ msgstr "Email schicken"
 
 #: accounts/views.py:217
 msgid "email error"
-msgstr "Email Fehler"
+msgstr "Email-Fehler"
 
 #: accounts/views.py:218
 msgid "Could not send email."
@@ -110,7 +110,7 @@ msgstr "Email abgeschickt"
 #: accounts/views.py:221
 #, python-format
 msgid "A verification email was sent to %(address)s."
-msgstr ""
+msgstr "Eine Test-Email wurde an %(address)s geschickt."
 
 #: accounts/views.py:222
 msgid "Check your email inbox and follow the instructions in the message."
@@ -140,11 +140,11 @@ msgstr "Dieser Benutzername ist reserviert."
 #: accounts/views.py:278
 #, python-format
 msgid "The password must have %d or more characters."
-msgstr "Das Passwort muss %d oder mehr Zeichen lang sein."
+msgstr "Das Passwort muss mindestens %d Zeichen lang sein."
 
 #: accounts/views.py:282
 msgid "The password must not be completely numeric."
-msgstr "Das Passwort darf nicht komplett numerisch sein."
+msgstr "Das Passwort darf nicht komplett aus Ziffern bestehen."
 
 #: accounts/views.py:295
 msgid "Repeat password is not the same."
@@ -176,13 +176,12 @@ msgid "Verification code expired"
 msgstr "Verifizierungscode ist abgelaufen"
 
 #: accounts/views.py:337
-#, fuzzy
 msgid "The verification email was requested more than 24 hours ago."
-msgstr "Die Verifizierungsemail wurde vor mehr als 30 Minuten angefordert."
+msgstr "Die Verifizierungsemail wurde vor mehr als 24 Stunden angefordert."
 
 #: accounts/views.py:351
 msgid "choose a new password"
-msgstr "Bitte wählen Sie ein neues Passwort"
+msgstr "wähle ein neues Passwort"
 
 #: accounts/views.py:353
 msgid "change password"
@@ -194,11 +193,11 @@ msgstr "Passwort geändert"
 
 #: accounts/views.py:361
 msgid "Your new password has been saved."
-msgstr "Ihr neues Passwort wurde gespeichert."
+msgstr "Dein neues Passwort wurde gespeichert."
 
 #: accounts/views.py:362 accounts/views.py:386
 msgid "Click the link in the top right corner to log in."
-msgstr "Klick auf den Link oben rechts um dich einzuloggen."
+msgstr "Klick auf den Link oben rechts, um dich einzuloggen."
 
 #: accounts/views.py:374
 msgid "create a new account"
@@ -417,7 +416,7 @@ msgstr "Passwort"
 
 #: browsers/views.py:145
 msgid "Password mismatch."
-msgstr "Die Passwörter stimmen nicht überein."
+msgstr "Falsches Passwort."
 
 #: browsers/templates/browsers/add.html:5
 #: browsers/templates/browsers/add.html:8
@@ -509,20 +508,20 @@ msgstr "Suche"
 
 #: common/templates/base.html:34
 msgid "signed in as"
-msgstr "Angemeldet als"
+msgstr "angemeldet als"
 
 #: common/templates/base.html:35
 msgid "logout"
-msgstr "Logout"
+msgstr "abmelden"
 
 #: common/templates/base.html:37
 msgid "login"
-msgstr "Login"
+msgstr "anmelden"
 
 #: common/templatetags/hosting_provider.py:45
 #, python-format
 msgid "hosted by %(provider)s"
-msgstr "Gehostet bei %(provider)s"
+msgstr "gehostet bei %(provider)s"
 
 #: common/templatetags/human.py:51
 #, python-format
@@ -571,11 +570,11 @@ msgstr "Sponsor"
 #: factories/templates/factories/details.html:20
 #: screenshots/templates/screenshots/details.html:66
 msgid "hardware"
-msgstr ""
+msgstr "Hardware"
 
 #: factories/models.py:60
 msgid "e.g. ThinkPad R32, P4 1.8 GHz, 768 MB"
-msgstr ""
+msgstr "z.B. ThinkPad R32, P4 1.8 GHz, 768 MB"
 
 #: factories/models.py:62 factories/templates/factories/details.html:17
 #: factories/templates/factories/details.html:21 platforms/models.py:71
@@ -664,7 +663,7 @@ msgstr "Dieser Browser ist bereits inaktiv."
 
 #: factories/views.py:195 factories/views.py:207
 msgid "Duplicate."
-msgstr "Duplizieren."
+msgstr "Duplikat."
 
 #: factories/views.py:197 factories/views.py:209
 msgid "Invalid data."
@@ -686,7 +685,7 @@ msgstr "Dieser Name ist reserviert."
 
 #: factories/views.py:316
 msgid "This name is already taken."
-msgstr "Dieser Name ist bereits vorhanden."
+msgstr "Dieser Name ist bereits vergeben."
 
 #: factories/views.py:335
 msgid "register a new screenshot factory"
@@ -705,11 +704,6 @@ msgstr "Screenshot-Fabrik %(name)s"
 #: factories/templates/factories/details.html:13
 msgid "admin"
 msgstr "Admin"
-
-#: factories/templates/factories/details.html:18
-#, fuzzy
-msgid "Submit"
-msgstr "abschicken"
 
 #: factories/templates/factories/details.html:26
 msgid "installed browsers"
@@ -1022,20 +1016,20 @@ msgstr "nicht verfügbar"
 
 #: requests/views.py:144
 msgid "You must send a POST request to this page."
-msgstr ""
+msgstr "Du musst einen POST-Request an diese Seite schicken."
 
 #: requests/views.py:149
 msgid "You must specify a numeric request group ID."
-msgstr ""
+msgstr "Du musst eine numerische Auftragsgruppen-ID angeben."
 
 #: requests/views.py:154
 msgid "request group expired"
-msgstr ""
+msgstr "Auftragsgruppe abgelaufen"
 
 #: requests/views.py:155
 #, python-format
 msgid "This request group already expired %d minutes ago."
-msgstr ""
+msgstr "Diese Auftragsgruppe ist bereits vor %d Minuten abgelaufen."
 
 #: requests/views.py:158 websites/templates/websites/details.html:38
 #: websites/templates/websites/unknown.html:14
@@ -1128,9 +1122,8 @@ msgid "user"
 msgstr "Benutzer"
 
 #: screenshots/models.py:123
-#, fuzzy
 msgid "colors"
-msgstr "Farbtiefen"
+msgstr "Farben"
 
 #: screenshots/models.py:273
 msgid "first"
@@ -1212,18 +1205,16 @@ msgid "Report a problem with this screenshot?"
 msgstr "Ein Problem mit diesem Screenshot melden?"
 
 #: start/views.py:64
-#, fuzzy
 msgid "login required"
-msgstr "empfangene Punkte"
+msgstr "Anmeldung erforderlich"
 
 #: start/views.py:65
-#, fuzzy
 msgid "Anonymous screenshot requests are not allowed."
-msgstr "Deine Screenshot-Aufträge sind abgelaufen."
+msgstr "Anonyme Screenshot-Aufträge sind nicht zugelassen."
 
 #: start/views.py:68
 msgid "Please log in with your username and password."
-msgstr ""
+msgstr "Bitte melde dich an, mit Benutzername und Passwort."
 
 #: start/views.py:184
 msgid "select all"
@@ -1252,14 +1243,14 @@ msgid "Malformed URL (server name not specified)."
 msgstr "Ungültige URL (Servername nicht angegeben)."
 
 #: start/forms/url.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "Could not resolve IP address for %(hostname)s."
-msgstr "Konnte HTTP-Anfrage nicht an %(hostname)s senden."
+msgstr "Konnte IP-Adresse für %(hostname)s nicht auflösen."
 
 #: start/forms/url.py:139
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
-msgstr ""
+msgstr "Server-IP-Adresse %(ip)s ist gesperrt."
 
 #: start/forms/url.py:157
 #, python-format
