@@ -176,7 +176,7 @@ msgstr "Bekreftelseskoden har ingen epostadresse."
 
 #: accounts/views.py:336
 msgid "Verification code expired"
-msgstr "Bekreftelseskoden har tidsutløpt."
+msgstr "Bekreftelseskoden har tidsutløpt"
 
 #: accounts/views.py:337
 #, fuzzy
@@ -723,7 +723,7 @@ msgstr "kortversjon"
 
 #: factories/templates/factories/details.html:66
 msgid "No browsers registered for this factory."
-msgstr "Ingen nettlesere registrert i denne fabrikken"
+msgstr "Ingen nettlesere registrert i denne fabrikken."
 
 #: factories/templates/factories/details.html:85
 #: factories/templates/factories/details.html:110
@@ -1063,7 +1063,7 @@ msgstr "aktive anmodninger"
 
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
-msgstr "Ingen anmodninger"
+msgstr "Ingen anmodninger."
 
 #: screenshots/models.py:38
 msgid "This is not the requested browser."
@@ -1267,7 +1267,7 @@ msgstr ""
 #: start/forms/url.py:157
 #, python-format
 msgid "Could not connect to %(hostname)s."
-msgstr "Kunne ikke koble til %(hostname)s"
+msgstr "Kunne ikke koble til %(hostname)s."
 
 #: start/forms/url.py:159
 #, python-format
@@ -1286,7 +1286,7 @@ msgstr "Tjeneren svarte ikke før %d sekunder."
 
 #: start/forms/url.py:209
 msgid "Malformed URL (database integrity error)."
-msgstr "Feilformatert URL (integritetsfeil i databasen)"
+msgstr "Feilformatert URL (integritetsfeil i databasen)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 #, fuzzy

@@ -19,7 +19,7 @@ msgstr ""
 
 #: accounts/views.py:63
 msgid "You're already signed in"
-msgstr "Je ben reeds aangemeld."
+msgstr "Je ben reeds aangemeld"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
@@ -113,7 +113,7 @@ msgstr ""
 
 #: accounts/views.py:222
 msgid "Check your email inbox and follow the instructions in the message."
-msgstr "Controleer je inbox en volg de instructies in het bericht"
+msgstr "Controleer je inbox en volg de instructies in het bericht."
 
 #: accounts/views.py:223
 msgid "If your email provider uses graylisting, it may take a few minutes."
@@ -147,7 +147,7 @@ msgstr "Het wachtwoord mag niet alleen cijfers bevatten."
 
 #: accounts/views.py:295
 msgid "Repeat password is not the same."
-msgstr "Herhaalde wachtwoord is niet gelijk"
+msgstr "Herhaalde wachtwoord is niet gelijk."
 
 #: accounts/views.py:316
 msgid "This username is already taken."
@@ -167,11 +167,11 @@ msgstr "Onjuiste verificatiecode"
 
 #: accounts/views.py:334
 msgid "The verification code has no email address."
-msgstr "De verificatiecode heeft geen e-mailadres"
+msgstr "De verificatiecode heeft geen e-mailadres."
 
 #: accounts/views.py:336
 msgid "Verification code expired"
-msgstr "Verificatiecode verlopen."
+msgstr "Verificatiecode verlopen"
 
 #: accounts/views.py:337
 #, fuzzy
@@ -192,7 +192,7 @@ msgstr "Wachtwoord is gewijzigd"
 
 #: accounts/views.py:361
 msgid "Your new password has been saved."
-msgstr "Je wachtwoord is opgeslagen"
+msgstr "Je wachtwoord is opgeslagen."
 
 #: accounts/views.py:362 accounts/views.py:386
 msgid "Click the link in the top right corner to log in."
@@ -296,7 +296,7 @@ msgstr "terminal"
 
 #: browsers/models.py:69
 msgid "Is this a text-mode browser?"
-msgstr "Is dit een text-geörienteerde browser"
+msgstr "Is dit een text-geörienteerde browser?"
 
 #: browsers/models.py:71
 msgid "unusual"
@@ -304,7 +304,7 @@ msgstr "ongebruikelijk"
 
 #: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
-msgstr "Verberg bij het recente schreenshotoverzicht"
+msgstr "Verberg bij het recente schreenshotoverzicht?"
 
 #: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
@@ -1058,7 +1058,7 @@ msgstr "lopende aanvragen"
 
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
-msgstr "Geen lopende aanvragen"
+msgstr "Geen lopende aanvragen."
 
 #: screenshots/models.py:38
 msgid "This is not the requested browser."
@@ -1078,7 +1078,7 @@ msgstr "Dit is niet de opgevraagde Java-versie."
 
 #: screenshots/models.py:43
 msgid "This is not the requested Flash version."
-msgstr "Dit is niet de opgevraagde Flashversie"
+msgstr "Dit is niet de opgevraagde Flashversie."
 
 #: screenshots/models.py:44
 msgid "A language pack needs to be installed."

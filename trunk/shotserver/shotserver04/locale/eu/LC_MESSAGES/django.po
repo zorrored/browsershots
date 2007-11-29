@@ -500,7 +500,7 @@ msgstr "bilatu"
 
 #: common/templates/base.html:34
 msgid "signed in as"
-msgstr "saioa hasita:"
+msgstr "saioa hasita"
 
 #: common/templates/base.html:35
 msgid "logout"

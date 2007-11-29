@@ -19,7 +19,7 @@ msgstr ""
 
 #: accounts/views.py:63
 msgid "You're already signed in"
-msgstr "Du är redan inloggad."
+msgstr "Du är redan inloggad"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
@@ -35,7 +35,7 @@ msgstr "Lösenord"
 
 #: accounts/views.py:91
 msgid "Please enable cookies in your browser."
-msgstr "Du måste ha cookies påslagna i din webbläsare,"
+msgstr "Du måste ha cookies påslagna i din webbläsare,."
 
 #: accounts/views.py:97
 msgid "Incorrect username or password."
@@ -478,7 +478,7 @@ msgstr "sida hittades inte"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr "Den begärda sidan hittades inte"
+msgstr "Den begärda sidan hittades inte."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
@@ -587,7 +587,7 @@ msgstr "IP"
 
 #: factories/models.py:65
 msgid "The last poll came from this IP address."
-msgstr "Den senaste sökningen kom från denna IP adress"
+msgstr "Den senaste sökningen kom från denna IP adress."
 
 #: factories/models.py:67
 msgid "last poll"
@@ -599,7 +599,7 @@ msgstr "köuppskattning"
 
 #: factories/models.py:76
 msgid "Seconds between screenshot request and upload."
-msgstr "Sekunder mellan skärmbildsbegäran och uppladdning"
+msgstr "Sekunder mellan skärmbildsbegäran och uppladdning."
 
 #: factories/models.py:208 screenshots/models.py:119
 msgid "width"
@@ -683,7 +683,7 @@ msgstr "Detta namn är reserverat."
 
 #: factories/views.py:316
 msgid "This name is already taken."
-msgstr "Detta namn är redan taget"
+msgstr "Detta namn är redan taget."
 
 #: factories/views.py:335
 msgid "register a new screenshot factory"
@@ -912,7 +912,7 @@ msgstr "%(color_depth)d bitar per pixel"
 
 #: requests/models.py:213
 msgid "Your screenshots will appear here when they are uploaded."
-msgstr "Dina skärmbilder kommer att synas här när de är uppladdade"
+msgstr "Dina skärmbilder kommer att synas här när de är uppladdade."
 
 #: requests/models.py:215
 msgid "[Reload this page] or bookmark it and come back later."
@@ -920,7 +920,7 @@ msgstr "[Ladda om] eller lägg till som bokmärke och kom tillbaka senare."
 
 #: requests/models.py:217
 msgid "Your screenshot requests have expired."
-msgstr "Din skärmbildsbegäran har förfallit"
+msgstr "Din skärmbildsbegäran har förfallit."
 
 #: requests/models.py:227
 #, python-format
@@ -1218,7 +1218,7 @@ msgstr "poäng mottaget"
 #: start/views.py:65
 #, fuzzy
 msgid "Anonymous screenshot requests are not allowed."
-msgstr "Din skärmbildsbegäran har förfallit"
+msgstr "Din skärmbildsbegäran har förfallit."
 
 #: start/views.py:68
 msgid "Please log in with your username and password."

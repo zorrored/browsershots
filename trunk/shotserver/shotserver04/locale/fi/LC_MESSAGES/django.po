@@ -24,7 +24,7 @@ msgstr "Olet jo kirjautunut sisään"
 #: accounts/views.py:64
 #, fuzzy
 msgid "Please log out and then try again."
-msgstr "Ole hyvä, kirjaudu ulos ja yritä sitten uudestaan"
+msgstr "Ole hyvä, kirjaudu ulos ja yritä sitten uudestaan."
 
 #: accounts/views.py:73
 msgid "Username"
@@ -190,7 +190,7 @@ msgstr "Salasana vaihdettu"
 
 #: accounts/views.py:361
 msgid "Your new password has been saved."
-msgstr "Uusi salasana tallennettu"
+msgstr "Uusi salasana tallennettu."
 
 #: accounts/views.py:362 accounts/views.py:386
 msgid "Click the link in the top right corner to log in."
@@ -210,7 +210,7 @@ msgstr "Käyttäjätili luotu"
 
 #: accounts/views.py:385
 msgid "A new user account was created."
-msgstr "Uusi käyttäjätili on luotu"
+msgstr "Uusi käyttäjätili on luotu."
 
 #: accounts/templates/accounts/profile.html:5
 msgid "profile"

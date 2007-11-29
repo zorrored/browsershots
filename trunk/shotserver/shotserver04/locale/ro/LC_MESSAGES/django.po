@@ -23,7 +23,7 @@ msgstr "Eşti deja conectat"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
-msgstr "Te rugăm să te deconectezi şi să încerci din nou"
+msgstr "Te rugăm să te deconectezi şi să încerci din nou."
 
 #: accounts/views.py:73
 msgid "Username"
@@ -43,7 +43,7 @@ msgstr "Nume de utilizator incorect sau parolă incorectă."
 
 #: accounts/views.py:99
 msgid "This account is inactive."
-msgstr "Acest cont este inactiv"
+msgstr "Acest cont este inactiv."
 
 #: accounts/views.py:101 accounts/views.py:166
 msgid "Welcome to Browsershots!"
@@ -1369,7 +1369,7 @@ msgstr "sponsori premium"
 
 #: websites/models.py:38
 msgid "Missing slash after the hostname."
-msgstr "Slash (/) lipsă dupa numele gazdei"
+msgstr "Slash (/) lipsă dupa numele gazdei."
 
 #: websites/models.py:57 websites/models.py:78
 msgid "domain"

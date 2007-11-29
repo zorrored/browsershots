@@ -19,7 +19,7 @@ msgstr ""
 
 #: accounts/views.py:63
 msgid "You're already signed in"
-msgstr "Du bist bereits angemeldet."
+msgstr "Du bist bereits angemeldet"
 
 #: accounts/views.py:64
 msgid "Please log out and then try again."
@@ -51,7 +51,7 @@ msgstr "Willkommen bei Browsershots!"
 
 #: accounts/views.py:102
 msgid "let me in"
-msgstr "Lassen Sie mich rein."
+msgstr "Lassen Sie mich rein"
 
 #: accounts/views.py:109
 msgid "Forgot your password?"
@@ -182,7 +182,7 @@ msgstr "Die Verifizierungsemail wurde vor mehr als 30 Minuten angefordert."
 
 #: accounts/views.py:351
 msgid "choose a new password"
-msgstr "Bitte wählen Sie ein neues Passwort."
+msgstr "Bitte wählen Sie ein neues Passwort"
 
 #: accounts/views.py:353
 msgid "change password"
@@ -664,7 +664,7 @@ msgstr "Dieser Browser ist bereits inaktiv."
 
 #: factories/views.py:195 factories/views.py:207
 msgid "Duplicate."
-msgstr "Duplizieren"
+msgstr "Duplizieren."
 
 #: factories/views.py:197 factories/views.py:209
 msgid "Invalid data."
