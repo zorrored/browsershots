@@ -231,6 +231,7 @@ p.admonition {
   background-position: 4px 4px;
   border: 1px solid;
 }
+p.admonition a { text-decoration: underline; }
 p.new {
   background-image: url(new.png);
   background-color: #fed;
@@ -238,8 +239,8 @@ p.new {
 }
 p.hint {
   background-image: url(lightbulb.png);
-  background-color: #eee;
-  border-color: #888;
+  background-color: #eef;
+  border-color: #00f;
 }
 p.warning {
   background-image: url(warning.png);
