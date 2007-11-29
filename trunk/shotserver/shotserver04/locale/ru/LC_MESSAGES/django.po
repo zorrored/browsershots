@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-25 13:37+0100\n"
-"PO-Revision-Date: 2007-11-24 01:46+0000\n"
+"POT-Creation-Date: 2007-11-29 12:19+0100\n"
+"PO-Revision-Date: 2007-11-25 16:00+0000\n"
 "Last-Translator: Kavu <kavu13@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-25 12:04+0000\n"
+"X-Launchpad-Export-Date: 2007-11-29 10:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: accounts/views.py:63
@@ -84,7 +84,7 @@ msgstr ""
 "С вашего IP-адреса поступило слишком много запросов на получение электронной "
 "почты за последние 24 часа."
 
-#: accounts/views.py:194 factories/views.py:55 start/views.py:83
+#: accounts/views.py:194 factories/views.py:58 start/views.py:83
 msgid "Please try again later."
 msgstr "Пожалуйста, попробуйте еще раз позже."
 
@@ -237,7 +237,7 @@ msgid "Register a new screenshot factory?"
 msgstr "Зарегистрировать новую фабрику скриншотов?"
 
 #: accounts/templates/accounts/profile.html:30
-#: factories/templates/factories/details.html:63
+#: factories/templates/factories/details.html:71
 msgid "Register this browser for screenshots?"
 msgstr "Зарегистрировать этот браузер для создания скриншотов?"
 
@@ -246,7 +246,7 @@ msgid "recent factory errors"
 msgstr "ошибки фабрики"
 
 #: accounts/templates/accounts/profile.html:38 browsers/models.py:93
-#: factories/models.py:92 factories/models.py:204 factories/models.py:230
+#: factories/models.py:93 factories/models.py:205 factories/models.py:231
 #: messages/models.py:35 nonces/models.py:39 requests/models.py:382
 #: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
 msgid "factory"
@@ -269,8 +269,8 @@ msgid "account balance"
 msgstr "баланс учетной записи"
 
 #: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
-#: factories/templates/factories/details.html:26 platforms/models.py:34
-#: platforms/models.py:58 platforms/models.py:87 websites/models.py:47
+#: factories/templates/factories/details.html:33 platforms/models.py:34
+#: platforms/models.py:58 websites/models.py:47
 msgid "name"
 msgstr "Название"
 
@@ -283,7 +283,7 @@ msgid "maker"
 msgstr ""
 
 #: browsers/models.py:49 browsers/models.py:105
-#: factories/templates/factories/details.html:28
+#: factories/templates/factories/details.html:35
 #: screenshots/templates/screenshots/details.html:42
 msgid "engine"
 msgstr "движок"
@@ -341,25 +341,25 @@ msgstr "второстепенная"
 msgid "engine version"
 msgstr "версия движка"
 
-#: browsers/models.py:109 factories/templates/factories/details.html:29
+#: browsers/models.py:109 factories/templates/factories/details.html:36
 #: requests/models.py:62 screenshots/templates/screenshots/details.html:46
 #: start/forms/features.py:66
 msgid "Javascript"
 msgstr "Javascript"
 
-#: browsers/models.py:111 factories/templates/factories/details.html:30
+#: browsers/models.py:111 factories/templates/factories/details.html:37
 #: requests/models.py:64 screenshots/templates/screenshots/details.html:50
 #: start/forms/features.py:68
 msgid "Java"
 msgstr "Java"
 
-#: browsers/models.py:113 factories/templates/factories/details.html:31
+#: browsers/models.py:113 factories/templates/factories/details.html:38
 #: requests/models.py:66 screenshots/templates/screenshots/details.html:54
 #: start/forms/features.py:70
 msgid "Flash"
 msgstr "Flash"
 
-#: browsers/models.py:115 factories/templates/factories/details.html:35
+#: browsers/models.py:115 factories/templates/factories/details.html:42
 msgid "command"
 msgstr "команда"
 
@@ -375,25 +375,25 @@ msgstr "активен"
 msgid "Designates that this browser is currently installed."
 msgstr "Обозначает, что этот браузер установлен."
 
-#: browsers/models.py:121 factories/models.py:68
-#: factories/templates/factories/details.html:32
+#: browsers/models.py:121 factories/models.py:69
+#: factories/templates/factories/details.html:39
 msgid "last upload"
 msgstr "последняя загрузка"
 
-#: browsers/models.py:123 factories/models.py:70
-#: factories/templates/factories/details.html:33
+#: browsers/models.py:123 factories/models.py:71
+#: factories/templates/factories/details.html:40
 #: requests/templates/requests/overview.html:17
 msgid "uploads per hour"
 msgstr "загрузок в час"
 
-#: browsers/models.py:125 factories/models.py:72
-#: factories/templates/factories/details.html:34
+#: browsers/models.py:125 factories/models.py:73
+#: factories/templates/factories/details.html:41
 #: requests/templates/requests/overview.html:18
 msgid "uploads per day"
 msgstr "загрузок в день"
 
-#: browsers/models.py:127 factories/models.py:77
-#: factories/templates/factories/details.html:13 nonces/models.py:43
+#: browsers/models.py:127 factories/models.py:78
+#: factories/templates/factories/details.html:14 nonces/models.py:43
 msgid "created"
 msgstr "создан"
 
@@ -419,21 +419,9 @@ msgstr "активировать"
 msgid "password"
 msgstr "пароль"
 
-#: browsers/views.py:149
+#: browsers/views.py:145
 msgid "Password mismatch."
 msgstr "Пароль не совпадает."
-
-#: browsers/views.py:245 requests/views.py:143 requests/views.py:148
-msgid "invalid request"
-msgstr "некорректный запрос"
-
-#: browsers/views.py:250
-msgid "permission denied"
-msgstr "доступ запрещён"
-
-#: browsers/views.py:283
-msgid "This browser is already inactive."
-msgstr "Этот браузер уже неактивен."
 
 #: browsers/templates/browsers/add.html:5
 #: browsers/templates/browsers/add.html:8
@@ -515,7 +503,7 @@ msgstr "скриншоты"
 msgid "queue"
 msgstr "очередь"
 
-#: common/templates/base.html:27 factories/models.py:93
+#: common/templates/base.html:27 factories/models.py:94
 msgid "factories"
 msgstr "фабрики"
 
@@ -578,118 +566,137 @@ msgstr "Хост (строчными буквами)"
 msgid "administrator"
 msgstr "администратор"
 
-#: factories/models.py:57 factories/templates/factories/details.html:16
+#: factories/models.py:57 factories/templates/factories/details.html:12
 #: screenshots/templates/screenshots/details.html:62
 msgid "sponsor"
 msgstr "спонсор"
 
-#: factories/models.py:59
-msgid "hardware architecture"
-msgstr "архитектура аппаратного обеспечения"
+#: factories/models.py:59 factories/templates/factories/details.html:16
+#: factories/templates/factories/details.html:20
+#: screenshots/templates/screenshots/details.html:66
+msgid "hardware"
+msgstr ""
 
-#: factories/models.py:61 factories/templates/factories/details.html:11
-#: platforms/models.py:71 screenshots/templates/screenshots/details.html:70
+#: factories/models.py:60
+msgid "e.g. ThinkPad R32, P4 1.8 GHz, 768 MB"
+msgstr ""
+
+#: factories/models.py:62 factories/templates/factories/details.html:17
+#: factories/templates/factories/details.html:21 platforms/models.py:71
+#: screenshots/templates/screenshots/details.html:70
 msgid "operating system"
 msgstr "операционная система"
 
-#: factories/models.py:63 requests/models.py:70
+#: factories/models.py:64 requests/models.py:70
 msgid "IP"
 msgstr "IP-адрес"
 
-#: factories/models.py:64
+#: factories/models.py:65
 msgid "The last poll came from this IP address."
 msgstr "Последний опрос пришел с этого IP-адреса."
 
-#: factories/models.py:66
+#: factories/models.py:67
 msgid "last poll"
 msgstr "последний опрос"
 
-#: factories/models.py:74 requests/models.py:327
+#: factories/models.py:75 requests/models.py:327
 msgid "queue estimate"
 msgstr "прогноз очереди"
 
-#: factories/models.py:75
+#: factories/models.py:76
 msgid "Seconds between screenshot request and upload."
 msgstr "Количество секунд между запросом и загрузкой скриншота."
 
-#: factories/models.py:207 screenshots/models.py:119
+#: factories/models.py:208 screenshots/models.py:119
 msgid "width"
 msgstr "ширина"
 
-#: factories/models.py:209 screenshots/models.py:121
+#: factories/models.py:210 screenshots/models.py:121
 msgid "height"
 msgstr "высота"
 
-#: factories/models.py:216 start/forms/options.py:64
+#: factories/models.py:217 start/forms/options.py:64
 msgid "screen size"
 msgstr "размер экрана"
 
-#: factories/models.py:217 factories/templates/factories/details.html:70
+#: factories/models.py:218 factories/templates/factories/details.html:78
 msgid "screen sizes"
 msgstr "размеры экранов"
 
-#: factories/models.py:233 factories/templates/factories/details.html:101
-#: factories/templates/factories/details.html:107 requests/models.py:60
+#: factories/models.py:234 factories/templates/factories/details.html:109
+#: factories/templates/factories/details.html:115 requests/models.py:60
 msgid "bits per pixel"
 msgstr "бит на пиксель"
 
-#: factories/models.py:240 start/forms/options.py:66
+#: factories/models.py:241 start/forms/options.py:66
 msgid "color depth"
 msgstr "глубина цвета"
 
-#: factories/models.py:241 factories/templates/factories/details.html:96
+#: factories/models.py:242 factories/templates/factories/details.html:104
 msgid "color depths"
 msgstr "глубины цвета"
 
-#: factories/views.py:53 start/views.py:81
+#: factories/views.py:56 start/views.py:81
 msgid "out of service"
 msgstr "временно недоступен"
 
-#: factories/views.py:54 start/views.py:82
+#: factories/views.py:57 start/views.py:82
 msgid "No active screenshot factories."
 msgstr "Не найдено активных фабрик скриншотов."
 
-#: factories/views.py:74 factories/views.py:85 factories/views.py:103
+#: factories/views.py:77 factories/views.py:88 factories/views.py:106
 #, python-format
 msgid "Value %d is too small."
 msgstr ""
 
-#: factories/views.py:76 factories/views.py:87 factories/views.py:105
+#: factories/views.py:79 factories/views.py:90 factories/views.py:108
 #, python-format
 msgid "Value %d is too big."
 msgstr ""
 
-#: factories/views.py:124 factories/views.py:136
+#: factories/views.py:114 requests/views.py:143 requests/views.py:148
+msgid "invalid request"
+msgstr "некорректный запрос"
+
+#: factories/views.py:119
+msgid "permission denied"
+msgstr "доступ запрещён"
+
+#: factories/views.py:150
+msgid "This browser is already inactive."
+msgstr "Этот браузер уже неактивен."
+
+#: factories/views.py:195 factories/views.py:207
 msgid "Duplicate."
 msgstr ""
 
-#: factories/views.py:126 factories/views.py:138
+#: factories/views.py:197 factories/views.py:209
 msgid "Invalid data."
 msgstr ""
 
-#: factories/views.py:207
+#: factories/views.py:292
 msgid "Name must start with a lowercase letter."
 msgstr "Имя должно начинаться со строчной буквы."
 
-#: factories/views.py:211
+#: factories/views.py:296
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "Имя может содержать только строчные буквы, цифры, знаки подчеркивания (_) и "
 "дефисы (-)."
 
-#: factories/views.py:214
+#: factories/views.py:299
 msgid "This name is reserved."
 msgstr "Это имя зарезервировано."
 
-#: factories/views.py:231
+#: factories/views.py:316
 msgid "This name is already taken."
 msgstr "Это имя уже занято."
 
-#: factories/views.py:250
+#: factories/views.py:335
 msgid "register a new screenshot factory"
 msgstr "зарегистрировать новую фабрику скриншотов"
 
-#: factories/views.py:251
+#: factories/views.py:336
 msgid "register"
 msgstr "зарегистрировать"
 
@@ -699,53 +706,53 @@ msgstr "зарегистрировать"
 msgid "Screenshot Factory %(name)s"
 msgstr "Фабрика скриншотов %(name)s"
 
-#: factories/templates/factories/details.html:12 platforms/models.py:97
-#: screenshots/templates/screenshots/details.html:66
-msgid "architecture"
-msgstr "архитектура"
-
-#: factories/templates/factories/details.html:14
+#: factories/templates/factories/details.html:13
 msgid "admin"
 msgstr "администратор"
 
-#: factories/templates/factories/details.html:20
+#: factories/templates/factories/details.html:18
+#, fuzzy
+msgid "Submit"
+msgstr "отправить"
+
+#: factories/templates/factories/details.html:26
 msgid "installed browsers"
 msgstr "установленные браузеры"
 
-#: factories/templates/factories/details.html:27
+#: factories/templates/factories/details.html:34
 msgid "short version"
 msgstr "краткая версия"
 
-#: factories/templates/factories/details.html:58
+#: factories/templates/factories/details.html:66
 msgid "No browsers registered for this factory."
 msgstr "В эту фабрику не добавлено ни одного браузера."
 
-#: factories/templates/factories/details.html:77
-#: factories/templates/factories/details.html:102
+#: factories/templates/factories/details.html:85
+#: factories/templates/factories/details.html:110
 msgid "add"
 msgstr "добавить"
 
-#: factories/templates/factories/details.html:83
-#: factories/templates/factories/details.html:108
+#: factories/templates/factories/details.html:91
+#: factories/templates/factories/details.html:116
 msgid "remove"
 msgstr ""
 
-#: factories/templates/factories/details.html:87
-#: factories/templates/factories/details.html:112
+#: factories/templates/factories/details.html:95
+#: factories/templates/factories/details.html:120
 msgid "default only"
 msgstr "только по умолчанию"
 
-#: factories/templates/factories/details.html:119
+#: factories/templates/factories/details.html:127
 #: screenshots/templates/screenshots/overview.html:4
 #: screenshots/templates/screenshots/overview.html:7
 msgid "recent screenshots"
 msgstr "свежие скриншоты"
 
-#: factories/templates/factories/details.html:126
+#: factories/templates/factories/details.html:134
 msgid "recent problem reports"
 msgstr "свежие сообщения об ошибках"
 
-#: factories/templates/factories/details.html:129
+#: factories/templates/factories/details.html:137
 #, python-format
 msgid "%(interval)s ago"
 msgstr "%(interval)s назад"
@@ -847,14 +854,6 @@ msgstr "кодовое имя"
 #: platforms/models.py:72
 msgid "operating systems"
 msgstr "операционные системы"
-
-#: platforms/models.py:88
-msgid "e.g. i686 / PPC"
-msgstr "например, i686 / PPC"
-
-#: platforms/models.py:98
-msgid "architectures"
-msgstr "архитектуры"
 
 #: requests/models.py:54 screenshots/models.py:113 websites/models.py:92
 msgid "website"
@@ -1180,11 +1179,11 @@ msgstr "сообщение об ошибке"
 msgid "problem reports"
 msgstr "сообщения об ошибках"
 
-#: screenshots/views.py:116
+#: screenshots/views.py:117
 msgid "HTML is not allowed here."
 msgstr "Нельзя использовать HTML."
 
-#: screenshots/views.py:120
+#: screenshots/views.py:121
 msgid "URLs are not allowed here."
 msgstr "Нельзя вставлять URL."
 
@@ -1251,7 +1250,7 @@ msgstr "Введите адрес своего сайта:"
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "Протокол %(scheme)s не поддерживается."
 
-#: start/forms/url.py:95
+#: start/forms/url.py:96
 msgid "Malformed URL (server name not specified)."
 msgstr "Некорректный URL (не указано имя сервера)."
 
@@ -1260,32 +1259,32 @@ msgstr "Некорректный URL (не указано имя сервера)
 msgid "Could not resolve IP address for %(hostname)s."
 msgstr "Не удалось отправить HTTP-запрос к %(hostname)s."
 
-#: start/forms/url.py:136
+#: start/forms/url.py:139
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
 msgstr ""
 
-#: start/forms/url.py:154
+#: start/forms/url.py:157
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Не могу соединиться с %(hostname)s."
 
-#: start/forms/url.py:156
+#: start/forms/url.py:159
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Не удалось отправить HTTP-запрос к %(hostname)s."
 
-#: start/forms/url.py:158
+#: start/forms/url.py:161
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Не удалось получить содержимое страницы от %(hostname)s."
 
-#: start/forms/url.py:162
+#: start/forms/url.py:165
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Сервер не ответил за %d секунд."
 
-#: start/forms/url.py:206
+#: start/forms/url.py:209
 msgid "Malformed URL (database integrity error)."
 msgstr "Некорректный URL (нарушена целостность базы данных)."
 
@@ -1417,3 +1416,15 @@ msgstr ""
 
 #~ msgid "username"
 #~ msgstr "Имя пользователя"
+
+#~ msgid "hardware architecture"
+#~ msgstr "архитектура аппаратного обеспечения"
+
+#~ msgid "architecture"
+#~ msgstr "архитектура"
+
+#~ msgid "e.g. i686 / PPC"
+#~ msgstr "например, i686 / PPC"
+
+#~ msgid "architectures"
+#~ msgstr "архитектуры"
