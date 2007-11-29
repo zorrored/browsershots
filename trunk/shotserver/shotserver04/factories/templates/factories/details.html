@@ -15,7 +15,7 @@
 {% if admin_logged_in %}
 <tr class="row1"><th>{{ _("hardware")|capfirst }}:</th><td>{{ factory_form.hardware }}</td></tr>
 <tr class="row2"><th>{{ _("operating system")|capfirst }}:</th><td>{{ factory_form.operating_system }}</td></tr>
-<tr><th></th><td><input type="submit" name="submit_details" value="{{ _("Submit") }}" /></td></tr>
+<tr><th></th><td><input type="submit" name="submit_details" value="{{ _("submit")|capfirst }}" /></td></tr>
 {% else %}
 {% if factory.hardware %}<tr class="row1"><th>{{ _("hardware")|capfirst }}:</th><td>{{ factory.hardware }}</td></tr>
 {% endif %}<tr class="row2"><th>{{ _("operating system")|capfirst }}:</th><td>{{ factory.operating_system }}</td></tr>
