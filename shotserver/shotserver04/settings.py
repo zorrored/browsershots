@@ -71,7 +71,7 @@ LANGUAGES = (
     ('es', u'Español'),
     #('eu', u'Euskara'),
     ('fr', u'Français'),
-    #('it', u'Italiano'),
+    ('it', u'Italiano'),
     #('lt', u'Lietuviškai'),
     ('nb', u'Norsk (Bokmål)'),
     ('nl', u'Nederlands'),
