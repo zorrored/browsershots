@@ -261,7 +261,7 @@ def details(http_request, name):
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
     screenshot_list = factory.screenshot_set.all()
-    if screenshot_list.count():
+    if len(screenshot_list.order_by()[:1]):
         q = Q(user__isnull=True)
         if not http_request.user.is_anonymous():
             q |= Q(user=http_request.user)
@@ -269,6 +269,8 @@ def details(http_request, name):
             q &= Q(website__profanities__lte=settings.PROFANITIES_ALLOWED)
         screenshot_list = screenshot_list.filter(q)
         screenshot_list = screenshot_list.order_by('-id')[:10]
+    else:
+        screenshot_list = []
     preload_foreign_keys(screenshot_list, browser=browser_list)
     show_commands = admin_logged_in and True in [
         bool(browser.command) for browser in browser_list]
