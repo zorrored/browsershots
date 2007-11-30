@@ -250,13 +250,13 @@ def details(http_request, name):
             factory_form, screensize_form, colordepth_form)
         if response:
             return response
-    browser_list = list(Browser.objects.filter(factory=factory.id))
-    preload_foreign_keys(browser_list,
-                         browser_group=True,
-                         engine=True,
-                         javascript=True,
-                         java=True,
-                         flash=True)
+    admin_logged_in = http_request.user.id == factory.admin_id
+    browser_list = factory.browser_set.all()
+    if not admin_logged_in:
+        browser_list = browser_list.filter(active=True)
+    preload_foreign_keys(browser_list, browser_group=True, engine=True,
+                         javascript=True, java=True, flash=True)
+    browser_list = list(browser_list)
     browser_list.sort(key=lambda browser: (unicode(browser), browser.id))
     screensize_list = factory.screensize_set.all()
     colordepth_list = factory.colordepth_set.all()
@@ -270,7 +270,6 @@ def details(http_request, name):
         screenshot_list = screenshot_list.filter(q)
         screenshot_list = screenshot_list.order_by('-id')[:10]
     preload_foreign_keys(screenshot_list, browser=browser_list)
-    admin_logged_in = http_request.user.id == factory.admin_id
     show_commands = admin_logged_in and True in [
         bool(browser.command) for browser in browser_list]
     problems_list = ProblemReport.objects.filter(
