@@ -211,7 +211,7 @@ _("Please try again later."))
     message = email_message(domain, hashkey, user)
     try:
         send_mail("Browsershots email verification", message,
-                  'noreply@browsershots.org', [address],
+                  settings.DEFAULT_FROM_EMAIL, [address],
                   fail_silently=False)
     except smtplib.SMTPException, e:
         return error_page(http_request, _("email error"),
