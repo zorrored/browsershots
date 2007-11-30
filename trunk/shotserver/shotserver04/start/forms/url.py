@@ -96,7 +96,7 @@ class UrlForm(forms.Form):
                 unicode(_("Malformed URL (server name not specified).")))
         if '%20' in self.netloc_parts[2]:
             raise ValidationError(
-                unicode(_("Malformed URL (spaces in hostname).")))
+                unicode(_("Malformed URL (spaces in server name).")))
         # print self.netloc_parts
 
     def punycode_url(self):
