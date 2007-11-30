@@ -25,11 +25,12 @@ __author__ = "$Author$"
 import os
 import socket
 from datetime import datetime, timedelta
+from django.conf import settings
 from django.db import connection
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
+from django.contrib.auth.models import User
 from shotserver04.websites.models import Website, Domain
 
 
@@ -58,47 +59,25 @@ def usage(http_request, usage_interval='7d'):
     """
     Show the heaviest users in the last 7 days (or other timeframe).
     """
-    cursor = connection.cursor()
-    # Most frequently requested websites
-    cursor.execute("""\
-SELECT website_id, COUNT(*) AS groups
-FROM requests_requestgroup
+    website_list = usage_list(Website, """\
+SELECT website_id, COUNT(*) AS groups FROM requests_requestgroup
 WHERE requests_requestgroup.submitted > NOW() - %s::interval
-GROUP BY website_id
-ORDER BY groups DESC
-LIMIT 10
-""", (usage_interval, ))
-    rows = cursor.fetchall()
-    website_dict = Website.objects.in_bulk([row[0] for row in rows])
-    website_list = [website_dict[row[0]] for row in rows]
-    for index in range(len(website_list)):
-        website_list[index].request_groups_per_day = rows[index][1]
-    # Most frequently requested domains
-    cursor.execute("""\
-SELECT domain_id, COUNT(*) AS groups
-FROM requests_requestgroup
+GROUP BY website_id""", usage_interval)
+    domain_list = usage_list(Domain, """\
+SELECT domain_id, COUNT(*) AS groups FROM requests_requestgroup
 JOIN websites_website ON (websites_website.id = website_id)
 WHERE requests_requestgroup.submitted > NOW() - %s::interval
-GROUP BY domain_id
-ORDER BY groups DESC
-LIMIT 10
-""", (usage_interval, ))
-    rows = cursor.fetchall()
-    domain_dict = Domain.objects.in_bulk([row[0] for row in rows])
-    domain_list = [domain_dict[row[0]] for row in rows]
-    for index in range(len(domain_list)):
-        domain_list[index].request_groups_per_day = rows[index][1]
-    # Most active IP addresses
-    cursor.execute("""\
-SELECT ip, COUNT(*) AS groups
-FROM requests_requestgroup
+GROUP BY domain_id""", usage_interval)
+    user_list = usage_list(User, """\
+SELECT user_id, COUNT(*) AS groups FROM requests_requestgroup
 WHERE requests_requestgroup.submitted > NOW() - %s::interval
-GROUP BY ip
-ORDER BY groups DESC
-LIMIT 10
-""", (usage_interval, ))
-    rows = cursor.fetchall()
-    ip_list = [(row[0], socket.getfqdn(row[0]), row[1]) for row in rows]
+AND user_id IS NOT NULL
+GROUP BY user_id""", usage_interval)
+    ip_list = usage_list(None, """\
+SELECT ip, COUNT(*) AS groups FROM requests_requestgroup
+WHERE requests_requestgroup.submitted > NOW() - %s::interval
+GROUP BY ip""", usage_interval)
+    ip_list = [(row[0], socket.getfqdn(row[0]), row[1]) for row in ip_list]
     plaintext = usage_interval.replace('d', ' days').replace('h', ' hours')
     if plaintext == '1 hours':
         plaintext = 'hour'
@@ -107,3 +86,16 @@ LIMIT 10
     usage_intervals_list = '1h 4h 12h 24h 2d 4d 7d 14d 30d 120d 365d'.split()
     return render_to_response('status/usage.html', locals(),
         context_instance=RequestContext(http_request))
+
+
+def usage_list(Model, sql, interval):
+    cursor = connection.cursor()
+    cursor.execute(sql + " ORDER BY groups DESC LIMIT 10", (interval, ))
+    rows = cursor.fetchall()
+    if Model is None:
+        return rows
+    result_dict = Model.objects.in_bulk([row[0] for row in rows])
+    result_list = [result_dict[row[0]] for row in rows]
+    for index in range(len(result_list)):
+        result_list[index].request_groups_per_day = rows[index][1]
+    return result_list
