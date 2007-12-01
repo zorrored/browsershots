@@ -41,7 +41,7 @@ rm -f /home/$2/.kde/tmp-*
 rm -f /home/$2/.DCOPserver*
 rm -f /home/$2/.vnc/*.log
 rm -f /home/$2/.vnc/*.pid
-sed -i s/$1/$2/ /home/$2/.opera/opera6.ini
-sed -i s/$1/$2/ /home/$2/.opera/mail/*.ini
-sed -i s/$1/$2/ /home/$2/.emacs-places
+sed -i s/$1/$2/g /home/$2/.opera/opera6.ini
+sed -i s/$1/$2/g /home/$2/.opera/mail/*.ini
+sed -i s/$1/$2/g /home/$2/.emacs-places
 chown -R $2:$2 /home/$2
