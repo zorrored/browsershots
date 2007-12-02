@@ -24,56 +24,67 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import sys
-LAST_MONTH_REVENUE = float(sys.argv[1])
+REVENUE = float(sys.argv[1])
 
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
+users = {}
+for line in file('auth_user.sql'):
+    parts = line.split('\t')
+    if not parts or not parts[0].isdigit():
+        continue
+    user_id = int(parts[0])
+    username = parts[1]
+    first_name = parts[2]
+    last_name = parts[3]
+    email = parts[4]
+    users[user_id] = (username, first_name, last_name, email)
 
-from datetime import datetime, timedelta
-from shotserver04.factories.models import Factory
-from shotserver04.screenshots.models import Screenshot
+factories = {}
+for line in file('factories_factory.sql'):
+    parts = line.split('\t')
+    if not parts or not parts[0].isdigit():
+        continue
+    factory_id = int(parts[0])
+    name = parts[1]
+    admin_id = int(parts[2])
+    factories[factory_id] = (name, admin_id)
 
-now = datetime.now()
-if now.month > 1:
-    start = datetime(now.year, now.month - 1, 1, 0, 0, 0)
-else:
-    start = datetime(now.year - 1, 12, 1, 0, 0, 0)
-stop = datetime(now.year, now.month, 1, 0, 0, 0)
-print start, 'until', stop, '(%s)' % (stop - start)
-
-admins = {}
+total = 0
 admin_uploads = {}
 factory_uploads = {}
+for line in file('screenshots_screenshot.sql'):
+    parts = line.split('\t')
+    if not parts or not parts[0].isdigit():
+        continue
+    screenshot_id = int(parts[0])
+    factory_id = int(parts[3])
+    factory_uploads[factory_id] = factory_uploads.get(factory_id, 0) + 1
+    if factory_id not in factories:
+        print 'WARNING: unknown factory', factory_id
+        continue
+    admin_id = factories[factory_id][1]
+    if admin_id not in users:
+        print 'WARNING: unknown user', admin_id
+    admin_uploads[admin_id] = admin_uploads.get(admin_id, 0) + 1
+    total += 1
 
-total = Screenshot.objects.filter(
-    uploaded__gte=start, uploaded__lt=stop).count()
-
-# Count uploads in the last month for factories and admins
-factories_total = 0
-factories = Factory.objects.filter(last_upload__gte=start)
-for factory in factories:
-    uploads = factory.screenshot_set.filter(
-        uploaded__gte=start, uploaded__lt=stop).count()
-    # print uploads, factory
-    if not factory.admin_id in admin_uploads:
-        admin_uploads[factory.admin_id] = 0
-    factory_uploads[factory.id] = uploads
-    admin_uploads[factory.admin_id] += uploads
-    admins[factory.admin_id] = factory.admin
-    factories_total += uploads
-print total, factories_total, 'total'
-total = factories_total
+print total, 'total'
 
 admin_ids = admin_uploads.keys()
 admin_ids.sort(key=lambda admin_id: -admin_uploads[admin_id])
 for admin_id in admin_ids:
-    print admin_uploads[admin_id], admins[admin_id],
+    admin = users[admin_id]
+    print admin_uploads[admin_id],
     print '%.1f%%' % (100.0 * admin_uploads[admin_id] / total),
-    print '%.2f EUR' % (LAST_MONTH_REVENUE * admin_uploads[admin_id] / total)
-    admin_factories = [f for f in factories
-                       if f.admin_id == admin_id
-                       and factory_uploads[f.id]]
+    print '%.2f' % (REVENUE * admin_uploads[admin_id] / total),
+    print ' '.join(admin)
+    admin_factories = [factory_id
+                       for factory_id in factories
+                       if factories[factory_id][1] == admin_id
+                       and factory_id in factory_uploads
+                       and factory_uploads[factory_id]]
     if len(admin_factories) > 1:
-        admin_factories.sort(key=lambda f: -factory_uploads[f.id])
-        for factory in admin_factories:
-            print '   ', factory_uploads[factory.id], factory
+        admin_factories.sort(
+            key=lambda factory_id: -factory_uploads[factory_id])
+        for factory_id in admin_factories:
+            print '   ', factory_uploads[factory_id],
+            print factories[factory_id][0]
