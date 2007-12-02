@@ -43,9 +43,12 @@ setval('%s_id_seq', (
 
 
 if __name__ == '__main__':
+    tables = sys.argv[1:]
     while True:
         line = sys.stdin.readline()
         if not line:
             break
         if line.startswith('COPY '):
-            copy_table(line)
+            table = line.split()[1]
+            if len(tables) == 0 or table in tables:
+                copy_table(line)
