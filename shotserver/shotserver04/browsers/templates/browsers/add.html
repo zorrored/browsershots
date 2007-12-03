@@ -7,12 +7,13 @@
 {% block content %}
 <h1>{{ _("add a new browser version")|capfirst }}</h1>
 
+{{ form.non_field_errors }}
+{{ password_form.non_field_errors }}
 <form action="/browsers/add/" method="post" id="add_browser_form">
 {% for group in field_groups %}
 {% for row in group %}<p>
-{% for field in row %}{% if field.errors %}
-{{ field.errors }}
-{% endif %}{{ field.label|capfirst }}: {{ field }} {{ field.help_text }}
+{% for field in row %}{{ field.errors }}{{ field.label|capfirst }}:
+{{ field }} {{ field.help_text }}
 {% endfor %}</p>
 {% endfor %}<hr />
 {% endfor %}
