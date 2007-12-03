@@ -26,10 +26,12 @@ __author__ = "$Author$"
 import sys
 
 
-def copy_table(line):
-    table = line.split()[1]
-    outfile = open('%s.sql' % table, 'w')
-    outfile.write(line)
+def copy_table(line, table, tables):
+    if len(tables) == 1:
+        outfile = sys.stdout
+    else:
+        outfile = open(table + '.sql', 'w')
+        outfile.write(line)
     while line.strip() != r'\.':
         line = sys.stdin.readline()
         outfile.write(line)
@@ -39,8 +41,8 @@ setval('%s_id_seq', (
     SELECT max(id) FROM %s
 )) as pkey_max;
 """ % (table, table, table))
-    outfile.close()
-
+    if outfile is not sys.stdout:
+        outfile.close()
 
 if __name__ == '__main__':
     tables = sys.argv[1:]
@@ -51,4 +53,4 @@ if __name__ == '__main__':
         if line.startswith('COPY '):
             table = line.split()[1]
             if len(tables) == 0 or table in tables:
-                copy_table(line)
+                copy_table(line, table, tables)
