@@ -29,39 +29,39 @@ class PayPalLog(models.Model):
     """
     Database log for PayPal IPN (instant payment notification).
     """
-    raw_post_data = models.CharField(maxlength=2000)
+    raw_post_data = models.CharField(max_length=2000)
     response = models.TextField()
     posted = models.DateTimeField(auto_now_add=True)
 
-    first_name = models.CharField(maxlength=200, blank=True)
-    last_name = models.CharField(maxlength=200, blank=True)
-    residence_country = models.CharField(maxlength=200, blank=True)
-    charset = models.CharField(maxlength=200, blank=True)
+    first_name = models.CharField(max_length=200, blank=True)
+    last_name = models.CharField(max_length=200, blank=True)
+    residence_country = models.CharField(max_length=200, blank=True)
+    charset = models.CharField(max_length=200, blank=True)
 
-    test_ipn = models.CharField(maxlength=200, blank=True)
-    txn_id = models.CharField(maxlength=200, blank=True)
-    txn_type = models.CharField(maxlength=200, blank=True)
-    item_name = models.CharField(maxlength=200, blank=True)
-    item_number = models.CharField(maxlength=200, blank=True)
-    memo = models.CharField(maxlength=200, blank=True)
+    test_ipn = models.CharField(max_length=200, blank=True)
+    txn_id = models.CharField(max_length=200, blank=True)
+    txn_type = models.CharField(max_length=200, blank=True)
+    item_name = models.CharField(max_length=200, blank=True)
+    item_number = models.CharField(max_length=200, blank=True)
+    memo = models.CharField(max_length=200, blank=True)
 
-    mc_currency = models.CharField(maxlength=200, blank=True)
-    mc_gross = models.CharField(maxlength=200, blank=True)
-    mc_fee = models.CharField(maxlength=200, blank=True)
+    mc_currency = models.CharField(max_length=200, blank=True)
+    mc_gross = models.CharField(max_length=200, blank=True)
+    mc_fee = models.CharField(max_length=200, blank=True)
 
-    payment_date = models.CharField(maxlength=200, blank=True)
-    payment_type = models.CharField(maxlength=200, blank=True)
-    payment_fee = models.CharField(maxlength=200, blank=True)
-    payment_gross = models.CharField(maxlength=200, blank=True)
-    payment_status = models.CharField(maxlength=200, blank=True)
-    pending_reason = models.CharField(maxlength=200, blank=True)
+    payment_date = models.CharField(max_length=200, blank=True)
+    payment_type = models.CharField(max_length=200, blank=True)
+    payment_fee = models.CharField(max_length=200, blank=True)
+    payment_gross = models.CharField(max_length=200, blank=True)
+    payment_status = models.CharField(max_length=200, blank=True)
+    pending_reason = models.CharField(max_length=200, blank=True)
 
-    payer_id = models.CharField(maxlength=200, blank=True)
-    payer_email = models.CharField(maxlength=200, blank=True)
-    payer_status = models.CharField(maxlength=200, blank=True)
+    payer_id = models.CharField(max_length=200, blank=True)
+    payer_email = models.CharField(max_length=200, blank=True)
+    payer_status = models.CharField(max_length=200, blank=True)
 
-    receiver_id = models.CharField(maxlength=200, blank=True)
-    receiver_email = models.CharField(maxlength=200, blank=True)
+    receiver_id = models.CharField(max_length=200, blank=True)
+    receiver_email = models.CharField(max_length=200, blank=True)
 
     class Meta:
         verbose_name = 'PayPal log'
