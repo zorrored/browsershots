@@ -89,7 +89,7 @@ import :
 	psql shotserver04 < export/factories/colordepth.sql
 	psql shotserver04 < export/browsers/browser.sql
 
-rosetta-import :
+import-from-rosetta :
 	rm -rf rosetta-shotserver
 	tar xzvf launchpad-export.tar.gz
 	cp rosetta-shotserver/shotserver.pot \
@@ -101,7 +101,7 @@ rosetta-import :
 		cp rosetta-shotserver/shotserver-name.po \
 		shotserver04/locale/name/LC_MESSAGES/django.po"
 
-rosetta-export :
+export-to-rosetta :
 	rm -rf rosetta-shotserver
 	mkdir rosetta-shotserver
 	cp shotserver04/locale/en/LC_MESSAGES/django.po \
