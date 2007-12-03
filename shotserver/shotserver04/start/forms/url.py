@@ -25,6 +25,7 @@ __author__ = "$Author$"
 import re
 import urlparse
 import socket
+import robotparser
 from datetime import datetime
 from psycopg import IntegrityError
 from django import newforms as forms
@@ -32,6 +33,7 @@ from django.utils.text import capfirst
 from django.db import transaction
 from django.newforms.util import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 from django.conf import settings
 from shotserver04.websites.utils import \
      split_netloc, unsplit_netloc, http_get, count_profanities, \
@@ -63,6 +65,7 @@ class UrlForm(forms.Form):
         self.punycode_url()
         self.check_server_ip()
         self.add_slash()
+        self.robots_txt()
         self.cleaned_data['content'] = self.http_get()
         self.cleaned_data['profanities'] = count_profanities(
             settings.PROFANITIES_LIST,
@@ -148,6 +151,28 @@ class UrlForm(forms.Form):
         if not self.url_parts[2]: # path
             self.url_parts[2] = '/'
             self.cleaned_data['url'] = urlparse.urlunsplit(self.url_parts)
+
+    def robots_txt(self):
+        """
+        Check if automatic screenshots are allowed by robots.txt
+        for the requested URL on the remote server.
+        """
+        robots_txt_url = ''.join((
+                self.url_parts[0], '://', self.url_parts[1], '/robots.txt'))
+        print robots_txt_url
+        parser = robotparser.RobotFileParser()
+        parser.set_url(robots_txt_url)
+        parser.read()
+        if not parser.can_fetch('Browsershots', self.cleaned_data['url']):
+            robots_txt_url = '<a href="%s">%s/robots.txt</a>' % (
+                robots_txt_url, self.url_parts[1])
+            faq = u'<a href="%s/%s">FAQ</a>' % (
+                'http://trac.browsershots.org/wiki',
+                'FrequentlyAskedQuestions#Blockedbyrobots.txt')
+            raise ValidationError(mark_safe(u' '.join((
+_("Browsershots was blocked by %(robots_txt_url)s.") % locals(),
+_("Please read the %(faq)s.") % locals(),
+))))
 
     def http_get(self):
         """
