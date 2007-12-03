@@ -124,7 +124,7 @@ PROFANITIES_LIST = """
 asshat asshead asshole cunt fuck gook nigger shit
 porn p0rn pr0n boys girls chicks babe cock bukkake
 sex xxx nude nudist naked bitcafe stile omglol
-bitch adult pussy boob
+bitch adult pussy boob handsfree disturb
 """.lower().split()
 
 # Tolerate a small number of profane words
