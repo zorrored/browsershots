@@ -37,6 +37,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.mail import send_mail
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import capfirst
 from django.conf import settings
 from shotserver04.factories.models import Factory
 from shotserver04.messages.models import FactoryError
@@ -237,9 +238,12 @@ class UserForm(forms.Form):
     """
     Username and realname.
     """
-    username = forms.CharField(max_length=20)
-    first_name = forms.CharField(max_length=40)
-    last_name = forms.CharField(max_length=40)
+    username = forms.CharField(max_length=20,
+        label=capfirst(_("username")))
+    first_name = forms.CharField(max_length=40,
+        label=capfirst(_("first name")))
+    last_name = forms.CharField(max_length=40,
+        label=capfirst(_("last name")))
 
     def clean_username(self):
         """
@@ -261,11 +265,13 @@ _("Username may contain only lowercase letters, digits, underscore, hyphen.")))
 
 class PasswordForm(forms.Form):
     """
-    Password and repeat.
+    Password and again.
     """
     password = forms.CharField(max_length=40,
+        label=capfirst(_("password")),
         widget=forms.PasswordInput(render_value=False))
-    repeat = forms.CharField(max_length=40,
+    again = forms.CharField(max_length=40,
+        label=capfirst(_("again")),
         widget=forms.PasswordInput(render_value=False))
 
     def clean_password(self):
@@ -282,18 +288,18 @@ class PasswordForm(forms.Form):
                 _("The password must not be completely numeric.")))
         return password
 
-    def clean_repeat(self):
+    def clean_again(self):
         """
-        Check that the password and repeat is the same.
+        Check that the password and again is the same.
         """
         if 'password' not in self.cleaned_data:
             return
         password = self.cleaned_data['password']
-        repeat = self.cleaned_data['repeat']
-        if repeat != password:
+        again = self.cleaned_data['again']
+        if again != password:
             raise forms.ValidationError(unicode(
                 _("Repeat password is not the same.")))
-        return repeat
+        return again
 
 
 class RegistrationForm(UserForm, PasswordForm):
