@@ -120,7 +120,7 @@ class Screenshot(models.Model):
     height = models.IntegerField(
         _('height'))
     colors = models.IntegerField(
-        _('colors'))
+        _('colors'), blank=True, null=True)
     uploaded = models.DateTimeField(
         _('uploaded'), auto_now_add=True)
 
