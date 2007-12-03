@@ -159,7 +159,7 @@ class UrlForm(forms.Form):
         """
         robots_txt_url = ''.join((
                 self.url_parts[0], '://', self.url_parts[1], '/robots.txt'))
-        print robots_txt_url
+        # print robots_txt_url
         parser = robotparser.RobotFileParser()
         parser.set_url(robots_txt_url)
         parser.read()
