@@ -43,36 +43,54 @@ class PasswordForm(forms.Form):
     """
     Simple password input form.
     """
+    factory_name = forms.CharField(
+        label=_("factory"))
     password = forms.CharField(
-        label=_('password'),
+        label=_("password"),
         widget=forms.PasswordInput)
 
+    def clean_factory_name(self):
+        name = self.cleaned_data['factory_name']
+        try:
+            self.cleaned_data['factory'] = Factory.objects.get(name=name)
+        except Factory.DoesNotExist, error:
+            raise forms.ValidationError(unicode(_("Unknown factory name.")))
+        return name
 
-BrowserForm = forms.form_for_model(Browser)
+    def clean(self):
+        if ('factory' not in self.cleaned_data or
+            'password' not in self.cleaned_data):
+            return # ValidationError was already raised above.
+        factory = self.cleaned_data['factory']
+        password = self.cleaned_data['password']
+        if not check_password(password, factory.admin.password):
+            self.errors['password'] = ErrorList([_("Password mismatch.")])
+        return self.cleaned_data
 
 
-def guess_factory(ip, user_agent, name=None):
+class BrowserForm(forms.ModelForm):
+    class Meta:
+        model = Browser
+        exclude = ('factory', )
+
+
+def guess_factory_name(ip, user_agent):
     """
-    Guess factory name from IP address and User-Agent, or optionally
-    from factory parameter in query string.
+    Guess factory name from IP address and User-Agent.
     """
-    if name:
-        factories = Factory.objects.select_related().filter(name=name)
-        if len(factories):
-            return factories[0]
     factories = Factory.objects.select_related().filter(ip=ip)
     if not factories:
         factories = Factory.objects.select_related()
     # Try to match Ubuntu or Mac OS X
     for factory in factories:
         if factory.operating_system.name in user_agent:
-            return factory
+            return factory.name
     # Try to match Linux or Windows
     for factory in factories:
         if factory.operating_system.platform.name in user_agent:
-            return factory
+            return factory.name
     if factories:
-        return factories[0]
+        return factories[0].name
 
 
 def add(http_request):
@@ -84,6 +102,7 @@ def add(http_request):
         BrowserForm.base_fields[key].label = _(
             Browser._meta.get_field(key).verbose_name)
     # Prefill form fields with user agent from HTTP request
+    ip = http_request.META['REMOTE_ADDR']
     user_agent = http_request.META['HTTP_USER_AGENT']
     initial = {
         'user_agent': user_agent,
@@ -91,12 +110,6 @@ def add(http_request):
         'java': 1, # disabled
         'flash': 1, # disbled
         }
-    # Guess factory name from IP address
-    ip = http_request.META['REMOTE_ADDR']
-    factory = guess_factory(ip, user_agent,
-        http_request.GET.get('factory', None))
-    if factory:
-        initial['factory'] = factory.id
     # Extract engine and engine version from user agent string
     user_agent_lower = user_agent.lower()
     for engine in agents.get_engines():
@@ -117,9 +130,13 @@ def add(http_request):
             initial['minor'] = agents.extract_minor(
                 version, browser_group.name)
             break
-    form = BrowserForm(http_request.POST or initial)
+    form = BrowserForm(Browser(), http_request.POST or initial)
     password_form = PasswordForm(http_request.POST or None)
     password_form['password'].field.widget.render_value = False
+    if not http_request.POST:
+        password_form['factory_name'].field.initial = (
+            http_request.GET.get('factory', None) or
+            guess_factory_name(ip, user_agent))
     field_groups = [[
         [form['user_agent']],
         [form['command']],
@@ -129,21 +146,14 @@ def add(http_request):
         ], [
         [form['javascript'], form['java'], form['flash']],
         ], [
-        [form['factory']],
+        [password_form['factory_name']],
         [password_form['password']],
         ]]
     admin_email = mark_safe(u'<a href="mailto:%s">%s</a>' % (
         settings.ADMINS[0][1], settings.ADMINS[0][0]))
-    password_valid = False
     if form.is_valid() and password_form.is_valid():
-        if password_form.cleaned_data['password']:
-            password_valid = check_password(
-                password_form.cleaned_data['password'],
-                form.cleaned_data['factory'].admin.password)
-            if not password_valid:
-                password_form.errors['password'] = ErrorList(
-                    [_("Password mismatch.")])
-    if not password_valid:
+        form.cleaned_data['factory'] = password_form.cleaned_data['factory']
+    else:
         return render_to_response('browsers/add.html', locals(),
             context_instance=RequestContext(http_request))
     # Activate or add browser in the database
