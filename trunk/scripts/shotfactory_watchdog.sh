@@ -9,7 +9,7 @@
 # The load limit for each factory will be set to the factory index
 # (the number at the end of the username). So shotfactory1 will take a
 # break if the load average is above 1, shotfactory2 will continue to
-# work until the load average is above 2, and so forth.
+# work until the load average is above 2, shotfactory3 until load 3.
 PASSWORD=$1
 USER=`whoami`
 INDEX=`whoami | sed s/shotfactory//`
@@ -18,10 +18,12 @@ INDEX=`whoami | sed s/shotfactory//`
 ps -u $USER | grep screen > /dev/null && exit 0
 
 # Send email to administrator, including previous output.
-echo shotfactory_watchdog.sh: Restarting shotfactory.py for $USER.
+echo shotfactory_watchdog.sh:
+echo Restarting shotfactory for $USER.
 echo
 echo Previous output in screenlog.0:
-tail -n50 /home/$USER/checkout/shotfactory/screenlog.0
+echo ...
+tail -n30 /home/$USER/checkout/shotfactory/screenlog.0
 
 # VNC server requires $USER environment variable.
 export USER
