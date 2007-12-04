@@ -162,7 +162,13 @@ class UrlForm(forms.Form):
         # print robots_txt_url
         parser = robotparser.RobotFileParser()
         parser.set_url(robots_txt_url)
-        parser.read()
+        socket.setdefaulttimeout(HTTP_TIMEOUT)
+        try:
+            parser.read()
+        except IOError, error:
+            raise ValidationError(unicode(
+                _("Could not get robots.txt from %(hostname)s.")) %
+                {'hostname': self.netloc_parts[2]})
         if not parser.can_fetch('Browsershots', self.cleaned_data['url']):
             robots_txt_url = '<a href="%s">%s/robots.txt</a>' % (
                 robots_txt_url, self.url_parts[1])
