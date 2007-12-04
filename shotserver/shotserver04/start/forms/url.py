@@ -165,10 +165,16 @@ class UrlForm(forms.Form):
         socket.setdefaulttimeout(HTTP_TIMEOUT)
         try:
             parser.read()
-        except IOError, error:
-            raise ValidationError(unicode(
-                _("Could not get robots.txt from %(hostname)s.")) %
-                {'hostname': self.netloc_parts[2]})
+        except EOFError:
+            return
+        except (IOError, socket.error), error:
+            error = unicode(error)
+            error = error[0].upper() + error[1:]
+            if not error.endswith('.'):
+                error += '.'
+            raise ValidationError(' '.join((unicode(
+                _("Could not get robots.txt from %(hostname)s.") %
+                {'hostname': self.netloc_parts[2]}), error)))
         if not parser.can_fetch('Browsershots', self.cleaned_data['url']):
             robots_txt_url = '<a href="%s">%s/robots.txt</a>' % (
                 robots_txt_url, self.url_parts[1])
