@@ -1,9 +1,10 @@
 User-agent: *
-Disallow: /screenshots/
-Disallow: /websites/
 Disallow: /png/
 Disallow: /static/
 Disallow: /media/
+Disallow: /screenshots/
+Disallow: /websites/
+Disallow: /http
 
 User-agent: Mediapartners-Google
 Disallow: /png/
