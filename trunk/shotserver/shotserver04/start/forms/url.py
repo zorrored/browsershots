@@ -168,13 +168,11 @@ class UrlForm(forms.Form):
         except EOFError:
             return
         except (IOError, socket.error), error:
-            error = unicode(error)
-            error = error[0].upper() + error[1:]
-            if not error.endswith('.'):
-                error += '.'
-            raise ValidationError(' '.join((unicode(
+            text = unicode(
                 _("Could not get robots.txt from %(hostname)s.") %
-                {'hostname': self.netloc_parts[2]}), error)))
+                {'hostname': self.url_parts[1]})
+            error = human_error(error)
+            raise ValidationError(' '.join((text, error)).strip())
         if not parser.can_fetch('Browsershots', self.cleaned_data['url']):
             robots_txt_url = '<a href="%s">%s/robots.txt</a>' % (
                 robots_txt_url, self.url_parts[1])
@@ -200,13 +198,8 @@ _("Please read the %(faq)s.") % locals(),
             else:
                 text = _("Could not get page content from %(hostname)s.")
             text %= {'hostname': error.hostname}
-            if error.message == 'timed out':
-                error.message = (
-                    _("Server failed to respond within %d seconds.") %
-                    HTTP_TIMEOUT)
-            elif error.message:
-                error.message = capfirst(error.message).rstrip('.') + '.'
-            raise ValidationError(' '.join((text, error.message)).strip())
+            error = human_error(error)
+            raise ValidationError(' '.join((text, error)).strip())
 
     def get_or_create_domain(self):
         """
@@ -255,3 +248,20 @@ _("Please read the %(faq)s.") % locals(),
                 profanities=self.cleaned_data['profanities'],
                 fetched=datetime.now())
         return website
+
+
+def human_error(error):
+    """
+    Human-readable error formatting.
+    """
+    if hasattr(error, 'message') and error.message:
+        error = error.message
+    else:
+        error = unicode(error)
+    if not error:
+        return ''
+    if 'timed out' in error.lower():
+        return (_("Server failed to respond within %d seconds.") %
+                HTTP_TIMEOUT)
+    else:
+        return capfirst(error).rstrip('.') + '.'
