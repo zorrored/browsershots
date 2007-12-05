@@ -90,7 +90,7 @@ def serializable(func):
                 result = func(*args, **kwargs)
                 transaction.commit()
                 return result
-            except psycopg.ProgrammingError, error:
+            except psycopg.DatabaseError, error:
                 transaction.rollback()
                 serialize_error = "serialize access" in str(error).lower()
                 if attempt == MAX_ATTEMPTS or not serialize_error:
