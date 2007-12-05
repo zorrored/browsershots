@@ -96,6 +96,9 @@ def serializable(func):
                 if attempt == MAX_ATTEMPTS or not serialize_error:
                     raise
                 # sys.stdout.write('!') # For test_overload.py
+            except:
+                transaction.rollback()
+                raise
 
     wrapper.__name__ = func.__name__
     wrapper.__doc__ = func.__doc__
