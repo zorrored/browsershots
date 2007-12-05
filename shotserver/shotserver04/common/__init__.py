@@ -91,12 +91,11 @@ def serializable(func):
                 transaction.commit()
                 return result
             except psycopg.ProgrammingError, error:
+                transaction.rollback()
                 serialize_error = "serialize access" in str(error).lower()
-                if serialize_error and attempt < MAX_ATTEMPTS:
-                    transaction.rollback()
-                    # sys.stdout.write('!') # For test_overload.py
-                else:
+                if attempt == MAX_ATTEMPTS or not serialize_error:
                     raise
+                # sys.stdout.write('!') # For test_overload.py
 
     wrapper.__name__ = func.__name__
     wrapper.__doc__ = func.__doc__
