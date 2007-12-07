@@ -86,7 +86,7 @@ def ipn(http_request):
     # Check the response
     if response == 'VERIFIED':
         payment_status = http_request.POST['payment_status']
-        if payment_status == 'Completed':
+        if payment_status in ('Completed', 'Pending'):
             priority = create_user_priority(paypallog)
             if isinstance(priority, UserPriority):
                 send_priority_email(paypallog, priority)
