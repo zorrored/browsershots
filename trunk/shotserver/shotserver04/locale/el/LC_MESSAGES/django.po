@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-05 16:44+0100\n"
-"PO-Revision-Date: 2007-12-02 16:14+0000\n"
+"POT-Creation-Date: 2007-12-09 23:16+0100\n"
+"PO-Revision-Date: 2007-12-07 13:30+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-12-05 15:28+0000\n"
+"X-Launchpad-Export-Date: 2007-12-09 21:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: accounts/views.py:64
@@ -124,19 +124,16 @@ msgstr ""
 "Αν ο παροχέας email χρησιμοποιεί φίλτρα, μπορεί να χρειαστούν μερικά λεπτά."
 
 #: accounts/views.py:242
-#, fuzzy
 msgid "username"
 msgstr "Όνομα χρήστη"
 
 #: accounts/views.py:244
-#, fuzzy
 msgid "first name"
-msgstr "πρώτη"
+msgstr "όνομα"
 
 #: accounts/views.py:246
-#, fuzzy
 msgid "last name"
-msgstr "τελευταία νέα"
+msgstr "επώνυμο"
 
 #: accounts/views.py:255
 msgid "Username must start with a lowercase letter."
@@ -158,9 +155,8 @@ msgid "password"
 msgstr "συνθηματικό"
 
 #: accounts/views.py:274
-#, fuzzy
 msgid "again"
-msgstr "είσοδος"
+msgstr "ξανά"
 
 #: accounts/views.py:284
 #, python-format
@@ -439,7 +435,7 @@ msgstr "ενεργοποίηση"
 
 #: browsers/views.py:57
 msgid "Unknown factory name."
-msgstr ""
+msgstr "Άγνωστο όνομα εργαστηρίου."
 
 #: browsers/views.py:67
 msgid "Password mismatch."
@@ -690,18 +686,16 @@ msgid "This browser is already inactive."
 msgstr "Αυτός ο φυλλομετρητής είναι ήδη ανενεργός."
 
 #: factories/views.py:196
-#, fuzzy
 msgid "This screen size is already enabled."
-msgstr "Αυτό το όνομα χρήστη είναι κρατημένο."
+msgstr "Αυτό το μέγεθος οθόνης είναι ήδη ενεργοποιημένο."
 
 #: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
 msgstr "Άκυρη πληροφορία."
 
 #: factories/views.py:209
-#, fuzzy
 msgid "This color depth is already enabled."
-msgstr "Αυτός ο φυλλομετρητής είναι ήδη ανενεργός."
+msgstr "Αυτό το βάθος χρωμάτων είναι ήδη ενεργοποιημένο."
 
 #: factories/views.py:295
 msgid "Name must start with a lowercase letter."
@@ -1243,34 +1237,31 @@ msgstr "Αναφορά προβλήματος με αυτό το στιγμιό�
 
 #: sponsors/models.py:39
 msgid "slug"
-msgstr ""
+msgstr "διαχωριστικό"
 
 #: sponsors/models.py:40
 msgid "This is used to generate the link to the logo image."
-msgstr ""
+msgstr "Αυτό χρησιμοποιείται για να δημιουργεί το λογότυπο."
 
 #: sponsors/models.py:42 websites/models.py:75
 msgid "URL"
 msgstr "Διεύθυνση"
 
 #: sponsors/models.py:44
-#, fuzzy
 msgid "premium"
-msgstr "προηγούμενη"
+msgstr "Ανώτερο"
 
 #: sponsors/models.py:45
 msgid "Premium sponsors are always shown on the front page."
-msgstr ""
+msgstr "Οι πρωτεύοντες χορηγοί πάντα εμφανίζονται στην πρώτη σελίδα."
 
 #: sponsors/models.py:47
-#, fuzzy
 msgid "front page"
-msgstr "Οποιοδήποτε"
+msgstr "πρώτη σελίδα"
 
 #: sponsors/models.py:54
-#, fuzzy
 msgid "sponsors"
-msgstr "σπόνσορας"
+msgstr "χορηγοί"
 
 #: start/views.py:64
 msgid "login required"
@@ -1311,9 +1302,8 @@ msgid "Malformed URL (server name not specified)."
 msgstr "Κακογραμμένο URL (δεν αναφέρθηκε το όνομα του εξυπηρετητή)."
 
 #: start/forms/url.py:102
-#, fuzzy
 msgid "Malformed URL (spaces in server name)."
-msgstr "Κακογραμμένο URL (δεν αναφέρθηκε το όνομα του εξυπηρετητή)."
+msgstr "Κακογραμμένο URL (διαστήματα στο όνομα του εξυπηρετητή)."
 
 #: start/forms/url.py:129
 #, python-format
@@ -1326,19 +1316,19 @@ msgid "Server IP address %(ip)s is disallowed."
 msgstr "Η διεύθυνση IP του εξυπηρετητή %(ip)s δεν επιτρέπεται."
 
 #: start/forms/url.py:172
-#, fuzzy, python-format
+#, python-format
 msgid "Could not get robots.txt from %(hostname)s."
-msgstr "Δεν μπόρεσε να ληφθεί η σελίδα από το %(hostname)s,"
+msgstr "Δεν μπόρεσε να ληφθεί το robots.txt από το %(hostname)s."
 
 #: start/forms/url.py:183
 #, python-format
 msgid "Browsershots was blocked by %(robots_txt_url)s."
-msgstr ""
+msgstr "Το Browsershots έχει αποκλειστεί από το %(robots_txt_url)s."
 
 #: start/forms/url.py:184
 #, python-format
 msgid "Please read the %(faq)s."
-msgstr ""
+msgstr "Παρακαλώ διαβάστε το %(faq)s."
 
 #: start/forms/url.py:195
 #, python-format
@@ -1484,9 +1474,3 @@ msgstr "άγνωστος ιστότοπος"
 #: websites/templates/websites/unknown.html:11
 msgid "This address was never submitted, or removed after inactivity."
 msgstr "Αυτή η διεύθυνση δεν υποβλήθηκε ποτέ, ή αφαιρέθηκε λόγω αδράνειας."
-
-#~ msgid "Duplicate."
-#~ msgstr "Αντίγραφο."
-
-#~ msgid "Submit"
-#~ msgstr "Υποβολή"
