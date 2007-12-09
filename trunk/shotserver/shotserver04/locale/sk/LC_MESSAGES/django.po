@@ -1,4 +1,4 @@
-# Russian translation for shotserver
+# Slovak translation for shotserver
 # Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
 # This file is distributed under the same license as the shotserver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-05 16:43+0100\n"
-"PO-Revision-Date: 2007-12-05 14:00+0000\n"
-"Last-Translator: Kavu <kavu13@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"POT-Creation-Date: 2007-12-05 16:44+0100\n"
+"PO-Revision-Date: 2007-11-29 16:01+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,254 +19,246 @@ msgstr ""
 
 #: accounts/views.py:64
 msgid "You're already signed in"
-msgstr "Вы уже вошли в систему"
+msgstr ""
 
 #: accounts/views.py:65
 msgid "Please log out and then try again."
-msgstr "Пожалуйста, выйдите из системы и попробуйте еще раз."
+msgstr "Odhláste sa a skúste to znovu."
 
 #: accounts/views.py:74
 msgid "Username"
-msgstr "Имя Пользователя"
+msgstr "Užívateľské meno"
 
 #: accounts/views.py:75
 msgid "Password"
-msgstr "Пaроль"
+msgstr "Heslo"
 
 #: accounts/views.py:92
 msgid "Please enable cookies in your browser."
-msgstr "Пожалуйста, включите поддержку cookies в вашем браузере."
+msgstr "Prosím, povoľte cookies vo Vašom prehliadači."
 
 #: accounts/views.py:98
 msgid "Incorrect username or password."
-msgstr "Неправильное имя пользователя или пароль."
+msgstr "Nesprávne meno alebo heslo."
 
 #: accounts/views.py:100
 msgid "This account is inactive."
-msgstr "Эта учетная запись неактивна."
+msgstr "Toto konto nie je aktívne."
 
 #: accounts/views.py:102 accounts/views.py:167
 msgid "Welcome to Browsershots!"
-msgstr "Добро пожаловать"
+msgstr "Vitajte na Browsershots!"
 
 #: accounts/views.py:103
 msgid "let me in"
-msgstr "войти в систему"
+msgstr ""
 
 #: accounts/views.py:110
 msgid "Forgot your password?"
-msgstr "Забыли пароль?"
+msgstr "Zabudli ste heslo?"
 
 #: accounts/views.py:111
 msgid "Create a new account?"
-msgstr "Хотите зарегистрироваться?"
+msgstr "Vytvoriť nové konto?"
 
 #: accounts/views.py:126
 msgid "logged out"
-msgstr "вы вышли из системы"
+msgstr ""
 
 #: accounts/views.py:128
 msgid "You have successfully logged out."
-msgstr "Вы вышли из системы."
+msgstr "Boli ste úspešne odhlásený."
 
 #: accounts/views.py:164 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
-msgstr "Привет, %(first_name)s!"
+msgstr "Vitajte, %(first_name)s!"
 
 #: accounts/views.py:193
 msgid "too many verification emails"
-msgstr "отправлено слишком много электронных писем с подтверждением"
+msgstr "príliš veľa overovacích e-mailov"
 
 #: accounts/views.py:194
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr ""
-"С вашего IP-адреса поступило слишком много запросов на получение электронной "
-"почты за последние 24 часа."
 
 #: accounts/views.py:195 factories/views.py:58 start/views.py:83
 msgid "Please try again later."
-msgstr "Пожалуйста, попробуйте еще раз позже."
+msgstr "Skúste to znovu neskôr, prosím."
 
 #: accounts/views.py:198
 msgid "email verification"
-msgstr "подтверждение адреса электронной почты"
+msgstr ""
 
 #: accounts/views.py:200
 msgid "send email"
-msgstr "отправить электронное письмо"
+msgstr "poslať e-mail"
 
 #: accounts/views.py:218
 msgid "email error"
-msgstr "ошибка при отправке электронного письма"
+msgstr "e-mailová chyba"
 
 #: accounts/views.py:219
 msgid "Could not send email."
-msgstr "Нам не удалось отправить электронное письмо."
+msgstr "Nebolo možné odoslať e-mail."
 
 #: accounts/views.py:221
 msgid "email sent"
-msgstr "электронное письмо отправлено"
+msgstr "e-mail odoslaný"
 
 #: accounts/views.py:222
 #, python-format
 msgid "A verification email was sent to %(address)s."
-msgstr ""
+msgstr "Overovací e-mail bol poslaný na %(address)s."
 
 #: accounts/views.py:223
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr ""
-"Проверьте свой электронный почтовый ящик и выполните инструкцию, указанную в "
-"письме."
+"Skontrolujte si svoju schranku prijatej pošty a postupujte podľa inštrukcií "
+"v e-mailovej správe"
 
 #: accounts/views.py:224
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
-"Если ваш сервер электронной почты использует защиту от спама (greylisting), "
-"доставка может занять несколько десятков минут."
 
 #: accounts/views.py:242
+#, fuzzy
 msgid "username"
-msgstr "Имя пользователя"
+msgstr "Užívateľské meno"
 
 #: accounts/views.py:244
 #, fuzzy
 msgid "first name"
-msgstr "первый"
+msgstr "Vitajte, %(first_name)s"
 
 #: accounts/views.py:246
-#, fuzzy
 msgid "last name"
-msgstr "последние новости"
+msgstr ""
 
 #: accounts/views.py:255
 msgid "Username must start with a lowercase letter."
-msgstr "Имя пользователя должно начинаться со строчной буквы."
+msgstr "Meno užívateľa musí začínať malým písmenom."
 
 #: accounts/views.py:259
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
-"Имя пользователя может содержать только строчные буквы, цифры, знаки "
-"подчеркивания (_) и дефисы (-)."
+"Meno užívateľa môže obsahovať iba malé písmená, čísla, pomlčky a "
+"podčiarkovníky"
 
 #: accounts/views.py:262
 msgid "This username is reserved."
-msgstr "Это имя пользователя зарезервировано."
+msgstr "Toto meno užívateľa je rezervované."
 
 #: accounts/views.py:271 browsers/views.py:49
 msgid "password"
-msgstr "пароль"
+msgstr ""
 
 #: accounts/views.py:274
-#, fuzzy
 msgid "again"
-msgstr "вход"
+msgstr ""
 
 #: accounts/views.py:284
 #, python-format
 msgid "The password must have %d or more characters."
-msgstr "Пароль не должен быть короче %d символов."
+msgstr "Heslo musí mať %d a viac znakov."
 
 #: accounts/views.py:288
 msgid "The password must not be completely numeric."
-msgstr "Пароль не может состоять только из цифр."
+msgstr "Heslo nesmie obsahovať iba čísla."
 
 #: accounts/views.py:301
 msgid "Repeat password is not the same."
-msgstr "Пароли не совпадают друг с другом."
+msgstr "Zopakované heslo sa nezhoduje."
 
 #: accounts/views.py:322
 msgid "This username is already taken."
-msgstr "Это имя пользователя уже занято."
+msgstr "Toto meno užívateľa už používa niekto iný."
 
 #: accounts/views.py:336
 msgid "Wrong IP address"
-msgstr "Неправильный IP-адрес"
+msgstr "Nesprávna IP adresa"
 
 #: accounts/views.py:337
 msgid "The verification email was requested from a different IP address."
-msgstr ""
-"Запрос на подтверждение электронного адреса был отправлен с другого IP."
+msgstr "Overovací e-mail bol vyžiadaný z inej IP adresy."
 
 #: accounts/views.py:339
 msgid "Bad verification code"
-msgstr "Неправильный код подтверждения"
+msgstr "Nesprávny overovací kód"
 
 #: accounts/views.py:340
 msgid "The verification code has no email address."
-msgstr "Код подтверждения не содержит адреса электронной почты."
+msgstr "Overovací kód nemá e-mailovú adresu."
 
 #: accounts/views.py:342
 msgid "Verification code expired"
-msgstr "Истек срок годности кода подтверждения"
+msgstr "Platnosť overovacieho kódu skončila"
 
 #: accounts/views.py:343
-#, fuzzy
 msgid "The verification email was requested more than 24 hours ago."
-msgstr ""
-"Код подтверждения адреса электронной почты был запрошен более получаса назад."
+msgstr "Overovací e-mail bol vyžiadaný pred viac ako 24 hodinami."
 
 #: accounts/views.py:357
 msgid "choose a new password"
-msgstr "введите новый пароль"
+msgstr "zvoľte si nové heslo"
 
 #: accounts/views.py:359
 msgid "change password"
-msgstr "изменить пароль"
+msgstr "zmeniť heslo"
 
 #: accounts/views.py:366
 msgid "Password changed"
-msgstr "Пароль изменен"
+msgstr "Heslo bolo zmenené"
 
 #: accounts/views.py:367
 msgid "Your new password has been saved."
-msgstr "Ваш новый пароль сохранен."
+msgstr "Vaše nové heslo bolo uložené."
 
 #: accounts/views.py:368 accounts/views.py:392
 msgid "Click the link in the top right corner to log in."
-msgstr "Чтобы войти в систему, нажмите на ссылку в правом верхнем углу."
+msgstr ""
 
 #: accounts/views.py:380
 msgid "create a new account"
-msgstr "создать новую учетную запись"
+msgstr "vytvoriť nové konto"
 
 #: accounts/views.py:382
 msgid "create account"
-msgstr "создать учётную запись"
+msgstr "vytvoriť konto"
 
 #: accounts/views.py:390
 msgid "Account created"
-msgstr "учетная запись создана"
+msgstr "Konto bolo vytvorené"
 
 #: accounts/views.py:391
 msgid "A new user account was created."
-msgstr "Новая учетная запись создана."
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:5
 msgid "profile"
-msgstr "профиль"
+msgstr "profil užívateľa"
 
 #: accounts/templates/accounts/profile.html:11
 msgid "This is your private profile page. Only you can see it."
-msgstr "Это ваша личная страница. Только вы можете ее увидеть."
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:15
 msgid "your screenshot factories"
-msgstr "ваши фабрики скриншотов"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:29
 msgid "Register a new screenshot factory?"
-msgstr "Зарегистрировать новую фабрику скриншотов?"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:30
 #: factories/templates/factories/details.html:71
 msgid "Register this browser for screenshots?"
-msgstr "Зарегистрировать этот браузер для создания скриншотов?"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:34
 msgid "recent factory errors"
-msgstr "ошибки фабрики"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:38 browsers/models.py:93
 #: browsers/views.py:47 factories/models.py:93 factories/models.py:205
@@ -274,33 +266,33 @@ msgstr "ошибки фабрики"
 #: requests/models.py:382 screenshots/models.py:115
 #: screenshots/templates/screenshots/details.html:58
 msgid "factory"
-msgstr "фабрика"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:39
 msgid "code"
-msgstr "код"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:40
 msgid "message"
-msgstr "сообщение"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:41
 msgid "age"
-msgstr "возраст"
+msgstr ""
 
 #: accounts/templates/accounts/profile.html:57
 msgid "account balance"
-msgstr "баланс учетной записи"
+msgstr ""
 
 #: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:33 platforms/models.py:34
 #: platforms/models.py:58 sponsors/models.py:37 websites/models.py:47
 msgid "name"
-msgstr "Название"
+msgstr ""
 
 #: browsers/models.py:40
 msgid "e.g. Gecko / KHTML / AppleWebKit"
-msgstr "например, Gecko / KHTML / AppleWebKit"
+msgstr ""
 
 #: browsers/models.py:42 browsers/models.py:67 platforms/models.py:64
 msgid "maker"
@@ -310,134 +302,134 @@ msgstr ""
 #: factories/templates/factories/details.html:35
 #: screenshots/templates/screenshots/details.html:42
 msgid "engine"
-msgstr "движок"
+msgstr ""
 
 #: browsers/models.py:50
 msgid "engines"
-msgstr "движки"
+msgstr ""
 
 #: browsers/models.py:65
 msgid "e.g. Firefox / MSIE / Safari"
-msgstr "например, Firefox / MSIE / Safari"
+msgstr ""
 
 #: browsers/models.py:69
 msgid "terminal"
-msgstr "терминал"
+msgstr ""
 
 #: browsers/models.py:69
 msgid "Is this a text-mode browser?"
-msgstr "Это консольный браузер?"
+msgstr ""
 
 #: browsers/models.py:71
 msgid "unusual"
-msgstr "необычный"
+msgstr ""
 
 #: browsers/models.py:71
 msgid "Hide from recent screenshot overview?"
-msgstr "Не показывать на странице со свежими скриншотоами?"
+msgstr ""
 
 #: browsers/models.py:78 browsers/models.py:97 requests/models.py:374
 msgid "browser group"
-msgstr "группа браузеров"
+msgstr ""
 
 #: browsers/models.py:79
 msgid "browser groups"
-msgstr "группы браузеров"
+msgstr ""
 
 #: browsers/models.py:95
 msgid "user agent"
-msgstr "user-agent"
+msgstr ""
 
 #: browsers/models.py:99 features/models.py:60 features/models.py:81
 #: features/models.py:102 platforms/models.py:60
 msgid "version"
-msgstr "версия"
+msgstr ""
 
 #: browsers/models.py:101 requests/models.py:376
 msgid "major"
-msgstr "главная"
+msgstr ""
 
 #: browsers/models.py:103 requests/models.py:378
 msgid "minor"
-msgstr "второстепенная"
+msgstr ""
 
 #: browsers/models.py:107
 msgid "engine version"
-msgstr "версия движка"
+msgstr ""
 
 #: browsers/models.py:109 factories/templates/factories/details.html:36
 #: requests/models.py:62 screenshots/templates/screenshots/details.html:46
 #: start/forms/features.py:66
 msgid "Javascript"
-msgstr "Javascript"
+msgstr ""
 
 #: browsers/models.py:111 factories/templates/factories/details.html:37
 #: requests/models.py:64 screenshots/templates/screenshots/details.html:50
 #: start/forms/features.py:68
 msgid "Java"
-msgstr "Java"
+msgstr ""
 
 #: browsers/models.py:113 factories/templates/factories/details.html:38
 #: requests/models.py:66 screenshots/templates/screenshots/details.html:54
 #: start/forms/features.py:70
 msgid "Flash"
-msgstr "Flash"
+msgstr ""
 
 #: browsers/models.py:115 factories/templates/factories/details.html:42
 msgid "command"
-msgstr "команда"
+msgstr ""
 
 #: browsers/models.py:116
 msgid "Leave empty to use default command."
-msgstr "Оставьте поле пустым, если хотите использовать команду по умолчанию."
+msgstr ""
 
 #: browsers/models.py:118
 msgid "active"
-msgstr "активен"
+msgstr ""
 
 #: browsers/models.py:119
 msgid "Designates that this browser is currently installed."
-msgstr "Обозначает, что этот браузер установлен."
+msgstr ""
 
 #: browsers/models.py:121 factories/models.py:69
 #: factories/templates/factories/details.html:39
 msgid "last upload"
-msgstr "последняя загрузка"
+msgstr ""
 
 #: browsers/models.py:123 factories/models.py:71
 #: factories/templates/factories/details.html:40
 #: requests/templates/requests/overview.html:17
 msgid "uploads per hour"
-msgstr "загрузок в час"
+msgstr ""
 
 #: browsers/models.py:125 factories/models.py:73
 #: factories/templates/factories/details.html:41
 #: requests/templates/requests/overview.html:18
 msgid "uploads per day"
-msgstr "загрузок в день"
+msgstr ""
 
 #: browsers/models.py:127 factories/models.py:78
 #: factories/templates/factories/details.html:14 nonces/models.py:43
 msgid "created"
-msgstr "создан"
+msgstr ""
 
 #: browsers/models.py:149 requests/models.py:386
 #: requests/templates/requests/overview.html:15 screenshots/models.py:117
 #: screenshots/templates/screenshots/details.html:38
 msgid "browser"
-msgstr "браузер"
+msgstr ""
 
 #: browsers/models.py:150
 msgid "browsers"
-msgstr "браузеры"
+msgstr ""
 
 #: browsers/models.py:176
 msgid "deactivate"
-msgstr "деактивировать"
+msgstr ""
 
 #: browsers/models.py:179
 msgid "activate"
-msgstr "активировать"
+msgstr ""
 
 #: browsers/views.py:57
 msgid "Unknown factory name."
@@ -445,43 +437,39 @@ msgstr ""
 
 #: browsers/views.py:67
 msgid "Password mismatch."
-msgstr "Пароль не совпадает."
+msgstr ""
 
 #: browsers/templates/browsers/add.html:5
 #: browsers/templates/browsers/add.html:8
 msgid "add a new browser version"
-msgstr "добавить новую версию браузера"
+msgstr ""
 
 #: browsers/templates/browsers/add.html:20
 #: factories/templates/factories/details.html:18
 #: screenshots/templates/screenshots/details.html:116
 #: start/templates/start/start.html:19
 msgid "submit"
-msgstr "отправить"
+msgstr ""
 
 #: browsers/templates/browsers/add.html:23
 msgid "updates"
-msgstr "обновления"
+msgstr ""
 
 #: browsers/templates/browsers/add.html:25
 msgid ""
 "You can also use this page when you've changed settings or updated the "
 "browser."
 msgstr ""
-"Вы можете воспользоваться этой страницей, если вы изменили настройки или "
-"обновили браузер."
 
 #: browsers/templates/browsers/add.html:26
 msgid ""
 "If the same browser is already registered for your factory, it will be "
 "replaced."
 msgstr ""
-"Если тот же самый браузер уже зарегистрирован в вашей фабрике, он будет "
-"заменен."
 
 #: browsers/templates/browsers/add.html:29
 msgid "other options"
-msgstr "другие параметры"
+msgstr ""
 
 #: browsers/templates/browsers/add.html:30
 #, python-format
@@ -489,112 +477,110 @@ msgid ""
 "If your browser group or rendering engine is not available, please write to %"
 "(email)s."
 msgstr ""
-"Если ваша группа браузеров или движок недоступны, пожалуйста, напишите "
-"письмо по адресу %(email)s."
 
 #: browsers/templates/browsers/add.html:44 features/models.py:34
 #: start/forms/features.py:46
 msgid "enabled"
-msgstr "включено"
+msgstr ""
 
 #: browsers/templates/browsers/add.html:44
 #: browsers/templates/browsers/add.html:48 features/models.py:36
 #: start/forms/features.py:43
 msgid "disabled"
-msgstr "отключено"
+msgstr ""
 
 #: common/templates/404.html:3 common/templates/404.html.py:6
 msgid "page not found"
-msgstr "страница не найдена"
+msgstr ""
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr "Запрошенная вами страница не найдена."
+msgstr ""
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
-msgstr "ошибка сервера"
+msgstr ""
 
 #: common/templates/base.html:24
 msgid "home"
-msgstr "главная"
+msgstr ""
 
 #: common/templates/base.html:25 screenshots/models.py:143
 #: screenshots/models.py:301
 msgid "screenshots"
-msgstr "скриншоты"
+msgstr ""
 
 #: common/templates/base.html:26
 msgid "queue"
-msgstr "очередь"
+msgstr ""
 
 #: common/templates/base.html:27 factories/models.py:94
 msgid "factories"
-msgstr "фабрики"
+msgstr ""
 
 #: common/templates/base.html:28
 msgid "search"
-msgstr "поиск"
+msgstr ""
 
 #: common/templates/base.html:34
 msgid "signed in as"
-msgstr "вы вошли в систему как"
+msgstr ""
 
 #: common/templates/base.html:35
 msgid "logout"
-msgstr "выйти"
+msgstr ""
 
 #: common/templates/base.html:37
 msgid "login"
-msgstr "вход"
+msgstr ""
 
 #: common/templatetags/hosting_provider.py:45
 #, python-format
 msgid "hosted by %(provider)s"
-msgstr "хостинг предоставлен %(provider)s"
+msgstr ""
 
 #: common/templatetags/human.py:51
 #, python-format
 msgid "%(seconds)d s"
-msgstr "%(seconds)d сек."
+msgstr ""
 
 #: common/templatetags/human.py:54 requests/views.py:126
 #, python-format
 msgid "%(minutes)d min"
-msgstr "%(minutes)d мин."
+msgstr ""
 
 #: common/templatetags/human.py:57
 #, python-format
 msgid "%(hours)d h"
-msgstr "%(hours)d час."
+msgstr ""
 
 #: common/templatetags/human.py:59
 #, python-format
 msgid "%(days)d d"
-msgstr "%(days)d дн."
+msgstr ""
 
 #: common/templatetags/human.py:104
 #, python-format
 msgid "%(bytes)s bytes"
-msgstr "%(bytes)s байт"
+msgstr ""
 
 #: common/templatetags/sql_queries.py:55
 #, python-format
 msgid "%(count)d database queries"
-msgstr "%(count)d запросов к базе данных"
+msgstr ""
 
 #: factories/models.py:53
 msgid "Hostname (lowercase)"
-msgstr "Хост (строчными буквами)"
+msgstr ""
 
 #: factories/models.py:55
 msgid "administrator"
-msgstr "администратор"
+msgstr ""
 
 #: factories/models.py:57 factories/templates/factories/details.html:12
 #: screenshots/templates/screenshots/details.html:62 sponsors/models.py:53
 msgid "sponsor"
-msgstr "спонсор"
+msgstr ""
 
 #: factories/models.py:59 factories/templates/factories/details.html:16
 #: factories/templates/factories/details.html:20
@@ -610,64 +596,64 @@ msgstr ""
 #: factories/templates/factories/details.html:21 platforms/models.py:71
 #: screenshots/templates/screenshots/details.html:70
 msgid "operating system"
-msgstr "операционная система"
+msgstr ""
 
 #: factories/models.py:64 requests/models.py:70
 msgid "IP"
-msgstr "IP-адрес"
+msgstr ""
 
 #: factories/models.py:65
 msgid "The last poll came from this IP address."
-msgstr "Последний опрос пришел с этого IP-адреса."
+msgstr ""
 
 #: factories/models.py:67
 msgid "last poll"
-msgstr "последний опрос"
+msgstr ""
 
 #: factories/models.py:75 requests/models.py:327
 msgid "queue estimate"
-msgstr "прогноз очереди"
+msgstr ""
 
 #: factories/models.py:76
 msgid "Seconds between screenshot request and upload."
-msgstr "Количество секунд между запросом и загрузкой скриншота."
+msgstr ""
 
 #: factories/models.py:208 screenshots/models.py:119
 msgid "width"
-msgstr "ширина"
+msgstr ""
 
 #: factories/models.py:210 screenshots/models.py:121
 msgid "height"
-msgstr "высота"
+msgstr ""
 
 #: factories/models.py:217 start/forms/options.py:64
 msgid "screen size"
-msgstr "размер экрана"
+msgstr ""
 
 #: factories/models.py:218 factories/templates/factories/details.html:78
 msgid "screen sizes"
-msgstr "размеры экранов"
+msgstr ""
 
 #: factories/models.py:234 factories/templates/factories/details.html:109
 #: factories/templates/factories/details.html:115 requests/models.py:60
 msgid "bits per pixel"
-msgstr "бит на пиксель"
+msgstr ""
 
 #: factories/models.py:241 start/forms/options.py:66
 msgid "color depth"
-msgstr "глубина цвета"
+msgstr ""
 
 #: factories/models.py:242 factories/templates/factories/details.html:104
 msgid "color depths"
-msgstr "глубины цвета"
+msgstr ""
 
 #: factories/views.py:56 start/views.py:81
 msgid "out of service"
-msgstr "временно недоступен"
+msgstr ""
 
 #: factories/views.py:57 start/views.py:82
 msgid "No active screenshot factories."
-msgstr "Не найдено активных фабрик скриншотов."
+msgstr ""
 
 #: factories/views.py:77 factories/views.py:88 factories/views.py:106
 #, python-format
@@ -681,20 +667,20 @@ msgstr ""
 
 #: factories/views.py:114 requests/views.py:143 requests/views.py:148
 msgid "invalid request"
-msgstr "некорректный запрос"
+msgstr ""
 
 #: factories/views.py:119
 msgid "permission denied"
-msgstr "доступ запрещён"
+msgstr ""
 
 #: factories/views.py:150
 msgid "This browser is already inactive."
-msgstr "Этот браузер уже неактивен."
+msgstr ""
 
 #: factories/views.py:196
 #, fuzzy
 msgid "This screen size is already enabled."
-msgstr "Это имя пользователя уже занято."
+msgstr "Toto meno užívateľa už používa niekto iný."
 
 #: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
@@ -703,60 +689,58 @@ msgstr ""
 #: factories/views.py:209
 #, fuzzy
 msgid "This color depth is already enabled."
-msgstr "Этот браузер уже неактивен."
+msgstr "Toto meno užívateľa už používa niekto iný."
 
 #: factories/views.py:295
 msgid "Name must start with a lowercase letter."
-msgstr "Имя должно начинаться со строчной буквы."
+msgstr ""
 
 #: factories/views.py:299
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
-"Имя может содержать только строчные буквы, цифры, знаки подчеркивания (_) и "
-"дефисы (-)."
 
 #: factories/views.py:302
 msgid "This name is reserved."
-msgstr "Это имя зарезервировано."
+msgstr ""
 
 #: factories/views.py:319
 msgid "This name is already taken."
-msgstr "Это имя уже занято."
+msgstr ""
 
 #: factories/views.py:338
 msgid "register a new screenshot factory"
-msgstr "зарегистрировать новую фабрику скриншотов"
+msgstr ""
 
 #: factories/views.py:339
 msgid "register"
-msgstr "зарегистрировать"
+msgstr ""
 
 #: factories/templates/factories/details.html:5
 #: factories/templates/factories/details.html:8
 #, python-format
 msgid "Screenshot Factory %(name)s"
-msgstr "Фабрика скриншотов %(name)s"
+msgstr ""
 
 #: factories/templates/factories/details.html:13
 msgid "admin"
-msgstr "администратор"
+msgstr ""
 
 #: factories/templates/factories/details.html:26
 msgid "installed browsers"
-msgstr "установленные браузеры"
+msgstr ""
 
 #: factories/templates/factories/details.html:34
 msgid "short version"
-msgstr "краткая версия"
+msgstr ""
 
 #: factories/templates/factories/details.html:66
 msgid "No browsers registered for this factory."
-msgstr "В эту фабрику не добавлено ни одного браузера."
+msgstr ""
 
 #: factories/templates/factories/details.html:85
 #: factories/templates/factories/details.html:110
 msgid "add"
-msgstr "добавить"
+msgstr ""
 
 #: factories/templates/factories/details.html:91
 #: factories/templates/factories/details.html:116
@@ -766,91 +750,91 @@ msgstr ""
 #: factories/templates/factories/details.html:95
 #: factories/templates/factories/details.html:120
 msgid "default only"
-msgstr "только по умолчанию"
+msgstr ""
 
 #: factories/templates/factories/details.html:127
 #: screenshots/templates/screenshots/overview.html:4
 #: screenshots/templates/screenshots/overview.html:7
 msgid "recent screenshots"
-msgstr "свежие скриншоты"
+msgstr ""
 
 #: factories/templates/factories/details.html:134
 msgid "recent problem reports"
-msgstr "свежие сообщения об ошибках"
+msgstr ""
 
 #: factories/templates/factories/details.html:137
 #, python-format
 msgid "%(interval)s ago"
-msgstr "%(interval)s назад"
+msgstr ""
 
 #: factories/templates/factories/overview.html:5
 #: factories/templates/factories/overview.html:8
 msgid "screenshot factories"
-msgstr "фабрики скриншотов"
+msgstr ""
 
 #: features/models.py:61 features/models.py:82
 msgid "e.g. 1.4 / 1.5 / 1.6"
-msgstr "например, 1.4 / 1.5 / 1.6"
+msgstr ""
 
 #: features/models.py:67
 msgid "Javascript version"
-msgstr "версия Javascript"
+msgstr ""
 
 #: features/models.py:68
 msgid "Javascript versions"
-msgstr "версии Javascript"
+msgstr ""
 
 #: features/models.py:88
 msgid "Java version"
-msgstr "версия Java"
+msgstr ""
 
 #: features/models.py:89
 msgid "Java versions"
-msgstr "версии Java"
+msgstr ""
 
 #: features/models.py:103
 msgid "e.g. 5 / 6 / 7 / 8 / 9"
-msgstr "например, 5 / 6 / 7 / 8 / 9"
+msgstr ""
 
 #: features/models.py:109
 msgid "Flash version"
-msgstr "версия Flash"
+msgstr ""
 
 #: features/models.py:110
 msgid "Flash versions"
-msgstr "версии Flash"
+msgstr ""
 
 #: messages/models.py:37 screenshots/models.py:347
 msgid "error code"
-msgstr "код ошибки"
+msgstr ""
 
 #: messages/models.py:39 screenshots/models.py:349
 msgid "error message"
-msgstr "сообщение об ошибке"
+msgstr ""
 
 #: messages/models.py:41
 msgid "occurred"
-msgstr "произошло"
+msgstr ""
 
 #: messages/models.py:49
 msgid "factory error message"
-msgstr "сообщение об ошибке фабрики"
+msgstr ""
 
 #: messages/models.py:50
 msgid "factory error messages"
-msgstr "сообщения об ошибке фабрики"
+msgstr ""
 
 #: nonces/models.py:35 screenshots/models.py:109
 msgid "hashkey"
-msgstr "хэш-ключ"
+msgstr ""
 
 #: nonces/models.py:37 screenshots/models.py:353
 msgid "IP address"
-msgstr "IP-адрес"
+msgstr ""
 
 #: nonces/models.py:41
 msgid "email"
-msgstr "электронная почта"
+msgstr ""
 
 #: nonces/models.py:54
 msgid "nonce"
@@ -862,36 +846,36 @@ msgstr ""
 
 #: platforms/models.py:37
 msgid "position"
-msgstr "позиция"
+msgstr ""
 
 #: platforms/models.py:46 platforms/models.py:56 requests/models.py:372
 #: requests/templates/requests/overview.html:14
 msgid "platform"
-msgstr "платформа"
+msgstr ""
 
 #: platforms/models.py:47
 msgid "platforms"
-msgstr "платформы"
+msgstr ""
 
 #: platforms/models.py:62
 msgid "codename"
-msgstr "кодовое имя"
+msgstr ""
 
 #: platforms/models.py:72
 msgid "operating systems"
-msgstr "операционные системы"
+msgstr ""
 
 #: requests/models.py:54 screenshots/models.py:113 websites/models.py:92
 msgid "website"
-msgstr "веб-сайт"
+msgstr ""
 
 #: requests/models.py:56
 msgid "screen width"
-msgstr "ширина экрана"
+msgstr ""
 
 #: requests/models.py:58
 msgid "screen height"
-msgstr "высота экрана"
+msgstr ""
 
 #: requests/models.py:68
 msgid "submitter"
@@ -907,81 +891,81 @@ msgstr ""
 
 #: requests/models.py:92 requests/models.py:370
 msgid "request group"
-msgstr "группа запросов"
+msgstr ""
 
 #: requests/models.py:93
 msgid "request groups"
-msgstr "группы запросов"
+msgstr ""
 
 #: requests/models.py:102
 msgid "screenshot request group"
-msgstr "группа запросов скриншотов"
+msgstr ""
 
 #: requests/models.py:123
 #, python-format
 msgid "submitted %(interval)s ago"
-msgstr "загружено %(interval)s назад"
+msgstr ""
 
 #: requests/models.py:137
 #, python-format
 msgid "expires in %(interval)s"
-msgstr "срок годности истекает через %(interval)s"
+msgstr ""
 
 #: requests/models.py:142
 msgid "extend"
-msgstr "продлить"
+msgstr ""
 
 #: requests/models.py:157 start/forms/options.py:41
 #, python-format
 msgid "%(width)d pixels wide"
-msgstr "ширина %(width)d пикселей"
+msgstr ""
 
 #: requests/models.py:160 start/forms/options.py:54
 #, python-format
 msgid "%(color_depth)d bits per pixel"
-msgstr "%(color_depth)d бит на пиксель"
+msgstr ""
 
 #: requests/models.py:213
 msgid "Your screenshots will appear here when they are uploaded."
-msgstr "Ваши скриншоты появятся здесь, как только они будут готовы."
+msgstr ""
 
 #: requests/models.py:215
 msgid "[Reload this page] or bookmark it and come back later."
-msgstr "[Обновите страницу] или добавьте ее в закладки и вернитесь позже."
+msgstr ""
 
 #: requests/models.py:217
 msgid "Your screenshot requests have expired."
-msgstr "Срок действия ваших запросов на скриншоты истек."
+msgstr ""
 
 #: requests/models.py:227
 #, python-format
 msgid "%(count)d browsers selected"
-msgstr "выбрано %(count)d браузеров"
+msgstr ""
 
 #: requests/models.py:235
 #, python-format
 msgid "%(count)d starting"
-msgstr "%(count)d начинается"
+msgstr ""
 
 #: requests/models.py:237
 #, python-format
 msgid "%(count)d loading"
-msgstr "%(count)d загружается"
+msgstr ""
 
 #: requests/models.py:239 requests/models.py:242
 #, python-format
 msgid "%(count)d uploaded"
-msgstr "%(count)d загружено"
+msgstr ""
 
 #: requests/models.py:245
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)d failed"
-msgstr "%(count)d загружено"
+msgstr ""
 
 #: requests/models.py:248
-#, fuzzy, python-format
+#, python-format
 msgid "%(count)d expired"
-msgstr "%(count)d загружено"
+msgstr ""
 
 #: requests/models.py:323
 #, python-format
@@ -990,65 +974,65 @@ msgstr ""
 
 #: requests/models.py:325
 msgid "details"
-msgstr "подробнее"
+msgstr ""
 
 #: requests/models.py:351
 msgid "download all screenshots"
-msgstr "скачать все скриншоты"
+msgstr ""
 
 #: requests/models.py:354
 #, python-format
 msgid "download %(count)d screenshots"
-msgstr "скачать %(count)d скриншотов"
+msgstr ""
 
 #: requests/models.py:380
 msgid "priority"
-msgstr "приоритет"
+msgstr ""
 
 #: requests/models.py:384
 msgid "locked"
-msgstr "заблокировано"
+msgstr ""
 
 #: requests/models.py:389
 msgid "redirected"
-msgstr "перенаправлено"
+msgstr ""
 
 #: requests/models.py:391 screenshots/models.py:142 screenshots/models.py:345
 msgid "screenshot"
-msgstr "скриншот"
+msgstr ""
 
 #: requests/models.py:408
 msgid "request"
-msgstr "запрос"
+msgstr ""
 
 #: requests/models.py:409
 msgid "requests"
-msgstr "запросы"
+msgstr ""
 
 #: requests/models.py:432 screenshots/models.py:125
 #: screenshots/templates/screenshots/details.html:94
 msgid "uploaded"
-msgstr "загружено"
+msgstr ""
 
 #: requests/models.py:434
 msgid "failed"
-msgstr "не удалось"
+msgstr ""
 
 #: requests/models.py:436
 msgid "loading"
-msgstr "загрузка"
+msgstr ""
 
 #: requests/models.py:438
 msgid "starting"
-msgstr "запускается"
+msgstr ""
 
 #: requests/views.py:118
 msgid "expired"
-msgstr "просрочено"
+msgstr ""
 
 #: requests/views.py:122
 msgid "unavailable"
-msgstr "недоступно"
+msgstr ""
 
 #: requests/views.py:144
 msgid "You must send a POST request to this page."
@@ -1070,128 +1054,127 @@ msgstr ""
 #: requests/views.py:158 websites/templates/websites/details.html:38
 #: websites/templates/websites/unknown.html:14
 msgid "Request new screenshots?"
-msgstr "Запросить новые скриншоты?"
+msgstr ""
 
 #: requests/templates/requests/details.html:9
 #: screenshots/templates/screenshots/details.html:23
 #: websites/templates/websites/details.html:9
 #, python-format
 msgid "for %(url)s"
-msgstr "для %(url)s"
+msgstr ""
 
 #: requests/templates/requests/overview.html:5
 #: requests/templates/requests/overview.html:8
 msgid "screenshot request queue"
-msgstr "очередь запросов на скриншоты"
+msgstr ""
 
 #: requests/templates/requests/overview.html:16
 msgid "pending requests"
-msgstr "запросы, ожидающие выполнения"
+msgstr ""
 
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
-msgstr "Нет запросов в очереди."
+msgstr ""
 
 #: screenshots/models.py:38
 msgid "This is not the requested browser."
-msgstr "Это другой браузер."
+msgstr ""
 
 #: screenshots/models.py:39
 msgid "This is not the requested operating system."
-msgstr "Это другая операционная система."
+msgstr ""
 
 #: screenshots/models.py:41
 msgid "This is not the requested Javascript version."
-msgstr "Это другая версия Javascript."
+msgstr ""
 
 #: screenshots/models.py:42
 msgid "This is not the requested Java version."
-msgstr "Это другая версия Java."
+msgstr ""
 
 #: screenshots/models.py:43
 msgid "This is not the requested Flash version."
-msgstr "Это другая версия Flash."
+msgstr ""
 
 #: screenshots/models.py:44
 msgid "A language pack needs to be installed."
-msgstr "Необходимо установить языковой модуль."
+msgstr ""
 
 #: screenshots/models.py:46
 msgid "There is a dialog box in front of the browser window."
-msgstr "Диалоговое окно закрывает окно браузера."
+msgstr ""
 
 #: screenshots/models.py:47
 msgid "The browser window is not maximized."
-msgstr "Окно браузера не открыто на весь экран."
+msgstr ""
 
 #: screenshots/models.py:48
 msgid "The page is not finished loading."
-msgstr "Страница еще не загрузилась."
+msgstr ""
 
 #: screenshots/models.py:52
 #, python-format
 msgid "This is not %(browser)s."
-msgstr "Это не %(browser)s."
+msgstr ""
 
 #: screenshots/models.py:53
 #, python-format
 msgid "This is not %(operating_system)s."
-msgstr "Это не %(operating_system)s."
+msgstr ""
 
 #: screenshots/models.py:55
 #, python-format
 msgid "Javascript is not %(javascript)s."
-msgstr "Javascript — не %(javascript)s."
+msgstr ""
 
 #: screenshots/models.py:56
 #, python-format
 msgid "Java is not %(java)s."
-msgstr "Java — не %(java)s."
+msgstr ""
 
 #: screenshots/models.py:57
 #, python-format
 msgid "Flash is not %(flash)s."
-msgstr "Flash — не %(flash)s."
+msgstr ""
 
 #: screenshots/models.py:111
 msgid "user"
-msgstr "пользователь"
+msgstr ""
 
 #: screenshots/models.py:123
-#, fuzzy
 msgid "colors"
-msgstr "глубины цвета"
+msgstr ""
 
 #: screenshots/models.py:273
 msgid "first"
-msgstr "первый"
+msgstr ""
 
 #: screenshots/models.py:274
 msgid "previous"
-msgstr "предыдущий"
+msgstr ""
 
 #: screenshots/models.py:275
 msgid "next"
-msgstr "cледующий"
+msgstr ""
 
 #: screenshots/models.py:276
 msgid "last"
-msgstr "последний"
+msgstr ""
 
 #: screenshots/models.py:287
 #, python-format
 msgid "%(index)d out of %(total)d"
-msgstr "%(index)d из %(total)d"
+msgstr ""
 
 #: screenshots/models.py:311
 #, python-format
 msgid "with %(browser)s"
-msgstr "в %(browser)s"
+msgstr ""
 
 #: screenshots/models.py:322
 #, python-format
 msgid "on %(platform)s"
-msgstr "на платформе %(platform)s"
+msgstr ""
 
 #: screenshots/models.py:351
 msgid "reported"
@@ -1199,47 +1182,47 @@ msgstr ""
 
 #: screenshots/models.py:361
 msgid "problem report"
-msgstr "сообщение об ошибке"
+msgstr ""
 
 #: screenshots/models.py:362
 msgid "problem reports"
-msgstr "сообщения об ошибках"
+msgstr ""
 
 #: screenshots/views.py:117
 msgid "HTML is not allowed here."
-msgstr "Нельзя использовать HTML."
+msgstr ""
 
 #: screenshots/views.py:121
 msgid "URLs are not allowed here."
-msgstr "Нельзя вставлять URL."
+msgstr ""
 
 #: screenshots/templates/screenshots/details.html:28
 msgid "Click for full size."
-msgstr "Нажмите, чтобы посмотреть полный размер."
+msgstr ""
 
 #: screenshots/templates/screenshots/details.html:74
 msgid "dimensions"
-msgstr "размеры"
+msgstr ""
 
 #: screenshots/templates/screenshots/details.html:78
 msgid "file size"
-msgstr "размер файла"
+msgstr ""
 
 #: screenshots/templates/screenshots/details.html:82
 msgid "requested"
-msgstr "запрошено"
+msgstr ""
 
 #: screenshots/templates/screenshots/details.html:86
 msgid "started"
-msgstr "запускается"
+msgstr ""
 
 #: screenshots/templates/screenshots/details.html:90
 msgid "page loaded"
-msgstr "страница загружена"
+msgstr ""
 
 #: screenshots/templates/screenshots/details.html:101
 msgid "Report a problem with this screenshot?"
-msgstr "Сообщить об ошибке в этом скриншоте?"
+msgstr ""
 
 #: sponsors/models.py:39
 msgid "slug"
@@ -1251,34 +1234,31 @@ msgstr ""
 
 #: sponsors/models.py:42 websites/models.py:75
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: sponsors/models.py:44
-#, fuzzy
 msgid "premium"
-msgstr "предыдущий"
+msgstr ""
 
 #: sponsors/models.py:45
 msgid "Premium sponsors are always shown on the front page."
 msgstr ""
 
 #: sponsors/models.py:47
-#, fuzzy
 msgid "front page"
-msgstr "неважно"
+msgstr ""
 
 #: sponsors/models.py:54
 msgid "sponsors"
-msgstr "спонсоры"
+msgstr ""
 
 #: start/views.py:64
 msgid "login required"
 msgstr ""
 
 #: start/views.py:65
-#, fuzzy
 msgid "Anonymous screenshot requests are not allowed."
-msgstr "Срок действия ваших запросов на скриншоты истек."
+msgstr ""
 
 #: start/views.py:68
 msgid "Please log in with your username and password."
@@ -1286,39 +1266,38 @@ msgstr ""
 
 #: start/views.py:184
 msgid "select all"
-msgstr "выбрать всё"
+msgstr ""
 
 #: start/views.py:185
 msgid "deselect all"
-msgstr "снять выделение"
+msgstr ""
 
 #: start/forms/features.py:35 start/forms/options.py:36
 #: start/forms/options.py:49
 msgid "don't care"
-msgstr "неважно"
+msgstr ""
 
 #: start/forms/url.py:56
 msgid "Enter your web address here:"
-msgstr "Введите адрес своего сайта:"
+msgstr ""
 
 #: start/forms/url.py:94
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
-msgstr "Протокол %(scheme)s не поддерживается."
+msgstr ""
 
 #: start/forms/url.py:99
 msgid "Malformed URL (server name not specified)."
-msgstr "Некорректный URL (не указано имя сервера)."
+msgstr ""
 
 #: start/forms/url.py:102
-#, fuzzy
 msgid "Malformed URL (spaces in server name)."
-msgstr "Некорректный URL (не указано имя сервера)."
+msgstr ""
 
 #: start/forms/url.py:129
-#, fuzzy, python-format
+#, python-format
 msgid "Could not resolve IP address for %(hostname)s."
-msgstr "Не удалось отправить HTTP-запрос к %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:145
 #, python-format
@@ -1326,9 +1305,9 @@ msgid "Server IP address %(ip)s is disallowed."
 msgstr ""
 
 #: start/forms/url.py:172
-#, fuzzy, python-format
+#, python-format
 msgid "Could not get robots.txt from %(hostname)s."
-msgstr "Не удалось получить содержимое страницы от %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:183
 #, python-format
@@ -1343,105 +1322,105 @@ msgstr ""
 #: start/forms/url.py:195
 #, python-format
 msgid "Could not connect to %(hostname)s."
-msgstr "Не могу соединиться с %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:197
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
-msgstr "Не удалось отправить HTTP-запрос к %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:199
 #, python-format
 msgid "Could not get page content from %(hostname)s."
-msgstr "Не удалось получить содержимое страницы от %(hostname)s."
+msgstr ""
 
 #: start/forms/url.py:242
 msgid "Malformed URL (database integrity error)."
-msgstr "Некорректный URL (нарушена целостность базы данных)."
+msgstr ""
 
 #: start/forms/url.py:264
 #, python-format
 msgid "Server failed to respond within %d seconds."
-msgstr "Сервер не ответил за %d секунд."
+msgstr ""
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
-msgstr "Проверьте отображение вашего сайта в разных браузерах"
+msgstr ""
 
 #: start/templates/start/start.html:56
 msgid "project links"
-msgstr "ссылки"
+msgstr ""
 
 #: start/templates/start/start.html:58
 msgid "documentation"
-msgstr "документация"
+msgstr ""
 
 #: start/templates/start/start.html:59
 msgid "mailing lists"
-msgstr "списки рассылки"
+msgstr ""
 
 #: start/templates/start/start.html:60
 msgid "XML-RPC interface"
-msgstr "интерфейс XML-RPC"
+msgstr ""
 
 #: start/templates/start/start.html:61
 msgid "source code"
-msgstr "исходный код"
+msgstr ""
 
 #: start/templates/start/start.html:62
 msgid "downloads"
-msgstr "загрузки"
+msgstr ""
 
 #: start/templates/start/start.html:63
 msgid "translations"
-msgstr "переводы"
+msgstr ""
 
 #: start/templates/start/start.html:68
 msgid "What is Browsershots?"
-msgstr "Что такое Browsershots?"
+msgstr ""
 
 #: start/templates/start/start.html:70
 msgid ""
 "Browsershots makes screenshots of your web design in different browsers."
-msgstr "Browsershots делает скриншоты вашего сайта в разных браузерах."
+msgstr ""
 
 #: start/templates/start/start.html:71
 msgid "It is a free open-source online service created by Johann C. Rocholl."
-msgstr "Это бесплатный open-source сервис, созданный Johann C. Rocholl."
+msgstr ""
 
 #: start/templates/start/start.html:72
 msgid "When you submit your web address, it will be added to the job queue."
-msgstr "Когда вы отправляете нам адрес свого сайта, он добавляется в очередь."
+msgstr ""
 
 #: start/templates/start/start.html:73
 msgid ""
 "A number of distributed computers will open your website in their browser."
-msgstr "Несколько различных компьютеров откроют ваш сайт в своих браузерах."
+msgstr ""
 
 #: start/templates/start/start.html:74
 msgid ""
 "Then they will make screenshots and upload them to the central server here."
-msgstr "Затем они сделают скриншоты и загрузят их на центральный сервер."
+msgstr ""
 
 #: start/templates/start/start.html:80
 msgid "latest news"
-msgstr "последние новости"
+msgstr ""
 
 #: start/templates/start/start.html:92
 msgid "premium sponsors"
-msgstr "премиум-спонсоры"
+msgstr ""
 
 #: websites/models.py:38
 msgid "Missing slash after the hostname."
-msgstr "Не хватает слэша после имени хоста."
+msgstr ""
 
 #: websites/models.py:57 websites/models.py:78
 msgid "domain"
-msgstr "домен"
+msgstr ""
 
 #: websites/models.py:58
 msgid "domains"
-msgstr "домены"
+msgstr ""
 
 #: websites/models.py:80
 msgid "profanities"
@@ -1449,21 +1428,21 @@ msgstr ""
 
 #: websites/models.py:82
 msgid "fetched"
-msgstr "доставлено"
+msgstr ""
 
 #: websites/models.py:93
 msgid "websites"
-msgstr "веб-сайты"
+msgstr ""
 
 #: websites/templates/websites/details.html:5
 #: websites/templates/websites/details.html:8
 msgid "website overview"
-msgstr "обзор веб-сайта"
+msgstr ""
 
 #: websites/templates/websites/details.html:42
 #: websites/templates/websites/unknown.html:18
 msgid "other pages on the same domain"
-msgstr "другие страницы на том же домене"
+msgstr ""
 
 #: websites/templates/websites/unknown.html:5
 #: websites/templates/websites/unknown.html:8
@@ -1473,19 +1452,3 @@ msgstr ""
 #: websites/templates/websites/unknown.html:11
 msgid "This address was never submitted, or removed after inactivity."
 msgstr ""
-
-#~ msgid "architecture"
-#~ msgstr "архитектура"
-
-#~ msgid "points"
-#~ msgstr "пунктов"
-
-#~ msgid "account"
-#~ msgstr "учётная запись"
-
-#~ msgid "Please try again."
-#~ msgstr "Попробуйте еще раз."
-
-#, fuzzy
-#~ msgid "Submit"
-#~ msgstr "отправить"

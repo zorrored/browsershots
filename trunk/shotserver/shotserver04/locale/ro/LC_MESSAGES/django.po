@@ -7,211 +7,235 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-29 12:19+0100\n"
-"PO-Revision-Date: 2007-11-25 16:03+0000\n"
+"POT-Creation-Date: 2007-12-05 16:43+0100\n"
+"PO-Revision-Date: 2007-12-05 14:09+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Romanian <ro@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-29 10:52+0000\n"
+"X-Launchpad-Export-Date: 2007-12-05 15:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: accounts/views.py:63
+#: accounts/views.py:64
 msgid "You're already signed in"
 msgstr "Eşti deja conectat"
 
-#: accounts/views.py:64
+#: accounts/views.py:65
 msgid "Please log out and then try again."
 msgstr "Te rugăm să te deconectezi şi să încerci din nou."
 
-#: accounts/views.py:73
+#: accounts/views.py:74
 msgid "Username"
 msgstr "Nume de utilizator"
 
-#: accounts/views.py:74
+#: accounts/views.py:75
 msgid "Password"
 msgstr "Parolă"
 
-#: accounts/views.py:91
+#: accounts/views.py:92
 msgid "Please enable cookies in your browser."
 msgstr "Te rugăm să activezi cookie-urile în browser-ul tău."
 
-#: accounts/views.py:97
+#: accounts/views.py:98
 msgid "Incorrect username or password."
 msgstr "Nume de utilizator incorect sau parolă incorectă."
 
-#: accounts/views.py:99
+#: accounts/views.py:100
 msgid "This account is inactive."
 msgstr "Acest cont este inactiv."
 
-#: accounts/views.py:101 accounts/views.py:166
+#: accounts/views.py:102 accounts/views.py:167
 msgid "Welcome to Browsershots!"
 msgstr "Bun venit la Browsershots!"
 
-#: accounts/views.py:102
+#: accounts/views.py:103
 msgid "let me in"
 msgstr "dă-mi voie înăuntru"
 
-#: accounts/views.py:109
+#: accounts/views.py:110
 msgid "Forgot your password?"
 msgstr "Ţi-ai uitat parola?"
 
-#: accounts/views.py:110
+#: accounts/views.py:111
 msgid "Create a new account?"
 msgstr "Creezi un cont nou?"
 
-#: accounts/views.py:125
+#: accounts/views.py:126
 msgid "logged out"
 msgstr "deconectat"
 
-#: accounts/views.py:127
+#: accounts/views.py:128
 msgid "You have successfully logged out."
 msgstr "Deconectarea s-a realizat cu succes."
 
-#: accounts/views.py:163 accounts/templates/accounts/profile.html:8
+#: accounts/views.py:164 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
 msgstr "Salut %(first_name)s!"
 
-#: accounts/views.py:192
+#: accounts/views.py:193
 msgid "too many verification emails"
 msgstr "prea multe email-uri de verificare"
 
-#: accounts/views.py:193
+#: accounts/views.py:194
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr ""
 "Prea multe cereri email au fost trimise de la IP-ul tău în ultimele 24 de "
 "ore."
 
-#: accounts/views.py:194 factories/views.py:58 start/views.py:83
+#: accounts/views.py:195 factories/views.py:58 start/views.py:83
 msgid "Please try again later."
 msgstr "Te rugăm să încerci mai târziu."
 
-#: accounts/views.py:197
+#: accounts/views.py:198
 msgid "email verification"
 msgstr "verificare email"
 
-#: accounts/views.py:199
+#: accounts/views.py:200
 msgid "send email"
 msgstr "trimite email"
 
-#: accounts/views.py:217
+#: accounts/views.py:218
 msgid "email error"
 msgstr "eroare de email"
 
-#: accounts/views.py:218
+#: accounts/views.py:219
 msgid "Could not send email."
 msgstr "Email-ul nu a putut fi trimis."
 
-#: accounts/views.py:220
+#: accounts/views.py:221
 msgid "email sent"
 msgstr "email-ul a fost trimis"
 
-#: accounts/views.py:221
+#: accounts/views.py:222
 #, python-format
 msgid "A verification email was sent to %(address)s."
 msgstr "Un email de verificare a fost trimis la %(address)s."
 
-#: accounts/views.py:222
+#: accounts/views.py:223
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr "Verifică-ţi căsuţa de email şi urmează instrucţiunile din mesaj."
 
-#: accounts/views.py:223
+#: accounts/views.py:224
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
 "Poate exista o mică întârziere în cazul în care furnizorul tău de servicii "
 "email foloseşte o listă gri."
 
-#: accounts/views.py:251
+#: accounts/views.py:242
+#, fuzzy
+msgid "username"
+msgstr "Nume de utilizator"
+
+#: accounts/views.py:244
+#, fuzzy
+msgid "first name"
+msgstr "prima pagină"
+
+#: accounts/views.py:246
+#, fuzzy
+msgid "last name"
+msgstr "ultimele ştiri"
+
+#: accounts/views.py:255
 msgid "Username must start with a lowercase letter."
 msgstr "Numele de utilizator trebuie să înceapă cu literă mică."
 
-#: accounts/views.py:255
+#: accounts/views.py:259
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "Numele de utilizator poate să conţină doar litere mici, cifre, caracterele _ "
 "şi -."
 
-#: accounts/views.py:258
+#: accounts/views.py:262
 msgid "This username is reserved."
 msgstr "Acest nume de utilizator este rezervat."
 
-#: accounts/views.py:278
+#: accounts/views.py:271 browsers/views.py:49
+msgid "password"
+msgstr "parolă"
+
+#: accounts/views.py:274
+#, fuzzy
+msgid "again"
+msgstr "conectare"
+
+#: accounts/views.py:284
 #, python-format
 msgid "The password must have %d or more characters."
 msgstr "Parola trebuie să conţină minim %d caractere."
 
-#: accounts/views.py:282
+#: accounts/views.py:288
 msgid "The password must not be completely numeric."
 msgstr "Parola nu poate fi formată în întregime din cifre."
 
-#: accounts/views.py:295
+#: accounts/views.py:301
 msgid "Repeat password is not the same."
 msgstr "Parola de confirmare nu este aceeaşi."
 
-#: accounts/views.py:316
+#: accounts/views.py:322
 msgid "This username is already taken."
 msgstr "Acest nume de utilizator este deja folosit."
 
-#: accounts/views.py:330
+#: accounts/views.py:336
 msgid "Wrong IP address"
 msgstr "Adresă IP greşită"
 
-#: accounts/views.py:331
+#: accounts/views.py:337
 msgid "The verification email was requested from a different IP address."
 msgstr "Email-ul de verificare a fost cerut de la o altă adresă IP."
 
-#: accounts/views.py:333
+#: accounts/views.py:339
 msgid "Bad verification code"
 msgstr "Cod de verificare greşit"
 
-#: accounts/views.py:334
+#: accounts/views.py:340
 msgid "The verification code has no email address."
 msgstr "Codului de verificare nu îi corespunde nici o adresă de email."
 
-#: accounts/views.py:336
+#: accounts/views.py:342
 msgid "Verification code expired"
 msgstr "Codul de verificare a expirat"
 
-#: accounts/views.py:337
+#: accounts/views.py:343
 msgid "The verification email was requested more than 24 hours ago."
 msgstr "Email-ul de verificare a fost cerut în urmă cu mai mult de 24 de ore."
 
-#: accounts/views.py:351
+#: accounts/views.py:357
 msgid "choose a new password"
 msgstr "alege-ţi o nouă parolă"
 
-#: accounts/views.py:353
+#: accounts/views.py:359
 msgid "change password"
 msgstr "schimbă-ţi parola"
 
-#: accounts/views.py:360
+#: accounts/views.py:366
 msgid "Password changed"
 msgstr "Parola a fost schimbată"
 
-#: accounts/views.py:361
+#: accounts/views.py:367
 msgid "Your new password has been saved."
 msgstr "Noua ta parolă a fost salvată."
 
-#: accounts/views.py:362 accounts/views.py:386
+#: accounts/views.py:368 accounts/views.py:392
 msgid "Click the link in the top right corner to log in."
 msgstr "Daţi click pe legătura din colţul dreapta-sus pentru conectare."
 
-#: accounts/views.py:374
+#: accounts/views.py:380
 msgid "create a new account"
 msgstr "creeză un cont nou"
 
-#: accounts/views.py:376
+#: accounts/views.py:382
 msgid "create account"
 msgstr "creează-ţi un cont"
 
-#: accounts/views.py:384
+#: accounts/views.py:390
 msgid "Account created"
 msgstr "Contul a fost creat"
 
-#: accounts/views.py:385
+#: accounts/views.py:391
 msgid "A new user account was created."
 msgstr "Un nou cont de utilizator a fost creat."
 
@@ -241,9 +265,10 @@ msgid "recent factory errors"
 msgstr "erori de fabrică recente"
 
 #: accounts/templates/accounts/profile.html:38 browsers/models.py:93
-#: factories/models.py:93 factories/models.py:205 factories/models.py:231
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
-#: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
+#: browsers/views.py:47 factories/models.py:93 factories/models.py:205
+#: factories/models.py:231 messages/models.py:35 nonces/models.py:39
+#: requests/models.py:382 screenshots/models.py:115
+#: screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "fabrică"
 
@@ -265,7 +290,7 @@ msgstr "sold"
 
 #: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:33 platforms/models.py:34
-#: platforms/models.py:58 websites/models.py:47
+#: platforms/models.py:58 sponsors/models.py:37 websites/models.py:47
 msgid "name"
 msgstr "nume"
 
@@ -410,11 +435,11 @@ msgstr "dezactivează"
 msgid "activate"
 msgstr "activează"
 
-#: browsers/views.py:47
-msgid "password"
-msgstr "parolă"
+#: browsers/views.py:57
+msgid "Unknown factory name."
+msgstr ""
 
-#: browsers/views.py:145
+#: browsers/views.py:67
 msgid "Password mismatch."
 msgstr "Parola nu corespunde."
 
@@ -423,17 +448,18 @@ msgstr "Parola nu corespunde."
 msgid "add a new browser version"
 msgstr "adaugăţi o nouă versiune de browser"
 
-#: browsers/templates/browsers/add.html:19
+#: browsers/templates/browsers/add.html:20
+#: factories/templates/factories/details.html:18
 #: screenshots/templates/screenshots/details.html:116
 #: start/templates/start/start.html:19
 msgid "submit"
 msgstr "trimite"
 
-#: browsers/templates/browsers/add.html:22
+#: browsers/templates/browsers/add.html:23
 msgid "updates"
 msgstr "actualizări"
 
-#: browsers/templates/browsers/add.html:24
+#: browsers/templates/browsers/add.html:25
 msgid ""
 "You can also use this page when you've changed settings or updated the "
 "browser."
@@ -441,7 +467,7 @@ msgstr ""
 "Această pagină poate fi folosită şi după modificarea setărilor sau "
 "actualizarea browser-ului."
 
-#: browsers/templates/browsers/add.html:25
+#: browsers/templates/browsers/add.html:26
 msgid ""
 "If the same browser is already registered for your factory, it will be "
 "replaced."
@@ -449,11 +475,11 @@ msgstr ""
 "În cazul în care acelaşi browser este deja înregistrat în fabrica ta, el va "
 "fi înlocuit."
 
-#: browsers/templates/browsers/add.html:28
+#: browsers/templates/browsers/add.html:29
 msgid "other options"
 msgstr "alte setări"
 
-#: browsers/templates/browsers/add.html:29
+#: browsers/templates/browsers/add.html:30
 #, python-format
 msgid ""
 "If your browser group or rendering engine is not available, please write to %"
@@ -462,13 +488,13 @@ msgstr ""
 "În cazul în care grupul tău de browsere sau motorul tău de randare nu este "
 "disponibil, te rugăm să trimiţi un email la %(email)s."
 
-#: browsers/templates/browsers/add.html:43 features/models.py:34
+#: browsers/templates/browsers/add.html:44 features/models.py:34
 #: start/forms/features.py:46
 msgid "enabled"
 msgstr "activat"
 
-#: browsers/templates/browsers/add.html:43
-#: browsers/templates/browsers/add.html:47 features/models.py:36
+#: browsers/templates/browsers/add.html:44
+#: browsers/templates/browsers/add.html:48 features/models.py:36
 #: start/forms/features.py:43
 msgid "disabled"
 msgstr "dezactivat"
@@ -562,7 +588,7 @@ msgid "administrator"
 msgstr "administrator"
 
 #: factories/models.py:57 factories/templates/factories/details.html:12
-#: screenshots/templates/screenshots/details.html:62
+#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:53
 msgid "sponsor"
 msgstr "sponsor"
 
@@ -661,35 +687,41 @@ msgstr "acces interzis"
 msgid "This browser is already inactive."
 msgstr "Acest browser esta deja inactiv."
 
-#: factories/views.py:195 factories/views.py:207
-msgid "Duplicate."
-msgstr "Duplicat."
+#: factories/views.py:196
+#, fuzzy
+msgid "This screen size is already enabled."
+msgstr "Acest nume de utilizator este deja folosit."
 
-#: factories/views.py:197 factories/views.py:209
+#: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
 msgstr "Date incorecte."
 
-#: factories/views.py:292
+#: factories/views.py:209
+#, fuzzy
+msgid "This color depth is already enabled."
+msgstr "Acest browser esta deja inactiv."
+
+#: factories/views.py:295
 msgid "Name must start with a lowercase letter."
 msgstr "Numele trebuie să înceapă cu literă mică."
 
-#: factories/views.py:296
+#: factories/views.py:299
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr "Numele poate să conţină doar litere mici, cifre, caracterele _ şi -."
 
-#: factories/views.py:299
+#: factories/views.py:302
 msgid "This name is reserved."
 msgstr "Acest nume este rezervat."
 
-#: factories/views.py:316
+#: factories/views.py:319
 msgid "This name is already taken."
 msgstr "Acest nume este deja folosit."
 
-#: factories/views.py:335
+#: factories/views.py:338
 msgid "register a new screenshot factory"
 msgstr "înregistrează o nouă fabrică de capturi de ecran"
 
-#: factories/views.py:336
+#: factories/views.py:339
 msgid "register"
 msgstr "înregistrare"
 
@@ -702,11 +734,6 @@ msgstr "Fabrica %(name)s pentru capturi de ecran"
 #: factories/templates/factories/details.html:13
 msgid "admin"
 msgstr "administrator"
-
-#: factories/templates/factories/details.html:18
-#, fuzzy
-msgid "Submit"
-msgstr "trimite"
 
 #: factories/templates/factories/details.html:26
 msgid "installed browsers"
@@ -1219,6 +1246,37 @@ msgstr "pagină încarcată"
 msgid "Report a problem with this screenshot?"
 msgstr "Există o problemă cu această captură de ecran?"
 
+#: sponsors/models.py:39
+msgid "slug"
+msgstr ""
+
+#: sponsors/models.py:40
+msgid "This is used to generate the link to the logo image."
+msgstr ""
+
+#: sponsors/models.py:42 websites/models.py:75
+msgid "URL"
+msgstr "Adresă URL"
+
+#: sponsors/models.py:44
+#, fuzzy
+msgid "premium"
+msgstr "pagina anterioară"
+
+#: sponsors/models.py:45
+msgid "Premium sponsors are always shown on the front page."
+msgstr ""
+
+#: sponsors/models.py:47
+#, fuzzy
+msgid "front page"
+msgstr "nu contează"
+
+#: sponsors/models.py:54
+#, fuzzy
+msgid "sponsors"
+msgstr "sponsor"
+
 #: start/views.py:64
 msgid "login required"
 msgstr "necesită conectare"
@@ -1244,52 +1302,72 @@ msgstr "deselectează toate"
 msgid "don't care"
 msgstr "nu contează"
 
-#: start/forms/url.py:54
+#: start/forms/url.py:56
 msgid "Enter your web address here:"
 msgstr "Tastează adresa paginii tale web aici:"
 
-#: start/forms/url.py:91
+#: start/forms/url.py:94
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "Schema URL %(scheme)s nu este suportată."
 
-#: start/forms/url.py:96
+#: start/forms/url.py:99
 msgid "Malformed URL (server name not specified)."
 msgstr "Adresă URL deformată (numele server-ului nu a fost specificat)."
 
-#: start/forms/url.py:123
+#: start/forms/url.py:102
+#, fuzzy
+msgid "Malformed URL (spaces in server name)."
+msgstr "Adresă URL deformată (numele server-ului nu a fost specificat)."
+
+#: start/forms/url.py:129
 #, python-format
 msgid "Could not resolve IP address for %(hostname)s."
 msgstr "Adresa IP pentru %(hostname)s nu a putut fi rezolvată."
 
-#: start/forms/url.py:139
+#: start/forms/url.py:145
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
 msgstr "Adresa IP %(ip)s este interzisă."
 
-#: start/forms/url.py:157
+#: start/forms/url.py:172
+#, fuzzy, python-format
+msgid "Could not get robots.txt from %(hostname)s."
+msgstr "Descărcarea conţinutului de la %(hostname)s a eşuat."
+
+#: start/forms/url.py:183
+#, python-format
+msgid "Browsershots was blocked by %(robots_txt_url)s."
+msgstr ""
+
+#: start/forms/url.py:184
+#, python-format
+msgid "Please read the %(faq)s."
+msgstr ""
+
+#: start/forms/url.py:195
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Conectarea la %(hostname)s a eşuat."
 
-#: start/forms/url.py:159
+#: start/forms/url.py:197
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Cererea HTTP nu a putut fi trimisă către %(hostname)s."
 
-#: start/forms/url.py:161
+#: start/forms/url.py:199
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Descărcarea conţinutului de la %(hostname)s a eşuat."
 
-#: start/forms/url.py:165
+#: start/forms/url.py:242
+msgid "Malformed URL (database integrity error)."
+msgstr "Adresă URL deformată (eroare legată de baza de date)."
+
+#: start/forms/url.py:264
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Serverul nu a răspuns în intervalul de %d secunde."
-
-#: start/forms/url.py:209
-msgid "Malformed URL (database integrity error)."
-msgstr "Adresă URL deformată (eroare legată de baza de date)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
@@ -1379,10 +1457,6 @@ msgstr "domeniu"
 msgid "domains"
 msgstr "domenii"
 
-#: websites/models.py:75
-msgid "URL"
-msgstr "Adresă URL"
-
 #: websites/models.py:80
 msgid "profanities"
 msgstr ""
@@ -1415,14 +1489,9 @@ msgid "This address was never submitted, or removed after inactivity."
 msgstr ""
 "Această adresă nu a fost niciodată trimisă sau eliminată după inactivitate."
 
-#~ msgid "hardware architecture"
-#~ msgstr "arhitectură hardware"
+#~ msgid "Duplicate."
+#~ msgstr "Duplicat."
 
-#~ msgid "architecture"
-#~ msgstr "arhitectură"
-
-#~ msgid "e.g. i686 / PPC"
-#~ msgstr "de exemplu: i686 / PPC"
-
-#~ msgid "architectures"
-#~ msgstr "arhitecturi"
+#, fuzzy
+#~ msgid "Submit"
+#~ msgstr "trimite"
