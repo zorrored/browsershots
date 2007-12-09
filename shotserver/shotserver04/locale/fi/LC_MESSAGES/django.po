@@ -7,208 +7,229 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-29 12:18+0100\n"
-"PO-Revision-Date: 2007-11-22 10:09+0000\n"
+"POT-Creation-Date: 2007-12-05 16:42+0100\n"
+"PO-Revision-Date: 2007-12-05 14:00+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Finnish <fi@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-29 10:52+0000\n"
+"X-Launchpad-Export-Date: 2007-12-05 15:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: accounts/views.py:63
+#: accounts/views.py:64
 msgid "You're already signed in"
 msgstr "Olet jo kirjautunut sisään"
 
-#: accounts/views.py:64
+#: accounts/views.py:65
 #, fuzzy
 msgid "Please log out and then try again."
 msgstr "Ole hyvä, kirjaudu ulos ja yritä sitten uudestaan."
 
-#: accounts/views.py:73
+#: accounts/views.py:74
 msgid "Username"
 msgstr "Käyttäjänimi"
 
-#: accounts/views.py:74
+#: accounts/views.py:75
 msgid "Password"
 msgstr "Salasana"
 
-#: accounts/views.py:91
+#: accounts/views.py:92
 msgid "Please enable cookies in your browser."
 msgstr ""
 
-#: accounts/views.py:97
+#: accounts/views.py:98
 msgid "Incorrect username or password."
 msgstr "Virheellinen käyttäjänimi tai salasana."
 
-#: accounts/views.py:99
+#: accounts/views.py:100
 msgid "This account is inactive."
 msgstr "Tämä käyttäjätili ei ole aktiivinen."
 
-#: accounts/views.py:101 accounts/views.py:166
+#: accounts/views.py:102 accounts/views.py:167
 msgid "Welcome to Browsershots!"
 msgstr "Tervetuloa Browsershotsiin!"
 
-#: accounts/views.py:102
+#: accounts/views.py:103
 msgid "let me in"
 msgstr ""
 
-#: accounts/views.py:109
+#: accounts/views.py:110
 msgid "Forgot your password?"
 msgstr "Unohditko salasanasi?"
 
-#: accounts/views.py:110
+#: accounts/views.py:111
 msgid "Create a new account?"
 msgstr ""
 
-#: accounts/views.py:125
+#: accounts/views.py:126
 msgid "logged out"
 msgstr ""
 
-#: accounts/views.py:127
+#: accounts/views.py:128
 msgid "You have successfully logged out."
 msgstr "Olet kirjautunut ulos."
 
-#: accounts/views.py:163 accounts/templates/accounts/profile.html:8
+#: accounts/views.py:164 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
 msgstr ""
 
-#: accounts/views.py:192
+#: accounts/views.py:193
 msgid "too many verification emails"
 msgstr ""
 
-#: accounts/views.py:193
+#: accounts/views.py:194
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr ""
 
-#: accounts/views.py:194 factories/views.py:58 start/views.py:83
+#: accounts/views.py:195 factories/views.py:58 start/views.py:83
 msgid "Please try again later."
 msgstr "Ole hyvä ja yritä myöhemmin uudestaan."
 
-#: accounts/views.py:197
+#: accounts/views.py:198
 msgid "email verification"
 msgstr ""
 
-#: accounts/views.py:199
+#: accounts/views.py:200
 msgid "send email"
 msgstr "Lähetä sähköposti"
 
-#: accounts/views.py:217
+#: accounts/views.py:218
 msgid "email error"
 msgstr ""
 
-#: accounts/views.py:218
+#: accounts/views.py:219
 msgid "Could not send email."
 msgstr ""
 
-#: accounts/views.py:220
+#: accounts/views.py:221
 msgid "email sent"
 msgstr "Sähköposti lähetetty"
 
-#: accounts/views.py:221
+#: accounts/views.py:222
 #, python-format
 msgid "A verification email was sent to %(address)s."
 msgstr ""
 
-#: accounts/views.py:222
+#: accounts/views.py:223
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr ""
 
-#: accounts/views.py:223
+#: accounts/views.py:224
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
 
-#: accounts/views.py:251
+#: accounts/views.py:242
+#, fuzzy
+msgid "username"
+msgstr "Käyttäjänimi"
+
+#: accounts/views.py:244
+msgid "first name"
+msgstr ""
+
+#: accounts/views.py:246
+msgid "last name"
+msgstr ""
+
+#: accounts/views.py:255
 msgid "Username must start with a lowercase letter."
 msgstr "Käyttäjänimen on alettava pienellä kirjaimella."
 
-#: accounts/views.py:255
+#: accounts/views.py:259
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "Käyttäjänimi voi sisältää pieniä kirjaimia, numeroita, alaviivan tai "
 "tavuviivan."
 
-#: accounts/views.py:258
+#: accounts/views.py:262
 msgid "This username is reserved."
 msgstr "Valitsemasi käyttäjänimi on jo käytössä."
 
-#: accounts/views.py:278
+#: accounts/views.py:271 browsers/views.py:49
+msgid "password"
+msgstr ""
+
+#: accounts/views.py:274
+msgid "again"
+msgstr ""
+
+#: accounts/views.py:284
 #, python-format
 msgid "The password must have %d or more characters."
 msgstr ""
 
-#: accounts/views.py:282
+#: accounts/views.py:288
 msgid "The password must not be completely numeric."
 msgstr "Salasana ei voi koostua pelkästään numeroista."
 
-#: accounts/views.py:295
+#: accounts/views.py:301
 msgid "Repeat password is not the same."
 msgstr ""
 
-#: accounts/views.py:316
+#: accounts/views.py:322
 msgid "This username is already taken."
 msgstr "Valitsemasi käyttäjänimi on jo käytössä."
 
-#: accounts/views.py:330
+#: accounts/views.py:336
 msgid "Wrong IP address"
 msgstr "Väärä IP-osoite"
 
-#: accounts/views.py:331
+#: accounts/views.py:337
 msgid "The verification email was requested from a different IP address."
 msgstr ""
 
-#: accounts/views.py:333
+#: accounts/views.py:339
 msgid "Bad verification code"
 msgstr ""
 
-#: accounts/views.py:334
+#: accounts/views.py:340
 msgid "The verification code has no email address."
 msgstr ""
 
-#: accounts/views.py:336
+#: accounts/views.py:342
 msgid "Verification code expired"
 msgstr ""
 
-#: accounts/views.py:337
+#: accounts/views.py:343
 msgid "The verification email was requested more than 24 hours ago."
 msgstr ""
 
-#: accounts/views.py:351
+#: accounts/views.py:357
 msgid "choose a new password"
 msgstr "Valitse uusi salasana"
 
-#: accounts/views.py:353
+#: accounts/views.py:359
 msgid "change password"
 msgstr "Vaihda salasanaa"
 
-#: accounts/views.py:360
+#: accounts/views.py:366
 msgid "Password changed"
 msgstr "Salasana vaihdettu"
 
-#: accounts/views.py:361
+#: accounts/views.py:367
 msgid "Your new password has been saved."
 msgstr "Uusi salasana tallennettu."
 
-#: accounts/views.py:362 accounts/views.py:386
+#: accounts/views.py:368 accounts/views.py:392
 msgid "Click the link in the top right corner to log in."
 msgstr "Kirjaudu sisään oikean yläkulman linkistä."
 
-#: accounts/views.py:374
+#: accounts/views.py:380
 msgid "create a new account"
 msgstr "Luo uusi käyttäjätili"
 
-#: accounts/views.py:376
+#: accounts/views.py:382
 msgid "create account"
 msgstr "Luo käyttäjätili"
 
-#: accounts/views.py:384
+#: accounts/views.py:390
 msgid "Account created"
 msgstr "Käyttäjätili luotu"
 
-#: accounts/views.py:385
+#: accounts/views.py:391
 msgid "A new user account was created."
 msgstr "Uusi käyttäjätili on luotu."
 
@@ -238,9 +259,10 @@ msgid "recent factory errors"
 msgstr ""
 
 #: accounts/templates/accounts/profile.html:38 browsers/models.py:93
-#: factories/models.py:93 factories/models.py:205 factories/models.py:231
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
-#: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
+#: browsers/views.py:47 factories/models.py:93 factories/models.py:205
+#: factories/models.py:231 messages/models.py:35 nonces/models.py:39
+#: requests/models.py:382 screenshots/models.py:115
+#: screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr ""
 
@@ -262,7 +284,7 @@ msgstr ""
 
 #: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:33 platforms/models.py:34
-#: platforms/models.py:58 websites/models.py:47
+#: platforms/models.py:58 sponsors/models.py:37 websites/models.py:47
 msgid "name"
 msgstr ""
 
@@ -407,11 +429,11 @@ msgstr ""
 msgid "activate"
 msgstr ""
 
-#: browsers/views.py:47
-msgid "password"
+#: browsers/views.py:57
+msgid "Unknown factory name."
 msgstr ""
 
-#: browsers/views.py:145
+#: browsers/views.py:67
 msgid "Password mismatch."
 msgstr ""
 
@@ -420,46 +442,47 @@ msgstr ""
 msgid "add a new browser version"
 msgstr ""
 
-#: browsers/templates/browsers/add.html:19
+#: browsers/templates/browsers/add.html:20
+#: factories/templates/factories/details.html:18
 #: screenshots/templates/screenshots/details.html:116
 #: start/templates/start/start.html:19
 msgid "submit"
 msgstr ""
 
-#: browsers/templates/browsers/add.html:22
+#: browsers/templates/browsers/add.html:23
 msgid "updates"
 msgstr ""
 
-#: browsers/templates/browsers/add.html:24
+#: browsers/templates/browsers/add.html:25
 msgid ""
 "You can also use this page when you've changed settings or updated the "
 "browser."
 msgstr ""
 
-#: browsers/templates/browsers/add.html:25
+#: browsers/templates/browsers/add.html:26
 msgid ""
 "If the same browser is already registered for your factory, it will be "
 "replaced."
 msgstr ""
 
-#: browsers/templates/browsers/add.html:28
+#: browsers/templates/browsers/add.html:29
 msgid "other options"
 msgstr ""
 
-#: browsers/templates/browsers/add.html:29
+#: browsers/templates/browsers/add.html:30
 #, python-format
 msgid ""
 "If your browser group or rendering engine is not available, please write to %"
 "(email)s."
 msgstr ""
 
-#: browsers/templates/browsers/add.html:43 features/models.py:34
+#: browsers/templates/browsers/add.html:44 features/models.py:34
 #: start/forms/features.py:46
 msgid "enabled"
 msgstr ""
 
-#: browsers/templates/browsers/add.html:43
-#: browsers/templates/browsers/add.html:47 features/models.py:36
+#: browsers/templates/browsers/add.html:44
+#: browsers/templates/browsers/add.html:48 features/models.py:36
 #: start/forms/features.py:43
 msgid "disabled"
 msgstr ""
@@ -553,7 +576,7 @@ msgid "administrator"
 msgstr ""
 
 #: factories/models.py:57 factories/templates/factories/details.html:12
-#: screenshots/templates/screenshots/details.html:62
+#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:53
 msgid "sponsor"
 msgstr ""
 
@@ -652,35 +675,41 @@ msgstr ""
 msgid "This browser is already inactive."
 msgstr ""
 
-#: factories/views.py:195 factories/views.py:207
-msgid "Duplicate."
-msgstr ""
+#: factories/views.py:196
+#, fuzzy
+msgid "This screen size is already enabled."
+msgstr "Valitsemasi käyttäjänimi on jo käytössä."
 
-#: factories/views.py:197 factories/views.py:209
+#: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
 msgstr ""
 
-#: factories/views.py:292
+#: factories/views.py:209
+#, fuzzy
+msgid "This color depth is already enabled."
+msgstr "Valitsemasi käyttäjänimi on jo käytössä."
+
+#: factories/views.py:295
 msgid "Name must start with a lowercase letter."
 msgstr ""
 
-#: factories/views.py:296
+#: factories/views.py:299
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 
-#: factories/views.py:299
+#: factories/views.py:302
 msgid "This name is reserved."
 msgstr ""
 
-#: factories/views.py:316
+#: factories/views.py:319
 msgid "This name is already taken."
 msgstr ""
 
-#: factories/views.py:335
+#: factories/views.py:338
 msgid "register a new screenshot factory"
 msgstr ""
 
-#: factories/views.py:336
+#: factories/views.py:339
 msgid "register"
 msgstr ""
 
@@ -692,10 +721,6 @@ msgstr ""
 
 #: factories/templates/factories/details.html:13
 msgid "admin"
-msgstr ""
-
-#: factories/templates/factories/details.html:18
-msgid "Submit"
 msgstr ""
 
 #: factories/templates/factories/details.html:26
@@ -1197,6 +1222,34 @@ msgstr ""
 msgid "Report a problem with this screenshot?"
 msgstr ""
 
+#: sponsors/models.py:39
+msgid "slug"
+msgstr ""
+
+#: sponsors/models.py:40
+msgid "This is used to generate the link to the logo image."
+msgstr ""
+
+#: sponsors/models.py:42 websites/models.py:75
+msgid "URL"
+msgstr ""
+
+#: sponsors/models.py:44
+msgid "premium"
+msgstr ""
+
+#: sponsors/models.py:45
+msgid "Premium sponsors are always shown on the front page."
+msgstr ""
+
+#: sponsors/models.py:47
+msgid "front page"
+msgstr ""
+
+#: sponsors/models.py:54
+msgid "sponsors"
+msgstr ""
+
 #: start/views.py:64
 msgid "login required"
 msgstr ""
@@ -1222,51 +1275,70 @@ msgstr ""
 msgid "don't care"
 msgstr ""
 
-#: start/forms/url.py:54
+#: start/forms/url.py:56
 msgid "Enter your web address here:"
 msgstr ""
 
-#: start/forms/url.py:91
+#: start/forms/url.py:94
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr ""
 
-#: start/forms/url.py:96
+#: start/forms/url.py:99
 msgid "Malformed URL (server name not specified)."
 msgstr ""
 
-#: start/forms/url.py:123
+#: start/forms/url.py:102
+msgid "Malformed URL (spaces in server name)."
+msgstr ""
+
+#: start/forms/url.py:129
 #, python-format
 msgid "Could not resolve IP address for %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:139
+#: start/forms/url.py:145
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
 msgstr ""
 
-#: start/forms/url.py:157
+#: start/forms/url.py:172
+#, python-format
+msgid "Could not get robots.txt from %(hostname)s."
+msgstr ""
+
+#: start/forms/url.py:183
+#, python-format
+msgid "Browsershots was blocked by %(robots_txt_url)s."
+msgstr ""
+
+#: start/forms/url.py:184
+#, python-format
+msgid "Please read the %(faq)s."
+msgstr ""
+
+#: start/forms/url.py:195
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:159
+#: start/forms/url.py:197
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:161
+#: start/forms/url.py:199
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr ""
 
-#: start/forms/url.py:165
-#, python-format
-msgid "Server failed to respond within %d seconds."
+#: start/forms/url.py:242
+msgid "Malformed URL (database integrity error)."
 msgstr ""
 
-#: start/forms/url.py:209
-msgid "Malformed URL (database integrity error)."
+#: start/forms/url.py:264
+#, python-format
+msgid "Server failed to respond within %d seconds."
 msgstr ""
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
@@ -1346,10 +1418,6 @@ msgstr ""
 
 #: websites/models.py:58
 msgid "domains"
-msgstr ""
-
-#: websites/models.py:75
-msgid "URL"
 msgstr ""
 
 #: websites/models.py:80

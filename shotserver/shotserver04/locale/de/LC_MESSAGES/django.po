@@ -7,211 +7,231 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-29 12:19+0100\n"
-"PO-Revision-Date: 2007-11-25 16:03+0000\n"
+"POT-Creation-Date: 2007-12-05 16:43+0100\n"
+"PO-Revision-Date: 2007-12-05 14:09+0000\n"
 "Last-Translator: Johann C. Rocholl <johann@browsershots.org>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-29 10:52+0000\n"
+"X-Launchpad-Export-Date: 2007-12-05 15:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: accounts/views.py:63
+#: accounts/views.py:64
 msgid "You're already signed in"
 msgstr "Du bist bereits angemeldet"
 
-#: accounts/views.py:64
+#: accounts/views.py:65
 msgid "Please log out and then try again."
 msgstr "Bitte ausloggen und erneut versuchen."
 
-#: accounts/views.py:73
+#: accounts/views.py:74
 msgid "Username"
 msgstr "Benutzername"
 
-#: accounts/views.py:74
+#: accounts/views.py:75
 msgid "Password"
 msgstr "Passwort"
 
-#: accounts/views.py:91
+#: accounts/views.py:92
 msgid "Please enable cookies in your browser."
 msgstr "Bitte aktiviere Cookies in deinem Browser."
 
-#: accounts/views.py:97
+#: accounts/views.py:98
 msgid "Incorrect username or password."
 msgstr "Ungültiger Benutzername oder Passwort."
 
-#: accounts/views.py:99
+#: accounts/views.py:100
 msgid "This account is inactive."
 msgstr "Dieses Konto ist inaktiv."
 
-#: accounts/views.py:101 accounts/views.py:166
+#: accounts/views.py:102 accounts/views.py:167
 msgid "Welcome to Browsershots!"
 msgstr "Willkommen bei Browsershots!"
 
-#: accounts/views.py:102
+#: accounts/views.py:103
 msgid "let me in"
-msgstr "Lass mich rein"
+msgstr "lass mich rein"
 
-#: accounts/views.py:109
+#: accounts/views.py:110
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: accounts/views.py:110
+#: accounts/views.py:111
 msgid "Create a new account?"
 msgstr "Neuen Account erstellen?"
 
-#: accounts/views.py:125
+#: accounts/views.py:126
 msgid "logged out"
 msgstr "abgemeldet"
 
-#: accounts/views.py:127
+#: accounts/views.py:128
 msgid "You have successfully logged out."
 msgstr "Du hast dich erfolgreich abgemeldet."
 
-#: accounts/views.py:163 accounts/templates/accounts/profile.html:8
+#: accounts/views.py:164 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
 msgstr "Hallo %(first_name)s!"
 
-#: accounts/views.py:192
+#: accounts/views.py:193
 msgid "too many verification emails"
 msgstr "zu viele Verifizierungs-Emails"
 
-#: accounts/views.py:193
+#: accounts/views.py:194
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr ""
 "Es gab zu viele Email Anfragen von deiner IP in den letzten 24 Stunden."
 
-#: accounts/views.py:194 factories/views.py:58 start/views.py:83
+#: accounts/views.py:195 factories/views.py:58 start/views.py:83
 msgid "Please try again later."
 msgstr "Bitte später erneut versuchen."
 
-#: accounts/views.py:197
+#: accounts/views.py:198
 msgid "email verification"
 msgstr "Email-Überprüfung"
 
-#: accounts/views.py:199
+#: accounts/views.py:200
 msgid "send email"
 msgstr "Email schicken"
 
-#: accounts/views.py:217
+#: accounts/views.py:218
 msgid "email error"
 msgstr "Email-Fehler"
 
-#: accounts/views.py:218
+#: accounts/views.py:219
 msgid "Could not send email."
 msgstr "Konnte Email nicht senden."
 
-#: accounts/views.py:220
+#: accounts/views.py:221
 msgid "email sent"
 msgstr "Email abgeschickt"
 
-#: accounts/views.py:221
+#: accounts/views.py:222
 #, python-format
 msgid "A verification email was sent to %(address)s."
 msgstr "Eine Test-Email wurde an %(address)s geschickt."
 
-#: accounts/views.py:222
+#: accounts/views.py:223
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr ""
 "Überprüfe dein Email-Postfach und folge den Anweisungen in der Nachricht."
 
-#: accounts/views.py:223
+#: accounts/views.py:224
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
 "Wenn dein Email-Anbieter Graylisting benutzt, kann es einige Minuten dauern."
 
-#: accounts/views.py:251
+#: accounts/views.py:242
+msgid "username"
+msgstr "Benutzername"
+
+#: accounts/views.py:244
+msgid "first name"
+msgstr "Vorname"
+
+#: accounts/views.py:246
+msgid "last name"
+msgstr "Nachname"
+
+#: accounts/views.py:255
 msgid "Username must start with a lowercase letter."
 msgstr "Der Benutzername muss mit einem Kleinbuchstaben beginnen."
 
-#: accounts/views.py:255
+#: accounts/views.py:259
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "Der Benutzername darf nur Kleinbuchstaben, Zahlen, Unterstriche und "
 "Bindestriche enthalten."
 
-#: accounts/views.py:258
+#: accounts/views.py:262
 msgid "This username is reserved."
 msgstr "Dieser Benutzername ist reserviert."
 
-#: accounts/views.py:278
+#: accounts/views.py:271 browsers/views.py:49
+msgid "password"
+msgstr "Passwort"
+
+#: accounts/views.py:274
+msgid "again"
+msgstr "nochmal"
+
+#: accounts/views.py:284
 #, python-format
 msgid "The password must have %d or more characters."
 msgstr "Das Passwort muss mindestens %d Zeichen lang sein."
 
-#: accounts/views.py:282
+#: accounts/views.py:288
 msgid "The password must not be completely numeric."
 msgstr "Das Passwort darf nicht komplett aus Ziffern bestehen."
 
-#: accounts/views.py:295
+#: accounts/views.py:301
 msgid "Repeat password is not the same."
 msgstr "Passwort und Wiederhohlung stimmen nicht überein."
 
-#: accounts/views.py:316
+#: accounts/views.py:322
 msgid "This username is already taken."
 msgstr "Dieser Benutzername wird bereits verwendet."
 
-#: accounts/views.py:330
+#: accounts/views.py:336
 msgid "Wrong IP address"
 msgstr "Falsche IP-Adresse"
 
-#: accounts/views.py:331
+#: accounts/views.py:337
 msgid "The verification email was requested from a different IP address."
 msgstr ""
 "Die Verifizierungsemail wurde von einer anderen IP-Adresse angefordert."
 
-#: accounts/views.py:333
+#: accounts/views.py:339
 msgid "Bad verification code"
 msgstr "Falscher Verifizierungscode"
 
-#: accounts/views.py:334
+#: accounts/views.py:340
 msgid "The verification code has no email address."
 msgstr "Der Verifizierungscode hat keine Emailadresse."
 
-#: accounts/views.py:336
+#: accounts/views.py:342
 msgid "Verification code expired"
 msgstr "Verifizierungscode ist abgelaufen"
 
-#: accounts/views.py:337
+#: accounts/views.py:343
 msgid "The verification email was requested more than 24 hours ago."
 msgstr "Die Verifizierungsemail wurde vor mehr als 24 Stunden angefordert."
 
-#: accounts/views.py:351
+#: accounts/views.py:357
 msgid "choose a new password"
 msgstr "wähle ein neues Passwort"
 
-#: accounts/views.py:353
+#: accounts/views.py:359
 msgid "change password"
 msgstr "Passwort ändern"
 
-#: accounts/views.py:360
+#: accounts/views.py:366
 msgid "Password changed"
 msgstr "Passwort geändert"
 
-#: accounts/views.py:361
+#: accounts/views.py:367
 msgid "Your new password has been saved."
 msgstr "Dein neues Passwort wurde gespeichert."
 
-#: accounts/views.py:362 accounts/views.py:386
+#: accounts/views.py:368 accounts/views.py:392
 msgid "Click the link in the top right corner to log in."
 msgstr "Klick auf den Link oben rechts, um dich einzuloggen."
 
-#: accounts/views.py:374
+#: accounts/views.py:380
 msgid "create a new account"
 msgstr "neues Benutzerkonto anlegen"
 
-#: accounts/views.py:376
+#: accounts/views.py:382
 msgid "create account"
 msgstr "Konto anlegen"
 
-#: accounts/views.py:384
+#: accounts/views.py:390
 msgid "Account created"
 msgstr "Konto angelegt"
 
-#: accounts/views.py:385
+#: accounts/views.py:391
 msgid "A new user account was created."
 msgstr "Ein neues Benutzerkonto wurde angelegt."
 
@@ -241,9 +261,10 @@ msgid "recent factory errors"
 msgstr "aktuelle Fabrikfehler"
 
 #: accounts/templates/accounts/profile.html:38 browsers/models.py:93
-#: factories/models.py:93 factories/models.py:205 factories/models.py:231
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
-#: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
+#: browsers/views.py:47 factories/models.py:93 factories/models.py:205
+#: factories/models.py:231 messages/models.py:35 nonces/models.py:39
+#: requests/models.py:382 screenshots/models.py:115
+#: screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "Fabrik"
 
@@ -265,7 +286,7 @@ msgstr "Kontostand"
 
 #: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:33 platforms/models.py:34
-#: platforms/models.py:58 websites/models.py:47
+#: platforms/models.py:58 sponsors/models.py:37 websites/models.py:47
 msgid "name"
 msgstr "Name"
 
@@ -410,11 +431,11 @@ msgstr "deaktivieren"
 msgid "activate"
 msgstr "aktivieren"
 
-#: browsers/views.py:47
-msgid "password"
-msgstr "Passwort"
+#: browsers/views.py:57
+msgid "Unknown factory name."
+msgstr "Unbekannter Fabrikname."
 
-#: browsers/views.py:145
+#: browsers/views.py:67
 msgid "Password mismatch."
 msgstr "Falsches Passwort."
 
@@ -423,17 +444,18 @@ msgstr "Falsches Passwort."
 msgid "add a new browser version"
 msgstr "eine neue Browserversion eintragen"
 
-#: browsers/templates/browsers/add.html:19
+#: browsers/templates/browsers/add.html:20
+#: factories/templates/factories/details.html:18
 #: screenshots/templates/screenshots/details.html:116
 #: start/templates/start/start.html:19
 msgid "submit"
 msgstr "abschicken"
 
-#: browsers/templates/browsers/add.html:22
+#: browsers/templates/browsers/add.html:23
 msgid "updates"
 msgstr "Aktualisierungen"
 
-#: browsers/templates/browsers/add.html:24
+#: browsers/templates/browsers/add.html:25
 msgid ""
 "You can also use this page when you've changed settings or updated the "
 "browser."
@@ -441,7 +463,7 @@ msgstr ""
 "Du kannst diese Seite auch benutzen, wenn du Einstellungen verändert oder "
 "den Browser aktualisiert hast."
 
-#: browsers/templates/browsers/add.html:25
+#: browsers/templates/browsers/add.html:26
 msgid ""
 "If the same browser is already registered for your factory, it will be "
 "replaced."
@@ -449,11 +471,11 @@ msgstr ""
 "Wenn der gleiche Browser bereits für deine Fabrik eingetragen ist, wird er "
 "ersetzt."
 
-#: browsers/templates/browsers/add.html:28
+#: browsers/templates/browsers/add.html:29
 msgid "other options"
 msgstr "andere Optionen"
 
-#: browsers/templates/browsers/add.html:29
+#: browsers/templates/browsers/add.html:30
 #, python-format
 msgid ""
 "If your browser group or rendering engine is not available, please write to %"
@@ -462,13 +484,13 @@ msgstr ""
 "Wenn deine Browsergruppe oder Rendering-Engine nicht verfügbar ist, schreib "
 "an %(email)s."
 
-#: browsers/templates/browsers/add.html:43 features/models.py:34
+#: browsers/templates/browsers/add.html:44 features/models.py:34
 #: start/forms/features.py:46
 msgid "enabled"
 msgstr "aktiviert"
 
-#: browsers/templates/browsers/add.html:43
-#: browsers/templates/browsers/add.html:47 features/models.py:36
+#: browsers/templates/browsers/add.html:44
+#: browsers/templates/browsers/add.html:48 features/models.py:36
 #: start/forms/features.py:43
 msgid "disabled"
 msgstr "deaktiviert"
@@ -562,7 +584,7 @@ msgid "administrator"
 msgstr "Administrator"
 
 #: factories/models.py:57 factories/templates/factories/details.html:12
-#: screenshots/templates/screenshots/details.html:62
+#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:53
 msgid "sponsor"
 msgstr "Sponsor"
 
@@ -661,37 +683,41 @@ msgstr "Zugang verweigert"
 msgid "This browser is already inactive."
 msgstr "Dieser Browser ist bereits inaktiv."
 
-#: factories/views.py:195 factories/views.py:207
-msgid "Duplicate."
-msgstr "Duplikat."
+#: factories/views.py:196
+msgid "This screen size is already enabled."
+msgstr "Diese Auflösung ist bereits aktiviert."
 
-#: factories/views.py:197 factories/views.py:209
+#: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
 msgstr "Ungültige Daten."
 
-#: factories/views.py:292
+#: factories/views.py:209
+msgid "This color depth is already enabled."
+msgstr "Diese Farbtiefe ist bereits aktiviert."
+
+#: factories/views.py:295
 msgid "Name must start with a lowercase letter."
 msgstr "Name muss mit Kleinbuchstaben beginnen."
 
-#: factories/views.py:296
+#: factories/views.py:299
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "Name darf nur Kleinbuchstaben, Zahlen, Unterstriche und Bindestrich "
 "enthalten."
 
-#: factories/views.py:299
+#: factories/views.py:302
 msgid "This name is reserved."
 msgstr "Dieser Name ist reserviert."
 
-#: factories/views.py:316
+#: factories/views.py:319
 msgid "This name is already taken."
 msgstr "Dieser Name ist bereits vergeben."
 
-#: factories/views.py:335
+#: factories/views.py:338
 msgid "register a new screenshot factory"
 msgstr "neue Screenshot-Fabrik registrieren"
 
-#: factories/views.py:336
+#: factories/views.py:339
 msgid "register"
 msgstr "registrieren"
 
@@ -938,19 +964,17 @@ msgid "%(count)d uploaded"
 msgstr "%(count)d hochgeladen"
 
 #: requests/models.py:245
-#, fuzzy, python-format
 msgid "%(count)d failed"
-msgstr "%(count)d hochgeladen"
+msgstr "%(count)d fehlgeschlagen"
 
 #: requests/models.py:248
-#, fuzzy, python-format
 msgid "%(count)d expired"
-msgstr "%(count)d hochgeladen"
+msgstr "%(count)d abgelaufen"
 
 #: requests/models.py:323
 #, python-format
 msgid "%(min_interval)s to %(max_interval)s"
-msgstr ""
+msgstr "%(min_interval)s bis %(max_interval)s"
 
 #: requests/models.py:325
 msgid "details"
@@ -1204,6 +1228,34 @@ msgstr "Seite geladen"
 msgid "Report a problem with this screenshot?"
 msgstr "Ein Problem mit diesem Screenshot melden?"
 
+#: sponsors/models.py:39
+msgid "slug"
+msgstr "Slug"
+
+#: sponsors/models.py:40
+msgid "This is used to generate the link to the logo image."
+msgstr "Wird verwendet, um den Link zum Logo-Bild zu erzeugen."
+
+#: sponsors/models.py:42 websites/models.py:75
+msgid "URL"
+msgstr "URL"
+
+#: sponsors/models.py:44
+msgid "premium"
+msgstr "premium"
+
+#: sponsors/models.py:45
+msgid "Premium sponsors are always shown on the front page."
+msgstr "Premium-Sponsoren werden immer auf der Startseite angezeigt."
+
+#: sponsors/models.py:47
+msgid "front page"
+msgstr "Startseite"
+
+#: sponsors/models.py:54
+msgid "sponsors"
+msgstr "Sponsoren"
+
 #: start/views.py:64
 msgid "login required"
 msgstr "Anmeldung erforderlich"
@@ -1229,52 +1281,71 @@ msgstr "alle abwählen"
 msgid "don't care"
 msgstr "egal"
 
-#: start/forms/url.py:54
+#: start/forms/url.py:56
 msgid "Enter your web address here:"
 msgstr "Gib deine Webadresse hier ein:"
 
-#: start/forms/url.py:91
+#: start/forms/url.py:94
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "URL-Schema %(scheme)s wird nicht unterstützt."
 
-#: start/forms/url.py:96
+#: start/forms/url.py:99
 msgid "Malformed URL (server name not specified)."
 msgstr "Ungültige URL (Servername nicht angegeben)."
 
-#: start/forms/url.py:123
+#: start/forms/url.py:102
+msgid "Malformed URL (spaces in server name)."
+msgstr "Ungültige URL (Leerzeichen im Servername)."
+
+#: start/forms/url.py:129
 #, python-format
 msgid "Could not resolve IP address for %(hostname)s."
 msgstr "Konnte IP-Adresse für %(hostname)s nicht auflösen."
 
-#: start/forms/url.py:139
+#: start/forms/url.py:145
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
 msgstr "Server-IP-Adresse %(ip)s ist gesperrt."
 
-#: start/forms/url.py:157
+#: start/forms/url.py:172
+#, python-format
+msgid "Could not get robots.txt from %(hostname)s."
+msgstr "Konnte robots.txt von %(hostname)s nicht laden."
+
+#: start/forms/url.py:183
+#, python-format
+msgid "Browsershots was blocked by %(robots_txt_url)s."
+msgstr "Browsershots wurde durch %(robots_txt_url)s gesperrt."
+
+#: start/forms/url.py:184
+#, python-format
+msgid "Please read the %(faq)s."
+msgstr "Bitte lies die %(faq)s."
+
+#: start/forms/url.py:195
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Konnte nicht mit %(hostname)s verbinden."
 
-#: start/forms/url.py:159
+#: start/forms/url.py:197
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Konnte HTTP-Anfrage nicht an %(hostname)s senden."
 
-#: start/forms/url.py:161
+#: start/forms/url.py:199
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Konnte Seiteninhalt von %(hostname)s nicht laden."
 
-#: start/forms/url.py:165
+#: start/forms/url.py:242
+msgid "Malformed URL (database integrity error)."
+msgstr "Ungültige URL (Datenbank-Integritätsfehler)."
+
+#: start/forms/url.py:264
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Server hat nicht innerhalb von %d Sekunden geantwortet."
-
-#: start/forms/url.py:209
-msgid "Malformed URL (database integrity error)."
-msgstr "Ungültige URL (Datenbank-Integritätsfehler)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
@@ -1359,10 +1430,6 @@ msgstr "Domain"
 msgid "domains"
 msgstr "Domains"
 
-#: websites/models.py:75
-msgid "URL"
-msgstr "URL"
-
 #: websites/models.py:80
 msgid "profanities"
 msgstr "Kraftausdrücke"
@@ -1393,10 +1460,19 @@ msgstr "unbekannte Webseite"
 #: websites/templates/websites/unknown.html:11
 msgid "This address was never submitted, or removed after inactivity."
 msgstr ""
-"Diese Adresse wurde niemals nach der Inaktivität eingereicht oder entfernt."
+"Diese Adresse wurde noch nicht eingetragen, oder wegen Inaktivität entfernt."
+
+#~ msgid "hardware architecture"
+#~ msgstr "Hardware-Architektur"
 
 #~ msgid "Screenshot Factories"
 #~ msgstr "Screenshot-Fabriken"
+
+#~ msgid "architecture"
+#~ msgstr "Architektur"
+
+#~ msgid "architectures"
+#~ msgstr "Architekturen"
 
 #~ msgid "Register this browser for screenshots!"
 #~ msgstr "Diesen Browser für Screenshots eintragen!"
@@ -1446,9 +1522,6 @@ msgstr ""
 #~ msgid "points paid"
 #~ msgstr "bezahlte Punkte"
 
-#~ msgid "sponsors"
-#~ msgstr "Sponsoren"
-
 #~ msgid "Screenshot request queue"
 #~ msgstr "Auftrags-Warteschlange"
 
@@ -1464,23 +1537,14 @@ msgstr ""
 #~ msgid "Please try again."
 #~ msgstr "Bitte erneut versuchen."
 
-#~ msgid "username"
-#~ msgstr "Benutzername"
-
 #~ msgid "content"
 #~ msgstr "Inhalt"
 
+#~ msgid "e.g. i686 / PPC"
+#~ msgstr "z.B. i686 / PPC"
+
 #~ msgid "report a problem with this screenshot"
 #~ msgstr "ein Problem mit diesem Screenshot melden"
-
-#~ msgid "slug"
-#~ msgstr "Slug"
-
-#~ msgid "This is used to generate the link to the logo image."
-#~ msgstr "Wird verwendet, um den Link zum Logo-Bild zu erzeugen."
-
-#~ msgid "premium"
-#~ msgstr "premium"
 
 #~ msgid "Premium sponsors are shown on the front page."
 #~ msgstr "Premium-Sponsoren werden auf der Startseite angezeigt."
@@ -1503,26 +1567,11 @@ msgstr ""
 #~ msgid "The verification email was requested more than 30 minutes ago."
 #~ msgstr "Die Verifizierungsemail wurde vor mehr als 30 Minuten angefordert."
 
-#~ msgid "Premium sponsors are always shown on the front page."
-#~ msgstr "Premium-Sponsoren werden immer auf der Startseite angezeigt."
-
-#~ msgid "front page"
-#~ msgstr "Startseite"
-
 #~ msgid "usage report"
 #~ msgstr "Nutzungsreport"
 
 #~ msgid "FQDN"
 #~ msgstr "FQDN"
 
-#~ msgid "hardware architecture"
-#~ msgstr "Hardware-Architektur"
-
-#~ msgid "architecture"
-#~ msgstr "Architektur"
-
-#~ msgid "e.g. i686 / PPC"
-#~ msgstr "z.B. i686 / PPC"
-
-#~ msgid "architectures"
-#~ msgstr "Architekturen"
+#~ msgid "Duplicate."
+#~ msgstr "Duplizieren"

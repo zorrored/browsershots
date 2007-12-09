@@ -7,210 +7,233 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-11-29 12:19+0100\n"
-"PO-Revision-Date: 2007-11-25 16:02+0000\n"
+"POT-Creation-Date: 2007-12-05 16:43+0100\n"
+"PO-Revision-Date: 2007-12-05 14:09+0000\n"
 "Last-Translator: Ferdi Meijerink <launchpad@floep.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-11-29 10:52+0000\n"
+"X-Launchpad-Export-Date: 2007-12-05 15:28+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: accounts/views.py:63
+#: accounts/views.py:64
 msgid "You're already signed in"
 msgstr "Je ben reeds aangemeld"
 
-#: accounts/views.py:64
+#: accounts/views.py:65
 msgid "Please log out and then try again."
 msgstr "Log uit en probeer het opnieuw."
 
-#: accounts/views.py:73
+#: accounts/views.py:74
 msgid "Username"
 msgstr ""
 
-#: accounts/views.py:74
+#: accounts/views.py:75
 msgid "Password"
 msgstr ""
 
-#: accounts/views.py:91
+#: accounts/views.py:92
 msgid "Please enable cookies in your browser."
 msgstr "Schakel cookies in in je browser."
 
-#: accounts/views.py:97
+#: accounts/views.py:98
 msgid "Incorrect username or password."
 msgstr "Gebruikersnaam en/of wachtwoord onjuist."
 
-#: accounts/views.py:99
+#: accounts/views.py:100
 msgid "This account is inactive."
 msgstr "Dit account is niet actief."
 
-#: accounts/views.py:101 accounts/views.py:166
+#: accounts/views.py:102 accounts/views.py:167
 msgid "Welcome to Browsershots!"
 msgstr "Welkom bij Browsershots!"
 
-#: accounts/views.py:102
+#: accounts/views.py:103
 msgid "let me in"
 msgstr "laat me erin"
 
-#: accounts/views.py:109
+#: accounts/views.py:110
 msgid "Forgot your password?"
 msgstr "Wachtwoord vergeten?"
 
-#: accounts/views.py:110
+#: accounts/views.py:111
 msgid "Create a new account?"
 msgstr "Wil je een nieuw account aanmaken?"
 
-#: accounts/views.py:125
+#: accounts/views.py:126
 msgid "logged out"
 msgstr "afgemeld"
 
-#: accounts/views.py:127
+#: accounts/views.py:128
 msgid "You have successfully logged out."
 msgstr "Je hebt je succesvol afgemeld."
 
-#: accounts/views.py:163 accounts/templates/accounts/profile.html:8
+#: accounts/views.py:164 accounts/templates/accounts/profile.html:8
 #, python-format
 msgid "Hi %(first_name)s!"
 msgstr "Hallo %(first_name)s!"
 
-#: accounts/views.py:192
+#: accounts/views.py:193
 msgid "too many verification emails"
 msgstr "Teveel verificatie-e-mails"
 
-#: accounts/views.py:193
+#: accounts/views.py:194
 msgid "There were too many email requests from your IP in the last 24 hours."
 msgstr "Er waren teveel e-mailaanvragen vanaf jouw IP in de afgelopen 24 uur."
 
-#: accounts/views.py:194 factories/views.py:58 start/views.py:83
+#: accounts/views.py:195 factories/views.py:58 start/views.py:83
 msgid "Please try again later."
 msgstr "Probeer het later nog een keer."
 
-#: accounts/views.py:197
+#: accounts/views.py:198
 msgid "email verification"
 msgstr "e-mailverificatie"
 
-#: accounts/views.py:199
+#: accounts/views.py:200
 msgid "send email"
 msgstr "stuur een e-mail"
 
-#: accounts/views.py:217
+#: accounts/views.py:218
 msgid "email error"
 msgstr "e-mailfout"
 
-#: accounts/views.py:218
+#: accounts/views.py:219
 msgid "Could not send email."
 msgstr "Kon geen e-mail versturen."
 
-#: accounts/views.py:220
+#: accounts/views.py:221
 msgid "email sent"
 msgstr "e-mail verstuurd"
 
-#: accounts/views.py:221
+#: accounts/views.py:222
 #, python-format
 msgid "A verification email was sent to %(address)s."
 msgstr ""
 
-#: accounts/views.py:222
+#: accounts/views.py:223
 msgid "Check your email inbox and follow the instructions in the message."
 msgstr "Controleer je inbox en volg de instructies in het bericht."
 
-#: accounts/views.py:223
+#: accounts/views.py:224
 msgid "If your email provider uses graylisting, it may take a few minutes."
 msgstr ""
 "Als je e-mailprovider gebruik maakt van \"greylisting\" kan het enkele "
 "minuten duren."
 
-#: accounts/views.py:251
+#: accounts/views.py:242
+msgid "username"
+msgstr "gebruikersnaam"
+
+#: accounts/views.py:244
+#, fuzzy
+msgid "first name"
+msgstr "eerste"
+
+#: accounts/views.py:246
+#, fuzzy
+msgid "last name"
+msgstr "laatste nieuws"
+
+#: accounts/views.py:255
 msgid "Username must start with a lowercase letter."
 msgstr "Gebruikersnaam moet met een kleine letter beginnen."
 
-#: accounts/views.py:255
+#: accounts/views.py:259
 msgid ""
 "Username may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "De gebruikersnaam mag alleen kleine letters, cijfers, underscores en "
 "streepjes bevatten."
 
-#: accounts/views.py:258
+#: accounts/views.py:262
 msgid "This username is reserved."
 msgstr "Deze gebruikersnaam is gereserveerd."
 
-#: accounts/views.py:278
+#: accounts/views.py:271 browsers/views.py:49
+msgid "password"
+msgstr "wachtwoord"
+
+#: accounts/views.py:274
+#, fuzzy
+msgid "again"
+msgstr "aanmelden"
+
+#: accounts/views.py:284
 #, python-format
 msgid "The password must have %d or more characters."
 msgstr "Het wachtwoord moet uit minimaal %d karakters bestaan."
 
-#: accounts/views.py:282
+#: accounts/views.py:288
 msgid "The password must not be completely numeric."
 msgstr "Het wachtwoord mag niet alleen cijfers bevatten."
 
-#: accounts/views.py:295
+#: accounts/views.py:301
 msgid "Repeat password is not the same."
 msgstr "Herhaalde wachtwoord is niet gelijk."
 
-#: accounts/views.py:316
+#: accounts/views.py:322
 msgid "This username is already taken."
 msgstr "Deze gebruikersnaam is al in gebruik."
 
-#: accounts/views.py:330
+#: accounts/views.py:336
 msgid "Wrong IP address"
 msgstr "Verkeerd IP-adres"
 
-#: accounts/views.py:331
+#: accounts/views.py:337
 msgid "The verification email was requested from a different IP address."
 msgstr "De verificatie-e-mail werd aangevraagd vanaf een ander IP-adres."
 
-#: accounts/views.py:333
+#: accounts/views.py:339
 msgid "Bad verification code"
 msgstr "Onjuiste verificatiecode"
 
-#: accounts/views.py:334
+#: accounts/views.py:340
 msgid "The verification code has no email address."
 msgstr "De verificatiecode heeft geen e-mailadres."
 
-#: accounts/views.py:336
+#: accounts/views.py:342
 msgid "Verification code expired"
 msgstr "Verificatiecode verlopen"
 
-#: accounts/views.py:337
+#: accounts/views.py:343
 #, fuzzy
 msgid "The verification email was requested more than 24 hours ago."
 msgstr "De verificatie-e-mail is meer dan een haf uur geleden aangevraagd."
 
-#: accounts/views.py:351
+#: accounts/views.py:357
 msgid "choose a new password"
 msgstr "kies een nieuw wachtwoord"
 
-#: accounts/views.py:353
+#: accounts/views.py:359
 msgid "change password"
 msgstr "verander wachtwoord"
 
-#: accounts/views.py:360
+#: accounts/views.py:366
 msgid "Password changed"
 msgstr "Wachtwoord is gewijzigd"
 
-#: accounts/views.py:361
+#: accounts/views.py:367
 msgid "Your new password has been saved."
 msgstr "Je wachtwoord is opgeslagen."
 
-#: accounts/views.py:362 accounts/views.py:386
+#: accounts/views.py:368 accounts/views.py:392
 msgid "Click the link in the top right corner to log in."
 msgstr "Klik op de link in de rechter bovenhoek om je aan te melden."
 
-#: accounts/views.py:374
+#: accounts/views.py:380
 msgid "create a new account"
 msgstr "maak een nieuw account aan"
 
-#: accounts/views.py:376
+#: accounts/views.py:382
 msgid "create account"
 msgstr "maak een account aan"
 
-#: accounts/views.py:384
+#: accounts/views.py:390
 msgid "Account created"
 msgstr "Account aangemaakt"
 
-#: accounts/views.py:385
+#: accounts/views.py:391
 msgid "A new user account was created."
 msgstr "Er is een nieuw gebruikersaccount aangemaakt."
 
@@ -240,9 +263,10 @@ msgid "recent factory errors"
 msgstr "recente fabrieksfouten"
 
 #: accounts/templates/accounts/profile.html:38 browsers/models.py:93
-#: factories/models.py:93 factories/models.py:205 factories/models.py:231
-#: messages/models.py:35 nonces/models.py:39 requests/models.py:382
-#: screenshots/models.py:115 screenshots/templates/screenshots/details.html:58
+#: browsers/views.py:47 factories/models.py:93 factories/models.py:205
+#: factories/models.py:231 messages/models.py:35 nonces/models.py:39
+#: requests/models.py:382 screenshots/models.py:115
+#: screenshots/templates/screenshots/details.html:58
 msgid "factory"
 msgstr "fabriek"
 
@@ -264,7 +288,7 @@ msgstr "saldo"
 
 #: browsers/models.py:39 browsers/models.py:64 factories/models.py:52
 #: factories/templates/factories/details.html:33 platforms/models.py:34
-#: platforms/models.py:58 websites/models.py:47
+#: platforms/models.py:58 sponsors/models.py:37 websites/models.py:47
 msgid "name"
 msgstr "naam"
 
@@ -409,11 +433,11 @@ msgstr "deactiveren"
 msgid "activate"
 msgstr "activeren"
 
-#: browsers/views.py:47
-msgid "password"
-msgstr "wachtwoord"
+#: browsers/views.py:57
+msgid "Unknown factory name."
+msgstr ""
 
-#: browsers/views.py:145
+#: browsers/views.py:67
 msgid "Password mismatch."
 msgstr "Wachtwoorden komen niet overeen."
 
@@ -422,17 +446,18 @@ msgstr "Wachtwoorden komen niet overeen."
 msgid "add a new browser version"
 msgstr "voeg een nieuwe browserversie toe"
 
-#: browsers/templates/browsers/add.html:19
+#: browsers/templates/browsers/add.html:20
+#: factories/templates/factories/details.html:18
 #: screenshots/templates/screenshots/details.html:116
 #: start/templates/start/start.html:19
 msgid "submit"
 msgstr "verstuur"
 
-#: browsers/templates/browsers/add.html:22
+#: browsers/templates/browsers/add.html:23
 msgid "updates"
 msgstr "updates"
 
-#: browsers/templates/browsers/add.html:24
+#: browsers/templates/browsers/add.html:25
 msgid ""
 "You can also use this page when you've changed settings or updated the "
 "browser."
@@ -440,7 +465,7 @@ msgstr ""
 "Je kunt deze pagina ook gebruiken als je je voorkeuren hebt gewijzigd of de "
 "browser hebt geüpdated."
 
-#: browsers/templates/browsers/add.html:25
+#: browsers/templates/browsers/add.html:26
 msgid ""
 "If the same browser is already registered for your factory, it will be "
 "replaced."
@@ -448,11 +473,11 @@ msgstr ""
 "Als dezelfde browser reeds bij je fabriek is geregistreerd, wordt deze "
 "vervangen."
 
-#: browsers/templates/browsers/add.html:28
+#: browsers/templates/browsers/add.html:29
 msgid "other options"
 msgstr "overige opties"
 
-#: browsers/templates/browsers/add.html:29
+#: browsers/templates/browsers/add.html:30
 #, python-format
 msgid ""
 "If your browser group or rendering engine is not available, please write to %"
@@ -461,13 +486,13 @@ msgstr ""
 "Als jouw browsergroep of rendering-engine niet beschikbaar is, stuur dan een "
 "bericht naar %(email)s."
 
-#: browsers/templates/browsers/add.html:43 features/models.py:34
+#: browsers/templates/browsers/add.html:44 features/models.py:34
 #: start/forms/features.py:46
 msgid "enabled"
 msgstr "Ingeschakeld"
 
-#: browsers/templates/browsers/add.html:43
-#: browsers/templates/browsers/add.html:47 features/models.py:36
+#: browsers/templates/browsers/add.html:44
+#: browsers/templates/browsers/add.html:48 features/models.py:36
 #: start/forms/features.py:43
 msgid "disabled"
 msgstr "uitgeschakeld"
@@ -561,7 +586,7 @@ msgid "administrator"
 msgstr "beheerder"
 
 #: factories/models.py:57 factories/templates/factories/details.html:12
-#: screenshots/templates/screenshots/details.html:62
+#: screenshots/templates/screenshots/details.html:62 sponsors/models.py:53
 msgid "sponsor"
 msgstr "sponsor"
 
@@ -660,37 +685,43 @@ msgstr "toegang geweigerd"
 msgid "This browser is already inactive."
 msgstr "Deze browser is al inactief."
 
-#: factories/views.py:195 factories/views.py:207
-msgid "Duplicate."
-msgstr ""
+#: factories/views.py:196
+#, fuzzy
+msgid "This screen size is already enabled."
+msgstr "Deze gebruikersnaam is al in gebruik."
 
-#: factories/views.py:197 factories/views.py:209
+#: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
 msgstr ""
 
-#: factories/views.py:292
+#: factories/views.py:209
+#, fuzzy
+msgid "This color depth is already enabled."
+msgstr "Deze browser is al inactief."
+
+#: factories/views.py:295
 msgid "Name must start with a lowercase letter."
 msgstr "De naam moet beginnen met een kleine letter."
 
-#: factories/views.py:296
+#: factories/views.py:299
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
 msgstr ""
 "De naam mag alleen kleine letters, getallen, underscores en streepjes "
 "bevatten."
 
-#: factories/views.py:299
+#: factories/views.py:302
 msgid "This name is reserved."
 msgstr "Deze naam is gereserveerd."
 
-#: factories/views.py:316
+#: factories/views.py:319
 msgid "This name is already taken."
 msgstr "Deze naam is al in gebruik."
 
-#: factories/views.py:335
+#: factories/views.py:338
 msgid "register a new screenshot factory"
 msgstr "meld een nieuwe screenshotfabriek aan"
 
-#: factories/views.py:336
+#: factories/views.py:339
 msgid "register"
 msgstr "registreren"
 
@@ -703,11 +734,6 @@ msgstr "Screenshotfabriek %(name)s"
 #: factories/templates/factories/details.html:13
 msgid "admin"
 msgstr "beheerder"
-
-#: factories/templates/factories/details.html:18
-#, fuzzy
-msgid "Submit"
-msgstr "verstuur"
 
 #: factories/templates/factories/details.html:26
 msgid "installed browsers"
@@ -1209,6 +1235,34 @@ msgstr "pagina geladen"
 msgid "Report a problem with this screenshot?"
 msgstr "Een probleem met deze screenshot melden?"
 
+#: sponsors/models.py:39
+msgid "slug"
+msgstr "slug"
+
+#: sponsors/models.py:40
+msgid "This is used to generate the link to the logo image."
+msgstr "Dit wordt gebruikt om de link naar het logo te genereren."
+
+#: sponsors/models.py:42 websites/models.py:75
+msgid "URL"
+msgstr "URL"
+
+#: sponsors/models.py:44
+msgid "premium"
+msgstr "hoofd"
+
+#: sponsors/models.py:45
+msgid "Premium sponsors are always shown on the front page."
+msgstr "Hoofdsponsors worden altijd op de voorpagina weergegeven."
+
+#: sponsors/models.py:47
+msgid "front page"
+msgstr "voorpagina"
+
+#: sponsors/models.py:54
+msgid "sponsors"
+msgstr "sponsors"
+
 #: start/views.py:64
 #, fuzzy
 msgid "login required"
@@ -1236,52 +1290,72 @@ msgstr "alles deselecteren"
 msgid "don't care"
 msgstr "maakt niet uit"
 
-#: start/forms/url.py:54
+#: start/forms/url.py:56
 msgid "Enter your web address here:"
 msgstr "Vul je webadres hier in:"
 
-#: start/forms/url.py:91
+#: start/forms/url.py:94
 #, python-format
 msgid "URL scheme %(scheme)s is not supported."
 msgstr "URL schema %(scheme)s wordt niet ondersteund."
 
-#: start/forms/url.py:96
+#: start/forms/url.py:99
 msgid "Malformed URL (server name not specified)."
 msgstr "Misvormde URL (server niet vermeld)."
 
-#: start/forms/url.py:123
+#: start/forms/url.py:102
+#, fuzzy
+msgid "Malformed URL (spaces in server name)."
+msgstr "Misvormde URL (server niet vermeld)."
+
+#: start/forms/url.py:129
 #, fuzzy, python-format
 msgid "Could not resolve IP address for %(hostname)s."
 msgstr "Kon geen HTTP-request sturen naar %(hostname)s."
 
-#: start/forms/url.py:139
+#: start/forms/url.py:145
 #, python-format
 msgid "Server IP address %(ip)s is disallowed."
 msgstr ""
 
-#: start/forms/url.py:157
+#: start/forms/url.py:172
+#, fuzzy, python-format
+msgid "Could not get robots.txt from %(hostname)s."
+msgstr "Kon pagina-inhoud van %(hostname)s niet weergeven."
+
+#: start/forms/url.py:183
+#, python-format
+msgid "Browsershots was blocked by %(robots_txt_url)s."
+msgstr ""
+
+#: start/forms/url.py:184
+#, python-format
+msgid "Please read the %(faq)s."
+msgstr ""
+
+#: start/forms/url.py:195
 #, python-format
 msgid "Could not connect to %(hostname)s."
 msgstr "Kon geen verbinding maken met %(hostname)s."
 
-#: start/forms/url.py:159
+#: start/forms/url.py:197
 #, python-format
 msgid "Could not send HTTP request to %(hostname)s."
 msgstr "Kon geen HTTP-request sturen naar %(hostname)s."
 
-#: start/forms/url.py:161
+#: start/forms/url.py:199
 #, python-format
 msgid "Could not get page content from %(hostname)s."
 msgstr "Kon pagina-inhoud van %(hostname)s niet weergeven."
 
-#: start/forms/url.py:165
+#: start/forms/url.py:242
+msgid "Malformed URL (database integrity error)."
+msgstr "Misvormde URL (database-integriteitsfout)."
+
+#: start/forms/url.py:264
 #, python-format
 msgid "Server failed to respond within %d seconds."
 msgstr "Server reageerde niet binnen %d seconden."
-
-#: start/forms/url.py:209
-msgid "Malformed URL (database integrity error)."
-msgstr "Misvormde URL (database-integriteitsfout)."
 
 #: start/templates/start/start.html:8 start/templates/start/start.html:11
 msgid "Test your web design in different browsers"
@@ -1367,10 +1441,6 @@ msgstr "domein"
 msgid "domains"
 msgstr "domeinen"
 
-#: websites/models.py:75
-msgid "URL"
-msgstr "URL"
-
 #: websites/models.py:80
 msgid "profanities"
 msgstr "ongepastheden"
@@ -1401,6 +1471,15 @@ msgstr ""
 #: websites/templates/websites/unknown.html:11
 msgid "This address was never submitted, or removed after inactivity."
 msgstr ""
+
+#~ msgid "hardware architecture"
+#~ msgstr "hardware-architectuur"
+
+#~ msgid "architecture"
+#~ msgstr "architectuur"
+
+#~ msgid "architectures"
+#~ msgstr "architecturen"
 
 #~ msgid "sender"
 #~ msgstr "verzender"
@@ -1447,9 +1526,6 @@ msgstr ""
 #~ msgid "points paid"
 #~ msgstr "betaalde punten"
 
-#~ msgid "sponsors"
-#~ msgstr "sponsors"
-
 #~ msgid "log in"
 #~ msgstr "aanmelden"
 
@@ -1459,20 +1535,11 @@ msgstr ""
 #~ msgid "Please try again."
 #~ msgstr "Probeer het opnieuw."
 
-#~ msgid "username"
-#~ msgstr "gebruikersnaam"
-
 #~ msgid "content"
 #~ msgstr "inhoud"
 
-#~ msgid "slug"
-#~ msgstr "slug"
-
-#~ msgid "This is used to generate the link to the logo image."
-#~ msgstr "Dit wordt gebruikt om de link naar het logo te genereren."
-
-#~ msgid "premium"
-#~ msgstr "hoofd"
+#~ msgid "e.g. i686 / PPC"
+#~ msgstr "bijv. i686 / PPC"
 
 #~ msgid "already signed in"
 #~ msgstr "reeds aangemeld"
@@ -1492,12 +1559,6 @@ msgstr ""
 #~ msgid "The verification email was requested more than 30 minutes ago."
 #~ msgstr "De verificatie-e-mail is meer dan een haf uur geleden aangevraagd."
 
-#~ msgid "Premium sponsors are always shown on the front page."
-#~ msgstr "Hoofdsponsors worden altijd op de voorpagina weergegeven."
-
-#~ msgid "front page"
-#~ msgstr "voorpagina"
-
 #~ msgid "usage report"
 #~ msgstr "probleemmelding"
 
@@ -1507,14 +1568,6 @@ msgstr ""
 #~ msgid "server status"
 #~ msgstr "serverstatus"
 
-#~ msgid "hardware architecture"
-#~ msgstr "hardware-architectuur"
-
-#~ msgid "architecture"
-#~ msgstr "architectuur"
-
-#~ msgid "e.g. i686 / PPC"
-#~ msgstr "bijv. i686 / PPC"
-
-#~ msgid "architectures"
-#~ msgstr "architecturen"
+#, fuzzy
+#~ msgid "Submit"
+#~ msgstr "verstuur"
