@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shotserver\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-05 16:44+0100\n"
-"PO-Revision-Date: 2007-12-05 14:09+0000\n"
+"POT-Creation-Date: 2007-12-09 23:16+0100\n"
+"PO-Revision-Date: 2007-12-07 21:54+0000\n"
 "Last-Translator: Clasprea <clasprea@libero.it>\n"
 "Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-12-05 15:28+0000\n"
+"X-Launchpad-Export-Date: 2007-12-09 21:16+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: accounts/views.py:64
@@ -88,7 +88,7 @@ msgstr "Riprova più tardi, per favore."
 
 #: accounts/views.py:198
 msgid "email verification"
-msgstr "Verifica email"
+msgstr "verifica email"
 
 #: accounts/views.py:200
 msgid "send email"
@@ -124,19 +124,16 @@ msgstr ""
 "minuti."
 
 #: accounts/views.py:242
-#, fuzzy
 msgid "username"
-msgstr "Nome  utente"
+msgstr "nome utente"
 
 #: accounts/views.py:244
-#, fuzzy
 msgid "first name"
-msgstr "primo"
+msgstr "nome"
 
 #: accounts/views.py:246
-#, fuzzy
 msgid "last name"
-msgstr "ultime novità"
+msgstr "cognome"
 
 #: accounts/views.py:255
 msgid "Username must start with a lowercase letter."
@@ -158,9 +155,8 @@ msgid "password"
 msgstr "password"
 
 #: accounts/views.py:274
-#, fuzzy
 msgid "again"
-msgstr "accedi"
+msgstr "nuovamente"
 
 #: accounts/views.py:284
 #, python-format
@@ -437,7 +433,7 @@ msgstr "attivare"
 
 #: browsers/views.py:57
 msgid "Unknown factory name."
-msgstr ""
+msgstr "Nome della Factory sconosciuto."
 
 #: browsers/views.py:67
 msgid "Password mismatch."
@@ -687,18 +683,16 @@ msgid "This browser is already inactive."
 msgstr "Questo browser è già inattivo."
 
 #: factories/views.py:196
-#, fuzzy
 msgid "This screen size is already enabled."
-msgstr "Questo nome utente esiste già."
+msgstr "Questa risoluzione è già abilitata."
 
 #: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
 msgstr "Dati invalidi."
 
 #: factories/views.py:209
-#, fuzzy
 msgid "This color depth is already enabled."
-msgstr "Questo browser è già inattivo."
+msgstr "Questa profondità di colore è già attiva."
 
 #: factories/views.py:295
 msgid "Name must start with a lowercase letter."
@@ -745,7 +739,7 @@ msgstr "versione breve"
 
 #: factories/templates/factories/details.html:66
 msgid "No browsers registered for this factory."
-msgstr "Nessu browser registrato per questa Factory."
+msgstr "Nessun browser registrato per questa Factory."
 
 #: factories/templates/factories/details.html:85
 #: factories/templates/factories/details.html:110
@@ -1236,29 +1230,28 @@ msgstr "Segnala un problema con questo screenshot?"
 
 #: sponsors/models.py:39
 msgid "slug"
-msgstr ""
+msgstr "lumaca"
 
 #: sponsors/models.py:40
 msgid "This is used to generate the link to the logo image."
 msgstr ""
+"Questo è utilizzato per generare il collegamento all'immagine del logo."
 
 #: sponsors/models.py:42 websites/models.py:75
 msgid "URL"
 msgstr "URL"
 
 #: sponsors/models.py:44
-#, fuzzy
 msgid "premium"
-msgstr "precedente"
+msgstr "premium"
 
 #: sponsors/models.py:45
 msgid "Premium sponsors are always shown on the front page."
-msgstr ""
+msgstr "Gli sponsor Premium sono sempre visualizzati nella pagina principale."
 
 #: sponsors/models.py:47
-#, fuzzy
 msgid "front page"
-msgstr "non importa"
+msgstr "pagina principale"
 
 #: sponsors/models.py:54
 msgid "sponsors"
@@ -1291,7 +1284,7 @@ msgstr "non importa"
 
 #: start/forms/url.py:56
 msgid "Enter your web address here:"
-msgstr "Inserisci l'indirizzo del tuo sito web qui:"
+msgstr "Inserisci qui l'indirizzo del tuo sito web:"
 
 #: start/forms/url.py:94
 #, python-format
@@ -1303,7 +1296,6 @@ msgid "Malformed URL (server name not specified)."
 msgstr "URL errato (non è specificato il nome del server)."
 
 #: start/forms/url.py:102
-#, fuzzy
 msgid "Malformed URL (spaces in server name)."
 msgstr "URL errato (non è specificato il nome del server)."
 
@@ -1318,19 +1310,19 @@ msgid "Server IP address %(ip)s is disallowed."
 msgstr "L'indirizzo IP del server %(ip)s non è autorizzato."
 
 #: start/forms/url.py:172
-#, fuzzy, python-format
+#, python-format
 msgid "Could not get robots.txt from %(hostname)s."
-msgstr "Impossibile ottenere contenuti da %(hostname)s."
+msgstr "Impossibile ottenere robots.txt da %(hostname)s."
 
 #: start/forms/url.py:183
 #, python-format
 msgid "Browsershots was blocked by %(robots_txt_url)s."
-msgstr ""
+msgstr "Browsershots è stato bloccato da %(robots_txt_url)s."
 
 #: start/forms/url.py:184
 #, python-format
 msgid "Please read the %(faq)s."
-msgstr ""
+msgstr "Per cortesia leggi le %(faq)s."
 
 #: start/forms/url.py:195
 #, python-format
@@ -1362,7 +1354,7 @@ msgstr "Prova i tuoi web design su altri browser"
 
 #: start/templates/start/start.html:56
 msgid "project links"
-msgstr "Link del progetto"
+msgstr "collegamenti del progetto"
 
 #: start/templates/start/start.html:58
 msgid "documentation"
@@ -1538,9 +1530,6 @@ msgstr ""
 
 #~ msgid "e.g. i686 / PPC"
 #~ msgstr "es. i686 / PPC"
-
-#~ msgid "Duplicate."
-#~ msgstr "Duplicato."
 
 #~ msgid "Submit"
 #~ msgstr "invia"
