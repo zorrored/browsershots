@@ -159,7 +159,7 @@ def send_priority_email(log, priority):
     mail.body = """
 Hi %(first_name)s,
 
-Thanks for supporting the Browsershots project.
+Thank you for supporting the Browsershots project.
 
 Priority processing has been activated for %(username)s
 until %(expire)s. Please let me know how it works for you,
