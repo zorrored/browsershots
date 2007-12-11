@@ -56,7 +56,7 @@ class Factory(models.Model):
     sponsor = models.ForeignKey(Sponsor,
         verbose_name=_('sponsor'), blank=True, null=True)
     hardware = models.CharField(
-        _('hardware'), max_length=200, blank=True,
+        _('hardware'), max_length=100, blank=True,
         help_text=_("e.g. ThinkPad R32, P4 1.8 GHz, 768 MB"))
     operating_system = models.ForeignKey(OperatingSystem,
         verbose_name=_('operating system'))
