@@ -10,3 +10,4 @@ User-agent: Mediapartners-Google
 Disallow: /png/
 Disallow: /static/
 Disallow: /media/
+Disallow: /screenshots/
