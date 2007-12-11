@@ -81,6 +81,7 @@ def guess_factory_name(ip, user_agent):
     factories = Factory.objects.select_related().filter(ip=ip)
     if not factories:
         factories = Factory.objects.select_related()
+    factories = factories.order_by('-last_poll')
     # Try to match Ubuntu or Mac OS X
     for factory in factories:
         if factory.operating_system.name in user_agent:
