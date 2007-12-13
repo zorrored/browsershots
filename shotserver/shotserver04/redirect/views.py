@@ -47,27 +47,27 @@ def redirect(http_request, factory_name, encrypted_password, request_id):
         user_agent = http_request.META['HTTP_USER_AGENT']
         try:
             browser = Browser.objects.get(
-                factory=factory, user_agent=user_agent, active=True)
+                factory=factory,
+                user_agent=user_agent,
+                active=True)
         except Browser.DoesNotExist:
             raise Fault(404, u"Unknown user agent: %s." % user_agent)
         # Check that the browser matches the request
-        if (request.browser_group and
-            request.browser_group != browser.browser_group):
+        if (request.browser_group_id is not None and
+            request.browser_group_id != browser.browser_group_id):
             raise Fault(409, u"Requested browser %s but got %s." %
                         (request.browser_group.name,
                          browser.browser_group.name))
-        if ((request.major and request.major != browser.major) or
-            (request.minor and request.minor != browser.minor)):
+        if ((request.major is not None and request.major != browser.major) or
+            (request.minor is not None and request.minor != browser.minor)):
             raise Fault(409,
                 u"Requested browser version %s.%s but got %s.%s." %
                 (request.major, request.minor,
                  browser.major, browser.minor))
         # Update request with browser and redirect timestamp
-        request.browser = browser
-        request.redirected = datetime.now()
-        request.save()
-        website = request.request_group.website
-        return HttpResponseRedirect(website.url)
+        request.update_fields(browser=browser,
+                              redirected=datetime.now())
+        return HttpResponseRedirect(request.request_group.website.url)
     except Fault, fault:
         FactoryError.objects.create(factory=factory,
             code=fault.faultCode, message=fault.faultString)
