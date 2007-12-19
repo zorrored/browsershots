@@ -238,11 +238,14 @@ class UserForm(forms.Form):
     """
     Username and realname.
     """
-    username = forms.CharField(max_length=20,
+    username = forms.CharField(
+        max_length=User._meta.get_field('username').max_length,
         label=capfirst(_("username")))
-    first_name = forms.CharField(max_length=40,
+    first_name = forms.CharField(
+        max_length=User._meta.get_field('first_name').max_length,
         label=capfirst(_("first name")))
-    last_name = forms.CharField(max_length=40,
+    last_name = forms.CharField(
+        max_length=User._meta.get_field('last_name').max_length,
         label=capfirst(_("last name")))
 
     def clean_username(self):
