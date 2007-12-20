@@ -1,3 +1,7 @@
+-- Delete expired nonces.
+DELETE FROM nonces_nonce
+WHERE created < NOW() - '7d'::interval;
+
 -- Delete old requests that don't have screenshots.
 DELETE FROM requests_request
 WHERE screenshot_id IS NULL
@@ -23,4 +27,6 @@ AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
 DELETE FROM websites_domain
 WHERE submitted < NOW() - '7d'::interval
 AND NOT EXISTS (SELECT 1 FROM websites_website
+    WHERE domain_id = websites_domain.id)
+AND NOT EXISTS (SELECT 1 FROM priority_domainpriority
     WHERE domain_id = websites_domain.id);
