@@ -3,6 +3,7 @@ Disallow: /png/
 Disallow: /static/
 Disallow: /media/
 Disallow: /screenshots/
+Disallow: /requests/
 Disallow: /websites/
 Disallow: /http
 
@@ -11,3 +12,4 @@ Disallow: /png/
 Disallow: /static/
 Disallow: /media/
 Disallow: /screenshots/
+Disallow: /requests/
