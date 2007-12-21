@@ -151,6 +151,10 @@ DISALLOWED_SERVER_IP_LIST = """
 255.255.255.255
 """.split()
 
+DISALLOWED_DOMAIN_LIST = """
+myminicity.com
+""".split()
+
 # If you set this to False, only registered users can submit requests.
 ALLOW_ANONYMOUS_REQUESTS = True
 

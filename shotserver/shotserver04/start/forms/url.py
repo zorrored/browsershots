@@ -63,7 +63,7 @@ class UrlForm(forms.Form):
         self.add_scheme()
         self.split_url()
         self.punycode_url()
-        self.check_server_ip()
+        self.check_server_disallowed()
         self.add_slash()
         self.robots_txt()
         self.cleaned_data['content'] = self.http_get()
@@ -118,12 +118,18 @@ class UrlForm(forms.Form):
         self.cleaned_data['url'] = urlparse.urlunsplit(self.url_parts)
         # print self.cleaned_data['url']
 
-    def check_server_ip(self):
+    def check_server_disallowed(self):
         """
-        Check if server IP is disallowed in settings.py.
+        Check if server domain name or IP is disallowed in settings.py.
         """
+        hostname = self.netloc_parts[2]
+        if (hasattr(settings, 'DISALLOWED_DOMAIN_LIST') and
+            settings.DISALLOWED_DOMAIN_LIST):
+            for domain in settings.DISALLOWED_DOMAIN_LIST:
+                if hostname == domain or hostname.endswith('.' + domain):
+                    raise ValidationError(unicode(
+                        _("Domain name %(domain)s is disallowed.") % locals()))
         try:
-            hostname = self.netloc_parts[2]
             ip = socket.gethostbyname(hostname)
         except socket.error:
             raise ValidationError(unicode(
