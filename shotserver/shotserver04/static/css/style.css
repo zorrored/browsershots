@@ -144,6 +144,16 @@ div.browsers {
   border-bottom: 1px solid #bbb;
   padding-top: 0;
 }
+div.special {
+  background-image: none;
+  border-bottom: 1px solid #bbb;
+  padding: 8px 0 0 16px;
+}
+div.browsers input,
+div.special input {
+  padding-left: 0;
+  margin-left: 0;
+}
 div.options select {
   width: 150px;
 }

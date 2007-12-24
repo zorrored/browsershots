@@ -33,6 +33,15 @@
 </div>
 </div>
 
+{% if show_special_form %}
+<div class="gray background special">
+{% for check in special_form %}
+{{ check }} <label for="id_{{ check.name }}" title="{{ check.help_text }}">{{ check.label|capfirst }}</label>
+{% endfor %}
+<div class="clear">&nbsp;</div>
+</div>
+{% endif %}
+
 <div class="gray background options">
 {% for select in options_form %}
 <div class="request_options">

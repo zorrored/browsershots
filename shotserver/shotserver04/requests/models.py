@@ -65,7 +65,7 @@ class RequestGroup(models.Model):
     flash = models.ForeignKey(Flash,
         verbose_name=_("Flash"), blank=True, null=True)
     own_factories_only = models.BooleanField(
-        _(""))
+        _("only my own factories"), default=False)
     user = models.ForeignKey(User,
         verbose_name=_("submitter"), blank=True, null=True)
     ip = models.IPAddressField(
