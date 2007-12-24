@@ -39,6 +39,7 @@ from shotserver04.start.forms.url import UrlForm
 from shotserver04.start.forms.browsers import BrowsersForm
 from shotserver04.start.forms.features import FeaturesForm
 from shotserver04.start.forms.options import OptionsForm
+from shotserver04.start.forms.special import SpecialForm
 from shotserver04.factories.models import Factory
 from shotserver04.platforms.models import Platform
 from shotserver04.browsers.models import BrowserGroup, Browser
@@ -71,6 +72,7 @@ def start(http_request):
     url_form = UrlForm(post)
     features_form = FeaturesForm(post)
     options_form = OptionsForm(post)
+    special_form = SpecialForm(post)
     # Get available choices from database, with correct translations.
     active_factories = Factory.objects.filter(
         last_poll__gte=last_poll_timeout())
@@ -86,7 +88,8 @@ def start(http_request):
     # Validate posted data.
     valid_post = (url_form.is_valid() and
                   options_form.is_valid() and
-                  features_form.is_valid())
+                  features_form.is_valid() and
+                  special_form.is_valid())
     # Preload some database entries for browser forms
     preload_foreign_keys(active_browsers,
                          factory=active_factories,
@@ -118,6 +121,7 @@ def start(http_request):
         selectors = mark_safe(' |\n'.join(selector_links(browser_forms)))
         news_list = NewsItem.objects.all()[:10]
         sponsors_list = Sponsor.objects.filter(front_page=True)
+        show_special_form = http_request.user.is_authenticated()
         return render_to_response('start/start.html', locals(),
             context_instance=RequestContext(http_request))
     # Create screenshot requests and redirect to website overview.
@@ -131,6 +135,7 @@ def start(http_request):
         values['user'] = http_request.user
     values.update(options_form.cleaned_data)
     values.update(features_form.cleaned_data)
+    values.update(special_form.cleaned_data)
     match_values = {}
     for key in values:
         if values[key] is None:

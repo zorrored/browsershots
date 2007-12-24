@@ -43,7 +43,7 @@ def find_and_lock_request(factory, features):
     # Find matching request
     now = datetime.now()
     five_minutes_ago = now - timedelta(0, 300)
-    matches = Request.objects.select_related()
+    matches = Request.objects.all()
     matches = matches.filter(features)
     matches = matches.filter(screenshot__isnull=True)
     matches = matches.filter(request_group__expire__gt=now)
@@ -51,7 +51,15 @@ def find_and_lock_request(factory, features):
         models.Q(locked__isnull=True) | models.Q(locked__lt=five_minutes_ago))
     matches = matches.order_by(
         '-priority', 'requests_request__request_group.submitted')
-    matches = matches[:1]
+    own_matches = matches.filter(
+        request_group__own_factories_only=True,
+        request_group__user=factory.admin_id)
+    own_matches = own_matches[:1]
+    if len(own_matches):
+        matches = own_matches
+    else:
+        matches = matches.filter(request_group__own_factories_only=False)
+        matches = matches[:1]
     # time.sleep(0.1) # For test_overload.py
     if len(matches) == 0:
         raise Fault(204, 'No matching request.')
