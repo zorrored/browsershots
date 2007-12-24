@@ -148,6 +148,11 @@ class RequestGroup(models.Model):
         """
         Human-readable output of requested options.
         """
+        lines = []
+        if self.own_factories_only:
+            lines.append('<li>%s</li>' % unicode(
+                _("Only for screenshot factories run by %(admin)s") %
+                {'admin': self.user.username}))
         result = []
         for attr in ('javascript', 'java', 'flash',
                      'width', 'bits_per_pixel'):
@@ -163,9 +168,9 @@ class RequestGroup(models.Model):
                               {'color_depth': option})
             else:
                 result.append(u'%s %s' % (name, option))
-        if not result:
-            return ''
-        return mark_safe('<li>%s</li>' % ', '.join(result))
+        if result:
+            lines.append('<li>%s</li>' % ', '.join(result))
+        return mark_safe('\n'.join(lines))
 
     def preload_cache(self):
         """
