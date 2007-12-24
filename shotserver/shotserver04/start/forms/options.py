@@ -15,7 +15,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Input form with select fields for screen size, color depth, timeout.
+Input form with select fields for screen size and color depth.
 """
 
 __revision__ = "$Rev$"
