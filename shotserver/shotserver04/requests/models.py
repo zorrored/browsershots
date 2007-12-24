@@ -51,27 +51,29 @@ class RequestGroup(models.Model):
     """
 
     website = models.ForeignKey(Website,
-        verbose_name=_('website'), raw_id_admin=True)
+        verbose_name=_("website"), raw_id_admin=True)
     width = models.IntegerField(
-        _('screen width'), null=True, blank=True)
+        _("screen width"), null=True, blank=True)
     height = models.IntegerField(
-        _('screen height'), null=True, blank=True)
+        _("screen height"), null=True, blank=True)
     bits_per_pixel = models.IntegerField(
-        _('bits per pixel'), null=True, blank=True)
+        _("bits per pixel"), null=True, blank=True)
     javascript = models.ForeignKey(Javascript,
-        verbose_name=_('Javascript'), blank=True, null=True)
+        verbose_name=_("Javascript"), blank=True, null=True)
     java = models.ForeignKey(Java,
-        verbose_name=_('Java'), blank=True, null=True)
+        verbose_name=_("Java"), blank=True, null=True)
     flash = models.ForeignKey(Flash,
-        verbose_name=_('Flash'), blank=True, null=True)
+        verbose_name=_("Flash"), blank=True, null=True)
+    own_factories_only = models.BooleanField(
+        _(""))
     user = models.ForeignKey(User,
-        verbose_name=_('submitter'), blank=True, null=True)
+        verbose_name=_("submitter"), blank=True, null=True)
     ip = models.IPAddressField(
-        _('IP'))
+        _("IP"))
     submitted = models.DateTimeField(
-        _('submitted'), auto_now_add=True)
+        _("submitted"), auto_now_add=True)
     expire = models.DateTimeField(
-        _('expire'))
+        _("expire"))
 
     class Admin:
         fields = (
@@ -89,8 +91,8 @@ class RequestGroup(models.Model):
         date_hierarchy = 'submitted'
 
     class Meta:
-        verbose_name = _('request group')
-        verbose_name_plural = _('request groups')
+        verbose_name = _("request group")
+        verbose_name_plural = _("request groups")
         ordering = ('-submitted', )
 
     update_fields = granular_update.update_fields
@@ -367,28 +369,28 @@ class Request(models.Model):
     """
 
     request_group = models.ForeignKey(RequestGroup,
-        verbose_name=_('request group'), raw_id_admin=True)
+        verbose_name=_("request group"), raw_id_admin=True)
     platform = models.ForeignKey(Platform,
-        verbose_name=_('platform'))
+        verbose_name=_("platform"))
     browser_group = models.ForeignKey(BrowserGroup,
-        verbose_name=_('browser group'))
+        verbose_name=_("browser group"))
     major = models.IntegerField(
-        _('major'), blank=True, null=True)
+        _("major"), blank=True, null=True)
     minor = models.IntegerField(
-        _('minor'), blank=True, null=True)
+        _("minor"), blank=True, null=True)
     priority = models.IntegerField(
-        _('priority'))
+        _("priority"))
     factory = models.ForeignKey(Factory,
-        verbose_name=_('factory'), blank=True, null=True)
+        verbose_name=_("factory"), blank=True, null=True)
     locked = models.DateTimeField(
-        _('locked'), blank=True, null=True)
+        _("locked"), blank=True, null=True)
     browser = models.ForeignKey(Browser,
-        verbose_name=_('browser'), raw_id_admin=True,
+        verbose_name=_("browser"), raw_id_admin=True,
         blank=True, null=True)
     redirected = models.DateTimeField(
-        _('redirected'), blank=True, null=True)
+        _("redirected"), blank=True, null=True)
     screenshot = models.ForeignKey(Screenshot,
-        verbose_name=_('screenshot'), raw_id_admin=True,
+        verbose_name=_("screenshot"), raw_id_admin=True,
         blank=True, null=True)
 
     class Admin:
@@ -405,13 +407,13 @@ class Request(models.Model):
         list_filter = ('browser_group', 'platform')
 
     class Meta:
-        verbose_name = _('request')
-        verbose_name_plural = _('requests')
+        verbose_name = _("request")
+        verbose_name_plural = _("requests")
 
     update_fields = granular_update.update_fields
 
     def __unicode__(self):
-        return u'%s on %s' % (self.browser_string(), self.platform.name)
+        return u"%s on %s" % (self.browser_string(), self.platform.name)
 
     def browser_string(self):
         """
