@@ -49,7 +49,7 @@ from datetime import datetime, timedelta
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
-from shotserver04.screenshots.models import Screenshot
+from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.websites.models import Website
 from shotserver04.websites.utils import count_profanities, http_get, HTTPError
 
@@ -76,11 +76,18 @@ for factory in factories:
                 uploads_per_day=browser_per_day)
         factory_per_hour += browser_per_hour
         factory_per_day += browser_per_day
+    errors_per_day = ProblemReport.objects.filter(
+        screenshot__factory=factory,
+        reported__gte=ONE_DAY_AGO).count()
+    errors_per_day += factory.factoryerror_set.filter(
+        occurred__gte=ONE_DAY_AGO).count()
     if (factory_per_hour != factory.uploads_per_hour or
-        factory_per_day != factory.uploads_per_day):
+        factory_per_day != factory.uploads_per_day or
+        errors_per_day != factory.errors_per_day):
         factory.update_fields(
             uploads_per_hour=factory_per_hour,
-            uploads_per_day=factory_per_day)
+            uploads_per_day=factory_per_day,
+            errors_per_day=errors_per_day)
     if factory.sponsor_id is not None:
         sponsor_per_day[factory.sponsor_id] = (
             sponsor_per_day.get(factory.sponsor_id, 0) +
