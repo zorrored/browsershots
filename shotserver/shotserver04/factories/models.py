@@ -37,7 +37,7 @@ from shotserver04.common import granular_update
 FACTORY_FIELDS = (
     'name', 'operating_system', 'hardware',
     'last_poll', 'last_upload',
-    'uploads_per_hour', 'uploads_per_day',
+    'uploads_per_hour', 'uploads_per_day', 'errors_per_day',
     'queue_estimate', 'created')
 FACTORY_FIELDS_HIDE = ('hardware', 'created', )
 FACTORY_FIELDS_SECONDS = ('queue_estimate')
