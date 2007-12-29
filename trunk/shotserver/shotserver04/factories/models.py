@@ -71,6 +71,8 @@ class Factory(models.Model):
         _('uploads per hour'), blank=True, null=True, editable=False)
     uploads_per_day = models.IntegerField(
         _('uploads per day'), blank=True, null=True, editable=False)
+    errors_per_day = models.IntegerField(
+        _('errors per day'), blank=True, null=True, editable=False)
     queue_estimate = models.IntegerField(
         _('queue estimate'), blank=True, null=True, editable=False,
         help_text=_("Seconds between screenshot request and upload."))
