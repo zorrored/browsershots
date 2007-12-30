@@ -200,8 +200,8 @@ def selector_pairs(browser_forms):
         start = end
     yield ('Gecko', selector_func(browser_forms, lambda field:
         field.browser.engine.name == 'Gecko'))
-    yield ('KHTML', selector_func(browser_forms, lambda field:
-        field.browser.engine.name in ('KHTML', 'Webkit')))
+    yield ('KHTML/WebKit', selector_func(browser_forms, lambda field:
+        field.browser.engine.name in ('KHTML', 'AppleWebKit')))
 
 
 def selector_func(browser_forms, func):
