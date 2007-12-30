@@ -89,6 +89,7 @@ class BrowsersForm(forms.BaseForm):
                 label=label, initial=initial, required=False)
             field.platform_name = platform_name
             field.browser_name = browser_name
+            field.browser = browser
             field_dict[name] = field
         field_names = field_dict.keys()
         field_names.sort()

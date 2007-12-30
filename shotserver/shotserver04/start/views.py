@@ -94,7 +94,8 @@ def start(http_request):
     preload_foreign_keys(active_browsers,
                          factory=active_factories,
                          factory__operating_system=True,
-                         browser_group=True)
+                         browser_group=True,
+                         engine=True)
     # Select browsers according to GET request
     selected_browsers = None
     if 'browsers' in http_request.GET:
@@ -118,7 +119,9 @@ def start(http_request):
         if 'url' in http_request.GET:
             url_form.fields['url'].initial = http_request.GET['url']
         multi_column(browser_forms)
-        selectors = mark_safe(' |\n'.join(selector_links(browser_forms)))
+        selectors = mark_safe(',\n'.join([
+            SELECTOR_TEMPLATE % (plus_minus, capfirst(text))
+            for text, plus_minus in selector_pairs(browser_forms)]))
         news_list = NewsItem.objects.all()[:10]
         sponsors_list = Sponsor.objects.filter(front_page=True)
         show_special_form = http_request.user.is_authenticated()
@@ -181,13 +184,35 @@ def multi_column(browser_forms):
         groups[-1][0] = form.column_length()
 
 
-def selector_links(browser_forms):
+def selector_pairs(browser_forms):
     """
     Links to select or unselect all browsers.
     """
     total = sum([len(form.fields) for form in browser_forms])
-    yield SELECTOR_TEMPLATE % ('+' * total, capfirst(_('select all')))
-    yield SELECTOR_TEMPLATE % ('-' * total, capfirst(_('deselect all')))
+    yield (_('all'), '+' * total)
+    yield (_('none'), '-' * total)
+    start = 0
+    for form in browser_forms:
+        length = len(form.fields)
+        end = start + length
+        yield (form.platform.name,
+               '-' * start + '+' * length + '-' * (total - end))
+        start = end
+    yield ('Gecko', selector_func(browser_forms, lambda field:
+        field.browser.engine.name == 'Gecko'))
+    yield ('KHTML', selector_func(browser_forms, lambda field:
+        field.browser.engine.name in ('KHTML', 'Webkit')))
+
+
+def selector_func(browser_forms, func):
+    result = []
+    for form in browser_forms:
+        for name, field in form.fields.items():
+            if func(field):
+                result.append('+')
+            else:
+                result.append('-')
+    return ''.join(result)
 
 
 def create_platform_requests(request_group, platform, browser_form,
