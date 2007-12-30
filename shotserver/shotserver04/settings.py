@@ -151,8 +151,13 @@ DISALLOWED_SERVER_IP_LIST = """
 255.255.255.255
 """.split()
 
+# Block requests for screenshots of certain domain names
 DISALLOWED_DOMAIN_LIST = """
 myminicity.com
+myminicity.fr
+myminicity.es
+miniville.fr
+ville-virtuelle.com
 """.split()
 
 # If you set this to False, only registered users can submit requests.
