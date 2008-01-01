@@ -23,68 +23,55 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
+
 import sys
+from django.contrib.auth.models import User
+from shotserver04.factories.models import Factory
+
 REVENUE = float(sys.argv[1])
-
-users = {}
-for line in file('auth_user.sql'):
-    parts = line.split('\t')
-    if not parts or not parts[0].isdigit():
-        continue
-    user_id = int(parts[0])
-    username = parts[1]
-    first_name = parts[2]
-    last_name = parts[3]
-    email = parts[4]
-    users[user_id] = (username, first_name, last_name, email)
-
-factories = {}
-for line in file('factories_factory.sql'):
-    parts = line.split('\t')
-    if not parts or not parts[0].isdigit():
-        continue
-    factory_id = int(parts[0])
-    name = parts[1]
-    admin_id = int(parts[2])
-    factories[factory_id] = (name, admin_id)
+TEMPLATE = u'%7d %7.4f%% %6.2f\u20ac %s'
 
 total = 0
-admin_uploads = {}
 factory_uploads = {}
-for line in file('screenshots_screenshot.sql'):
+for line in sys.stdin:
     parts = line.split('\t')
     if not parts or not parts[0].isdigit():
         continue
-    screenshot_id = int(parts[0])
     factory_id = int(parts[3])
     factory_uploads[factory_id] = factory_uploads.get(factory_id, 0) + 1
-    if factory_id not in factories:
-        print 'WARNING: unknown factory', factory_id
-        continue
-    admin_id = factories[factory_id][1]
-    if admin_id not in users:
-        print 'WARNING: unknown user', admin_id
-    admin_uploads[admin_id] = admin_uploads.get(admin_id, 0) + 1
     total += 1
 
-print total, 'total'
+admin_uploads = {}
+admin_output = {}
+for user in User.objects.all():
+    user_uploads = 0
+    factory_lines = []
+    for factory in Factory.objects.filter(admin=user):
+        if factory.id in factory_uploads:
+            uploads = factory_uploads[factory.id]
+            user_uploads += uploads
+            percent = 100.0 * uploads / total
+            revenue = REVENUE * uploads / total
+            factory_lines.append(TEMPLATE % (
+                uploads, percent, revenue, factory.name))
+    if user_uploads:
+        admin_uploads[user.id] = user_uploads
+        percent = 100.0 * user_uploads / total
+        revenue = REVENUE * user_uploads / total
+        admin_output[user.id] = [u'%s %s %s <%s>' % (
+            user.username, user.first_name, user.last_name, user.email)]
+        if len(factory_lines) > 1:
+            admin_output[user.id].extend(factory_lines)
+        admin_output[user.id].append(TEMPLATE % (
+            user_uploads, percent, revenue, 'total'))
 
 admin_ids = admin_uploads.keys()
-admin_ids.sort(key=lambda admin_id: -admin_uploads[admin_id])
+admin_ids.sort(key=lambda id: admin_uploads[id])
 for admin_id in admin_ids:
-    admin = users[admin_id]
-    print admin_uploads[admin_id],
-    print '%.1f%%' % (100.0 * admin_uploads[admin_id] / total),
-    print '%.2f' % (REVENUE * admin_uploads[admin_id] / total),
-    print ' '.join(admin)
-    admin_factories = [factory_id
-                       for factory_id in factories
-                       if factories[factory_id][1] == admin_id
-                       and factory_id in factory_uploads
-                       and factory_uploads[factory_id]]
-    if len(admin_factories) > 1:
-        admin_factories.sort(
-            key=lambda factory_id: -factory_uploads[factory_id])
-        for factory_id in admin_factories:
-            print '   ', factory_uploads[factory_id],
-            print factories[factory_id][0]
+    for line in admin_output[admin_id]:
+        print line.encode('utf-8')
+    print
+line = TEMPLATE % (total, 100, REVENUE, 'total')
+print line.encode('utf-8')
