@@ -139,7 +139,12 @@ def create_user_priority(log):
     else:
         year += 1
         month = 1
-    expire = datetime(year, month, day, hour, minute, sec)
+    while day:
+        try:
+            expire = datetime(year, month, day, hour, minute, sec)
+            break
+        except ValueError:
+            day -= 1 # February 31st doesn't exist, reduce and try again.
     priority = UserPriority(
         user=user, priority=1, expire=expire, txn_id=log.txn_id)
     priority.save()
