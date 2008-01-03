@@ -27,28 +27,6 @@ from shotserver04.factories.models import Factory
 from shotserver04.common import granular_update
 
 
-class FactoryScreenshotCount(models.Model):
-    factory = models.ForeignKey(Factory, raw_id_admin=True)
-    date = models.DateField()
-    screenshots = models.IntegerField()
-
-    class Admin:
-        list_display = ('factory', 'date', 'screenshots')
-
-    class Meta:
-        unique_together = ('factory', 'date')
-
-    update_fields = granular_update.update_fields
-
-    def __unicode__(self):
-        if self.factory is None:
-            return u'%d screenshots total on %04d-%02d' % (
-                self.screenshots, self.date.strftime('%Y-%m-%d'))
-        else:
-            return u'%d screenshots from %s on %04d-%02d' % (
-                self.screenshots, self.factory, self.date.strftime('%Y-%m-%d'))
-
-
 class UserPayment(models.Model):
     user = models.ForeignKey(User, raw_id_admin=True)
     euros = models.FloatField()
