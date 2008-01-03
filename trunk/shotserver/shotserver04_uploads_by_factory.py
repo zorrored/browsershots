@@ -27,8 +27,10 @@ import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 
 import sys
+import time
 from django.contrib.auth.models import User
 from shotserver04.factories.models import Factory, ScreenshotCount
+from shotserver04.screenshots.models import Screenshot
 
 
 def save_factory(factory, date, screenshots):
@@ -45,6 +47,16 @@ def save(date, factory_uploads):
     for factory in Factory.objects.all():
         save_factory(factory, date, factory_uploads.get(factory.id, 0))
 
+
+if '--stdin' not in sys.argv:
+    now = time.time()
+    yesterday = '%04d-%02d-%02d' % time.localtime(now - 24 * 3600)[:3]
+    today = '%04d-%02d-%02d' % time.localtime(now)[:3]
+    for factory in Factory.objects.all():
+        screenshots = Screenshot.objects.filter(factory=factory,
+            uploaded__gte=yesterday, uploaded__lt=today).count()
+        save_factory(factory, yesterday, screenshots)
+    sys.exit(0)
 
 previous_date = None
 factory_uploads = {}
