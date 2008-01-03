@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import time
 from datetime import datetime, timedelta
 from psycopg import IntegrityError
 import smtplib
@@ -30,7 +31,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django import newforms as forms
-from django.db import transaction
+from django.db import transaction, connection
 from django.http import HttpResponseRedirect
 from django.newforms.util import ErrorList
 from django.template import RequestContext
@@ -130,6 +131,37 @@ def logout(http_request):
         context_instance=RequestContext(http_request))
 
 
+def totals(where=None):
+    sql = [
+        "SELECT",
+        "date_part('year', date) AS year,",
+        "date_part('month', date) AS month,",
+        "sum(screenshots)",
+        "FROM factories_screenshotcount",
+        ]
+    if where:
+        sql.append(where)
+    sql.append("GROUP BY year, month")
+    cursor = connection.cursor()
+    cursor.execute('\n'.join(sql))
+    result = {}
+    for year, month, screenshots in cursor.fetchall():
+        result[(int(year), int(month))] = screenshots
+    return result
+
+
+def user_month_totals(user):
+    all_factories = totals()
+    my_factories = totals("WHERE factory_id IN (%s)" % ','.join(
+        [str(factory.id) for factory in user.factory_set.all()]))
+    keys = all_factories.keys()
+    keys.sort()
+    for year, month in keys:
+        all = all_factories.get((year, month), 0)
+        my = my_factories.get((year, month), 0)
+        yield ('%04d-%02d' % (year, month), all, my,
+               '%.3f%%' % (100.0 * my / all))
+
 @login_required
 def profile(http_request):
     """
@@ -145,6 +177,7 @@ def profile(http_request):
         from shotserver04.points import views as points
         latest = points.latest_balance(http_request.user)
         current_balance = latest.current_balance()
+    month_totals = user_month_totals(http_request.user)
     return render_to_response('accounts/profile.html', locals(),
         context_instance=RequestContext(http_request))
 

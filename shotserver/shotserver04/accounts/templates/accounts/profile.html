@@ -11,6 +11,25 @@
 {{ _("This is your private profile page. Only you can see it.") }}
 </p>
 
+<table class="totals vertical">
+<thead>
+<tr>
+<th>{{ _("month")|capfirst|human_br }}</th>
+<th>{{ _("total screenshots")|capfirst|human_br }}</th>
+<th>{{ _("from my factories")|capfirst|human_br }}</th>
+<th>{{ _("percent")|capfirst|human_br }}</th>
+</tr>
+</thead>
+{% for month, total, user_total, percent in month_totals %}
+<tr class="{% cycle row1,row2 %}">
+<td>{{ month }}</td>
+<td>{{ total }}</td>
+<td>{{ user_total }}</td>
+<td>{{ percent }}</td>
+</tr>
+{% endfor %}
+</table>
+
 {% if factory_list %}
 <h2>{{ _("your screenshot factories")|capfirst }}</h2>
 <table class="factories vertical">
