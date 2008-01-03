@@ -247,3 +247,26 @@ class ColorDepth(models.Model):
 
     def __unicode__(self):
         return unicode(self.bits_per_pixel)
+
+
+class ScreenshotCount(models.Model):
+    factory = models.ForeignKey(Factory,
+        verbose_name=_('factory'), raw_id_admin=True)
+    date = models.DateField(_('date'))
+    screenshots = models.IntegerField(_('screenshots'))
+
+    class Admin:
+        list_display = ('factory', 'date', 'screenshots')
+
+    class Meta:
+        unique_together = ('factory', 'date')
+
+    def __unicode__(self):
+        if self.factory is None:
+            return u'%d screenshots total on %04d-%02d' % (
+                self.screenshots, self.date.strftime('%Y-%m-%d'))
+        else:
+            return u'%d screenshots from %s on %04d-%02d' % (
+                self.screenshots, self.factory, self.date.strftime('%Y-%m-%d'))
+
+    update_fields = granular_update.update_fields
