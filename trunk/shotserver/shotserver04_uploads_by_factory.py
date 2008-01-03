@@ -44,7 +44,6 @@ def save_factory(factory, date, screenshots):
 
 
 def save(date, factory_uploads):
-    save_factory(None, date, factory_uploads.get(None, 0))
     for factory in Factory.objects.all():
         save_factory(factory, date, factory_uploads.get(factory.id, 0))
 
@@ -62,5 +61,4 @@ for line in sys.stdin:
         factory_uploads = {}
     previous_date = date
     factory_uploads[factory_id] = factory_uploads.get(factory_id, 0) + 1
-    factory_uploads[None] = factory_uploads.get(None, 0) + 1
 save(previous_date, factory_uploads)
