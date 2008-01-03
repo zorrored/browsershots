@@ -245,7 +245,7 @@ msgstr "Dies ist deine private Profilseite. Nur du kannst sie sehen."
 
 #: accounts/templates/accounts/profile.html:15
 msgid "your screenshot factories"
-msgstr "deine Sreenshot-Fabriken"
+msgstr "deine Screenshot-Fabriken"
 
 #: accounts/templates/accounts/profile.html:29
 msgid "Register a new screenshot factory?"
