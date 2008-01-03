@@ -28,19 +28,17 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 
 import sys
 from django.contrib.auth.models import User
-from shotserver04.factories.models import Factory
-from shotserver04.revenue.models import FactoryScreenshotCount
+from shotserver04.factories.models import Factory, ScreenshotCount
 
 
 def save_factory(factory, date, screenshots):
     if screenshots:
-        count, created = FactoryScreenshotCount.objects.get_or_create(
+        count, created = ScreenshotCount.objects.get_or_create(
             factory=factory, date=date, defaults={'screenshots': screenshots})
         if not created and count.screenshots != screenshots:
             count.update_fields(screenshots=screenshots)
     else:
-        FactoryScreenshotCount.objects.filter(
-            factory=factory, date=date).delete()
+        ScreenshotCount.objects.filter(factory=factory, date=date).delete()
 
 
 def save(date, factory_uploads):
