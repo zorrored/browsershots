@@ -151,9 +151,12 @@ def totals(where=None):
 
 
 def user_month_totals(user):
+    factories = user.factory_set.all()
+    if not factories.count():
+        return
     all_factories = totals()
     my_factories = totals("WHERE factory_id IN (%s)" % ','.join(
-        [str(factory.id) for factory in user.factory_set.all()]))
+        [str(factory.id) for factory in factories]))
     keys = all_factories.keys()
     keys.sort()
     for year, month in keys:
@@ -177,7 +180,7 @@ def profile(http_request):
         from shotserver04.points import views as points
         latest = points.latest_balance(http_request.user)
         current_balance = latest.current_balance()
-    month_totals = user_month_totals(http_request.user)
+    month_totals = list(user_month_totals(http_request.user))
     return render_to_response('accounts/profile.html', locals(),
         context_instance=RequestContext(http_request))
 

@@ -11,6 +11,7 @@
 {{ _("This is your private profile page. Only you can see it.") }}
 </p>
 
+{% if month_totals %}
 <table class="totals vertical">
 <thead>
 <tr>
@@ -29,6 +30,7 @@
 </tr>
 {% endfor %}
 </table>
+{% endif %}
 
 {% if factory_list %}
 <h2>{{ _("your screenshot factories")|capfirst }}</h2>
