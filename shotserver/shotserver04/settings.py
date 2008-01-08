@@ -163,6 +163,11 @@ ville-virtuelle.com
 # If you set this to False, only registered users can submit requests.
 ALLOW_ANONYMOUS_REQUESTS = True
 
+# Usage limits for (anonymous, registered, priority) users.
+MAX_WEBSITE_REQUESTS_PER_DAY = (50, 100, 1000)
+MAX_DOMAIN_REQUESTS_PER_DAY = (100, 200, 2000)
+MAX_USER_REQUESTS_PER_DAY = (200, 300, 5000)
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 
