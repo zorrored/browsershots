@@ -40,9 +40,10 @@ from shotserver04.start.forms.browsers import BrowsersForm
 from shotserver04.start.forms.features import FeaturesForm
 from shotserver04.start.forms.options import OptionsForm
 from shotserver04.start.forms.special import SpecialForm
-from shotserver04.factories.models import Factory
 from shotserver04.platforms.models import Platform
+from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
+from shotserver04.websites.models import Website
 from shotserver04.requests.models import RequestGroup, Request
 from shotserver04.sponsors.models import Sponsor
 
@@ -114,6 +115,19 @@ def start(http_request):
         valid_post = valid_post and browser_form.is_valid()
     browser_forms[0].is_first = True
     browser_forms[-1].is_last = True
+    priority = 0
+    if valid_post:
+        # Get priority processing for domain or user.
+        if 'shotserver04.priority' in settings.INSTALLED_APPS:
+            from shotserver04.priority import domain_priority, user_priority
+            priority = max(domain_priority(url_form.cleaned_data['domain']),
+                           user_priority(http_request.user))
+            usage_limited = check_usage_limits(
+                http_request, priority,
+                url_form.cleaned_data['website'],
+                url_form.cleaned_data['domain'])
+        if usage_limited:
+            valid_post = False
     if not valid_post:
         # Show HTML form.
         if 'url' in http_request.GET:
@@ -154,12 +168,6 @@ def start(http_request):
         request_group.update_fields(expire=expire)
     else:
         request_group = RequestGroup.objects.create(expire=expire, **values)
-    # Get priority processing for domain or user.
-    priority = 0
-    if 'shotserver04.priority' in settings.INSTALLED_APPS:
-        from shotserver04.priority import domain_priority, user_priority
-        priority = max(domain_priority(url_form.cleaned_data['domain']),
-                       user_priority(http_request.user))
     for browser_form in browser_forms:
         create_platform_requests(
             request_group, browser_form.platform, browser_form, priority)
@@ -168,6 +176,83 @@ def start(http_request):
     # return render_to_response('debug.html', locals(),
     #     context_instance=RequestContext(http_request))
     return HttpResponseRedirect(values['website'].get_absolute_url())
+
+
+def sort_previous_websites(websites):
+    """
+    Show websites with most request groups first.
+    """
+    websites = list(websites[:50]) # Limit sort effort.
+    if len(websites) <= 1:
+        return websites
+    for website in websites:
+        website.request_group_count = website.requestgroup_set.count()
+    websites.sort(key=lambda website: -website.request_group_count)
+    return websites[:10] # Show only the most useful results.
+
+
+def check_usage_limit(result, http_request, websites,
+                      message, solution, max_requests, **kwargs):
+    """
+    Check a specific usage limit.
+    """
+    if not http_request.user.is_anonymous():
+        kwargs['request_group__user'] = http_request.user
+    if not kwargs:
+        kwargs['request_group__ip'] = http_request.META['REMOTE_ADDR']
+    yesterday = datetime.now() - timedelta(hours=24)
+    kwargs['request_group__submitted__gte'] = yesterday
+    count = Request.objects.filter(**kwargs).count()
+    if count > max_requests:
+        if 'request_group__website__domain' in kwargs:
+            domain = kwargs['request_group__website__domain']
+        result['message'] = mark_safe(message % locals())
+        result['solution'] = mark_safe(solution)
+        if websites:
+            result['websites'] = sort_previous_websites(websites)
+
+
+def check_usage_limits(http_request, priority, website, domain):
+    """
+    Make sure that the usage limits aren't exceeded.
+    """
+    website_messages = [
+_("There were already %(count)d screenshot requests for this website today."),
+_("You have already requested %(count)d screenshots for this website today.")]
+    domain_messages = [
+_("There were already %(count)d screenshot requests for %(domain)s today."),
+_("You have already requested %(count)d screenshots for %(domain)s today.")]
+    user_messages = [
+_("There were already %(count)d screenshot requests from your IP today."),
+_("You have already requested %(count)d screenshots today.")]
+    email = u'<a href="mailto:%s">%s</a>' % (
+        settings.ADMINS[0][1], settings.ADMINS[0][0])
+    solutions = [_("Please create a user account."),
+                 _("Please sign up for priority processing."),
+                 _("Please write to %(email)s.") % locals()]
+    index = 1
+    if http_request.user.is_anonymous():
+        index = 0
+    elif priority:
+        index = 2
+    result = {}
+    check_usage_limit(result, http_request, [website],
+                      website_messages[min(1, index)], solutions[index],
+                      settings.MAX_WEBSITE_REQUESTS_PER_DAY[index],
+                      request_group__website=website)
+    if result:
+        return result
+    check_usage_limit(result, http_request,
+                      Website.objects.filter(domain=domain),
+                      domain_messages[min(1, index)], solutions[index],
+                      settings.MAX_DOMAIN_REQUESTS_PER_DAY[index],
+                      request_group__website__domain=domain)
+    if result:
+        return result
+    check_usage_limit(result, http_request, None,
+                      user_messages[min(1, index)], solutions[index],
+                      settings.MAX_USER_REQUESTS_PER_DAY[index])
+    return result
 
 
 def multi_column(browser_forms):
