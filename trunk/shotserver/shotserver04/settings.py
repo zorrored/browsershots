@@ -119,7 +119,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/media/'
 
-# Profanity filter
+# Profanity filter.
 PROFANITIES_LIST = """
 asshat asshead asshole cunt fuck gook nigger shit
 porn p0rn pr0n boys girls chicks babe cock bukkake
@@ -127,10 +127,10 @@ sex xxx nude nudist naked bitcafe stile omglol
 bitch adult pussy boob handsfree disturb
 """.lower().split()
 
-# Tolerate a small number of profane words
+# Tolerate a small number of profane words.
 PROFANITIES_ALLOWED = 1
 
-# Block requests for screenshots of special IP addresses
+# Block requests for screenshots of special IP addresses.
 DISALLOWED_SERVER_IP_LIST = """
 0.0.0.0/8
 10.0.0.0/8
@@ -151,7 +151,7 @@ DISALLOWED_SERVER_IP_LIST = """
 255.255.255.255
 """.split()
 
-# Block requests for screenshots of certain domain names
+# Block requests for screenshots of certain domain names.
 DISALLOWED_DOMAIN_LIST = """
 myminicity.com
 myminicity.fr
@@ -166,7 +166,7 @@ ALLOW_ANONYMOUS_REQUESTS = True
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'y7v!*06i+q2e!4zqwr_wnc=#lnm*ew&!1o_z-cki^^*4*ww=16'
 
-# Account number for Google Analytics, e.g. UA-123456-7
+# Account number for Google Analytics, e.g. UA-123456-7.
 GOOGLE_ANALYTICS_ACCOUNT = ''
 
 # List of callables that know how to import templates from various sources.
@@ -188,11 +188,11 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'shotserver04.urls'
 
-# Dynamic path trickery
+# Dynamic path trickery.
 import os
 SETTINGS_PATH = os.path.normpath(os.path.dirname(__file__))
 
-# Find templates next to settings.py
+# Find templates in the same folder as settings.py.
 TEMPLATE_DIRS = (
     os.path.join(SETTINGS_PATH, 'templates'),
 )
