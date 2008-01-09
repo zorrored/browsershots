@@ -65,8 +65,7 @@ class BrowsersForm(forms.BaseForm):
                 if browser.minor is not None:
                     label += '.' + str(browser.minor)
             platform_name = platform.name.lower().replace(' ', '-')
-            browser_name = browser.browser_group.name
-            browser_name = browser_name.lower().replace(' ', '-')
+            browser_name = browser.browser_group.name.lower()
             name = '_'.join((
                 platform_name,
                 browser_name,
