@@ -312,8 +312,7 @@ def create_platform_requests(request_group, platform, browser_form,
         first_part, browser_name, major, minor = name.split('_')
         if first_part != platform_lower:
             continue # Different platform
-        browser_group = BrowserGroup.objects.get(
-            name__iexact=browser_name.replace('-', ' '))
+        browser_group = BrowserGroup.objects.get(name__iexact=browser_name)
         Request.objects.get_or_create(
             request_group=request_group,
             platform=platform,
