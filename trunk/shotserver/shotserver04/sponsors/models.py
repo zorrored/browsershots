@@ -63,7 +63,11 @@ class Sponsor(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        """Get redirect URL for sponsor links."""
+        """Get sponsor URL."""
+        return self.url
+
+    def get_redirect_url(self):
+        """Get redirect URL for counting clicks on sponsor links."""
         return '/sponsors/%s/' % self.slug
 
     def get_logo_url(self):
