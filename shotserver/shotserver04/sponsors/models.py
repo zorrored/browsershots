@@ -40,6 +40,9 @@ class Sponsor(models.Model):
         help_text=_("This is used to generate the link to the logo image."))
     url = models.URLField(
         _('URL'), max_length=400, unique=True, verify_exists=False)
+    alt = models.CharField(max_length=100)
+    width = models.IntegerField(_('width'))
+    height = models.IntegerField(_('height'))
     premium = models.BooleanField(
         _('premium'),
         help_text=_("Premium sponsors are always shown on the front page."))
@@ -52,7 +55,7 @@ class Sponsor(models.Model):
     class Meta:
         verbose_name = _('sponsor')
         verbose_name_plural = _('sponsors')
-        ordering = ('-premium', 'name', )
+        ordering = ('-premium', 'id', )
 
     update_fields = granular_update.update_fields
 
@@ -63,13 +66,15 @@ class Sponsor(models.Model):
         """Get redirect URL for sponsor links."""
         return '/sponsors/%s/' % self.slug
 
-    def get_logo_url(self, size=(234, 60)):
+    def get_logo_url(self):
         """Get absolute URL of logo image."""
-        return '/static/logos/%dx%d/%s.png' % (size[0], size[1], self.slug)
+        return '/static/logos/%dx%d/%s.png' % (
+            self.width, self.height, self.slug)
 
-    def logo(self, size=(234, 60)):
+    def logo(self):
         """Get HTML image with link to sponsor website."""
         img = '<img width="%d" height="%d" src="%s" alt="%s" />' % (
-            size[0], size[1], self.get_logo_url(size), self.name)
+            self.width, self.height, self.get_logo_url(),
+            self.alt or self.name)
         return mark_safe(
             '<a href="%s">%s</a>' % (self.get_absolute_url(), img))
