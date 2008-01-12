@@ -263,10 +263,10 @@ class ScreenshotCount(models.Model):
 
     def __unicode__(self):
         if self.factory is None:
-            return u'%d screenshots total on %04d-%02d' % (
+            return u'%d screenshots total on %s' % (
                 self.screenshots, self.date.strftime('%Y-%m-%d'))
         else:
-            return u'%d screenshots from %s on %04d-%02d' % (
+            return u'%d screenshots from %s on %s' % (
                 self.screenshots, self.factory, self.date.strftime('%Y-%m-%d'))
 
     update_fields = granular_update.update_fields
