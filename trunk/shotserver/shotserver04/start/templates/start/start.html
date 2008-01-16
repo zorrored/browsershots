@@ -18,7 +18,7 @@
 {% if usage_limited %}
 <p class="admonition error">
 {{ usage_limited.message }} {{ _("Please try again later.") }}<br />
-{{ _("Do you need more screenshots per day?") }} {{ usage_limited.solution }}
+<a href="{{ usage_limited.solution_url }}">{{ _("Do you need more screenshots per day?") }} {{ usage_limited.solution }}</a>
 </p>
 {% endif %}
 
