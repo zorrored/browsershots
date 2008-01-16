@@ -178,20 +178,28 @@ def start(http_request):
     return HttpResponseRedirect(values['website'].get_absolute_url())
 
 
-def sort_previous_websites(websites):
+def previous_websites(requests):
     """
-    Show websites with most request groups first.
+    Show only websites with most requests.
     """
-    websites = list(websites[:50]) # Limit sort effort.
+    requests = requests[:200] # Limit sort effort.
+    preload_foreign_keys(requests, request_group__website=True)
+    websites = set()
+    for request in requests:
+        website = request.request_group.website
+        if hasattr(website, 'request_count'):
+            website.request_count += 1
+        else:
+            website.request_count = 0
+        websites.add(website)
+    websites = list(websites)
     if len(websites) <= 1:
         return websites
-    for website in websites:
-        website.request_group_count = website.requestgroup_set.count()
-    websites.sort(key=lambda website: -website.request_group_count)
+    websites.sort(key=lambda website: -website.request_count)
     return websites[:10] # Show only the most useful results.
 
 
-def check_usage_limit(result, http_request, websites,
+def check_usage_limit(result, http_request,
                       message, solution, max_requests, **kwargs):
     """
     Check a specific usage limit.
@@ -202,14 +210,14 @@ def check_usage_limit(result, http_request, websites,
         kwargs['request_group__ip'] = http_request.META['REMOTE_ADDR']
     yesterday = datetime.now() - timedelta(hours=24)
     kwargs['request_group__submitted__gte'] = yesterday
-    count = Request.objects.filter(**kwargs).count()
+    requests = Request.objects.filter(**kwargs)
+    count = requests.count()
     if count > max_requests:
         if 'request_group__website__domain' in kwargs:
             domain = kwargs['request_group__website__domain']
         result['message'] = mark_safe(message % locals())
         result['solution'] = mark_safe(solution)
-        if websites:
-            result['websites'] = sort_previous_websites(websites)
+        result['websites'] = previous_websites(requests)
 
 
 def check_usage_limits(http_request, priority, website, domain):
@@ -236,20 +244,19 @@ _("You have already requested %(count)d screenshots today.")]
     elif priority:
         index = 2
     result = {}
-    check_usage_limit(result, http_request, [website],
+    check_usage_limit(result, http_request,
                       website_messages[min(1, index)], solutions[index],
                       settings.MAX_WEBSITE_REQUESTS_PER_DAY[index],
                       request_group__website=website)
     if result:
         return result
     check_usage_limit(result, http_request,
-                      Website.objects.filter(domain=domain),
                       domain_messages[min(1, index)], solutions[index],
                       settings.MAX_DOMAIN_REQUESTS_PER_DAY[index],
                       request_group__website__domain=domain)
     if result:
         return result
-    check_usage_limit(result, http_request, None,
+    check_usage_limit(result, http_request,
                       user_messages[min(1, index)], solutions[index],
                       settings.MAX_USER_REQUESTS_PER_DAY[index])
     return result
