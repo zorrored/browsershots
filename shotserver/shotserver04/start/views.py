@@ -199,8 +199,8 @@ def previous_websites(requests):
     return websites[:10] # Show only the most useful results.
 
 
-def check_usage_limit(result, http_request,
-                      message, solution, max_requests, **kwargs):
+def check_usage_limit(result, http_request, message,
+                      solution, solution_url, max_requests, **kwargs):
     """
     Check a specific usage limit.
     """
@@ -215,8 +215,9 @@ def check_usage_limit(result, http_request,
     if count > max_requests:
         if 'request_group__website__domain' in kwargs:
             domain = kwargs['request_group__website__domain']
-        result['message'] = mark_safe(message % locals())
-        result['solution'] = mark_safe(solution)
+        result['message'] = message % locals()
+        result['solution'] = solution
+        result['solution_url'] = solution_url
         result['websites'] = previous_websites(requests)
 
 
@@ -233,11 +234,13 @@ _("You have already requested %(count)d screenshots for %(domain)s today.")]
     user_messages = [
 _("There were already %(count)d screenshot requests from your IP today."),
 _("You have already requested %(count)d screenshots today.")]
-    email = u'<a href="mailto:%s">%s</a>' % (
-        settings.ADMINS[0][1], settings.ADMINS[0][0])
+    email = settings.ADMINS[0][0]
     solutions = [_("Please create a user account."),
                  _("Please sign up for priority processing."),
                  _("Please write to %(email)s.") % locals()]
+    solution_urls = ['/accounts/email/',
+                     '/priority/',
+                     'mailto:%s' % settings.ADMINS[0][1]]
     index = 1
     if http_request.user.is_anonymous():
         index = 0
@@ -245,19 +248,22 @@ _("You have already requested %(count)d screenshots today.")]
         index = 2
     result = {}
     check_usage_limit(result, http_request,
-                      website_messages[min(1, index)], solutions[index],
+                      website_messages[min(1, index)],
+                      solutions[index], solution_urls[index],
                       settings.MAX_WEBSITE_REQUESTS_PER_DAY[index],
                       request_group__website=website)
     if result:
         return result
     check_usage_limit(result, http_request,
-                      domain_messages[min(1, index)], solutions[index],
+                      domain_messages[min(1, index)],
+                      solutions[index], solution_urls[index],
                       settings.MAX_DOMAIN_REQUESTS_PER_DAY[index],
                       request_group__website__domain=domain)
     if result:
         return result
     check_usage_limit(result, http_request,
-                      user_messages[min(1, index)], solutions[index],
+                      user_messages[min(1, index)],
+                      solutions[index], solution_urls[index],
                       settings.MAX_USER_REQUESTS_PER_DAY[index])
     return result
 
