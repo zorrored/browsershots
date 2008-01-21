@@ -8,3 +8,6 @@ ppmfg : ppmfg.o
 
 %.o : %.cpp *.hpp
 	g++ -ggdb -c $<
+
+install :
+	cp -f ppmfg pbmgrep /usr/local/bin
