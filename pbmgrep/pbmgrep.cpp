@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
   const int cols32 = cols / 32;
   if (cols > MAX_WIDTH) {
     fprintf(stderr, "image is too wide (%d > %d pixels)\n", cols, MAX_WIDTH);
-    exit(2);
+    return 2;
   }
   unsigned int integers[cycle_rows][32][COLS32];
   bit* input = pbm_allocrow(cols);
@@ -65,6 +65,7 @@ int main(int argc, char* argv[])
 		      offset + column * 32, y - feature->rows + 1,
 		      feature->cols, feature->rows,
 		      feature->filename);
+	      return 1;
 	    }
 	  }
 	}
@@ -72,4 +73,5 @@ int main(int argc, char* argv[])
     }
   }
   pbm_freerow(input);
+  return 0;
 }
