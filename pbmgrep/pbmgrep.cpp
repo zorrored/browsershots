@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 {
   pbm_init(&argc, argv);
   if (argc < 2) {
-    fprintf(stderr, "usage: vgrep <feature.pbm> ...\n");
+    fprintf(stderr, "usage: pbmgrep <feature.pbm> ...\n");
     return 1;
   }
   std::list<Feature*> features;
