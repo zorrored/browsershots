@@ -1,13 +1,18 @@
+# CPPFLAGS=-ggdb
+CPPFLAGS=-O3
+
 all : pbmgrep ppmfg
 
 pbmgrep : pbmgrep.o Feature.o
-	g++ -ggdb -o $@ -lnetpbm $^
+	g++ $(CPPFLAGS) -o $@ -lnetpbm $^
+	strip $@
 
 ppmfg : ppmfg.o
-	g++ -ggdb -o $@ -lnetpbm $<
+	g++ $(CPPFLAGS) -o $@ -lnetpbm $<
+	strip $@
 
 %.o : %.cpp *.hpp
-	g++ -ggdb -c $<
+	g++ $(CPPFLAGS) -c $<
 
 install :
 	cp -f ppmfg pbmgrep /usr/local/bin
