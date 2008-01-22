@@ -1,4 +1,4 @@
-#include <list>
+#include <map>
 #include "Feature.hpp"
 
 extern "C" {
@@ -36,11 +36,13 @@ int main(int argc, char* argv[])
     fprintf(stderr, "usage: pbmgrep <feature.pbm> ...\n");
     return 1;
   }
-  std::list<Feature*> features;
+  std::multimap<unsigned int, Feature*> features;
   int cycle_rows = 0;
   for (int i = 1; i < argc; i++) {
-    features.push_back(new Feature(argv[i]));
-    cycle_rows = max(cycle_rows, features.back()->rows);
+    Feature* feature = new Feature(argv[i]);
+    unsigned int bottom_left = feature->getBottomLeft();
+    features.insert(std::pair<unsigned int, Feature*>(bottom_left, feature));
+    cycle_rows = max(cycle_rows, feature->rows);
   }
   // fprintf(stderr, "features %d\n", features.size());
   // fprintf(stderr, "cycle_rows %d \n", cycle_rows);
@@ -61,12 +63,15 @@ int main(int argc, char* argv[])
     // fprintf(stderr, "%d\r", y);
     pbm_readpbmrow(stdin, input, cols, format);
     read_integers(input, integers[y % cycle_rows], cols);
-    std::list<Feature*>::iterator iter;
-    for (iter = features.begin(); iter != features.end(); iter++) {
-      Feature* feature = (*iter);
-      if (y >= feature->rows - 1) {
-	for (int column = 0; column < cols32 - feature->cols32; column++) {
-	  for (int offset = 0; offset < 32; offset++) {
+    for (int column = 0; column < cols32; column++) {
+      for (int offset = 0; offset < 32; offset++) {
+	std::multimap<unsigned int, Feature*>::iterator iter;
+	unsigned int bottom_left = integers[y % cycle_rows][offset][column];
+	iter = features.find(bottom_left);
+	if (iter == features.end()) continue;
+	for ( ; iter != features.upper_bound(bottom_left); iter++) {
+	  Feature* feature = iter->second;
+	  if (y >= feature->rows - 1 and column < cols32 - feature->cols32) {
 	    if (feature->match(integers, cycle_rows, offset, column, y)) {
 	      fprintf(stdout, "%d\t%d\t%d\t%d\t%s\n",
 		      offset + column * 32, y - feature->rows + 1,

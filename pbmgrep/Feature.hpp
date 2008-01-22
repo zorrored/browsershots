@@ -13,6 +13,7 @@ public:
   unsigned int* integers;
   Feature(const char* _filename);
   ~Feature();
+  unsigned int getBottomLeft();
   bool match(unsigned int input[][32][COLS32], int cycle_rows,
 	     int offset, int column, int y);
 };
