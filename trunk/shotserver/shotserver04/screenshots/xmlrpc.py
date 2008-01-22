@@ -23,8 +23,10 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import os
+import commands
 from xmlrpclib import Fault, Binary
 from datetime import datetime
+from django.utils.text import capfirst
 from shotserver04.common import serializable, get_or_fault
 from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import xmlrpc as nonces
@@ -98,6 +100,8 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
             raise Fault(412,
                 u"The screenshot is %d pixels wide, not %d as requested." %
                 (width, request_group.width))
+        if os.path.exists('/usr/local/etc/pbmgrep'):
+            check_ppm_problems(ppmname)
         # Make smaller preview images
         for size in PREVIEW_SIZES:
             storage.scale(ppmname, size, hashkey)
@@ -120,3 +124,25 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
         factory.update_fields(last_upload=now)
     browser.update_fields(last_upload=now)
     return hashkey
+
+
+def check_ppm_problems(ppmname):
+    """
+    Check for known problems with pbmgrep.
+    """
+    command = ' '.join(('ppmfg', '<', ppmname, '|', 'pbmgrep',
+                        '/usr/local/etc/pbmgrep/6??_*.pbm'))
+    print command
+    status, output = commands.getstatusoutput(command)
+    print status, output
+    if status == 0:
+        return
+    lines = output.splitlines()
+    parts = lines[0].split('\t')
+    if len(parts) == 5:
+        filename = os.path.basename(parts[4])
+        filename_parts = filename[:-3].split('_')
+        raise Fault(int(filename_parts[0]),
+                    capfirst(' '.join(filename_parts[1:])))
+    else:
+        raise Fault(500 + status, ' '.join(lines))
