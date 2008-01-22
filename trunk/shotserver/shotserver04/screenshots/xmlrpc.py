@@ -132,9 +132,9 @@ def check_ppm_problems(ppmname):
     """
     command = ' '.join(('ppmfg', '<', ppmname, '|', 'pbmgrep',
                         '/usr/local/etc/pbmgrep/6??_*.pbm'))
-    print command
+    # print command
     status, output = commands.getstatusoutput(command)
-    print status, output
+    # print status, output
     if status == 0:
         return
     lines = output.splitlines()
