@@ -6,18 +6,25 @@ extern "C" {
 }
 
 
-void read_integers(bit* input, int offset, unsigned int* integers, int cols32)
+void read_integers(bit* input, unsigned int integers[32][COLS32], int cols)
 {
-  int x = offset;
-  unsigned int i;
-  for (int col = 0; col < cols32; col++) {
-    i = 0;
-    for (int b = 0; b < 32; b++) {
-      i = i << 1;
-      if (input[x]) i++;
-      x++;
+  unsigned int i = 0;
+  for (int x = 0; x < 31; x++) {
+    i = i << 1;
+    if (input[x]) i++;
+  }
+  int offset = 0;
+  int col = 0;
+  for (int x = 31; x < cols; x++) {
+    i = i << 1;
+    if (input[x]) i++;
+    integers[offset][col] = i;
+    if (offset < 31) {
+      offset++;
+    } else {
+      offset = 0;
+      col++;
     }
-    integers[col] = i;
   }
 }
 
@@ -42,19 +49,19 @@ int main(int argc, char* argv[])
   int rows;
   int format;
   pbm_readpbminit(stdin, &cols, &rows, &format);
-  const int cols32 = cols / 32;
   if (cols > MAX_WIDTH) {
     fprintf(stderr, "image is too wide (%d > %d pixels)\n", cols, MAX_WIDTH);
     return 2;
   }
+  const int cols32 = cols / 32;
   unsigned int integers[cycle_rows][32][COLS32];
   bit* input = pbm_allocrow(cols);
 
   for (int y = 0; y < rows; y++) {
     // fprintf(stderr, "%d\r", y);
     pbm_readpbmrow(stdin, input, cols, format);
+    read_integers(input, integers[y % cycle_rows], cols);
     for (int offset = 0; offset < 32; offset++) {
-      read_integers(input, offset, integers[y % cycle_rows][offset], cols32);
       std::list<Feature*>::iterator iter;
       for (iter = features.begin(); iter != features.end(); iter++) {
 	Feature* feature = (*iter);
