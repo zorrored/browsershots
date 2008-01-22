@@ -61,12 +61,12 @@ int main(int argc, char* argv[])
     // fprintf(stderr, "%d\r", y);
     pbm_readpbmrow(stdin, input, cols, format);
     read_integers(input, integers[y % cycle_rows], cols);
-    for (int offset = 0; offset < 32; offset++) {
-      std::list<Feature*>::iterator iter;
-      for (iter = features.begin(); iter != features.end(); iter++) {
-	Feature* feature = (*iter);
-	if (y >= feature->rows - 1) {
-	  for (int column = 0; column < cols32 - feature->cols32; column++) {
+    std::list<Feature*>::iterator iter;
+    for (iter = features.begin(); iter != features.end(); iter++) {
+      Feature* feature = (*iter);
+      if (y >= feature->rows - 1) {
+	for (int column = 0; column < cols32 - feature->cols32; column++) {
+	  for (int offset = 0; offset < 32; offset++) {
 	    if (feature->match(integers, cycle_rows, offset, column, y)) {
 	      fprintf(stdout, "%d\t%d\t%d\t%d\t%s\n",
 		      offset + column * 32, y - feature->rows + 1,
