@@ -46,6 +46,12 @@ Feature::~Feature()
 }
 
 
+unsigned int Feature::getBottomLeft()
+{
+  return integers[(rows - 1) * cols32];
+}
+
+
 bool Feature::match(unsigned int input[][32][COLS32], int cycle_rows,
 		    int offset, int column, int y)
 {
