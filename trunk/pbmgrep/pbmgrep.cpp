@@ -61,11 +61,19 @@ int main(int argc, char* argv[])
   unsigned int integers[cycle_rows][32][COLS32];
   bit* input = pbm_allocrow(cols);
 
+  bool blank[cols32];
+  for (int column = 0; column < cols32; column++) {
+    blank[column] = true;
+  }
+
   for (int y = 0; y < rows; y++) {
     // fprintf(stderr, "%d\r", y);
     pbm_readpbmrow(stdin, input, cols, format);
     read_integers(input, integers[y % cycle_rows], cols);
     for (int column = 0; column < cols32; column++) {
+      if (integers[y % cycle_rows][0][column] != 0xFFFFFFFF) {
+	blank[column] = false;
+      }
       for (int offset = 0; offset < 32; offset++) {
 	unsigned int bottom_left = integers[y % cycle_rows][offset][column];
 	MapIter found = features.find(bottom_left);
@@ -89,5 +97,26 @@ int main(int argc, char* argv[])
     }
   }
   pbm_freerow(input);
+
+  bool totally_blank = true;
+  for (int column = 0; column < cols32; column++) {
+    if (!blank[column]) totally_blank = false;
+  }
+  if (totally_blank) {
+    printf("%d\t%d\t%d\t%d\t%s\n", 0, 0, cols, rows,
+	   "701_The_screen_is_blank.pbm");
+    return 1;
+  }
+  if (blank[0]) {
+    printf("%d\t%d\t%d\t%d\t%s\n", 0, 0, 32, rows,
+	   "702_The_left_side_of_the_screen_is_blank.pbm");
+    return 1;
+  }
+  if (blank[cols32 - 1]) {
+    printf("%d\t%d\t%d\t%d\t%s\n", 32 * (cols32 - 1), 0, 32, rows,
+	   "703_The_right_side_of_the_screen_is_blank.pbm");
+    return 1;
+  }
+
   return 0;
 }
