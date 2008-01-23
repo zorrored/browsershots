@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from datetime import datetime
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -33,7 +34,8 @@ def overview(http_request):
         ]
     user_has_priority_until = None
     if not http_request.user.is_anonymous():
-        priorities = http_request.user.userpriority_set.order_by('-expire')
+        priorities = http_request.user.userpriority_set.filter(
+            expire__gt=datetime.now()).order_by('-expire')
         if len(priorities):
             user_has_priority_until = priorities[0].expire
     return render_to_response('priority/overview.html', locals(),
