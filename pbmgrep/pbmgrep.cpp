@@ -36,7 +36,9 @@ int main(int argc, char* argv[])
     fprintf(stderr, "usage: pbmgrep <feature.pbm> ...\n");
     return 1;
   }
-  std::multimap<unsigned int, Feature*> features;
+  typedef std::multimap<unsigned int, Feature*> FeatureMap;
+  typedef FeatureMap::const_iterator MapIter;
+  FeatureMap features;
   int cycle_rows = 0;
   for (int i = 1; i < argc; i++) {
     Feature* feature = new Feature(argv[i]);
@@ -65,20 +67,22 @@ int main(int argc, char* argv[])
     read_integers(input, integers[y % cycle_rows], cols);
     for (int column = 0; column < cols32; column++) {
       for (int offset = 0; offset < 32; offset++) {
-	std::multimap<unsigned int, Feature*>::iterator iter;
 	unsigned int bottom_left = integers[y % cycle_rows][offset][column];
-	iter = features.find(bottom_left);
-	if (iter == features.end()) continue;
-	for ( ; iter != features.upper_bound(bottom_left); iter++) {
+	MapIter found = features.find(bottom_left);
+	if (found == features.end()) continue;
+	std::pair<MapIter, MapIter> range = features.equal_range(bottom_left);
+	// if (found != range.first) printf("features.find() is incorrect\n");
+	for (MapIter iter = range.first; iter != range.second; iter++) {
 	  Feature* feature = iter->second;
 	  if (y >= feature->rows - 1 and column < cols32 - feature->cols32) {
 	    if (feature->match(integers, cycle_rows, offset, column, y)) {
-	      fprintf(stdout, "%d\t%d\t%d\t%d\t%s\n",
-		      offset + column * 32, y - feature->rows + 1,
-		      feature->cols, feature->rows,
-		      feature->filename);
+	      printf("%d\t%d\t%d\t%d\t%s\n",
+		     offset + column * 32, y - feature->rows + 1,
+		     feature->cols, feature->rows,
+		     feature->filename);
 	      return 1;
 	    }
+	    // printf("no match\n");
 	  }
 	}
       }
