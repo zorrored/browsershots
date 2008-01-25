@@ -78,6 +78,7 @@ int main(int argc, char* argv[])
     for (int column = 0; column < cols32; column++) {
       for (int offset = 0; offset < 32; offset++) {
 	unsigned int bottom_left = integers[y % cycle_rows][offset][column];
+	if (!bottom_left) continue;
 	MapIter found = features.find(bottom_left);
 	if (found == features.end()) continue;
 	std::pair<MapIter, MapIter> range = features.equal_range(bottom_left);
@@ -119,9 +120,8 @@ int main(int argc, char* argv[])
 	   "703_The_right_side_of_the_screen_is_blank.pbm");
     return 1;
   }
-  printf("%08x %08x ... %08x %08x\n",
-	 vertical[0], vertical[1],
-	 vertical[cols32 - 2], vertical[cols32 - 1]);
+  // printf("%08x %08x ... %08x %08x\n",
+  // vertical[0], vertical[1], vertical[cols32 - 2], vertical[cols32 - 1]);
 
   return 0;
 }

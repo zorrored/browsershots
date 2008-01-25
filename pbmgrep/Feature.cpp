@@ -37,6 +37,9 @@ Feature::Feature(const char* _filename)
 	  integers[(rows - 2) * cols32], integers[(rows - 2) * cols32 + 1],
 	  integers[(rows - 1) * cols32], integers[(rows - 1) * cols32 + 1]);
   */
+  if (getBottomLeft() == 0) {
+    fprintf(stderr, "WARNING: bottom left in %s is zero\n", filename);
+  }
 }
 
 
