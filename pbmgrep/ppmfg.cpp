@@ -51,7 +51,7 @@ void foreground(pixel* input, bit* output,
     for (int y = 0; y < rows; y++) {
       int index = x + y * cols;
       for (int r = 0; r < rest; r++) {
-	output[index] = gray[index] == most ? 1 : 0;
+	output[index] = gray[index] == most ? 0 : 1;
 	index++;
       }
     }
