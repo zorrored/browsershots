@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
     // fprintf(stderr, "%d\r", y);
     pbm_readpbmrow(stdin, input, cols, format);
     read_integers(input, integers[y % cycle_rows], cols);
-    if (y > 4 && y < rows - 4) {
+    if (y > 4 && y < rows - 40) { // Ignore task bar.
       for (int column = 0; column < cols32; column++) {
 	vertical[column] |= integers[y % cycle_rows][0][column];
       }
