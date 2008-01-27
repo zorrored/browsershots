@@ -4,43 +4,41 @@
 
 import sys
 
+MAX_LABEL_WIDTH = 25
+SERVER_ROOT = 'http://browsershots.org/'
 PAGES = [
-    ('home',
-     'http://browsershots.org/'),
-    ('screenshots',
-     'http://browsershots.org/screenshots/'),
-    ('screenshot',
-     'http://browsershots.org/screenshots/4243e1d1b24b2cf66840c035c957cb2a/'),
-    ('requests',
-     'http://browsershots.org/requests/'),
-    ('factories',
-     'http://browsershots.org/factories/'),
-    ('factory',
-     'http://browsershots.org/factories/slog/'),
-    ('websites',
-     'http://browsershots.org/websites/'),
-    ('website',
-     'http://browsershots.org/http://browsershots.org/'),
+    ('home',        '/'),
+    ('screenshots', '/screenshots/'),
+    ('screenshot',  '/screenshots/4243e1d1b24b2cf66840c035c957cb2a/'),
+    ('requests',    '/requests/'),
+    ('factories',   '/factories/'),
+    ('factory',     '/factories/slog/'),
+    ('websites',    '/websites/'),
+    ('website',     '/http://browsershots.org/'),
     ]
 
 if len(sys.argv) == 2 and sys.argv[1] == 'config':
     print """
 graph_title Page load times
-graph_vlabel load time (sec)
+graph_vlabel seconds
 graph_args --base 1000 -l 0
 graph_scale no
 graph_category apache
 graph_info The page load times for various HTTP requests.
 """.strip()
-    for name, url in PAGES:
-        print "%s.label %s" % (name, name)
+    for name, path in PAGES:
+        url = SERVER_ROOT.rstrip('/') + path
+        if len(path) > MAX_LABEL_WIDTH:
+            path = path[:MAX_LABEL_WIDTH - 3] + '...'
+        print "%s.label %s" % (name, path)
         print "%s.info %s" % (name, url)
         print "%s.warning 3" % name
         print "%s.critical 10" % name
 else:
     import time
     import urllib2
-    for name, url in PAGES:
+    for name, path in PAGES:
+        url = SERVER_ROOT.rstrip('/') + path
         start = time.time()
         try:
             html = urllib2.urlopen(url).readlines()
@@ -54,4 +52,4 @@ else:
             elapsed = time.time() - start
             print "%s.value %.3f" % (name, elapsed)
         except:
-            print "%s.value U"
+            print "%s.value U" % name
