@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+# This is a simple plugin for Munin http://munin.projects.linpro.no/
+# to graph page load times for various HTTP requests.
+
+import sys
+
+PAGES = [
+    ('home',
+     'http://browsershots.org/'),
+    ('screenshots',
+     'http://browsershots.org/screenshots/'),
+    ('screenshot',
+     'http://browsershots.org/screenshots/4243e1d1b24b2cf66840c035c957cb2a/'),
+    ('requests',
+     'http://browsershots.org/requests/'),
+    ('factories',
+     'http://browsershots.org/factories/'),
+    ('factory',
+     'http://browsershots.org/factories/slog/'),
+    ('websites',
+     'http://browsershots.org/websites/'),
+    ('website',
+     'http://browsershots.org/http://browsershots.org/'),
+    ]
+
+if len(sys.argv) == 2 and sys.argv[1] == 'config':
+    print """
+graph_title Page load times
+graph_vlabel load time (sec)
+graph_args --base 1000 -l 0
+graph_scale no
+graph_category apache
+graph_info The page load times for various HTTP requests.
+""".strip()
+    for name, url in PAGES:
+        print "%s.label %s" % (name, name)
+        print "%s.info %s" % (name, url)
+        print "%s.warning 3" % name
+        print "%s.critical 10" % name
+else:
+    import time
+    import urllib2
+    for name, url in PAGES:
+        start = time.time()
+        try:
+            html = urllib2.urlopen(url).readlines()
+            if 'debug' in sys.argv:
+                while html and html[0].strip() == '':
+                    html = html[1:]
+                sys.stderr.write(html[0])
+                while html and html[-1].strip() == '':
+                    html = html[:-1]
+                sys.stderr.write(html[-1])
+            elapsed = time.time() - start
+            print "%s.value %.3f" % (name, elapsed)
+        except:
+            print "%s.value U"
