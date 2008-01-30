@@ -37,7 +37,7 @@ graph_title %(TITLE)s
 graph_vlabel seconds
 graph_args --base 1000 -l 0
 graph_scale no
-graph_category apache
+graph_category performance
 graph_info The page load times for various HTTP requests.
 """.strip() % locals()
     for name, path in PAGES:
