@@ -63,7 +63,7 @@ else:
                 while html and html[-1].strip() == '':
                     html = html[:-1]
                 sys.stderr.write(html[-1])
-            elapsed = time.time() - start
-            print "%s.value %.3f" % (name, elapsed)
         except:
-            print "%s.value U" % name
+            pass
+        elapsed = time.time() - start
+        print "%s.value %.3f" % (name, elapsed)
