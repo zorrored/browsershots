@@ -28,7 +28,7 @@ import httplib
 import urlparse
 
 HTTP_TIMEOUT = 10 # seconds
-MAX_RESPONSE_SIZE = 20000 # bytes
+MAX_RESPONSE_SIZE = 100000 # bytes
 
 
 class HTTPError(Exception):
