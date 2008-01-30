@@ -6,26 +6,40 @@ import sys
 
 MAX_LABEL_WIDTH = 25
 SERVER_ROOT = 'http://browsershots.org/'
-PAGES = [
-    ('home',        '/'),
-    ('screenshots', '/screenshots/'),
-    ('screenshot',  '/screenshots/4243e1d1b24b2cf66840c035c957cb2a/'),
-    ('requests',    '/requests/'),
-    ('factories',   '/factories/'),
-    ('factory',     '/factories/slog/'),
-    ('websites',    '/websites/'),
-    ('website',     '/http://browsershots.org/'),
-    ]
+
+if sys.argv[0].endswith('_screenshots'):
+    TITLE = "Screenshots page load times"
+    PAGES = [('screenshots', '/screenshots/'),
+             ('screenshot', '/screenshots/4243e1d1b24b2cf66840c035c957cb2a/')]
+elif sys.argv[0].endswith('_factories'):
+    TITLE = "Factories page load times"
+    PAGES = [('factories', '/factories/'),
+             ('factory', '/factories/slog/')]
+elif sys.argv[0].endswith('_websites'):
+    TITLE = "Websites page load times"
+    PAGES = [('websites', '/websites/'),
+             ('website', '/http://browsershots.org/')]
+elif sys.argv[0].endswith('_requests'):
+    TITLE = "Requests page load times"
+    PAGES = [('requests', '/requests/'),
+             ('request', '/requests/437061/')]
+else:
+    TITLE = "Page load times"
+    PAGES = [('home', '/'),
+             ('browsers', '/browsers/add/'),
+             ('priority', '/priority/'),
+             ('error404', '/404/')]
+
 
 if len(sys.argv) == 2 and sys.argv[1] == 'config':
     print """
-graph_title Page load times
+graph_title %(TITLE)s
 graph_vlabel seconds
 graph_args --base 1000 -l 0
 graph_scale no
 graph_category apache
 graph_info The page load times for various HTTP requests.
-""".strip()
+""".strip() % locals()
     for name, path in PAGES:
         url = SERVER_ROOT.rstrip('/') + path
         if len(path) > MAX_LABEL_WIDTH:
