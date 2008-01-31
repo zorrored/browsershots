@@ -60,7 +60,7 @@ msgstr "Oletko unohtanut salasanasi?"
 
 #: accounts/views.py:112
 msgid "Create a new account?"
-msgstr "Luo uusi tunnus."
+msgstr "Luo uusi tunnus?"
 
 #: accounts/views.py:127
 msgid "logged out"
@@ -214,7 +214,7 @@ msgstr "Salasana vaihdettu"
 
 #: accounts/views.py:406
 msgid "Your new password has been saved."
-msgstr "Uusi salasana tallennettu"
+msgstr "Uusi salasana tallennettu."
 
 #: accounts/views.py:407 accounts/views.py:431
 msgid "Click the link in the top right corner to log in."
@@ -234,7 +234,7 @@ msgstr "Käyttäjätili luotu"
 
 #: accounts/views.py:430
 msgid "A new user account was created."
-msgstr "Uusi käyttäjätili on luotu"
+msgstr "Uusi käyttäjätili on luotu."
 
 #: accounts/templates/accounts/profile.html:5
 msgid "profile"
@@ -268,12 +268,12 @@ msgstr "kuvankaappaustehtaasi"
 
 #: accounts/templates/accounts/profile.html:50
 msgid "Register a new screenshot factory?"
-msgstr "Rekisteröi uusi kuvankaappaustehdas."
+msgstr "Rekisteröi uusi kuvankaappaustehdas?"
 
 #: accounts/templates/accounts/profile.html:51
 #: factories/templates/factories/details.html:71
 msgid "Register this browser for screenshots?"
-msgstr "Rekisteröi tämä selain kuvankaappauksille."
+msgstr "Rekisteröi tämä selain kuvankaappauksille?"
 
 #: accounts/templates/accounts/profile.html:55
 msgid "recent factory errors"

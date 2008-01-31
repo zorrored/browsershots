@@ -1109,7 +1109,7 @@ msgstr "peticiones de grupo expiradas"
 #: requests/views.py:155
 #, python-format
 msgid "This request group already expired %d minutes ago."
-msgstr "La petición de grupo ya ha expirado hace %d minutos"
+msgstr "La petición de grupo ya ha expirado hace %d minutos."
 
 #: requests/views.py:158 websites/templates/websites/details.html:38
 #: websites/templates/websites/unknown.html:14

@@ -184,7 +184,7 @@ msgstr "Potvrující email byl vyžádán z jiné IP adresy."
 
 #: accounts/views.py:378
 msgid "Bad verification code"
-msgstr "Špatný potvrzující kód."
+msgstr "Špatný potvrzující kód"
 
 #: accounts/views.py:379
 msgid "The verification code has no email address."
@@ -1384,7 +1384,7 @@ msgstr "Neplatná URL (není zvolen název serveru)."
 
 #: start/forms/url.py:102
 msgid "Malformed URL (spaces in server name)."
-msgstr "Neplatná URL (mezery v názvu serveru)"
+msgstr "Neplatná URL (mezery v názvu serveru)."
 
 #: start/forms/url.py:131
 #, fuzzy, python-format

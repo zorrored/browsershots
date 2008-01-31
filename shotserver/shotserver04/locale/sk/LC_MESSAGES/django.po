@@ -162,7 +162,7 @@ msgstr ""
 #: accounts/views.py:323
 #, python-format
 msgid "The password must have %d or more characters."
-msgstr "Heslo musí mať %d a viac znakov"
+msgstr "Heslo musí mať %d a viac znakov."
 
 #: accounts/views.py:327
 msgid "The password must not be completely numeric."
@@ -198,7 +198,7 @@ msgstr "Platnosť overovacieho kódu skončila"
 
 #: accounts/views.py:382
 msgid "The verification email was requested more than 24 hours ago."
-msgstr "Overovací e-mail bol vyžiadaný pred viac ako 24 hodinami"
+msgstr "Overovací e-mail bol vyžiadaný pred viac ako 24 hodinami."
 
 #: accounts/views.py:396
 msgid "choose a new password"
