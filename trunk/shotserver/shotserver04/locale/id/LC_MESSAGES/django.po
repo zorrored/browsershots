@@ -23,7 +23,7 @@ msgstr "kamu sudah masuk"
 
 #: accounts/views.py:66
 msgid "Please log out and then try again."
-msgstr "silahkan keluar dan coba lagi"
+msgstr "silahkan keluar dan coba lagi."
 
 #: accounts/views.py:75
 msgid "Username"
@@ -35,19 +35,19 @@ msgstr "Kata kunci"
 
 #: accounts/views.py:93
 msgid "Please enable cookies in your browser."
-msgstr "silahkan mengaktifkan cookies pada browser anda"
+msgstr "silahkan mengaktifkan cookies pada browser anda."
 
 #: accounts/views.py:99
 msgid "Incorrect username or password."
-msgstr "salah pada nama pengguna atau kata kunci"
+msgstr "salah pada nama pengguna atau kata kunci."
 
 #: accounts/views.py:101
 msgid "This account is inactive."
-msgstr "pengguna ini sudah tidak aktif"
+msgstr "pengguna ini sudah tidak aktif."
 
 #: accounts/views.py:103 accounts/views.py:203
 msgid "Welcome to Browsershots!"
-msgstr "selamat datang browsershots"
+msgstr "selamat datang browsershots!"
 
 #: accounts/views.py:104
 msgid "let me in"
@@ -55,11 +55,11 @@ msgstr "biarkan saya masuk"
 
 #: accounts/views.py:111
 msgid "Forgot your password?"
-msgstr "lupa akan kata kunci anda"
+msgstr "lupa akan kata kunci anda?"
 
 #: accounts/views.py:112
 msgid "Create a new account?"
-msgstr "buatlah sebuah pengguna baru"
+msgstr "buatlah sebuah pengguna baru?"
 
 #: accounts/views.py:127
 msgid "logged out"
@@ -67,7 +67,7 @@ msgstr "keluar"
 
 #: accounts/views.py:129
 msgid "You have successfully logged out."
-msgstr "anda sudah berhasil keluar"
+msgstr "anda sudah berhasil keluar."
 
 #: accounts/views.py:200 accounts/templates/accounts/profile.html:8
 #, python-format
@@ -80,12 +80,12 @@ msgstr "terlalu banyak verivikasi email-email"
 
 #: accounts/views.py:230
 msgid "There were too many email requests from your IP in the last 24 hours."
-msgstr "disana terdapat banyak permintaan email dari IP dalam waktu 24 jam"
+msgstr "disana terdapat banyak permintaan email dari IP dalam waktu 24 jam."
 
 #: accounts/views.py:231 factories/views.py:58 start/views.py:86
 #: start/templates/start/start.html:20
 msgid "Please try again later."
-msgstr "silahkan coba lagi"
+msgstr "silahkan coba lagi."
 
 #: accounts/views.py:234
 msgid "email verification"
@@ -101,7 +101,7 @@ msgstr "email error"
 
 #: accounts/views.py:255
 msgid "Could not send email."
-msgstr "tidak bisa megirim email"
+msgstr "tidak bisa megirim email."
 
 #: accounts/views.py:257
 msgid "email sent"
@@ -114,7 +114,7 @@ msgstr ""
 
 #: accounts/views.py:259
 msgid "Check your email inbox and follow the instructions in the message."
-msgstr "periksa kotak masuk email anda dan ikuti instruksi di dalam pesan"
+msgstr "periksa kotak masuk email anda dan ikuti instruksi di dalam pesan."
 
 #: accounts/views.py:260
 msgid "If your email provider uses graylisting, it may take a few minutes."
@@ -134,7 +134,7 @@ msgstr "nama belakang"
 
 #: accounts/views.py:294
 msgid "Username must start with a lowercase letter."
-msgstr "pengguna harus memulai dengan sebuah lowercase tulisan"
+msgstr "pengguna harus memulai dengan sebuah lowercase tulisan."
 
 #: accounts/views.py:298
 msgid ""
@@ -164,7 +164,7 @@ msgstr ""
 
 #: accounts/views.py:340
 msgid "Repeat password is not the same."
-msgstr "kata kunci tidak sama,ulangi lagi"
+msgstr "kata kunci tidak sama,ulangi lagi."
 
 #: accounts/views.py:361
 msgid "This username is already taken."
@@ -208,7 +208,7 @@ msgstr "Kata Kunci diubah"
 
 #: accounts/views.py:406
 msgid "Your new password has been saved."
-msgstr "kata kunci anda yang baru telah disimpan"
+msgstr "kata kunci anda yang baru telah disimpan."
 
 #: accounts/views.py:407 accounts/views.py:431
 msgid "Click the link in the top right corner to log in."
@@ -444,11 +444,11 @@ msgstr "aktifkan"
 
 #: browsers/views.py:57
 msgid "Unknown factory name."
-msgstr "nama pabrik yang tidak diketahui"
+msgstr "nama pabrik yang tidak diketahui."
 
 #: browsers/views.py:67
 msgid "Password mismatch."
-msgstr "kata kunci tidak cocok"
+msgstr "kata kunci tidak cocok."
 
 #: browsers/templates/browsers/add.html:5
 #: browsers/templates/browsers/add.html:8

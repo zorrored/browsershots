@@ -448,7 +448,7 @@ msgstr "aktivér"
 
 #: browsers/views.py:57
 msgid "Unknown factory name."
-msgstr "Ukendt fabriksnavn"
+msgstr "Ukendt fabriksnavn."
 
 #: browsers/views.py:67
 msgid "Password mismatch."
@@ -718,7 +718,7 @@ msgstr "Invalid data."
 
 #: factories/views.py:209
 msgid "This color depth is already enabled."
-msgstr "Denne farve dybde er allerede aktiveret"
+msgstr "Denne farve dybde er allerede aktiveret."
 
 #: factories/views.py:295
 msgid "Name must start with a lowercase letter."
@@ -1386,7 +1386,7 @@ msgstr "Ukorrekt URL (server navn er ikke speciferet)."
 
 #: start/forms/url.py:102
 msgid "Malformed URL (spaces in server name)."
-msgstr "Ukorrekt URL (mellemrum i servernavn)"
+msgstr "Ukorrekt URL (mellemrum i servernavn)."
 
 #: start/forms/url.py:131
 #, fuzzy, python-format
@@ -1411,12 +1411,12 @@ msgstr "Kunne ikke hentet robots.txt fra %(hostname)s."
 #: start/forms/url.py:190
 #, python-format
 msgid "Browsershots was blocked by %(robots_txt_url)s."
-msgstr "Browsershots var blokeret af %(robots_txt_url)s"
+msgstr "Browsershots var blokeret af %(robots_txt_url)s."
 
 #: start/forms/url.py:191
 #, python-format
 msgid "Please read the %(faq)s."
-msgstr "Læs venligst %(faq)s"
+msgstr "Læs venligst %(faq)s."
 
 #: start/forms/url.py:202
 #, python-format

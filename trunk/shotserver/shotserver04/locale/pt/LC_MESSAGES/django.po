@@ -270,12 +270,12 @@ msgstr "as suas fábricas de capturas de ecrã"
 
 #: accounts/templates/accounts/profile.html:50
 msgid "Register a new screenshot factory?"
-msgstr "Registrar uma nova fábrica de captura de ecrã"
+msgstr "Registrar uma nova fábrica de captura de ecrã?"
 
 #: accounts/templates/accounts/profile.html:51
 #: factories/templates/factories/details.html:71
 msgid "Register this browser for screenshots?"
-msgstr "Registrar este navegador para as capturas de ecrã"
+msgstr "Registrar este navegador para as capturas de ecrã?"
 
 #: accounts/templates/accounts/profile.html:55
 msgid "recent factory errors"
@@ -522,7 +522,7 @@ msgstr "página não encontrada"
 
 #: common/templates/404.html:7
 msgid "The requested page was not found."
-msgstr "A página do pedido não foi encontrada"
+msgstr "A página do pedido não foi encontrada."
 
 #: common/templates/500.html:3 common/templates/500.html.py:6
 msgid "internal server error"
@@ -690,7 +690,7 @@ msgstr "fora de serviço"
 
 #: factories/views.py:57 start/views.py:85
 msgid "No active screenshot factories."
-msgstr "Nenhuma fábrica de capturas de ecrã activas"
+msgstr "Nenhuma fábrica de capturas de ecrã activas."
 
 #: factories/views.py:77 factories/views.py:88 factories/views.py:106
 #, python-format
@@ -730,11 +730,11 @@ msgstr "Este navegador já se encontra inactivo."
 
 #: factories/views.py:295
 msgid "Name must start with a lowercase letter."
-msgstr "O nome tem de começar com uma letra minúscula"
+msgstr "O nome tem de começar com uma letra minúscula."
 
 #: factories/views.py:299
 msgid "Name may contain only lowercase letters, digits, underscore, hyphen."
-msgstr "O nome só pode conter letras minúsculas, dígitos, _ e hífen"
+msgstr "O nome só pode conter letras minúsculas, dígitos, _ e hífen."
 
 #: factories/views.py:302
 msgid "This name is reserved."
@@ -742,7 +742,7 @@ msgstr "Este nome já se encontra reservado."
 
 #: factories/views.py:319
 msgid "This name is already taken."
-msgstr "Este nome j"
+msgstr "Este nome j."
 
 #: factories/views.py:338
 msgid "register a new screenshot factory"
@@ -772,7 +772,7 @@ msgstr "versão menor"
 
 #: factories/templates/factories/details.html:66
 msgid "No browsers registered for this factory."
-msgstr "Nenhuns navegadores registrados para esta fábrica"
+msgstr "Nenhuns navegadores registrados para esta fábrica."
 
 #: factories/templates/factories/details.html:85
 #: factories/templates/factories/details.html:110
@@ -1102,7 +1102,7 @@ msgstr ""
 #: requests/views.py:158 websites/templates/websites/details.html:38
 #: websites/templates/websites/unknown.html:14
 msgid "Request new screenshots?"
-msgstr "Pedir nova captura de ecrã"
+msgstr "Pedir nova captura de ecrã?"
 
 #: requests/templates/requests/details.html:9
 #: screenshots/templates/screenshots/details.html:23
@@ -1122,7 +1122,7 @@ msgstr "pedidos em espera"
 
 #: requests/templates/requests/overview.html:34
 msgid "No pending requests."
-msgstr "Nenhum pedido á espera"
+msgstr "Nenhum pedido á espera."
 
 #: screenshots/models.py:38
 msgid "This is not the requested browser."
@@ -1449,7 +1449,7 @@ msgstr "URL mal formado (erro de integridade da base de dados)."
 #: start/forms/url.py:271
 #, python-format
 msgid "Server failed to respond within %d seconds."
-msgstr "O servidor falhou a responder dentro dos %d segundos"
+msgstr "O servidor falhou a responder dentro dos %d segundos."
 
 #: start/templates/start/start.html:9 start/templates/start/start.html:12
 msgid "Test your web design in different browsers"

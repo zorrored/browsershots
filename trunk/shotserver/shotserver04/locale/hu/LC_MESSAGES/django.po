@@ -102,7 +102,7 @@ msgstr "email hiba"
 
 #: accounts/views.py:255
 msgid "Could not send email."
-msgstr "Email küldés sikertelen"
+msgstr "Email küldés sikertelen."
 
 #: accounts/views.py:257
 msgid "email sent"

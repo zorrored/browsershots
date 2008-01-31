@@ -23,7 +23,7 @@ msgstr "Sie sind schon eingeloggt"
 
 #: accounts/views.py:66
 msgid "Please log out and then try again."
-msgstr "Bitte neu einloggen"
+msgstr "Bitte neu einloggen."
 
 #: accounts/views.py:75
 msgid "Username"
@@ -39,11 +39,11 @@ msgstr "Cookies aktivieren."
 
 #: accounts/views.py:99
 msgid "Incorrect username or password."
-msgstr "Falsche Login Daten"
+msgstr "Falsche Login Daten."
 
 #: accounts/views.py:101
 msgid "This account is inactive."
-msgstr "Der Account ist inaktiv"
+msgstr "Der Account ist inaktiv."
 
 #: accounts/views.py:103 accounts/views.py:203
 msgid "Welcome to Browsershots!"
@@ -59,7 +59,7 @@ msgstr "Passwort vergessen?"
 
 #: accounts/views.py:112
 msgid "Create a new account?"
-msgstr "Registrieren"
+msgstr "Registrieren?"
 
 #: accounts/views.py:127
 msgid "logged out"
@@ -67,7 +67,7 @@ msgstr "Ausgeloggt"
 
 #: accounts/views.py:129
 msgid "You have successfully logged out."
-msgstr "Erfolgreich ausgeloggt"
+msgstr "Erfolgreich ausgeloggt."
 
 #: accounts/views.py:200 accounts/templates/accounts/profile.html:8
 #, python-format

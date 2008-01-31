@@ -210,7 +210,7 @@ msgstr "changer de mot de passe"
 
 #: accounts/views.py:405
 msgid "Password changed"
-msgstr "Mot de passe modifié."
+msgstr "Mot de passe modifié"
 
 #: accounts/views.py:406
 msgid "Your new password has been saved."
@@ -718,7 +718,7 @@ msgstr "Cette taille d'écran est déjà activée."
 
 #: factories/views.py:198 factories/views.py:211
 msgid "Invalid data."
-msgstr "Donnée invalide"
+msgstr "Donnée invalide."
 
 #: factories/views.py:209
 msgid "This color depth is already enabled."

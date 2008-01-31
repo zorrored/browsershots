@@ -23,7 +23,7 @@ msgstr "Zaten Giriş Yaptınız"
 
 #: accounts/views.py:66
 msgid "Please log out and then try again."
-msgstr "Lütfen çıkış yapın ve tekrar deneyin"
+msgstr "Lütfen çıkış yapın ve tekrar deneyin."
 
 #: accounts/views.py:75
 msgid "Username"
@@ -35,15 +35,15 @@ msgstr "Şifre"
 
 #: accounts/views.py:93
 msgid "Please enable cookies in your browser."
-msgstr "Lütfen internet tarayıcınızda cookie(çerez)leri aktif hale getirin"
+msgstr "Lütfen internet tarayıcınızda cookie(çerez)leri aktif hale getirin."
 
 #: accounts/views.py:99
 msgid "Incorrect username or password."
-msgstr "Yanlış kullanıcı adı veya şifre"
+msgstr "Yanlış kullanıcı adı veya şifre."
 
 #: accounts/views.py:101
 msgid "This account is inactive."
-msgstr "Bu hesap aktif değil"
+msgstr "Bu hesap aktif değil."
 
 #: accounts/views.py:103 accounts/views.py:203
 msgid "Welcome to Browsershots!"
@@ -100,11 +100,11 @@ msgstr "Email Gönder"
 
 #: accounts/views.py:254
 msgid "email error"
-msgstr "Email HATA!"
+msgstr "Email HATA"
 
 #: accounts/views.py:255
 msgid "Could not send email."
-msgstr "Email Gönderilemedi"
+msgstr "Email Gönderilemedi."
 
 #: accounts/views.py:257
 msgid "email sent"
