@@ -67,7 +67,7 @@ LANGUAGES = (
     ('da', u'Dansk'),
     ('de', u'Deutsch'),
     #('et', u'Eesti'),
-    ('en_GB', u'English (UK)'),
+    ('en-gb', u'English (UK)'),
     ('en', u'English (US)'),
     ('el', u'ελληνικά'),
     ('es', u'Español'),
