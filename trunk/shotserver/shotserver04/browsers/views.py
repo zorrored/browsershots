@@ -131,7 +131,7 @@ def add(http_request):
             initial['minor'] = agents.extract_minor(
                 version, browser_group.name)
             break
-    form = BrowserForm(Browser(), http_request.POST or initial)
+    form = BrowserForm(http_request.POST or initial)
     password_form = PasswordForm(http_request.POST or None)
     password_form['password'].field.widget.render_value = False
     if not http_request.POST:
