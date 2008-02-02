@@ -76,18 +76,24 @@ for factory in factories:
                 uploads_per_day=browser_per_day)
         factory_per_hour += browser_per_hour
         factory_per_day += browser_per_day
-    errors_per_day = ProblemReport.objects.filter(
+    errors_per_hour = factory.factoryerror_set.filter(
+        occurred__gte=ONE_HOUR_AGO).count()
+    errors_per_day = factory.factoryerror_set.filter(
+        occurred__gte=ONE_DAY_AGO).count()
+    problems_per_day = ProblemReport.objects.filter(
         screenshot__factory=factory,
         reported__gte=ONE_DAY_AGO).count()
-    errors_per_day += factory.factoryerror_set.filter(
-        occurred__gte=ONE_DAY_AGO).count()
     if (factory_per_hour != factory.uploads_per_hour or
         factory_per_day != factory.uploads_per_day or
-        errors_per_day != factory.errors_per_day):
+        errors_per_hour != factory.errors_per_hour or
+        errors_per_day != factory.errors_per_day or
+        problems_per_day != factory.problems_per_day):
         factory.update_fields(
             uploads_per_hour=factory_per_hour,
             uploads_per_day=factory_per_day,
-            errors_per_day=errors_per_day)
+            errors_per_hour=errors_per_hour,
+            errors_per_day=errors_per_day,
+            problems_per_day=problems_per_day)
     if factory.sponsor_id is not None:
         sponsor_per_day[factory.sponsor_id] = (
             sponsor_per_day.get(factory.sponsor_id, 0) +
