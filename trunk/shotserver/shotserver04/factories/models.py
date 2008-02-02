@@ -35,13 +35,14 @@ from shotserver04.common.templatetags import human
 from shotserver04.common import granular_update
 
 FACTORY_FIELDS = (
-    'name', 'operating_system', 'hardware',
-    'last_poll', 'last_upload',
-    'uploads_per_hour', 'uploads_per_day', 'errors_per_day',
-    'queue_estimate', 'created')
-FACTORY_FIELDS_HIDE = ('hardware', 'created', )
+    'name', 'operating_system', 'last_poll', 'last_upload',
+    'uploads', 'errors', 'problems_per_day', 'queue_estimate')
 FACTORY_FIELDS_SECONDS = ('queue_estimate')
 FACTORY_FIELDS_TIMESINCE = ('last_poll', 'last_upload', 'created')
+FACTORY_FIELDS_DAY_HOUR = {
+    'uploads': _("uploads per day, hour"),
+    'errors': _("errors per day, hour"),
+    }
 
 
 class Factory(models.Model):
@@ -151,13 +152,14 @@ class Factory(models.Model):
         HTML table header cells for factory list.
         """
         fields = []
-        for field in FACTORY_FIELDS: # cls._meta.admin.list_display:
-            if field in FACTORY_FIELDS_HIDE:
-                continue
-            try:
-                name = cls._meta.get_field(field).verbose_name
-            except models.FieldDoesNotExist:
-                name = _(field.replace('_', ' '))
+        for field in FACTORY_FIELDS:
+            if field in FACTORY_FIELDS_DAY_HOUR:
+                name = FACTORY_FIELDS_DAY_HOUR[field]
+            else:
+                try:
+                    name = cls._meta.get_field(field).verbose_name
+                except models.FieldDoesNotExist:
+                    name = _(field.replace('_', ' '))
             fields.append(u'<th>%s</th>' % human.human_br(capfirst(name)))
         return mark_safe(''.join(fields))
 
@@ -166,10 +168,16 @@ class Factory(models.Model):
         HTML table row cells for this factory.
         """
         fields = []
-        for field in FACTORY_FIELDS: # self._meta.admin.list_display:
-            if field in FACTORY_FIELDS_HIDE:
-                continue
-            value = getattr(self, field)
+        for field in FACTORY_FIELDS:
+            if field in FACTORY_FIELDS_DAY_HOUR:
+                day = getattr(self, field + '_per_day')
+                hour = getattr(self, field + '_per_hour')
+                if day or hour:
+                    value = '%d, %d' % (day, hour)
+                else:
+                    value = ''
+            else:
+                value = getattr(self, field)
             if callable(value):
                 value = value()
             if field == 'name':
