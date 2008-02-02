@@ -29,6 +29,8 @@ from shotserver04.common import granular_update
 
 class UserPayment(models.Model):
     user = models.ForeignKey(User, raw_id_admin=True)
+    currency = models.CharField(max_length=3)
+    amount = models.FloatField()
     euros = models.FloatField()
     paid = models.DateTimeField()
 
@@ -57,6 +59,8 @@ class NonProfit(models.Model):
 class UserDonation(models.Model):
     user = models.ForeignKey(User, raw_id_admin=True)
     non_profit = models.ForeignKey(NonProfit)
+    currency = models.CharField(max_length=3)
+    amount = models.FloatField()
     euros = models.FloatField()
     donated = models.DateTimeField()
 
