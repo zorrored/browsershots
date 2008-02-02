@@ -26,7 +26,6 @@ import time
 from datetime import datetime, timedelta
 from psycopg import IntegrityError
 import smtplib
-from decimal import Decimal
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -157,7 +156,7 @@ def totals(where=None):
 
 def month_revenue(year, month):
     """
-    Get the total monthly revenue, in Euros.
+    Get the total monthly shared revenue, in Euros.
     """
     if month == 12:
         next_year = year + 1
@@ -171,7 +170,7 @@ def month_revenue(year, month):
         activated__lt=datetime(next_year, next_month, 1))
     euros = sum([p.payment for p in priorities.filter(currency='EUR')])
     dollars = sum([p.payment for p in priorities.filter(currency='USD')])
-    return euros + (dollars / Decimal('1.5'))
+    return (float(euros) + (float(dollars) / 1.5)) / 2
 
 
 def user_month_totals(user):
