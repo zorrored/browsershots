@@ -17,7 +17,7 @@
 <tr>
 <th>{{ _("month")|capfirst|human_br }}</th>
 <th>{{ _("total screenshots")|capfirst|human_br }}</th>
-<th>{{ _("from my factories")|capfirst|human_br }}</th>
+<th>{{ _("from your factories")|capfirst|human_br }}</th>
 <th>{{ _("percent")|capfirst|human_br }}</th>
 <th>{{ _("revenue")|capfirst|human_br }}</th>
 </tr>
@@ -25,10 +25,10 @@
 {% for month, total, user_total, percent, revenue in month_totals %}
 <tr class="{% cycle row1,row2 %}">
 <td>{{ month }}</td>
-<td>{{ total }}</td>
-<td>{{ user_total }}</td>
-<td>{{ percent }}</td>
-<td>&euro;{{ revenue }}</td>
+<td style="text-align:right">{{ total }}</td>
+<td style="text-align:right">{{ user_total }}</td>
+<td style="text-align:right">{{ percent }}</td>
+<td style="text-align:right">&euro;{{ revenue }}</td>
 </tr>
 {% endfor %}
 </table>
