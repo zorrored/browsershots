@@ -35,11 +35,12 @@ class UserPayment(models.Model):
     paid = models.DateTimeField()
 
     class Admin:
-        list_display = ('euros', 'user', 'paid')
+        list_display = ('user', 'currency', 'amount', 'euros', 'paid')
 
     def __unicode__(self):
-        return u'%.2f EUR paid to %s on %s' % (
-            self.euros, self.user, self.paid.strftime('%Y-%m-%d'))
+        return u'%s %.2f paid to %s on %s' % (
+            self.currency, self.amount, self.user,
+            self.paid.strftime('%Y-%m-%d'))
 
 
 class NonProfit(models.Model):
@@ -65,9 +66,10 @@ class UserDonation(models.Model):
     donated = models.DateTimeField()
 
     class Admin:
-        list_display = ('user', 'non_profit', 'euros', 'donated')
+        list_display = ('user', 'non_profit',
+                        'currency', 'amount', 'euros', 'donated')
 
     def __unicode__(self):
-        return u'%.2f EUR donated to %s by %s on %s' % (
-            self.euros, self.non_profit, self.user,
+        return u'%s %.2f donated to %s by %s on %s' % (
+            self.currency, self.amount, self.non_profit, self.user,
             self.donated.strftime('%Y-%m-%d'))
