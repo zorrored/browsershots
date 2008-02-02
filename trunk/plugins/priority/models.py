@@ -30,11 +30,15 @@ from shotserver04.websites.models import Domain
 class UserPriority(models.Model):
     user = models.ForeignKey(User, raw_id_admin=True)
     priority = models.IntegerField()
+    activated = models.DateTimeField()
     expire = models.DateTimeField()
-    txn_id = models.CharField(max_length=40, blank=True)
+    txn_id = models.CharField(max_length=40)
+    currency = models.CharField(max_length=3)
+    payment = models.FloatField()
 
     class Admin:
-        list_display = ('user', 'priority', 'expire', 'txn_id')
+        list_display = ('user', 'priority', 'activated', 'expire',
+                        'txn_id', 'currency', 'payment')
 
     class Meta:
         verbose_name_plural = "user priority"

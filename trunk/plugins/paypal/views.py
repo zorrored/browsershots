@@ -133,7 +133,8 @@ def create_user_priority(log):
     if user is None:
         mail_admins("Could not guess user for payment", log)
         return
-    year, month, day, hour, minute, sec = datetime.now().timetuple()[:6]
+    activated = datetime.now()
+    year, month, day, hour, minute, sec = activated.timetuple()[:6]
     if month < 12:
         month += 1
     else:
@@ -147,8 +148,10 @@ def create_user_priority(log):
             if day <= 28:
                 raise
             day -= 1 # February 31st doesn't exist, reduce and try again.
-    priority = UserPriority(
-        user=user, priority=1, expire=expire, txn_id=log.txn_id)
+    priority = UserPriority(user=user, priority=1,
+                            activated=activated, expire=expire,
+                            txn_id=log.txn_id, currency=log.mc_currency,
+                            payment=float(log.mc_gross))
     priority.save()
     transaction.commit()
     mail_admins(unicode(priority), log)
