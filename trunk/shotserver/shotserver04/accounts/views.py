@@ -47,6 +47,7 @@ from shotserver04.common import error_page, success_page
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce
 
+
 USERNAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
 USERNAME_CHAR = USERNAME_CHAR_FIRST + '0123456789_-'
 PASSWORD_MIN_LENGTH = 6
@@ -132,6 +133,9 @@ def logout(http_request):
 
 
 def totals(where=None):
+    """
+    Count monthly screenshots.
+    """
     sql = [
         "SELECT",
         "date_part('year', date) AS year,",
@@ -150,7 +154,29 @@ def totals(where=None):
     return result
 
 
+def month_revenue(year, month):
+    """
+    Get the total monthly revenue, in Euros.
+    """
+    if month == 12:
+        next_year = year + 1
+        next_month = 1
+    else:
+        next_year = year
+        next_month = month + 1
+    from shotserver04.priority.models import UserPriority
+    priorities = UserPriority.objects.filter(
+        activated__gte=datetime(year, month, 1),
+        activated__lt=datetime(next_year, next_month, 1))
+    euros = sum([p.payment for p in priorities.filter(currency='EUR')])
+    dollars = sum([p.payment for p in priorities.filter(currency='USD')])
+    return euros + (dollars / 1.5)
+
+
 def user_month_totals(user):
+    """
+    Get monthly statistics about uploaded screenshots and revenue.
+    """
     factories = user.factory_set.all()
     if not factories.count():
         return
@@ -162,8 +188,13 @@ def user_month_totals(user):
     for year, month in keys:
         all = all_factories.get((year, month), 0)
         my = my_factories.get((year, month), 0)
+        revenue = 0
+        if 'shotserver04.priority' in settings.INSTALLED_APPS:
+            revenue = month_revenue(year, month)
         yield ('%04d-%02d' % (year, month), all, my,
-               '%.3f%%' % (100.0 * my / all))
+               '%.3f%%' % (100.0 * my / all),
+               '%.2f' % (revenue * my / all))
+
 
 @login_required
 def profile(http_request):
@@ -176,10 +207,6 @@ def profile(http_request):
     error_list = FactoryError.objects.filter(
         factory__in=factory_list).order_by('-id')[:10]
     preload_foreign_keys(error_list, factory=factory_list)
-    if 'shotserver04.points' in settings.INSTALLED_APPS:
-        from shotserver04.points import views as points
-        latest = points.latest_balance(http_request.user)
-        current_balance = latest.current_balance()
     month_totals = list(user_month_totals(http_request.user))
     return render_to_response('accounts/profile.html', locals(),
         context_instance=RequestContext(http_request))
