@@ -174,7 +174,7 @@ class Factory(models.Model):
             if field in FACTORY_FIELDS_DAY_HOUR:
                 day = getattr(self, field + '_per_day') or ''
                 hour = getattr(self, field + '_per_hour') or ''
-                fields.append(u'<td>%d</td><td>%d</td>' % (day, hour))
+                fields.append(u'<td>%s</td><td>%s</td>' % (day, hour))
                 continue
             value = getattr(self, field)
             if callable(value):
