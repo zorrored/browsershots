@@ -155,11 +155,13 @@ class Factory(models.Model):
         for field in FACTORY_FIELDS:
             if field in FACTORY_FIELDS_DAY_HOUR:
                 name = FACTORY_FIELDS_DAY_HOUR[field]
-            else:
-                try:
-                    name = cls._meta.get_field(field).verbose_name
-                except models.FieldDoesNotExist:
-                    name = _(field.replace('_', ' '))
+                fields.append(u'<th colspan="2">%s</th>' %
+                              human.human_br(capfirst(name)))
+                continue
+            try:
+                name = cls._meta.get_field(field).verbose_name
+            except models.FieldDoesNotExist:
+                name = _(field.replace('_', ' '))
             fields.append(u'<th>%s</th>' % human.human_br(capfirst(name)))
         return mark_safe(''.join(fields))
 
@@ -170,14 +172,11 @@ class Factory(models.Model):
         fields = []
         for field in FACTORY_FIELDS:
             if field in FACTORY_FIELDS_DAY_HOUR:
-                day = getattr(self, field + '_per_day')
-                hour = getattr(self, field + '_per_hour')
-                if day or hour:
-                    value = '%d, %d' % (day, hour)
-                else:
-                    value = ''
-            else:
-                value = getattr(self, field)
+                day = getattr(self, field + '_per_day') or ''
+                hour = getattr(self, field + '_per_hour') or ''
+                fields.append(u'<td>%d</td><td>%d</td>' % (day, hour))
+                continue
+            value = getattr(self, field)
             if callable(value):
                 value = value()
             if field == 'name':
