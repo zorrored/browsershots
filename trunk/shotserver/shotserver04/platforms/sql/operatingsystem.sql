@@ -3,7 +3,7 @@ INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","co
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (3,1,'PLD','2.0','Ac','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (4,1,'Gentoo','2006.0','','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (5,1,'Ubuntu','5.10','Breezy Badger','Canonical');
-INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (6,1,'Ubuntu','6.06','Dapper Drake','Canonical');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (6,1,'Ubuntu','6.06 LTS','Dapper Drake','Canonical');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (7,1,'Ubuntu','6.10','Edgy Eft','Canonical');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (8,1,'Ubuntu','7.04','Feisty Fawn','Canonical');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (9,2,'Mac OS X','10.3','Jaguar','Apple');
@@ -25,4 +25,15 @@ INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","co
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (25,1,'Gentoo','2006.1','','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (26,1,'Gentoo','2007.0','','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (27,1,'Ubuntu','7.10','Gutsy Gibbon','Canonical');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (28,1,'Debian','Testing','Lenny','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (29,1,'Ubuntu','8.04 LTS','Hardy Heron','Canonical');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (30,1,'Debian','Unstable','Sid','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (31,4,'FreeBSD','6.3','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (32,4,'FreeBSD','7.0','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (33,4,'FreeBSD','7.1','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (34,4,'FreeBSD','5.5','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (35,4,'OpenBSD','4.2','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (36,4,'OpenBSD','4.1','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (37,4,'NetBSD','4.0','','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (38,4,'NetBSD','3.1','','');
 SELECT setval('platforms_operatingsystem_id_seq', (SELECT max("id") FROM "platforms_operatingsystem"));
