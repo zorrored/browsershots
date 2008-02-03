@@ -5,4 +5,10 @@ INSERT INTO "browsers_engine" ("id","name","maker") VALUES (4,'AppleWebKit','App
 INSERT INTO "browsers_engine" ("id","name","maker") VALUES (5,'MSIE','Microsoft');
 INSERT INTO "browsers_engine" ("id","name","maker") VALUES (6,'Netscape','Netscape');
 INSERT INTO "browsers_engine" ("id","name","maker") VALUES (7,'Dillo','');
+INSERT INTO "browsers_engine" ("id","name","maker") VALUES (8,'Libwww','w3.org');
+INSERT INTO "browsers_engine" ("id","name","maker") VALUES (9,'Libwww-FM','w3.org');
+INSERT INTO "browsers_engine" ("id","name","maker") VALUES (10,'Links','');
+INSERT INTO "browsers_engine" ("id","name","maker") VALUES (11,'ELinks','');
+INSERT INTO "browsers_engine" ("id","name","maker") VALUES (12,'W3M','');
+INSERT INTO "browsers_engine" ("id","name","maker") VALUES (13,'NetFront','ACCESS');
 SELECT setval('browsers_engine_id_seq', (SELECT max("id") FROM "browsers_engine"));
