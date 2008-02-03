@@ -32,10 +32,11 @@ class UserPayment(models.Model):
     currency = models.CharField(max_length=3)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     euros = models.DecimalField(max_digits=7, decimal_places=2)
-    paid = models.DateTimeField()
+    balance = models.DecimalField(max_digits=7, decimal_places=2)
+    date = models.DateTimeField()
 
     class Admin:
-        list_display = ('user', 'currency', 'amount', 'euros', 'paid')
+        list_display = ('user', 'currency', 'amount', 'euros', 'date')
 
     def __unicode__(self):
         return u'%s %.2f paid to %s on %s' % (
@@ -63,11 +64,12 @@ class UserDonation(models.Model):
     currency = models.CharField(max_length=3)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     euros = models.DecimalField(max_digits=7, decimal_places=2)
-    donated = models.DateTimeField()
+    balance = models.DecimalField(max_digits=7, decimal_places=2)
+    date = models.DateTimeField()
 
     class Admin:
         list_display = ('user', 'non_profit',
-                        'currency', 'amount', 'euros', 'donated')
+                        'currency', 'amount', 'euros', 'date')
 
     def __unicode__(self):
         return u'%s %.2f donated to %s by %s on %s' % (
