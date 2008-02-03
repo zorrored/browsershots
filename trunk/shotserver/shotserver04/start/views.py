@@ -273,7 +273,10 @@ def multi_column(browser_forms):
     Arrange browsers in multiple columns per platform.
     """
     groups = [[form.column_length(), form] for form in browser_forms]
-    for total_columns in range(len(browser_forms), BROWSER_COLUMNS):
+    allow_columns = BROWSER_COLUMNS
+    if len(browser_forms) > 3:
+        allow_columns += 1
+    for total_columns in range(len(browser_forms), allow_columns):
         groups.sort()
         length, form = groups[-1]
         if length <= 4:
