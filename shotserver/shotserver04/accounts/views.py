@@ -154,25 +154,6 @@ def totals(where=None):
     return result
 
 
-def month_revenue(year, month):
-    """
-    Get the total monthly shared revenue, in Euros.
-    """
-    if month == 12:
-        next_year = year + 1
-        next_month = 1
-    else:
-        next_year = year
-        next_month = month + 1
-    from shotserver04.priority.models import UserPriority
-    priorities = UserPriority.objects.filter(
-        activated__gte=datetime(year, month, 1),
-        activated__lt=datetime(next_year, next_month, 1))
-    euros = sum([p.payment for p in priorities.filter(currency='EUR')])
-    dollars = sum([p.payment for p in priorities.filter(currency='USD')])
-    return (float(euros) + (float(dollars) / 1.5)) / 2
-
-
 def user_month_totals(user):
     """
     Get monthly statistics about uploaded screenshots and revenue.
@@ -189,7 +170,8 @@ def user_month_totals(user):
         all = all_factories.get((year, month), 0)
         my = my_factories.get((year, month), 0)
         revenue = 0
-        if 'shotserver04.priority' in settings.INSTALLED_APPS:
+        if 'shotserver04.revenue' in settings.INSTALLED_APPS:
+            from shotserver04.revenue import month_revenue
             revenue = month_revenue(year, month)
         yield ('%04d-%02d' % (year, month), all, my,
                '%.3f%%' % (100.0 * my / all),
