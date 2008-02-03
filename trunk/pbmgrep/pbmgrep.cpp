@@ -65,11 +65,21 @@ int main(int argc, char* argv[])
   for (int column = 0; column < cols32; column++) {
     vertical[column] = 0;
   }
+  bool pattern_background = true;
 
   for (int y = 0; y < rows; y++) {
     // fprintf(stderr, "%d\r", y);
     pbm_readpbmrow(stdin, input, cols, format);
     read_integers(input, integers[y % cycle_rows], cols);
+    if (y >= 4 && pattern_background) {
+      for (int column = 0; column < cols32; column++) {
+	if (integers[y % cycle_rows][0][column] !=
+	    integers[(y - 4) % cycle_rows][0][column]) {
+	  pattern_background = false;
+	  break;
+	}
+      }
+    }
     if (y > 4 && y < rows - 40) { // Ignore task bar.
       for (int column = 0; column < cols32; column++) {
 	vertical[column] |= integers[y % cycle_rows][0][column];
@@ -105,7 +115,7 @@ int main(int argc, char* argv[])
   for (int column = 0; column < cols32; column++) {
     if (vertical[column]) totally_blank = false;
   }
-  if (totally_blank) {
+  if (totally_blank or pattern_background) {
     printf("%d\t%d\t%d\t%d\t%s\n", 0, 0, cols, rows,
 	   "701_The_screen_is_blank.pbm");
     return 1;
