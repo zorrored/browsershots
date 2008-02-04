@@ -45,6 +45,7 @@ class UserRevenue(models.Model):
 
     class Meta:
         unique_together = ('user', 'year', 'month')
+        ordering = ('-date', )
 
     def __unicode__(self):
         return u'revenue share for %d screenshots (%.3f%%) in %04d-%02d' % (
@@ -64,6 +65,9 @@ class UserPayment(models.Model):
     class Admin:
         list_display = ('user', 'currency', 'amount', 'euros', 'date')
 
+    class Meta:
+        ordering = ('-date', )
+
     def __unicode__(self):
         return u'payment of %s %s' % (self.currency, abs(self.amount))
 
@@ -76,6 +80,9 @@ class NonProfit(models.Model):
 
     class Admin:
         list_display = ('name', 'url')
+
+    class Meta:
+        ordering = ('name', )
 
     def __unicode__(self):
         return self.name
@@ -98,6 +105,9 @@ class UserDonation(models.Model):
     class Admin:
         list_display = ('user', 'non_profit',
                         'currency', 'amount', 'euros', 'date')
+
+    class Meta:
+        ordering = ('-date', )
 
     def __unicode__(self):
         return u'donation of %s %.2f to %s' % (
