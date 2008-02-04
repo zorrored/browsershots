@@ -145,6 +145,6 @@ def check_ppm_problems(ppmname):
         filename = os.path.basename(parts[4]).split('.')[0]
         filename_parts = filename.split('_')
         raise Fault(int(filename_parts[0]),
-                    capfirst(' '.join(filename_parts[1:])))
+                    capfirst(' '.join(filename_parts[1:]) + '.'))
     else:
         raise Fault(500 + status, ' '.join(lines))
