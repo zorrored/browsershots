@@ -132,10 +132,45 @@
 
 {% if problems_list %}
 <h2><a name="problems">{{ _("recent problem reports")|capfirst }}</a></h2>
-<ul>
+<table class="problems vertical">
+<thead>
+<tr>
+<th>{{ _("code")|capfirst }}</th>
+<th>{{ _("message")|capfirst }}</th>
+<th>{{ _("age")|capfirst }}</th>
+</tr>
+</thead>
+<tbody>
 {% for problem in problems_list %}
-<li>{{ problem|human_link }} ({% blocktrans with problem.reported|timesince as interval %}{{ interval }} ago{% endblocktrans %})</li>
+<tr class="{% cycle row1,row2 %}">
+<td>{{ problem.code }}</td>
+<td>{{ problem|human_link }}</td>
+<td>{{ problem.reported|human_timesince }}</td>
+</tr>
 {% endfor %}
-</ul>
+</tbody>
+</table>
+{% endif %}
+
+{% if errors_list %}
+<h2><a name="errors">{{ _("recent factory errors")|capfirst }}</a></h2>
+<table class="errors vertical">
+<thead>
+<tr>
+<th>{{ _("code")|capfirst }}</th>
+<th>{{ _("message")|capfirst }}</th>
+<th>{{ _("age")|capfirst }}</th>
+</tr>
+</thead>
+<tbody>
+{% for error in errors_list %}
+<tr class="{% cycle row1,row2 %}">
+<td>{{ error.code }}</td>
+<td>{{ error.message }}</td>
+<td>{{ error.occurred|human_timesince }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
 {% endif %}
 {% endblock %}

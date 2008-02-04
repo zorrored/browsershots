@@ -36,13 +36,9 @@ from shotserver04.common import granular_update
 
 FACTORY_FIELDS = (
     'name', 'operating_system', 'last_poll', 'last_upload',
-    'uploads', 'errors', 'problems_per_day', 'queue_estimate')
+    'uploads_per_hour', 'uploads_per_day', 'queue_estimate')
 FACTORY_FIELDS_SECONDS = ('queue_estimate')
 FACTORY_FIELDS_TIMESINCE = ('last_poll', 'last_upload', 'created')
-FACTORY_FIELDS_DAY_HOUR = {
-    'uploads': _("uploads per day, hour"),
-    'errors': _("errors per day, hour"),
-    }
 
 
 class Factory(models.Model):
@@ -153,11 +149,6 @@ class Factory(models.Model):
         """
         fields = []
         for field in FACTORY_FIELDS:
-            if field in FACTORY_FIELDS_DAY_HOUR:
-                name = FACTORY_FIELDS_DAY_HOUR[field]
-                fields.append(u'<th colspan="2">%s</th>' %
-                              human.human_br(capfirst(name)))
-                continue
             try:
                 name = cls._meta.get_field(field).verbose_name
             except models.FieldDoesNotExist:
@@ -171,11 +162,21 @@ class Factory(models.Model):
         """
         fields = []
         for field in FACTORY_FIELDS:
-            if field in FACTORY_FIELDS_DAY_HOUR:
-                day = getattr(self, field + '_per_day') or ''
-                hour = getattr(self, field + '_per_hour') or ''
-                fields.append(u'<td>%s</td><td>%s</td>' % (day, hour))
-                continue
+            extra = []
+            if field == 'uploads_per_day':
+                if self.errors_per_day:
+                    extra.append('<a href="%s#errors">%s</a>' % (
+                            self.get_absolute_url(),
+                            _("%d errors") % self.errors_per_day))
+                if self.problems_per_day:
+                    extra.append('<a href="%s#problems">%s</a>' % (
+                            self.get_absolute_url(),
+                            _("%d problems") % self.problems_per_day))
+            if field == 'uploads_per_hour':
+                if self.errors_per_hour:
+                    extra.append('<a href="%s#errors">%s</a>' % (
+                            self.get_absolute_url(),
+                            _("%d errors") % self.errors_per_hour))
             value = getattr(self, field)
             if callable(value):
                 value = value()
@@ -187,6 +188,8 @@ class Factory(models.Model):
                 value = human.human_seconds(value)
             if value is None or value == 0:
                 value = ''
+            if extra:
+                value = '%s (%s)' % (value, ', '.join(extra))
             fields.append(u'<td>%s</td>' % value)
         return mark_safe(''.join(fields))
 
