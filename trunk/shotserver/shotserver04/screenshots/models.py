@@ -305,7 +305,7 @@ class Screenshot(models.Model):
         browser_group = self.browser.browser_group
         return self.navigation(
             unicode(_("with %(browser)s")) % {'browser': browser_group.name},
-            already=Screenshot.objects.filter(website=self.website).count(),
+            already=self.website.screenshot_set.count(),
             website=self.website,
             browser__browser_group=browser_group)
 
@@ -316,7 +316,7 @@ class Screenshot(models.Model):
         platform = self.factory.operating_system.platform
         return self.navigation(
             unicode(_("on %(platform)s")) % {'platform': platform.name},
-            already=Screenshot.objects.filter(website=self.website).count(),
+            already=self.website.screenshot_set.count(),
             website=self.website,
             factory__operating_system__platform=platform)
 
