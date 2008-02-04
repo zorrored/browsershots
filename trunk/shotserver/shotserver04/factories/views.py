@@ -276,6 +276,8 @@ def details(http_request, name):
         bool(browser.command) for browser in browser_list]
     problems_list = ProblemReport.objects.filter(
         screenshot__factory=factory)[:10]
+    preload_foreign_keys(problems_list, screenshot=True)
+    errors_list = factory.factoryerror_set.all()[:10]
     return render_to_response('factories/details.html', locals(),
         context_instance=RequestContext(http_request))
 
