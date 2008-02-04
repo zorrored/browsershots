@@ -137,6 +137,7 @@
 <tr>
 <th>{{ _("code")|capfirst }}</th>
 <th>{{ _("message")|capfirst }}</th>
+<th>{{ _("browser")|capfirst }}</th>
 <th>{{ _("age")|capfirst }}</th>
 </tr>
 </thead>
@@ -145,6 +146,7 @@
 <tr class="{% cycle row1,row2 %}">
 <td>{{ problem.code }}</td>
 <td>{{ problem|human_link }}</td>
+<td>{{ problem.screenshot.browser.browser_group }} {{ problem.screenshot.browser.major}}.{{ problem.screenshot.browser.minor }}</td>
 <td>{{ problem.reported|human_timesince }}</td>
 </tr>
 {% endfor %}
@@ -159,6 +161,7 @@
 <tr>
 <th>{{ _("code")|capfirst }}</th>
 <th>{{ _("message")|capfirst }}</th>
+<th>{{ _("browser")|capfirst }}</th>
 <th>{{ _("age")|capfirst }}</th>
 </tr>
 </thead>
@@ -166,7 +169,8 @@
 {% for error in errors_list %}
 <tr class="{% cycle row1,row2 %}">
 <td>{{ error.code }}</td>
-<td>{{ error.message }}</td>
+<td>{% if error.hashkey %}<a href="/png/original/{{ error.hashkey.0 }}{{ error.hashkey.1 }}/{{ error.hashkey }}.png">{% endif %}{{ error.message }}{% if error.hashkey %}</a>{% endif %}</td>
+<td>{% if error.request %}{{ error.request.browser_group }} {{ error.request.major}}.{{ error.request.minor }}{% endif %}</td>
 <td>{{ error.occurred|human_timesince }}</td>
 </tr>
 {% endfor %}
