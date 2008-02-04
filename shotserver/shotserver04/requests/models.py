@@ -199,13 +199,12 @@ class RequestGroup(models.Model):
             screenshot__browser=self._browsers_cache)
         preload_foreign_keys(requests,
             screenshot__factory=self._factories_cache)
-        total_bytes = sum([
-            os.path.getsize(storage.png_filename(request.screenshot.hashkey))
-            for request in requests])
         # Get screenshots and sort by id.
         screenshots = [(request.screenshot_id, request.screenshot)
                        for request in requests]
         if screenshots:
+            total_bytes = sum([screenshot.bytes or 0
+                               for index, screenshot in screenshots])
             screenshots.sort()
             max_height = max([screenshot.height * 80 / screenshot.width
                               for index, screenshot in screenshots])
@@ -359,7 +358,7 @@ _("[Reload this page] or bookmark it and come back later."))))
         else:
             text = unicode(capfirst(
                 _("download %(count)d screenshots") % locals()))
-        if bytes is not None:
+        if bytes:
             text += ' (%s)' % filesizeformat(bytes).replace(' ', '&nbsp;')
         div = u'<div class="floatleft">%s</div>'
         link = u'<a href="/screenshots/%s">%s</a>'
