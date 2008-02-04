@@ -217,10 +217,6 @@ class Screenshot(models.Model):
         """Shortcut for templates."""
         return self.preview_div(caption=unicode(self.browser))
 
-    def get_file_size(self):
-        """Get size in bytes of original screenshot file."""
-        return os.path.getsize(storage.png_filename(self.hashkey))
-
     def arrow(self, screenshot, img, alt):
         """
         HTML link to next or previous screenshot in a group.

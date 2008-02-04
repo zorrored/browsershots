@@ -76,7 +76,7 @@ width="512" height="{{ screenshot.get_large_height }}"
 </tr>
 <tr>
 <th>{{ _("file size")|capfirst }}:</th>
-<td>{{ screenshot.get_file_size|filesizeformat }}</td>
+<td>{{ screenshot.bytes|filesizeformat }}</td>
 </tr>
 <tr class="separator">
 <th>{{ _("requested")|capfirst }}:</th>
