@@ -43,6 +43,11 @@ def png_filename(hashkey, size=ORIGINAL_SIZE):
     return os.path.join(png_path(hashkey, size), hashkey + '.png')
 
 
+def png_filesize(hashkey, size=ORIGINAL_SIZE):
+    """Get file size of the PNG file in bytes."""
+    return os.path.getsize(png_filename(hashkey, size))
+
+
 def makedirs(path):
     """
     Make directory (and parents) if necessary.

@@ -93,6 +93,7 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
             u"The browser has not visited the requested website.")
     # Store and check screenshot file
     hashkey = storage.save_upload(screenshot)
+    bytes = storage.png_filesize(hashkey)
     ppmname = storage.pngtoppm(hashkey)
     try:
         magic, width, height = storage.read_pnm_header(ppmname)
@@ -111,7 +112,8 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Save screenshot in database
     screenshot = Screenshot(hashkey=hashkey,
         user=request_group.user, website=request_group.website,
-        factory=factory, browser=browser, width=width, height=height)
+        factory=factory, browser=browser,
+        width=width, height=height, bytes=bytes)
     screenshot.save()
     # Close the request
     close_request(request_id, factory, screenshot)
