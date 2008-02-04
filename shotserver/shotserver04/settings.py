@@ -23,10 +23,11 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-import deseb
-
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+if DEBUG:
+    import deseb
 
 # Sender address for automated messages from Django.
 DEFAULT_FROM_EMAIL = 'noreply@example.com'
