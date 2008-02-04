@@ -183,13 +183,10 @@ def profile(http_request):
     """
     Show a user's private profile page.
     """
+    month_totals = list(user_month_totals(http_request.user))
     factory_table_header = Factory.table_header()
     factory_list = Factory.objects.select_related().filter(
         admin=http_request.user)
-    error_list = FactoryError.objects.filter(
-        factory__in=factory_list).order_by('-id')[:10]
-    preload_foreign_keys(error_list, factory=factory_list)
-    month_totals = list(user_month_totals(http_request.user))
     return render_to_response('accounts/profile.html', locals(),
         context_instance=RequestContext(http_request))
 
