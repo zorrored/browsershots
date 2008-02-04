@@ -25,6 +25,7 @@ __author__ = "$Author$"
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from shotserver04.factories.models import Factory
+from shotserver04.requests.models import Request
 
 
 class FactoryError(models.Model):
@@ -37,6 +38,10 @@ class FactoryError(models.Model):
         _("error code"))
     message = models.CharField(
         _("error message"), max_length=600)
+    request = models.ForeignKey(Request,
+         verbose_name=_("request"), blank=True, null=True)
+    hashkey = models.CharField(
+        _("hashkey"), max_length=32, blank=True, null=True)
     occurred = models.DateTimeField(
         _("occurred"), auto_now_add=True)
 

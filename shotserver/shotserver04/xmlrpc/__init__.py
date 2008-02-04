@@ -64,7 +64,9 @@ def factory_xmlrpc(func):
                 from shotserver04.messages.models import FactoryError
                 # Save error message in the database
                 FactoryError.objects.create(factory=factory,
-                    code=fault.faultCode, message=fault.faultString)
+                    code=fault.faultCode, message=fault.faultString,
+                    request=getattr(fault, 'request', None),
+                    hashkey=getattr(fault, 'hashkey', None))
             raise
 
     wrapper.__name__ = func.__name__

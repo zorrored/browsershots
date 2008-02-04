@@ -41,6 +41,13 @@ PREVIEW_SIZES = [512, 240, 160, 32]
 # PREVIEW_SIZES = [640, 316, 208, 154, 100, 64, 46]
 
 
+class ExtraFault(Fault):
+    def __init__(self, code, message, **extra):
+        Fault.__init__(self, code, message, **extra)
+        for key in extra:
+            setattr(self, key, extra[key])
+
+
 @serializable
 def close_request(request_id, factory, screenshot):
     """
@@ -89,8 +96,9 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Make sure the request was redirected by the browser
     browser = request.browser
     if browser is None or browser.factory != factory:
-        raise Fault(406,
-            u"The browser has not visited the requested website.")
+        raise ExtraFault(406,
+            u"The browser has not visited the requested website.",
+            request=request)
     # Store and check screenshot file
     hashkey = storage.save_upload(screenshot)
     bytes = storage.png_filesize(hashkey)
@@ -98,11 +106,12 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     try:
         magic, width, height = storage.read_pnm_header(ppmname)
         if (request_group.width and request_group.width != width):
-            raise Fault(412,
+            raise ExtraFault(412,
                 u"The screenshot is %d pixels wide, not %d as requested." %
-                (width, request_group.width))
+                (width, request_group.width),
+                request=request)
         if os.path.exists('/usr/local/etc/pbmgrep'):
-            check_ppm_problems(ppmname)
+            check_ppm_problems(ppmname, request, hashkey)
         # Make smaller preview images
         for size in PREVIEW_SIZES:
             storage.scale(ppmname, size, hashkey)
@@ -128,7 +137,7 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     return hashkey
 
 
-def check_ppm_problems(ppmname):
+def check_ppm_problems(ppmname, request, hashkey):
     """
     Check for known problems with pbmgrep.
     """
@@ -144,7 +153,9 @@ def check_ppm_problems(ppmname):
     if len(parts) == 5:
         filename = os.path.basename(parts[4]).split('.')[0]
         filename_parts = filename.split('_')
-        raise Fault(int(filename_parts[0]),
-                    capfirst(' '.join(filename_parts[1:]) + '.'))
+        code = int(filename_parts[0])
+        message = capfirst(' '.join(filename_parts[1:]) + '.')
     else:
-        raise Fault(500 + status, ' '.join(lines))
+        code = status
+        message = ' '.join(lines)
+    raise ExtraFault(code, message, request=request, hashkey=hashkey)
