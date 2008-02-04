@@ -48,6 +48,7 @@ class FactoryError(models.Model):
     class Meta:
         verbose_name = _("factory error message")
         verbose_name_plural = _("factory error messages")
+        ordering = ('-occurred', )
 
     def __unicode__(self):
         return self.message
