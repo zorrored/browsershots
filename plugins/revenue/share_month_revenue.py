@@ -60,6 +60,7 @@ for user in User.objects.all():
     euros = Decimal('%.2f' % revenue)
     if euros < Decimal('0.01'):
         euros = Decimal('0.01')
+    balance = latest_balance(user, before=date) + euros
     existing = UserRevenue.objects.filter(
         user=user,
         year=year,
@@ -67,25 +68,15 @@ for user in User.objects.all():
     if not screenshots:
         existing.delete()
         continue
-    print screenshots, '%.3f' % percent, '€', euros, user
+    print screenshots, '%.3f%%' % percent, '€%.2f' % euros, user,
     if len(existing) == 1:
-        balance = latest_balance(user, before=date) + euros
         existing[0].update_fields(
-            screenshots=screenshots,
-            percent=percent,
-            euros=euros,
-            balance=balance,
-            date=date)
+            screenshots=screenshots, percent=percent,
+            euros=euros, balance=balance, date=date)
         print 'updated'
     else:
-        balance = latest_balance(user) + euros
         UserRevenue.objects.create(
-            user=user,
-            year=year,
-            month=month,
-            screenshots=screenshots,
-            percent=percent,
-            euros=euros,
-            balance=balance,
-            date=date)
+            user=user, year=year, month=month,
+            screenshots=screenshots, percent=percent,
+            euros=euros, balance=balance, date=date)
         print 'created'
