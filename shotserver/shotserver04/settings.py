@@ -26,9 +26,6 @@ __author__ = "$Author$"
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-if DEBUG:
-    import deseb
-
 # Sender address for automated messages from Django.
 DEFAULT_FROM_EMAIL = 'noreply@example.com'
 
@@ -241,3 +238,6 @@ except ImportError:
     pass
 if 'EXTRA_APPS' in locals():
     INSTALLED_APPS += EXTRA_APPS
+
+if DEBUG:
+    import deseb
