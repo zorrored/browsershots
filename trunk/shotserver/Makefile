@@ -72,7 +72,8 @@ reset : backup
 
 customsql :
 	django_dump.py -p shotserver04 -s shotserver04 \
-	Platform OperatingSystem Javascript Java Flash Engine BrowserGroup
+	Platform OperatingSystem Engine BrowserGroup \
+	Javascript Java Flash NonProfit
 
 export :
 	./django_dump.py -p shotserver04 -o export \
