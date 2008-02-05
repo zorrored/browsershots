@@ -93,12 +93,6 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     request_group = request.request_group
     # Make sure the request was locked by this factory
     request.check_factory_lock(factory)
-    # Make sure the request was redirected by the browser
-    browser = request.browser
-    if browser is None or browser.factory != factory:
-        raise ExtraFault(406,
-            u"The browser has not visited the requested website.",
-            request=request)
     # Store and check screenshot file
     hashkey = storage.save_upload(screenshot)
     bytes = storage.png_filesize(hashkey)
@@ -109,9 +103,15 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
             raise ExtraFault(412,
                 u"The screenshot is %d pixels wide, not %d as requested." %
                 (width, request_group.width),
-                request=request)
+                request=request, hashkey=hashkey)
         if os.path.exists('/usr/local/etc/pbmgrep'):
             check_ppm_problems(ppmname, request, hashkey)
+        # Make sure the request was redirected by the browser
+        browser = request.browser
+        if browser is None or browser.factory_id != factory.id:
+            raise ExtraFault(406,
+                u"The browser has not visited the requested website.",
+                request=request, hashkey=hashkey)
         # Make smaller preview images
         for size in PREVIEW_SIZES:
             storage.scale(ppmname, size, hashkey)
