@@ -6,7 +6,7 @@ INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","co
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (6,1,'Ubuntu','6.06 LTS','Dapper Drake','Canonical');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (7,1,'Ubuntu','6.10','Edgy Eft','Canonical');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (8,1,'Ubuntu','7.04','Feisty Fawn','Canonical');
-INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (9,2,'Mac OS X','10.3','Jaguar','Apple');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (9,2,'Mac OS X','10.3','Panther','Apple');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (10,2,'Mac OS X','10.4','Tiger','Apple');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (11,2,'Mac OS X','10.5','Leopard','Apple');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (12,3,'Windows','98','','Microsoft');
