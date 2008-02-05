@@ -96,6 +96,13 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Store and check screenshot file
     hashkey = storage.save_upload(screenshot)
     bytes = storage.png_filesize(hashkey)
+    # Make sure the request was redirected by the browser
+    browser = request.browser
+    if browser is None or browser.factory_id != factory.id:
+        raise ExtraFault(406,
+            u"The browser has not visited the requested website.",
+            request=request, hashkey=hashkey)
+    # Unpack PNG file and run more checks
     ppmname = storage.pngtoppm(hashkey)
     try:
         magic, width, height = storage.read_pnm_header(ppmname)
@@ -106,12 +113,6 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
                 request=request, hashkey=hashkey)
         if os.path.exists('/usr/local/etc/pbmgrep'):
             check_ppm_problems(ppmname, request, hashkey)
-        # Make sure the request was redirected by the browser
-        browser = request.browser
-        if browser is None or browser.factory_id != factory.id:
-            raise ExtraFault(406,
-                u"The browser has not visited the requested website.",
-                request=request, hashkey=hashkey)
         # Make smaller preview images
         for size in PREVIEW_SIZES:
             storage.scale(ppmname, size, hashkey)
