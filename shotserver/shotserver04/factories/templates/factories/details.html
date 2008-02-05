@@ -132,6 +132,7 @@
 
 {% if problems_list %}
 <h2><a name="problems">{{ _("recent problem reports")|capfirst }}</a></h2>
+<p>{{ _("These problems were reported manually by the user.") }}</p>
 <table class="problems vertical">
 <thead>
 <tr>
@@ -156,6 +157,7 @@
 
 {% if errors_list %}
 <h2><a name="errors">{{ _("recent factory errors")|capfirst }}</a></h2>
+<p>{{ _("These errors were detected automatically on the server.") }}</p>
 <table class="errors vertical">
 <thead>
 <tr>
