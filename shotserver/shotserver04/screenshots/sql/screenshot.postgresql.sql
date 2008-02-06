@@ -8,4 +8,4 @@ CHECK (640 <= width and width <= 1600);
 
 ALTER TABLE screenshots_screenshot
 ADD CONSTRAINT screenshots_screenshot_aspect_ratio_check
-CHECK (width / 2 <= height and height <= width * 10);
+CHECK (width / 2 <= height and height <= width * 4);
