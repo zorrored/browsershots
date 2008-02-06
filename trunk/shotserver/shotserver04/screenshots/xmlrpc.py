@@ -115,7 +115,7 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
             raise ExtraFault(413,
                 u"The screenshot is too tall (more than 4 times the width).",
                 request=request, hashkey=hashkey)
-        if height < width / 4:
+        if height < width / 2:
             raise ExtraFault(414,
                 u"The screenshot is too short (less than half the width).",
                 request=request, hashkey=hashkey)
