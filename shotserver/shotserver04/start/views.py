@@ -122,10 +122,10 @@ def start(http_request):
             from shotserver04.priority import domain_priority, user_priority
             priority = max(domain_priority(url_form.cleaned_data['domain']),
                            user_priority(http_request.user))
-            usage_limited = check_usage_limits(
-                http_request, priority,
-                url_form.cleaned_data['website'],
-                url_form.cleaned_data['domain'])
+        usage_limited = check_usage_limits(
+            http_request, priority,
+            url_form.cleaned_data['website'],
+            url_form.cleaned_data['domain'])
         if usage_limited:
             valid_post = False
     if not valid_post:
