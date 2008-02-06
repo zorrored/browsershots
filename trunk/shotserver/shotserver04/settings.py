@@ -154,7 +154,7 @@ DISALLOWED_SERVER_IP_LIST = """
 224.0.0.0/4
 240.0.0.0/4
 255.255.255.255
-""".split()
+""".splitlines()
 
 # Block requests for screenshots of certain domain names.
 DISALLOWED_DOMAIN_LIST = """
