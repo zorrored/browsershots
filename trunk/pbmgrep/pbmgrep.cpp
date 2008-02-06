@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
   typedef std::multimap<unsigned int, Feature*> FeatureMap;
   typedef FeatureMap::const_iterator MapIter;
   FeatureMap features;
-  int cycle_rows = 0;
+  int cycle_rows = 5;
   for (int i = 1; i < argc; i++) {
     Feature* feature = new Feature(argv[i]);
     unsigned int bottom_left = feature->getBottomLeft();
@@ -66,6 +66,8 @@ int main(int argc, char* argv[])
     vertical[column] = 0;
   }
   bool pattern_background = true;
+  bool left_background = true;
+  bool right_background = true;
 
   for (int y = 0; y < rows; y++) {
     // fprintf(stderr, "%d\r", y);
@@ -84,6 +86,12 @@ int main(int argc, char* argv[])
       for (int column = 0; column < cols32; column++) {
 	vertical[column] |= integers[y % cycle_rows][0][column];
       }
+      left_background = left_background and
+	integers[y % cycle_rows][0][0] ==
+	integers[(y - 4) % cycle_rows][0][0];
+      right_background = right_background and
+	integers[y % cycle_rows][0][cols32 - 1] ==
+	integers[(y - 4) % cycle_rows][0][cols32 - 1];
     }
     for (int column = 0; column < cols32; column++) {
       for (int offset = 0; offset < 32; offset++) {
@@ -120,12 +128,12 @@ int main(int argc, char* argv[])
 	   "701_The_screen_is_blank.pbm");
     return 1;
   }
-  if (vertical[0] == 0) {
+  if (vertical[0] == 0 or left_background) {
     printf("%d\t%d\t%d\t%d\t%s\n", 0, 0, 32, rows,
 	   "702_The_left_side_of_the_screen_is_blank.pbm");
     return 1;
   }
-  if (vertical[cols32 - 1] == 0) {
+  if (vertical[cols32 - 1] == 0 or right_background) {
     printf("%d\t%d\t%d\t%d\t%s\n", 32 * (cols32 - 1), 0, 32, rows,
 	   "703_The_right_side_of_the_screen_is_blank.pbm");
     return 1;
