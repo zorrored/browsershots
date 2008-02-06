@@ -116,10 +116,10 @@ def details(http_request, url):
         request_group._website_cache._domain_cache = domain
     # Get other websites on the same domain
     domain_website_list = domain.website_set.exclude(id=website.id)
-    # Show extra message from settings.py
-    if (http_request.user.is_anonymous() or
-        not http_request.user.userpriority_set.count()):
-        website_details_head_extra = """
+    if 'shotserver04.priority' in settings.INSTALLED_APPS:
+        if (http_request.user.is_anonymous() or
+            not http_request.user.userpriority_set.count()):
+            website_details_head_extra = """
 <p class="admonition new">
 <a href="/priority/">Support the Browsershots project!<br />
 Get a month of priority processing for 10 Euros or 15 Dollars.</a>
