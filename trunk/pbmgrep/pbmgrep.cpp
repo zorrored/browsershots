@@ -133,5 +133,29 @@ int main(int argc, char* argv[])
   // printf("%08x %08x ... %08x %08x\n",
   // vertical[0], vertical[1], vertical[cols32 - 2], vertical[cols32 - 1]);
 
+  bool found_something = false;
+  for (int y = rows - 4; y < rows; y++) {
+    for (int column = 0; column < cols32; column++) {
+      switch (integers[y % cycle_rows][0][column]) {
+      case 0x11111111:
+      case 0x22222222:
+      case 0x44444444:
+      case 0x88888888:
+      case 0x55555555:
+      case 0xAAAAAAAA:
+	break;
+      default:
+	found_something = true;
+      }
+      if (found_something) break;
+    }
+    if (found_something) break;
+  }
+  if (not found_something) {
+    printf("%d\t%d\t%d\t%d\t%s\n", 0, rows - 4, cols, 4,
+	   "704_The_bottom_of_the_screen_is_blank.pbm");
+    return 1;
+  }
+
   return 0;
 }
