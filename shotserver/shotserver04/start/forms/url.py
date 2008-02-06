@@ -141,6 +141,9 @@ class UrlForm(forms.Form):
         server = long_ip(ip)
         # print 'server', server, dotted_ip(server), ip
         for disallowed in settings.DISALLOWED_SERVER_IP_LIST:
+            disallowed = disallowed.strip()
+            if disallowed == '' or disallowed.startswith('#'):
+                continue
             mask = bit_mask(32)
             if '/' in disallowed:
                 disallowed, bits = disallowed.split('/', 1)
