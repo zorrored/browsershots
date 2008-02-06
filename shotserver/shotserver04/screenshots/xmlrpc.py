@@ -106,10 +106,18 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     ppmname = storage.pngtoppm(hashkey)
     try:
         magic, width, height = storage.read_pnm_header(ppmname)
-        if (request_group.width and request_group.width != width):
+        if request_group.width and request_group.width != width:
             raise ExtraFault(412,
                 u"The screenshot is %d pixels wide, not %d as requested." %
                 (width, request_group.width),
+                request=request, hashkey=hashkey)
+        if height > width * 4:
+            raise ExtraFault(413,
+                u"The screenshot is too tall (more than 4 times the width).",
+                request=request, hashkey=hashkey)
+        if height < width / 4:
+            raise ExtraFault(414,
+                u"The screenshot is too short (less than half the width).",
                 request=request, hashkey=hashkey)
         if os.path.exists('/usr/local/etc/pbmgrep'):
             check_ppm_problems(ppmname, request, hashkey)
