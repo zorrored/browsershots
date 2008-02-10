@@ -65,7 +65,10 @@ def find_and_lock_request(factory, features):
         raise Fault(204, 'No matching request.')
     request = matches[0]
     # Lock request
-    request.update_fields(factory=factory, locked=datetime.now())
+    request.update_fields(
+        factory=factory,
+        browser=None,
+        locked=datetime.now())
     return request
 
 
