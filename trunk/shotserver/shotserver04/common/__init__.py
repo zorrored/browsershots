@@ -32,7 +32,7 @@ from datetime import datetime, timedelta
 
 LOCK_TIMEOUT = 5 # minutes before request lock expires
 POLL_TIMEOUT = 10 # minutes since last poll for active factory
-ERROR_TIMEOUT = 5 # minutes blocked after browser error
+ERROR_TIMEOUT = 10 # minutes blocked after browser error
 
 MAX_ATTEMPTS = 10 # for @serializable
 
