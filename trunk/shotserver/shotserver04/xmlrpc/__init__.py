@@ -61,7 +61,8 @@ def factory_xmlrpc(func):
         try:
             return func(http_request, factory, *args, **kwargs)
         except xmlrpclib.Fault, fault:
-            if fault.faultCode != 204: # No matching requests.
+            fault_class = fault.faultCode / 100
+            if fault_class not in (2, 5): # Success or server error
                 from shotserver04.messages.models import FactoryError
                 # Save error message in the database
                 FactoryError.objects.create(factory=factory,
