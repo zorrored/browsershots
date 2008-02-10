@@ -110,17 +110,17 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
             raise ExtraFault(412,
                 u"The screenshot is %d pixels wide, not %d as requested." %
                 (width, request_group.width),
-                request=request, hashkey=hashkey)
+                request=request, hashkey=hashkey, browser=browser)
         if height > width * 4:
             raise ExtraFault(413,
                 u"The screenshot is too tall (more than 4 times the width).",
-                request=request, hashkey=hashkey)
+                request=request, hashkey=hashkey, browser=browser)
         if height < width / 2:
             raise ExtraFault(414,
                 u"The screenshot is too short (less than half the width).",
-                request=request, hashkey=hashkey)
+                request=request, hashkey=hashkey, browser=browser)
         if os.path.exists('/usr/local/etc/pbmgrep'):
-            check_ppm_problems(ppmname, request, hashkey)
+            check_ppm_problems(ppmname, request, hashkey, browser)
         # Make smaller preview images
         for size in PREVIEW_SIZES:
             storage.scale(ppmname, size, hashkey)
@@ -146,7 +146,7 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     return hashkey
 
 
-def check_ppm_problems(ppmname, request, hashkey):
+def check_ppm_problems(ppmname, request, hashkey, browser):
     """
     Check for known problems with pbmgrep.
     """
@@ -167,4 +167,5 @@ def check_ppm_problems(ppmname, request, hashkey):
     else:
         code = status
         message = ' '.join(lines)
-    raise ExtraFault(code, message, request=request, hashkey=hashkey)
+    raise ExtraFault(code, message,
+                     request=request, hashkey=hashkey, browser=browser)

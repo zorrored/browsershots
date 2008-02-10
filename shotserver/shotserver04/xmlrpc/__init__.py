@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import xmlrpclib
+from datetime import datetime
 from shotserver04.common import get_or_fault
 
 
@@ -67,6 +68,9 @@ def factory_xmlrpc(func):
                     code=fault.faultCode, message=fault.faultString,
                     request=getattr(fault, 'request', None),
                     hashkey=getattr(fault, 'hashkey', None))
+                browser = getattr(fault, 'browser', None)
+                if browser is not None:
+                    browser.update_fields(last_error=datetime.now())
             raise
 
     wrapper.__name__ = func.__name__
