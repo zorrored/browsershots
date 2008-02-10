@@ -5,6 +5,8 @@ extern "C" {
 #include <pbm.h>
 }
 
+#define BOTTOM_ROWS 8
+
 
 void read_integers(bit* input, unsigned int integers[32][COLS32], int cols)
 {
@@ -39,7 +41,7 @@ int main(int argc, char* argv[])
   typedef std::multimap<unsigned int, Feature*> FeatureMap;
   typedef FeatureMap::const_iterator MapIter;
   FeatureMap features;
-  int cycle_rows = 5;
+  int cycle_rows = BOTTOM_ROWS;
   for (int i = 1; i < argc; i++) {
     Feature* feature = new Feature(argv[i]);
     unsigned int bottom_left = feature->getBottomLeft();
@@ -142,7 +144,7 @@ int main(int argc, char* argv[])
   // vertical[0], vertical[1], vertical[cols32 - 2], vertical[cols32 - 1]);
 
   bool found_something = false;
-  for (int y = rows - 4; y < rows; y++) {
+  for (int y = rows - BOTTOM_ROWS; y < rows; y++) {
     for (int column = 0; column < cols32; column++) {
       switch (integers[y % cycle_rows][0][column]) {
       case 0x00000000:
