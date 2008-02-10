@@ -99,9 +99,14 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     # Make sure the request was redirected by the browser
     browser = request.browser
     if browser is None or browser.factory_id != factory.id:
+        guessed = factory.browser_set.filter(active=True,
+            browser_group=request.browser_group,
+            major=request.major, minor=request.minor)[:1]
+        if not len(guessed):
+            guessed = [None]
         raise ExtraFault(406,
             u"The browser has not visited the requested website.",
-            request=request, hashkey=hashkey)
+            request=request, hashkey=hashkey, browser=guessed[0])
     # Unpack PNG file and run more checks
     ppmname = storage.pngtoppm(hashkey)
     try:
