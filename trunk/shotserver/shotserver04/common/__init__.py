@@ -30,14 +30,21 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime, timedelta
 
-MAX_ATTEMPTS = 10
-POLL_TIMEOUT = 10 # minutes
 LOCK_TIMEOUT = 5 # minutes
+POLL_TIMEOUT = 10 # minutes
+ERROR_TIMEOUT = 15 # minutes
+
+MAX_ATTEMPTS = 10 # for @serializable
 
 
 def last_poll_timeout():
     """Factory is inactive if last poll was before this datetime."""
     return datetime.now() - timedelta(minutes=POLL_TIMEOUT)
+
+
+def last_error_timeout():
+    """Browser is blocked if the last error is more recent than this."""
+    return datetime.now() - timedelta(minutes=ERROR_TIMEOUT)
 
 
 def lock_timeout():

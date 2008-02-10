@@ -37,6 +37,7 @@
 <th>{{ _("Java")|human_br }}</th>
 <th>{{ _("Flash")|human_br }}</th>
 <th>{{ _("last upload")|capfirst|human_br }}</th>
+<th>{{ _("last error")|capfirst|human_br }}</th>
 <th>{{ _("uploads per hour")|capfirst|human_br }}</th>
 <th>{{ _("uploads per day")|capfirst|human_br }}</th>
 {% if show_commands %}<th>{{ _("command")|capfirst|human_br }}</th>{% endif %}
@@ -53,6 +54,7 @@
 <td>{{ browser.java }}</td>
 <td>{{ browser.flash }}</td>
 <td>{{ browser.last_upload|human_timesince }}</td>
+<td>{{ browser.last_error|human_timesince }}</td>
 <td>{% if browser.uploads_per_hour %}{{ browser.uploads_per_hour }}{% endif %}</td>
 <td>{% if browser.uploads_per_day %}{{ browser.uploads_per_day }}{% endif %}</td>
 {% if show_commands %}<td>{{ browser.command }}</td>{% endif %}

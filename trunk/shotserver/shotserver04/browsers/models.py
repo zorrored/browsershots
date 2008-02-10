@@ -118,11 +118,13 @@ class Browser(models.Model):
         _('active'), default=True,
         help_text=_("Designates that this browser is currently installed."))
     last_upload = models.DateTimeField(
-        _('last upload'), blank=True, null=True)
+        _('last upload'), blank=True, null=True, editable=False)
+    last_error = models.DateTimeField(
+        _('last error'), blank=True, null=True, editable=False)
     uploads_per_hour = models.IntegerField(
-        _('uploads per hour'), blank=True, null=True)
+        _('uploads per hour'), blank=True, null=True, editable=False)
     uploads_per_day = models.IntegerField(
-        _('uploads per day'), blank=True, null=True)
+        _('uploads per day'), blank=True, null=True, editable=False)
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
 

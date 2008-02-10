@@ -24,6 +24,7 @@ __author__ = "$Author$"
 
 from xmlrpclib import Fault
 from django.db import models
+from django.db.models.query import Q
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
 from django.utils.http import urlquote
@@ -32,7 +33,7 @@ from django.contrib.auth.models import User
 from shotserver04.platforms.models import OperatingSystem
 from shotserver04.sponsors.models import Sponsor
 from shotserver04.common.templatetags import human
-from shotserver04.common import granular_update
+from shotserver04.common import granular_update, last_error_timeout
 
 FACTORY_FIELDS = (
     'name', 'operating_system', 'last_poll', 'last_upload',
@@ -119,7 +120,9 @@ class Factory(models.Model):
     def browsers_q(self):
         """Get SQL query to match requested browsers."""
         q = models.Q()
-        browsers = self.browser_set.filter(active=True)
+        browsers = self.browser_set.filter(active=True).filter(
+            Q(last_error__isnull=True) |
+            Q(last_error__gt=last_error_timeout()))
         if not len(browsers):
             raise Fault(404,
                 u"No browsers registered for factory %s." % self.name)
