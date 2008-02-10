@@ -145,6 +145,7 @@ int main(int argc, char* argv[])
   for (int y = rows - 4; y < rows; y++) {
     for (int column = 0; column < cols32; column++) {
       switch (integers[y % cycle_rows][0][column]) {
+      case 0x00000000:
       case 0x11111111:
       case 0x22222222:
       case 0x44444444:
