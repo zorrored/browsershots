@@ -22,6 +22,8 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import os
+import random
 from xmlrpclib import Fault
 from django.db import models
 from django.conf import settings
@@ -33,6 +35,8 @@ from shotserver04.browsers.models import Browser
 from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
 # import time # For test_overload.py
+
+ACCEPTABLE_SERVER_LOAD = 10.0
 
 
 @serializable
@@ -146,6 +150,10 @@ def poll(http_request, factory, encrypted_password):
                 raise Fault(403, ' '.join((
 "Sorry, your screenshot factory is blocked for a few minutes.",
 "Please check your email for error messages from Browsershots.")))
+    # Check server load
+    if max(os.getloadavg()) * random.random() > ACCEPTABLE_SERVER_LOAD:
+        raise Fault(503,
+"The server is currently overloaded. Please try again in a minute.")
     # Get matching request
     request = find_and_lock_request(factory, factory.features_q())
     # Get matching browser
