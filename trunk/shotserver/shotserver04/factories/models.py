@@ -24,7 +24,6 @@ __author__ = "$Author$"
 
 from xmlrpclib import Fault
 from django.db import models
-from django.db.models.query import Q
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
 from django.utils.http import urlquote
@@ -120,12 +119,17 @@ class Factory(models.Model):
     def browsers_q(self):
         """Get SQL query to match requested browsers."""
         q = models.Q()
-        browsers = self.browser_set.filter(active=True).filter(
-            Q(last_error__isnull=True) |
-            Q(last_error__gt=last_error_timeout()))
-        if not len(browsers):
+        browsers = self.browser_set.filter(active=True)
+        if not browsers.count():
             raise Fault(404,
-                u"No browsers registered for factory %s." % self.name)
+                u"No active browsers registered for factory %s." % self.name)
+        browsers = browsers.filter(
+            models.Q(last_error__isnull=True) |
+            models.Q(last_error__lt=last_error_timeout()))
+        if not len(browsers):
+            raise Fault(204,
+u"All active browsers on %s are temporarily blocked because of errors." %
+self.name)
         for browser in browsers:
             q |= browser.features_q()
         return q
