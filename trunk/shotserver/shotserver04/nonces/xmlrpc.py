@@ -102,18 +102,21 @@ def verify(http_request, factory, encrypted_password):
     else:
         algo, salt, hashed = 'md5', '', password
     # Get matching nonces
-    nonces = Nonce.objects.filter(factory=factory, ip=ip).extra(
+    nonces = Nonce.objects.filter(factory=factory).extra(
         where=["MD5(%s || hashkey) = %s"],
         params=[hashed, encrypted_password])
     if len(nonces) == 0:
-        raise Fault(401, 'Password mismatch.')
+        raise Fault(401, "Password mismatch.")
     if len(nonces) > 1:
-        raise Fault(401, 'Hash collision.')
-    # Check nonce freshness
+        raise Fault(401, "Authentication failed (hash collision).")
     nonce = nonces[0]
-    if datetime.now() - nonce.created > timedelta(0, 600, 0):
+    # Check IP address
+    if nonce.ip != ip:
+        raise Fault(401, "Authentication failed (different IP address).")
+    # Check nonce freshness
+    if datetime.now() - nonce.created > timedelta(minutes=10):
         nonce.delete()
-        raise Fault(408, 'Nonce expired.')
+        raise Fault(408, "Authentication failed (nonce expired).")
     # Success!
     nonce.delete()
     return True
