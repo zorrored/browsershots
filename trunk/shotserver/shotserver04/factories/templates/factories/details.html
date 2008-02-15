@@ -134,7 +134,11 @@
 
 {% if problems_list %}
 <h2><a name="problems">{{ _("recent problem reports")|capfirst }}</a></h2>
-<p>{{ _("These problems were reported manually by the user.") }}</p>
+<p>
+{{ _("The following problems were reported manually.") }}
+{{ _("For every problem report, there's probably 10 to 100 users who had the same problem but didn't report it.") }}
+{{ _("Click on the error code for documentation, or the error message to see the screenshot.") }}
+</p>
 <table class="problems vertical">
 <thead>
 <tr>
@@ -147,7 +151,7 @@
 <tbody>
 {% for problem in problems_list %}
 <tr class="{% cycle row1,row2 %}">
-<td>{{ problem.code }}</td>
+<td>{% if problem.help_available %}<a href="http://trac.browsershots.org/wiki/FactoryErrors#a{{ problem.code }}">{% endif %}{{ problem.code }}{% if problem.help_available %}</a>{% endif %}</td>
 <td>{{ problem|human_link }}</td>
 <td>{{ problem.screenshot.browser.browser_group }} {{ problem.screenshot.browser.major}}.{{ problem.screenshot.browser.minor }}</td>
 <td>{{ problem.reported|human_timesince }}</td>
@@ -159,7 +163,10 @@
 
 {% if errors_list %}
 <h2><a name="errors">{{ _("recent factory errors")|capfirst }}</a></h2>
-<p>{{ _("These errors were detected automatically on the server.") }}</p>
+<p>
+{{ _("The following errors were detected automatically on the server.") }}
+{{ _("Click on the error code for documentation, or the error message to see the screenshot.") }}
+</p>
 <table class="errors vertical">
 <thead>
 <tr>
@@ -172,7 +179,7 @@
 <tbody>
 {% for error in errors_list %}
 <tr class="{% cycle row1,row2 %}">
-<td>{{ error.code }}</td>
+<td>{% if error.help_available %}<a href="http://trac.browsershots.org/wiki/FactoryErrors#a{{ error.code }}">{% endif %}{{ error.code }}{% if error.help_available %}</a>{% endif %}</td>
 <td>{% if error.hashkey %}<a href="/png/original/{{ error.hashkey.0 }}{{ error.hashkey.1 }}/{{ error.hashkey }}.png">{% endif %}{{ error.message }}{% if error.hashkey %}</a>{% endif %}</td>
 <td>{% if error.request %}{{ error.request.browser_group }} {{ error.request.major}}.{{ error.request.minor }}{% endif %}</td>
 <td>{{ error.occurred|human_timesince }}</td>

@@ -44,6 +44,14 @@ from shotserver04.browsers import views as browsers_views
 FACTORY_NAME_CHAR_FIRST = 'abcdefghijklmnopqrstuvwxyz'
 FACTORY_NAME_CHAR = FACTORY_NAME_CHAR_FIRST + '0123456789_-'
 
+# Run the following command to generate this list automatically:
+# wget -q -O- http://trac.browsershots.org/wiki/FactoryErrors?format=txt \
+# | grep '^= ' | sed s/=//g | xargs
+CODE_HELP_AVAILABLE = map(int, """
+204 401 404 406 408 409 412 413 414 415 423 503
+601 602 603 631 651 652 671 681 692 693
+""".split())
+
 
 def overview(http_request):
     """
@@ -277,7 +285,11 @@ def details(http_request, name):
     problems_list = ProblemReport.objects.filter(
         screenshot__factory=factory)[:10]
     preload_foreign_keys(problems_list, screenshot=True)
+    for problem in problems_list:
+        problem.help_available = problem.code in CODE_HELP_AVAILABLE
     errors_list = factory.factoryerror_set.all()[:10]
+    for error in errors_list:
+        error.help_available = error.code in CODE_HELP_AVAILABLE
     return render_to_response('factories/details.html', locals(),
         context_instance=RequestContext(http_request))
 
