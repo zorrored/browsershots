@@ -35,26 +35,26 @@ from shotserver04.browsers.models import Browser
 from shotserver04.screenshots import storage
 
 PROBLEM_CHOICES = {
-    101: _("This is not the requested browser."),
-    102: _("This is not the requested operating system."),
+    811: _("This is not the requested browser."),
+    812: _("This is not the requested operating system."),
 
-    201: _("This is not the requested Javascript version."),
-    202: _("This is not the requested Java version."),
-    203: _("This is not the requested Flash version."),
-    204: _("A language pack needs to be installed."),
+    821: _("This is not the requested Javascript version."),
+    822: _("This is not the requested Java version."),
+    823: _("This is not the requested Flash version."),
+    824: _("A language pack needs to be installed."),
 
-    601: _("There is a dialog box in front of the browser window."),
-    602: _("The browser window is not maximized."),
-    603: _("The page is not finished loading."),
+    861: _("There is a dialog box in front of the browser window."),
+    862: _("The browser window is not maximized."),
+    863: _("The page is not finished loading."),
     }
 
 PROBLEM_CHOICES_EXPLICIT = {
-    101: _("This is not %(browser)s."),
-    102: _("This is not %(operating_system)s."),
+    811: _("This is not %(browser)s."),
+    812: _("This is not %(operating_system)s."),
 
-    201: _("Javascript is not %(javascript)s."),
-    202: _("Java is not %(java)s."),
-    203: _("Flash is not %(flash)s."),
+    821: _("Javascript is not %(javascript)s."),
+    822: _("Java is not %(java)s."),
+    823: _("Flash is not %(flash)s."),
     }
 
 
