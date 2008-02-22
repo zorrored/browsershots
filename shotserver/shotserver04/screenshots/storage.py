@@ -176,6 +176,6 @@ def s3_upload(hashkey, size=ORIGINAL_SIZE):
 
     response = conn.getresponse()
     if response.status != 200:
-        raise Fault(response.status, response.read)
+        raise Fault(response.status, response.read())
     # print 'http://%s/%s' % (s3_bucket, s3_key)
     conn.close()
