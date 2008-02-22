@@ -24,6 +24,8 @@ __author__ = "$Author$"
 
 import re
 import os
+import httplib
+import urllib
 import tempfile
 from xmlrpclib import Fault
 from django.conf import settings
@@ -31,6 +33,7 @@ from shotserver04.nonces import crypto
 
 ORIGINAL_SIZE = 'original'
 HEADER_MATCH = re.compile(r'(\S\S)\s+(\d+)\s+(\d+)\s+').match
+BUFFER_SIZE = 4096
 
 
 def png_path(hashkey, size=ORIGINAL_SIZE):
@@ -116,3 +119,62 @@ def scale(ppmname, width, hashkey):
     if error:
         raise Fault(500,
             "Could not create scaled preview image.")
+
+
+def s3_upload(hashkey, size=ORIGINAL_SIZE):
+    """
+    Upload a screenshot PNG file to Amazon S3.
+
+    This uses httplib directly and transfers the file in small chunks,
+    so we don't have to load the whole PNG file into RAM.
+    """
+
+    from shotserver04.screenshots import s3
+    aws = s3.AWSAuthConnection(
+        settings.AWS_ACCESS_KEY_ID, settings.AWS_SECRET_ACCESS_KEY,
+        is_secure=False)
+    s3_bucket = settings.S3_BUCKETS[str(size)]
+    s3_key = hashkey + '.png'
+    server = s3.DEFAULT_HOST
+    method = 'PUT'
+    path = '/%s/%s' % (s3_bucket, urllib.quote_plus(s3_key))
+
+    filename = png_filename(hashkey, size)
+    f = file(filename, 'rb')
+    f.seek(0, os.SEEK_END)
+    bytes_total = f.tell()
+    f.seek(0, os.SEEK_SET)
+
+    headers = {
+        'User-Agent': 'shotserver/0.4',
+        'Host': server,
+        'x-amz-acl': 'public-read',
+        'Content-Type': 'image/png',
+        'Content-Length': str(bytes_total),
+        }
+    query_args = {}
+    aws._add_aws_auth_header(headers, method, s3_bucket, s3_key, query_args)
+
+    host = '%s:%d' % (server, 80)
+    conn = httplib.HTTPConnection(host)
+    conn.putrequest(method, path)
+    for header_key, header_value in headers.iteritems():
+        conn.putheader(header_key, header_value)
+    conn.endheaders()
+
+    bytes_sent = 0
+    while True:
+        bytes = f.read(BUFFER_SIZE)
+        if not bytes:
+            break
+        conn.send(bytes)
+        bytes_sent += len(bytes)
+        print 'sent', bytes_sent, 'of', bytes_total, 'bytes',
+        print '(%.1f%%)' % (100.0 * bytes_sent / bytes_total)
+    assert bytes_sent == bytes_total
+    f.close()
+
+    response = conn.getresponse()
+    print response.status, response.read()
+    print 'http://%s/%s' % (s3_bucket, s3_key)
+    conn.close()
