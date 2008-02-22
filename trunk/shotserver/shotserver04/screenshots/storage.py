@@ -169,12 +169,13 @@ def s3_upload(hashkey, size=ORIGINAL_SIZE):
             break
         conn.send(bytes)
         bytes_sent += len(bytes)
-        print 'sent', bytes_sent, 'of', bytes_total, 'bytes',
-        print '(%.1f%%)' % (100.0 * bytes_sent / bytes_total)
+        # print 'sent', bytes_sent, 'of', bytes_total, 'bytes',
+        # print '(%.1f%%)' % (100.0 * bytes_sent / bytes_total)
     assert bytes_sent == bytes_total
     f.close()
 
     response = conn.getresponse()
-    print response.status, response.read()
-    print 'http://%s/%s' % (s3_bucket, s3_key)
+    if response.status != 200:
+        raise Fault(response.status, response.read)
+    # print 'http://%s/%s' % (s3_bucket, s3_key)
     conn.close()
