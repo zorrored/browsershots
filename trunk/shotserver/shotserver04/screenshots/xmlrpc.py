@@ -27,6 +27,7 @@ import commands
 from xmlrpclib import Fault, Binary
 from datetime import datetime
 from django.utils.text import capfirst
+from django.conf import settings
 from shotserver04.common import serializable, get_or_fault
 from shotserver04.xmlrpc import signature, factory_xmlrpc
 from shotserver04.nonces import xmlrpc as nonces
@@ -132,6 +133,11 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     finally:
         # Delete temporary PPM file
         os.unlink(ppmname)
+    # Upload screenshots to Amazon S3
+    if hasattr(settings, 'S3_BUCKETS'):
+        storage.s3_upload(hashkey) # size='original'
+        for size in PREVIEW_SIZES:
+            storage.s3_upload(hashkey, size)
     # Save screenshot in database
     screenshot = Screenshot(hashkey=hashkey,
         user=request_group.user, website=request_group.website,
