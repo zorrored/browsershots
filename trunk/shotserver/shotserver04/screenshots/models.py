@@ -24,6 +24,8 @@ __author__ = "$Author$"
 
 import os
 import cgi
+from datetime import datetime
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
@@ -56,6 +58,8 @@ PROBLEM_CHOICES_EXPLICIT = {
     822: _("Java is not %(java)s."),
     823: _("Flash is not %(flash)s."),
     }
+
+S3_DEPLOYMENT_DATE = datetime(2008, 2, 24)
 
 
 class ScreenshotManager(models.Manager):
@@ -152,6 +156,11 @@ class Screenshot(models.Model):
 
     def get_png_url(self, size='original'):
         """URL for screenshot images of different sizes."""
+        if (self.uploaded > S3_DEPLOYMENT_DATE and
+            hasattr(settings, 'S3_BUCKETS') and
+            str(size) in settings.S3_BUCKETS):
+            return 'http://%s/%s.png' % (
+                settings.S3_BUCKETS[str(size)], self.hashkey)
         return '/png/%s/%s/%s.png' % (size, self.hashkey[:2], self.hashkey)
 
     def get_large_url(self):
