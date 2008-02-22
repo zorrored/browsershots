@@ -59,7 +59,7 @@ PROBLEM_CHOICES_EXPLICIT = {
     823: _("Flash is not %(flash)s."),
     }
 
-S3_DEPLOYMENT_DATE = datetime(2008, 2, 24)
+S3_DEPLOYMENT_DATE = datetime(2008, 2, 22, 13, 0)
 
 
 class ScreenshotManager(models.Manager):
