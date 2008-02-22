@@ -163,6 +163,7 @@ myminicity.fr
 myminicity.es
 miniville.fr
 ville-virtuelle.com
+zoy.org
 """.split()
 
 # If you set this to False, only registered users can submit requests.
