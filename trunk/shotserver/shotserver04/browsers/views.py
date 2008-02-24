@@ -98,6 +98,15 @@ def add(http_request):
     """
     Add a browser that is installed on a screenshot factory.
     """
+    # Check that User-Agent header was transmitted.
+    if 'HTTP_USER_AGENT' not in http_request.META:
+        return error_page(http_request, "Missing User-Agent header",
+"Your browser cannot be detected because it didn't send a User-Agent header.",
+"Or maybe you have a firewall that removed this header from the HTTP request.")
+    if not http_request.META['HTTP_USER_AGENT'].strip():
+        return error_page(http_request, "Empty User-Agent header",
+"Your browser cannot be detected because it sent an empty User-Agent header.",
+"Or maybe you have a firewall that removed this header from the HTTP request.")
     # Use lazy translation for field labels
     for key in BrowserForm.base_fields:
         BrowserForm.base_fields[key].label = _(
