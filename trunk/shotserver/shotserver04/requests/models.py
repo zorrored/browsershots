@@ -138,10 +138,13 @@ class RequestGroup(models.Model):
         interval = timeuntil(now + remaining, now)
         expire = capfirst(_("expires in %(interval)s")) % \
             {'interval': interval}
-        expire += """
-<input type="hidden" name="request_group_id" value="%d" />
-<input type="submit" name="submit" value="%s" %s/>
-""".rstrip() % (self.id, unicode(capfirst(_("extend"))), disabled)
+        if self._same_user:
+            expire += '\n'.join(('',
+'<input type="hidden" name="request_group_id" value="%d" />' % self.id,
+'<input type="submit" name="extend" value="%s"%s />' % (
+    unicode(capfirst(_("extend"))), disabled),
+'<input type="submit" name="cancel" value="%s" />' % (
+    unicode(capfirst(_("cancel"))))))
         return mark_safe('<li>%s</li>' % (expire))
 
     def options(self):

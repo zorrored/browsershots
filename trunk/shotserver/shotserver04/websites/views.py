@@ -114,6 +114,12 @@ def details(http_request, url):
         request_group._factories_cache = factories
         request_group._website_cache = website
         request_group._website_cache._domain_cache = domain
+        if request_group.user_id:
+            request_group._same_user = (
+                request_group.user_id == http_request.user.id)
+        else:
+            request_group._same_user = (
+                request_group.ip == http_request.META['REMOTE_ADDR'])
     # Get other websites on the same domain
     domain_website_list = domain.website_set.exclude(id=website.id)
     if 'shotserver04.priority' in settings.INSTALLED_APPS:
