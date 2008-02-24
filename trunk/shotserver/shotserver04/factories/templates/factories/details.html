@@ -23,7 +23,7 @@
 </table>
 </form>
 
-<h2>{{ _("installed browsers")|capfirst }}</h2>
+<h2><a name="browsers">{{ _("installed browsers")|capfirst }}</a></h2>
 
 {% if browser_list %}
 <form action="{{ factory.get_absolute_url }}" method="post">
@@ -76,8 +76,7 @@
 
 <form action="{{ factory.get_absolute_url }}#screensizes" method="post">
 <div style="float: left; margin: 0 2em 0 0;">
-<a name="screensizes"></a>
-<h2>{{ _("screen sizes")|capfirst }}</h2>
+<h2><a name="screensizes">{{ _("screen sizes")|capfirst }}</a></h2>
 {% for error in screensize_form.errors.width %}<p class="admonition error">{{ error }}</p>{% endfor %}
 {% for error in screensize_form.errors.height %}<p class="admonition error">{{ error }}</p>{% endfor %}
 <table class="screensizes vertical">
@@ -102,8 +101,7 @@
 
 <form action="{{ factory.get_absolute_url }}#colordepths" method="post">
 <div style="float: left; margin: 0 2em 0 0;">
-<a name="colordepths"></a>
-<h2>{{ _("color depths")|capfirst }}</h2>
+<h2><a name="colordepths">{{ _("color depths")|capfirst }}</a></h2>
 {% for error in colordepth_form.errors.depth %}<p class="admonition error">{{ error }}</p>{% endfor %}
 <table class="screensizes vertical">
 {% if admin_logged_in %}
@@ -126,7 +124,7 @@
 </form>
 
 {% if screenshot_list %}
-<h2>{{ _("recent screenshots")|capfirst }}</h2>
+<h2><a name="screenshots">{{ _("recent screenshots")|capfirst }}</a></h2>
 {% for screenshot in screenshot_list|dictsort:"id" %}
 {{ screenshot.preview_div_with_browser }}
 {% endfor %}
