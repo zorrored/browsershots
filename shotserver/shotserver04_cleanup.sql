@@ -49,4 +49,6 @@ AND NOT EXISTS (SELECT 1 FROM browsers_browser
 AND NOT EXISTS (SELECT 1 FROM requests_request
     WHERE factory_id = factories_factory.id)
 AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
+    WHERE factory_id = factories_factory.id)
+AND NOT EXISTS (SELECT 1 FROM factories_screenshotcount
     WHERE factory_id = factories_factory.id);
