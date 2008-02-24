@@ -137,7 +137,7 @@ def details(http_request, request_group_id):
 
 def extend(http_request):
     """
-    Extend the expiration timeout of a screenshot request group.
+    Extend (or cancel) the expiration timeout of a screenshot request group.
     """
     if not http_request.POST:
         return error_page(http_request, _("invalid request"),
@@ -148,6 +148,10 @@ def extend(http_request):
         return error_page(http_request, _("invalid request"),
             _("You must specify a numeric request group ID."))
     request_group = get_object_or_404(RequestGroup, pk=request_group_id)
+    if 'cancel' in http_request.POST and http_request.POST['cancel']:
+        if request_group.expire > datetime.now():
+            request_group.update_fields(expire=datetime.now())
+        return HttpResponseRedirect(request_group.website.get_absolute_url())
     if request_group.expire < datetime.now():
         delta = datetime.now() - request_group.expire
         minutes = min(1, delta.seconds / 60 + delta.days * 24 * 60)
@@ -156,6 +160,5 @@ def extend(http_request):
             '<a href="/?url=%s">%s</a>' % (
                 urllib.quote(request_group.website.url),
                 _("Request new screenshots?")))
-    request_group.expire = datetime.now() + timedelta(minutes=30)
-    request_group.save()
+    request_group.update_fields(expire=datetime.now() + timedelta(minutes=30))
     return HttpResponseRedirect(request_group.website.get_absolute_url())
