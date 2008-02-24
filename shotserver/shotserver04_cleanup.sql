@@ -33,7 +33,8 @@ AND NOT EXISTS (SELECT 1 FROM priority_domainpriority
 
 \echo 'Deleting old browsers without requests or screenshots...'
 DELETE FROM browsers_browser
-WHERE (last_upload IS NULL OR last_upload < NOW() - '30d'::interval)
+WHERE created < NOW () - '30d'::interval
+AND (last_upload < NOW() - '30d'::interval OR last_upload IS NULL)
 AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
     WHERE browser_id = browsers_browser.id)
 AND NOT EXISTS (SELECT 1 FROM requests_request
