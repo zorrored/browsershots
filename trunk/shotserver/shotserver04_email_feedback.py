@@ -42,7 +42,7 @@ import sys
 DEBUG = '--debug' in sys.argv
 FACTORIES = [arg for arg in sys.argv[1:] if not arg.startswith('-')]
 
-DAYS = 7
+DAYS = 1
 PREFIX = 'http://' + Site.objects.all()[0].domain
 MAX_EXAMPLES = 5
 MAX_ORPHANS = 2
@@ -87,12 +87,16 @@ for factory in factories:
         u"Hi %s," % factory.admin.first_name, '',
         u"This is an automated user feedback report from Browsershots 0.4.",
         ]
-    if len(problems) == 1:
-        body.append(u"In the last %d days, there was one %s for" % (
-            DAYS, ProblemReport._meta.verbose_name))
+    if DAYS > 1:
+        interval = '%d days' % DAYS
     else:
-        body.append(u"In the last %d days, there were %d %s for" % (
-            DAYS, len(problems), ProblemReport._meta.verbose_name_plural))
+        interval = '%d hours' % (DAYS * 24)
+    if len(problems) == 1:
+        body.append(u"In the last %s, there was one %s for" % (
+            interval, ProblemReport._meta.verbose_name))
+    else:
+        body.append(u"In the last %s, there were %d %s for" % (
+            interval, len(problems), ProblemReport._meta.verbose_name_plural))
     body.append(PREFIX + factory.get_absolute_url())
     keys = codes.keys()
     keys.sort()
