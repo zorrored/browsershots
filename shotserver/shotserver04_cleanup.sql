@@ -39,3 +39,14 @@ AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
     WHERE browser_id = browsers_browser.id)
 AND NOT EXISTS (SELECT 1 FROM requests_request
     WHERE browser_id = browsers_browser.id);
+
+\echo 'Deleting old factories without browsers or screenshots...'
+DELETE FROM factories_factory
+WHERE created < NOW () - '30d'::interval
+AND last_upload IS NULL
+AND NOT EXISTS (SELECT 1 FROM browsers_browser
+    WHERE factory_id = factories_factory.id)
+AND NOT EXISTS (SELECT 1 FROM requests_request
+    WHERE factory_id = factories_factory.id)
+AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
+    WHERE factory_id = factories_factory.id);
