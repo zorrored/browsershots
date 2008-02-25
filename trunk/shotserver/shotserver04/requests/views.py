@@ -158,7 +158,7 @@ def extend(http_request):
         return error_page(http_request, _("request group expired"),
             _("This request group already expired %d minutes ago.") % minutes,
             '<a href="/?url=%s">%s</a>' % (
-                urllib.quote(request_group.website.url),
+                urllib.quote(request_group.website.url.encode('utf-8')),
                 _("Request new screenshots?")))
     request_group.update_fields(expire=datetime.now() + timedelta(minutes=30))
     return HttpResponseRedirect(request_group.website.get_absolute_url())
