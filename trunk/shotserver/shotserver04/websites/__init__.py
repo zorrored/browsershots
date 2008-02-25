@@ -39,11 +39,16 @@ def normalize_url(url):
     u'http://www.example.com/\\xfc'
     >>> normalize_url('http://www.example.com/space here')
     u'http://www.example.com/space%20here'
+    >>> normalize_url('http://www.example.com/%20')
+    u'http://www.example.com/%20'
+    >>> normalize_url('\t http://www.example.com/ ')
+    u'http://www.example.com/'
     >>> normalize_url(r'\\\\server\\test\\index.htm')
     u'//server/test/index.htm'
     >>> normalize_url(r'//server/?q=\\backslash')
     u'//server/?q=\\\\backslash'
     """
+    url = url.strip()
     if isinstance(url, unicode):
         url = url.encode('utf-8')
     result = urllib.unquote(url)
