@@ -67,9 +67,7 @@ class UrlForm(forms.Form):
         self.add_slash()
         self.robots_txt()
         self.cleaned_data['content'] = self.http_get()
-        self.cleaned_data['profanities'] = count_profanities(
-            settings.PROFANITIES_LIST,
-            self.cleaned_data['url'] + ' ' + self.cleaned_data['content'])
+        self.check_content()
         self.cleaned_data['domain'] = self.get_or_create_domain()
         self.cleaned_data['website'] = self.get_or_create_website()
         return self.cleaned_data['url']
@@ -210,6 +208,17 @@ _("Please read the %(faq)s.") % locals(),
             text %= {'hostname': error.hostname}
             error = human_error(error)
             raise ValidationError(' '.join((text, error)).strip())
+
+    def check_content(self):
+        """
+        Check URL and page content for profanities or shock sites.
+        """
+        url_content = ' '.join(
+            (self.cleaned_data['url'], self.cleaned_data['content']))
+        self.cleaned_data['profanities'] = \
+            count_profanities(settings.PROFANITIES_LIST, url_content)
+        self.cleaned_data['shocksite_keywords'] = \
+            count_profanities(settings.SHOCKSITE_KEYWORDS_LIST, url_content)
 
     def get_or_create_domain(self):
         """
