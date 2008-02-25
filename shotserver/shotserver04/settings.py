@@ -126,14 +126,24 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 # Profanity filter.
 PROFANITIES_LIST = """
-asshat asshead asshole cunt fuck gook nigger shit
-porn p0rn pr0n boys girls chicks babe cock bukkake
-sex xxx nude nudist naked bitcafe stile omglol
-bitch adult pussy boob handsfree disturb
+asshole cunt fuck shit porn p0rn pr0n boys girls chicks babe cock
+bukkake sex xxx nude nudist naked bitcafe stile omglol bitch adult
+pussy boob handsfree disturb
 """.lower().split()
 
 # Tolerate a small number of profane words.
 PROFANITIES_ALLOWED = 1
+
+# Ignore requests for shock sites.
+SHOCKSITE_KEYWORDS_LIST = """
+gnaa measure omglol gook nigger niger nigga offensive penisbird
+rolloffle rucas tubgirl lemonparty goatse dikky timecop faggots
+lolichan trogg rlogin: telnet: callto: ed2k: altf4key ctrlkey
+delkey movew0w
+""".lower().split()
+
+# Tolerate a small number of shocksite keywords.
+SHOCKSITE_KEYWORDS_ALLOWED = 3
 
 # Block requests for screenshots of special IP addresses.
 DISALLOWED_SERVER_IP_LIST = """
@@ -163,8 +173,9 @@ myminicity.fr
 myminicity.es
 miniville.fr
 ville-virtuelle.com
-zoy.org
-""".split()
+tinyurl.com
+snipurl.com
+""".splitlines()
 
 # If you set this to False, only registered users can submit requests.
 ALLOW_ANONYMOUS_REQUESTS = True

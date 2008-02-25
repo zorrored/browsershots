@@ -178,11 +178,18 @@ def http_get_path(connection, path):
 def count_profanities(profanities, content):
     """
     Count the number of profanities in page content.
+    >>> count_profanities('abc xyz'.split(), 'innocent')
+    0
+    >>> count_profanities('abc xyz'.split(), 'abc abc')
+    1
+    >>> count_profanities('abc xyz'.split(), 'ABC XYZ abc')
+    2
     """
     result = 0
     content = content.lower()
     for word in profanities:
-        result += content.count(word)
+        if content.count(word):
+            result += 1
     return result
 
 

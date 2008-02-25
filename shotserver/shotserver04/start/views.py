@@ -117,8 +117,12 @@ def start(http_request):
     browser_forms[-1].is_last = True
     priority = 0
     if valid_post:
-        # Get priority processing for domain or user.
-        if 'shotserver04.priority' in settings.INSTALLED_APPS:
+        if (url_form.cleaned_data['shocksite_keywords'] >
+            settings.SHOCKSITE_KEYWORDS_ALLOWED):
+            # Ignore screenshot requests for shock sites.
+            priority = -url_form.cleaned_data['shocksite_keywords']
+        elif 'shotserver04.priority' in settings.INSTALLED_APPS:
+            # Get priority processing for domain or user.
             from shotserver04.priority import domain_priority, user_priority
             priority = max(domain_priority(url_form.cleaned_data['domain']),
                            user_priority(http_request.user))
