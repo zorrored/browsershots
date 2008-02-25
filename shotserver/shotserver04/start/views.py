@@ -66,7 +66,7 @@ def start(http_request):
         return error_page(http_request, _("login required"),
             _("Anonymous screenshot requests are not allowed."),
             u'<a href="/accounts/login/?next=%s">%s</a>' % (
-                urllib.quote(url),
+                urllib.quote(url.encode('utf-8')),
                 _("Please log in with your username and password.")))
     # Initialize forms.
     post = http_request.POST or None
