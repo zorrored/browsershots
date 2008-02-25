@@ -188,7 +188,7 @@ def count_profanities(profanities, content):
     result = 0
     content = content.lower()
     for word in profanities:
-        if content.count(word):
+        if word in content:
             result += 1
     return result
 
