@@ -73,7 +73,7 @@ class LoginForm(forms.Form):
     """
     Simple login form.
     """
-    username = forms.CharField(max_length=20, label=_("Username"))
+    username = forms.CharField(max_length=30, label=_("Username"))
     password = forms.CharField(max_length=40, label=_("Password"),
         widget=forms.PasswordInput(render_value=False))
 
