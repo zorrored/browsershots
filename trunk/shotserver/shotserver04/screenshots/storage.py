@@ -34,6 +34,7 @@ from shotserver04.nonces import crypto
 ORIGINAL_SIZE = 'original'
 HEADER_MATCH = re.compile(r'(\S\S)\s+(\d+)\s+(\d+)\s+').match
 BUFFER_SIZE = 4096
+DEBUG_HEADERS = False
 
 
 def png_path(hashkey, size=ORIGINAL_SIZE):
@@ -180,7 +181,7 @@ def s3_upload(hashkey, size=ORIGINAL_SIZE):
     # print 'http://%s/%s' % (s3_bucket, s3_key)
 
     # Write response from S3 to tempfile for debugging
-    if str(size) == '160':
+    if DEBUG_HEADERS and str(size) == '160':
         tempfile = file('/tmp/%s.txt' % hashkey, 'w')
         tempfile.write('==== Request headers ====\n')
         tempfile.write('%s %s HTTP/1.1\n' % (method, path))
