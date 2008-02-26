@@ -178,4 +178,22 @@ def s3_upload(hashkey, size=ORIGINAL_SIZE):
     if response.status != 200:
         raise Fault(response.status, response.read())
     # print 'http://%s/%s' % (s3_bucket, s3_key)
+
+    # Write response from S3 to tempfile for debugging
+    if str(size) == '160':
+        tempfile = file('/tmp/%s.txt' % hashkey, 'w')
+        tempfile.write('==== Request headers ====\n')
+        tempfile.write('%s %s HTTP/1.1\n' % (method, path))
+        for header, value in headers.iteritems():
+            tempfile.write('%s: %s\n' % (header, value))
+        tempfile.write('\n')
+        tempfile.write('==== Response headers ====\n')
+        tempfile.write('HTTP/1.1 %s %s\n' % (response.status, response.reason))
+        for header, value in response.getheaders():
+            tempfile.write('%s: %s\n' % (header, value))
+        tempfile.write('\n')
+        tempfile.write(response.read())
+        # tempfile.write(response.msg)
+        tempfile.close()
+
     conn.close()
