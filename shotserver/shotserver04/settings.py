@@ -175,6 +175,7 @@ miniville.fr
 ville-virtuelle.com
 tinyurl.com
 snipurl.com
+ucash.in
 """.splitlines()
 
 # If you set this to False, only registered users can submit requests.
