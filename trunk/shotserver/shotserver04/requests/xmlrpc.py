@@ -148,7 +148,7 @@ def poll(http_request, factory, encrypted_password):
         if factory.name in settings.FACTORY_THROTTLE_INTERVAL:
             interval = settings.FACTORY_THROTTLE_INTERVAL[factory.name]
             if datetime.now() - factory.last_upload < interval:
-                raise Fault(403, ' '.join((
+                raise Fault(205, ' '.join((
 "Sorry, your screenshot factory is blocked for a few minutes.",
 "Please check your email for error messages from Browsershots.")))
     # Check server load
