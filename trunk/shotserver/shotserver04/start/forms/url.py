@@ -37,7 +37,7 @@ from django.utils.safestring import mark_safe
 from django.conf import settings
 from shotserver04.websites.utils import \
      split_netloc, unsplit_netloc, http_get, count_profanities, \
-     HTTP_TIMEOUT, HTTPError, ConnectError, RequestError, \
+     HTTP_TIMEOUT, HTTPError, ConnectError, RedirectError, RequestError, \
      dotted_ip, long_ip, bit_mask, slash_mask
 from shotserver04.websites.models import Domain, Website
 from shotserver04.websites import normalize_url
@@ -204,6 +204,19 @@ _("Please read the %(faq)s.") % locals(),
                 text = _("Could not connect to %(hostname)s.")
             elif isinstance(error, RequestError):
                 text = _("Could not send HTTP request to %(hostname)s.")
+            elif isinstance(error, RedirectError):
+                if not error.location:
+                    text = u' '.join((
+unicode(_("The server at %(hostname)s sent a HTTP redirect.")),
+unicode(_("The response did not contain a Location header."))))
+                else:
+                    self.data._mutable = True
+                    self.data['url'] = error.location
+                    self.data._mutable = False
+                    text = u' '.join((
+unicode(_("The server at %(hostname)s sent a HTTP redirect.")),
+unicode(_("Your web address has been updated.")),
+unicode(_("Please try again."))))
             else:
                 text = _("Could not get page content from %(hostname)s.")
             text %= {'hostname': error.hostname}
