@@ -173,8 +173,6 @@ myminicity.fr
 myminicity.es
 miniville.fr
 ville-virtuelle.com
-tinyurl.com
-snipurl.com
 ucash.in
 """.splitlines()
 

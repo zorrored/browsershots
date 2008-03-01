@@ -36,17 +36,18 @@ class HTTPError(Exception):
     An error occurred while trying to load page content over HTTP.
     """
 
-    def __init__(self, hostname, error=None):
+    def __init__(self, **kwargs):
         Exception.__init__(self)
-        self.hostname = hostname
-        if error is None:
-            self.message = ''
-        else:
+        self.hostname = 'unknown'
+        self.message = ''
+        for key in kwargs:
+            setattr(self, key, kwargs[key])
+        if 'error' in kwargs:
+            error = kwargs['error']
             try:
-                (error_code, error_string) = error.args
+                (self.code, self.message) = error.args
             except ValueError:
-                error_string = str(error)
-            self.message = error_string
+                self.message = str(error)
 
 
 class ConnectError(HTTPError):
@@ -56,6 +57,11 @@ class ConnectError(HTTPError):
 
 class RequestError(HTTPError):
     """Could not send HTTP request to remote server."""
+    pass
+
+
+class RedirectError(HTTPError):
+    """Server replied with a HTTP redirect."""
     pass
 
 
@@ -141,7 +147,7 @@ def http_get(url):
         else:
             connection = httplib.HTTPConnection(hostname)
     except httplib.HTTPException, error:
-        raise ConnectError(hostname, error)
+        raise ConnectError(hostname=hostname, error=error)
     path = url_parts[2]
     if url_parts[3]:
         path += '?' + url_parts[3]
@@ -160,15 +166,19 @@ def http_get_path(connection, path):
         headers = {"User-Agent": "Browsershots URL Check"}
         connection.request('GET', path.encode('utf-8'), headers=headers)
     except socket.error, error:
-        raise RequestError(connection.host, error)
+        raise RequestError(hostname=connection.host, error=error)
     # Read response
     try:
         response = connection.getresponse()
+        if response.status / 100 == 3:
+            location = response.getheader('Location', None)
+            raise RedirectError(hostname=connection.host,
+                                code=response.status, location=location)
         content = response.read(MAX_RESPONSE_SIZE)
     except socket.error, error:
-        raise ResponseError(connection.host, error)
+        raise ResponseError(hostname=connection.host, error=error)
     except ValueError, error:
-        raise ResponseError(connection.host, error)
+        raise ResponseError(hostname=connection.host, error=error)
     try:
         return content.decode('utf8')
     except UnicodeDecodeError:
