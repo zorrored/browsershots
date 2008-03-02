@@ -120,7 +120,7 @@ class UrlForm(forms.Form):
         """
         Check if server domain name or IP is disallowed in settings.py.
         """
-        hostname = self.netloc_parts[2]
+        hostname = self.netloc_parts[2].lower()
         if (hasattr(settings, 'DISALLOWED_DOMAIN_LIST') and
             settings.DISALLOWED_DOMAIN_LIST):
             for domain in settings.DISALLOWED_DOMAIN_LIST:
