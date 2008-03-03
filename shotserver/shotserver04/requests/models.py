@@ -68,6 +68,8 @@ class RequestGroup(models.Model):
         _("only my own factories"), default=False)
     user = models.ForeignKey(User,
         verbose_name=_("submitter"), blank=True, null=True)
+    priority = models.IntegerField(
+        _("priority"), default=0)
     ip = models.IPAddressField(
         _("IP"))
     submitted = models.DateTimeField(
@@ -138,7 +140,7 @@ class RequestGroup(models.Model):
         interval = timeuntil(now + remaining, now)
         expire = capfirst(_("expires in %(interval)s")) % \
             {'interval': interval}
-        if self._same_user:
+        if self.same_user():
             expire += '\n'.join(('',
 '<input type="hidden" name="request_group_id" value="%d" />' % self.id,
 '<input type="submit" name="extend" value="%s"%s />' % (
@@ -305,35 +307,49 @@ _("[Reload this page] or bookmark it and come back later."))))
         """
         One-line info for estimated remaining queue wait.
         """
-        self.preload_cache()
-        browsers = self.matching_browsers()
-        preload_foreign_keys(browsers,
-                             browser_group=self._browser_groups_cache)
-        requests = self.request_set.filter(screenshot__isnull=True)
-        preload_foreign_keys(requests,
-                             browser_group=self._browser_groups_cache)
         now = datetime.now()
-        elapsed = now - self.submitted
-        elapsed = elapsed.seconds + elapsed.days * 24 * 3600
-        estimates = []
-        for request in requests:
-            estimate = request.queue_estimate(browsers)
-            if estimate:
-                estimates.append(estimate - elapsed)
-        if not estimates:
-            return ''
-        min_seconds = max(180, min(estimates) + 30)
-        max_seconds = max(180, max(estimates) + 30)
+        if self.priority > 0:
+            min_seconds = 60
+            max_seconds = 180
+            link = u'<a href="/priority/">%s</a>' % capfirst(_("priority"))
+        else:
+            self.preload_cache()
+            browsers = self.matching_browsers()
+            preload_foreign_keys(browsers,
+                                 browser_group=self._browser_groups_cache)
+            requests = self.request_set.filter(screenshot__isnull=True)
+            preload_foreign_keys(requests,
+                                 browser_group=self._browser_groups_cache)
+            elapsed = now - self.submitted
+            elapsed = elapsed.seconds + elapsed.days * 24 * 3600
+            estimates = []
+            for request in requests:
+                estimate = request.queue_estimate(browsers)
+                if estimate:
+                    estimates.append(estimate - elapsed)
+            if not estimates:
+                return ''
+            min_seconds = max(180, min(estimates) + 30)
+            max_seconds = max(180, max(estimates) + 30)
+            link = u'<a href="%s">%s</a>' % (
+                self.get_absolute_url(), capfirst(_("details")))
         if min_seconds == max_seconds:
             estimate = timeuntil(now + timedelta(seconds=min_seconds))
         else:
             min_interval = timeuntil(now + timedelta(seconds=min_seconds))
             max_interval = timeuntil(now + timedelta(seconds=max_seconds))
             estimate = _("%(min_interval)s to %(max_interval)s") % locals()
-        link = u'<a href="%s">%s</a>' % (
-            self.get_absolute_url(), capfirst(_("details")))
         return mark_safe(u'<li>%s: %s (%s)</li>' % (
             capfirst(_("queue estimate")), estimate, link))
+
+    def same_user(self):
+        """
+        Check if the current user submitted this request group.
+        """
+        if self.user_id:
+            return self.user_id == self._http_request.user.id
+        else:
+            return self.ip == self._http_request.META['REMOTE_ADDR']
 
     def index(self):
         """

@@ -170,8 +170,11 @@ def start(http_request):
         # Previous request group is still pending, reuse it.
         request_group = existing[0]
         request_group.update_fields(expire=expire)
+        if priority > request_group.priority:
+            request_group.update_fields(priority=priority)
     else:
-        request_group = RequestGroup.objects.create(expire=expire, **values)
+        request_group = RequestGroup.objects.create(
+            expire=expire, priority=priority, **values)
     for browser_form in browser_forms:
         create_platform_requests(
             request_group, browser_form.platform, browser_form, priority)

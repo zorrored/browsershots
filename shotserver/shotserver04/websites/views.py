@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from datetime import datetime
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.conf import settings
@@ -107,29 +108,27 @@ def details(http_request, url):
             pages_list.append(
                 u'<a class="page%s" href="%s?page=%d">%d</a>' % (
                 extra_classes, website.get_numeric_url(), number, number))
-    for index, request_group in enumerate(request_groups):
-        request_group._index = len(request_groups) - index
-        request_group._browser_groups_cache = browser_groups
-        request_group._browsers_cache = browsers
-        request_group._factories_cache = factories
-        request_group._website_cache = website
-        request_group._website_cache._domain_cache = domain
-        if request_group.user_id:
-            request_group._same_user = (
-                request_group.user_id == http_request.user.id)
-        else:
-            request_group._same_user = (
-                request_group.ip == http_request.META['REMOTE_ADDR'])
-    # Get other websites on the same domain
-    domain_website_list = domain.website_set.exclude(id=website.id)
+    user_has_priority = False
     if 'shotserver04.priority' in settings.INSTALLED_APPS:
-        if (http_request.user.is_anonymous() or
-            not http_request.user.userpriority_set.count()):
+        if not http_request.user.is_anonymous():
+            user_has_priority = http_request.user.userpriority_set.filter(
+                expire__gte=datetime.now()).count()
+        if not user_has_priority:
             website_details_head_extra = """
 <p class="admonition new">
 <a href="/priority/">Support the Browsershots project!<br />
 Get a month of priority processing for 10 Euros or 15 Dollars.</a>
 </p>
 """.strip()
+    for index, request_group in enumerate(request_groups):
+        request_group._http_request = http_request
+        request_group._index = len(request_groups) - index
+        request_group._browser_groups_cache = browser_groups
+        request_group._browsers_cache = browsers
+        request_group._factories_cache = factories
+        request_group._website_cache = website
+        request_group._website_cache._domain_cache = domain
+    # Get other websites on the same domain
+    domain_website_list = domain.website_set.exclude(id=website.id)
     return render_to_response('websites/details.html', locals(),
         context_instance=RequestContext(http_request))
