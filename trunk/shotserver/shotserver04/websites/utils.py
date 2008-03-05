@@ -27,7 +27,7 @@ import struct
 import httplib
 import urlparse
 
-HTTP_TIMEOUT = 10 # seconds
+HTTP_TIMEOUT = 20 # seconds
 MAX_RESPONSE_SIZE = 100000 # bytes
 
 
