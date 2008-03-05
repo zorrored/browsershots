@@ -7,6 +7,8 @@
 {% block content %}
 <h1>{{ _("screenshot factories")|capfirst }}</h1>
 
+<p>{% blocktrans with factory_list|length as count %}These {{ count }} computers are run by volunteers to make browser screenshots.{% endblocktrans %}</p>
+
 <table class="factories vertical">
 <thead>
 <tr>{{ factory_table_header }}</tr>
