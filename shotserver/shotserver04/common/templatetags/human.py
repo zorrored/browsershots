@@ -105,13 +105,15 @@ def human_bytes(bytes):
 
 
 @register.filter
-def human_link(instance):
+def human_link(instance, max_length=None):
     """
     HTML link to the detail page.
     """
+    text = unicode(instance)
+    if max_length and len(text) > max_length:
+        text = text[:max_length-1] + '...'
     return mark_safe(u'<a href="%s">%s</a>' % (
-        cgi.escape(instance.get_absolute_url(), quote=True),
-        unicode(instance)))
+        cgi.escape(instance.get_absolute_url(), quote=True), text))
 
 
 @register.filter
