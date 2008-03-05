@@ -36,7 +36,7 @@ from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
 # import time # For test_overload.py
 
-ACCEPTABLE_SERVER_LOAD = 10.0
+ACCEPTABLE_SERVER_LOAD = 8.0
 
 
 @serializable
@@ -152,7 +152,11 @@ def poll(http_request, factory, encrypted_password):
 "Sorry, your screenshot factory is blocked for a few minutes.",
 "Please check your email for error messages from Browsershots.")))
     # Check server load
-    if max(os.getloadavg()) * random.random() > ACCEPTABLE_SERVER_LOAD:
+    randomized_load = max(os.getloadavg()) * random.random()
+    if factory.operating_system.platform_id == 2:
+        # Priority for Mac OS X because there are so few factories.
+        randomized_load /= 2
+    if randomized_load > ACCEPTABLE_SERVER_LOAD:
         raise Fault(503,
 "The server is currently overloaded. Please try again in a minute.")
     # Get matching request
