@@ -188,7 +188,7 @@ self.name)
             if callable(value):
                 value = value()
             if field == 'name':
-                value = human.human_link(self)
+                value = human.human_link(self, 20)
             if field in FACTORY_FIELDS_TIMESINCE:
                 value = human.human_timesince(value)
             if field in FACTORY_FIELDS_SECONDS:
