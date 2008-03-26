@@ -36,6 +36,8 @@ from shotserver04.requests.models import Request
 from datetime import datetime, timedelta
 # import time # For test_overload.py
 
+# Priority for e.g. Mac OS X because there are few factories.
+PRIORITY_PLATFORMS = []
 ACCEPTABLE_SERVER_LOAD = 8.0
 
 
@@ -153,8 +155,7 @@ def poll(http_request, factory, encrypted_password):
 "Please check your email for error messages from Browsershots.")))
     # Check server load
     randomized_load = max(os.getloadavg()) * random.random()
-    if factory.operating_system.platform_id == 2:
-        # Priority for Mac OS X because there are so few factories.
+    if factory.operating_system.platform_id in PRIORITY_PLATFORMS:
         randomized_load /= 2
     if randomized_load > ACCEPTABLE_SERVER_LOAD:
         raise Fault(503,
