@@ -33,6 +33,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from shotserver04.paypal.models import PayPalLog
 from shotserver04.priority.models import UserPriority
+from shotserver04.priority.utils import expiration_date
 
 
 def guess(**kwargs):
@@ -106,8 +107,14 @@ def create_user_priority(log):
     if log.receiver_email != 'johann@browsershots.org':
         mail_admins("Wrong receiver %s" % log.receiver_email, log)
         return
-    if not ((log.mc_currency == 'EUR' and log.mc_gross == '10.00') or
-            (log.mc_currency == 'USD' and log.mc_gross == '15.00')):
+    activated = datetime.now()
+    if ((log.mc_currency == 'EUR' and log.mc_gross == '10.00') or
+        (log.mc_currency == 'USD' and log.mc_gross == '15.00')):
+        expire = expiration_date(activated, 1)
+    elif ((log.mc_currency == 'EUR' and log.mc_gross == '100.00') or
+          (log.mc_currency == 'USD' and log.mc_gross == '150.00')):
+        expire = expiration_date(activated, 12)
+    else:
         mail_admins("Wrong payment", log)
         return
     user = None
@@ -133,21 +140,6 @@ def create_user_priority(log):
     if user is None:
         mail_admins("Could not guess user for payment", log)
         return
-    activated = datetime.now()
-    year, month, day, hour, minute, sec = activated.timetuple()[:6]
-    if month < 12:
-        month += 1
-    else:
-        year += 1
-        month = 1
-    while True:
-        try:
-            expire = datetime(year, month, day, hour, minute, sec)
-            break
-        except ValueError:
-            if day <= 28:
-                raise
-            day -= 1 # February 31st doesn't exist, reduce and try again.
     priority = UserPriority(user=user, priority=1,
                             activated=activated, expire=expire,
                             txn_id=log.txn_id, currency=log.mc_currency,
