@@ -28,9 +28,15 @@ from django.template import RequestContext
 
 
 def overview(http_request):
-    symbol_amount_currency_list = [
-        ('&euro;', '10.00', 'EUR'),
-        ('$', '15.00', 'USD'),
+    durations_list = [
+        ('1 month', [
+            ('&euro;', '10.00', 'EUR'),
+            ('$', '15.00', 'USD'),
+            ]),
+        ('1 year', [
+            ('&euro;', '100.00', 'EUR'),
+            ('$', '150.00', 'USD'),
+            ]),
         ]
     user_has_priority_until = None
     if not http_request.user.is_anonymous():
