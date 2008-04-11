@@ -79,10 +79,13 @@ def guess_factory_name(ip, user_agent):
     Guess factory name from IP address and User-Agent.
     """
     # Try to find a factory with matching IP address
-    factories = Factory.objects.select_related().filter(ip=ip)
+    factories = Factory.objects.select_related().filter(
+        ip=ip, last_poll__isnull=False).order_by('-last_poll')
     if not factories:
-        factories = Factory.objects.select_related()
-    factories = factories.order_by('-last_poll')
+        factories = Factory.objects.select_related().filter(
+            ip=ip).order_by('-last_poll')
+    if not factories:
+        factories = Factory.objects.select_related().order_by('-last_poll')
     # Try to match Ubuntu or Mac OS X
     for factory in factories:
         if factory.operating_system.name in user_agent:
@@ -91,11 +94,7 @@ def guess_factory_name(ip, user_agent):
     for factory in factories:
         if factory.operating_system.platform.name in user_agent:
             return factory.name
-    # Try to skip factories that have never polled
-    for factory in factories:
-        if factory.last_poll is not None:
-            return factory.name
-    # Return first candidate
+    # Return first candidate (latest poll)
     if factories:
         return factories[0].name
 
