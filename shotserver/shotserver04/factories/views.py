@@ -349,7 +349,9 @@ def add(http_request):
     form = FactoryForm(http_request.POST or None)
     if form.is_valid():
         factory = form.create_factory(http_request.user)
-    if not factory:
+    if factory:
+        factory.update_fields(ip=http_request.META['REMOTE_ADDR'])
+    else:
         form_title = _("register a new screenshot factory")
         form_submit = _("register")
         form_javascript = "document.getElementById('id_name').focus()"
