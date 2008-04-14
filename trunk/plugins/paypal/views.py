@@ -143,7 +143,8 @@ def create_user_priority(log):
     priority = UserPriority(user=user, priority=1,
                             activated=activated, expire=expire,
                             txn_id=log.txn_id, currency=log.mc_currency,
-                            payment=float(log.mc_gross))
+                            payment=float(log.mc_gross),
+                            country=log.residence_country)
     priority.save()
     transaction.commit()
     mail_admins(unicode(priority), log)
