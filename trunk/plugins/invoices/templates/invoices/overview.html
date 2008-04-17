@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load human %}
+
+{% block title %}{{ _("invoices")|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ _("invoices")|capfirst }}</h1>
+
+<table>
+<tr>
+<th>{{ _("invoice")|capfirst }}</th>
+<th>{{ _("date")|capfirst }}</th>
+<th>{{ _("payment")|capfirst }}</th>
+<th></th>
+</tr>
+{% for priority in priorities_list %}
+<tr>
+<td>{{ priority.id }}</td>
+<td>{{ priority.activated|human_date }}</td>
+<td>{{ priority.payment }} {{ priority.currency }}</td>
+<td><a href="/invoices/{{ priority.id }}.pdf">PDF</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
