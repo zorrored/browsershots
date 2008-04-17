@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.db import models
+from shotserver04.common import granular_update
 
 
 class PayPalLog(models.Model):
@@ -58,6 +59,7 @@ class PayPalLog(models.Model):
 
     payer_id = models.CharField(max_length=200, blank=True)
     payer_email = models.CharField(max_length=200, blank=True)
+    payer_business_name = models.CharField(max_length=200, blank=True)
     payer_status = models.CharField(max_length=200, blank=True)
 
     receiver_id = models.CharField(max_length=200, blank=True)
@@ -71,6 +73,8 @@ class PayPalLog(models.Model):
         list_display = ('txn_id', 'payment_date', 'payer_email',
                         'mc_currency', 'mc_gross', 'payment_status',
                         'response', 'posted')
+
+    update_fields = granular_update.update_fields
 
     def __unicode__(self):
         return ' '.join((self.mc_currency, self.mc_gross, 'from',
