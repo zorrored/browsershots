@@ -100,6 +100,9 @@ def find_data_files(data_dirnames=None):
         if (dirpath.endswith('/browsers') and
             'uamatrix.xml' in filenames):
             yield(dirpath, [os.path.join(dirpath, 'uamatrix.xml')])
+        if (dirpath.endswith('/invoices') and
+            'logo.jpg' in filenames):
+            yield(dirpath, [os.path.join(dirpath, 'logo.jpg')])
 
 
 def find_scripts():
