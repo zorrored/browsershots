@@ -1,4 +1,7 @@
 #include <map>
+#include <algorithm>
+using namespace std;
+
 #include "Feature.hpp"
 
 extern "C" {
@@ -121,7 +124,7 @@ int main(int argc, char* argv[])
   }
   pbm_freerow(input);
 
-  bool totally_blank = true;
+  bool totally_blank = rows > 40;
   for (int column = 0; column < cols32; column++) {
     if (vertical[column]) totally_blank = false;
   }
@@ -130,12 +133,12 @@ int main(int argc, char* argv[])
 	   "701_The_screen_is_blank.pbm");
     return 1;
   }
-  if (vertical[0] == 0 or left_background) {
+  if (rows > 40 and (vertical[0] == 0 or left_background)) {
     printf("%d\t%d\t%d\t%d\t%s\n", 0, 0, 32, rows,
 	   "702_The_left_side_of_the_screen_is_blank.pbm");
     return 1;
   }
-  if (vertical[cols32 - 1] == 0 or right_background) {
+  if (rows > 40 and (vertical[cols32 - 1] == 0 or right_background)) {
     printf("%d\t%d\t%d\t%d\t%s\n", 32 * (cols32 - 1), 0, 32, rows,
 	   "703_The_right_side_of_the_screen_is_blank.pbm");
     return 1;
