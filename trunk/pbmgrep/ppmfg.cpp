@@ -1,5 +1,7 @@
 #include <iostream>
 #include <map>
+#include <algorithm>
+using namespace std;
 
 extern "C" {
 #include <ppm.h>
