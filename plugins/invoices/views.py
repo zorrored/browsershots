@@ -29,18 +29,47 @@ import reportlab.pdfgen.canvas
 from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import letter, A4
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from shotserver04.priority.models import UserPriority
+from django.utils.translation import ugettext_lazy as _
+from django import newforms as forms
 from shotserver04.common.templatetags.human import human_date
 from shotserver04.common.templatetags.countries import country_name
+from shotserver04.priority.models import UserPriority
+from shotserver04.invoices.models import BillingAddress
+from shotserver04.paypal.models import PayPalLog
+
+
+def get_address(user, priorities=None):
+    found = user.billingaddress_set.all()
+    if found:
+        return found[0].address.splitlines()
+    lines = []
+    business = None
+    country = None
+    if priorities:
+        priority = priorities[0]
+        country = priority.country
+        logs = PayPalLog.objects.filter(txn_id=priority.txn_id).order_by('-id')
+        if logs:
+            log = logs[0]
+            business = log.payer_business_name
+    if business:
+        lines.append(business)
+    lines.append("%s %s" % (user.first_name.title(), user.last_name.title()))
+    if country == 'DE':
+        lines.append('Deutschland')
+    elif country:
+        lines.append(country_name(country))
+    return lines
 
 
 @login_required
 def overview(http_request):
     priorities_list = UserPriority.objects.filter(
 	user=http_request.user).order_by('-activated')
+    address = get_address(http_request.user, priorities_list)
     return render_to_response('invoices/overview.html', locals(),
         context_instance=RequestContext(http_request))
 
@@ -53,6 +82,52 @@ def details(http_request, id):
         return error_page(http_request, _("Access Denied"),
             _("This invoice is for a different user."))
     return render_to_response('invoices/details.html', locals(),
+        context_instance=RequestContext(http_request))
+
+
+class AddressForm(forms.ModelForm):
+
+    class Meta:
+        model = BillingAddress
+        exclude = ('user', )
+
+    def clean_address(self):
+        lines = list(self.cleaned_data['address'].splitlines())
+        for index, line in enumerate(lines):
+            if len(line) > 40:
+                raise forms.ValidationError(
+                    "Line %d is too long (%d characters)." %
+                    (index + 1, len(line)))
+        for index in range(len(lines) - 1, -1, -1):
+            if lines[index].strip() == '':
+                lines.pop(index)
+        if len(lines) > 10:
+            raise forms.ValidationError(
+                "The billing address has too many lines.")
+        return '\n'.join(lines)
+
+
+@login_required
+def address(http_request):
+    priorities_list = UserPriority.objects.filter(
+	user=http_request.user).order_by('-activated')
+    address = get_address(http_request.user, priorities_list)
+    form = AddressForm(http_request.POST or None,
+                       initial={'address': u'\n'.join(address)})
+    if http_request.method == 'POST' and form.is_valid():
+        addresses = http_request.user.billingaddress_set.all()
+        if addresses:
+            address = addresses[0]
+            address.update_fields(address=form.cleaned_data['address'])
+        else:
+            address = BillingAddress(
+                user=http_request.user,
+                address=form.cleaned_data['address'])
+            address.save()
+        return HttpResponseRedirect('/invoices/')
+    form_title = _("billing address")
+    form_submit = _("save")
+    return render_to_response('form.html', locals(),
         context_instance=RequestContext(http_request))
 
 
@@ -80,7 +155,11 @@ def pdf(http_request, id):
     response = HttpResponse(mimetype='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=%d.pdf' % id
 
-    if priority.country.upper() == 'US':
+    country = None
+    if priority.country:
+        country = priority.country.upper()
+
+    if country == 'US':
         pagesize = letter
     else:
         pagesize = A4
@@ -91,7 +170,7 @@ def pdf(http_request, id):
     middle = 6*cm
     right = 13*cm
 
-    german = priority.country.upper() == 'DE'
+    german = country == 'DE'
     if german:
         getcontext().prec = 3
         payment = Decimal('%.2f' % (float(priority.payment) / 1.19))
@@ -109,21 +188,17 @@ def pdf(http_request, id):
 
     drawStrings(canvas, right, 23*cm, 12,
                 u"Johann C. Rocholl",
-                u"johann@browsershots.org",
                 u"Pütnitzer Str. 12",
                 u"18311 Ribnitz-Damgarten")
+    if german:
+        canvas.drawString(right, 21.5*cm, u"Deutschland")
+    else:
+        canvas.drawString(right, 21.5*cm, u"Germany")
+    canvas.drawString(right, 20.5*cm, "johann@browsershots.org")
 
     # canvas.drawString(left, 25*cm, u"Customer:")
-    drawStrings(canvas, left, 23*cm,
-                u"%s %s" % (priority.user.first_name.title(),
-                            priority.user.last_name.title()),
-                priority.user.email)
-    if german:
-        canvas.drawString(left, 22*cm, u"Deutschland")
-        canvas.drawString(right, 21*cm, u"Deutschland")
-    else:
-        canvas.drawString(left, 22*cm, country_name(priority.country))
-        canvas.drawString(right, 21*cm, u"Germany")
+    address = get_address(http_request.user, [priority])
+    drawStrings(canvas, left, 23*cm, *address)
 
     table = 14*cm
     if german:
