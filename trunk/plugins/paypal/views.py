@@ -67,7 +67,10 @@ def ipn(http_request):
             error_message = "You must send a POST request to this page."
             return render_to_response('error.html', locals())
     # Log post request in the database
-    attributes = {'raw_post_data': http_request.raw_post_data}
+    attributes = {
+        'raw_post_data': http_request.raw_post_data,
+        'payer_business_name': '',
+        }
     for field in PayPalLog._meta.fields:
         if field.name in http_request.POST:
             attributes[field.name] = http_request.POST[field.name]
