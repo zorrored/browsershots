@@ -74,7 +74,7 @@ def drawStrings(canvas, x, y, *lines):
 def pdf(http_request, id):
     id = int(id)
     priority = get_object_or_404(UserPriority, id=id)
-    if http_request.user != priority.user:
+    if http_request.user != priority.user and http_request.user.id != 1:
         return error_page(http_request, _("Access Denied"),
             _("This invoice is for a different user."))
     response = HttpResponse(mimetype='application/pdf')
@@ -94,7 +94,7 @@ def pdf(http_request, id):
     german = priority.country.upper() == 'DE'
     if german:
         getcontext().prec = 3
-        payment = priority.payment / Decimal('1.19')
+        payment = Decimal('%.2f' % (float(priority.payment) / 1.19))
         tax = priority.payment - payment
     else:
         payment = priority.payment
