@@ -187,6 +187,13 @@ def profile(http_request):
     factory_table_header = Factory.table_header()
     factory_list = Factory.objects.select_related().filter(
         admin=http_request.user)
+    if 'shotserver04.priority' in settings.INSTALLED_APPS:
+        priorities_list = http_request.user.userpriority_set.order_by(
+            '-expire')
+        if len(priorities_list):
+            user_has_priority_until = priorities_list[0].expire
+            if user_has_priority_until < datetime.now():
+                user_has_priority_until = False
     return render_to_response('accounts/profile.html', locals(),
         context_instance=RequestContext(http_request))
 

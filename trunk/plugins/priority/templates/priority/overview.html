@@ -7,8 +7,11 @@
 <h1>{{ _("priority processing")|capfirst }}</h1>
 
 {% if user_has_priority_until %}
-<p>You have priority processing until {{ user_has_priority_until|human_date }}
-({{ user_has_priority_until|timeuntil }} remaining).</p>
+<p>
+You have priority processing until {{ user_has_priority_until|human_date }}
+({{ user_has_priority_until|timeuntil }} remaining).<br />
+<a href="/invoices/">{{ _("Print an invoice for your payment?") }}</a>
+</p>
 {% else %}
 <ul>
 <li>Your screenshot requests will be processed immediately.</li>

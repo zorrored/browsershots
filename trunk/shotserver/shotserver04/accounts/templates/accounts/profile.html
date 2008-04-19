@@ -34,6 +34,14 @@
 </table>
 {% endif %}
 
+{% if user_has_priority_until %}
+<p>
+You have priority processing until {{ user_has_priority_until|human_date }}
+({{ user_has_priority_until|timeuntil }} remaining).<br />
+<a href="/invoices/">{{ _("Print an invoice for your payment?") }}</a>
+</p>
+{% endif %}
+
 {% if factory_list %}
 <h2>{{ _("your screenshot factories")|capfirst }}</h2>
 <table class="factories vertical">
@@ -48,8 +56,8 @@
 </table>
 {% endif %}
 
-<ul>
-<li><a href="/factories/add/">{{ _("Register a new screenshot factory?") }}</a></li>
-<li><a href="/browsers/add/">{{ _("Register this browser for screenshots?") }}</a></li>
-</ul>
+<p>
+<a href="/factories/add/">{{ _("Register a new screenshot factory?") }}</a><br />
+<a href="/browsers/add/">{{ _("Register this browser for screenshots?") }}</a><br />
+</p>
 {% endblock %}
