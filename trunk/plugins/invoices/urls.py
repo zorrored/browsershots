@@ -27,4 +27,5 @@ from django.conf.urls.defaults import patterns
 urlpatterns = patterns('shotserver04.invoices.views',
     (r'^$', 'overview'),
     (r'^(?P<id>\d+).pdf$', 'pdf'),
+    (r'^address/$', 'address'),
 )

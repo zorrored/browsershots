@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load human %}
+{% load i18n %}
 
 {% block title %}{{ _("invoices")|capfirst }}{% endblock %}
 
@@ -23,10 +24,20 @@
 </tr>
 {% endfor %}
 </table>
+
+<p>
+<b>Billing address:</b><br />
+{% for line in address %}{{ line }}<br />
+{% endfor %}</p>
+
+<p><a href="/invoices/address/">Change your billing address?</a></p>
 {% else %}
 <p class="admonition hint">
 {{ _("Your invoices will appear here when you make a purchase.") }}
 </p>
-<p>No purchases could be found for this user account. Please <a href="mailto:johann@browsershots.org">send email</a> if you think this is a bug.</p>
+<p>
+{{ _("No purchases could be found for this user account.") }}
+{% blocktrans with "mailto:johann@browsershots.org" as href %}Please <a href="{{ href }}">send email</a> if you think this is a bug.{% endblocktrans %}
+</p>
 {% endif %}
 {% endblock %}
