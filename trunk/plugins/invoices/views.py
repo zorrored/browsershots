@@ -34,6 +34,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy as _
 from django import newforms as forms
+from shotserver04.common import error_page
 from shotserver04.common.templatetags.human import human_date
 from shotserver04.common.templatetags.countries import country_name
 from shotserver04.priority.models import UserPriority
@@ -172,9 +173,8 @@ def pdf(http_request, id):
 
     german = country == 'DE'
     if german:
-        getcontext().prec = 3
         payment = Decimal('%.2f' % (float(priority.payment) / 1.19))
-        tax = priority.payment - payment
+        tax = Decimal('%.2f' % (float(priority.payment) - float(payment)))
     else:
         payment = priority.payment
         tax = Decimal('0.00')
