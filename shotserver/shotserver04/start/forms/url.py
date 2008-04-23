@@ -25,7 +25,6 @@ __author__ = "$Author$"
 import re
 import urlparse
 import socket
-import robotparser
 from datetime import datetime
 from psycopg import IntegrityError
 from django import newforms as forms
@@ -41,6 +40,7 @@ from shotserver04.websites.utils import \
      dotted_ip, long_ip, bit_mask, slash_mask
 from shotserver04.websites.models import Domain, Website
 from shotserver04.websites import normalize_url
+from shotserver04.start.forms import robotexclusionrulesparser
 
 SUPPORTED_SCHEMES = ['http', 'https']
 
@@ -168,11 +168,11 @@ class UrlForm(forms.Form):
         robots_txt_url = ''.join((
                 self.url_parts[0], '://', self.url_parts[1], '/robots.txt'))
         # print robots_txt_url
-        parser = robotparser.RobotFileParser()
-        parser.set_url(robots_txt_url)
+        parser = robotexclusionrulesparser.RobotExclusionRulesParser()
+        parser.user_agent = 'Browsershots'
         socket.setdefaulttimeout(HTTP_TIMEOUT)
         try:
-            parser.read()
+            parser.fetch(robots_txt_url)
         except EOFError:
             return
         except (IOError, socket.error), error:
@@ -182,7 +182,7 @@ class UrlForm(forms.Form):
             error = human_error(error)
             raise ValidationError(' '.join((text, error)).strip())
         url_utf8 = self.cleaned_data['url'].encode('utf-8')
-        if not parser.can_fetch('Browsershots', url_utf8):
+        if not parser.is_allowed('Browsershots', url_utf8):
             robots_txt_url = '<a href="%s">%s/robots.txt</a>' % (
                 robots_txt_url, self.url_parts[1])
             faq = u'<a href="%s/%s">FAQ</a>' % (
