@@ -163,7 +163,7 @@ def http_get_path(connection, path):
     """
     # Send request
     try:
-        headers = {"User-Agent": "Browsershots URL Check"}
+        headers = {"User-Agent": "Browsershots"}
         connection.request('GET', path.encode('utf-8'), headers=headers)
     except socket.error, error:
         raise RequestError(hostname=connection.host, error=error)
