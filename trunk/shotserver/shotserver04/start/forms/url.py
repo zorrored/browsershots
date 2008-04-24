@@ -181,7 +181,7 @@ class UrlForm(forms.Form):
                 {'hostname': self.url_parts[1]})
             error = human_error(error)
             raise ValidationError(' '.join((text, error)).strip())
-        if not parser.is_allowed('Browsershots', self.cleaned_data['url'])
+        if not parser.is_allowed('Browsershots', self.cleaned_data['url']):
             robots_txt_url = '<a href="%s">%s/robots.txt</a>' % (
                 robots_txt_url, self.url_parts[1])
             faq = u'<a href="%s/%s">FAQ</a>' % (
