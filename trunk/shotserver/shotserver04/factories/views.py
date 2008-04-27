@@ -179,11 +179,11 @@ def result_message(result, id=None):
         parts.pop(-1)
         id = unicode(id)
     item = _(' '.join(parts))
-    return "%s %s %s." % (capfirst(action), item, id)
     if action == 'added':
         return _("Added %(item)s %(id)s.") % locals()
     elif action == 'removed':
         return _("Removed %(item)s %(id)s.") % locals()
+    return "%s %s %s." % (capfirst(action), item, id)
 
 
 def deactivate_browser(http_request, id):
