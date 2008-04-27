@@ -77,6 +77,7 @@
 <form action="{{ factory.get_absolute_url }}#screensizes" method="post">
 <div style="float: left; margin: 0 2em 0 0;">
 <h2><a name="screensizes">{{ _("screen sizes")|capfirst }}</a></h2>
+{% if screen_size_result %}<p class="admonition success">{{ screen_size_result }}</p>{% endif %}
 {% for error in screensize_form.errors.width %}<p class="admonition error">{{ error }}</p>{% endfor %}
 {% for error in screensize_form.errors.height %}<p class="admonition error">{{ error }}</p>{% endfor %}
 <table class="screensizes vertical">
@@ -87,7 +88,7 @@
 </tr>
 {% endif %}
 {% for screensize in screensize_list %}
-<tr class="{% cycle row1,row2 %}">
+<tr class="{% cycle row1,row2 %}{% ifequal screensize added_screen_size %} added{% endifequal %}">
 <td>{{ screensize }}</td>
 {% if admin_logged_in %}<td><input type="submit" name="remove_size_{{ screensize }}" value="{{ _("remove")|capfirst }}" /></td>
 {% endif %}</tr>
@@ -102,8 +103,9 @@
 <form action="{{ factory.get_absolute_url }}#colordepths" method="post">
 <div style="float: left; margin: 0 2em 0 0;">
 <h2><a name="colordepths">{{ _("color depths")|capfirst }}</a></h2>
+{% if color_depth_result %}<p class="admonition success">{{ color_depth_result }}</p>{% endif %}
 {% for error in colordepth_form.errors.depth %}<p class="admonition error">{{ error }}</p>{% endfor %}
-<table class="screensizes vertical">
+<table class="colordepths vertical">
 {% if admin_logged_in %}
 <tr>
 <td>{{ colordepth_form.depth }} {{ _("bits per pixel") }}</td>
@@ -111,7 +113,7 @@
 </tr>
 {% endif %}
 {% for colordepth in colordepth_list %}
-<tr class="{% cycle row1,row2 %}">
+<tr class="{% cycle row1,row2 %}{% ifequal colordepth added_color_depth %} added{% endifequal %}">
 <td>{{ colordepth }} {{ _("bits per pixel") }}</td>
 {% if admin_logged_in %}<td><input type="submit" name="remove_depth_{{ colordepth }}" value="{{ _("remove")|capfirst }}" /></td>
 {% endif %}</tr>

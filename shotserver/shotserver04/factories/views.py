@@ -22,11 +22,12 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from psycopg import IntegrityError
+from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response, get_object_or_404
+from django.utils.text import capfirst
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.query import Q
@@ -149,6 +150,42 @@ def get_browser(http_request, id):
     return browser
 
 
+def result_redirect(url, result=None, id=None, fragment=None):
+    if hasattr(url, 'get_absolute_url'):
+        url = url.get_absolute_url()
+    if result is not None:
+        url += '?result=' + result
+        if hasattr(id, 'id'):
+            url += '_%d' % id.id
+        elif id is not None:
+            url += '_' + unicode(id)
+    if fragment is not None:
+        url += '#' + fragment
+    return HttpResponseRedirect(url)
+
+
+def result_filter(items, func):
+    for item in items:
+        if func(item):
+            return item
+
+
+def result_message(result, id=None):
+    parts = result.split('_')
+    action = parts.pop(0)
+    if id is None:
+        id = parts.pop(-1)
+    else:
+        parts.pop(-1)
+        id = unicode(id)
+    item = _(' '.join(parts))
+    return "%s %s %s." % (capfirst(action), item, id)
+    if action == 'added':
+        return _("Added %(item)s %(id)s.") % locals()
+    elif action == 'removed':
+        return _("Removed %(item)s %(id)s.") % locals()
+
+
 def deactivate_browser(http_request, id):
     """
     Deactivate the specified browser.
@@ -160,7 +197,7 @@ def deactivate_browser(http_request, id):
     except InvalidRequest, error:
         return error_page(http_request, error.title, error.args[0])
     browser.update_fields(active=False)
-    return HttpResponseRedirect(browser.factory.get_absolute_url())
+    return result_redirect(browser.factory, 'deactivated_browser', browser)
 
 
 def activate_browser(http_request, id):
@@ -177,7 +214,7 @@ def activate_browser(http_request, id):
                 for field in Browser._meta.fields)
     browsers_views.delete_or_deactivate_similar_browsers(data, exclude=browser)
     browser.update_fields(active=True)
-    return HttpResponseRedirect(browser.factory.get_absolute_url())
+    return result_redirect(browser.factory, 'activated_browser', browser)
 
 
 def details_post(http_request, factory,
@@ -190,14 +227,14 @@ def details_post(http_request, factory,
         factory.update_fields(
             hardware=factory_form.cleaned_data['hardware'],
             operating_system=factory_form.cleaned_data['operating_system'])
-        return HttpResponseRedirect(factory.get_absolute_url())
+        return result_redirect(factory, 'updated_factory', factory)
     if screensize_form.is_valid():
         try:
-            ScreenSize.objects.create(factory=factory,
+            screen_size = ScreenSize.objects.create(factory=factory,
                 width = screensize_form.cleaned_data['width'],
                 height = screensize_form.cleaned_data['height'])
-            return HttpResponseRedirect(
-                factory.get_absolute_url() + '#screensizes')
+            return result_redirect(factory, 'added_screen_size',
+                                   unicode(screen_size), 'screensizes')
         except IntegrityError, e:
             transaction.rollback()
             if 'duplicate' in str(e).lower():
@@ -207,10 +244,10 @@ def details_post(http_request, factory,
                 screensize_form.errors['width'] = [_("Invalid data.")]
     if colordepth_form.is_valid():
         try:
-            ColorDepth.objects.create(factory=factory,
+            color_depth = ColorDepth.objects.create(factory=factory,
                 bits_per_pixel = colordepth_form.cleaned_data['depth'])
-            return HttpResponseRedirect(
-                factory.get_absolute_url() + '#colordepths')
+            return result_redirect(factory, 'added_color_depth',
+                                   unicode(color_depth), 'colordepths')
         except IntegrityError, e:
             transaction.rollback()
             if 'duplicate' in str(e).lower():
@@ -228,14 +265,15 @@ def details_post(http_request, factory,
                 height = int(width_height[1])
                 ScreenSize.objects.filter(
                     factory=factory, width=width, height=height).delete()
-                return HttpResponseRedirect(
-                    factory.get_absolute_url() + '#screensizes')
+                return result_redirect(factory, 'removed_screen_size',
+                                       parts[2], 'screensizes')
             if parts[0] == 'remove' and parts[1] == 'depth':
                 depth = int(parts[2])
-                ColorDepth.objects.filter(
-                    factory=factory, bits_per_pixel=depth).delete()
-                return HttpResponseRedirect(
-                    factory.get_absolute_url() + '#colordepths')
+                color_depths = ColorDepth.objects.filter(
+                    factory=factory, bits_per_pixel=depth)
+                color_depths.delete()
+                return result_redirect(factory, 'removed_color_depth',
+                                       depth, 'colordepths')
             if parts[0] == 'activate' and parts[1] == 'browser':
                 return activate_browser(http_request, int(parts[2]))
             if parts[0] == 'deactivate' and parts[1] == 'browser':
@@ -254,6 +292,8 @@ def details(http_request, name):
         'add_size' in http_request.POST and http_request.POST or None)
     colordepth_form = ColorDepthForm(
         'add_depth' in http_request.POST and http_request.POST or None)
+    result = http_request.GET.get('result', '')
+    result_id = result.split('_')[-1]
     if http_request.POST:
         response = details_post(http_request, factory,
             factory_form, screensize_form, colordepth_form)
@@ -268,7 +308,15 @@ def details(http_request, name):
     browser_list = list(browser_list)
     browser_list.sort(key=lambda browser: (unicode(browser), browser.id))
     screensize_list = factory.screensize_set.all()
+    if '_screen_size_' in result:
+        screen_size_result = result_message(result)
+        added_screen_size = result_filter(screensize_list,
+            lambda s: unicode(s) == result_id)
     colordepth_list = factory.colordepth_set.all()
+    if '_color_depth_' in result:
+        color_depth_result = result_message(result, result_id)
+        added_color_depth = result_filter(colordepth_list,
+            lambda c: c.bits_per_pixel == int(result_id))
     screenshot_list = factory.screenshot_set.all()
     if len(screenshot_list.order_by()[:1]):
         q = Q(user__isnull=True)
@@ -357,4 +405,4 @@ def add(http_request):
         form_javascript = "document.getElementById('id_name').focus()"
         return render_to_response('form.html', locals(),
             context_instance=RequestContext(http_request))
-    return HttpResponseRedirect(factory.get_absolute_url())
+    return result_redirect(factory, 'added_factory', factory)

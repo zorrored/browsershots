@@ -267,6 +267,9 @@ p.success {
   background-color: #cfc;
   border-color: #0f0;
 }
+tr.added {
+  background-color: #fe8;
+}
 
 div.caption {
   font-size: 10px;
