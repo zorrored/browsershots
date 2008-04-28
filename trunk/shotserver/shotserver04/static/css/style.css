@@ -267,7 +267,10 @@ p.success {
   background-color: #cfc;
   border-color: #0f0;
 }
-tr.highlight { background-color: #fe8; }
+tr.highlight,
+tr.highlight td {
+  background-color: #fe8;
+}
 
 div.caption {
   font-size: 10px;
