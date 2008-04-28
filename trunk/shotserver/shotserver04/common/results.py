@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect
 from django.utils.text import capfirst
 
@@ -17,6 +18,12 @@ def redirect(url, result=None, id=None, fragment=None):
 
 
 def filter(items, func):
+    if isinstance(func, int):
+        id = func
+        func = lambda item: item.id == id
+    elif isinstance(func, basestring):
+        text = func
+        func = lambda item: unicode(item) == text
     for item in items:
         if func(item):
             return item
