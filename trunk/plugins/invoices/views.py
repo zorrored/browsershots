@@ -150,7 +150,8 @@ def drawStrings(canvas, x, y, *lines):
 def pdf(http_request, id):
     id = int(id)
     priority = get_object_or_404(UserPriority, id=id)
-    if http_request.user != priority.user and http_request.user.id != 1:
+    if (http_request.user != priority.user
+        and not http_request.user.is_superuser):
         return error_page(http_request, _("Access Denied"),
             _("This invoice is for a different user."))
     response = HttpResponse(mimetype='application/pdf')
@@ -197,7 +198,7 @@ def pdf(http_request, id):
     canvas.drawString(right, 20.5*cm, "johann@browsershots.org")
 
     # canvas.drawString(left, 25*cm, u"Customer:")
-    address = get_address(http_request.user, [priority])
+    address = get_address(priority.user, [priority])
     drawStrings(canvas, left, 23*cm, *address)
 
     table = 14*cm
