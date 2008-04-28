@@ -167,6 +167,8 @@ class UrlForm(forms.Form):
         """
         robots_txt_url = ''.join((
                 self.url_parts[0], '://', self.url_parts[1], '/robots.txt'))
+        robots_txt_link = '<a href="%s">%s/robots.txt</a>' % (
+            robots_txt_url, self.url_parts[1])
         # print robots_txt_url
         parser = robotexclusionrulesparser.RobotExclusionRulesParser()
         parser.user_agent = 'Browsershots'
@@ -175,20 +177,16 @@ class UrlForm(forms.Form):
             parser.fetch(robots_txt_url)
         except EOFError:
             return
-        except (IOError, socket.error), error:
-            text = unicode(
-                _("Could not get robots.txt from %(hostname)s.") %
-                {'hostname': self.url_parts[1]})
-            error = human_error(error)
-            raise ValidationError(' '.join((text, error)).strip())
+        except (IOError, socket.error, UnicodeError), error:
+            raise ValidationError(mark_safe(u' '.join((
+                _("Could not read %(robots_txt_link)s.") % locals(),
+                human_error(error)))))
         if not parser.is_allowed('Browsershots', self.cleaned_data['url']):
-            robots_txt_url = '<a href="%s">%s/robots.txt</a>' % (
-                robots_txt_url, self.url_parts[1])
             faq = u'<a href="%s/%s">FAQ</a>' % (
                 'http://trac.browsershots.org/wiki',
                 'FrequentlyAskedQuestions#Blockedbyrobots.txt')
             raise ValidationError(mark_safe(u' '.join((
-_("Browsershots was blocked by %(robots_txt_url)s.") % locals(),
+_("Browsershots was blocked by %(robots_txt_link)s.") % locals(),
 _("Please read the %(faq)s.") % locals(),
 ))))
 
@@ -295,5 +293,4 @@ def human_error(error):
     if 'timed out' in error.lower():
         return (_("Server failed to respond within %d seconds.") %
                 HTTP_TIMEOUT)
-    else:
-        return capfirst(error).rstrip('.') + '.'
+    return capfirst(error).rstrip('.') + '.'
