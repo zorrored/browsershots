@@ -159,7 +159,8 @@ def deactivate_browser(http_request, id):
     except InvalidRequest, error:
         return error_page(http_request, error.title, error.args[0])
     browser.update_fields(active=False)
-    return results.redirect(browser.factory, 'deactivated_browser', browser)
+    return results.redirect(browser.factory, 'deactivated_browser',
+                            browser, 'browsers')
 
 
 def activate_browser(http_request, id):
@@ -176,7 +177,8 @@ def activate_browser(http_request, id):
                 for field in Browser._meta.fields)
     browsers_views.delete_or_deactivate_similar_browsers(data, exclude=browser)
     browser.update_fields(active=True)
-    return results.redirect(browser.factory, 'activated_browser', browser)
+    return results.redirect(browser.factory, 'activated_browser',
+                            browser, 'browsers')
 
 
 def details_post(http_request, factory,
@@ -270,18 +272,21 @@ def details(http_request, name):
                          javascript=True, java=True, flash=True)
     browser_list = list(browser_list)
     browser_list.sort(key=lambda browser: (unicode(browser), browser.id))
+    if '_browser_' in result:
+        result_id = int(result.split('_')[-1])
+        highlight = results.filter(browser_list, result_id)
+        browser_result = results.message(result, highlight)
     screensize_list = factory.screensize_set.all()
     if '_screen_size_' in result:
-        screen_size_result = results.message(result)
         result_id = result.split('_')[-1]
-        added_screen_size = results.filter(screensize_list,
-            lambda s: unicode(s) == result_id)
+        highlight = results.filter(screensize_list, result_id)
+        screen_size_result = results.message(result)
     colordepth_list = factory.colordepth_set.all()
     if '_color_depth_' in result:
-        color_depth_result = results.message(result, result_id)
         result_id = int(result.split('_')[-1])
-        added_color_depth = results.filter(colordepth_list,
+        highlight = results.filter(colordepth_list,
             lambda c: c.bits_per_pixel == result_id)
+        color_depth_result = results.message(result, result_id)
     screenshot_list = factory.screenshot_set.all()
     if len(screenshot_list.order_by()[:1]):
         q = Q(user__isnull=True)
