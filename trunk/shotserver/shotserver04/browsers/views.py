@@ -33,7 +33,7 @@ from django.shortcuts import render_to_response
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.conf import settings
-from shotserver04.common import error_page
+from shotserver04.common import error_page, results
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.browsers import agents
@@ -176,8 +176,10 @@ def add(http_request):
     # Save IP address, to guess the factory when adding the next browser
     form.cleaned_data['factory'].update_fields(ip=ip)
     # Redirect to factory detail page
-    return HttpResponseRedirect(
-        form.cleaned_data['factory'].get_absolute_url())
+    return results.redirect(form.cleaned_data['factory'],
+                            form.cleaned_data['action'],
+                            form.cleaned_data['browser'],
+                            'browsers')
 
 
 def activate_or_add_browser(data):
@@ -192,7 +194,8 @@ def activate_or_add_browser(data):
         delete_or_deactivate_similar_browsers(data)
     # Create new browser with submitted data
     data['active'] = True
-    Browser.objects.create(**data)
+    data['browser'] = Browser.objects.create(**data)
+    data['action'] = 'added_browser'
 
 
 def activate_browser(data):
@@ -211,17 +214,20 @@ def activate_browser(data):
     if len(existing_browsers) == 0:
         return False
     browser = existing_browsers[0]
+    data['browser'] = browser
     for candidate in existing_browsers:
         if candidate.active:
             browser = candidate
             break
     modified = False
     data['active'] = True
+    data['action'] = 'activated_browser'
     for field in 'active command major minor engine engine_version'.split():
         if getattr(browser, field) != data[field]:
             setattr(browser, field, data[field])
             modified = True
     if modified:
+        data['action'] = 'updated_browser'
         browser.save()
     return browser
 
