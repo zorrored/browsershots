@@ -175,9 +175,7 @@ def http_get_path(connection, path):
             raise RedirectError(hostname=connection.host,
                                 code=response.status, location=location)
         content = response.read(MAX_RESPONSE_SIZE)
-    except socket.error, error:
-        raise ResponseError(hostname=connection.host, error=error)
-    except ValueError, error:
+    except (socket.error, ValueError, httplib.BadStatusLine), error:
         raise ResponseError(hostname=connection.host, error=error)
     try:
         return content.decode('utf8')
