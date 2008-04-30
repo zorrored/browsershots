@@ -178,6 +178,8 @@ to-6.net
 meine-nackte-ex.net
 meine-nackte-ex.cc.gd
 ex.cc.gd
+sexy-lena.com
+my-fucking-ex.org
 """.splitlines()
 
 # If you set this to False, only registered users can submit requests.
