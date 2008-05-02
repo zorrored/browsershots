@@ -54,6 +54,7 @@ for user in User.objects.all():
         continue
     balance = Decimal('0.00')
     for transaction in transactions:
+        print str(user.id).ljust(6),
         print user.username.ljust(16),
         print str(transaction.date).ljust(20),
         print str(transaction.euros).rjust(8),
