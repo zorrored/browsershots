@@ -57,7 +57,7 @@ def find_and_lock_request(factory, features):
         models.Q(locked__isnull=True) | models.Q(locked__lt=five_minutes_ago))
     matches = matches.filter(priority__gte=0) # Ignore shock sites
     matches = matches.order_by(
-        '-priority', 'requests_request__request_group.submitted')
+        '-priority', 'requests_requestgroup.submitted')
     own_matches = matches.filter(
         request_group__own_factories_only=True,
         request_group__user=factory.admin_id)
