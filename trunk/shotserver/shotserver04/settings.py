@@ -255,6 +255,5 @@ except ImportError:
     pass
 if 'EXTRA_APPS' in locals():
     INSTALLED_APPS += EXTRA_APPS
-
-if DEBUG:
+if 'DESEB' in locals() and DESEB:
     import deseb
