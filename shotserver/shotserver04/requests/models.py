@@ -25,6 +25,7 @@ __author__ = "$Author$"
 from datetime import datetime, timedelta
 import os
 from xmlrpclib import Fault
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timesince import timesince, timeuntil
@@ -379,9 +380,9 @@ _("[Reload this page] or bookmark it and come back later."))))
                 _("download %(count)d screenshots") % locals()))
         if bytes:
             text += ' (%s)' % filesizeformat(bytes).replace(' ', '&nbsp;')
-        div = u'<div class="floatleft">%s</div>'
-        link = u'<a href="/screenshots/%s">%s</a>'
-        return mark_safe(div % link % (self.zip_filename(), text))
+        link = u'<a href="%s/screenshots/%s">%s</a>' % (
+            settings.ZIP_URL.rstrip('/'), self.zip_filename(), text)
+        return mark_safe(u'<div class="floatleft">%s</div>' % link)
 
 
 
