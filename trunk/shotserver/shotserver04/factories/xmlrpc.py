@@ -40,6 +40,6 @@ def features(http_request, factory):
     ~~~~~~~~~~~~
     * where string (SQL WHERE clause)
     """
-    joins, where, params = factory.features_q().get_sql(Request._meta)
-    where = ' AND '.join(where)
-    return where % tuple(params)
+    queryset = Request.objects.filter(factory.features_q())
+    where, params = queryset.query.as_sql()
+    return where % params
