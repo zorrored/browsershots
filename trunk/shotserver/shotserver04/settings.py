@@ -106,6 +106,8 @@ MEDIA_URL = ''
 
 PNG_ROOT = '/var/www/v04.browsershots.org/png/'
 PNG_URL = 'http://png.browsershots.org/'
+API_URL = 'http://api.browsershots.org/'
+ZIP_URL = 'http://api.browsershots.org/'
 
 # List of processors used by RequestContext to populate the context.
 # Each one should be a callable that takes the request object as its
