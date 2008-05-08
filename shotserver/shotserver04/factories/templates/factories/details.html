@@ -182,7 +182,7 @@
 {% for error in errors_list %}
 <tr class="{% cycle row1,row2 %}">
 <td>{% if error.help_available %}<a href="http://trac.browsershots.org/wiki/FactoryErrors#a{{ error.code }}">{% endif %}{{ error.code }}{% if error.help_available %}</a>{% endif %}</td>
-<td>{% if error.hashkey %}<a href="/png/original/{{ error.hashkey.0 }}{{ error.hashkey.1 }}/{{ error.hashkey }}.png">{% endif %}{{ error.message }}{% if error.hashkey %}</a>{% endif %}</td>
+<td>{% if error.hashkey %}<a href="http://api.browsershots.org/png/original/{{ error.hashkey.0 }}{{ error.hashkey.1 }}/{{ error.hashkey }}.png">{% endif %}{{ error.message }}{% if error.hashkey %}</a>{% endif %}</td>
 <td>{% if error.request %}{{ error.request.browser_group }} {{ error.request.major}}.{{ error.request.minor }}{% endif %}</td>
 <td>{{ error.occurred|human_timesince }}</td>
 </tr>
