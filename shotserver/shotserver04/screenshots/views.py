@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import os
 import cgi
 import zipfile
 import tempfile
@@ -179,6 +180,8 @@ def download_zip(http_request, request_group_id):
     archive = zipfile.ZipFile(temp, 'w', zipfile.ZIP_STORED)
     for request in requests:
         filename = storage.png_filename(request.screenshot.hashkey)
+        if not os.path.exists(filename):
+            continue
         archive.write(filename, str(request.screenshot.png_filename()))
     archive.close()
     # Send result to browser
