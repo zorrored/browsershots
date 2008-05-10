@@ -43,6 +43,9 @@ DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost.
 DATABASE_PORT = ''             # Set to empty string for default.
 
+CACHE_BACKEND = 'locmem:///'
+# CACHE_BACKEND = "memcached://127.0.0.1:11211/?timeout=60&max_entries=1000"
+
 # Local time zone for this installation. All choices can be found here:
 # http://www.postgresql.org/docs/8.1/static/datetime-keywords.html
 # If running in a Windows environment this must be set to the same as your

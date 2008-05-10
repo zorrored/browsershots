@@ -42,7 +42,7 @@ from django.utils.text import capfirst
 from django.conf import settings
 from shotserver04.factories.models import Factory
 from shotserver04.messages.models import FactoryError
-from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.common import error_page, success_page
 from shotserver04.nonces import crypto
 from shotserver04.nonces.models import Nonce

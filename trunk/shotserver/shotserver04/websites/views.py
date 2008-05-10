@@ -32,7 +32,7 @@ from shotserver04.websites.models import Website, Domain
 from shotserver04.browsers.models import Browser, BrowserGroup
 from shotserver04.requests.models import RequestGroup
 from shotserver04.factories.models import Factory
-from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.websites import normalize_url, extract_domain
 
 

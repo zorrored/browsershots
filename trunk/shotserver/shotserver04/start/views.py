@@ -33,7 +33,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from shotserver04.common import int_or_none, last_poll_timeout, error_page
-from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.start.models import NewsItem
 from shotserver04.start.forms.url import UrlForm
 from shotserver04.start.forms.browsers import BrowsersForm

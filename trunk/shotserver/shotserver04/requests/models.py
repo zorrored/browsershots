@@ -41,7 +41,7 @@ from shotserver04.features.models import Javascript, Java, Flash
 from shotserver04.screenshots.models import Screenshot
 from shotserver04.screenshots import storage
 from shotserver04.common import lock_timeout, last_poll_timeout
-from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.common import granular_update
 from shotserver04.features import satisfies
 

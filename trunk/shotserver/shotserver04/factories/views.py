@@ -33,7 +33,7 @@ from django import newforms as forms
 from django.newforms.util import ErrorList
 from django.conf import settings
 from shotserver04.common import last_poll_timeout, error_page, results
-from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.browsers.models import Browser
