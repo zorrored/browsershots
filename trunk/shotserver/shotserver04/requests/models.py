@@ -182,12 +182,9 @@ class RequestGroup(models.Model):
         """
         Load database objects to save many SQL queries later.
         """
-        if not hasattr(self, '_browser_groups_cache'):
-            self._browser_groups_cache = BrowserGroup.objects.all()
         if not hasattr(self, '_browsers_cache'):
             self._browsers_cache = Browser.objects.all()
-            preload_foreign_keys(self._browsers_cache,
-                browser_group=self._browser_groups_cache)
+            preload_foreign_keys(self._browsers_cache, browser_group=True)
         if not hasattr(self, '_factories_cache'):
             self._factories_cache = Factory.objects.all()
             preload_foreign_keys(self._factories_cache,
@@ -316,11 +313,9 @@ _("[Reload this page] or bookmark it and come back later."))))
         else:
             self.preload_cache()
             browsers = self.matching_browsers()
-            preload_foreign_keys(browsers,
-                                 browser_group=self._browser_groups_cache)
+            preload_foreign_keys(browsers, browser_group=True)
             requests = self.request_set.filter(screenshot__isnull=True)
-            preload_foreign_keys(requests,
-                                 browser_group=self._browser_groups_cache)
+            preload_foreign_keys(requests, browser_group=True)
             elapsed = now - self.submitted
             elapsed = elapsed.seconds + elapsed.days * 24 * 3600
             estimates = []
