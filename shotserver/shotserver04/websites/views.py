@@ -89,9 +89,8 @@ def details(http_request, url):
             return unknown_url(http_request, url)
     # Use caching to reduce number of SQL queries
     domain = website.domain
-    browser_groups = BrowserGroup.objects.all()
     browsers = Browser.objects.all()
-    preload_foreign_keys(browsers, browser_group=browser_groups)
+    preload_foreign_keys(browsers, browser_group=True)
     factories = Factory.objects.all()
     preload_foreign_keys(factories, operating_system=True)
     request_groups = list(website.requestgroup_set.all())
@@ -123,7 +122,6 @@ Get a month of priority processing for 10 Euros or 15 Dollars.</a>
     for index, request_group in enumerate(request_groups):
         request_group._http_request = http_request
         request_group._index = len(request_groups) - index
-        request_group._browser_groups_cache = browser_groups
         request_group._browsers_cache = browsers
         request_group._factories_cache = factories
         request_group._website_cache = website
