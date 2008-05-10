@@ -35,7 +35,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.core.servers.basehttp import FileWrapper
 from django.conf import settings
-from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.screenshots.models import PROBLEM_CHOICES
 from shotserver04.screenshots.models import PROBLEM_CHOICES_EXPLICIT

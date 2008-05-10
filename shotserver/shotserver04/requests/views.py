@@ -33,7 +33,7 @@ from shotserver04.requests.models import Request, RequestGroup
 from shotserver04.platforms.models import Platform
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import BrowserGroup, Browser
-from shotserver04.common.preload import preload_foreign_keys
+from shotserver04.common.object_cache import preload_foreign_keys
 
 
 def overview(http_request):
