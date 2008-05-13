@@ -24,7 +24,7 @@ __author__ = "$Author$"
 
 from django.db import IntegrityError
 from django.template import RequestContext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy, ugettext as _
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -119,12 +119,12 @@ class ColorDepthForm(forms.Form):
 
 class InvalidRequest(Exception):
     """Not a valid post request."""
-    title = _("invalid request")
+    title = ugettext_lazy("invalid request")
 
 
 class PermissionDenied(InvalidRequest):
     """User not logged in as factory admin."""
-    title = _("permission denied")
+    title = ugettext_lazy("permission denied")
 
 
 def get_browser(http_request, id):
@@ -306,6 +306,12 @@ def details(http_request, name):
     preload_foreign_keys(problems_list, screenshot=True)
     for problem in problems_list:
         problem.help_available = problem.code in CODE_HELP_AVAILABLE
+    if '_problem_report_' in result:
+        result_id = int(result.split('_')[-1])
+        highlight = results.filter(problems_list, result_id)
+        problem_report_result = u' '.join((
+_("Thanks for your feedback!"),
+_("The administrator of this screenshot factory will be notified.")))
     errors_list = factory.factoryerror_set.all()[:10]
     for error in errors_list:
         error.help_available = error.code in CODE_HELP_AVAILABLE
@@ -324,15 +330,14 @@ class FactoryBase(forms.BaseForm):
         """
         name = self.cleaned_data['name']
         if name[0] not in FACTORY_NAME_CHAR_FIRST:
-            raise forms.ValidationError(unicode(
-                _("Name must start with a lowercase letter.")))
+            raise forms.ValidationError(
+                _("Name must start with a lowercase letter."))
         for index in range(len(name)):
             if name[index] not in FACTORY_NAME_CHAR:
-                raise forms.ValidationError(unicode(
-_("Name may contain only lowercase letters, digits, underscore, hyphen.")))
+                raise forms.ValidationError(
+_("Name may contain only lowercase letters, digits, underscore, hyphen."))
         if name in 'localhost server factory shotfactory add'.split():
-            raise forms.ValidationError(unicode(
-                _("This name is reserved.")))
+            raise forms.ValidationError(_("This name is reserved."))
         return name
 
     def create_factory(self, admin):
