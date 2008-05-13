@@ -35,6 +35,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.core.servers.basehttp import FileWrapper
 from django.conf import settings
+from shotserver04.common import results
 from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.screenshots.models import Screenshot, ProblemReport
 from shotserver04.screenshots.models import PROBLEM_CHOICES
@@ -122,6 +123,9 @@ class ProblemForm(forms.Form):
                     unicode(_("URLs are not allowed here.")))
         return cgi.escape(self.cleaned_data['message'])
 
+    def clean_code(self):
+        return int(self.cleaned_data['code'])
+
 
 def details(http_request, hashkey):
     """
@@ -155,12 +159,13 @@ def details(http_request, hashkey):
         elif code in PROBLEM_CHOICES:
             problem_form.cleaned_data['message'] = PROBLEM_CHOICES[code]
         if problem_form.cleaned_data['message']:
-            ProblemReport.objects.create(
+            problem_report = ProblemReport.objects.create(
                 screenshot=screenshot,
                 ip=http_request.META['REMOTE_ADDR'],
                 **problem_form.cleaned_data)
-            return HttpResponseRedirect(
-                request.factory.get_absolute_url() + '#problems')
+            return results.redirect(
+                screenshot.factory, 'added_problem_report',
+                problem_report, 'problems')
     length = len(PROBLEM_CHOICES)
     select = "document.forms['problem_form'].code[%d].checked=true" % length
     message_field = problem_form['message'].as_text(
