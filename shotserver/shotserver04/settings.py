@@ -108,7 +108,7 @@ MEDIA_ROOT = ''
 MEDIA_URL = ''
 
 PNG_ROOT = '/var/www/v04.browsershots.org/png/'
-PNG_URL = 'http://png.browsershots.org/'
+PNG_URL = 'http://api.browsershots.org/png/'
 API_URL = 'http://api.browsershots.org/'
 ZIP_URL = 'http://api.browsershots.org/'
 
@@ -216,6 +216,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.doc.XViewMiddleware',
     'django.middleware.transaction.TransactionMiddleware',
+    # 'django.middleware.http.SetRemoteAddrFromForwardedFor',
 )
 
 ROOT_URLCONF = 'shotserver04.urls'
