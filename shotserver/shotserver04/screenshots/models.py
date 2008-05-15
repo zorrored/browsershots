@@ -156,14 +156,14 @@ class Screenshot(models.Model):
 
     def get_png_url(self, size='original'):
         """URL for screenshot images of different sizes."""
-        if (self.uploaded > S3_DEPLOYMENT_DATE and
+        if (self.user_id is not None and
+            self.uploaded > S3_DEPLOYMENT_DATE and
             hasattr(settings, 'S3_BUCKETS') and
-            str(size) in settings.S3_BUCKETS and
-            self.user_id is not None):
+            str(size) in settings.S3_BUCKETS):
             return 'http://%s/%s.png' % (
                 settings.S3_BUCKETS[str(size)], self.hashkey)
         return '/'.join((settings.PNG_URL.rstrip('/'),
-                size, self.hashkey[:2], self.hashkey + '.png'))
+            str(size), self.hashkey[:2], self.hashkey + '.png'))
 
     def get_large_url(self):
         """URL for large preview image."""
