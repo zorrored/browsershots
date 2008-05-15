@@ -133,8 +133,8 @@ def upload(http_request, factory, encrypted_password, request, screenshot):
     finally:
         # Delete temporary PPM file
         os.unlink(ppmname)
-    # Upload screenshots to Amazon S3
-    if hasattr(settings, 'S3_BUCKETS'):
+    # Upload screenshots to Amazon S3 (but not for anonymous users)
+    if hasattr(settings, 'S3_BUCKETS') and request_group.user_id is not None:
         storage.s3_upload(hashkey) # size='original'
         for size in PREVIEW_SIZES:
             storage.s3_upload(hashkey, size)
