@@ -32,7 +32,7 @@ def config(dataset):
         if dataset == 'rates' and not has_id(model):
             continue
         key = model._meta.db_table
-        print key + '.label', model.__name__
+        print key + '.label', model._meta.db_table
         print key + '.type', DATASET_TYPES[dataset]
         print key + '.min 0'
         # print 'max 5000'
