@@ -16,13 +16,13 @@ def has_id(model):
 
 def config(dataset):
     print 'graph_title ShotServer -', dataset.title()
+    print 'graph_args --base 1000'
+    print 'graph_category shotserver'
     if dataset == 'rates':
+        print 'graph_period minute'
         print 'graph_vlabel /${graph_period}'
     elif dataset == 'counts':
         print 'graph_vlabel Totals'
-    print 'graph_args --base 1000'
-    print 'graph_category shotserver'
-    print 'graph_scale no'
     order = [model._meta.db_table
              for model in models.get_models()
              if dataset != 'rates' or has_id(model)]
