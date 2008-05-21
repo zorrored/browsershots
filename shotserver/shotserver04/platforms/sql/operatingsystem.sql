@@ -38,4 +38,5 @@ INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","co
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (38,4,'NetBSD','3.1','','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (39,1,'Mandriva','2008.0','Tycho','');
 INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (40,1,'Mandriva','2008.1','Cooker','');
+INSERT INTO "platforms_operatingsystem" ("id","platform_id","name","version","codename","maker") VALUES (41,1,'PLD','Titanium','','Hawk');
 SELECT setval('platforms_operatingsystem_id_seq', (SELECT max("id") FROM "platforms_operatingsystem"));
