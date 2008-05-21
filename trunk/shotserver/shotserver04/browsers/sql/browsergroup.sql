@@ -27,4 +27,8 @@ INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") V
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (27,'NetFront','ACCESS',False,False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (28,'K-Meleon','',False,False);
 INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (29,'Iceape','Mozilla',False,False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (30,'Shiira','',False,False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (31,'OmniWeb','OmniGroup',False,False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (32,'Avant','',False,False);
+INSERT INTO "browsers_browsergroup" ("id","name","maker","terminal","unusual") VALUES (33,'iCab','',False,False);
 SELECT setval('browsers_browsergroup_id_seq', (SELECT max("id") FROM "browsers_browsergroup"));
