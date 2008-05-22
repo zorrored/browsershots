@@ -31,11 +31,13 @@ def copy_table(line, table, tables):
         outfile = sys.stdout
     else:
         outfile = open(table + '.sql', 'w')
-        outfile.write(line)
+    header = line
+    outfile.write(line)
     while line.strip() != r'\.':
         line = sys.stdin.readline()
         outfile.write(line)
-    outfile.write("""
+    if ' (id,' in header:
+        outfile.write("""
 SELECT '%s' AS table_name,
 setval('%s_id_seq', (
     SELECT max(id) FROM %s
