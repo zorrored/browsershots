@@ -1,6 +1,6 @@
 #!/bin/sh
-PGBIN=/opt/local/lib/postgresql83/bin
-PYTHON=/opt/local/bin/python2.4
+PGBIN=/usr/bin
+PYTHON=python
 
 echo "DELETE FROM django_site;" > django_site.modified.sql
 cat django_site.sql >> django_site.modified.sql
@@ -27,5 +27,5 @@ grep -v 567996 \
 
 $PGBIN/dropdb shotserver04
 $PGBIN/createdb shotserver04
-$PYTHON ../shotserver04/manage.py syncdb --noinput
+$PYTHON ../shotserver04new/manage.py syncdb --noinput
 $PYTHON load_tables.py $PGBIN
