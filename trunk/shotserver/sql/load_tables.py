@@ -17,9 +17,9 @@ paypal paypallog
 websites domain website
 priority domainpriority
 priority userpriority
+screenshots screenshot problemreport
 requests requestgroup request
 revenue nonprofit userdonation userpayment userrevenue
-screenshots screenshot problemreport
 messages factoryerror
 start newsitem
 """.splitlines()
