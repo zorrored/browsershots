@@ -4,6 +4,8 @@ import os
 import sys
 import commands
 
+PSQL = '/usr/bin/psql'
+
 TABLES = """
 auth user
 django session site
@@ -33,13 +35,10 @@ for line in TABLES:
         filename = table + '.modified.sql'
         if not os.path.exists(filename):
             filename = table + '.sql'
-        command = '/opt/local/lib/postgresql83/bin/psql shotserver04'
+        command = PSQL + ' shotserver04'
         command += ' < ' + filename
         print command
         status, output = commands.getstatusoutput(command)
-        if status:
-            print 'error code', result
-            sys.exit(result)
         for out in output.splitlines():
             if ' | ' in out or '-+-' in out:
                 continue
@@ -47,3 +46,6 @@ for line in TABLES:
                 continue
             print output
             sys.exit(1)
+        if status:
+            print 'error code', status
+            sys.exit(status)
