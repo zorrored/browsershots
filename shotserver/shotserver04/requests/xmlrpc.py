@@ -38,7 +38,7 @@ from datetime import datetime, timedelta
 
 # Priority for e.g. Mac OS X because there are few factories.
 PRIORITY_PLATFORMS = []
-ACCEPTABLE_SERVER_LOAD = 1.0
+ACCEPTABLE_SERVER_LOAD = 8.0
 
 
 @serializable
