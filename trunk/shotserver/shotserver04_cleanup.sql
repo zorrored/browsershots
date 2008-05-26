@@ -1,17 +1,37 @@
 \echo 'Deleting expired nonces...'
 DELETE FROM nonces_nonce
-WHERE created < NOW() - '7d'::interval;
+WHERE created < NOW() - '3d'::interval;
+
+\echo 'Removing screenshots from old anonymous requests...'
+UPDATE requests_request
+SET screenshot_id = NULL
+WHERE screenshot_id IS NOT NULL
+AND EXISTS (SELECT 1 FROM requests_requestgroup
+    WHERE id = requests_request.request_group_id
+    AND user_id IS NULL
+    AND submitted < NOW() - '2d'::interval);
+
+\echo 'Deleting old anonymous screenshots...'
+DELETE FROM screenshots_screenshot
+WHERE user_id IS NULL
+AND uploaded < NOW() - '2d'::interval
+AND NOT EXISTS (SELECT 1 FROM requests_request
+    WHERE screenshot_id = screenshots_screenshot.id)
+AND NOT EXISTS (SELECT 1 FROM screenshots_problemreport
+    WHERE screenshot_id = screenshots_screenshot.id);
 
 \echo 'Deleting old requests without screenshots...'
 DELETE FROM requests_request
 WHERE screenshot_id IS NULL
 AND EXISTS (SELECT 1 FROM requests_requestgroup
     WHERE id = requests_request.request_group_id
-    AND submitted < NOW() - '7d'::interval);
+    AND submitted < NOW() - '2d'::interval)
+AND NOT EXISTS (SELECT 1 FROM messages_factoryerror
+    WHERE request_id = requests_request.id);;
 
 \echo 'Deleting old request groups without requests...'
 DELETE FROM requests_requestgroup
-WHERE submitted < NOW() - '7d'::interval
+WHERE submitted < NOW() - '2d'::interval
 AND NOT EXISTS (SELECT 1 FROM requests_request
     WHERE request_group_id = requests_requestgroup.id);
 
@@ -21,7 +41,7 @@ WHERE submitted < NOW() - '7d'::interval
 AND NOT EXISTS (SELECT 1 FROM requests_requestgroup
     WHERE website_id = websites_website.id)
 AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
-    WHERE website_id = screenshots_screenshot.id);
+    WHERE website_id = websites_website.id);
 
 \echo 'Deleting old domains without websites...'
 DELETE FROM websites_domain
