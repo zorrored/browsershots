@@ -109,7 +109,7 @@ def find_scripts():
     """
     Find executable scripts to install.
     """
-    return glob('shotserver04_*.py')
+    return glob('shotserver04_*.??')
 
 
 if sys.argv[1] == 'test':
