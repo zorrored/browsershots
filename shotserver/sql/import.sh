@@ -25,6 +25,11 @@ grep -v 567996 \
 < requests_requestgroup.sql \
 > requests_requestgroup.modified.sql
 
+cat screenshots_problemreport.sql \
+| ./date_filter.py 2008-05-15 \
+| grep -v 9250049 \
+> screenshots_problemreport.modified.sql
+
 $PGBIN/dropdb shotserver04
 $PGBIN/createdb shotserver04
 $PYTHON ../shotserver04new/manage.py syncdb --noinput
