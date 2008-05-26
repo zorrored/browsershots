@@ -9,6 +9,8 @@ PSQL = '/usr/bin/psql'
 TABLES = """
 auth user
 django session site
+revenue userdonation userpayment userrevenue
+start newsitem
 sponsors sponsor
 factories factory screensize colordepth screenshotcount
 browsers browser
@@ -19,9 +21,7 @@ priority domainpriority
 priority userpriority
 screenshots screenshot problemreport
 requests requestgroup request
-revenue nonprofit userdonation userpayment userrevenue
 messages factoryerror
-start newsitem
 """.splitlines()
 
 
