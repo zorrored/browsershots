@@ -9,12 +9,12 @@ WHERE screenshot_id IS NOT NULL
 AND EXISTS (SELECT 1 FROM requests_requestgroup
     WHERE id = requests_request.request_group_id
     AND user_id IS NULL
-    AND submitted < NOW() - '2d'::interval);
+    AND submitted < NOW() - '24:00'::interval);
 
 \echo 'Deleting old anonymous screenshots...'
 DELETE FROM screenshots_screenshot
 WHERE user_id IS NULL
-AND uploaded < NOW() - '2d'::interval
+AND uploaded < NOW() - '24:00'::interval
 AND NOT EXISTS (SELECT 1 FROM requests_request
     WHERE screenshot_id = screenshots_screenshot.id)
 AND NOT EXISTS (SELECT 1 FROM screenshots_problemreport
@@ -25,13 +25,13 @@ DELETE FROM requests_request
 WHERE screenshot_id IS NULL
 AND EXISTS (SELECT 1 FROM requests_requestgroup
     WHERE id = requests_request.request_group_id
-    AND submitted < NOW() - '2d'::interval)
+    AND submitted < NOW() - '24:00'::interval)
 AND NOT EXISTS (SELECT 1 FROM messages_factoryerror
     WHERE request_id = requests_request.id);;
 
 \echo 'Deleting old request groups without requests...'
 DELETE FROM requests_requestgroup
-WHERE submitted < NOW() - '2d'::interval
+WHERE submitted < NOW() - '24:00'::interval
 AND NOT EXISTS (SELECT 1 FROM requests_request
     WHERE request_group_id = requests_requestgroup.id);
 
