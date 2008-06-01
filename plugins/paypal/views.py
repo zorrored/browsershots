@@ -30,6 +30,7 @@ from django import newforms as forms
 from django.shortcuts import render_to_response
 from django.core.mail import mail_admins, EmailMessage
 from django.contrib.auth.models import User
+from django.utils.text import capfirst
 from django.conf import settings
 from shotserver04.paypal.models import PayPalLog
 from shotserver04.priority.models import UserPriority
@@ -156,7 +157,7 @@ def create_user_priority(log):
 
 def send_priority_email(log, priority):
     user = priority.user
-    first_name = user.first_name
+    first_name = capfirst(user.first_name)
     username = user.username
     expire = priority.expire.strftime('%Y-%m-%d')
     admin_name, admin_email = settings.ADMINS[0]
