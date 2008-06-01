@@ -60,6 +60,20 @@ AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
 AND NOT EXISTS (SELECT 1 FROM requests_request
     WHERE browser_id = browsers_browser.id);
 
+\echo 'Deleting color depths from unused factories...'
+DELETE FROM factories_colordepth
+WHERE EXISTS (SELECT 1 FROM factories_factory
+    WHERE factories_factory.id = factory_id
+    AND created < NOW() - '30d'::interval
+    AND last_upload IS NULL);
+
+\echo 'Deleting screen sizes from unused factories...'
+DELETE FROM factories_screensize
+WHERE EXISTS (SELECT 1 FROM factories_factory
+    WHERE factories_factory.id = factory_id
+    AND created < NOW() - '30d'::interval
+    AND last_upload IS NULL);
+
 \echo 'Deleting old factories without browsers or screenshots...'
 DELETE FROM factories_factory
 WHERE created < NOW () - '30d'::interval
@@ -71,4 +85,8 @@ AND NOT EXISTS (SELECT 1 FROM requests_request
 AND NOT EXISTS (SELECT 1 FROM screenshots_screenshot
     WHERE factory_id = factories_factory.id)
 AND NOT EXISTS (SELECT 1 FROM factories_screenshotcount
+    WHERE factory_id = factories_factory.id)
+AND NOT EXISTS (SELECT 1 FROM factories_colordepth
+    WHERE factory_id = factories_factory.id)
+AND NOT EXISTS (SELECT 1 FROM factories_screensize
     WHERE factory_id = factories_factory.id);
