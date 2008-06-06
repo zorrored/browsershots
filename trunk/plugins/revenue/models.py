@@ -61,6 +61,7 @@ class UserPayment(models.Model):
     euros = models.DecimalField(max_digits=7, decimal_places=2)
     balance = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateTimeField()
+    paypal_email = models.EmailField(blank=True, default='')
 
     class Admin:
         list_display = ('user', 'currency', 'amount', 'euros', 'date')
