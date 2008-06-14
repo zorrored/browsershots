@@ -2,6 +2,10 @@
 DELETE FROM nonces_nonce
 WHERE created < NOW() - '3d'::interval;
 
+\echo 'Deleting old factory errors...'
+DELETE FROM messages_factoryerror
+WHERE occurred < NOW() - '24:00'::interval;
+
 \echo 'Removing screenshots from old anonymous requests...'
 UPDATE requests_request
 SET screenshot_id = NULL
