@@ -70,7 +70,11 @@ class UserPayment(models.Model):
         ordering = ('-date', )
 
     def __unicode__(self):
-        return u'payment of %s %s' % (self.currency, abs(self.amount))
+        if self.paypal_email:
+            return u'payment of %s %s to %s' % (
+                self.currency, abs(self.amount), self.paypal_email)
+        else:
+            return u'payment of %s %s' % (self.currency, abs(self.amount))
 
     update_fields = granular_update.update_fields
 
