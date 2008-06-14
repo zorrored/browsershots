@@ -30,6 +30,7 @@ sys.path.insert(0, '.')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
 from decimal import Decimal
+from django.utils.text import capfirst
 from django.contrib.auth.models import User
 from shotserver04.revenue.models import UserRevenue
 
@@ -59,7 +60,7 @@ for user in User.objects.all():
         print str(transaction.date).ljust(20),
         print str(transaction.euros).rjust(8),
         print str(transaction.balance).rjust(8),
-        print '  ', unicode(transaction)
+        print '  ', capfirst(unicode(transaction))
         balance += transaction.euros
         if balance != transaction.balance:
             print '### balance should be', balance
