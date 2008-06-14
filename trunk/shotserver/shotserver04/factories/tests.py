@@ -26,7 +26,6 @@ from psycopg import IntegrityError, DatabaseError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User
-from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 
@@ -35,12 +34,11 @@ class FactoriesTestCase(TestCase):
 
     def setUp(self):
         self.user = User.objects.create()
-        self.architecture = Architecture.objects.get(pk=1)
         self.operating_system = OperatingSystem.objects.get(pk=1)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
-            architecture=self.architecture,
+            hardware='MacBook, Intel Core Duo, 2 GB RAM',
             operating_system=self.operating_system)
         self.size_640 = ScreenSize.objects.create(
             factory=self.factory, width=640, height=480)
@@ -85,7 +83,6 @@ class FactoriesTestCase(TestCase):
         try:
             self.assertRaises(IntegrityError, Factory.objects.create,
                               name='factory', admin=self.user,
-                              architecture=self.architecture,
                               operating_system=self.operating_system)
         finally:
             transaction.rollback()
@@ -94,7 +91,6 @@ class FactoriesTestCase(TestCase):
         try:
             self.assertRaises(IntegrityError, Factory.objects.create,
                               admin=self.user,
-                              architecture=self.architecture,
                               operating_system=self.operating_system)
         finally:
             transaction.rollback()
@@ -103,7 +99,6 @@ class FactoriesTestCase(TestCase):
         try:
             self.assertRaises(IntegrityError, Factory.objects.create,
                               name='-', admin=self.user,
-                              architecture=self.architecture,
                               operating_system=self.operating_system)
         finally:
             transaction.rollback()
@@ -138,13 +133,6 @@ class FactoriesTestCase(TestCase):
 
 
 class ForeignKeyTestCase(TestCase):
-
-    def testInvalidArchitecture(self):
-        try:
-            self.assertRaises(DatabaseError, Factory.objects.create,
-                              architecture_id=-1)
-        finally:
-            transaction.rollback()
 
     def testInvalidOperatingSystem(self):
         try:

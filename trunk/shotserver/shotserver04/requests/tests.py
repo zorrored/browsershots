@@ -30,7 +30,6 @@ from xmlrpclib import Fault
 from unittest import TestCase
 from django.db import transaction, connection
 from django.contrib.auth.models import User
-from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver04.screenshots.models import Screenshot
@@ -59,7 +58,7 @@ class PollTestCase(TestCase):
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
-            architecture=Architecture.objects.get(pk=1),
+            hardware='MacBook, Intel Core Duo, 2 GB RAM',
             operating_system=OperatingSystem.objects.get(pk=1))
         self.screen_size = ScreenSize.objects.create(
             factory=self.factory,
@@ -91,7 +90,9 @@ class PollTestCase(TestCase):
             ip='127.0.0.1')
         self.request = Request.objects.create(
             request_group=self.request_group,
-            browser_group_id=1)
+            platform_id=1,
+            browser_group_id=1,
+            priority=1)
 
     def tearDown(self):
         self.request.delete()
@@ -134,6 +135,3 @@ class PollTestCase(TestCase):
             transaction.rollback()
             if fault.faultString != 'No matching request.':
                 raise
-
-    def testDump(self):
-        os.system('pg_dump test_shotserver04 > test.sql')
