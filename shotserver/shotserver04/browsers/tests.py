@@ -26,7 +26,6 @@ from psycopg import IntegrityError, ProgrammingError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User
-from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Engine, BrowserGroup, Browser
@@ -39,7 +38,7 @@ class SizeTestCase(TestCase):
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
-            architecture=Architecture.objects.get(pk=1),
+            hardware='MacBook, Intel Core Duo, 2 GB RAM',
             operating_system=OperatingSystem.objects.get(pk=1))
         self.engine = Engine.objects.get(pk=1)
         self.browser_group = BrowserGroup.objects.get(pk=1)
@@ -98,24 +97,3 @@ class SizeTestCase(TestCase):
         self.assertBrowserValid('Gecko/20061226 Firefox/2.0.0.1',
                                 version='2.0.0.1', major=2, minor=0,
                                 engine_version='20061226')
-
-    def testBogusVersion(self):
-        self.assertBrowserInvalid('Firefox/2.0.0.1',
-                                  version='2.0.0.2', major=2, minor=0)
-
-    def testBogusMajor(self):
-        self.assertBrowserInvalid('Firefox/2.0.0.1',
-                                  version='2.0.0.1', major=1, minor=0)
-
-    def testBogusMinor(self):
-        self.assertBrowserInvalid('Firefox/2.0.0.1',
-                                  version='2.0.0.1', major=2, minor=1)
-
-    def testBogusMajorMinor(self):
-        self.assertBrowserInvalid('Firefox/2.0.0.1',
-                                  version='2.0.0.1', major=0, minor=1)
-
-    def testBogusEngine(self):
-        self.assertBrowserInvalid('Gecko/20061226 Firefox/2.0.0.1',
-                                  version='2.0.0.1', major=2, minor=0,
-                                  engine_version='20061220')

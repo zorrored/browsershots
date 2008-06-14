@@ -27,7 +27,6 @@ from psycopg import IntegrityError, ProgrammingError, DatabaseError
 from django.db import transaction
 from django.contrib.auth.models import User
 from shotserver04.nonces.models import Nonce
-from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory
 
@@ -39,7 +38,7 @@ class NonceTestCase(TestCase):
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
-            architecture=Architecture.objects.get(pk=1),
+            hardware='MacBook, Intel Core Duo, 2 GB RAM',
             operating_system=OperatingSystem.objects.get(pk=1))
 
     def tearDown(self):

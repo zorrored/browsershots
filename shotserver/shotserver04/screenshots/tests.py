@@ -27,7 +27,6 @@ from psycopg import IntegrityError
 from unittest import TestCase
 from django.db import transaction
 from django.contrib.auth.models import User
-from shotserver04.platforms.models import Architecture
 from shotserver04.platforms.models import Platform, OperatingSystem
 from shotserver04.factories.models import Factory
 from shotserver04.screenshots.models import Screenshot
@@ -46,11 +45,11 @@ VALID_SIZES = [
     (1024, 512),
     (1280, 640),
     (1600, 800),
-    (640, 5120),
-    (800, 6400),
-    (1024, 8192),
-    (1280, 10240),
-    (1600, 12800),
+    (640, 2560),
+    (800, 3200),
+    (1024, 4096),
+    (1280, 5120),
+    (1600, 6400),
     ]
 
 INVALID_SIZES = [
@@ -59,11 +58,11 @@ INVALID_SIZES = [
     (1024, 511),
     (1280, 639),
     (1600, 799),
-    (640, 5121),
-    (800, 6401),
-    (1024, 8193),
-    (1280, 10241),
-    (1600, 12801),
+    (640, 2561),
+    (800, 3201),
+    (1024, 4097),
+    (1280, 5121),
+    (1600, 6401),
     (0, 0),
     (639, 480),
     (1601, 1200),
@@ -77,7 +76,7 @@ class SizeTestCase(TestCase):
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
-            architecture=Architecture.objects.get(pk=1),
+            hardware='MacBook, Intel Core Duo, 2 GB RAM',
             operating_system=OperatingSystem.objects.get(pk=1))
         self.browser = Browser.objects.create(
             factory=self.factory,
