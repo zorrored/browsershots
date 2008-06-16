@@ -1,11 +1,14 @@
-{% extends "adbase.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load human %}
+{% load ads %}
 
 {% block title %}{{ _("screenshot factories")|capfirst }}{% endblock %}
 
 {% block content %}
 <h1>{{ _("screenshot factories")|capfirst }}</h1>
+
+{% show_ad skyscraper %}
 
 <p>{% blocktrans with factory_list|length as count %}These {{ count }} computers are run by volunteers to make browser screenshots.{% endblocktrans %}</p>
 
@@ -19,4 +22,6 @@
 {% endfor %}
 </tbody>
 </table>
+
+{% show_ad leaderboard %}
 {% endblock %}
