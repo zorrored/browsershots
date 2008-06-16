@@ -93,6 +93,6 @@ sudo apache2ctl restart
 Create some symlinks for static content:
 {{{
 cd /var/www/v04.browsershots.org/
-sudo ln -s /usr/lib/python2.4/site-packages/shotserver04/static
-sudo ln -s /usr/lib/python2.4/site-packages/django/contrib/admin/media
+sudo ln -s /usr/lib/python2.5/site-packages/shotserver04/static
+sudo ln -s /usr/lib/python2.5/site-packages/django/contrib/admin/media
 }}}

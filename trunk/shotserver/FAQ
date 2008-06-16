@@ -15,16 +15,19 @@ don't have to.
 === Will this service remain free of charge? ===
 
 Yes. For the foreseeable future, there will be free screenshots for 
-everybody. So far, there are no fixed plans for a commercial model. If and 
-when a paid priority service is introduced, the free service will continue.
+everybody. You may have to wait in the queue when there's a lot of demand, 
+or you can buy [http://browsershots.org/priority/ priority processing].
 
 === How long will my screenshots stay on the server? ===
 
-Screenshots will be deleted when they haven't been accessed in ten days. 
-This means that if you post a link to your screenshots on your blog, and 
-people look at them again and again, the screenshots will stay on the 
-server forever. If you want to have your screenshots removed manually, send 
-email to [mailto:johann@browsershots.org johann@browsershots.org].
+Old screenshots will be deleted when they haven't been accessed for a 
+while. How long exactly depends on the number of new screenshots per day. 
+As of December 2007, we have enough disk space to keep screenshots for 
+'''two weeks''' after the last visit. This means that if you post a link to 
+your screenshots on your blog, and people look at them again and again, the 
+screenshots will stay on the server forever. If you want to have your 
+screenshots removed, send email to [mailto:johann@browsershots.org 
+johann@browsershots.org].
 
 === Why are all browsers selected by default? ===
 
@@ -41,35 +44,19 @@ HowToCreateNewShotFactory if you want to help.
 
 === Why don't I get any screenshots? ===
 
-If the queue is very long, you may want to increase the '''Maximum Wait''' 
-option for your screenshot requests to prevent timeouts. The default is 30 
-minutes, but you can select up to 4 hours. Also, if your requested 
-configuration is too specific (e.g. specific Flash or Java version) there 
-may not be matching screenshot factories all the time. Try the '''Don't 
-care''' setting for quicker results.
-
-=== Where can I find my screenshots? ===
-
-Your screenshots will appear near the top on the same page where you select 
-the browsers. It will look like 
-[http://browsershots.org/website/http://browsershots.org/ this]. You can 
-bookmark that page to come back to it later to see your screenshots, and 
-also to request new screenshots of the same website. If you don't get any 
-screenshots on that page, please see the question above.
-
-=== Some of my screenshots show a browser with a blank page. How come? ===
-
-Our Linux browsers have 45 seconds to load and display a page. Mac and 
-Windows browsers get only 30 seconds because they don't run in parallel. If 
-this isn't enough time to display your page, your web server is probably 
-too slow or overloaded.
+If the queue is very long, your screenshot requests may expire before they 
+can be processed. The default expiration time is 30 minutes, but you can 
+extend it with a button on the website overview page. Also, if your 
+requested configuration is too specific (e.g. specific Flash or Java 
+version) there may not be matching screenshot factories all the time. Try 
+the '''Don't care''' setting for quicker results.
 
 === My menu appears twice in the screenshots. Why? ===
 
 That's not a problem with your page but a side effect of the multi-page 
 merging. The screenshots are taken one screen at a time, and then merged 
-together to produce a tall screenshot. If your menu doesn't scroll with the 
-rest of the page, it will appear multiple times.
+together to produce a tall screenshot. If your menu or background doesn't 
+scroll with the rest of the page, it will appear multiple times.
 
 === My screenshots are only the size of one screen, but my page is longer. 
 ===
@@ -77,6 +64,20 @@ rest of the page, it will appear multiple times.
 Sometimes the automatic scrolling doesn't work. The reason could be that 
 your page uses frames, or that it sets the keyboard focus to an input field 
 with JavaScript.
+
+=== Blocked by robots.txt ===
+
+Browsershots respects the [http://www.robotstxt.org/orig.html robots.txt 
+standard]. If you want, you can explicitly allow Browsershots by adding a 
+section like this to the '''robots.txt''' file on your server:
+
+{{{
+User-agent: Browsershots
+Disallow:
+}}}
+
+Some pages on browsershots.org are also protected, mainly to keep 
+screenshot result pages out of search engines (see PrivacyPolicy).
 
 ----
 
@@ -93,20 +94,22 @@ according to the FactoryInterface specification.
 
 === Where can I get a username/password for running a ShotFactory? ===
 
-See HowToCreateNewShotFactory and send email to 
-[mailto:johann@browsershots.org johann@browsershots.org]. I'm going to add 
-an automatic web-based registration form "real soon now".
+See HowToCreateNewShotFactory. The factory password is your user account 
+password on browsershots.org.
 
 === Can I use my computer while the ShotFactory is running? ===
 
-On Mac and Windows, the screenshot factory program uses the desktop, so you 
-will have to stop it when you want to use the computer.
+On Windows, the screenshot factory program uses the desktop, so you will 
+have to stop it when you want to use the computer.
 
 On Linux, the program runs in the background and uses a VNC server for the 
 screen. You can use your computer at the same time, and if the system load 
 is over a configurable limit, the screenshot factory program will stop 
 making screenshots until the system is idle again. The default load limit 
 is 1.0, but you can change it with the command line option -l.
+
+On Mac, it's possible to run the screenshot factory in the background, 
+using fast user switching and a separate user account.
 
 === xmlrpclib.!ProtocolError: <!ProtocolError for browsershots.org/RPC2: 
 404 Not Found> ===
@@ -118,14 +121,41 @@ for the screenshot factory API. You should install a package with "0.4" in
 the name, or check out the [http://svn.browsershots.org/trunk/shotfactory/ 
 trunk] from Subversion.
 
-=== !RuntimeError: unsafe command '/usr/bin/opera -newpage' ===
+=== !RuntimeError: unsafe command 'C:\progra~1\mozill~2\firefox.exe' (on 
+Windows) ===
+
+For security reasons, the browser command must not contain whitespace or 
+start with a drive letter. The purpose of this mechanism is to avoid 
+commands like `format C:` or `C:\rootkit.exe`. The best solution on Windows 
+is to install the browser in a subdirectory of the `shotfactory` folder, 
+e.g. `shotfactory\firefox30`, then enter `firefox30\firefox.exe` in the 
+browser command field.
+
+=== !RuntimeError: unsafe command '/usr/bin/opera -newpage' (on Linux or 
+Mac OS) ===
 
 For security reasons, the browser command must not contain whitespace or 
 start with a slash. The purpose of this mechanism is to avoid commands like 
-'''rm -rf /''' or '''/tmp/rootkit'''. The best solution is to create a 
-simple shell script with your desired options, make it executable (chmod 
-a+x), put it somewhere on your PATH and then use the name of the shell 
-script as the browser command.
+`rm -rf /` or `/tmp/rootkit`. The best solution on Linux or Mac OS is to 
+create a simple shell script with your desired options, make it executable 
+(`chmod a+x`), put it somewhere on your PATH and then use the name of the 
+shell script as the browser command. For example, you could save the 
+following in `/usr/local/bin/opera-newpage` and then enter `opera-newpage` 
+in the browser command field:
+
+{{{
+#!sh
+#!/bin/sh
+/usr/bin/opera -newpage "$@"
+}}}
+
+=== VNC server fails to start: Fatal server error: Couldn't add screen ===
+
+This is possibly because you enabled 32 bits per pixel on the factory 
+details page, but this bit depth is not supported by the VNC server. Remove 
+the 32 bpp setting and use 24 bpp instead. You can try to run 
+`shotfactory.py -vvv` (for very very verbose output) to see the exact 
+commands that the shotfactory script is trying to run.
 
 ----
 
@@ -150,7 +180,8 @@ public release (milestone:0.1.0) was in March 2005
 981 article on freshmeat]). See the 
 [http://trac.browsershots.org/roadmap?show=all roadmap] for a release 
 history. The project was rewritten completely between milestone:0.2.6 and 
-milestone:0.3-alpha1.
+milestone:0.3-alpha1, and again for milestone:0.4-beta1 (transition to the 
+Django framework).
 
 === Where do you get all those different machines? ===
 
