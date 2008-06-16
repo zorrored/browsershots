@@ -1,6 +1,7 @@
-{% extends "adbase.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load human %}
+{% load ads %}
 
 {% block head_extra %}
 <script type="text/javascript" src="/static/js/jquery.js"></script>
@@ -21,6 +22,8 @@ $(function(){
 {% block content %}
 <h1>{{ screenshot.browser }} / {{ screenshot.factory.operating_system }}</h1>
 <p>{% blocktrans with screenshot.website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
+
+{% show_ad skyscraper %}
 
 <div class="large-preview">
 <a href="{{ screenshot.get_png_url }}"><img
@@ -126,4 +129,6 @@ width="512" height="{{ screenshot.get_large_height }}"
 <a href="/?browsers={{ screenshot.factory.operating_system.platform.name|lower }}_{{ screenshot.browser.browser_group.name|lower }}_{{ screenshot.browser.major }}_{{ screenshot.browser.minor }}&amp;url={{ screenshot.website.url }}">Request a new screenshot of {{ screenshot.browser.browser_group.name }} {{ screenshot.browser.major }}.{{ screenshot.browser.minor }} on {{ screenshot.factory.operating_system.platform.name }}?</a><br />
 </p>
 </div>
+
+{% show_ad leaderboard %}
 {% endblock %}

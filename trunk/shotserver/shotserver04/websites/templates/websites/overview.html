@@ -1,4 +1,4 @@
-{% extends "adbase.html" %}
+{% extends "base.html" %}
 {% load human %}
 {% load ads %}
 
@@ -6,8 +6,6 @@
 
 {% block content %}
 <h1>Submitted Websites</h1>
-
-<div id="skyscraper">{% ads_skyscraper %}</div>
 
 <div id="toolbar">
 <form id="changelist-search" action="" method="get">
@@ -19,6 +17,8 @@
 </form>
 </div>
 <script type="text/javascript">document.getElementById("searchbar").focus();</script>
+
+{% show_ad skyscraper %}
 
 {% if request_group_list %}
 <table>
@@ -51,4 +51,6 @@ Page {{ page }} of {{ pages }}
 {% endif %}
 </p>
 {% endif %}
+
+{% show_ad leaderboard %}
 {% endblock %}

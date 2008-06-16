@@ -1,6 +1,7 @@
-{% extends "adbase.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load human %}
+{% load ads %}
 
 {% block title %}{{ _("website overview")|capfirst }}{% endblock %}
 
@@ -9,6 +10,7 @@
 <p>{% blocktrans with website|human_link as url %}for {{ url }}{% endblocktrans %}</p>
 
 {{ website_details_head_extra|safe }}
+{% show_ad skyscraper %}
 
 {% if pages_list %}
 <div class="paginator">
@@ -46,4 +48,6 @@ Pages:
 {% endfor %}
 </ul>
 {% endif %}
+
+{% show_ad leaderboard %}
 {% endblock %}

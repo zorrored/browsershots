@@ -1,10 +1,15 @@
-{% extends "adbase.html" %}
+{% extends "base.html" %}
 {% load i18n %}
+{% load ads %}
 
 {% block title %}{{ _("recent screenshots")|capfirst }}{% endblock %}
 
 {% block content %}
 <h1>{{ _("recent screenshots")|capfirst }}</h1>
 
+{% show_ad skyscraper %}
+
 {{ previews }}
+
+{% show_ad leaderboard %}
 {% endblock %}

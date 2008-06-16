@@ -38,11 +38,32 @@ def ads_leaderboard():
     return settings.ADS_LEADERBOARD.strip()
 
 
-@register.simple_tag
-def ads_skyscraper():
+class AdNode(template.Node):
+
+    def __init__(self, name):
+        self.name = name
+
+    def render(self, context):
+        http_request = template.resolve_variable('http_request', context)
+        if http_request.is_secure() or http_request.user.is_authenticated():
+            return ''
+        variable = 'ADS_' + self.name.upper()
+        if not hasattr(settings, variable):
+            return ''
+        content = getattr(settings, variable).strip()
+        return '<div id="%s">\n%s\n</div>' % (self.name, content)
+
+
+@register.tag
+def show_ad(parser, token):
     """
-    Display a skyscraper ad, if configured in settings.py.
+    Display an ad block, if configured in settings.py.
+    The name of the variable in settings.py must be given as parameter,
+    e.g. {% show_ad skyscraper %} will use settings.ADS_SKYSCRAPER.
     """
-    if not hasattr(settings, 'ADS_SKYSCRAPER'):
-        return ''
-    return settings.ADS_SKYSCRAPER.strip()
+    try:
+        tag_name, name = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError(
+            "%r tag requires a single argument" % token.contents.split()[0])
+    return AdNode(name)
