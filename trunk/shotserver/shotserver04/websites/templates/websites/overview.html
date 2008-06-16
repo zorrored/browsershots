@@ -7,6 +7,8 @@
 {% block content %}
 <h1>Submitted Websites</h1>
 
+{% show_ad skyscraper %}
+
 <div id="toolbar">
 <form id="changelist-search" action="" method="get">
 <div><!-- DIV needed for valid HTML -->
@@ -17,8 +19,6 @@
 </form>
 </div>
 <script type="text/javascript">document.getElementById("searchbar").focus();</script>
-
-{% show_ad skyscraper %}
 
 {% if request_group_list %}
 <table>
