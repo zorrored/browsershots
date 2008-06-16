@@ -1,10 +1,13 @@
 {% extends "adbase.html" %}
 {% load human %}
+{% load ads %}
 
 {% block title %}Submitted Websites{% endblock %}
 
 {% block content %}
 <h1>Submitted Websites</h1>
+
+<div id="skyscraper">{% ads_skyscraper %}</div>
 
 <div id="toolbar">
 <form id="changelist-search" action="" method="get">
