@@ -25,12 +25,6 @@ __author__ = "$Author$"
 from django import template
 from django.conf import settings
 
-LEADERBOARD_TEMPLATE = """\
-<div class="ad leaderboard clear">
-%s
-</div>
-"""
-
 register = template.Library()
 
 
@@ -39,7 +33,16 @@ def ads_leaderboard():
     """
     Display a leaderboard ad, if configured in settings.py.
     """
-    if (not hasattr(settings, 'ADS_LEADERBOARD') or
-        not settings.ADS_LEADERBOARD):
+    if not hasattr(settings, 'ADS_LEADERBOARD'):
         return ''
-    return LEADERBOARD_TEMPLATE % settings.ADS_LEADERBOARD.strip()
+    return settings.ADS_LEADERBOARD.strip()
+
+
+@register.simple_tag
+def ads_skyscraper():
+    """
+    Display a skyscraper ad, if configured in settings.py.
+    """
+    if not hasattr(settings, 'ADS_SKYSCRAPER'):
+        return ''
+    return settings.ADS_SKYSCRAPER.strip()
