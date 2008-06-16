@@ -24,6 +24,12 @@ See RequirementsForServer.
 
 == Software ==
 
+=== Prerequisites ===
+
+{{{
+sudo apt-get install netpbm
+}}}
+
 === Install Django source code ===
 
 Until Django 1.0 is released, Browsershots 0.4 will use the development 
@@ -65,15 +71,18 @@ sudo apt-get install postgresql-8.2 python-psycopg
 You can create the database as the same user that will be running the 
 development server, so you don't need to worry about passwords.
 {{{
-echo CREATE DATABASE shotserver04 | psql template1
+createdb shotserver04
+CREATE DATABASE
 }}}
 
 If necessary, create the database user first (replace www-data with your 
 username):
 {{{
-sudo su - postgres
-echo 'CREATE USER "www-data" CREATEDB' | psql template1
-logout
+sudo -u postgres createuser www-data
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) y
+Shall the new role be allowed to create more new roles? (y/n) n
+CREATE ROLE
 }}}
 
 Let Django create the database tables for you:
