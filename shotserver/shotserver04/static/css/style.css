@@ -72,7 +72,7 @@ tr.row2 { background-color: #FFF; }
 
 h1, h2 {
   margin: 10px 0;
-  clear: both;
+  clear: left;
 }
 
 pre.signature { font-weight: bold; }

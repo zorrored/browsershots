@@ -1,11 +1,14 @@
-{% extends "adbase.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load human %}
+{% load ads %}
 
 {% block title %}{{ _("screenshot request queue")|capfirst }}{% endblock %}
 
 {% block content %}
 <h1>{{ _("screenshot request queue")|capfirst }}</h1>
+
+{% show_ad skyscraper %}
 
 {% if browser_list %}
 <table class="requests vertical">
@@ -33,4 +36,6 @@
 {% else %}
 <p>{{ _("No pending requests.") }}</p>
 {% endif %}
+
+{% show_ad leaderboard %}
 {% endblock %}
