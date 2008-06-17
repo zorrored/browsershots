@@ -159,6 +159,8 @@ div.options select {
 }
 
 .clear { clear: both; }
+.clear-left { clear: left; }
+.clear-right { clear: right; }
 .floatleft {
   float: left;
   margin: 0 1em 1em 0;
@@ -354,7 +356,7 @@ ul.no-bullets li {
 
 div#leaderboard {
   margin: 1em 0;
-  clear: both;
+  clear: left;
 }
 div#skyscraper {
   margin: 0 0 1em 1em;
