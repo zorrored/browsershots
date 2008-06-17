@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import re
 from django import newforms as forms
 from django.db import connection
 from django.http import HttpResponseRedirect
@@ -30,7 +31,7 @@ from django.contrib.auth.models import check_password
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy, ugettext as _
 from django.utils.safestring import mark_safe
 from django.conf import settings
 from shotserver04.common import error_page, results
@@ -38,15 +39,19 @@ from shotserver04.factories.models import Factory
 from shotserver04.browsers.models import Browser
 from shotserver04.browsers import agents
 
+# Security: allow only alphanumeric browser commands
+# Optionally within a subfolder, relative to working directory
+safe_command = re.compile(r'^([\w_\-]+[\\/])*[\w_\-\.]+$').match
+
 
 class PasswordForm(forms.Form):
     """
     Simple password input form.
     """
     factory_name = forms.CharField(
-        label=_("factory"))
+        label=ugettext_lazy("factory"))
     password = forms.CharField(
-        label=_("password"),
+        label=ugettext_lazy("password"),
         widget=forms.PasswordInput)
 
     def clean_factory_name(self):
@@ -54,7 +59,7 @@ class PasswordForm(forms.Form):
         try:
             self.cleaned_data['factory'] = Factory.objects.get(name=name)
         except Factory.DoesNotExist, error:
-            raise forms.ValidationError(unicode(_("Unknown factory name.")))
+            raise forms.ValidationError(_("Unknown factory name."))
         return name
 
     def clean(self):
@@ -72,6 +77,24 @@ class BrowserForm(forms.ModelForm):
     class Meta:
         model = Browser
         exclude = ('factory', )
+
+    def clean_command(self):
+        command = self.cleaned_data['command']
+        if not command:
+            return command
+        if ' ' in command:
+            raise forms.ValidationError(u' '.join((
+                        _("Unsafe command."),
+                        _("Whitespace is not permitted."))))
+        if command[0] in r'\/' or command[1] == ':':
+            raise forms.ValidationError(u' '.join((
+                        _("Unsafe command."),
+                        _("Absolute path is not permitted."))))
+        if not safe_command(command):
+            raise forms.ValidationError(u' '.join((
+                        _("Unsafe command."),
+                        _("Simple filename required."))))
+        return command
 
 
 def guess_factory_name(ip, user_agent):
@@ -112,7 +135,7 @@ def add(http_request):
         return error_page(http_request, "Empty User-Agent header",
 "Your browser cannot be detected because it sent an empty User-Agent header.",
 "Or maybe you have a firewall that removed this header from the HTTP request.")
-    # Use lazy translation for field labels
+    # Update translation for field labels
     for key in BrowserForm.base_fields:
         BrowserForm.base_fields[key].label = _(
             Browser._meta.get_field(key).verbose_name)
