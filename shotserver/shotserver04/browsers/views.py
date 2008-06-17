@@ -84,16 +84,17 @@ class BrowserForm(forms.ModelForm):
             return command
         if ' ' in command:
             raise forms.ValidationError(u' '.join((
-                        _("Unsafe command."),
-                        _("Whitespace is not permitted."))))
-        if command[0] in r'\/' or command[1] == ':':
+                _("Unsafe command."),
+                _("Whitespace is not permitted."))))
+        if (command.startswith('/') or command.startswith('\\') or
+            command[1:].startswith(':')):
             raise forms.ValidationError(u' '.join((
-                        _("Unsafe command."),
-                        _("Absolute path is not permitted."))))
+                _("Unsafe command."),
+                _("Absolute path is not permitted."))))
         if not safe_command(command):
             raise forms.ValidationError(u' '.join((
-                        _("Unsafe command."),
-                        _("Simple filename required."))))
+                _("Unsafe command."),
+                _("Simple filename required."))))
         return command
 
 
