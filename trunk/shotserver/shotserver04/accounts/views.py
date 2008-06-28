@@ -209,24 +209,23 @@ def email_message(domain, hashkey, user):
     Email template for verification message.
     """
     if user:
-        salutation = _("Hi %(first_name)s!") % {'first_name': user.first_name}
+        salutation = unicode(_("Hi %(first_name)s!"))
+        salutation %= {'first_name': capfirst(user.first_name)}
         what = "set a new password"
     else:
-        salutation = _("Welcome to Browsershots!")
+        salutation = unicode(_("Welcome to Browsershots!"))
         what = "finish the registration process"
-    return u"""\
-%(salutation)s
-
-If you have not requested this verification email, you may ignore it.
-
-Click the following link (or copy it into your browser's address bar)
-to verify your email address and %(what)s:
-
-http://%(domain)s/accounts/verify/%(hashkey)s/
-
-Cheers,
-Browsershots
-""" % locals()
+    parts = [
+salutation,
+"""If you have not requested this verification email, you may ignore it.""",
+"""Click the following link (or copy it into your browser's address bar)
+to verify your email address and %s:""" % what,
+"""http://%(domain)s/accounts/verify/%(hashkey)s/""" % locals(),
+    ]
+    if user:
+        parts.append("Your username is %s." % user.username)
+    parts.append("Cheers,\nBrowsershots\n")
+    return u'\n\n'.join(parts)
 
 
 @logout_required
