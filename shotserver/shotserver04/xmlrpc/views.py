@@ -22,6 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import re
 from django.http import HttpResponse, Http404
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -81,8 +82,8 @@ def method_help(http_request, method_name):
     except ImportError:
         docstring = u'<pre>\n%s\n</pre>\n' % docstring
     for method in dispatcher.funcs:
-        docstring = docstring.replace(
-            method, u'<a href="../%s/">%s</a>' % (method, method))
+        docstring = re.sub(r'(%s)(\W)' % re.escape(method),
+            r'<a href="../\1/">\1</a>\2', docstring)
     docstring = mark_safe(docstring)
     return render_to_response('xmlrpc/method_help.html', locals(),
         context_instance=RequestContext(http_request))
