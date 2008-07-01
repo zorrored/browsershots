@@ -17,7 +17,7 @@ import time
 from md5 import md5
 from sha import sha
 
-DEFAULT_SERVER_URL = 'api.browsershots.org'
+DEFAULT_SERVER_URL = 'api.browsershots.org/xmlrpc/'
 DEFAULT_PASSWORD_FILE = '.passwd'
 
 
