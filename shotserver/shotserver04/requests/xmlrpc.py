@@ -258,7 +258,7 @@ def submit(http_request, username, encrypted_password, url, browsers):
 
     Return value
     ~~~~~~~~~~~~
-    * id int (request group id from requests.submit)
+    * id int (request group id)
 
     You can use the returned request group id to check the progress of
     the screenshot requests with requests.status.
