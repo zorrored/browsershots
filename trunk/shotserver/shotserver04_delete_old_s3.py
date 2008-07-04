@@ -3,6 +3,7 @@
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 
+import sys
 from django.conf import settings
 from shotserver04.screenshots import s3
 from shotserver04.screenshots.models import Screenshot
@@ -41,7 +42,9 @@ def delete_entry(key):
     for name, bucket in settings.S3_BUCKETS.iteritems():
         print aws.delete(bucket, key).http_response.status,
 
-options = {'marker': '009'}
+options = {'marker': ''}
+if len(sys.argv) > 1:
+    options['marker'] = sys.argv[-1]
 for run in range(1, 101):
     print 'run', run
     response = aws.list_bucket(s3_bucket, options)
