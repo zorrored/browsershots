@@ -1,9 +1,19 @@
 #!/usr/bin/env python
 
-import os
-os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
-
 import sys
+import os
+
+if len(sys.argv) == 2 and sys.argv[1] == '--spawn':
+    for prefix in '0123456789abcdef':
+        command = 'screen -d -m %s %s' % (sys.argv[0], prefix)
+        print command
+        result = os.system(command)
+        if result:
+            print 'failed with exit code', result
+            sys.exit(result)
+    sys.exit(0)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from django.conf import settings
 from shotserver04.screenshots import s3
 from shotserver04.screenshots.models import Screenshot
@@ -41,6 +51,7 @@ def find_existing_hashkeys(response):
 def delete_entry(key):
     for name, bucket in settings.S3_BUCKETS.iteritems():
         print aws.delete(bucket, key).http_response.status,
+
 
 options = {'marker': ''}
 if len(sys.argv) > 1:
