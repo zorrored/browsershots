@@ -6,8 +6,11 @@ import socket
 import httplib
 import time
 
-if len(sys.argv) == 2 and sys.argv[1] == '--spawn':
-    for prefix in '0123456789abcdef':
+if len(sys.argv) >= 2 and sys.argv[1] == '--spawn':
+    prefixes = '0123456789abcdef'
+    if len(sys.argv) == 3:
+        prefixes = sys.argv[2]
+    for prefix in prefixes:
         command = 'screen -d -m %s %s' % (sys.argv[0], prefix)
         print command
         result = os.system(command)
