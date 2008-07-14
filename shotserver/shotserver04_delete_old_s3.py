@@ -44,10 +44,14 @@ def delete_entry(key):
 
 options = {'marker': ''}
 if len(sys.argv) > 1:
-    options['marker'] = sys.argv[-1]
-for run in range(1, 101):
+    options['prefix'] = sys.argv[1]
+if len(sys.argv) > 2:
+    options['marker'] = sys.argv[2]
+for run in range(1, 1001):
     print 'run', run
     response = aws.list_bucket(s3_bucket, options)
+    if len(response.entries) == 0:
+        break
     for entry in response.entries:
         print entry.last_modified, entry.key, entry.size,
         if entry.last_modified < '2008-05-15':
