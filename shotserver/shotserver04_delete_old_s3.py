@@ -8,7 +8,7 @@ import time
 
 if len(sys.argv) == 2 and sys.argv[1] == '--spawn':
     for prefix in '0123456789abcdef':
-        command = 'screen %s %s' % (sys.argv[0], prefix)
+        command = 'screen -d -m %s %s' % (sys.argv[0], prefix)
         print command
         result = os.system(command)
         if result:
