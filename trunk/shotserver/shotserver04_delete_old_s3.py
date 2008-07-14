@@ -2,6 +2,8 @@
 
 import sys
 import os
+import socket
+import httplib
 
 if len(sys.argv) == 2 and sys.argv[1] == '--spawn':
     for prefix in '0123456789abcdef':
@@ -50,7 +52,17 @@ def find_existing_hashkeys(response):
 
 def delete_entry(key):
     for name, bucket in settings.S3_BUCKETS.iteritems():
-        print aws.delete(bucket, key).http_response.status,
+        for attempt in range(3):
+            try:
+                status = aws.delete(bucket, key).http_response.status
+                print status,
+                if status == 204:
+                    break
+            except httplib.BadStatusLine:
+                print 'H',
+            except socket.error:
+                print 'S',
+            time.sleep(1)
 
 
 options = {'marker': ''}
