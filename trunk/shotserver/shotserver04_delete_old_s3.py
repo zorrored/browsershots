@@ -5,6 +5,7 @@ import os
 import socket
 import httplib
 import time
+from datetime import datetime, timedelta
 
 if len(sys.argv) >= 2 and sys.argv[1] == '--spawn':
     prefixes = '0123456789abcdef'
@@ -69,6 +70,10 @@ def delete_entry(key):
             time.sleep(1)
 
 
+timeout = datetime.now() - timedelta(days=31)
+timeout_date = timeout.strftime('%Y-%m-%d')
+print 'deleting files modified before', timeout_date
+
 options = {'marker': ''}
 if len(sys.argv) > 1:
     options['prefix'] = sys.argv[1]
@@ -81,7 +86,7 @@ for run in range(1, 1001):
         break
     for entry in response.entries:
         print entry.last_modified, entry.key, entry.size,
-        if entry.last_modified < '2008-05-15':
+        if entry.last_modified < timeout_date:
             delete_entry(entry.key)
             print 'deleted'
         else:
