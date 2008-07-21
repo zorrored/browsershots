@@ -144,10 +144,18 @@ def create_user_priority(log):
     if user is None:
         mail_admins("Could not guess user for payment", log)
         return
+    payment = float(log.mc_gross)
+    if log.mc_currency == 'EUR':
+        euros = payment
+    elif log.mc_currency == 'USD':
+        euros = payment / 1.5
+    else:
+        mail_admins("Wrong currency", log)
+        return
     priority = UserPriority(user=user, priority=1,
                             activated=activated, expire=expire,
                             txn_id=log.txn_id, currency=log.mc_currency,
-                            payment=float(log.mc_gross),
+                            payment=payment, euros=euros,
                             country=log.residence_country)
     priority.save()
     transaction.commit()
