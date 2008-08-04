@@ -42,6 +42,12 @@ from shotserver04.invoices.models import BillingAddress
 from shotserver04.paypal.models import PayPalLog
 
 
+LEFT_COLUMN = 4*cm
+MIDDLE_COLUMN = 6*cm
+RIGHT_COLUMN = 13*cm
+TABLE_TOP = 14*cm
+
+
 def get_address(user, priorities=None):
     found = user.billingaddress_set.all()
     if found:
@@ -146,6 +152,44 @@ def drawStrings(canvas, x, y, *lines):
         y -= step
 
 
+def pdf_draw_header(canvas, country):
+    dir = os.path.dirname(__file__)
+    logo = os.path.join(dir, 'logo.jpg')
+    canvas.drawInlineImage(logo, RIGHT_COLUMN, 23.7*cm,
+                           width=1*cm, height=1*cm)
+    canvas.setFont('Helvetica', 16)
+    canvas.drawString(RIGHT_COLUMN + 1.2*cm, 24*cm, u"Browsershots")
+
+    drawStrings(canvas, RIGHT_COLUMN, 23*cm, 12,
+                u"Johann C. Rocholl",
+                u"Pütnitzer Str. 12",
+                u"18311 Ribnitz-Damgarten")
+    if country == 'DE':
+        canvas.drawString(RIGHT_COLUMN, 21.5*cm, u"Deutschland")
+    else:
+        canvas.drawString(RIGHT_COLUMN, 21.5*cm, u"Germany")
+    canvas.drawString(RIGHT_COLUMN, 20.5*cm, "johann@browsershots.org")
+
+
+def pdf_draw_footer(canvas, country):
+    width = canvas._pagesize[0]
+    canvas.line(LEFT_COLUMN, 3.5*cm, width - LEFT_COLUMN, 3.5*cm)
+    if country == 'DE':
+        drawStrings(canvas, LEFT_COLUMN, 3*cm, 8,
+                    u"Inhaber: Johann C. Rocholl",
+                    u"PayPal: johann@browsershots.org")
+        drawStrings(canvas, RIGHT_COLUMN, 3*cm, 8,
+                    u"Konto: 3415213",
+                    u"BLZ: 38070724")
+    else:
+        drawStrings(canvas, LEFT_COLUMN, 3*cm, 8,
+                    u"Sole proprietor: Johann C. Rocholl",
+                    u"PayPal: johann@browsershots.org")
+        drawStrings(canvas, RIGHT_COLUMN, 3*cm, 8,
+                    u"IBAN: DE63380707240341521300",
+                    u"BIC / SWIFT: DEUTDEDBXXX")
+
+
 @login_required
 def pdf(http_request, id):
     id = int(id)
@@ -160,112 +204,69 @@ def pdf(http_request, id):
     country = None
     if priority.country:
         country = priority.country.upper()
+        assert len(country) == 2
 
     if country == 'US':
         pagesize = letter
     else:
         pagesize = A4
-    width, height = pagesize
-    canvas = reportlab.pdfgen.canvas.Canvas(response, pagesize=pagesize)
 
-    left = 4*cm
-    middle = 6*cm
-    right = 13*cm
-
-    german = country == 'DE'
-    if german:
+    if country == 'DE':
         payment = Decimal('%.2f' % (float(priority.payment) / 1.19))
         tax = Decimal('%.2f' % (float(priority.payment) - float(payment)))
+        subject = u"Rechnung Nummer %d" % priority.id
+        date = u"Datum: %s" % human_date(priority.activated)
+        amounts = [-12, u"Menge", '', 12, u"1", '', '', u"19%", '', '']
+        prices = [
+            -12, u"Preis", '', 12,
+            u"%s %.2f" % (priority.currency, payment), '', '',
+            u"%s %.2f" % (priority.currency, tax), '',
+            u"%s %.2f" % (priority.currency, priority.payment)]
+        descriptions = [
+            -12, u"Beschreibung", '', 12,
+            u"Priority processing für %s" % priority.user.username,
+            u"von %s bis %s" % (human_date(priority.activated),
+                                human_date(priority.expire)), '',
+            u"Mehrwertsteuer", '', u"Rechnungsbetrag (Brutto)"]
+        amounts.extend(['', '',
+            u"Vielen Dank für Ihren Auftrag.", '',
+            u"Mit freundlichen Grüßen,",
+            u"Johann C. Rocholl"])
     else:
-        payment = priority.payment
-        tax = Decimal('0.00')
-
-    dir = os.path.dirname(__file__)
-    logo = os.path.join(dir, 'logo.jpg')
-    canvas.drawInlineImage(logo, right, 23.7*cm,
-                           width=1*cm, height=1*cm)
-    canvas.setFont('Helvetica', 16)
-    canvas.drawString(right + 1.2*cm, 24*cm, u"Browsershots")
-
-    drawStrings(canvas, right, 23*cm, 12,
-                u"Johann C. Rocholl",
-                u"Pütnitzer Str. 12",
-                u"18311 Ribnitz-Damgarten")
-    if german:
-        canvas.drawString(right, 21.5*cm, u"Deutschland")
-    else:
-        canvas.drawString(right, 21.5*cm, u"Germany")
-    canvas.drawString(right, 20.5*cm, "johann@browsershots.org")
-
-    # canvas.drawString(left, 25*cm, u"Customer:")
-    address = get_address(priority.user, [priority])
-    drawStrings(canvas, left, 23*cm, *address)
-
-    table = 14*cm
-    if german:
-        drawStrings(canvas, left, 17*cm,
-                    -12, u"Rechnung Nummer %d" % id,
-                    12, u"Datum: %s" % human_date(priority.activated))
-        drawStrings(canvas, left, table,
-                    -12, u"Menge", '',
-                    12, u"1", '', '',
-                    u"19%")
-        drawStrings(canvas, middle, table,
-                    -12, u"Beschreibung", '',
-                    12, u"Priority processing für %s" % priority.user.username,
-                    u"von %s bis %s" % (human_date(priority.activated),
-                                        human_date(priority.expire)), '',
-                    u"Mehrwertsteuer", '',
-                    u"Rechnungsbetrag (Brutto)")
-        drawStrings(canvas, right, table,
-                    -12, u"Preis", '',
-                    12, u"%s %.2f" % (priority.currency, payment), '', '',
-                    u"%s %.2f" % (priority.currency, tax), '',
-                    u"%s %.2f" % (priority.currency, priority.payment))
-        drawStrings(canvas, left, 8*cm,
-                    u"Vielen Dank für Ihren Auftrag.", '',
-                    u"Mit freundlichen Grüßen,",
-                    u"Johann C. Rocholl")
-    else:
-        drawStrings(canvas, left, 17*cm,
-                    -12, u"Invoice Number %d" % id,
-                    12, u"Date: %s" % human_date(priority.activated))
-        drawStrings(canvas, left, table,
-                    -12, u"Qty", '',
-                    12, u"1")
-        drawStrings(canvas, middle, table,
-                    -12, u"Description", '',
-                    12, u"Priority processing for %s" % priority.user.username,
-                    u"from %s to %s" % (human_date(priority.activated),
-                                       human_date(priority.expire)))
-        drawStrings(canvas, right, table,
-                    -12, u"Price", '',
-                    12, u"%s %.2f" % (priority.currency, priority.payment))
-        drawStrings(canvas, left, 10*cm,
+        subject = u"Invoice Number %d" % id
+        date = u"Date: %s" % human_date(priority.activated)
+        amounts = [-12, u"Qty", '', 12, u"1", '']
+        prices = [
+            -12, u"Price", '', 12,
+            u"%s %.2f" % (priority.currency, priority.payment)]
+        descriptions = [
+            -12, u"Description", '', 12,
+            u"Priority processing for %s" % priority.user.username,
+            u"from %s to %s" % (human_date(priority.activated),
+                                human_date(priority.expire))]
+        amounts.extend(['', '',
 u"For customers outside Germany, this invoice does not include",
 u"sales tax, value added tax (VAT) or goods and services tax (GST).",
 u"You may have to pay use tax or reverse charge VAT, according",
-u"to the tax laws in your country or state.", '',
-                    u"Thank you for your business.", '',
-                    u"Kind regards,",
-                    u"Johann C. Rocholl")
+u"to the tax laws in your country or state.",
+'',
+u"Thank you for your business.",
+'',
+u"Kind regards,",
+u"Johann C. Rocholl"])
 
-    canvas.line(left, 3.5*cm, width - left, 3.5*cm)
-    if german:
-        drawStrings(canvas, left, 3*cm, 8,
-                    u"Inhaber: Johann C. Rocholl",
-                    u"PayPal: johann@browsershots.org")
-        drawStrings(canvas, right, 3*cm, 8,
-                    u"Konto: 3415213",
-                    u"BLZ: 38070724")
-    else:
-        drawStrings(canvas, left, 3*cm, 8,
-                    u"Sole proprietor: Johann C. Rocholl",
-                    u"PayPal: johann@browsershots.org")
-        drawStrings(canvas, right, 3*cm, 8,
-                    u"IBAN: DE63380707240341521300",
-                    u"BIC / SWIFT: DEUTDEDBXXX")
-
+    canvas = reportlab.pdfgen.canvas.Canvas(response, pagesize=pagesize)
+    width, height = pagesize
+    pdf_draw_header(canvas, country)
+    # canvas.drawString(LEFT_COLUMN, 25*cm, u"Customer:")
+    address = get_address(priority.user, [priority])
+    drawStrings(canvas, LEFT_COLUMN, 23*cm, *address)
+    drawStrings(canvas, LEFT_COLUMN, 17.5*cm, -12, subject)
+    drawStrings(canvas, LEFT_COLUMN, 17*cm, 12, date)
+    drawStrings(canvas, LEFT_COLUMN, TABLE_TOP, *amounts)
+    drawStrings(canvas, MIDDLE_COLUMN, TABLE_TOP, *descriptions)
+    drawStrings(canvas, RIGHT_COLUMN, TABLE_TOP, *prices)
+    pdf_draw_footer(canvas, country)
     canvas.showPage()
     canvas.save()
     return response
