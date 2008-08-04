@@ -46,6 +46,18 @@ for user in users:
         continue
     transactions.sort(key=lambda t: t.date)
     balance = transactions[-1].balance
-    if balance < 10:
+    if balance < 20:
         continue
-    print '\t'.join((id_to_email[user.id], str(balance), 'EUR', user.username))
+    email = id_to_email[user.id]
+    balance_comma = str(balance).replace('.', ',')
+    print '\t'.join((email, balance_comma, 'EUR', user.username))
+    payment = UserPayment.objects.create(
+        user=user,
+        paypal_email=email,
+        currency='EUR',
+        amount=-balance,
+        euros=-balance,
+        balance=0,
+        date=datetime.now(),
+        )
+    print >> sys.stderr, payment
