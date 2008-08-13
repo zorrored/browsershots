@@ -39,9 +39,6 @@ class Platform(models.Model):
     def __unicode__(self):
         return self.name
 
-    class Admin:
-        pass
-
     class Meta:
         verbose_name = _('platform')
         verbose_name_plural = _('platforms')
@@ -62,10 +59,6 @@ class OperatingSystem(models.Model):
         _('codename'), max_length=30, blank=True)
     maker = models.CharField(
         _('maker'), max_length=30, blank=True)
-
-    class Admin:
-        list_display = ('platform', 'name', 'version', 'codename', 'maker')
-        list_filter = ('platform', )
 
     class Meta:
         verbose_name = _('operating system')

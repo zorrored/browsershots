@@ -28,7 +28,7 @@ from shotserver04.websites.models import Domain
 
 
 class UserPriority(models.Model):
-    user = models.ForeignKey(User, raw_id_admin=True)
+    user = models.ForeignKey(User)
     priority = models.IntegerField()
     activated = models.DateTimeField()
     expire = models.DateTimeField()
@@ -37,10 +37,6 @@ class UserPriority(models.Model):
     payment = models.DecimalField(max_digits=7, decimal_places=2)
     euros = models.DecimalField(max_digits=7, decimal_places=2)
     country = models.CharField(max_length=2, null=True)
-
-    class Admin:
-        list_display = ('user', 'priority', 'activated', 'expire',
-                        'txn_id', 'currency', 'payment')
 
     class Meta:
         verbose_name_plural = "user priority"
@@ -52,12 +48,9 @@ class UserPriority(models.Model):
 
 
 class DomainPriority(models.Model):
-    domain = models.ForeignKey(Domain, raw_id_admin=True)
+    domain = models.ForeignKey(Domain)
     priority = models.IntegerField()
     expire = models.DateTimeField()
-
-    class Admin:
-        list_display = ('domain', 'priority', 'expire')
 
     class Meta:
         verbose_name_plural = "domain priority"

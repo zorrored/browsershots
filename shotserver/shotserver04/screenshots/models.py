@@ -112,13 +112,13 @@ class Screenshot(models.Model):
     hashkey = models.SlugField(
         _('hashkey'), max_length=32, unique=True)
     user = models.ForeignKey(User, blank=True, null=True,
-        verbose_name=_('user'), raw_id_admin=True)
+        verbose_name=_('user'))
     website = models.ForeignKey(Website,
-        verbose_name=_('website'), raw_id_admin=True)
+        verbose_name=_('website'))
     factory = models.ForeignKey(Factory,
-        verbose_name=_('factory'), raw_id_admin=True)
+        verbose_name=_('factory'))
     browser = models.ForeignKey(Browser,
-        verbose_name=_('browser'), raw_id_admin=True)
+        verbose_name=_('browser'))
     width = models.IntegerField(
         _('width'))
     height = models.IntegerField(
@@ -129,18 +129,6 @@ class Screenshot(models.Model):
         _('uploaded'), auto_now_add=True)
 
     objects = ScreenshotManager()
-
-    class Admin:
-        fields = (
-            (None, {'fields': (
-            'hashkey',
-            ('website', 'factory', 'browser'),
-            ('width', 'height'),
-            'uploaded',
-            )}),
-            )
-        list_display = ('hashkey', 'factory', 'browser',
-                        'width', 'height', 'uploaded')
 
     class Meta:
         verbose_name = _('screenshot')
@@ -349,7 +337,7 @@ class ProblemReport(models.Model):
     This is not the requested browser version.
     """
     screenshot = models.ForeignKey(Screenshot,
-        verbose_name=_("screenshot"), raw_id_admin=True)
+        verbose_name=_("screenshot"))
     code = models.IntegerField(
         _("error code"))
     message = models.CharField(
@@ -358,11 +346,6 @@ class ProblemReport(models.Model):
         _("reported"), auto_now_add=True)
     ip = models.IPAddressField(
         _("IP address"))
-
-    class Admin:
-        list_display = ('message', 'code', 'reported', 'ip')
-        list_filter = ('code', 'ip')
-        date_hierarchy = 'reported'
 
     class Meta:
         verbose_name = _("problem report")

@@ -69,11 +69,6 @@ class PayPalLog(models.Model):
         verbose_name = 'PayPal log'
         verbose_name_plural = 'PayPal logs'
 
-    class Admin:
-        list_display = ('txn_id', 'payment_date', 'payer_email',
-                        'mc_currency', 'mc_gross', 'payment_status',
-                        'response', 'posted')
-
     update_fields = granular_update.update_fields
 
     def __unicode__(self):

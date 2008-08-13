@@ -60,9 +60,6 @@ class Javascript(models.Model):
         _('version'), max_length=30, unique=True,
         help_text=_("e.g. 1.4 / 1.5 / 1.6"))
 
-    class Admin:
-        pass
-
     class Meta:
         verbose_name = _('Javascript version')
         verbose_name_plural = _('Javascript versions')
@@ -81,9 +78,6 @@ class Java(models.Model):
         _('version'), max_length=30, unique=True,
         help_text=_("e.g. 1.4 / 1.5 / 1.6"))
 
-    class Admin:
-        pass
-
     class Meta:
         verbose_name = _('Java version')
         verbose_name_plural = _('Java versions')
@@ -101,9 +95,6 @@ class Flash(models.Model):
     version = models.CharField(
         _('version'), max_length=30, unique=True,
         help_text=_("e.g. 5 / 6 / 7 / 8 / 9"))
-
-    class Admin:
-        pass
 
     class Meta:
         verbose_name = _('Flash version')

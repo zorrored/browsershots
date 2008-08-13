@@ -36,7 +36,7 @@ class Sponsor(models.Model):
     name = models.CharField(
         _('name'), max_length=50)
     slug = models.SlugField(
-        _('slug'), max_length=50, prepopulate_from=('name', ),
+        _('slug'), max_length=50,
         help_text=_("This is used to generate the link to the logo image."))
     url = models.URLField(
         _('URL'), max_length=400, unique=True, verify_exists=False)
@@ -48,9 +48,6 @@ class Sponsor(models.Model):
         help_text=_("Premium sponsors are always shown on the front page."))
     front_page = models.BooleanField(
         _('front page'), editable=False, default=False)
-
-    class Admin:
-        list_display = ('name', 'slug', 'url', 'premium')
 
     class Meta:
         verbose_name = _('sponsor')

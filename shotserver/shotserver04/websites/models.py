@@ -48,11 +48,6 @@ class Domain(models.Model):
     submitted = models.DateTimeField(
         _('submitted'), auto_now_add=True)
 
-    class Admin:
-        list_display = ('__unicode__', 'submitted')
-        search_fields = ('name', )
-        date_hierarchy = 'submitted'
-
     class Meta:
         verbose_name = _('domain')
         verbose_name_plural = _('domains')
@@ -75,18 +70,13 @@ class Website(models.Model):
         _('URL'), max_length=400, unique=True,
         validator_list=[has_slash_after_hostname])
     domain = models.ForeignKey(Domain,
-        verbose_name=_('domain'), raw_id_admin=True)
+        verbose_name=_('domain'))
     profanities = models.IntegerField(
         _('profanities'), blank=True, null=True)
     fetched = models.DateTimeField(
         _('fetched'), auto_now_add=True)
     submitted = models.DateTimeField(
         _('submitted'), auto_now_add=True)
-
-    class Admin:
-        list_display = ('__unicode__', 'submitted')
-        search_fields = ('url', )
-        date_hierarchy = 'submitted'
 
     class Meta:
         verbose_name = _('website')
