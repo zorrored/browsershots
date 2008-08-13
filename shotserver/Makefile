@@ -75,6 +75,16 @@ customsql :
 	Platform OperatingSystem Engine BrowserGroup \
 	Javascript Java Flash NonProfit
 
+initial_data : \
+	shotserver04/platforms/fixtures/initial_data.json \
+	shotserver04/browsers/fixtures/initial_data.json \
+	shotserver04/features/fixtures/initial_data.json \
+	shotserver04/revenue/fixtures/initial_data.json \
+
+shotserver04/%/fixtures/initial_data.json :
+	mkdir -p shotserver04/$*/fixtures
+	$(PYTHON) shotserver04/manage.py dumpdata --indent=4 $* > $@
+
 export :
 	./django_dump.py -p shotserver04 -o export \
 	User Sponsor Factory ScreenSize ColorDepth Browser
