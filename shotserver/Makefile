@@ -31,15 +31,15 @@ doctest :
 	grep -rl --include "*.py" "doctest.testmod()" . | xargs -n1 python
 
 headers :
-	find -L -name "*.py" \
+	find -L . -name "*.py" \
 	| grep -v build/ \
 	| xargs header.py shotserver04/__init__.py
 
 properties :
-	find -L -name "*.py" \
+	find -L . -name "*.py" \
 	| grep -v build/ \
 	| xargs svn propset svn:keywords "Rev Date Author"
-	find -L -type f | grep -v build/ | grep -v \\.svn \
+	find -L . -type f | grep -v build/ | grep -v \\.svn \
 	| grep -v \\.bz2 | grep -v \\.gz | grep -v \\.pyc \
 	| grep -v \\.png | grep -v \\.ico | grep -v \\.jpg \
 	| grep -v django.mo | grep -v rosetta-shotserver \
