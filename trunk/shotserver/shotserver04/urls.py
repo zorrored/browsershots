@@ -34,6 +34,7 @@ __author__ = "$Author$"
 
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.contrib import admin
 
 
 def load_app_patterns(prefix, ignore=()):
@@ -49,9 +50,11 @@ def load_app_patterns(prefix, ignore=()):
     return pairs
 
 
+admin.autodiscover()
+
 urlpatterns = patterns('',
     (r'^$', 'shotserver04.start.views.start'),
-    (r'^admin/', include('django.contrib.admin.urls')),
+    (r'^admin/(.*)', admin.site.root),
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^(?P<url>https?://.+)$', 'shotserver04.websites.views.details'),
     *load_app_patterns('shotserver04.', ignore=[
