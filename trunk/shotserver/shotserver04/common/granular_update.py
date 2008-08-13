@@ -46,9 +46,11 @@ def update_fields(self, **kwargs):
     for field_name in kwargs:
         setattr(self, field_name, kwargs[field_name])
         field = self._meta.get_field(field_name)
-        value = field.get_db_prep_save(kwargs[field_name])
+        value = kwargs[field_name]
         if isinstance(value, models.Model):
             value = value.id
+        else:
+            value = field.get_db_prep_save(value)
         sql.extend((connection.ops.quote_name(field.column), '=', '%s', ','))
         values.append(value)
     sql.pop(-1) # Remove the last comma
