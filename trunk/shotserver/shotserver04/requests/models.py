@@ -50,9 +50,8 @@ class RequestGroup(models.Model):
     """
     Common options for a group of screenshot requests.
     """
-
     website = models.ForeignKey(Website,
-        verbose_name=_("website"), raw_id_admin=True)
+        verbose_name=_("website"))
     width = models.IntegerField(
         _("screen width"), null=True, blank=True)
     height = models.IntegerField(
@@ -77,21 +76,6 @@ class RequestGroup(models.Model):
         _("submitted"), auto_now_add=True)
     expire = models.DateTimeField(
         _("expire"))
-
-    class Admin:
-        fields = (
-            (None, {'fields': (
-            'website',
-            ('width', 'bits_per_pixel'),
-            ('javascript', 'java', 'flash'),
-            'user', 'expire',
-            )}),
-            )
-        list_display = ('__unicode__', 'width',
-                        'javascript', 'java', 'flash',
-                        'user', 'ip')
-        search_fields = ('website__url', )
-        date_hierarchy = 'submitted'
 
     class Meta:
         verbose_name = _("request group")
@@ -386,9 +370,8 @@ class Request(models.Model):
     Request for a screenshot of a specified browser.
     Contains state during processing.
     """
-
     request_group = models.ForeignKey(RequestGroup,
-        verbose_name=_("request group"), raw_id_admin=True)
+        verbose_name=_("request group"))
     platform = models.ForeignKey(Platform,
         verbose_name=_("platform"))
     browser_group = models.ForeignKey(BrowserGroup,
@@ -404,26 +387,11 @@ class Request(models.Model):
     locked = models.DateTimeField(
         _("locked"), blank=True, null=True)
     browser = models.ForeignKey(Browser,
-        verbose_name=_("browser"), raw_id_admin=True,
-        blank=True, null=True)
+        verbose_name=_("browser"), blank=True, null=True)
     redirected = models.DateTimeField(
         _("redirected"), blank=True, null=True)
     screenshot = models.ForeignKey(Screenshot,
-        verbose_name=_("screenshot"), raw_id_admin=True,
-        blank=True, null=True)
-
-    class Admin:
-        fields = (
-            (None, {'fields': (
-            'request_group',
-            'platform',
-            ('browser_group', 'major', 'minor'),
-            'priority',
-            )}),
-            )
-        list_display = ('browser_group', 'major', 'minor',
-                        'platform', 'priority')
-        list_filter = ('browser_group', 'platform')
+        verbose_name=_("screenshot"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("request")

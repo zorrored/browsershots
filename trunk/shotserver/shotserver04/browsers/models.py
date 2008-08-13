@@ -41,10 +41,6 @@ class Engine(models.Model):
     maker = models.CharField(
         _('maker'), max_length=30, blank=True)
 
-    class Admin:
-        list_display = ('name', 'maker')
-        search_fields = ('name', 'maker')
-
     class Meta:
         verbose_name = _('engine')
         verbose_name_plural = _('engines')
@@ -69,10 +65,6 @@ class BrowserGroup(models.Model):
         _('terminal'), help_text=_("Is this a text-mode browser?"))
     unusual = models.BooleanField(
         _('unusual'), help_text=_("Hide from recent screenshot overview?"))
-
-    class Admin:
-        list_display = ('name', 'maker', 'terminal', 'unusual')
-        search_fields = ('name', 'maker')
 
     class Meta:
         verbose_name = _('browser group')
@@ -127,25 +119,6 @@ class Browser(models.Model):
         _('uploads per day'), blank=True, null=True, editable=False)
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
-
-    class Admin:
-        fields = (
-            (None, {'fields': (
-            'factory',
-            'user_agent',
-            'command',
-            'browser_group',
-            ('version', 'major', 'minor'),
-            ('engine', 'engine_version'),
-            ('javascript', 'java', 'flash'),
-            'active',
-            )}),
-            )
-        list_display = ('browser_group', 'version', 'command',
-                        'uploads_per_day', 'factory', 'active')
-        list_filter = ('factory', 'browser_group')
-        search_fields = ('user_agent', 'command',
-                         'javascript', 'java', 'flash')
 
     class Meta:
         verbose_name = _('browser')

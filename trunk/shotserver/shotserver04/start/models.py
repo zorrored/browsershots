@@ -33,9 +33,6 @@ class NewsItem(models.Model):
     url = models.CharField(max_length=200)
     pubdate = models.DateTimeField()
 
-    class Admin:
-        pass
-
     class Meta:
         ordering = ('-pubdate', 'url')
 

@@ -15,27 +15,29 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Invoices models.
+Admin for website app.
 """
 
-__revision__ = "$Rev: 2755 $"
-__date__ = "$Date: 2008-04-14 15:16:50 -0700 (Mon, 14 Apr 2008) $"
+__revision__ = "$Rev: 1464 $"
+__date__ = "$Date: 2007-06-08 13:12:43 -0700 (Fri, 08 Jun 2007) $"
 __author__ = "$Author: johann $"
 
-from django.db import models
-from django.contrib.auth.models import User
-from shotserver04.common import granular_update
+from django.contrib import admin
+from shotserver04.websites.models import Domain, Website
 
 
-class BillingAddress(models.Model):
-    user = models.ForeignKey(User, unique=True)
-    address = models.TextField()
+class DomainAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'submitted')
+    search_fields = ('name', )
+    date_hierarchy = 'submitted'
 
-    class Meta:
-        verbose_name_plural = "user billing address"
-        verbose_name_plural = "user billing addresses"
 
-    def __unicode__(self):
-        return self.address.splitlines()[0].strip()
+class WebsiteAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'submitted')
+    raw_id_fields = ('domain', )
+    search_fields = ('url', )
+    date_hierarchy = 'submitted'
 
-    update_fields = granular_update.update_fields
+
+admin.site.register(Domain, DomainAdmin)
+admin.site.register(Website, WebsiteAdmin)

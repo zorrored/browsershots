@@ -45,11 +45,6 @@ class Nonce(models.Model):
     def __unicode__(self):
         return self.hashkey
 
-    class Admin:
-        list_display = ('hashkey', 'ip', 'factory', 'email', 'created')
-        list_filter = ('factory', )
-        date_hierarchy = 'created'
-
     class Meta:
         verbose_name = _('nonce')
         verbose_name_plural = _('nonces')

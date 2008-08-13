@@ -80,18 +80,6 @@ class Factory(models.Model):
     created = models.DateTimeField(
         _('created'), auto_now_add=True)
 
-    class Admin:
-        fields = (
-            (None, {'fields': ('name', 'admin', 'sponsor')}),
-            ('Platform', {'fields': ('hardware', 'operating_system')}),
-            )
-        search_fields = ('name', 'admin__username',
-                         'admin__first_name', 'admin__last_name')
-        list_display = ('name', 'operating_system',
-                        'created', 'last_poll', 'admin')
-        list_filter = ('operating_system', )
-        date_hierarchy = 'created'
-
     class Meta:
         verbose_name = _('factory')
         verbose_name_plural = _('factories')
@@ -232,10 +220,6 @@ class ScreenSize(models.Model):
     height = models.IntegerField(
         _('height'), core=True)
 
-    class Admin:
-        list_display = ('width', 'height', 'factory')
-        list_filter = ('factory', )
-
     class Meta:
         verbose_name = _('screen size')
         verbose_name_plural = _('screen sizes')
@@ -256,10 +240,6 @@ class ColorDepth(models.Model):
     bits_per_pixel = models.IntegerField(
         _('bits per pixel'), core=True)
 
-    class Admin:
-        list_display = ('bits_per_pixel', 'factory')
-        list_filter = ('factory', )
-
     class Meta:
         verbose_name = _('color depth')
         verbose_name_plural = _('color depths')
@@ -272,12 +252,9 @@ class ColorDepth(models.Model):
 
 class ScreenshotCount(models.Model):
     factory = models.ForeignKey(Factory,
-        verbose_name=_('factory'), raw_id_admin=True)
+        verbose_name=_('factory'))
     date = models.DateField(_('date'))
     screenshots = models.IntegerField(_('screenshots'))
-
-    class Admin:
-        list_display = ('factory', 'date', 'screenshots')
 
     class Meta:
         unique_together = ('factory', 'date')

@@ -30,7 +30,7 @@ from shotserver04.common import granular_update
 
 
 class UserRevenue(models.Model):
-    user = models.ForeignKey(User, raw_id_admin=True)
+    user = models.ForeignKey(User)
     year = models.IntegerField()
     month = models.IntegerField()
     screenshots = models.IntegerField()
@@ -38,10 +38,6 @@ class UserRevenue(models.Model):
     euros = models.DecimalField(max_digits=7, decimal_places=2)
     balance = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateTimeField()
-
-    class Admin:
-        list_display = ('user', 'year', 'month', 'screenshots', 'percent',
-                        'euros', 'balance', 'date')
 
     class Meta:
         unique_together = ('user', 'year', 'month')
@@ -55,16 +51,13 @@ class UserRevenue(models.Model):
 
 
 class UserPayment(models.Model):
-    user = models.ForeignKey(User, raw_id_admin=True)
+    user = models.ForeignKey(User)
     currency = models.CharField(max_length=3)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     euros = models.DecimalField(max_digits=7, decimal_places=2)
     balance = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateTimeField()
     paypal_email = models.EmailField(blank=True, default='')
-
-    class Admin:
-        list_display = ('user', 'currency', 'amount', 'euros', 'date')
 
     class Meta:
         ordering = ('-date', )
@@ -83,9 +76,6 @@ class NonProfit(models.Model):
     name = models.CharField(max_length=40)
     url = models.URLField()
 
-    class Admin:
-        list_display = ('name', 'url')
-
     class Meta:
         ordering = ('name', )
 
@@ -99,17 +89,13 @@ class NonProfit(models.Model):
 
 
 class UserDonation(models.Model):
-    user = models.ForeignKey(User, raw_id_admin=True)
+    user = models.ForeignKey(User)
     non_profit = models.ForeignKey(NonProfit)
     currency = models.CharField(max_length=3)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     euros = models.DecimalField(max_digits=7, decimal_places=2)
     balance = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateTimeField()
-
-    class Admin:
-        list_display = ('user', 'non_profit',
-                        'currency', 'amount', 'euros', 'date')
 
     class Meta:
         ordering = ('-date', )
