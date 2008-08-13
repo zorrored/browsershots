@@ -432,29 +432,5 @@
             "name": "iCab", 
             "maker": ""
         }
-    }, 
-    {
-        "pk": 1, 
-        "model": "browsers.browser", 
-        "fields": {
-            "engine": 1, 
-            "major": 2, 
-            "flash": 6, 
-            "java": 5, 
-            "uploads_per_hour": null, 
-            "last_upload": null, 
-            "last_error": null, 
-            "javascript": 9, 
-            "factory": 1, 
-            "engine_version": "123", 
-            "version": "2.0.0.1", 
-            "command": "", 
-            "user_agent": "Firefox/2.0.0.1", 
-            "uploads_per_day": null, 
-            "created": "2008-08-13 15:00:57", 
-            "active": true, 
-            "browser_group": 1, 
-            "minor": 0
-        }
     }
 ]
