@@ -121,15 +121,15 @@ class PollTestCase(TestCase):
     def testPoll(self):
         # Poll for matching request.
         try:
-            result = requests.poll(self.http_request,
-                                   'factory', self.encrypted_password())
+            result = requests.poll(self.http_request, self.factory,
+                                   self.encrypted_password())
         except Fault, fault:
             transaction.rollback()
             raise
         # Now expect no match because the previous request was locked.
         try:
-            result = requests.poll(self.http_request,
-                                   'factory', self.encrypted_password())
+            result = requests.poll(self.http_request, self.factory,
+                                   self.encrypted_password())
             self.fail("Unexpected matching request.")
         except Fault, fault:
             transaction.rollback()

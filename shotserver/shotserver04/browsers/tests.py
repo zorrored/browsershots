@@ -35,11 +35,12 @@ class SizeTestCase(TestCase):
 
     def setUp(self):
         self.user = User.objects.create()
+        self.operatingsystem = OperatingSystem.objects.get(pk=1)
         self.factory = Factory.objects.create(
             name='factory',
             admin=self.user,
             hardware='MacBook, Intel Core Duo, 2 GB RAM',
-            operating_system=OperatingSystem.objects.get(pk=1))
+            operating_system=self.operatingsystem)
         self.engine = Engine.objects.get(pk=1)
         self.browser_group = BrowserGroup.objects.get(pk=1)
 
