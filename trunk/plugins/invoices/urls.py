@@ -18,9 +18,9 @@
 URL configuration for the invoices app.
 """
 
-__revision__ = "$Rev: 2386 $"
-__date__ = "$Date: 2007-11-28 08:34:13 -0800 (Wed, 28 Nov 2007) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from django.conf.urls.defaults import patterns
 

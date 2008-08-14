@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- coding: utf-8 -*-
 # browsershots.org - Test your web design in different browsers
 # Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -19,9 +19,9 @@
 Priority views.
 """
 
-__revision__ = "$Rev: 2744 $"
-__date__ = "$Date: 2008-03-30 17:56:40 -0700 (Sun, 30 Mar 2008) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import os
 from decimal import Decimal, getcontext

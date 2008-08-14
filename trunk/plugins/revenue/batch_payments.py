@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 # browsershots.org - Test your web design in different browsers
 # Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -20,9 +19,9 @@
 Monthly mass payment through PayPal.
 """
 
-__revision__ = "$Rev: 2895 $"
-__date__ = "$Date: 2008-06-14 14:29:10 -0700 (Sat, 14 Jun 2008) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import sys
 import os

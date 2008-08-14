@@ -18,9 +18,9 @@
 Invoices models.
 """
 
-__revision__ = "$Rev: 2755 $"
-__date__ = "$Date: 2008-04-14 15:16:50 -0700 (Mon, 14 Apr 2008) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from django.db import models
 from django.contrib.auth.models import User
