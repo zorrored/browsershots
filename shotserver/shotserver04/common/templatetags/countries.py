@@ -18,9 +18,9 @@
 Convert times to a short human-readable format.
 """
 
-__revision__ = "$Rev: 2736 $"
-__date__ = "$Date: 2008-03-05 09:40:02 -0800 (Wed, 05 Mar 2008) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from django import template
 

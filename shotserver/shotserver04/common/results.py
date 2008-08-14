@@ -18,9 +18,9 @@
 Utilities for the results of HTTP POST requests.
 """
 
-__revision__ = "$Rev: 1464 $"
-__date__ = "$Date: 2007-06-08 13:12:43 -0700 (Fri, 08 Jun 2007) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from django.utils.translation import ugettext as _
 from django.http import HttpResponseRedirect

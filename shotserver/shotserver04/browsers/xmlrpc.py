@@ -18,9 +18,9 @@
 XML-RPC interface for browsers app.
 """
 
-__revision__ = "$Rev: 2804 $"
-__date__ = "$Date: 2008-05-07 21:26:26 -0700 (Wed, 07 May 2008) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from shotserver04.common import last_poll_timeout, last_error_timeout
 from shotserver04.common.object_cache import preload_foreign_keys

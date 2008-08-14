@@ -19,9 +19,9 @@
 Delete old PNG files.
 """
 
-__revision__ = "$Rev: 2242 $"
-__date__ = "$Date: 2007-10-25 04:58:53 -0700 (Thu, 25 Oct 2007) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
