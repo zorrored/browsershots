@@ -54,6 +54,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^$', 'shotserver04.start.views.start'),
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/(.*)', admin.site.root),
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^(?P<url>https?://.+)$', 'shotserver04.websites.views.details'),
