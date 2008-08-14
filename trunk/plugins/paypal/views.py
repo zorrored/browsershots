@@ -26,7 +26,7 @@ import urllib2
 from datetime import datetime
 from django.http import HttpResponse
 from django.db import transaction
-from django import newforms as forms
+from django import forms
 from django.shortcuts import render_to_response
 from django.core.mail import mail_admins, EmailMessage
 from django.contrib.auth.models import User

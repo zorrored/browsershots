@@ -33,7 +33,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext_lazy as _
-from django import newforms as forms
+from django import forms
 from shotserver04.common import error_page
 from shotserver04.common.templatetags.human import human_date
 from shotserver04.common.templatetags.countries import country_name
