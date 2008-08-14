@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 # browsershots.org - Test your web design in different browsers
 # Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
 #
