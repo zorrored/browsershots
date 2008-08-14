@@ -244,14 +244,20 @@ def details_post(http_request, factory,
                 return deactivate_browser(http_request, int(parts[2]))
 
 
+class EditFactoryForm(forms.ModelForm):
+    class Meta:
+        model = Factory
+        fields=('hardware', 'operating_system')
+
+
 def details(http_request, name):
     """
     Get detailed information about a screenshot factory.
     """
     factory = get_object_or_404(Factory, name=name)
-    factory_form = forms.form_for_instance(
-        factory, fields=('hardware', 'operating_system'))(
-        'submit_details' in http_request.POST and http_request.POST or None)
+    factory_form = EditFactoryForm(
+        'submit_details' in http_request.POST and http_request.POST or None,
+        instance=factory)
     screensize_form = ScreenSizeForm(
         'add_size' in http_request.POST and http_request.POST or None)
     colordepth_form = ColorDepthForm(
@@ -319,10 +325,10 @@ _("The administrator of this screenshot factory will be notified.")))
         context_instance=RequestContext(http_request))
 
 
-class FactoryBase(forms.BaseForm):
-    """
-    Special methods for FactoryForm (created below using form_for_model).
-    """
+class CreateFactoryForm(forms.ModelForm):
+    class Meta:
+        model = Factory
+        fields = ('name', 'hardware', 'operating_system')
 
     def clean_name(self):
         """
@@ -359,17 +365,13 @@ _("Name may contain only lowercase letters, digits, underscore, hyphen."))
                 self.errors[forms.forms.NON_FIELD_ERRORS] = ErrorList([str(e)])
 
 
-FactoryForm = forms.form_for_model(Factory, form=FactoryBase,
-    fields=('name', 'hardware', 'operating_system'))
-
-
 @login_required
 def add(http_request):
     """
     Add a new screenshot factory.
     """
     factory = None
-    form = FactoryForm(http_request.POST or None)
+    form = CreateFactoryForm(http_request.POST or None)
     if form.is_valid():
         factory = form.create_factory(http_request.user)
     if factory:
