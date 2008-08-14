@@ -27,7 +27,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.conf import settings
 from django.http import Http404
-from django.core.paginator import ObjectPaginator
+from django.core.paginator import Paginator
 from shotserver04.websites.models import Website, Domain
 from shotserver04.browsers.models import Browser, BrowserGroup
 from shotserver04.requests.models import RequestGroup
@@ -94,13 +94,13 @@ def details(http_request, url):
     factories = Factory.objects.all()
     preload_foreign_keys(factories, operating_system=True)
     request_groups = list(website.requestgroup_set.all())
-    paginator = ObjectPaginator(request_groups, num_per_page=5, orphans=2)
-    if page < 1 or page > paginator.pages:
+    paginator = Paginator(request_groups, 5, orphans=2)
+    if page < 1 or page > paginator.num_pages:
         raise Http404('Requested page out of range.')
-    request_group_list = paginator.get_page(page - 1)
+    request_group_list = paginator.page(page).object_list
     pages_list = []
-    if paginator.pages > 1:
-        for number in range(1, paginator.pages + 1):
+    if paginator.num_pages > 1:
+        for number in range(1, paginator.num_pages + 1):
             extra_classes = ''
             if page == number:
                 extra_classes = ' current'
