@@ -29,8 +29,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.query import Q
-from django import newforms as forms
-from django.newforms.util import ErrorList
+from django import forms
+from django.forms.util import ErrorList
 from django.conf import settings
 from shotserver04.common import last_poll_timeout, error_page, results
 from shotserver04.common.object_cache import preload_foreign_keys

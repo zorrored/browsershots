@@ -22,7 +22,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from django import newforms as forms
+from django import forms
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
 from shotserver04.factories.models import ScreenSize, ColorDepth
