@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 # browsershots.org - Test your web design in different browsers
 # Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -68,7 +67,7 @@ for user in User.objects.all():
     if not screenshots:
         existing.delete()
         continue
-    print screenshots, '%.3f%%' % percent, '€%.2f' % euros, user,
+    print screenshots, '%.3f%%' % percent, '%.2f' % euros, user,
     if len(existing) == 1:
         existing[0].update_fields(
             screenshots=screenshots, percent=percent,
