@@ -27,10 +27,10 @@ import urlparse
 import socket
 from datetime import datetime
 from psycopg import IntegrityError
-from django import newforms as forms
+from django import forms
+from django.forms.util import ValidationError
 from django.utils.text import capfirst
 from django.db import transaction
-from django.newforms.util import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.conf import settings

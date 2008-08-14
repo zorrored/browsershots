@@ -23,10 +23,10 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 import re
-from django import newforms as forms
+from django import forms
+from django.forms.util import ErrorList
 from django.db import connection
 from django.http import HttpResponseRedirect
-from django.newforms.util import ErrorList
 from django.contrib.auth.models import check_password
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
