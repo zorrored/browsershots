@@ -213,8 +213,7 @@ class ScreenSize(models.Model):
     Supported screen resolutions for screenshot factories.
     """
     factory = models.ForeignKey(Factory,
-        verbose_name=_('factory'),
-        edit_inline=models.TABULAR, num_in_admin=3)
+        verbose_name=_('factory'))
     width = models.IntegerField(
         _('width'), core=True)
     height = models.IntegerField(
@@ -235,8 +234,7 @@ class ColorDepth(models.Model):
     Supported color depths (bits per pixel) for screenshot factories.
     """
     factory = models.ForeignKey(Factory,
-        verbose_name=_('factory'),
-        edit_inline=models.TABULAR, num_in_admin=3)
+        verbose_name=_('factory'))
     bits_per_pixel = models.IntegerField(
         _('bits per pixel'), core=True)
 

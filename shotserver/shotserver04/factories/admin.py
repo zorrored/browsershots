@@ -27,6 +27,16 @@ from shotserver04.factories.models import Factory, ScreenshotCount
 from shotserver04.factories.models import ScreenSize, ColorDepth
 
 
+class ScreenSizeInline(admin.TabularInline):
+    model = ScreenSize
+    extra = 1
+
+
+class ColorDepthInline(admin.TabularInline):
+    model = ColorDepth
+    extra = 1
+
+
 class FactoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('name', 'admin', 'sponsor')}),
@@ -38,6 +48,7 @@ class FactoryAdmin(admin.ModelAdmin):
                     'created', 'last_poll', 'admin')
     list_filter = ('operating_system', )
     date_hierarchy = 'created'
+    inlines = (ScreenSizeInline, ColorDepthInline)
 
 
 class ScreenSizeAdmin(admin.ModelAdmin):
