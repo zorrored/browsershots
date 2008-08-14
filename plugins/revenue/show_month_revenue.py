@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding: utf-8
 # browsershots.org - Test your web design in different browsers
 # Copyright (C) 2007 Johann C. Rocholl <johann@browsershots.org>
 #
@@ -20,9 +19,9 @@
 Share last month's revenue from priority processing.
 """
 
-__revision__ = "$Rev: 2656 $"
-__date__ = "$Date: 2008-02-05 05:55:23 -0800 (Tue, 05 Feb 2008) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 import sys
 import os
