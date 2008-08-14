@@ -15,7 +15,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Convert times to a short human-readable format.
+Convert two-letter country codes to human-readable names.
 """
 
 __revision__ = "$Rev$"
