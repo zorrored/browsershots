@@ -34,4 +34,4 @@ class SpecialForm(forms.Form):
     own_factories_only = forms.BooleanField(
         label=_("only my own factories"),
         help_text=_("Test your own screenshot factories with priority."),
-        initial=False)
+        initial=False, required=False)
