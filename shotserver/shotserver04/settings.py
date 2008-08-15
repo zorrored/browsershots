@@ -44,8 +44,8 @@ DATABASE_HOST = ''             # Set to empty string for localhost.
 DATABASE_PORT = ''             # Set to empty string for default.
 
 CACHE_BACKEND = 'locmem:///'
+# CACHE_BACKEND = "memcached://127.0.0.1:11211/"
 # CACHE_BACKEND = 'file:///var/cache/shotserver04'
-# CACHE_BACKEND = "memcached://127.0.0.1:11211"
 
 # Local time zone for this installation. All choices can be found here:
 # http://www.postgresql.org/docs/8.1/static/datetime-keywords.html
