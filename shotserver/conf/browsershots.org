@@ -1,0 +1,57 @@
+<VirtualHost *:80>
+    ServerName browsershots.org
+    ServerAlias v03.browsershots.org
+    ServerAdmin webmaster@browsershots.org
+    ServerSignature On
+
+    LogLevel warn
+    ErrorLog /var/log/apache2/browsershots.org/error.log
+    CustomLog /var/log/apache2/browsershots.org/access.log combined
+
+    <Directory />
+	Options FollowSymLinks
+	AllowOverride None
+
+	Order allow,deny
+	allow from all
+    </Directory>
+
+    DocumentRoot /var/www/browsershots.org
+    <Directory /var/www/browsershots.org>
+	RewriteEngine On
+	RewriteBase /
+
+	# Force canonical hostname.
+	RewriteCond %{HTTP_HOST} !^v03.browsershots.org(|:80)$
+	RewriteRule ^(.*)$ http://v03.browsershots.org/$1 [R,L]
+
+	# Don't rewrite these.
+	RewriteRule ^robots.txt$ - [L]
+	RewriteRule ^favicon.ico$ - [L]
+	RewriteRule ^style\b - [L]
+	RewriteRule ^png\b - [L]
+	RewriteRule ^server-status\b - [L]
+
+	# Legacy URLs
+	RewriteRule ^recent\b screenshots/ [R,L]
+
+	# Run shotserver.
+	RewriteRule ^shotserver\b - [L]
+	RewriteRule ^(.*)$ shotserver/$1 [L]
+    </Directory>
+
+    <Location /server-status>
+        SetHandler server-status
+    </Location>
+
+    <Location /shotserver>
+        SetHandler mod_python
+        PythonHandler shotserver03
+        PythonDebug Off
+	PythonAutoReload Off
+    </Location>
+</VirtualHost>
+
+# Local variables:
+# mode: apache
+# end:

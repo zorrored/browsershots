@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /
+
+# Force canonical hostname, without HTTPS.
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP_HOST} !^v03.browsershots.org(|:80)$
+RewriteRule ^(.*)$ http://v03.browsershots.org/$1 [R,L]
+
+# Force canonical hostname, with HTTPS.
+  RewriteCond %{HTTPS} on
+  RewriteCond %{HTTP_HOST} !^v03.browsershots.org(|:443)$
+RewriteRule ^(.*)$ https://v03.browsershots.org/$1 [R,L]
+
+# Don't rewrite these.
+RewriteRule ^robots.txt$ - [L]
+RewriteRule ^favicon.ico$ - [L]
+RewriteRule ^style/ - [L]
+RewriteRule ^png/ - [L]
+
+# Run shotserver.
+RewriteRule ^shotserver/ - [L]
+RewriteRule ^(.*)$ shotserver/$1 [L]

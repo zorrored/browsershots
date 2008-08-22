@@ -1,0 +1,211 @@
+body {
+  margin: 0 8px;
+  padding: 0;
+  text-align: center;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 80%;
+  color: black;
+  background-color: white;
+}
+
+img { border: none; }
+form { margin: 0; }
+
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+:link { color: #016; }
+:visited { color: #800; }
+
+h1 { font-size: 28px; }
+h1, h2 {
+  clear: left;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  margin: 0;
+}
+
+p, hr { margin: 1em 0; }
+.error { color: #F00; }
+.success { color: #080; }
+.error, .success { font-weight: bold; }
+div.traceback {
+  text-align: left;
+  border: 3px solid red;
+  padding: 0 1em;
+}
+div#queue p { margin-bottom: 0; }
+
+.float-left {
+  float: left;
+  display: inline;
+  margin-right: 1em;
+}
+.float-right {
+  float: right;
+  display: inline;
+  margin-left: 1em;
+}
+
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
+
+.top { vertical-align: top; }
+.middle { vertical-align: middle; }
+.bottom { vertical-align: bottom; }
+
+.relative { position: relative; }
+.absolute,
+.relative img { position: absolute; }
+.up { margin-top: 0; }
+
+.clear { clear: both; }
+.bold { font-weight: bold; }
+.red { color: red; }
+
+#queue-notice {
+  border: 1px solid red;
+  background-color: #FCC;
+  padding: 1em;
+}
+
+div#main {
+  width: 764px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+}
+
+div.menu {
+  clear: both;
+  margin: 0;
+  padding: 0.4ex 0;
+}
+div.menu p, div.menu ul {
+  margin: 0;
+  padding: 0;
+}
+div.menu li {
+  display: inline;
+  padding: 0 1ex 2px;
+  border-left: 1px solid #CCC;
+}
+div.menu li.first {
+  border-left: none;
+  padding-left: 0;
+}
+
+.lightgray { background-color: #E4E4E4; }
+div.lightgray li { border-color: white; }
+div.lightgray li.first { padding-left: 1ex; }
+
+div#metamenu ul {
+  padding: 0.3ex 0 0;
+}
+div#topmenu ul.mockup a {
+  color: red;
+  font-weight: bold;
+}
+div#topmenu { margin: 0 0 1em; }
+div#bottom { margin: 1em 0 0; }
+div#topmenu ul.float-right li.first { padding-left: 6ex; }
+div#topmenu a,
+div#bottom a { color: black; }
+
+div#languages { padding: 17px 0; }
+div#logo { padding: 10px 0; }
+
+div#screenshots { margin: 1em 0; }
+div#screenshots div.screenshot {
+  float: left;
+  width: 140px;
+  overflow: hidden;
+  margin: 0 0 0 16px;
+  font-size: 80%;
+  color: gray;
+}
+div#screenshots div.first { margin-left: 0; }
+
+div#recent {
+  margin: 1em 0;
+}
+div#browsers input {
+  padding: 0;
+  margin: 0;
+}
+div#prev, div#next, div#medium { float: left; }
+div#prev, div#next { width: 140px; }
+div#medium { width: 450px; }
+div#medium, div#next { margin: 0 0 0 17px; }
+div#prev img, div#next img { margin: 1ex 0; }
+
+table { border-collapse: collapse; }
+th, td {
+  text-align: left;
+  padding: 0 1ex 0 0;
+}
+.color1 { background-color: #eee; }
+
+input#submit { font-weight: bold; }
+div.background {
+  position: relative;
+  padding: 8px 0;
+  width: 764px;
+}
+div.blue {
+  margin: 1em 0 0;
+  background-color: #016;
+  background-image: url(blue.jpg);
+  background-repeat: repeat-x;
+  color: white;
+}
+div.gray {
+  margin: 0 0 1em;
+  background-color: #E4E4E4;
+  background-image: url(gray.jpg);
+  background-repeat: repeat-x;
+  background-position: bottom left;
+}
+div.background div.float-left {
+  margin: 0 0 4px;
+  padding: 0 0 0 12px;
+}
+div#inputurl { margin: 1em 0; }
+div#inputurl input#url { width: 584px; }
+div#inputurl input#submit { width: 140px; }
+div#browsers div.float-left { width: 136px; }
+div#browsers { position: relative; }
+div#browsers input#submit {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 176px;
+}
+div#features select { width: 176px; }
+
+div#about, div#news, div#sponsors {
+  float: left;
+  width: 270px;
+  margin: 0 32px 1em 0;
+  float: left;
+}
+div#sponsors {
+  width: 160px;
+  margin: 0 0 1em 0;
+}
+div#news ul {
+  margin: 1ex 0;
+  padding: 0;
+  list-style-type: none;
+}
+div#news li {
+  text-indent: -2em;
+  padding: 0;
+  margin: 0 0 0 2em;
+}
+.news-date {
+  font-size: 80%;
+  color: gray;
+}
+.gray {
+  color: gray;
+}
