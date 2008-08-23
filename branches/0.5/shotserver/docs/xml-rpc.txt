@@ -19,7 +19,7 @@ Create a new screenshot factory.
 Arguments:
 ~~~~~~~~~~
 * factory_name string (lowercase, use hostname if possible)
-* operating_system_slug string (see platforms.index)
+* operating_system_slug string (see platforms.listOperatingSystems)
 * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * username string (regular Django user account)
@@ -45,7 +45,7 @@ Return value:
 The return dict will contain the following entries:
 
 * factory_name string (lowercase)
-* operating_system_slug string (see platforms.index)
+* operating_system_slug string (see platforms.listOperatingSystems)
 * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 * last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
@@ -86,7 +86,7 @@ Update factory information.
 
 Arguments:
 ~~~~~~~~~~
-* operating_system_slug string (see platforms.index)
+* operating_system_slug string (see platforms.listOperatingSystems)
 * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * factory_name string (lowercase)
