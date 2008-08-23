@@ -89,7 +89,7 @@ def factory_auth(func):
     additional arguments are required:
 
     * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-    * factory_name string (screenshot factory name)
+    * factory_name string (lowercase)
     * md5_hash string (see factories.testAuth for details)
     """
 
