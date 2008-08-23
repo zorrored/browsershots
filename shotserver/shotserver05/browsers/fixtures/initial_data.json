@@ -1,0 +1,66 @@
+[
+    {
+        "pk": 1,
+        "model": "browsers.browser",
+        "fields": {
+            "name": "Firefox",
+            "slug": "firefox"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "browsers.browser",
+        "fields": {
+            "name": "Safari",
+            "slug": "safari"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "browsers.browser",
+        "fields": {
+            "name": "Opera",
+            "slug": "opera"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "browsers.browser",
+        "fields": {
+            "name": "Internet Explorer",
+            "slug": "internet-explorer"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "browsers.engine",
+        "fields": {
+            "name": "Gecko",
+            "slug": "gecko"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "browsers.engine",
+        "fields": {
+            "name": "AppleWebKit",
+            "slug": "applewebkit"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "browsers.engine",
+        "fields": {
+            "name": "Opera",
+            "slug": "opera"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "browsers.engine",
+        "fields": {
+            "name": "Internet Explorer",
+            "slug": "internet-explorer"
+        }
+    }
+]
