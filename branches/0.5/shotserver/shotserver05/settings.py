@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'shotserver05.system',
     'shotserver05.xmlrpc',
+    'shotserver05.users',
     'shotserver05.platforms',
     'shotserver05.factories',
     'shotserver05.browsers',
