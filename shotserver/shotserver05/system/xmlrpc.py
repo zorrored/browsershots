@@ -1,11 +1,13 @@
 from django.conf import settings
-from shotserver05.xmlrpc.utils import signature, import_method
+from shotserver05.xmlrpc.utils import import_method
 
 
-@signature(list)
 def listMethods(request):
     """
     Get a list of the methods supported by the server.
+
+    Return value:
+    * method_names list (names of all supported methods)
     """
     result = []
     for full_app_name in settings.INSTALLED_APPS:
@@ -21,34 +23,60 @@ def listMethods(request):
             module = module.__dict__[part]
         for method_name in module.__dict__.keys():
             method = module.__dict__[method_name]
-            if hasattr(method, '_signature'):
+            if callable(method) and method.__module__ == module_name:
                 result.append('.'.join((app_name, method_name)))
     result.sort()
     return result
 
 
-@signature(list, str)
 def methodSignature(request, method_name):
     """
     Get a list describing the possible signatures of the method.
+
+    Arguments:
+    * method_name string
+
+    Return value:
+    * signatures list
     """
     method = import_method(method_name)
-    result = []
-    for type in method._signature:
-        name = type.__name__
-        if name == 'str':
-            name = 'string'
-        result.append(name)
-    return [result]
+    lines = method.__doc__.splitlines()
+    index = 0
+    while index < len(lines) and lines[index].strip() != 'Arguments:':
+        index += 1
+    index += 1
+    arguments = []
+    while index < len(lines) and lines[index].strip().startswith('*'):
+        arguments.append(lines[index].split()[2])
+        index += 1
+    if index >= len(lines):
+        index = 0
+    while index < len(lines) and lines[index].strip() != 'Return value:':
+        index += 1
+    index += 1
+    return_values = []
+    while index < len(lines) and lines[index].strip().startswith('*'):
+        return_values.append(lines[index].split()[2])
+        index += 1
+    if len(return_values) < 1:
+        return_values = ['string']
+    if len(return_values) > 1:
+        return_values = ['list']
+    return [return_values + arguments]
 
 
-@signature(str, str)
 def methodHelp(request, method_name):
     """
     Get a string containing documentation for the specified method.
+
+    Arguments:
+    * method_name string (e.g. system.methodHelp)
+
+    Return value:
+    * help string (method documentation)
     """
     method = import_method(method_name)
     if method.__doc__:
         return method.__doc__.strip().replace('\n    ', '\n')
     else:
-        return ''
+        return "Sorry, no documentation is available for this method."
