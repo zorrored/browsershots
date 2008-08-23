@@ -1,24 +1,31 @@
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-from shotserver05.xmlrpc.utils import signature, user_auth, factory_auth
+from shotserver05.xmlrpc.utils import user_auth, factory_auth
 from shotserver05.factories.models import Factory
 from shotserver05.factories.utils import last_poll_timeout
 
 
-@signature(list)
 def active(request):
     """
-    List active screenshot factories.
+    List all screenshot factories that are currently active.
+
+    Return value:
+    * factories list
     """
     factories = Factory.objects.filter(last_poll__gte=last_poll_timeout())
     return [factory.name for factory in factories]
 
 
-@signature(dict, str)
 def details(request, factory_name):
     """
     Get details for the specified screenshot factory.
+
+    Arguments:
+    * factory_name string
+
+    Return value:
+    * details dict
     """
     factory = get_object_or_404(Factory, name=factory_name)
     result = {}
@@ -35,14 +42,17 @@ def details(request, factory_name):
 
 
 @user_auth
-@signature(str, str, str)
 def create(request, user, factory_name, operating_system_slug, hardware):
     """
     Create a new screenshot factory.
 
-    * factory_name string
-    * operating_system_slug string
-    * hardware string
+    Arguments:
+    * factory_name string (lowercase, use hostname if possible)
+    * operating_system_slug string (from platforms.index)
+    * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
+
+    Return value:
+    * status string (OK)
     """
     operating_system = get_object_or_404(
         OperatingSystem, slug=operating_system_slug)
@@ -55,7 +65,6 @@ def create(request, user, factory_name, operating_system_slug, hardware):
 
 
 @factory_auth
-@signature(str, int, str)
 def testAuth(request, factory, dummy_number, dummy_text):
     """
     Test factory authentication with MD5 hash. To compute the hash,
@@ -63,6 +72,7 @@ def testAuth(request, factory, dummy_number, dummy_text):
     secret key for the factory, then get the MD5 hash as 32 lowercase
     hexadecimal characters.
 
+    Arguments:
     * dummy_number int (for example, 123)
     * dummy_text string (for example, hello)
 
@@ -71,18 +81,24 @@ def testAuth(request, factory, dummy_number, dummy_text):
 
     >>> md5('123hello2008-08-08T23:56:14Zfactorysecret').hexdigest()
     '5afba7f48c2df4b85e3cac482df48010'
+
+    Return value:
+    * status string (OK)
     """
     return 'OK'
 
 
 @factory_auth
-@signature(str, str, str, str)
 def update(request, factory, operating_system_slug, hardware):
     """
     Update factory information.
 
+    Arguments:
     * operating_system_slug string
     * hardware string
+
+    Return value:
+    * status string (OK)
     """
     factory.update_fields(operating_system=operating_system,
                           hardware=hardware)

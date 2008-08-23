@@ -26,19 +26,6 @@ def update_docstring(wrapper, insert, append):
     wrapper.__doc__ = '\n'.join(lines)
 
 
-def signature(*types):
-    """
-    Decorator to add a signature to a function or method.
-    """
-
-    def save(func):
-        """Save the signature."""
-        func._signature = types
-        return func
-
-    return save
-
-
 def check_hash(args, name, secret, submitted_hash):
     """
     Check the MD5 hash of all arguments.
@@ -92,7 +79,6 @@ def user_auth(func):
     insert = [l for l in lines if l.lstrip().startswith('*')]
     append = [l for l in lines if func.__name__ != 'testAuth' in l]
     update_docstring(wrapper, insert, append)
-    wrapper._signature = func._signature + (str, str, str)
     return wrapper
 
 
@@ -122,7 +108,6 @@ def factory_auth(func):
     insert = [l for l in lines if l.lstrip().startswith('*')]
     append = [l for l in lines if func.__name__ != 'testAuth' in l]
     update_docstring(wrapper, insert, append)
-    wrapper._signature = func._signature + (str, str, str)
     return wrapper
 
 
