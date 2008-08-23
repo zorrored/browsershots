@@ -17,12 +17,14 @@ except ImportError: # using Python version < 2.5
         return wrapper
 
 
-def update_docstring(wrapper, insert, append):
+def update_docstring(wrapper, insert):
     lines = wrapper.__doc__.splitlines()
     index = 0
-    while not lines[index].lstrip().startswith('*'): index += 1
-    while lines[index].lstrip().startswith('*'): index += 1
-    lines = lines[:index] + insert + lines[index:] + append
+    while not lines[index].lstrip().startswith('*'):
+        index += 1
+    while lines[index].lstrip().startswith('*'):
+        index += 1
+    lines[index:index] = insert
     wrapper.__doc__ = '\n'.join(lines)
 
 
@@ -58,11 +60,9 @@ def user_auth(func):
     Decorator for user authentication with MD5 hash. The following
     additional arguments are required:
 
-    * timestamp string (ISO 8601 UTC: YYYY-MM-DDThh:mm:ssZ)
+    * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
     * username string (regular Django user account)
-    * md5_hash string (32 lowercase hexadecimal characters)
-
-    See users.testAuth for how to compute md5_hash.
+    * md5_hash string (see users.testAuth for details)
     """
 
     def wrapper(*args):
@@ -77,8 +77,9 @@ def user_auth(func):
     update_wrapper(wrapper, func)
     lines = user_auth.__doc__.splitlines()
     insert = [l for l in lines if l.lstrip().startswith('*')]
-    append = [l for l in lines if func.__name__ != 'testAuth' in l]
-    update_docstring(wrapper, insert, append)
+    if func.__name__ == 'testAuth':
+        insert[-1] = insert[-1].replace('users.testAuth', 'below')
+    update_docstring(wrapper, insert)
     return wrapper
 
 
@@ -87,11 +88,9 @@ def factory_auth(func):
     Decorator for factory authentication with MD5 hash. The following
     additional arguments are required:
 
-    * timestamp string (ISO 8601 UTC: YYYY-MM-DDThh:mm:ssZ)
+    * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
     * factory_name string (screenshot factory name)
-    * md5_hash string (32 lowercase hexadecimal characters)
-
-    See factories.testAuth for how to compute md5_hash.
+    * md5_hash string (see factories.testAuth for details)
     """
 
     def wrapper(*args):
@@ -106,8 +105,9 @@ def factory_auth(func):
     update_wrapper(wrapper, func)
     lines = factory_auth.__doc__.splitlines()
     insert = [l for l in lines if l.lstrip().startswith('*')]
-    append = [l for l in lines if func.__name__ != 'testAuth' in l]
-    update_docstring(wrapper, insert, append)
+    if func.__name__ == 'testAuth':
+        insert[-1] = insert[-1].replace('factories.testAuth', 'below')
+    update_docstring(wrapper, insert)
     return wrapper
 
 
