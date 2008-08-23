@@ -33,7 +33,7 @@ def details(request, factory_name):
     The return dict will contain the following entries:
 
     * factory_name string (lowercase)
-    * operating_system_slug string (see platforms.index)
+    * operating_system_slug string (see platforms.listOperatingSystems)
     * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
     * last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
     * last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
@@ -65,7 +65,7 @@ def create(request, user, factory_name, operating_system_slug, hardware):
     Arguments:
     ~~~~~~~~~~
     * factory_name string (lowercase, use hostname if possible)
-    * operating_system_slug string (see platforms.index)
+    * operating_system_slug string (see platforms.listOperatingSystems)
     * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 
     Return value:
@@ -113,7 +113,7 @@ def update(request, factory, operating_system_slug, hardware):
 
     Arguments:
     ~~~~~~~~~~
-    * operating_system_slug string (see platforms.index)
+    * operating_system_slug string (see platforms.listOperatingSystems)
     * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 
     Return value:
