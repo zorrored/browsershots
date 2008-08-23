@@ -1,0 +1,74 @@
+
+'2eb594e041eeb418e86ef0289328ed1c'
+'5afba7f48c2df4b85e3cac482df48010'
+* details dict
+* dummy_number int (e.g. 123)
+* dummy_text string (e.g. hello)
+* errors_per_day int (in the last 24 hours)
+* errors_per_hour int (in the last 60 minutes)
+* factories list
+* factory_name string (lowercase)
+* factory_name string (lowercase, use hostname if possible)
+* hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
+* help string (method documentation)
+* last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+* last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+* md5_hash string (see below for details)
+* md5_hash string (see factories.testAuth for details)
+* md5_hash string (see users.testAuth for details)
+* method_name string (e.g. system.listMethods)
+* method_names list (names of all supported methods)
+* operating_system_slug string (see platforms.listOperatingSystems)
+* problems_per_day int (in the last 24 hours)
+* signatures list (usually only one signature)
+* slugs list (a slug for each operating system)
+* status string (OK)
+* timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+* uploads_per_day int (in the last 24 hours)
+* uploads_per_hour int (in the last 60 minutes)
+* username string (regular Django user account)
+=================
+==========================
+============================
+=============================
+==============================
+==================================
+==========================================
+>>> md5('123hello2008-08-08T23:56:14Zfactorysecret').hexdigest()
+>>> md5('123hello2008-08-08T23:56:14Zjoesha1$e3$4d07f85').hexdigest()
+Arguments:
+Create a new screenshot factory.
+Each signature is a list of type name strings, first the type of
+Get a list of the methods supported by the server.
+Get details for the specified screenshot factory.
+Get documentation for the specified method.
+List all available operating systems.
+List all screenshot factories that are currently active.
+List the possible signatures of the specified method.
+Return value:
+Test factory authentication with MD5 hash. To compute the hash,
+Test user authentication with MD5 hash. To compute the hash,
+The return dict will contain the following entries:
+Update factory information.
+XML-RPC interface
+concatenate the string values of all the other arguments and the
+factories.active() => string
+factories.create() => string
+factories.details() => string
+factories.testAuth() => string
+factories.update() => string
+following MD5 hash:
+hexadecimal characters. If the factory name is 'factory' and the
+hexadecimal characters. If the username is 'joe' and the
+platforms.listOperatingSystems() => string
+pre-hashed password is 'sha1$e3$4d07f85', you might get the
+pre-hashed user password, then get the MD5 hash as 32 lowercase
+secret key for the factory, then get the MD5 hash as 32 lowercase
+secret key is 'secret', you might get the following MD5 hash:
+system.listMethods() => string
+system.methodHelp() => string
+system.methodSignature() => string
+the return value, then the types of the arguments.
+users.testAuth() => string
+~~~~~~~~~~
+~~~~~~~~~~~~~

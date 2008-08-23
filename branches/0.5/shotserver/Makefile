@@ -19,3 +19,7 @@ docs/html : docs
 	mkdir -p $@
 	ls docs | grep txt | sed s/.txt// \
 	| xargs -Iname rst2html.py docs/name.txt docs/html/name.html
+
+precommit : docs
+	mkdir -p $@
+	sort -u < docs/xml-rpc.txt > precommit/xml-rpc-sorted.txt
