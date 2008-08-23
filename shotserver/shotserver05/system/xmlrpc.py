@@ -7,6 +7,7 @@ def listMethods(request):
     Get a list of the methods supported by the server.
 
     Return value:
+    ~~~~~~~~~~~~~
     * method_names list (names of all supported methods)
     """
     result = []
@@ -31,13 +32,18 @@ def listMethods(request):
 
 def methodSignature(request, method_name):
     """
-    Get a list describing the possible signatures of the method.
+    List the possible signatures of the specified method.
 
     Arguments:
-    * method_name string
+    ~~~~~~~~~~
+    * method_name string (e.g. system.listMethods)
 
     Return value:
-    * signatures list
+    ~~~~~~~~~~~~~
+    * signatures list (usually only one signature)
+
+    Each signature is a list of type name strings, first the type of
+    the return value, then the types of the arguments.
     """
     method = import_method(method_name)
     lines = method.__doc__.splitlines()
@@ -67,12 +73,14 @@ def methodSignature(request, method_name):
 
 def methodHelp(request, method_name):
     """
-    Get a string containing documentation for the specified method.
+    Get documentation for the specified method.
 
     Arguments:
-    * method_name string (e.g. system.methodHelp)
+    ~~~~~~~~~~
+    * method_name string (e.g. system.listMethods)
 
     Return value:
+    ~~~~~~~~~~~~~
     * help string (method documentation)
     """
     method = import_method(method_name)
