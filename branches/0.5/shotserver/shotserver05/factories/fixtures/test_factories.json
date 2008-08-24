@@ -5,12 +5,11 @@
         "fields": {
             "operating_system": 1, 
             "name": "factory1", 
-            "last_upload": null, 
-            "hardware": "MacBook, Core Duo, 2.0 GHz, 2 GB RAM", 
-            "uploads_per_hour": null, 
+            "hardware": "MacBook", 
             "user": 1, 
-            "uploads_per_day": null, 
             "last_poll": null, 
+            "last_upload": null, 
+            "last_error": null, 
             "date_created": "2008-08-21 16:42:14", 
             "secret_key": "xEcYUVx+3H4tFABMleVTm6DFd9NW1Z7cDJWQNnMWEP19jPrj0EMi8ux8Kp1uutiv4Xf/UOLeOvpW3A5vX/0+aZT4B+ktsT+6j/50MjceG5bQY4pmVf1cg4JKqgl4FdOYwd4d6DReY8uCXa8WUexiIuQvGdGHqk2wsBypVlnfZTZMHzHG4ivdufRXzgTE6+ArVbiQLrIXsvElzbkrETcqxefvtNX23cjTXqWZo7XoL5tk5u6d2pjEn/DM6JGWXtWxZaraPQpTaEZx5T8NGva0DDcFJewJH4jMTer9UqQOf57Ld73+XAz7U3AEm7lsezNQ6hmq3MxgKJVm9zCdIIxQh0EmOLQkrmajw2pLM8JMoHxBoxvaQKe6TkxRBnkSIQVFCMT326GQKUFzowhEZipydkp4myc7XctfyZ6gBIXUXHaRBd/4hYyF0i3XJX2cDMt95zbQncx+k44N4c+N/VKg2c8cOezIrtXcotKQ7Bxet2/u1ZGIEc2yR45f3iwwRqQ5"
         }
