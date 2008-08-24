@@ -16,7 +16,7 @@ def dispatch_request(request):
         response = (result, )
         return xmlrpclib.dumps(response, methodresponse=True)
     except Http404, error:
-        return xmlprclib.dumps(xmlrpclib.Fault(404, str(error)))
+        return xmlrpclib.dumps(xmlrpclib.Fault(404, str(error)))
     except xmlrpclib.Fault, fault:
         return xmlrpclib.dumps(fault)
     except:

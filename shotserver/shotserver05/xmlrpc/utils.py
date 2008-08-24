@@ -1,5 +1,9 @@
+import time
+from datetime import datetime, timedelta
 import xmlrpclib
 from django.conf import settings
+from django.contrib.auth.models import User
+from shotserver05.factories.models import Factory
 
 try:
     from hashlib import md5
@@ -28,16 +32,13 @@ def update_docstring(wrapper, insert):
     wrapper.__doc__ = '\n'.join(lines)
 
 
-def check_hash(args, name, secret, submitted_hash):
+def check_hash(func_name, args, secret, submitted_hash):
     """
     Check the MD5 hash of all arguments.
     """
-    hash = md5()
-    for arg in args:
-        hash.update(str(arg))
-    hash.update(name)
-    hash.update(secret)
-    correct_hash = hash.hexdigest()
+    message = ' '.join([func_name] + [str(arg) for arg in args] + [secret])
+    correct_hash = md5(message).hexdigest()
+    # print message, correct_hash
     if submitted_hash != correct_hash:
         raise xmlrpclib.Fault(401,
             "Authentication failed: incorrect MD5 hash.")
@@ -48,8 +49,10 @@ def check_timestamp(timestamp):
     Check the submitted timestamp.
     """
     time_tuple = time.strptime(timestamp, "%Y-%m-%dT%H:%M:%SZ")[:6]
-    offset = abs(datetime.utcnow() - datetime(*time_tuple))
-    print str(offset)
+    submitted = datetime(*time_tuple)
+    now = datetime.utcnow()
+    offset = abs(now - submitted)
+    # print submitted, now, str(offset)
     if offset > timedelta(minutes=5):
         raise xmlrpclib.Fault(401,
             "Authentication failed: timestamp offset is %s." % offset)
@@ -61,18 +64,21 @@ def user_auth(func):
     additional arguments are required:
 
     * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-    * username string (regular Django user account)
     * md5_hash string (see users.testAuth for details)
     """
 
     def wrapper(*args):
-        submitted_hash = args.pop(-1)
-        username = args.pop(-1)
+        request, username = args[:2]
+        timestamp, submitted_hash = args[-2:]
+        # print 'username', username
+        # print 'timestamp', timestamp
+        # print 'hash', submitted_hash
         user = User.objects.get(username=username)
-        check_hash(args, username, user.password, submitted_hash)
-        timestamp = args.pop(-1)
+        app_name = func.__module__.split('.')[-2]
+        func_name = '.'.join((app_name, func.__name__))
+        check_hash(func_name, args[1:-1], user.password, submitted_hash)
         check_timestamp(timestamp)
-        return func(user, *args)
+        return func(request, user, *args[2:-2])
 
     update_wrapper(wrapper, func)
     lines = user_auth.__doc__.splitlines()
@@ -89,18 +95,21 @@ def factory_auth(func):
     additional arguments are required:
 
     * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-    * factory_name string (lowercase)
     * md5_hash string (see factories.testAuth for details)
     """
 
     def wrapper(*args):
-        submitted_hash = args.pop(-1)
-        factory_name = args.pop(-1)
+        request, factory_name = args[:2]
+        timestamp, submitted_hash = args[-2:]
+        # print 'factory_name', factory_name
+        # print 'timestamp', timestamp
+        # print 'hash', submitted_hash
         factory = Factory.objects.get(name=factory_name)
-        check_hash(args, factory_name, factory.secret_key, submitted_hash)
-        timestamp = args.pop(-1)
+        app_name = func.__module__.split('.')[-2]
+        func_name = '.'.join((app_name, func.__name__))
+        check_hash(func_name, args[1:-1], factory.secret_key, submitted_hash)
         check_timestamp(timestamp)
-        return func(factory, *args)
+        return func(request, factory, *args[2:-2])
 
     update_wrapper(wrapper, func)
     lines = factory_auth.__doc__.splitlines()
