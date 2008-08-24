@@ -51,6 +51,8 @@ def methodSignature(request, method_name):
     while index < len(lines) and lines[index].strip() != 'Arguments:':
         index += 1
     index += 1
+    assert lines[index].strip() == '~~~~~~~~~~'
+    index += 1
     arguments = []
     while index < len(lines) and lines[index].strip().startswith('*'):
         arguments.append(lines[index].split()[2])
@@ -59,6 +61,8 @@ def methodSignature(request, method_name):
         index = 0
     while index < len(lines) and lines[index].strip() != 'Return value:':
         index += 1
+    index += 1
+    assert lines[index].strip() == '~~~~~~~~~~~~~'
     index += 1
     return_values = []
     while index < len(lines) and lines[index].strip().startswith('*'):
