@@ -1,8 +1,8 @@
 from django.contrib import admin
-from shotserver05.browsers.models import Browser, Engine, Version
+from shotserver05.browsers.models import BrowserName, Engine, Browser
 
 
-class BrowserAdmin(admin.ModelAdmin):
+class BrowserNameAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     prepopulated_fields = {'slug': ('name', )}
     ordering = ('slug', )
@@ -14,13 +14,13 @@ class EngineAdmin(admin.ModelAdmin):
     ordering = ('slug', )
 
 
-class VersionAdmin(admin.ModelAdmin):
+class BrowserAdmin(admin.ModelAdmin):
     list_display = ('browser', 'version',
                     'engine', 'engine_version',
                     'factory')
     ordering = ('browser', 'version', 'factory')
 
 
-admin.site.register(Browser, BrowserAdmin)
+admin.site.register(BrowserName, BrowserNameAdmin)
 admin.site.register(Engine, EngineAdmin)
-admin.site.register(Version, VersionAdmin)
+admin.site.register(Browser, BrowserAdmin)
