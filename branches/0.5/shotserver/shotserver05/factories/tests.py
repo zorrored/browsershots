@@ -6,6 +6,7 @@ from shotserver05.factories.models import Factory
 from shotserver05.factories import xmlrpc as factories
 from shotserver05.xmlrpc.tests import \
     TestServerProxy, authenticate, TESTCLIENT_PASSWORD, FACTORY1_SECRET
+from shotserver05.system.utils import signature
 
 
 class FactoryTestCase(TestCase):
@@ -37,12 +38,14 @@ class XMLRPCTestCase(TestCase):
         self.server = TestServerProxy(self.client)
 
     def testCreateFactory(self):
+        self.assertEqual(signature('factories.createFactory'), 7 * ['string'])
         args = ['testclient', 'smug', 'leopard', 'MacBook']
         authenticate('factories.createFactory', args, TESTCLIENT_PASSWORD)
         response = self.server.factories.createFactory(*args)
         self.assertEqual(response, 'OK')
 
     def testDetails(self):
+        self.assertEqual(signature('factories.details'), ['dict', 'string'])
         details = self.server.factories.details('factory1')
         self.assertEqual(details['name'], 'factory1')
         self.assertEqual(details['operating_system'], 'leopard')
