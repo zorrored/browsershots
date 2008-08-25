@@ -1,5 +1,6 @@
 from django.conf import settings
 from shotserver05.xmlrpc.utils import import_method
+from shotserver05.system.utils import signature
 
 
 def listMethods(request):
@@ -45,34 +46,7 @@ def methodSignature(request, method_name):
     Each signature is a list of type name strings, first the type of
     the return value, then the types of the arguments.
     """
-    method = import_method(method_name)
-    lines = method.__doc__.splitlines()
-    index = 0
-    while index < len(lines) and lines[index].strip() != 'Arguments:':
-        index += 1
-    index += 1
-    assert lines[index].strip() == '~~~~~~~~~~'
-    index += 1
-    arguments = []
-    while index < len(lines) and lines[index].strip().startswith('*'):
-        arguments.append(lines[index].split()[2])
-        index += 1
-    if index >= len(lines):
-        index = 0
-    while index < len(lines) and lines[index].strip() != 'Return value:':
-        index += 1
-    index += 1
-    assert lines[index].strip() == '~~~~~~~~~~~~~'
-    index += 1
-    return_values = []
-    while index < len(lines) and lines[index].strip().startswith('*'):
-        return_values.append(lines[index].split()[2])
-        index += 1
-    if len(return_values) < 1:
-        return_values = ['string']
-    if len(return_values) > 1:
-        return_values = ['list']
-    return [return_values + arguments]
+    return [signature(method_name)]
 
 
 def methodHelp(request, method_name):
