@@ -16,9 +16,9 @@ class Attempt(models.Model):
 
 class Screenshot(models.Model):
     attempt = models.ForeignKey(Attempt)
-    width = models.IntegerField()
-    height = models.IntegerField()
-    bytes = models.IntegerField()
+    width = models.PositiveIntegerField()
+    height = models.PositiveIntegerField()
+    bytes = models.PositiveIntegerField()
     uploaded = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -27,7 +27,7 @@ class Screenshot(models.Model):
 
 class Error(models.Model):
     attempt = models.ForeignKey(Attempt)
-    code = models.IntegerField()
+    code = models.PositiveIntegerField()
     message = models.CharField(max_length=400)
     occurred = models.DateTimeField(auto_now_add=True)
 
@@ -37,7 +37,7 @@ class Error(models.Model):
 
 class Problem(models.Model):
     screenshot = models.ForeignKey(Screenshot)
-    code = models.IntegerField()
+    code = models.PositiveIntegerField()
     message = models.CharField(max_length=400)
     reporter = models.ForeignKey(User)
     reported = models.DateTimeField(auto_now_add=True)
