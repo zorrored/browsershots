@@ -3,22 +3,13 @@ from datetime import datetime, timedelta
 import xmlrpclib
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.functional import update_wrapper
 from shotserver05.factories.models import Factory
 
 try:
     from hashlib import md5
 except ImportError:
     from md5 import md5
-
-try:
-    from functools import update_wrapper
-except ImportError: # using Python version < 2.5
-    def update_wrapper(wrapper, wrapped):
-        wrapper.__name__ = wrapped.__name__
-        wrapper.__module__ = wrapped.__module__
-        wrapper.__doc__ = wrapped.__doc__
-        wrapper.__dict__.update(wrapped.__dict__)
-        return wrapper
 
 
 def update_docstring(wrapper, insert):
