@@ -2,7 +2,7 @@ from django.db import models
 from shotserver05.factories.models import Factory
 
 
-class Browser(models.Model):
+class BrowserName(models.Model):
     name = models.CharField(max_length=20, unique=True)
     slug = models.SlugField(max_length=20, unique=True)
 
@@ -18,10 +18,10 @@ class Engine(models.Model):
         return self.name
 
 
-class Version(models.Model):
+class Browser(models.Model):
     factory = models.ForeignKey(Factory)
     user_agent = models.CharField(max_length=200)
-    browser = models.ForeignKey(Browser)
+    name = models.ForeignKey(BrowserName)
     version = models.CharField(max_length=20)
     major = models.IntegerField()
     minor = models.IntegerField()

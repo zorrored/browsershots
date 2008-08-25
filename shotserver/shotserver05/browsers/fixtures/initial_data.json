@@ -1,7 +1,7 @@
 [
     {
         "pk": 1,
-        "model": "browsers.browser",
+        "model": "browsers.browsername",
         "fields": {
             "name": "Firefox",
             "slug": "firefox"
@@ -9,7 +9,7 @@
     },
     {
         "pk": 2,
-        "model": "browsers.browser",
+        "model": "browsers.browsername",
         "fields": {
             "name": "Safari",
             "slug": "safari"
@@ -17,7 +17,7 @@
     },
     {
         "pk": 3,
-        "model": "browsers.browser",
+        "model": "browsers.browsername",
         "fields": {
             "name": "Opera",
             "slug": "opera"
@@ -25,7 +25,7 @@
     },
     {
         "pk": 4,
-        "model": "browsers.browser",
+        "model": "browsers.browsername",
         "fields": {
             "name": "Internet Explorer",
             "slug": "internet-explorer"

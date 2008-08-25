@@ -3,21 +3,21 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError, transaction
 from shotserver05.factories.models import Factory
 from shotserver05.platforms.models import Platform, OperatingSystem
-from shotserver05.browsers.models import Browser, Engine, Version
+from shotserver05.browsers.models import BrowserName, Engine, Browser
 
 
-class BrowserTestCase(TestCase):
+class BrowserNameTestCase(TestCase):
 
     def setUp(self):
         transaction.rollback()
-        self.firefox = Browser.objects.get(name='Firefox')
+        self.firefox = BrowserName.objects.get(name='Firefox')
 
     def testAttributes(self):
         self.assertEqual(self.firefox.name, 'Firefox')
 
     def testDuplicate(self):
         self.assertRaises(IntegrityError,
-                          Browser.objects.create, name='Firefox')
+                          BrowserName.objects.create, name='Firefox')
         transaction.rollback()
 
 
@@ -36,14 +36,14 @@ class EngineTestCase(TestCase):
         transaction.rollback()
 
 
-class VersionTestCase(TestCase):
+class BrowserTestCase(TestCase):
     fixtures = ['authtestdata', 'test_factories', 'test_versions']
 
     def setUp(self):
         transaction.rollback()
-        self.firefox30 = Version.objects.get(
+        self.firefox30 = Browser.objects.get(
             factory=Factory.objects.get(name='factory1'),
-            browser=Browser.objects.get(name='Firefox'),
+            name=BrowserName.objects.get(name='Firefox'),
             major=3, minor=0)
 
     def testVersion(self):
@@ -54,9 +54,9 @@ class VersionTestCase(TestCase):
 
     def testDuplicate(self):
         self.assertRaises(IntegrityError,
-                          Version.objects.create,
+                          Browser.objects.create,
                           factory=self.firefox30.factory,
-                          browser=self.firefox30.browser,
+                          name=self.firefox30.name,
                           version='3.0.1',
                           major=3, minor=0,
                           engine=self.firefox30.engine,
