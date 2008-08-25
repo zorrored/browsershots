@@ -1,8 +1,8 @@
 from django.db import models
+from shotserver05.websites.models import Website
 from django.contrib.auth.models import User
 from shotserver05.platforms.models import Platform
-from shotserver05.browsers.models import Browser
-from shotserver05.websites.models import Website
+from shotserver05.browsers.models import BrowserName
 
 
 class Group(models.Model):
@@ -16,6 +16,6 @@ class Group(models.Model):
 class Job(models.Model):
     group = models.ForeignKey(Group)
     platform = models.ForeignKey(Platform)
-    browser = models.ForeignKey(Browser)
+    browser_name = models.ForeignKey(BrowserName)
     major = models.IntegerField()
     minor = models.IntegerField()
