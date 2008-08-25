@@ -16,6 +16,7 @@ def testAuth(request, user, dummy_number, dummy_text):
 
     Arguments:
     ~~~~~~~~~~
+    * username string (e.g. joe)
     * dummy_number int (e.g. 123)
     * dummy_text string (e.g. hello)
 
