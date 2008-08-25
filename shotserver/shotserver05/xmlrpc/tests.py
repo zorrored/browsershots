@@ -94,9 +94,6 @@ class XMLRPCTestCase(TestCase):
     def setUp(self):
         self.server = TestServerProxy(self.client)
 
-    def testRequest(self):
-        methods = self.server.system.listMethods()
-
     def testUserAuth(self):
         args = ['testclient', 123, 'hello']
         authenticate('users.testAuth', args, TESTCLIENT_PASSWORD)
