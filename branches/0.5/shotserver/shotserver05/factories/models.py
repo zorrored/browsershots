@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.utils import random_secret_key
+from shotserver05.utils import granular_update
 
 
 class Factory(models.Model):
@@ -14,6 +15,8 @@ class Factory(models.Model):
     last_upload = models.DateTimeField(editable=False, null=True)
     last_poll = models.DateTimeField(editable=False, null=True)
     last_error = models.DateTimeField(editable=False, null=True)
+
+    update_fields = granular_update.update_fields
 
     class Meta:
         ordering = ('name', )
