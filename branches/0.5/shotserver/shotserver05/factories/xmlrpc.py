@@ -7,7 +7,7 @@ from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.utils import last_poll_timeout
 
 
-def active(request):
+def listActive(request):
     """
     List all screenshot factories that are currently active.
 
@@ -77,6 +77,33 @@ def createFactory(request, user, factory_name, operating_system, hardware):
     return 'OK'
 
 
+@user_auth
+def updateFactory(request, user, factory_name, operating_system, hardware):
+    """
+    Update factory information.
+
+    Arguments:
+    ~~~~~~~~~~
+    * username string (e.g. joe)
+    * factory_name string (lowercase)
+    * operating_system string (see platforms.listOperatingSystems)
+    * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
+
+    Return value:
+    ~~~~~~~~~~~~~
+    * status string (OK)
+    """
+    factory = get_object_or_404(Factory, name=factory_name)
+    if factory.user != user:
+        raise xmlrpclib.Fault(401, "Unauthorized.")
+    operating_system = get_object_or_404(
+        OperatingSystem, slug=operating_system)
+    factory.update_fields(
+        operating_system = operating_system,
+        hardware = hardware)
+    return 'OK'
+
+
 #################### Methods for authenticated factory #######################
 
 
@@ -102,24 +129,4 @@ def testAuth(request, factory, dummy_number, dummy_text):
     ~~~~~~~~~~~~~
     * status string (OK)
     """
-    return 'OK'
-
-
-@factory_auth
-def update(request, factory, operating_system_slug, hardware):
-    """
-    Update factory information.
-
-    Arguments:
-    ~~~~~~~~~~
-    * factory_name string (lowercase)
-    * operating_system_slug string (see platforms.listOperatingSystems)
-    * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
-
-    Return value:
-    ~~~~~~~~~~~~~
-    * status string (OK)
-    """
-    factory.update_fields(operating_system=operating_system,
-                          hardware=hardware)
     return 'OK'
