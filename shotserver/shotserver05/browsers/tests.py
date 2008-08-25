@@ -37,7 +37,7 @@ class EngineTestCase(TestCase):
 
 
 class BrowserTestCase(TestCase):
-    fixtures = ['authtestdata', 'test_factories', 'test_versions']
+    fixtures = ['authtestdata', 'test_factories', 'test_browsers']
 
     def setUp(self):
         transaction.rollback()
