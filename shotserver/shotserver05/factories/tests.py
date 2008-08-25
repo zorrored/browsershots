@@ -87,9 +87,16 @@ class XMLRPCTestCase(TestCase):
         authenticate('factories.updateFactory', args, TESTCLIENT_PASSWORD)
         self.assertEqual(self.server.factories.updateFactory(*args), 'OK')
         sql = db.connection.queries[-1]['sql']
+        self.assert_(sql.startswith('UPDATE "factories_factory"'))
         self.assert_('"hardware" = iBook G4' in sql)
         self.assert_('"operating_system_id" = 3' in sql)
+        self.assert_('"name" = ' not in sql)
         self.assert_('"last_upload" = ' not in sql)
+
+    def testListActive(self):
+        self.assertEqual(signature('factories.listActive'), ['list'])
+        active = self.server.factories.listActive()
+        self.assertEqual(len(active), 0)
 
     def testDetails(self):
         self.assertEqual(signature('factories.details'), ['dict', 'string'])
@@ -100,8 +107,3 @@ class XMLRPCTestCase(TestCase):
         self.assertEqual(details['last_poll'], '')
         self.assertEqual(details['last_upload'], '')
         self.assertEqual(details['last_error'], '')
-
-    def testListActive(self):
-        self.assertEqual(signature('factories.listActive'), ['list'])
-        active = self.server.factories.listActive()
-        self.assertEqual(len(active), 0)

@@ -7,50 +7,6 @@ from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.utils import last_poll_timeout
 
 
-def listActive(request):
-    """
-    List all screenshot factories that are currently active.
-
-    Return value:
-    ~~~~~~~~~~~~~
-    * factories list
-    """
-    factories = Factory.objects.filter(last_poll__gte=last_poll_timeout())
-    return [factory.name for factory in factories]
-
-
-def details(request, factory_name):
-    """
-    Get details for the specified screenshot factory.
-
-    Arguments:
-    ~~~~~~~~~~
-    * factory_name string (lowercase)
-
-    Return value:
-    ~~~~~~~~~~~~~
-    * details dict
-
-    The return dict will contain the following entries:
-
-    * name string (lowercase)
-    * operating_system string (see platforms.listOperatingSystems)
-    * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
-    * last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-    * last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-    * last_error string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-    """
-    factory = get_object_or_404(Factory, name=factory_name)
-    return {
-        'name': factory.name,
-        'operating_system': factory.operating_system.slug,
-        'hardware': factory.hardware,
-        'last_poll': factory.last_poll or '',
-        'last_upload': factory.last_upload or '',
-        'last_error': factory.last_error or '',
-        }
-
-
 ##################### Methods for authenticated user #########################
 
 
@@ -130,3 +86,50 @@ def testAuth(request, factory, dummy_number, dummy_text):
     * status string (OK)
     """
     return 'OK'
+
+
+###################### Methods without authentication ########################
+
+
+def listActive(request):
+    """
+    List all screenshot factories that are currently active.
+
+    Return value:
+    ~~~~~~~~~~~~~
+    * factories list
+    """
+    factories = Factory.objects.filter(last_poll__gte=last_poll_timeout())
+    return [factory.name for factory in factories]
+
+
+def details(request, factory_name):
+    """
+    Get details for the specified screenshot factory.
+
+    Arguments:
+    ~~~~~~~~~~
+    * factory_name string (lowercase)
+
+    Return value:
+    ~~~~~~~~~~~~~
+    * details dict
+
+    The return dict will contain the following entries:
+
+    * name string (lowercase)
+    * operating_system string (see platforms.listOperatingSystems)
+    * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
+    * last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+    * last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+    * last_error string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+    """
+    factory = get_object_or_404(Factory, name=factory_name)
+    return {
+        'name': factory.name,
+        'operating_system': factory.operating_system.slug,
+        'hardware': factory.hardware,
+        'last_poll': factory.last_poll or '',
+        'last_upload': factory.last_upload or '',
+        'last_error': factory.last_error or '',
+        }
