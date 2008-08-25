@@ -1,6 +1,9 @@
+from django.conf import settings
 from django.test import TestCase
 from django.test.client import Client
+from django import db
 from django.contrib.auth.models import User
+from django.utils.functional import update_wrapper
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.models import Factory
 from shotserver05.factories import xmlrpc as factories
@@ -18,6 +21,20 @@ ZaraPQpTaEZx5T8NGva0DDcFJewJH4jMTer9UqQOf57Ld73+XAz7U3AEm7lsezNQ
 CMT326GQKUFzowhEZipydkp4myc7XctfyZ6gBIXUXHaRBd/4hYyF0i3XJX2cDMt9
 5zbQncx+k44N4c+N/VKg2c8cOezIrtXcotKQ7Bxet2/u1ZGIEc2yR45f3iwwRqQ5
 """.split())
+
+
+def debug(func):
+
+    def wrapper(*args, **kwargs):
+        old_setting = settings.DEBUG
+        db.reset_queries()
+        settings.DEBUG = True # collect database queries
+        result = func(*args, **kwargs)
+        settings.DEBUG = old_setting # restore old setting
+        return result
+
+    update_wrapper(wrapper, func)
+    return wrapper
 
 
 class FactoryTestCase(TestCase):
@@ -63,6 +80,17 @@ class XMLRPCTestCase(TestCase):
         response = self.server.factories.createFactory(*args)
         self.assertEqual(response, 'OK')
 
+    @debug
+    def testUpdateFactory(self):
+        self.assertEqual(signature('factories.updateFactory'), ['string'] * 7)
+        args = ['testclient', 'factory1', 'panther', 'iBook G4']
+        authenticate('factories.updateFactory', args, TESTCLIENT_PASSWORD)
+        self.assertEqual(self.server.factories.updateFactory(*args), 'OK')
+        sql = db.connection.queries[-1]['sql']
+        self.assert_('"hardware" = iBook G4' in sql)
+        self.assert_('"operating_system_id" = 3' in sql)
+        self.assert_('"last_upload" = ' not in sql)
+
     def testDetails(self):
         self.assertEqual(signature('factories.details'), ['dict', 'string'])
         details = self.server.factories.details('factory1')
@@ -72,3 +100,8 @@ class XMLRPCTestCase(TestCase):
         self.assertEqual(details['last_poll'], '')
         self.assertEqual(details['last_upload'], '')
         self.assertEqual(details['last_error'], '')
+
+    def testListActive(self):
+        self.assertEqual(signature('factories.listActive'), ['list'])
+        active = self.server.factories.listActive()
+        self.assertEqual(len(active), 0)
