@@ -27,16 +27,15 @@ class Browser(models.Model):
     minor = models.IntegerField()
     engine = models.ForeignKey(Engine)
     engine_version = models.CharField(max_length=20)
-    flash = models.CharField(max_length=20)
-    javascript = models.CharField(max_length=20)
-    java = models.CharField(max_length=20)
-
+    flash = models.CharField(max_length=20, blank=True)
+    javascript = models.CharField(max_length=20, blank=True)
+    java = models.CharField(max_length=20, blank=True)
 
     class Meta:
         unique_together = ('factory', 'user_agent')
 
     def __unicode__(self):
-        return '%s/%s' % (self.browser.name, self.version)
+        return '%s/%s' % (self.name.name, self.version)
 
     def get_short_version(self):
         return '%d.%d' % (self.major, self.minor)
