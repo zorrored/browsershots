@@ -15,10 +15,8 @@ class EngineAdmin(admin.ModelAdmin):
 
 
 class BrowserAdmin(admin.ModelAdmin):
-    list_display = ('browser', 'version',
-                    'engine', 'engine_version',
-                    'factory')
-    ordering = ('browser', 'version', 'factory')
+    list_display = ('name', 'version', 'engine', 'engine_version', 'factory')
+    ordering = ('name', 'version', 'factory')
 
 
 admin.site.register(BrowserName, BrowserNameAdmin)
