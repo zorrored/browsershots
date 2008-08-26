@@ -18,3 +18,10 @@ def random_secret_key(length=None):
             random.seed()
         random_chars.append(chr(random.randint(0, 255)))
     return base64.b64encode(''.join(random_chars))
+
+
+def jobs_for_factory(factory):
+    q = Q()
+    for browser in factory.browser_set.filter(active=True):
+        q |= Q(browser_name=browser.name,
+               major=browser.major, minor=browser.minor)
