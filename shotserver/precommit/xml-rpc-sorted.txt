@@ -1,6 +1,7 @@
 
 '2eb594e041eeb418e86ef0289328ed1c'
 '5afba7f48c2df4b85e3cac482df48010'
+* codename string
 * details dict
 * dummy_number int (e.g. 123)
 * dummy_text string (e.g. hello)
@@ -16,13 +17,16 @@
 * md5_hash string (see users.testAuth for details)
 * method_name string (e.g. system.listMethods)
 * method_names list (names of all supported methods)
+* name string
 * name string (lowercase)
 * operating_system string (see platforms.listOperatingSystems)
+* platform string
 * signatures list (usually only one signature)
 * slugs list (a slug for each operating system)
 * status string (OK)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * username string (e.g. joe)
+* version string
 =================
 ============================
 ==============================
@@ -30,6 +34,7 @@
 ===================================
 ======================================
 ========================================
+================================================
 =============================================================
 =================================================================
 =================================================================================
@@ -39,6 +44,7 @@ Arguments:
 Create a new screenshot factory.
 Each signature is a list of type name strings, first the type of
 Get a list of the methods supported by the server.
+Get details for the specified operating system.
 Get details for the specified screenshot factory.
 Get documentation for the specified method.
 List all available operating systems.
@@ -47,7 +53,7 @@ List the possible signatures of the specified method.
 Return value:
 Test factory authentication with MD5 hash. To compute the hash,
 Test user authentication with MD5 hash. To compute the hash,
-The return dict will contain the following entries:
+The result dict will contain the following entries:
 Update factory information.
 XML-RPC interface
 concatenate the string values of all the other arguments and the
@@ -60,6 +66,7 @@ following MD5 hash:
 hexadecimal characters. If the factory name is 'factory' and the
 hexadecimal characters. If the username is 'joe' and the
 platforms.listOperatingSystems() => list
+platforms.operatingSystemDetails(string) => dict
 pre-hashed password is 'sha1$e3$4d07f85', you might get the
 pre-hashed user password, then get the MD5 hash as 32 lowercase
 secret key for the factory, then get the MD5 hash as 32 lowercase
