@@ -1,0 +1,45 @@
+[
+    {
+        "pk": 1, 
+        "model": "websites.domain", 
+        "fields": {
+            "domain": "example.com", 
+            "submitted": "2008-08-25 10:11:03"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "websites.domain", 
+        "fields": {
+            "domain": "browsershots.org", 
+            "submitted": "2008-08-25 10:18:34"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "websites.website", 
+        "fields": {
+            "url": "http://www.example.com/", 
+            "domain": 1, 
+            "submitted": "2008-08-25 10:11:28"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "websites.website", 
+        "fields": {
+            "url": "http://www.example.com/index.html", 
+            "domain": 1, 
+            "submitted": "2008-08-25 10:14:17"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "websites.website", 
+        "fields": {
+            "url": "https://browsershots.org/", 
+            "domain": 2, 
+            "submitted": "2008-08-25 10:18:36"
+        }
+    }
+]
