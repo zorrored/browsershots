@@ -91,7 +91,7 @@ def testAuth(request, factory, dummy_number, dummy_text):
 ###################### Methods without authentication ########################
 
 
-def listActive(request):
+def listActiveFactories(request):
     """
     List all screenshot factories that are currently active.
 
@@ -103,7 +103,7 @@ def listActive(request):
     return [factory.name for factory in factories]
 
 
-def details(request, factory_name):
+def factoryDetails(request, factory_name):
     """
     Get details for the specified screenshot factory.
 
