@@ -6,7 +6,7 @@ from shotserver05.factories.models import Factory
 
 class Attempt(models.Model):
     job = models.ForeignKey(Job)
-    hashkey = models.SlugField(max_length=32)
+    hashkey = models.SlugField(max_length=32, unique=True)
     factory = models.ForeignKey(Factory)
     started = models.DateTimeField(auto_now_add=True)
 
@@ -22,7 +22,7 @@ class Screenshot(models.Model):
     uploaded = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return '%sx%s' % (self.width, self.height)
+        return '%dx%d' % (self.width, self.height)
 
 
 class Error(models.Model):

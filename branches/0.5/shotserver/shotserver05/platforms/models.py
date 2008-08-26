@@ -12,8 +12,8 @@ class Platform(models.Model):
 class OperatingSystem(models.Model):
     name = models.CharField(max_length=40)
     version = models.CharField(max_length=20, blank=True)
-    codename = models.CharField(max_length=40, blank=True)
-    slug = models.SlugField(max_length=60, unique=True)
+    codename = models.CharField(max_length=20, blank=True)
+    slug = models.SlugField(max_length=20, unique=True)
     platform = models.ForeignKey(Platform)
 
     def __unicode__(self):

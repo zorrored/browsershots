@@ -22,4 +22,5 @@ docs/html : docs
 
 precommit : docs
 	mkdir -p $@
-	sort -u < docs/xml-rpc.txt > precommit/xml-rpc-sorted.txt
+	cat docs/xml-rpc.txt | sort -u > precommit/xml-rpc-sorted.txt
+	cat shotserver05/*/models.py | sort -u > precommit/models-sorted.txt
