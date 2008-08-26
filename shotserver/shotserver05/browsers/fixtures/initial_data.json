@@ -1,65 +1,65 @@
 [
     {
-        "pk": 1,
-        "model": "browsers.browsername",
+        "pk": 1, 
+        "model": "browsers.browsername", 
         "fields": {
-            "name": "Firefox",
+            "name": "Firefox", 
             "slug": "firefox"
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "browsers.browsername",
+        "pk": 2, 
+        "model": "browsers.browsername", 
         "fields": {
-            "name": "Safari",
+            "name": "Safari", 
             "slug": "safari"
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "browsers.browsername",
+        "pk": 3, 
+        "model": "browsers.browsername", 
         "fields": {
-            "name": "Opera",
+            "name": "Opera", 
             "slug": "opera"
         }
-    },
+    }, 
     {
-        "pk": 4,
-        "model": "browsers.browsername",
+        "pk": 4, 
+        "model": "browsers.browsername", 
         "fields": {
-            "name": "Internet Explorer",
+            "name": "Internet Explorer", 
             "slug": "internet-explorer"
         }
-    },
+    }, 
     {
-        "pk": 1,
-        "model": "browsers.engine",
+        "pk": 1, 
+        "model": "browsers.engine", 
         "fields": {
-            "name": "Gecko",
+            "name": "Gecko", 
             "slug": "gecko"
         }
-    },
+    }, 
     {
-        "pk": 2,
-        "model": "browsers.engine",
+        "pk": 2, 
+        "model": "browsers.engine", 
         "fields": {
-            "name": "AppleWebKit",
+            "name": "AppleWebKit", 
             "slug": "applewebkit"
         }
-    },
+    }, 
     {
-        "pk": 3,
-        "model": "browsers.engine",
+        "pk": 3, 
+        "model": "browsers.engine", 
         "fields": {
-            "name": "Opera",
+            "name": "Opera", 
             "slug": "opera"
         }
-    },
+    }, 
     {
-        "pk": 4,
-        "model": "browsers.engine",
+        "pk": 4, 
+        "model": "browsers.engine", 
         "fields": {
-            "name": "Internet Explorer",
+            "name": "Internet Explorer", 
             "slug": "internet-explorer"
         }
     }
