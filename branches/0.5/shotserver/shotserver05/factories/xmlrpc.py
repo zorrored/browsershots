@@ -17,7 +17,7 @@ def createFactory(request, user, factory_name, operating_system, hardware):
 
     Arguments:
     ~~~~~~~~~~
-    * username string (regular Django user account)
+    * username string (e.g. joe)
     * factory_name string (lowercase, use hostname if possible)
     * operating_system string (see platforms.listOperatingSystems)
     * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)

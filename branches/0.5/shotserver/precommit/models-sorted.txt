@@ -25,8 +25,8 @@
     class Meta:
     code = models.PositiveIntegerField()
     codename = models.CharField(max_length=20, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
     date = models.DateField()
-    date_created = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
     def get_absolute_url(self):
     def get_short_version(self):
@@ -77,7 +77,6 @@
     version = models.CharField(max_length=20, blank=True)
     website = models.ForeignKey(Website)
     width = models.PositiveIntegerField()
-# Create your models here.
 class Attempt(models.Model):
 class Browser(models.Model):
 class BrowserName(models.Model):

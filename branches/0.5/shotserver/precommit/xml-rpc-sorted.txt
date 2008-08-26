@@ -23,7 +23,6 @@
 * status string (OK)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * username string (e.g. joe)
-* username string (regular Django user account)
 =================
 ============================
 ==============================
