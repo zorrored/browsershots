@@ -2,35 +2,26 @@
 XML-RPC interface
 =================
 
-factories.active() => string
-============================
-
-List all screenshot factories that are currently active.
-
-Return value:
-~~~~~~~~~~~~~
-* factories list
-
-factories.create() => string
-============================
+factories.createFactory(string, string, string, string, string, string) => string
+=================================================================================
 
 Create a new screenshot factory.
 
 Arguments:
 ~~~~~~~~~~
+* username string (regular Django user account)
 * factory_name string (lowercase, use hostname if possible)
-* operating_system_slug string (see platforms.listOperatingSystems)
+* operating_system string (see platforms.listOperatingSystems)
 * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-* username string (regular Django user account)
 * md5_hash string (see users.testAuth for details)
 
 Return value:
 ~~~~~~~~~~~~~
 * status string (OK)
 
-factories.details() => string
-=============================
+factories.details(string) => dict
+=================================
 
 Get details for the specified screenshot factory.
 
@@ -44,19 +35,24 @@ Return value:
 
 The return dict will contain the following entries:
 
-* factory_name string (lowercase)
-* operating_system_slug string (see platforms.listOperatingSystems)
+* name string (lowercase)
+* operating_system string (see platforms.listOperatingSystems)
 * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 * last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-* uploads_per_hour int (in the last 60 minutes)
-* uploads_per_day int (in the last 24 hours)
-* errors_per_hour int (in the last 60 minutes)
-* errors_per_day int (in the last 24 hours)
-* problems_per_day int (in the last 24 hours)
+* last_error string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 
-factories.testAuth() => string
+factories.listActive() => list
 ==============================
+
+List all screenshot factories that are currently active.
+
+Return value:
+~~~~~~~~~~~~~
+* factories list
+
+factories.testAuth(string, int, string, string, string) => string
+=================================================================
 
 Test factory authentication with MD5 hash. To compute the hash,
 concatenate the string values of all the other arguments and the
@@ -69,35 +65,36 @@ secret key is 'secret', you might get the following MD5 hash:
 
 Arguments:
 ~~~~~~~~~~
+* factory_name string (lowercase)
 * dummy_number int (e.g. 123)
 * dummy_text string (e.g. hello)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-* factory_name string (lowercase)
 * md5_hash string (see below for details)
 
 Return value:
 ~~~~~~~~~~~~~
 * status string (OK)
 
-factories.update() => string
-============================
+factories.updateFactory(string, string, string, string, string, string) => string
+=================================================================================
 
 Update factory information.
 
 Arguments:
 ~~~~~~~~~~
-* operating_system_slug string (see platforms.listOperatingSystems)
+* username string (e.g. joe)
+* factory_name string (lowercase)
+* operating_system string (see platforms.listOperatingSystems)
 * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-* factory_name string (lowercase)
-* md5_hash string (see factories.testAuth for details)
+* md5_hash string (see users.testAuth for details)
 
 Return value:
 ~~~~~~~~~~~~~
 * status string (OK)
 
-platforms.listOperatingSystems() => string
-==========================================
+platforms.listOperatingSystems() => list
+========================================
 
 List all available operating systems.
 
@@ -105,8 +102,8 @@ Return value:
 ~~~~~~~~~~~~~
 * slugs list (a slug for each operating system)
 
-system.listMethods() => string
-==============================
+system.listMethods() => list
+============================
 
 Get a list of the methods supported by the server.
 
@@ -114,8 +111,8 @@ Return value:
 ~~~~~~~~~~~~~
 * method_names list (names of all supported methods)
 
-system.methodHelp() => string
-=============================
+system.methodHelp(string) => string
+===================================
 
 Get documentation for the specified method.
 
@@ -127,8 +124,8 @@ Return value:
 ~~~~~~~~~~~~~
 * help string (method documentation)
 
-system.methodSignature() => string
-==================================
+system.methodSignature(string) => list
+======================================
 
 List the possible signatures of the specified method.
 
@@ -143,8 +140,8 @@ Return value:
 Each signature is a list of type name strings, first the type of
 the return value, then the types of the arguments.
 
-users.testAuth() => string
-==========================
+users.testAuth(string, int, string, string, string) => string
+=============================================================
 
 Test user authentication with MD5 hash. To compute the hash,
 concatenate the string values of all the other arguments and the
@@ -158,10 +155,10 @@ following MD5 hash:
 
 Arguments:
 ~~~~~~~~~~
+* username string (e.g. joe)
 * dummy_number int (e.g. 123)
 * dummy_text string (e.g. hello)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-* username string (regular Django user account)
 * md5_hash string (see below for details)
 
 Return value:
