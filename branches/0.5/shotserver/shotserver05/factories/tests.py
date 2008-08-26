@@ -93,14 +93,15 @@ class XMLRPCTestCase(TestCase):
         self.assert_('"name" = ' not in sql)
         self.assert_('"last_upload" = ' not in sql)
 
-    def testListActive(self):
-        self.assertEqual(signature('factories.listActive'), ['list'])
-        active = self.server.factories.listActive()
+    def testListActiveFactories(self):
+        self.assertEqual(signature('factories.listActiveFactories'), ['list'])
+        active = self.server.factories.listActiveFactories()
         self.assertEqual(len(active), 0)
 
-    def testDetails(self):
-        self.assertEqual(signature('factories.details'), ['dict', 'string'])
-        details = self.server.factories.details('factory1')
+    def testFactoryDetails(self):
+        self.assertEqual(signature('factories.factoryDetails'),
+                         ['dict', 'string'])
+        details = self.server.factories.factoryDetails('factory1')
         self.assertEqual(details['name'], 'factory1')
         self.assertEqual(details['operating_system'], 'leopard')
         self.assertEqual(details['hardware'], 'MacBook')

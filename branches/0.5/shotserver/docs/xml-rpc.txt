@@ -20,8 +20,8 @@ Return value:
 ~~~~~~~~~~~~~
 * status string (OK)
 
-factories.details(string) => dict
-=================================
+factories.factoryDetails(string) => dict
+========================================
 
 Get details for the specified screenshot factory.
 
@@ -42,8 +42,8 @@ The result dict will contain the following entries:
 * last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * last_error string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 
-factories.listActive() => list
-==============================
+factories.listActiveFactories() => list
+=======================================
 
 List all screenshot factories that are currently active.
 
