@@ -19,13 +19,13 @@ def operatingSystemDetails(request, operating_system):
 
     Arguments:
     ~~~~~~~~~~
-    * operating_system string
+    * operating_system string (see platforms.listOperatingSystems)
 
     Return value:
     ~~~~~~~~~~~~~
     * details dict
 
-    The result dict will contain the following values:
+    The result dict will contain the following entries:
 
     * platform string
     * name string

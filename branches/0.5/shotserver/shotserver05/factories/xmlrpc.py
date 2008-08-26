@@ -115,7 +115,7 @@ def details(request, factory_name):
     ~~~~~~~~~~~~~
     * details dict
 
-    The return dict will contain the following entries:
+    The result dict will contain the following entries:
 
     * name string (lowercase)
     * operating_system string (see platforms.listOperatingSystems)

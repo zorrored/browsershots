@@ -33,7 +33,7 @@ Return value:
 ~~~~~~~~~~~~~
 * details dict
 
-The return dict will contain the following entries:
+The result dict will contain the following entries:
 
 * name string (lowercase)
 * operating_system string (see platforms.listOperatingSystems)
@@ -101,6 +101,26 @@ List all available operating systems.
 Return value:
 ~~~~~~~~~~~~~
 * slugs list (a slug for each operating system)
+
+platforms.operatingSystemDetails(string) => dict
+================================================
+
+Get details for the specified operating system.
+
+Arguments:
+~~~~~~~~~~
+* operating_system string (see platforms.listOperatingSystems)
+
+Return value:
+~~~~~~~~~~~~~
+* details dict
+
+The result dict will contain the following entries:
+
+* platform string
+* name string
+* version string
+* codename string
 
 system.listMethods() => list
 ============================
