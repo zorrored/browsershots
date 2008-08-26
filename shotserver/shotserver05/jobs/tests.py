@@ -10,23 +10,19 @@ class JobTestCase(TestCase):
 
     def setUp(self):
         transaction.rollback()
-        self.group = Group.objects.create(
-            website_id=1)
+        self.group = Group.objects.create(website_id=1)
+        self.mac = Platform.objects.get(name='Mac')
+        self.firefox = BrowserName.objects.get(name='Firefox')
+        self.safari = BrowserName.objects.get(name='Safari')
         self.firefox20 = Job.objects.create(
-            group=self.group,
-            platform=Platform.objects.get(name='Mac'),
-            browser_name=BrowserName.objects.get(name='Firefox'),
-            major=2, minor=0)
+            group=self.group, platform=self.mac,
+            browser_name=self.firefox, major=2, minor=0)
         self.firefox30 = Job.objects.create(
-            group=self.group,
-            platform=Platform.objects.get(name='Mac'),
-            browser_name=BrowserName.objects.get(name='Firefox'),
-            major=3, minor=0)
+            group=self.group, platform=self.mac,
+            browser_name=self.firefox, major=3, minor=0)
         self.safari = Job.objects.create(
-            group=self.group,
-            platform=Platform.objects.get(name='Mac'),
-            browser_name=BrowserName.objects.get(name='Safari'),
-            major=3, minor=1)
+            group=self.group, platform=self.mac,
+            browser_name=self.safari, major=3, minor=1)
 
     def testJob(self):
         self.assertEqual(self.firefox20.browser_name.name, 'Firefox')
