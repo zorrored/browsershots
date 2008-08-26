@@ -11,7 +11,7 @@ class Factory(models.Model):
     secret_key = models.CharField(max_length=512, default=random_secret_key)
     operating_system = models.ForeignKey(OperatingSystem)
     hardware = models.CharField(max_length=200)
-    date_created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     last_upload = models.DateTimeField(editable=False, null=True)
     last_poll = models.DateTimeField(editable=False, null=True)
     last_error = models.DateTimeField(editable=False, null=True)
@@ -31,8 +31,8 @@ class Factory(models.Model):
 
 class ScreenSize(models.Model):
     factory = models.ForeignKey(Factory)
-    width = models.IntegerField()
-    height = models.IntegerField()
+    width = models.PositiveIntegerField()
+    height = models.PositiveIntegerField()
 
     class Meta:
         ordering = ('width', 'height')
@@ -43,7 +43,7 @@ class ScreenSize(models.Model):
 
 class ColorDepth(models.Model):
     factory = models.ForeignKey(Factory)
-    bits_per_pixel = models.IntegerField()
+    bits_per_pixel = models.PositiveIntegerField()
 
     class Meta:
         ordering = ('bits_per_pixel', )
@@ -55,9 +55,9 @@ class ColorDepth(models.Model):
 class FactoryStatistics(models.Model):
     factory = models.ForeignKey(Factory)
     date = models.DateField()
-    screenshot_count = models.IntegerField()
-    error_count = models.IntegerField()
-    problem_count = models.IntegerField()
+    screenshot_count = models.PositiveIntegerField()
+    error_count = models.PositiveIntegerField()
+    problem_count = models.PositiveIntegerField()
 
     class Meta:
         ordering = ('date', 'screenshot_count')
