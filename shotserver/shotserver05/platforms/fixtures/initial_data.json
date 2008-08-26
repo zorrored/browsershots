@@ -29,7 +29,7 @@
         "fields": {
             "platform": 1, 
             "codename": "Leopard", 
-            "version": "10.4", 
+            "version": "10.5", 
             "name": "Mac OS X", 
             "slug": "leopard"
         }
@@ -40,7 +40,7 @@
         "fields": {
             "platform": 1, 
             "codename": "Tiger", 
-            "version": "10.5", 
+            "version": "10.4", 
             "name": "Mac OS X", 
             "slug": "tiger"
         }
@@ -98,6 +98,50 @@
             "version": "8.04 LTS", 
             "name": "Ubuntu", 
             "slug": "hardy"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 1, 
+            "codename": "Cheetah", 
+            "version": "10.0", 
+            "name": "Mac OS X", 
+            "slug": "cheetah"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 1, 
+            "codename": "Puma", 
+            "version": "10.1", 
+            "name": "Mac OS X", 
+            "slug": "puma"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 1, 
+            "codename": "Jaguar", 
+            "version": "10.2", 
+            "name": "Mac OS X", 
+            "slug": "jaguar"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 1, 
+            "codename": "Snow Leopard", 
+            "version": "10.6", 
+            "name": "Mac OS X", 
+            "slug": "snow-leopard"
         }
     }
 ]
