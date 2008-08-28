@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import PositiveIntegerField as UnsignedIntegerField
 from django.contrib.auth.models import User
 from shotserver05.jobs.models import Job
 from shotserver05.factories.models import Factory
@@ -16,9 +17,9 @@ class Attempt(models.Model):
 
 class Screenshot(models.Model):
     attempt = models.ForeignKey(Attempt)
-    width = models.PositiveIntegerField()
-    height = models.PositiveIntegerField()
-    bytes = models.PositiveIntegerField()
+    width = UnsignedIntegerField()
+    height = UnsignedIntegerField()
+    bytes = UnsignedIntegerField()
     uploaded = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
@@ -27,7 +28,7 @@ class Screenshot(models.Model):
 
 class Error(models.Model):
     attempt = models.ForeignKey(Attempt)
-    code = models.PositiveIntegerField()
+    code = UnsignedIntegerField()
     message = models.CharField(max_length=400)
     occurred = models.DateTimeField(auto_now_add=True)
 
@@ -37,7 +38,7 @@ class Error(models.Model):
 
 class Problem(models.Model):
     screenshot = models.ForeignKey(Screenshot)
-    code = models.PositiveIntegerField()
+    code = UnsignedIntegerField()
     message = models.CharField(max_length=400)
     reporter = models.ForeignKey(User)
     reported = models.DateTimeField(auto_now_add=True)

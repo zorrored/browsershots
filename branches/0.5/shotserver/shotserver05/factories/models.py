@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import PositiveIntegerField as UnsignedIntegerField
 from django.contrib.auth.models import User
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.utils import random_secret_key
@@ -31,8 +32,8 @@ class Factory(models.Model):
 
 class ScreenSize(models.Model):
     factory = models.ForeignKey(Factory)
-    width = models.PositiveIntegerField()
-    height = models.PositiveIntegerField()
+    width = UnsignedIntegerField()
+    height = UnsignedIntegerField()
 
     class Meta:
         ordering = ('width', 'height')
@@ -43,7 +44,7 @@ class ScreenSize(models.Model):
 
 class ColorDepth(models.Model):
     factory = models.ForeignKey(Factory)
-    bits_per_pixel = models.PositiveIntegerField()
+    bits_per_pixel = UnsignedIntegerField()
 
     class Meta:
         ordering = ('bits_per_pixel', )
@@ -55,9 +56,9 @@ class ColorDepth(models.Model):
 class FactoryStatistics(models.Model):
     factory = models.ForeignKey(Factory)
     date = models.DateField()
-    screenshot_count = models.PositiveIntegerField()
-    error_count = models.PositiveIntegerField()
-    problem_count = models.PositiveIntegerField()
+    screenshot_count = UnsignedIntegerField()
+    error_count = UnsignedIntegerField()
+    problem_count = UnsignedIntegerField()
 
     class Meta:
         ordering = ('date', 'screenshot_count')

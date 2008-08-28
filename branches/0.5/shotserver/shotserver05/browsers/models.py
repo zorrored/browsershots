@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import PositiveIntegerField as UnsignedIntegerField
 from shotserver05.factories.models import Factory
 
 
@@ -23,8 +24,8 @@ class Browser(models.Model):
     user_agent = models.CharField(max_length=200)
     name = models.ForeignKey(BrowserName)
     version = models.CharField(max_length=20)
-    major = models.PositiveIntegerField()
-    minor = models.PositiveIntegerField()
+    major = UnsignedIntegerField()
+    minor = UnsignedIntegerField()
     engine = models.ForeignKey(Engine)
     engine_version = models.CharField(max_length=20)
     flash = models.CharField(max_length=20, blank=True)
