@@ -1,6 +1,7 @@
 from factories.utils import requests_for_factory
 from jobs.utils import browser_for_job
 
+
 @factory_auth
 def poll(factory):
     """

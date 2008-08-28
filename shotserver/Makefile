@@ -20,7 +20,10 @@ docs/html : docs
 	ls docs | grep txt | sed s/.txt// \
 	| xargs -Iname rst2html.py docs/name.txt docs/html/name.html
 
-precommit : docs
+precommit : pep8 docs
 	mkdir -p $@
 	cat docs/xml-rpc.txt | sort -u > precommit/xml-rpc-sorted.txt
 	cat shotserver05/*/models.py | sort -u > precommit/models-sorted.txt
+
+pep8 :
+	pep8.py --filename=*.py shotserver05
