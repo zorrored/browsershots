@@ -20,10 +20,32 @@ docs/html : docs
 	ls docs | grep txt | sed s/.txt// \
 	| xargs -Iname rst2html.py docs/name.txt docs/html/name.html
 
-precommit : pep8 docs
+precommit : docs headers properties pep8
 	mkdir -p $@
 	cat docs/xml-rpc.txt | sort -u > precommit/xml-rpc-sorted.txt
 	cat shotserver05/*/models.py | sort -u > precommit/models-sorted.txt
 
+headers :
+	find . -name "*.py" | grep -v build/ \
+        | xargs header.py shotserver05/__init__.py
+
+properties :
+        find . -name "*.py" \
+        | grep -v build/ \
+        | xargs svn propset svn:keywords "Rev Date Author"
+        find . -type f | grep -v build/ | grep -v \\.svn \
+        | grep -v \\.bz2 | grep -v \\.gz | grep -v \\.pyc \
+        | grep -v \\.png | grep -v \\.ico | grep -v \\.jpg \
+        | grep -v django.mo | grep -v rosetta-shotserver \
+        | xargs svn propset svn:eol-style native
+
 pep8 :
 	pep8.py --filename=*.py shotserver05
+
+jquery :
+	wget -O shotserver05/static/js/jquery.form.js \
+http://jqueryjs.googlecode.com/svn/trunk/plugins/form/jquery.form.js
+	wget -O shotserver05/static/js/jquery.js \
+http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js
+#http://jqueryjs.googlecode.com/files/jquery-1.2.6.js
+#http://jqueryjs.googlecode.com/files/jquery-1.2.6.pack.js
