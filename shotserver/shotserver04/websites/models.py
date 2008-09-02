@@ -29,15 +29,6 @@ from django.core import validators
 from shotserver04.common import granular_update
 
 
-def has_slash_after_hostname(field_data, all_data):
-    """
-    Check that the website URL has 3 or more slashes.
-    """
-    if field_data.count('/') < 3:
-        raise validators.ValidationError(
-            _("Missing slash after the hostname."))
-
-
 class Domain(models.Model):
     """
     Normalized domain names.
@@ -67,8 +58,7 @@ class Website(models.Model):
     """
 
     url = models.URLField(
-        _('URL'), max_length=400, unique=True,
-        validator_list=[has_slash_after_hostname])
+        _('URL'), max_length=400, unique=True)
     domain = models.ForeignKey(Domain,
         verbose_name=_('domain'))
     profanities = models.IntegerField(
