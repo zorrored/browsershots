@@ -89,6 +89,8 @@ def extract_version(user_agent, name):
 
     >>> extract_version('Mozilla/5.0', 'Mozilla')
     '5.0'
+    >>> extract_version('Mozilla/5.0 (rv:1.7.8)', 'Mozilla')
+    '1.7.8'
     >>> extract_version('Mozilla/5.0 Gecko/20061201 Firefox/2.0.0.4', 'Gecko')
     '20061201'
     >>> extract_version('Safari/417.8', 'Safari')
@@ -100,9 +102,11 @@ def extract_version(user_agent, name):
     """
     if name == 'Safari' and 'Version' in user_agent:
         name = 'Version'
+    if name == 'Mozilla' and 'rv:' in user_agent:
+        name = 'rv'
     index = user_agent.lower().index(name.lower())
     index += len(name)
-    if user_agent[index] not in '/ ':
+    if user_agent[index] not in '/ :':
         return ''
     index += 1
     start = index
