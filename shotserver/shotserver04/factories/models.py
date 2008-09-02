@@ -215,9 +215,9 @@ class ScreenSize(models.Model):
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     width = models.IntegerField(
-        _('width'), core=True)
+        _('width'))
     height = models.IntegerField(
-        _('height'), core=True)
+        _('height'))
 
     class Meta:
         verbose_name = _('screen size')
@@ -236,7 +236,7 @@ class ColorDepth(models.Model):
     factory = models.ForeignKey(Factory,
         verbose_name=_('factory'))
     bits_per_pixel = models.IntegerField(
-        _('bits per pixel'), core=True)
+        _('bits per pixel'))
 
     class Meta:
         verbose_name = _('color depth')
