@@ -83,7 +83,7 @@ class ScreenSizeForm(forms.Form):
         width = self.cleaned_data['width']
         if width < 640:
             raise forms.ValidationError(_("Value %d is too small.") % width)
-        if width > 1600:
+        if width > 1680:
             raise forms.ValidationError(_("Value %d is too big.") % width)
         return width
 
