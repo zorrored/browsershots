@@ -333,6 +333,18 @@ def status(http_request, request_group_id):
     * browser string (browser name)
     * status string (pending / starting / loading / uploaded / failed)
     * seconds int (estimated or actual time between request and upload)
+    * hashkey string (after the screenshot is uploaded)
+
+    You can use the hashkey to generate the resulting PNG file URL,
+    for example if the hashkey is beef1234:
+
+    * http://api.browsershots.org/png/original/be/beef1234.png
+    * http://api.browsershots.org/png/512/be/beef1234.png
+    * http://api.browsershots.org/png/160/be/beef1234.png
+
+    The /be/ part is the first two characters of the hashkey.
+    Normally, the hashkey consists of 32 random lowercase hex
+    characters.
     """
     try:
         request_group = RequestGroup.objects.get(id=request_group_id)
@@ -350,10 +362,12 @@ def status(http_request, request_group_id):
         minor = str(request.minor)
         name = '_'.join((platform_name, browser_name, major, minor))
         name = name.replace(' ', '-')
+        hashkey = ''
         if request.screenshot_id is not None:
             status = 'uploaded'
             seconds = (request.screenshot.uploaded -
                        request_group.submitted).seconds
+            hashkey = request.screenshot.hashkey
         elif request.locked and request.locked < this_lock_timeout:
             status = 'failed'
             seconds = 0
@@ -371,5 +385,6 @@ def status(http_request, request_group_id):
         results.append({'browser': name,
                         'status': status,
                         'seconds': seconds,
+                        'hashkey': hashkey,
                         })
     return results
