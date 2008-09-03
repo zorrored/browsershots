@@ -152,6 +152,8 @@ def create_user_priority(log):
     else:
         mail_admins("Wrong currency", log)
         return
+    payment = '%.2f' % payment
+    euros = '%.2f' % euros
     priority = UserPriority(user=user, priority=1,
                             activated=activated, expire=expire,
                             txn_id=log.txn_id, currency=log.mc_currency,
