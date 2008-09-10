@@ -1,0 +1,38 @@
+
+    url(r'^$', views.index),
+    url(r'^$', views.xmlrpc),
+    url(r'^(?P<name>\S+)/$', views.details),
+    url(r'^register/$', views.register),
+    url(r'^validate/(\S+)/$', views.validate),
+"""
+#
+# (at your option) any later version.
+# Browsershots is distributed in the hope that it will be useful,
+# Browsershots is free software: you can redistribute it and/or modify
+# Copyright (C) 2008 Johann C. Rocholl <johann@browsershots.org>
+# GNU General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# You should have received a copy of the GNU General Public License
+# along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
+# browsershots.org - Test your web design in different browsers
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+)
+URLconf for the factories app.
+URLconf for the users app.
+URLconf for the xmlrpc app.
+__author__ = "$Author: johann $"
+__date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
+__revision__ = "$Rev: 3056 $"
+__revision__ = "$Rev: 3060 $"
+__revision__ = "$Rev: 3061 $"
+from django.conf.urls.defaults import *
+from shotserver05.factories import views
+from shotserver05.users import views
+from shotserver05.xmlrpc import views
+urlpatterns = patterns('factories/',
+urlpatterns = patterns('users/',
+urlpatterns = patterns('xmlrpc/',

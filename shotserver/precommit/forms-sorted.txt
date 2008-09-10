@@ -1,0 +1,29 @@
+
+        exclude = ('name', 'user')
+        model = Factory
+    """
+    Edit factory details.
+    class Meta:
+    hardware = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
+    secret_key = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
+"""
+#
+# (at your option) any later version.
+# Browsershots is distributed in the hope that it will be useful,
+# Browsershots is free software: you can redistribute it and/or modify
+# Copyright (C) 2008 Johann C. Rocholl <johann@browsershots.org>
+# GNU General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# You should have received a copy of the GNU General Public License
+# along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
+# browsershots.org - Test your web design in different browsers
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+Forms for the factories app.
+__author__ = "$Author: johann $"
+__date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
+__revision__ = "$Rev: 3056 $"
+class FactoryForm(forms.ModelForm):
+from django import forms
+from shotserver05.factories.models import Factory

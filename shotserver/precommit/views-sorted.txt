@@ -1,0 +1,177 @@
+
+                              context_instance=RequestContext(request))
+                    "Username may contain only simple letters (a-z0-9_.-).")
+                "Name should not be all uppercase.")
+                "Name should start with a capital letter.")
+                "The password must have at least %d characters." %
+                "Username must start with a lowercase letter.")
+                PASSWORD_MIN_LENGTH)
+                break
+                form_focus = field
+                raise forms.ValidationError(
+              "/static/js/jquery.form.js")
+            context_instance=RequestContext(request))
+            if field in form.errors:
+            if username[index] not in USERNAME_CHARS:
+            raise forms.ValidationError(
+            raise forms.ValidationError("Enter the same password again.")
+            raise forms.ValidationError("The password is too simple.")
+            raise forms.ValidationError("This username is already taken.")
+            raise forms.ValidationError("This username is reserved.")
+            response['repeat'] = unicode(form.errors['repeat'][0])
+            return
+            return ''
+            xmlrpclib.Fault(400, u"XML parser error: " + str(error)))
+            xmlrpclib.Fault(500, u'%s: %s' % (sys.exc_type, sys.exc_value)))
+        """
+        Check that the first name starts with an uppercase letter.
+        Check that the last name starts with an uppercase letter.
+        Check that the password and repeat is the same.
+        Check that the password is long enough and not too silly.
+        Check that the username is sensible and available.
+        first_name = self.cleaned_data['first_name']
+        for field in form.fields:
+        for index in range(len(username)):
+        form_focus = 'first_name'
+        if 'password' not in self.cleaned_data:
+        if 'repeat' in form.errors:
+        if User.objects.filter(username=username).count():
+        if len(first_name) > 4 and first_name.upper() == first_name:
+        if len(last_name) > 4 and last_name.upper() == last_name:
+        if len(password) < PASSWORD_MIN_LENGTH:
+        if not first_name:
+        if not first_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+        if not last_name:
+        if not last_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+        if password.isdigit() or password == len(password) * password[0]:
+        if repeat != password:
+        if username in RESERVED_USERNAMES:
+        if username[0] not in USERNAME_CHARS_FIRST:
+        is_post_request = len(request.POST)
+        js = ("/static/js/jquery.js",
+        last_name = self.cleaned_data['last_name']
+        method = import_method(method_name)
+        params, method_name = xmlrpclib.loads(request.raw_post_data)
+        password = self.cleaned_data['password']
+        repeat = self.cleaned_data['repeat']
+        response = (result, )
+        response = HttpResponse()
+        response.write(dispatch_request(request))
+        response['Content-length'] = str(len(response.content))
+        response['repeat'] = ''
+        response[field_name] = unicode(form.errors[field_name][0])
+        result = method(request, *params)
+        return HttpResponse("Please send a POST request for XML-RPC.")
+        return HttpResponse(str(error), status=500)
+        return first_name
+        return last_name
+        return password
+        return render_to_response('users/register.html', locals(),
+        return repeat
+        return response
+        return username
+        return xmlrpclib.dumps(
+        return xmlrpclib.dumps(fault)
+        return xmlrpclib.dumps(response, methodresponse=True)
+        return xmlrpclib.dumps(xmlrpclib.Fault(404, str(error)))
+        username = self.cleaned_data['username']
+    """
+    List active screenshot factories.
+    Show details for a specified factory.
+    class Media:
+    def clean_first_name(self):
+    def clean_last_name(self):
+    def clean_password(self):
+    def clean_repeat(self):
+    def clean_username(self):
+    else:
+    email = forms.EmailField()
+    except (IOError, SystemError), error:
+    except Http404, error:
+    except expat.ExpatError, error:
+    except xmlrpclib.Fault, fault:
+    except:
+    factory = get_object_or_404(Factory, name=name)
+    first_name = forms.CharField(max_length=40)
+    form = FactoryForm(instance=factory)
+    form = UserCreateForm(request.POST or None)
+    if field_name == 'password':
+    if field_name in form.errors:
+    if is_post_request:
+    if not form.is_valid():
+    last_name = forms.CharField(max_length=40)
+    password = forms.CharField(max_length=40, widget=forms.PasswordInput)
+    repeat = forms.CharField(max_length=40, widget=forms.PasswordInput)
+    response = {field_name: ''}
+    return HttpResponse('OK', 'text/plain')
+    return HttpResponse(simplejson.dumps(response), 'application/json')
+    return render_to_response('factories/details.html', locals(),
+    return render_to_response('factories/index.html', locals(),
+    try:
+    username = forms.CharField(max_length=40)
+"""
+#
+# (at your option) any later version.
+# Browsershots is distributed in the hope that it will be useful,
+# Browsershots is free software: you can redistribute it and/or modify
+# Copyright (C) 2008 Johann C. Rocholl <johann@browsershots.org>
+# GNU General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# You should have received a copy of the GNU General Public License
+# along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
+# browsershots.org - Test your web design in different browsers
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+PASSWORD_MIN_LENGTH = 6
+RESERVED_USERNAMES = 'admin administrator root webmaster postmaster'.split()
+USERNAME_CHARS = USERNAME_CHARS_FIRST + '0123456789_.-'
+USERNAME_CHARS_FIRST = 'abcdefghijklmnopqrstuvwxyz'
+Views for the browsers app.
+Views for the factories app.
+Views for the jobs app.
+Views for the platforms app.
+Views for the screenshots app.
+Views for the sponsors app.
+Views for the users app.
+Views for the websites app.
+Views for the xmlrpc app.
+__author__ = "$Author: johann $"
+__date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:18:44 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:20:31 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:28:09 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:31:54 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:34:12 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:35:37 -0700 (Wed, 10 Sep 2008) $"
+__revision__ = "$Rev: 3056 $"
+__revision__ = "$Rev: 3057 $"
+__revision__ = "$Rev: 3058 $"
+__revision__ = "$Rev: 3060 $"
+__revision__ = "$Rev: 3061 $"
+__revision__ = "$Rev: 3062 $"
+__revision__ = "$Rev: 3064 $"
+__revision__ = "$Rev: 3065 $"
+__revision__ = "$Rev: 3067 $"
+class UserCreateForm(forms.Form):
+def details(request, name):
+def dispatch_request(request):
+def index(request):
+def register(request):
+def validate(request, field_name):
+def xmlrpc(request):
+from django import forms
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.utils import simplejson
+from shotserver05.factories.forms import FactoryForm
+from shotserver05.factories.models import Factory
+from shotserver05.xmlrpc.utils import import_method
+import sys
+import xmlrpclib
