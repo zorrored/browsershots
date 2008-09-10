@@ -27,20 +27,32 @@ precommit : docs headers properties pep8
 
 headers :
 	find . -name "*.py" | grep -v build/ \
-        | xargs header.py shotserver05/__init__.py
+	| xargs header.py shotserver05/__init__.py
 
 properties :
-        find . -name "*.py" \
-        | grep -v build/ \
-        | xargs svn propset svn:keywords "Rev Date Author"
-        find . -type f | grep -v build/ | grep -v \\.svn \
-        | grep -v \\.bz2 | grep -v \\.gz | grep -v \\.pyc \
-        | grep -v \\.png | grep -v \\.ico | grep -v \\.jpg \
-        | grep -v django.mo | grep -v rosetta-shotserver \
-        | xargs svn propset svn:eol-style native
+	find . -name "*.py" \
+	| grep -v build/ \
+	| xargs svn propset svn:keywords "Rev Date Author"
+	find . -type f | grep -v build/ | grep -v \\.svn \
+	| grep -v \\.bz2 | grep -v \\.gz | grep -v \\.pyc \
+	| grep -v \\.png | grep -v \\.ico | grep -v \\.jpg \
+	| grep -v django.mo | grep -v rosetta-shotserver \
+	| xargs svn propset svn:eol-style native
 
 pep8 :
 	pep8.py --filename=*.py shotserver05
+
+pylint :
+	-pylint shotserver05 \
+	| grep -v "Relative import 'se" \
+	| grep -v 'Invalid name "urlpatterns"' \
+	| grep -v "Unused import deseb" \
+	| grep -v "Inline] Missing docstring" \
+	| grep -v "Admin] Missing docstring" \
+	| grep -v "Meta] Missing docstring" \
+	| grep -v "Meta] Class has no __init__ method" \
+	| grep -v "Meta] Too few public methods" \
+	| grep -v /tests.py:
 
 jquery :
 	wget -O shotserver05/static/js/jquery.form.js \
