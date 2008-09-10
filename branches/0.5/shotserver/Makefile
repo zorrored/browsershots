@@ -22,8 +22,13 @@ docs/html : docs
 
 precommit : docs headers properties pep8
 	mkdir -p $@
-	cat docs/xml-rpc.txt | sort -u > precommit/xml-rpc-sorted.txt
+	cat docs/xml-rpc.txt | sort -u > precommit/docs-xml-rpc-sorted.txt
+	cat shotserver05/*/admin.py | sort -u > precommit/admin-sorted.txt
+	cat shotserver05/*/forms.py | sort -u > precommit/forms-sorted.txt
 	cat shotserver05/*/models.py | sort -u > precommit/models-sorted.txt
+	cat shotserver05/*/urls.py | sort -u > precommit/urls-sorted.txt
+	cat shotserver05/*/views.py | sort -u > precommit/views-sorted.txt
+	cat shotserver05/*/xmlrpc.py | sort -u > precommit/xmlrpc-sorted.txt
 
 headers :
 	find . -name "*.py" | grep -v build/ \

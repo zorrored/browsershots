@@ -1,0 +1,184 @@
+
+                result.append('.'.join((app_name, method_name)))
+            continue
+            if callable(method) and method.__module__ == module_name:
+            method = module.__dict__[method_name]
+            module = __import__(module_name)
+            module = module.__dict__[part]
+        'browser': job.group.slug,
+        'codename': os.codename,
+        'command': browser.command,
+        'hardware': factory.hardware,
+        'hashkey': attempt.hashkey,
+        'last_error': factory.last_error or '',
+        'last_poll': factory.last_poll or '',
+        'last_upload': factory.last_upload or '',
+        'major': browser.major,
+        'minor': browser.minor,
+        'name': factory.name,
+        'name': os.name,
+        'operating_system': factory.operating_system.slug,
+        'platform': os.platform.name,
+        'version': browser.version,
+        'version': os.version,
+        OperatingSystem, slug=operating_system)
+        except ImportError:
+        for method_name in module.__dict__.keys():
+        for part in module_name.split('.')[1:]:
+        hardware = hardware)
+        if package != 'shotserver05':
+        job=job, hashkey=hashkey, factory=factory)
+        module_name = full_app_name + '.xmlrpc'
+        operating_system = operating_system,
+        operating_system=operating_system, hardware=hardware)
+        package, app_name = full_app_name.split('.', 1)
+        raise xmlrpclib.Fault(204, "No matching requests.")
+        raise xmlrpclib.Fault(401, "Unauthorized.")
+        return "Sorry, no documentation is available for this method."
+        return method.__doc__.strip().replace('\n    ', '\n')
+        try:
+        }
+    """
+    '2eb594e041eeb418e86ef0289328ed1c'
+    '5afba7f48c2df4b85e3cac482df48010'
+    * browser string
+    * codename string
+    * command string
+    * details dict
+    * dummy_number int (e.g. 123)
+    * dummy_text string (e.g. hello)
+    * factories list
+    * factory_name string (lowercase)
+    * factory_name string (lowercase, use hostname if possible)
+    * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
+    * hashkey string
+    * help string (method documentation)
+    * job dict (if matching job found)
+    * last_error string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+    * last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+    * last_upload string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+    * major int
+    * method_name string (e.g. system.listMethods)
+    * method_names list (names of all supported methods)
+    * minor int
+    * name string
+    * name string (lowercase)
+    * operating_system string (see platforms.listOperatingSystems)
+    * platform string
+    * signatures list (usually only one signature)
+    * slugs list (a slug for each operating system)
+    * status string (OK)
+    * username string (e.g. joe)
+    * version string
+    >>> md5('123hello2008-08-08T23:56:14Zfactorysecret').hexdigest()
+    >>> md5('123hello2008-08-08T23:56:14Zjoesha1$e3$4d07f85').hexdigest()
+    Arguments:
+    Create a new screenshot factory.
+    Each signature is a list of type name strings, first the type of
+    Factory.objects.create(name=factory_name, user=user,
+    Get a list of the methods supported by the server.
+    Get details for the specified operating system.
+    Get details for the specified screenshot factory.
+    Get documentation for the specified method.
+    List all available operating systems.
+    List all screenshot factories that are currently active.
+    List the possible signatures of the specified method.
+    Return value:
+    Test factory authentication with MD5 hash. To compute the hash,
+    Test user authentication with MD5 hash. To compute the hash,
+    The job dict will contain the following keys:
+    The result dict will contain the following entries:
+    Update factory information.
+    attempt = Attempt.objects.create(
+    browser = browser_for_job(job, factory)
+    concatenate the string values of all the other arguments and the
+    else:
+    factories = Factory.objects.filter(last_poll__gte=last_poll_timeout())
+    factory = get_object_or_404(Factory, name=factory_name)
+    factory.update_fields(
+    following MD5 hash:
+    for full_app_name in settings.INSTALLED_APPS:
+    hexadecimal characters. If the factory name is 'factory' and the
+    hexadecimal characters. If the username is 'joe' and the
+    if factory.user != user:
+    if method.__doc__:
+    if not len(jobs):
+    job = jobs[0]
+    jobs = jobs_for_factory(factory)[:1]
+    method = import_method(method_name)
+    operating_system = get_object_or_404(
+    os = get_object_or_404(OperatingSystem, slug=operating_system)
+    pre-hashed password is 'sha1$e3$4d07f85', you might get the
+    pre-hashed user password, then get the MD5 hash as 32 lowercase
+    result = []
+    result.sort()
+    return 'OK'
+    return [factory.name for factory in factories]
+    return [os.slug for os in OperatingSystem.objects.all()]
+    return [signature(method_name)]
+    return result
+    return {
+    secret key for the factory, then get the MD5 hash as 32 lowercase
+    secret key is 'secret', you might get the following MD5 hash:
+    the return value, then the types of the arguments.
+    ~~~~~~~~~~
+    ~~~~~~~~~~~~~
+"""
+#
+# (at your option) any later version.
+# Browsershots is distributed in the hope that it will be useful,
+# Browsershots is free software: you can redistribute it and/or modify
+# Copyright (C) 2008 Johann C. Rocholl <johann@browsershots.org>
+# GNU General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# You should have received a copy of the GNU General Public License
+# along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
+# browsershots.org - Test your web design in different browsers
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+#################### Methods for authenticated factory #######################
+##################### Methods for authenticated user #########################
+###################### Methods without authentication ########################
+@factory_auth
+@user_auth
+XML-RPC methods for the factories app.
+XML-RPC methods for the jobs app.
+XML-RPC methods for the platforms app.
+XML-RPC methods for the system app.
+XML-RPC methods for the users app.
+__author__ = "$Author: johann $"
+__date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:20:31 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:31:54 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-10 09:41:49 -0700 (Wed, 10 Sep 2008) $"
+__revision__ = "$Rev: 3056 $"
+__revision__ = "$Rev: 3058 $"
+__revision__ = "$Rev: 3061 $"
+__revision__ = "$Rev: 3064 $"
+__revision__ = "$Rev: 3068 $"
+def createFactory(request, user, factory_name, operating_system, hardware):
+def factoryDetails(request, factory_name):
+def listActiveFactories(request):
+def listMethods(request):
+def listOperatingSystems(request):
+def methodHelp(request, method_name):
+def methodSignature(request, method_name):
+def operatingSystemDetails(request, operating_system):
+def poll(factory):
+def testAuth(request, factory, dummy_number, dummy_text):
+def testAuth(request, user, dummy_number, dummy_text):
+def updateFactory(request, user, factory_name, operating_system, hardware):
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+from factories.utils import requests_for_factory
+from jobs.utils import browser_for_job
+from shotserver05.factories.models import Factory
+from shotserver05.factories.utils import last_poll_timeout
+from shotserver05.platforms.models import OperatingSystem
+from shotserver05.system.utils import signature
+from shotserver05.xmlrpc.utils import import_method
+from shotserver05.xmlrpc.utils import user_auth
+from shotserver05.xmlrpc.utils import user_auth, factory_auth
+import xmlrpclib
