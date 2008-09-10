@@ -1,15 +1,44 @@
+# browsershots.org - Test your web design in different browsers
+# Copyright (C) 2008 Johann C. Rocholl <johann@browsershots.org>
+#
+# Browsershots is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Browsershots is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
+
+"""
+Models for factories app.
+"""
+
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
+
 from django.db import models
 from django.db.models import PositiveIntegerField as UnsignedIntegerField
 from django.contrib.auth.models import User
 from shotserver05.platforms.models import OperatingSystem
+from shotserver05.factories.utils import SECRET_KEY_DEFAULT_LENGTH
 from shotserver05.factories.utils import random_secret_key
 from shotserver05.utils import granular_update
 
 
 class Factory(models.Model):
+    """
+    Screenshot factory: a remote machine that makes website screenshots.
+    """
     name = models.SlugField(max_length=20, unique=True)
     user = models.ForeignKey(User)
-    secret_key = models.CharField(max_length=512, default=random_secret_key)
+    secret_key = models.CharField(max_length=SECRET_KEY_DEFAULT_LENGTH,
+                                  default=random_secret_key)
     operating_system = models.ForeignKey(OperatingSystem)
     hardware = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
@@ -27,10 +56,16 @@ class Factory(models.Model):
         return self.name
 
     def get_absolute_url(self):
+        """
+        Get the URL for the factory details page.
+        """
         return '/factories/%s/' % self.name
 
 
 class ScreenSize(models.Model):
+    """
+    Supported screen resolution for each factory.
+    """
     factory = models.ForeignKey(Factory)
     width = UnsignedIntegerField()
     height = UnsignedIntegerField()
@@ -43,6 +78,9 @@ class ScreenSize(models.Model):
 
 
 class ColorDepth(models.Model):
+    """
+    Supported display color depths for each factory.
+    """
     factory = models.ForeignKey(Factory)
     bits_per_pixel = UnsignedIntegerField()
 
@@ -54,6 +92,9 @@ class ColorDepth(models.Model):
 
 
 class FactoryStatistics(models.Model):
+    """
+    Daily statistics for each factory.
+    """
     factory = models.ForeignKey(Factory)
     date = models.DateField()
     screenshot_count = UnsignedIntegerField()
