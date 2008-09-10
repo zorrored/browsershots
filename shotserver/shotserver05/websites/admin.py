@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Django admin for websites app.
+Django admin for the websites app.
 """
 
 __revision__ = "$Rev$"
