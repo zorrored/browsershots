@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for xmlrpc app.
+Models for the xmlrpc app.
 """
 
 __revision__ = "$Rev$"

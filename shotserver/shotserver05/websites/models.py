@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for websites app.
+Models for the websites app.
 """
 
 __revision__ = "$Rev$"

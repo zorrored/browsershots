@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for platforms app.
+Models for the platforms app.
 """
 
 __revision__ = "$Rev$"

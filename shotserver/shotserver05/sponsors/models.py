@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for sponsors app.
+Models for the sponsors app.
 """
 
 __revision__ = "$Rev$"
