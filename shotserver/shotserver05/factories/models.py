@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for factories app.
+Models for the factories app.
 """
 
 __revision__ = "$Rev$"
@@ -23,7 +23,6 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.db import models
-from django.db.models import PositiveIntegerField as UnsignedIntegerField
 from django.contrib.auth.models import User
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.utils import SECRET_KEY_DEFAULT_LENGTH
@@ -67,8 +66,8 @@ class ScreenSize(models.Model):
     Supported screen resolution for each factory.
     """
     factory = models.ForeignKey(Factory)
-    width = UnsignedIntegerField()
-    height = UnsignedIntegerField()
+    width = models.IntegerField()
+    height = models.IntegerField()
 
     class Meta:
         ordering = ('width', 'height')
@@ -82,7 +81,7 @@ class ColorDepth(models.Model):
     Supported display color depths for each factory.
     """
     factory = models.ForeignKey(Factory)
-    bits_per_pixel = UnsignedIntegerField()
+    bits_per_pixel = models.IntegerField()
 
     class Meta:
         ordering = ('bits_per_pixel', )
@@ -97,9 +96,9 @@ class FactoryStatistics(models.Model):
     """
     factory = models.ForeignKey(Factory)
     date = models.DateField()
-    screenshot_count = UnsignedIntegerField()
-    error_count = UnsignedIntegerField()
-    problem_count = UnsignedIntegerField()
+    screenshot_count = models.IntegerField()
+    error_count = models.IntegerField()
+    problem_count = models.IntegerField()
 
     class Meta:
         ordering = ('date', 'screenshot_count')

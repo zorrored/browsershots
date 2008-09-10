@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for browsers app.
+Models for the browsers app.
 """
 
 __revision__ = "$Rev$"
@@ -23,7 +23,6 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.db import models
-from django.db.models import PositiveIntegerField as UnsignedIntegerField
 from shotserver05.factories.models import Factory
 
 
@@ -57,8 +56,8 @@ class Browser(models.Model):
     user_agent = models.CharField(max_length=200)
     name = models.ForeignKey(BrowserName)
     version = models.CharField(max_length=20)
-    major = UnsignedIntegerField()
-    minor = UnsignedIntegerField()
+    major = models.IntegerField()
+    minor = models.IntegerField()
     engine = models.ForeignKey(Engine)
     engine_version = models.CharField(max_length=20)
     flash = models.CharField(max_length=20, blank=True)
