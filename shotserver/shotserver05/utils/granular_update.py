@@ -1,3 +1,19 @@
+# browsershots.org - Test your web design in different browsers
+# Copyright (C) 2008 Johann C. Rocholl <johann@browsershots.org>
+#
+# Browsershots is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Browsershots is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
+
 """
 Update only selected fields of a model.
 
@@ -5,9 +21,9 @@ The problem with model.save() is that it also overwrites all other
 fields with possibly stale data.
 """
 
-__revision__ = "$Rev: 2954 $"
-__date__ = "$Date: 2008-08-14 00:02:20 +0200 (Thu, 14 Aug 2008) $"
-__author__ = "$Author: johann $"
+__revision__ = "$Rev$"
+__date__ = "$Date$"
+__author__ = "$Author$"
 
 from django.db import connection, models, transaction
 
