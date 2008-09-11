@@ -142,9 +142,9 @@ def s3_upload(hashkey, size=ORIGINAL_SIZE):
 
     filename = png_filename(hashkey, size)
     f = file(filename, 'rb')
-    f.seek(0, os.SEEK_END)
+    f.seek(0, 2) # os.SEEK_END for Python < 2.5
     bytes_total = f.tell()
-    f.seek(0, os.SEEK_SET)
+    f.seek(0, 0) # os.SEEK_SET for Python < 2.5
 
     headers = {
         'User-Agent': 'shotserver/0.4',
