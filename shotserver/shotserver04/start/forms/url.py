@@ -66,7 +66,10 @@ class UrlForm(forms.Form):
         self.check_server_disallowed()
         self.add_slash()
         self.robots_txt()
-        self.cleaned_data['content'] = self.http_get()
+        response = self.http_get()
+        self.cleaned_data['headers'] = response[0]
+        self.cleaned_data['content'] = response[1]
+        self.check_content_type()
         self.check_content()
         self.cleaned_data['domain'] = self.get_or_create_domain()
         self.cleaned_data['website'] = self.get_or_create_website()
@@ -192,7 +195,7 @@ _("Please read the %(faq)s.") % locals(),
 
     def http_get(self):
         """
-        Load page content from remote HTTP server.
+        Load headers and content from remote HTTP server.
         """
         try:
             return http_get(self.cleaned_data['url'])
@@ -219,6 +222,24 @@ unicode(_("Please try again."))))
             text %= {'hostname': error.hostname}
             error = human_error(error)
             raise ValidationError(' '.join((text, error)).strip())
+
+    def check_content_type(self):
+        """
+        Check that the content type is supported.
+        """
+        headers = self.cleaned_data['headers']
+        content_type = headers.get('content-type', '').strip()
+        if not content_type:
+            raise ValidationError(
+unicode(_("The server did not send a content type header.")))
+        self.cleaned_data['content-type'] = content_type
+        for prefix in settings.SUPPORTED_CONTENT_TYPES:
+            if content_type.lower().startswith(prefix):
+                break
+        else:
+            raise ValidationError(' '.join((
+unicode(_("Unsupported content type: %s.")) % content_type,
+unicode(_("This service is for HTML or XHTML content.")))))
 
     def check_content(self):
         """
