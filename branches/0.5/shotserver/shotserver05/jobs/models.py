@@ -35,6 +35,10 @@ class JobGroup(models.Model):
     user = models.ForeignKey(User, blank=True, null=True)
     priority = models.IntegerField(default=0)
     submitted = models.DateTimeField(auto_now_add=True)
+    width_min = models.IntegerField(blank=True, null=True)
+    width_max = models.IntegerField(blank=True, null=True)
+    bpp_min = models.IntegerField(blank=True, null=True)
+    bpp_max = models.IntegerField(blank=True, null=True)
 
     def __unicode__(self):
         return self.website.url
