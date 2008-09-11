@@ -23,7 +23,16 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.db import models
+from django.contrib.auth.models import User
 from shotserver04.common import granular_update
+
+
+class PayPalEmail(models.Model):
+    """
+    Store the preferred PayPal email address for each user.
+    """
+    user = models.ForeignKey(User, unique=True)
+    email = models.EmailField()
 
 
 class PayPalLog(models.Model):
