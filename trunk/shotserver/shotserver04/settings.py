@@ -130,6 +130,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/media/'
 
+# Deny requests unless Content-type header starts with one of these.
+SUPPORTED_CONTENT_TYPES = """
+text/
+application/xml
+application/xhtml+xml
+application/rss+xml
+application/rdf+xml
+application/atom+xml
+""".lower().strip().splitlines()
+
 # Profanity filter.
 PROFANITIES_LIST = """
 asshole cunt fuck shit porn p0rn pr0n boys girls chicks babe cock

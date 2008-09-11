@@ -127,11 +127,13 @@ def unsplit_netloc(parts):
 
 def http_get(url):
     """
-    Try to download content from a remote HTTP server.
+    Try to download headers and content from a remote HTTP server.
 
-    >>> 'different browsers' in http_get('http://browsershots.org/')
+    >>> 'html' in http_get('http://www.example.com/')[0]['content-type']
     True
-    >>> '404' in http_get('http://www.example.com/test.html')
+    >>> 'different browsers' in http_get('http://browsershots.org/')[1]
+    True
+    >>> '404' in http_get('http://www.example.com/test.html')[1]
     True
     """
     socket.setdefaulttimeout(HTTP_TIMEOUT)
@@ -159,7 +161,8 @@ def http_get(url):
 
 def http_get_path(connection, path):
     """
-    Try to get content for this path through an existing connection.
+    Try to get headers and content for this path through an existing
+    connection.
     """
     # Send request
     try:
@@ -177,10 +180,12 @@ def http_get_path(connection, path):
         content = response.read(MAX_RESPONSE_SIZE)
     except (socket.error, ValueError, httplib.BadStatusLine), error:
         raise ResponseError(hostname=connection.host, error=error)
+    headers = dict(response.getheaders())
     try:
-        return content.decode('utf8')
+        content = content.decode('utf8')
     except UnicodeDecodeError:
-        return content.decode('latin1')
+        content = content.decode('latin1')
+    return headers, content
 
 
 def count_profanities(profanities, content):
@@ -212,7 +217,7 @@ def dotted_ip(long_ip):
 def long_ip(dotted_ip):
     """
     >>> long_ip('127.0.0.1')
-    2130706433
+    2130706433L
     """
     return struct.unpack('!L', socket.inet_aton(dotted_ip))[0]
 
