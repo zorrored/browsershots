@@ -66,3 +66,21 @@ http://jqueryjs.googlecode.com/svn/trunk/plugins/form/jquery.form.js
 http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js
 #http://jqueryjs.googlecode.com/files/jquery-1.2.6.js
 #http://jqueryjs.googlecode.com/files/jquery-1.2.6.pack.js
+
+# You need to start the test server first, in a separate shell:
+# manage.py testserver authtestdata
+xmlrpc :
+	tools/xmlrpc.py system.listMethods | grep methodHelp
+	tools/xmlrpc.py system.methodHelp system.methodHelp | grep Arguments
+	tools/xmlrpc.py system.methodSignature system.methodHelp | grep string
+	tools/xmlrpc.py platforms.operatingSystemDetails leopard | grep Leo
+	tools/xmlrpc.py factories.factoryDetails testfactory | grep 404
+	rm -f testclient.html testfactory.html
+	wget -q http://127.0.0.1:8000/users/auth/testclient.html
+	tools/xmlrpc.py --auth=testclient.html factories.createFactory \
+	testclient testfactory leopard MacBook | grep OK
+	wget -q http://127.0.0.1:8000/factories/auth/testfactory.html
+	tools/xmlrpc.py factories.factoryDetails testfactory | grep leopard
+	tools/xmlrpc.py factories.listActiveFactories | grep "\[\]"
+#	tools/xmlrpc.py --auth=testfactory.html jobs.poll testfactory
+#	tools/xmlrpc.py factories.listActiveFactories | grep testfactory
