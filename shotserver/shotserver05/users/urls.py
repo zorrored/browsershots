@@ -27,5 +27,6 @@ from shotserver05.users import views
 
 urlpatterns = patterns('users/',
     url(r'^register/$', views.register),
-    url(r'^validate/(\S+)/$', views.validate),
+    url(r'^validate/(?P<field>\S+)/$', views.validate),
+    url(r'^auth/(?P<username>\S+).html$', views.auth_html),
 )

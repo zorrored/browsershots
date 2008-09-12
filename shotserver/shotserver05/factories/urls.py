@@ -28,4 +28,5 @@ from shotserver05.factories import views
 urlpatterns = patterns('factories/',
     url(r'^$', views.index),
     url(r'^(?P<name>\S+)/$', views.details),
+    url(r'^auth/(?P<name>\S+).html$', views.auth_html),
 )
