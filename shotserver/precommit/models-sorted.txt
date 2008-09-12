@@ -32,6 +32,8 @@
     Supported screen resolution for each factory.
     attempt = models.ForeignKey(Attempt)
     bits_per_pixel = models.IntegerField()
+    bpp_max = models.IntegerField(blank=True, null=True)
+    bpp_min = models.IntegerField(blank=True, null=True)
     browser_name = models.ForeignKey(BrowserName)
     bytes = models.IntegerField()
     class Meta:
@@ -89,6 +91,8 @@
     version = models.CharField(max_length=20, blank=True)
     website = models.ForeignKey(Website)
     width = models.IntegerField()
+    width_max = models.IntegerField(blank=True, null=True)
+    width_min = models.IntegerField(blank=True, null=True)
 """
 #
 # (at your option) any later version.
@@ -119,10 +123,12 @@ __date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:41:49 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 10:00:10 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 10:01:27 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-11 15:07:26 -0700 (Thu, 11 Sep 2008) $"
 __revision__ = "$Rev: 3061 $"
 __revision__ = "$Rev: 3068 $"
 __revision__ = "$Rev: 3070 $"
 __revision__ = "$Rev: 3071 $"
+__revision__ = "$Rev: 3078 $"
 class Attempt(models.Model):
 class Browser(models.Model):
 class BrowserName(models.Model):

@@ -2,8 +2,10 @@
     url(r'^$', views.index),
     url(r'^$', views.xmlrpc),
     url(r'^(?P<name>\S+)/$', views.details),
+    url(r'^auth/(?P<name>\S+).html$', views.auth_html),
+    url(r'^auth/(?P<username>\S+).html$', views.auth_html),
     url(r'^register/$', views.register),
-    url(r'^validate/(\S+)/$', views.validate),
+    url(r'^validate/(?P<field>\S+)/$', views.validate),
 """
 #
 # (at your option) any later version.
@@ -23,12 +25,10 @@ URLconf for the factories app.
 URLconf for the users app.
 URLconf for the xmlrpc app.
 __author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
-__revision__ = "$Rev: 3056 $"
+__date__ = "$Date: 2008-09-12 13:01:14 -0700 (Fri, 12 Sep 2008) $"
 __revision__ = "$Rev: 3060 $"
-__revision__ = "$Rev: 3061 $"
+__revision__ = "$Rev: 3083 $"
 from django.conf.urls.defaults import *
 from shotserver05.factories import views
 from shotserver05.users import views

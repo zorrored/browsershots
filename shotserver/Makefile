@@ -20,7 +20,7 @@ docs/html : docs
 	ls docs | grep txt | sed s/.txt// \
 	| xargs -Iname rst2html.py docs/name.txt docs/html/name.html
 
-precommit : docs headers properties pep8
+precommit : docs headers pep8
 	mkdir -p $@
 	cat docs/xml-rpc.txt | sort -u > precommit/docs-xml-rpc-sorted.txt
 	cat shotserver05/*/admin.py | sort -u > precommit/admin-sorted.txt
