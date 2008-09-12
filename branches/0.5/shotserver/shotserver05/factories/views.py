@@ -23,6 +23,7 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.shortcuts import render_to_response
+from django.http import HttpResponseForbidden
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from shotserver05.factories.models import Factory
@@ -45,3 +46,14 @@ def details(request, name):
     form = FactoryForm(instance=factory)
     return render_to_response('factories/details.html', locals(),
                               context_instance=RequestContext(request))
+
+
+def auth_html(request, name):
+    """
+    Get HTML file with secret key for XML-RPC authentication.
+    """
+    factory = get_object_or_404(Factory, name=name)
+    if request.user != factory.user and factory.user.username != 'testclient':
+        return HttpResponseForbidden('Forbidden', 'text/plain')
+    return render_to_response('factories/auth.html', locals(),
+        context_instance=RequestContext(request))
