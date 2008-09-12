@@ -34,6 +34,15 @@ class PayPalEmail(models.Model):
     user = models.ForeignKey(User, unique=True)
     email = models.EmailField()
 
+    class Meta:
+        verbose_name = 'PayPal email'
+        verbose_name_plural = 'PayPal emails'
+
+    update_fields = granular_update.update_fields
+
+    def __unicode__(self):
+        return self.email
+
 
 class PayPalLog(models.Model):
     """
