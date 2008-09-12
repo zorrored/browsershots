@@ -1,12 +1,76 @@
 
+                    "Username may contain only simple letters (a-z0-9_.-).")
+                "Name should not be all uppercase.")
+                "Name should start with a capital letter.")
+                "The password must have at least %d characters." %
+                "The username must have at least %d characters." %
+                "Username must start with a lowercase letter.")
+                PASSWORD_MIN_LENGTH)
+                USERNAME_MIN_LENGTH)
+                raise forms.ValidationError(
+              "/static/js/jquery.form.js")
+            if username[index] not in USERNAME_CHARS:
+            raise forms.ValidationError(
+            raise forms.ValidationError("Enter the same password again.")
+            raise forms.ValidationError("The password is too simple.")
+            raise forms.ValidationError("This username is already taken.")
+            raise forms.ValidationError("This username is reserved.")
+            return
+            return ''
+        """
+        Check that the first name starts with an uppercase letter.
+        Check that the last name starts with an uppercase letter.
+        Check that the password and repeat is the same.
+        Check that the password is long enough and not too silly.
+        Check that the username is sensible and available.
         exclude = ('name', 'user')
+        first_name = self.cleaned_data['first_name']
+        for index in range(len(username)):
+        if 'password' not in self.cleaned_data:
+        if User.objects.filter(username=username).count():
+        if len(first_name) > 4 and first_name.upper() == first_name:
+        if len(last_name) > 4 and last_name.upper() == last_name:
+        if len(password) < PASSWORD_MIN_LENGTH:
+        if len(username) < USERNAME_MIN_LENGTH:
+        if not first_name:
+        if not first_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+        if not last_name:
+        if not last_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+        if password.isdigit() or password == len(password) * password[0]:
+        if repeat != password:
+        if username in RESERVED_USERNAMES:
+        if username[0] not in USERNAME_CHARS_FIRST:
+        js = ("/static/js/jquery.js",
+        last_name = self.cleaned_data['last_name']
         model = Factory
+        password = self.cleaned_data['password']
+        print 'validating username'
+        repeat = self.cleaned_data['repeat']
+        return first_name
+        return last_name
+        return password
+        return repeat
+        return username
+        username = self.cleaned_data['username'].strip()
     """
     Edit factory details.
+    class Media:
     class Meta:
+    def clean_first_name(self):
+    def clean_last_name(self):
+    def clean_password(self):
+    def clean_repeat(self):
+    def clean_username(self):
+    email = forms.EmailField()
+    first_name = forms.CharField(max_length=40)
     hardware = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
+    last_name = forms.CharField(max_length=40)
+    password = forms.CharField(max_length=40, widget=forms.PasswordInput)
+    repeat = forms.CharField(max_length=40, widget=forms.PasswordInput)
     secret_key = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
+    username = forms.CharField(max_length=40)
 """
+""".split()
 #
 # (at your option) any later version.
 # Browsershots is distributed in the hope that it will be useful,
@@ -21,9 +85,19 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 Forms for the factories app.
+PASSWORD_MIN_LENGTH = 6
+RESERVED_USERNAMES = """
+USERNAME_CHARS = USERNAME_CHARS_FIRST + '0123456789_.-'
+USERNAME_CHARS_FIRST = 'abcdefghijklmnopqrstuvwxyz'
+USERNAME_MIN_LENGTH = 2
 __author__ = "$Author: johann $"
+__date__ = "$Date: 2007-06-08 13:12:43 -0700 (Fri, 08 Jun 2007) $"
 __date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
+__revision__ = "$Rev: 1464 $"
 __revision__ = "$Rev: 3056 $"
+admin administrator root webmaster postmaster test testuser testclient staff
 class FactoryForm(forms.ModelForm):
+class UserCreateForm(forms.Form):
 from django import forms
+from django.contrib.auth.models import User
 from shotserver05.factories.models import Factory
