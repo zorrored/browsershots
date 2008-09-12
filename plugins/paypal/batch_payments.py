@@ -30,13 +30,11 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'shotserver04.settings'
 from datetime import datetime, timedelta
 from decimal import Decimal
 from django.utils.text import capfirst
-from django.contrib.auth.models import User
+from shotserver04.paypal.models import PayPalEmail
 from shotserver04.revenue.models import UserRevenue, UserPayment
 
-payments = UserPayment.objects.filter(paypal_email__contains='@')
-id_to_email = dict([(p.user_id, p.paypal_email) for p in payments])
-users = User.objects.filter(id__in=id_to_email)
-for user in users:
+for email in PayPalEmail.objects.all():
+    user = email.user
     transactions = (
         list(user.userrevenue_set.all()) +
         list(user.userpayment_set.all()) +
@@ -47,9 +45,8 @@ for user in users:
     balance = transactions[-1].balance
     if balance < 20:
         continue
-    email = id_to_email[user.id]
     balance_comma = str(balance).replace('.', ',')
-    print '\t'.join((email, balance_comma, 'EUR', user.username))
+    print '\t'.join((email.email, balance_comma, 'EUR', user.username))
     payment = UserPayment.objects.create(
         user=user,
         paypal_email=email,
