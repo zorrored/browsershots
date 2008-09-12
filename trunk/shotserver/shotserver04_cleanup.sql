@@ -6,7 +6,11 @@ WHERE created < NOW() - '3d'::interval;
 DELETE FROM messages_factoryerror
 WHERE occurred < NOW() - '24:00'::interval;
 
-\echo 'Removing screenshots from old anonymous requests...'
+\echo 'Deleting old problem reports...'
+DELETE FROM screenshots_problemreport
+WHERE reported < NOW() - '30d'::interval;
+
+\echo 'Removing screenshots from old requests...'
 UPDATE requests_request
 SET screenshot_id = NULL
 WHERE screenshot_id IS NOT NULL
@@ -14,11 +18,23 @@ AND EXISTS (SELECT 1 FROM requests_requestgroup
     WHERE id = requests_request.request_group_id
     AND user_id IS NULL
     AND submitted < NOW() - '24:00'::interval);
+UPDATE requests_request
+SET screenshot_id = NULL
+WHERE screenshot_id IS NOT NULL
+AND EXISTS (SELECT 1 FROM requests_requestgroup
+    WHERE id = requests_request.request_group_id
+    AND submitted < NOW() - '30d'::interval);
 
-\echo 'Deleting old anonymous screenshots...'
+\echo 'Deleting old screenshots...'
 DELETE FROM screenshots_screenshot
-WHERE user_id IS NULL
-AND uploaded < NOW() - '24:00'::interval
+WHERE uploaded < NOW() - '24:00'::interval
+AND user_id IS NULL
+AND NOT EXISTS (SELECT 1 FROM requests_request
+    WHERE screenshot_id = screenshots_screenshot.id)
+AND NOT EXISTS (SELECT 1 FROM screenshots_problemreport
+    WHERE screenshot_id = screenshots_screenshot.id);
+DELETE FROM screenshots_screenshot
+WHERE uploaded < NOW() - '30d'::interval
 AND NOT EXISTS (SELECT 1 FROM requests_request
     WHERE screenshot_id = screenshots_screenshot.id)
 AND NOT EXISTS (SELECT 1 FROM screenshots_problemreport
@@ -31,7 +47,7 @@ AND EXISTS (SELECT 1 FROM requests_requestgroup
     WHERE id = requests_request.request_group_id
     AND submitted < NOW() - '24:00'::interval)
 AND NOT EXISTS (SELECT 1 FROM messages_factoryerror
-    WHERE request_id = requests_request.id);;
+    WHERE request_id = requests_request.id);
 
 \echo 'Deleting old request groups without requests...'
 DELETE FROM requests_requestgroup
