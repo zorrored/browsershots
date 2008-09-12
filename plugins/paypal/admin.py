@@ -23,7 +23,12 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.contrib import admin
-from shotserver04.paypal.models import PayPalLog
+from shotserver04.paypal.models import PayPalEmail,PayPalLog
+
+
+class PayPalEmailAdmin(admin.ModelAdmin):
+    list_display = ('user', 'email')
+    raw_id_fields = ('user', )
 
 
 class PayPalLogAdmin(admin.ModelAdmin):
@@ -32,4 +37,5 @@ class PayPalLogAdmin(admin.ModelAdmin):
                     'response', 'posted')
 
 
+admin.site.register(PayPalEmail, PayPalEmailAdmin)
 admin.site.register(PayPalLog, PayPalLogAdmin)
