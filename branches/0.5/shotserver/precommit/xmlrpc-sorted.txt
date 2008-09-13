@@ -27,7 +27,6 @@
         for part in module_name.split('.')[1:]:
         hardware = hardware)
         if package != 'shotserver05':
-        job=job, hashkey=hashkey, factory=factory)
         module_name = full_app_name + '.xmlrpc'
         operating_system = operating_system,
         operating_system=operating_system, hardware=hardware)
@@ -89,7 +88,7 @@
     The job dict will contain the following keys:
     The result dict will contain the following entries:
     Update factory information.
-    attempt = Attempt.objects.create(
+    attempt = Attempt.objects.create(job=job, factory=factory)
     browser = browser_for_job(job, factory)
     concatenate the string values of all the other arguments and the
     else:
@@ -172,12 +171,14 @@ def testAuth(request, user, dummy_number, dummy_text):
 def updateFactory(request, user, factory_name, operating_system, hardware):
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from factories.utils import requests_for_factory
-from jobs.utils import browser_for_job
 from shotserver05.factories.models import Factory
 from shotserver05.factories.utils import last_poll_timeout
+from shotserver05.factories.utils import requests_for_factory
+from shotserver05.jobs.utils import browser_for_job
 from shotserver05.platforms.models import OperatingSystem
+from shotserver05.screenshots.models import Attempt
 from shotserver05.system.utils import signature
+from shotserver05.xmlrpc.utils import factory_auth
 from shotserver05.xmlrpc.utils import import_method
 from shotserver05.xmlrpc.utils import user_auth
 from shotserver05.xmlrpc.utils import user_auth, factory_auth
