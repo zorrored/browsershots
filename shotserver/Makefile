@@ -57,6 +57,9 @@ pylint :
 	| grep -v "Meta] Missing docstring" \
 	| grep -v "Meta] Class has no __init__ method" \
 	| grep -v "Meta] Too few public methods" \
+	| grep -vi "Wildcard import" \
+	| grep -v "has no 'objects' member" \
+	| grep -v "Unused argument 'request'" \
 	| grep -v /tests.py:
 
 jquery :

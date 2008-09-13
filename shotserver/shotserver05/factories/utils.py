@@ -25,6 +25,7 @@ __author__ = "$Author$"
 import random
 import base64
 from datetime import datetime, timedelta
+from django.db.models import Q
 
 SECRET_KEY_DEFAULT_LENGTH = 512
 
