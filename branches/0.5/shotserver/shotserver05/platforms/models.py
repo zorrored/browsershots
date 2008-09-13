@@ -41,4 +41,9 @@ class OperatingSystem(models.Model):
     platform = models.ForeignKey(Platform)
 
     def __unicode__(self):
-        return self.name
+        parts = [self.name]
+        if self.version:
+            parts.append(self.version)
+        if self.codename:
+            parts.append('(%s)' % self.codename)
+        return ' '.join(parts)
