@@ -21,6 +21,7 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import xmlrpclib
 from django.conf import settings
 from django.test import TestCase
 from django.test.client import Client
@@ -87,6 +88,7 @@ class XMLRPCTestCase(TestCase):
 
     def setUp(self):
         self.server = TestServerProxy(self.client)
+        self.testfactory = Factory.objects.get(name='testfactory')
 
     def testAuth(self):
         self.assertEqual(
@@ -131,3 +133,29 @@ class XMLRPCTestCase(TestCase):
         self.assertEqual(details['last_poll'], '')
         self.assertEqual(details['last_upload'], '')
         self.assertEqual(details['last_error'], '')
+
+    def testAddScreenSize(self):
+        self.assertEqual(signature('factories.addScreenSize'),
+            ['string', 'string', 'string', 'int', 'int', 'string', 'string'])
+        args = ['testclient', 'testfactory', 1024, 768]
+        authenticate('factories.addScreenSize', args, TESTCLIENT_PASSWORD)
+        self.assertEqual(self.testfactory.screensize_set.count(), 1)
+        self.assertEqual(self.server.factories.addScreenSize(*args), 'OK')
+        self.assertEqual(self.testfactory.screensize_set.count(), 2)
+        # Adding the same screen size again should fail.
+        self.assertRaises(xmlrpclib.Fault,
+                          self.server.factories.addScreenSize, *args)
+        self.assertEqual(self.testfactory.screensize_set.count(), 2)
+
+    def testAddColorDepth(self):
+        self.assertEqual(signature('factories.addColorDepth'),
+            ['string', 'string', 'string', 'int', 'string', 'string'])
+        args = ['testclient', 'testfactory', 16]
+        authenticate('factories.addColorDepth', args, TESTCLIENT_PASSWORD)
+        self.assertEqual(self.testfactory.colordepth_set.count(), 1)
+        self.assertEqual(self.server.factories.addColorDepth(*args), 'OK')
+        self.assertEqual(self.testfactory.colordepth_set.count(), 2)
+        # Adding the same color depth again should fail.
+        self.assertRaises(xmlrpclib.Fault,
+                          self.server.factories.addColorDepth, *args)
+        self.assertEqual(self.testfactory.colordepth_set.count(), 2)
