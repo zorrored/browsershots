@@ -30,7 +30,8 @@ from shotserver05.jobs.models import JobGroup, Job
 
 
 class JobTestCase(TestCase):
-    fixtures = ['test_browsers', 'test_websites']
+    fixtures = ['authtestdata', 'test_factories', 'test_browsers',
+                'test_websites']
 
     def setUp(self):
         transaction.rollback()

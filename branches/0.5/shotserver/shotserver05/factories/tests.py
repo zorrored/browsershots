@@ -26,7 +26,7 @@ from django.conf import settings
 from django.test import TestCase
 from django.test.client import Client
 from django import db
-from django.db import IntegrityError
+from django.db import IntegrityError, transaction
 from django.contrib.auth.models import User
 from django.utils.functional import update_wrapper
 from shotserver05.platforms.models import OperatingSystem
@@ -95,6 +95,7 @@ class ScreenSizeTestCase(TestCase):
         self.assertRaises(IntegrityError,
             ScreenSize.objects.create, factory=self.testfactory,
             width=existing.width, height=existing.height)
+        transaction.rollback()
 
 
 class ColorDepthTestCase(TestCase):
@@ -108,6 +109,7 @@ class ColorDepthTestCase(TestCase):
         self.assertRaises(IntegrityError,
             ColorDepth.objects.create, factory=self.testfactory,
             bits_per_pixel=existing.bits_per_pixel)
+        transaction.rollback()
 
 
 class XMLRPCTestCase(TestCase):
@@ -172,6 +174,7 @@ class XMLRPCTestCase(TestCase):
         # Adding the same screen size again should fail.
         self.assertRaises(xmlrpclib.Fault,
                           self.server.factories.addScreenSize, *args)
+        transaction.rollback()
         self.assertEqual(self.testfactory.screensize_set.count(), 2)
 
     def testAddColorDepth(self):
@@ -185,4 +188,5 @@ class XMLRPCTestCase(TestCase):
         # Adding the same color depth again should fail.
         self.assertRaises(xmlrpclib.Fault,
                           self.server.factories.addColorDepth, *args)
+        transaction.rollback()
         self.assertEqual(self.testfactory.colordepth_set.count(), 2)
