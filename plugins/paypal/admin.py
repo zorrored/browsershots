@@ -27,7 +27,7 @@ from shotserver04.paypal.models import PayPalEmail,PayPalLog
 
 
 class PayPalEmailAdmin(admin.ModelAdmin):
-    list_display = ('user', 'email')
+    list_display = ('user', 'email', 'user_email')
     raw_id_fields = ('user', )
 
 
