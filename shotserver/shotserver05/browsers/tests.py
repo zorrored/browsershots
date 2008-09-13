@@ -33,7 +33,6 @@ from shotserver05.browsers.models import BrowserName, Engine, Browser
 class BrowserNameTestCase(TestCase):
 
     def setUp(self):
-        transaction.rollback()
         self.firefox = BrowserName.objects.get(name='Firefox')
 
     def testAttributes(self):
@@ -48,7 +47,6 @@ class BrowserNameTestCase(TestCase):
 class EngineTestCase(TestCase):
 
     def setUp(self):
-        transaction.rollback()
         self.gecko = Engine.objects.get(name='Gecko')
 
     def testAttributes(self):
@@ -64,7 +62,6 @@ class BrowserTestCase(TestCase):
     fixtures = ['authtestdata', 'test_factories', 'test_browsers']
 
     def setUp(self):
-        transaction.rollback()
         self.firefox30 = Browser.objects.get(
             factory=Factory.objects.get(name='testfactory'),
             name=BrowserName.objects.get(name='Firefox'),
