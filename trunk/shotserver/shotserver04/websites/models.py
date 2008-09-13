@@ -25,7 +25,6 @@ __author__ = "$Author$"
 import cgi
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.core import validators
 from shotserver04.common import granular_update
 
 
