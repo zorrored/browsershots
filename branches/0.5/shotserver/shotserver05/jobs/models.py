@@ -30,6 +30,9 @@ from shotserver05.browsers.models import BrowserName
 
 
 class JobGroup(models.Model):
+    """
+    Common information about jobs that were submitted together.
+    """
     hashkey = models.SlugField(max_length=32, unique=True)
     website = models.ForeignKey(Website)
     user = models.ForeignKey(User, blank=True, null=True)
@@ -45,6 +48,9 @@ class JobGroup(models.Model):
 
 
 class Job(models.Model):
+    """
+    Screenshot request for a specific browser.
+    """
     group = models.ForeignKey(JobGroup)
     platform = models.ForeignKey(Platform)
     browser_name = models.ForeignKey(BrowserName)
