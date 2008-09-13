@@ -34,7 +34,7 @@ from shotserver05.xmlrpc.tests import TestServerProxy, authenticate
 from shotserver05.users.tests import TESTCLIENT_PASSWORD
 from shotserver05.system.utils import signature
 
-FACTORY1_SECRET = ''.join("""
+TESTFACTORY_SECRET = ''.join("""
 xEcYUVx+3H4tFABMleVTm6DFd9NW1Z7cDJWQNnMWEP19jPrj0EMi8ux8Kp1uutiv
 4Xf/UOLeOvpW3A5vX/0+aZT4B+ktsT+6j/50MjceG5bQY4pmVf1cg4JKqgl4FdOY
 wd4d6DReY8uCXa8WUexiIuQvGdGHqk2wsBypVlnfZTZMHzHG4ivdufRXzgTE6+Ar
@@ -64,16 +64,16 @@ class FactoryTestCase(TestCase):
     fixtures = ['authtestdata', 'test_factories']
 
     def setUp(self):
-        self.factory1 = Factory.objects.get(name='factory1')
+        self.testfactory = Factory.objects.get(name='testfactory')
 
     def testAttributes(self):
-        self.assertEqual(self.factory1.get_absolute_url(),
-                         '/factories/factory1/')
-        self.assertEqual(len(self.factory1.secret_key), 512)
+        self.assertEqual(self.testfactory.get_absolute_url(),
+                         '/factories/testfactory/')
+        self.assertEqual(len(self.testfactory.secret_key), 512)
 
     def testRelated(self):
-        self.assertEqual(self.factory1.screensize_set.count(), 1)
-        self.assertEqual(self.factory1.colordepth_set.count(), 1)
+        self.assertEqual(self.testfactory.screensize_set.count(), 1)
+        self.assertEqual(self.testfactory.colordepth_set.count(), 1)
 
     def testCreate(self):
         self.factory2 = Factory.objects.create(
@@ -92,8 +92,8 @@ class XMLRPCTestCase(TestCase):
         self.assertEqual(
             signature('factories.testAuth'),
             ['string', 'string', 'int', 'string', 'string', 'string'])
-        args = ['factory1', 123, 'hello']
-        authenticate('factories.testAuth', args, FACTORY1_SECRET)
+        args = ['testfactory', 123, 'hello']
+        authenticate('factories.testAuth', args, TESTFACTORY_SECRET)
         self.assertEquals(self.server.factories.testAuth(*args), 'OK')
 
     def testCreateFactory(self):
@@ -106,7 +106,7 @@ class XMLRPCTestCase(TestCase):
     @debug
     def testUpdateFactory(self):
         self.assertEqual(signature('factories.updateFactory'), ['string'] * 7)
-        args = ['testclient', 'factory1', 'panther', 'iBook G4']
+        args = ['testclient', 'testfactory', 'panther', 'iBook G4']
         authenticate('factories.updateFactory', args, TESTCLIENT_PASSWORD)
         self.assertEqual(self.server.factories.updateFactory(*args), 'OK')
         sql = db.connection.queries[-1]['sql']
@@ -124,8 +124,8 @@ class XMLRPCTestCase(TestCase):
     def testFactoryDetails(self):
         self.assertEqual(signature('factories.factoryDetails'),
                          ['dict', 'string'])
-        details = self.server.factories.factoryDetails('factory1')
-        self.assertEqual(details['name'], 'factory1')
+        details = self.server.factories.factoryDetails('testfactory')
+        self.assertEqual(details['name'], 'testfactory')
         self.assertEqual(details['operating_system'], 'leopard')
         self.assertEqual(details['hardware'], 'MacBook')
         self.assertEqual(details['last_poll'], '')

@@ -66,7 +66,7 @@ class BrowserTestCase(TestCase):
     def setUp(self):
         transaction.rollback()
         self.firefox30 = Browser.objects.get(
-            factory=Factory.objects.get(name='factory1'),
+            factory=Factory.objects.get(name='testfactory'),
             name=BrowserName.objects.get(name='Firefox'),
             major=3, minor=0)
 
