@@ -26,10 +26,11 @@ from django.conf import settings
 from django.test import TestCase
 from django.test.client import Client
 from django import db
+from django.db import IntegrityError
 from django.contrib.auth.models import User
 from django.utils.functional import update_wrapper
 from shotserver05.platforms.models import OperatingSystem
-from shotserver05.factories.models import Factory
+from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver05.factories import xmlrpc as factories
 from shotserver05.xmlrpc.tests import TestServerProxy, authenticate
 from shotserver05.users.tests import TESTCLIENT_PASSWORD
@@ -81,6 +82,32 @@ class FactoryTestCase(TestCase):
             name='factory2',
             user=User.objects.get(username='testclient'),
             operating_system=OperatingSystem.objects.get(slug='leopard'))
+
+
+class ScreenSizeTestCase(TestCase):
+    fixtures = ['authtestdata', 'test_factories']
+
+    def setUp(self):
+        self.testfactory = Factory.objects.get(name='testfactory')
+
+    def testDuplicate(self):
+        existing = self.testfactory.screensize_set.all()[0]
+        self.assertRaises(IntegrityError,
+            ScreenSize.objects.create, factory=self.testfactory,
+            width=existing.width, height=existing.height)
+
+
+class ColorDepthTestCase(TestCase):
+    fixtures = ['authtestdata', 'test_factories']
+
+    def setUp(self):
+        self.testfactory = Factory.objects.get(name='testfactory')
+
+    def testDuplicate(self):
+        existing = self.testfactory.colordepth_set.all()[0]
+        self.assertRaises(IntegrityError,
+            ColorDepth.objects.create, factory=self.testfactory,
+            bits_per_pixel=existing.bits_per_pixel)
 
 
 class XMLRPCTestCase(TestCase):
