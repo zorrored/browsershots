@@ -4,7 +4,7 @@
         "model": "factories.factory", 
         "fields": {
             "operating_system": 6, 
-            "name": "factory1", 
+            "name": "testfactory", 
             "hardware": "MacBook", 
             "user": 1, 
             "last_poll": null, 
