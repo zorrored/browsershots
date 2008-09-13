@@ -71,6 +71,7 @@ class ScreenSize(models.Model):
 
     class Meta:
         ordering = ('width', 'height')
+        unique_together = ('factory', 'width', 'height')
 
     def __unicode__(self):
         return '%dx%d' % (self.width, self.height)
@@ -85,6 +86,7 @@ class ColorDepth(models.Model):
 
     class Meta:
         ordering = ('bits_per_pixel', )
+        unique_together = ('factory', 'bits_per_pixel')
 
     def __unicode__(self):
         return str(self.bits_per_pixel)

@@ -25,7 +25,7 @@ __author__ = "$Author$"
 import xmlrpclib
 from django.shortcuts import get_object_or_404
 from shotserver05.xmlrpc.utils import user_auth, factory_auth
-from shotserver05.factories.models import Factory
+from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.utils import last_poll_timeout
 
@@ -59,7 +59,7 @@ def createFactory(request, user, factory_name, operating_system, hardware):
 @user_auth
 def updateFactory(request, user, factory_name, operating_system, hardware):
     """
-    Update factory information.
+    Update screenshot factory information.
 
     Arguments:
     ~~~~~~~~~~
@@ -80,6 +80,43 @@ def updateFactory(request, user, factory_name, operating_system, hardware):
     factory.update_fields(
         operating_system = operating_system,
         hardware = hardware)
+    return 'OK'
+
+
+@user_auth
+def addScreenSize(request, user, factory_name, width, height):
+    """
+    Add a supported screen resolution to a screenshot factory.
+
+    Arguments:
+    ~~~~~~~~~~
+    * username string (e.g. joe)
+    * factory_name string (lowercase)
+    * width int (horizontal screen resolution in pixels)
+    * height int (vertical screen resolution in pixels)
+    """
+    factory = get_object_or_404(Factory, name=factory_name)
+    if factory.user != user:
+        raise xmlrpclib.Fault(401, "Unauthorized.")
+    ScreenSize.objects.create(factory=factory, width=width, height=height)
+    return 'OK'
+
+
+@user_auth
+def addColorDepth(request, user, factory_name, bits_per_pixel):
+    """
+    Add a supported screen resolution to a screenshot factory.
+
+    Arguments:
+    ~~~~~~~~~~
+    * username string (e.g. joe)
+    * factory_name string (lowercase)
+    * bpp int (bits per pixel)
+    """
+    factory = get_object_or_404(Factory, name=factory_name)
+    if factory.user != user:
+        raise xmlrpclib.Fault(401, "Unauthorized.")
+    ColorDepth.objects.create(factory=factory, bits_per_pixel=bits_per_pixel)
     return 'OK'
 
 
