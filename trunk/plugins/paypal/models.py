@@ -43,6 +43,9 @@ class PayPalEmail(models.Model):
     def __unicode__(self):
         return self.email
 
+    def user_email(self):
+        return self.user.email
+
 
 class PayPalLog(models.Model):
     """
