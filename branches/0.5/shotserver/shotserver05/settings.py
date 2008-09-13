@@ -18,6 +18,8 @@
 Settings for Browsershots server installation.
 """
 
+import os
+
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
@@ -31,9 +33,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+SETTINGS_DIR = os.path.dirname(__file__) # Same directory as settings.py
+
 DATABASE_ENGINE = 'sqlite3'    # 'postgresql_psycopg2', 'postgresql', 'mysql',
                                # 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'shotserver05' # Or path to database file if using sqlite3.
+if DATABASE_ENGINE == 'sqlite3':
+    DATABASE_NAME = os.path.join(SETTINGS_DIR, 'shotserver05.sqlite')
+else:
+    DATABASE_NAME = 'shotserver05'
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost.
