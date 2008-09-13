@@ -44,12 +44,10 @@ def read_password(filename):
     pattern = re.compile(r'(\S+)="(\S+)"')
     for line in file(filename):
         attributes = dict(pattern.findall(line))
-        pprint(attributes)
         if 'name' in attributes and 'value' in attributes:
             name = attributes['name']
             value = attributes['value']
             fields[name] = value
-    pprint(fields)
     return fields['username'], fields['password']
 
 
@@ -89,7 +87,7 @@ def _main():
         result = func(*args)
     except xmlrpclib.Fault, fault:
         print fault.faultCode, fault.faultString
-        sys.exit(fault.faultCode)
+        sys.exit(1)
     if isinstance(result, basestring):
         print result.rstrip()
     else:
