@@ -50,7 +50,7 @@ class XMLRPCTestCase(TestCase):
                          ['list'])
         os_list = self.server.platforms.listOperatingSystems()
         self.assert_('leopard' in os_list)
-        self.assert_('xp' in os_list)
+        self.assert_('winxp' in os_list)
         self.assert_('hardy' in os_list)
 
     def testOperatingSystemDetails(self):
