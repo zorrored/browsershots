@@ -28,83 +28,6 @@
         "model": "platforms.operatingsystem", 
         "fields": {
             "platform": 1, 
-            "codename": "Leopard", 
-            "version": "10.5", 
-            "name": "Mac OS X", 
-            "slug": "leopard"
-        }
-    }, 
-    {
-        "pk": 2, 
-        "model": "platforms.operatingsystem", 
-        "fields": {
-            "platform": 1, 
-            "codename": "Tiger", 
-            "version": "10.4", 
-            "name": "Mac OS X", 
-            "slug": "tiger"
-        }
-    }, 
-    {
-        "pk": 3, 
-        "model": "platforms.operatingsystem", 
-        "fields": {
-            "platform": 1, 
-            "codename": "Panther", 
-            "version": "10.3", 
-            "name": "Mac OS X", 
-            "slug": "panther"
-        }
-    }, 
-    {
-        "pk": 4, 
-        "model": "platforms.operatingsystem", 
-        "fields": {
-            "platform": 2, 
-            "codename": "XP", 
-            "version": "5", 
-            "name": "Windows", 
-            "slug": "xp"
-        }
-    }, 
-    {
-        "pk": 5, 
-        "model": "platforms.operatingsystem", 
-        "fields": {
-            "platform": 2, 
-            "codename": "vista", 
-            "version": "6", 
-            "name": "Windows", 
-            "slug": "vista"
-        }
-    }, 
-    {
-        "pk": 6, 
-        "model": "platforms.operatingsystem", 
-        "fields": {
-            "platform": 3, 
-            "codename": "Gutsy Gibbon", 
-            "version": "7.10", 
-            "name": "Ubuntu", 
-            "slug": "gutsy"
-        }
-    }, 
-    {
-        "pk": 7, 
-        "model": "platforms.operatingsystem", 
-        "fields": {
-            "platform": 3, 
-            "codename": "Hardy Heron", 
-            "version": "8.04 LTS", 
-            "name": "Ubuntu", 
-            "slug": "hardy"
-        }
-    }, 
-    {
-        "pk": 8, 
-        "model": "platforms.operatingsystem", 
-        "fields": {
-            "platform": 1, 
             "codename": "Cheetah", 
             "version": "10.0", 
             "name": "Mac OS X", 
@@ -112,7 +35,7 @@
         }
     }, 
     {
-        "pk": 9, 
+        "pk": 2, 
         "model": "platforms.operatingsystem", 
         "fields": {
             "platform": 1, 
@@ -123,7 +46,7 @@
         }
     }, 
     {
-        "pk": 10, 
+        "pk": 3, 
         "model": "platforms.operatingsystem", 
         "fields": {
             "platform": 1, 
@@ -134,7 +57,40 @@
         }
     }, 
     {
-        "pk": 11, 
+        "pk": 4, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 1, 
+            "codename": "Panther", 
+            "version": "10.3", 
+            "name": "Mac OS X", 
+            "slug": "panther"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 1, 
+            "codename": "Tiger", 
+            "version": "10.4", 
+            "name": "Mac OS X", 
+            "slug": "tiger"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 1, 
+            "codename": "Leopard", 
+            "version": "10.5", 
+            "name": "Mac OS X", 
+            "slug": "leopard"
+        }
+    }, 
+    {
+        "pk": 7, 
         "model": "platforms.operatingsystem", 
         "fields": {
             "platform": 1, 
@@ -142,6 +98,94 @@
             "version": "10.6", 
             "name": "Mac OS X", 
             "slug": "snow-leopard"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 2, 
+            "codename": "NT", 
+            "version": "4.0", 
+            "name": "Windows", 
+            "slug": "winnt"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 2, 
+            "codename": "98", 
+            "version": "4.1", 
+            "name": "Windows", 
+            "slug": "win98"
+        }
+    },
+    {
+        "pk": 10, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 2, 
+            "codename": "ME", 
+            "version": "4.9", 
+            "name": "Windows", 
+            "slug": "winme"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 2, 
+            "codename": "2000", 
+            "version": "5.0", 
+            "name": "Windows", 
+            "slug": "win2000"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 2, 
+            "codename": "XP", 
+            "version": "5.1", 
+            "name": "Windows", 
+            "slug": "winxp"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 2, 
+            "codename": "Vista", 
+            "version": "6.0", 
+            "name": "Windows", 
+            "slug": "vista"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 3, 
+            "codename": "Gutsy Gibbon", 
+            "version": "7.10", 
+            "name": "Ubuntu", 
+            "slug": "gutsy"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "platforms.operatingsystem", 
+        "fields": {
+            "platform": 3, 
+            "codename": "Hardy Heron", 
+            "version": "8.04 LTS", 
+            "name": "Ubuntu", 
+            "slug": "hardy"
         }
     }
 ]
