@@ -25,8 +25,8 @@ __author__ = "$Author$"
 from django.db import models
 from django.contrib.auth.models import User
 from shotserver05.platforms.models import OperatingSystem
-from shotserver05.factories.utils import SECRET_KEY_DEFAULT_LENGTH
-from shotserver05.factories.utils import random_secret_key
+from shotserver05.utils.random_keys import \
+    SECRET_KEY_DEFAULT_LENGTH, random_secret_key
 from shotserver05.utils import granular_update
 
 

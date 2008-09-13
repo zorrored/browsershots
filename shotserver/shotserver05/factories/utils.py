@@ -27,27 +27,12 @@ import base64
 from datetime import datetime, timedelta
 from django.db.models import Q
 
-SECRET_KEY_DEFAULT_LENGTH = 512
-
 
 def last_poll_timeout():
     """
     A screenshot factory is active if it polled after the timeout.
     """
     return datetime.now() - timedelta(minutes=10)
-
-
-def random_secret_key(length=SECRET_KEY_DEFAULT_LENGTH):
-    """
-    Generate a random base64-encoded string.
-    """
-    assert length % 4 == 0
-    random_chars = []
-    for index in range(length / 4 * 3):
-        if index % 23 == 0:
-            random.seed()
-        random_chars.append(chr(random.randint(0, 255)))
-    return base64.b64encode(''.join(random_chars))
 
 
 def jobs_for_factory(factory):

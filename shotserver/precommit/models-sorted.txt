@@ -1,5 +1,6 @@
 
                                   default=random_secret_key)
+                                default=random_hash_key)
             self.browser_name.name, self.major, self.minor)
         """
         Get short browser version.
@@ -23,8 +24,11 @@
         unique_together = ('factory', 'user_agent')
         verbose_name_plural = 'factories'
     """
+    Common information about jobs that were submitted together.
     Daily statistics for each factory.
+    SECRET_KEY_DEFAULT_LENGTH, random_secret_key
     Screenshot factory: a remote machine that makes website screenshots.
+    Screenshot request for a specific browser.
     Specific browser version installed on a screenshot factory.
     Supported browser engine, e.g. Gecko, AppleWebKit, Opera.
     Supported browser name, e.g. Firefox, Safari, Opera.
@@ -53,6 +57,7 @@
     flash = models.CharField(max_length=20, blank=True)
     group = models.ForeignKey(JobGroup)
     hardware = models.CharField(max_length=200)
+    hash_key = models.SlugField(max_length=32, unique=True,
     hashkey = models.SlugField(max_length=32, unique=True)
     height = models.IntegerField()
     java = models.CharField(max_length=20, blank=True)
@@ -123,12 +128,12 @@ __date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:41:49 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 10:00:10 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 10:01:27 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-11 15:07:26 -0700 (Thu, 11 Sep 2008) $"
+__date__ = "$Date: 2008-09-12 17:55:56 -0700 (Fri, 12 Sep 2008) $"
 __revision__ = "$Rev: 3061 $"
 __revision__ = "$Rev: 3068 $"
 __revision__ = "$Rev: 3070 $"
 __revision__ = "$Rev: 3071 $"
-__revision__ = "$Rev: 3078 $"
+__revision__ = "$Rev: 3086 $"
 class Attempt(models.Model):
 class Browser(models.Model):
 class BrowserName(models.Model):
@@ -151,10 +156,10 @@ from django.contrib.auth.models import User
 from django.db import models
 from shotserver05.browsers.models import BrowserName
 from shotserver05.factories.models import Factory
-from shotserver05.factories.utils import SECRET_KEY_DEFAULT_LENGTH
-from shotserver05.factories.utils import random_secret_key
 from shotserver05.jobs.models import Job
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.platforms.models import Platform
 from shotserver05.utils import granular_update
+from shotserver05.utils.random_keys import \
+from shotserver05.utils.random_keys import random_hash_key
 from shotserver05.websites.models import Website

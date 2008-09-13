@@ -22,8 +22,11 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-from factories.utils import requests_for_factory
-from jobs.utils import browser_for_job
+import xmlrpclib
+from shotserver05.xmlrpc.utils import factory_auth
+from shotserver05.factories.utils import requests_for_factory
+from shotserver05.jobs.utils import browser_for_job
+from shotserver05.screenshots.models import Attempt
 
 
 @factory_auth
@@ -50,8 +53,7 @@ def poll(factory):
         raise xmlrpclib.Fault(204, "No matching requests.")
     job = jobs[0]
     browser = browser_for_job(job, factory)
-    attempt = Attempt.objects.create(
-        job=job, hashkey=hashkey, factory=factory)
+    attempt = Attempt.objects.create(job=job, factory=factory)
     return {
         'hashkey': attempt.hashkey,
         'browser': job.group.slug,

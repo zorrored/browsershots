@@ -26,11 +26,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from shotserver05.jobs.models import Job
 from shotserver05.factories.models import Factory
+from shotserver05.utils.random_keys import random_hash_key
 
 
 class Attempt(models.Model):
     job = models.ForeignKey(Job)
-    hashkey = models.SlugField(max_length=32, unique=True)
+    hash_key = models.SlugField(max_length=32, unique=True,
+                                default=random_hash_key)
     factory = models.ForeignKey(Factory)
     started = models.DateTimeField(auto_now_add=True)
 
