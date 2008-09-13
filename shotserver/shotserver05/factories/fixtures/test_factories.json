@@ -3,7 +3,7 @@
         "pk": 1, 
         "model": "factories.factory", 
         "fields": {
-            "operating_system": 1, 
+            "operating_system": 6, 
             "name": "factory1", 
             "hardware": "MacBook", 
             "user": 1, 

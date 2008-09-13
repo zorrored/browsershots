@@ -112,7 +112,7 @@ class XMLRPCTestCase(TestCase):
         sql = db.connection.queries[-1]['sql']
         self.assert_(sql.startswith('UPDATE "factories_factory"'))
         self.assert_('"hardware" = iBook G4' in sql)
-        self.assert_('"operating_system_id" = 3' in sql)
+        self.assert_('"operating_system_id" = 4' in sql)
         self.assert_('"name" = ' not in sql)
         self.assert_('"last_upload" = ' not in sql)
 
