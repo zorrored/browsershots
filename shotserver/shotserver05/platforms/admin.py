@@ -35,7 +35,7 @@ class PlatformAdmin(admin.ModelAdmin):
 class OperatingSystemAdmin(admin.ModelAdmin):
     list_display = ('slug', 'name', 'version', 'codename', 'platform')
     prepopulated_fields = {'slug': ('codename', )}
-    ordering = ('name', 'version')
+    ordering = ('slug', )
 
 
 admin.site.register(Platform, PlatformAdmin)
