@@ -28,4 +28,5 @@ urlpatterns = patterns('shotserver04.status.views',
     (r'^$', 'overview'),
     (r'^usage/$', 'usage'),
     (r'^usage/(?P<usage_interval>\d+[dh])/$', 'usage'),
+    (r'^user/(?P<username>\S+)/$', 'user_report'),
 )
