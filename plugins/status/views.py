@@ -27,11 +27,15 @@ import socket
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.db import connection
+from django.utils.translation import ugettext as _
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from shotserver04.common import error_page
+from shotserver04.common.object_cache import preload_foreign_keys
 from shotserver04.websites.models import Website, Domain
+from shotserver04.requests.models import RequestGroup
 
 
 @login_required
@@ -41,8 +45,9 @@ def overview(http_request):
     """
     # Local time and server uptime.
     local_time = datetime.now()
-    uptime = float(open("/proc/uptime").read().split()[0])
-    started = local_time - timedelta(seconds=uptime)
+    if os.path.exists('/proc/uptime'):
+        uptime = float(open('/proc/uptime').read().split()[0])
+        started = local_time - timedelta(seconds=uptime)
     # Load averages.
     load_averages = '%.2f %.2f %.2f' % os.getloadavg()
     # Free disk space.
@@ -99,3 +104,15 @@ def usage_list(Model, sql, interval):
     for index in range(len(result_list)):
         result_list[index].request_groups_per_day = rows[index][1]
     return result_list
+
+
+@login_required
+def user_report(http_request, username):
+    user = get_object_or_404(User, username=username)
+    if user != http_request.user and not http_request.user.is_staff:
+        return error_page(http_request, _("Access denied"),
+                          _("Only staff members can see this page."))
+    request_groups_list = user.requestgroup_set.order_by('-submitted')[:50]
+    preload_foreign_keys(request_groups_list, website=True)
+    return render_to_response('status/user_report.html', locals(),
+        context_instance=RequestContext(http_request))
