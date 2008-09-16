@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Views for the users app.
+Views for the accounts app.
 """
 
 __revision__ = "$Rev$"
@@ -28,20 +28,27 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth.models import User
-from shotserver05.users.forms import UserCreateForm
+from shotserver05.accounts.forms import CreateUserForm
 
 
-def register(request):
-    form = UserCreateForm(request.POST or None)
-    if not form.is_valid():
-        form_focus = 'first_name'
-        for field in form.fields:
-            if field in form.errors:
-                form_focus = field
-                break
-        return render_to_response('users/register.html', locals(),
-            context_instance=RequestContext(request))
-    return HttpResponse('OK', 'text/plain')
+def create(request):
+    """
+    Register a new user account.
+    """
+    form = CreateUserForm(request.POST or None)
+    if form.is_valid():
+        return HttpResponse('OK', 'text/plain')
+    form_focus = 'first_name'
+    for field in form.fields:
+        if field in form.errors:
+            form_focus = field
+            break
+    form_title = "Register a new user account"
+    form_validate = '/accounts/validate/'
+    form_submit = 'Register'
+    # form_action = '/accounts/validate/username/'
+    return render_to_response('form.html', locals(),
+        context_instance=RequestContext(request))
 
 
 def validate(request, field):
@@ -52,7 +59,7 @@ def validate(request, field):
             # Don't validate username when editing the other fields,
             # because database lookup for taken usernames is expensive.
             data['username'] = ''
-    form = UserCreateForm(data)
+    form = CreateUserForm(data)
     response = {field: ''}
     if field in form.errors:
         response[field] = unicode(form.errors[field][0])
@@ -70,5 +77,5 @@ def auth_html(request, username):
     user = get_object_or_404(User, username=username)
     if request.user != user and username != 'testclient':
         return HttpResponseForbidden('Forbidden', 'text/plain')
-    return render_to_response('users/auth.html', locals(),
+    return render_to_response('accounts/auth.html', locals(),
         context_instance=RequestContext(request))

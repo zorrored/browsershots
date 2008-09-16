@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-URLconf for the users app.
+URLconf for the accounts app.
 """
 
 __revision__ = "$Rev$"
@@ -23,10 +23,12 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.conf.urls.defaults import *
-from shotserver05.users import views
+from django.contrib.auth.views import login
+from shotserver05.accounts import views
 
-urlpatterns = patterns('users/',
-    url(r'^register/$', views.register),
+urlpatterns = patterns('accounts/',
+    url(r'^create/$', views.create),
     url(r'^validate/(?P<field>\S+)/$', views.validate),
     url(r'^auth/(?P<username>\S+).html$', views.auth_html),
+    url(r'^login/$', login, {'template_name': 'accounts/login.html'}),
 )

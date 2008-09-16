@@ -36,7 +36,7 @@ USERNAME_MIN_LENGTH = 2
 PASSWORD_MIN_LENGTH = 6
 
 
-class NewUserForm(forms.Form):
+class CreateUserForm(forms.Form):
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
     username = forms.CharField(max_length=40)

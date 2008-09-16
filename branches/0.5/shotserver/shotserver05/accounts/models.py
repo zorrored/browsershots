@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for the users app.
+Models for the accounts app.
 See django.contrib.auth.models for the User model.
 """
 

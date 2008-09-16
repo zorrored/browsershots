@@ -37,7 +37,7 @@ class XMLRPCTestCase(TestCase):
         methods = self.server.system.listMethods()
         self.assert_('system.listMethods' in methods)
         self.assert_('factories.createFactory' in methods)
-        self.assert_('users.testAuth' in methods)
+        self.assert_('accounts.testAuth' in methods)
 
     def testMethodSignature(self):
         self.assertEqual(
