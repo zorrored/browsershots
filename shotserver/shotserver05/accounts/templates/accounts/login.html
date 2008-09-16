@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<h1>Welcome</h1>
+
+{% for key, error in form.errors.iteritems %}
+{% ifequal key "__all__" %}<p class="error">{{ error.0 }}</p>{% endifequal %}
+{% endfor %}
+
+<form id="id_form" method="post" action="">
+{% for field in form %}
+<p>
+<label for="id_{{ field.name }}">{{ field.label }}:</label>
+{{ field }}
+<span id="error_{{ field.name }}" class="error">{{ field.errors.0 }}</span>
+</p>
+{% endfor %}
+<p>
+<input type="submit" id="id_submit" name="submit" value="Log in" />
+</p>
+</form>
+{% endblock content %}
