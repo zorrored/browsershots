@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Tests for the users app.
+Tests for the accounts app.
 """
 
 __revision__ = "$Rev$"
@@ -37,8 +37,8 @@ class XMLRPCTestCase(TestCase):
 
     def testAuth(self):
         self.assertEqual(
-            signature('users.testAuth'),
+            signature('accounts.testAuth'),
             ['string', 'string', 'int', 'string', 'string', 'string'])
         args = ['testclient', 123, 'hello']
-        authenticate('users.testAuth', args, TESTCLIENT_PASSWORD)
-        self.assertEquals(self.server.users.testAuth(*args), 'OK')
+        authenticate('accounts.testAuth', args, TESTCLIENT_PASSWORD)
+        self.assertEquals(self.server.accounts.testAuth(*args), 'OK')

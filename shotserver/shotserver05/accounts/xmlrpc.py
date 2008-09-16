@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-XML-RPC methods for the users app.
+XML-RPC methods for the accounts app.
 """
 
 __revision__ = "$Rev$"
