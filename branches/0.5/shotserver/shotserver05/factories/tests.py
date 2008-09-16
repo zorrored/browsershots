@@ -34,7 +34,7 @@ from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver05.factories import xmlrpc as factories
 from shotserver05.xmlrpc.tests import TestServerProxy, authenticate
-from shotserver05.users.tests import TESTCLIENT_PASSWORD
+from shotserver05.accounts.tests import TESTCLIENT_PASSWORD
 from shotserver05.system.utils import signature
 
 TESTFACTORY_SECRET = ''.join("""

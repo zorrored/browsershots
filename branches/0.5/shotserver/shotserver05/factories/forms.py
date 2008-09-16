@@ -25,14 +25,63 @@ __author__ = "$Author$"
 from django import forms
 from shotserver05.factories.models import Factory
 
+LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+DIGITS = '0123456789'
+FACTORY_NAME_CHARS = LOWERCASE_LETTERS + DIGITS + '_-'
+RESERVED_FACTORY_NAMES = """
+add auth validate
+""".split()
+
+
+class CreateFactoryForm(forms.ModelForm):
+    """
+    Create a new screenshot factory.
+    """
+    hardware = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
+
+    class Media:
+        js = ("/static/js/jquery.js",
+              "/static/js/jquery.form.js")
+
+    class Meta:
+        model = Factory
+        exclude = ('user', 'secret_key')
+
+    def clean_name(self):
+        name = self.cleaned_data['name'].strip()
+        if len(name) == 0:
+            raise forms.ValidationError("This field is required.")
+        if len(name) < 2:
+            raise forms.ValidationError(
+                "Factory name must be at least 2 characters long.")
+        if name[0] not in LOWERCASE_LETTERS:
+            raise forms.ValidationError(
+                "Factory name must start with a lowercase letter.")
+        for letter in name[0]:
+            if letter not in FACTORY_NAME_CHARS:
+                raise forms.ValidationError(
+"Factory name may contain only lowercase letters, digits, hyphen, underscore.")
+        return name
+
+    def clean_hardware(self):
+        hardware = self.cleaned_data['hardware'].strip()
+        if len(hardware) == 0:
+            raise forms.ValidationError("This field is required.")
+        return hardware
+
 
 class FactoryForm(forms.ModelForm):
     """
     Edit factory details.
     """
-    secret_key = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
     hardware = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
+
+    clean_hardware = CreateFactoryForm.clean_hardware
+
+    class Media:
+        js = ("/static/js/jquery.js",
+              "/static/js/jquery.form.js")
 
     class Meta:
         model = Factory
-        exclude = ('name', 'user')
+        exclude = ('name', 'user', 'secret_key')
