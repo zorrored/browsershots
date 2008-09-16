@@ -15,7 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Forms for the users app.
+Forms for the accounts app.
 """
 
 __revision__ = "$Rev$"
@@ -26,15 +26,17 @@ from django import forms
 from django.contrib.auth.models import User
 
 RESERVED_USERNAMES = """
-admin administrator root webmaster postmaster test testuser testclient staff
+admin administrator root webmaster www-data
+postmaster test testuser testclient staff auth add register
 """.split()
-USERNAME_CHARS_FIRST = 'abcdefghijklmnopqrstuvwxyz'
-USERNAME_CHARS = USERNAME_CHARS_FIRST + '0123456789_.-'
+LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'
+DIGITS = '0123456789'
+USERNAME_CHARS = LOWERCASE_LETTERS + DIGITS + '_-'
 USERNAME_MIN_LENGTH = 2
 PASSWORD_MIN_LENGTH = 6
 
 
-class UserCreateForm(forms.Form):
+class NewUserForm(forms.Form):
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
     username = forms.CharField(max_length=40)
@@ -50,30 +52,22 @@ class UserCreateForm(forms.Form):
         """
         Check that the first name starts with an uppercase letter.
         """
-        first_name = self.cleaned_data['first_name']
+        first_name = self.cleaned_data['first_name'].strip()
         if not first_name:
             return ''
-        if not first_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-            raise forms.ValidationError(
-                "Name should start with a capital letter.")
-        if len(first_name) > 4 and first_name.upper() == first_name:
-            raise forms.ValidationError(
-                "Name should not be all uppercase.")
+        if first_name[0].upper() != first_name[0]:
+            raise forms.ValidationError("Name should start with uppercase.")
         return first_name
 
     def clean_last_name(self):
         """
         Check that the last name starts with an uppercase letter.
         """
-        last_name = self.cleaned_data['last_name']
+        last_name = self.cleaned_data['last_name'].strip()
         if not last_name:
             return ''
-        if not last_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-            raise forms.ValidationError(
-                "Name should start with a capital letter.")
-        if len(last_name) > 4 and last_name.upper() == last_name:
-            raise forms.ValidationError(
-                "Name should not be all uppercase.")
+        if last_name[0].upper() != last_name[0]:
+            raise forms.ValidationError("Name should start with uppercase.")
         return last_name
 
     def clean_username(self):
@@ -85,7 +79,7 @@ class UserCreateForm(forms.Form):
             raise forms.ValidationError(
                 "The username must have at least %d characters." %
                 USERNAME_MIN_LENGTH)
-        if username[0] not in USERNAME_CHARS_FIRST:
+        if username[0] not in LOWERCASE_LETTERS:
             raise forms.ValidationError(
                 "Username must start with a lowercase letter.")
         for index in range(len(username)):
