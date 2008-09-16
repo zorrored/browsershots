@@ -53,6 +53,11 @@ $(document).ready(function() {
 <h1>{{ form_title|capfirst }}</h1>
 
 {{ form_before|safe }}
+
+{% for key, error in form.errors.iteritems %}
+{% ifequal key "__all__" %}<p class="error">{{ error.0 }}</p>{% endifequal %}
+{% endfor %}
+
 <form id="id_form" method="post" action="{{ form_action }}">
 {% for field in form %}
 <p>
@@ -66,5 +71,6 @@ $(document).ready(function() {
 <input type="submit" id="id_submit" name="submit" value="{{ form_submit|capfirst }}" />
 </p>
 </form>
+
 {{ form_after|safe }}
 {% endblock content %}
