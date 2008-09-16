@@ -22,12 +22,15 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+from django.utils import simplejson
 from django.shortcuts import render_to_response
-from django.http import HttpResponseForbidden
+from django.http import \
+    HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 from shotserver05.factories.models import Factory
-from shotserver05.factories.forms import FactoryForm
+from shotserver05.factories.forms import CreateFactoryForm, FactoryForm
 
 
 def index(request):
@@ -35,7 +38,7 @@ def index(request):
     List active screenshot factories.
     """
     return render_to_response('factories/index.html', locals(),
-                              context_instance=RequestContext(request))
+        context_instance=RequestContext(request))
 
 
 def details(request, name):
@@ -45,7 +48,44 @@ def details(request, name):
     factory = get_object_or_404(Factory, name=name)
     form = FactoryForm(instance=factory)
     return render_to_response('factories/details.html', locals(),
-                              context_instance=RequestContext(request))
+        context_instance=RequestContext(request))
+
+
+@login_required
+def create(request):
+    """
+    Register a new screenshot factory.
+    """
+    form = CreateFactoryForm(request.POST or None)
+    if form.is_valid():
+        factory = form.save(commit=False)
+        factory.user = request.user
+        factory.save()
+        return HttpResponseRedirect('/factories/%s/' % factory.name)
+    form_title = "Register a new screenshot factory"
+    form_focus = 'name'
+    form_submit = "Register"
+    form_validate = '/factories/validate/'
+    return render_to_response('form.html', locals(),
+        context_instance=RequestContext(request))
+
+
+def validate(request, field):
+    """
+    AJAX validator for the factory registration form.
+    """
+    data = None
+    if request.POST:
+        data = dict(request.POST.items())
+        if field != 'name':
+            # Don't validate name when editing the other fields,
+            # because database lookup for taken factory names is expensive.
+            data['name'] = ''
+    form = CreateFactoryForm(data)
+    response = {field: ''}
+    if field in form.errors:
+        response[field] = unicode(form.errors[field][0])
+    return HttpResponse(simplejson.dumps(response), 'application/json')
 
 
 def auth_html(request, name):
@@ -57,3 +97,5 @@ def auth_html(request, name):
         return HttpResponseForbidden('Forbidden', 'text/plain')
     return render_to_response('factories/auth.html', locals(),
         context_instance=RequestContext(request))
+
+
