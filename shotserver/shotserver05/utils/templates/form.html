@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block head_extra %}
+{{ form.media }}
+{% if form_validate %}
+<script type="text/javascript">
+
+function validated(data) {
+  for (var field in data) {
+    $("#error_" + field).text(data[field]);
+  }
+}
+
+function validate(event) {
+  $.post("{{ form_validate }}" + this.name + "/",
+	 $("#id_form").formToArray(),
+	 validated, "json");
+}
+
+{% ifequal form_validate "/accounts/validate/" %}
+function recommend(event) {
+  if ($("#id_username").val()) return;
+  first = $("#id_first_name").val();
+  last = $("#id_last_name").val();
+  username = first + last;
+  username = username.toLowerCase();
+  username = username.replace('Ä', 'ae');
+  username = username.replace('Ö', 'oe');
+  username = username.replace('Ü', 'ue');
+  username = username.replace('ä', 'ae');
+  username = username.replace('ö', 'oe');
+  username = username.replace('ü', 'ue');
+  username = username.replace('ß', 'ss');
+  username = username.replace(/\W/g, '');
+  $("#id_username").val(username);
+}
+{% endifequal %}
+
+$(document).ready(function() {
+  $("#id_{{ form_focus }}").focus();{% ifequal form_validate "/accounts/validate/" %}
+  $("#id_username").focus(recommend);{% endifequal %}
+  $("input").keyup(validate);
+  $("input").change(validate);
+});
+
+</script>
+{% endif %}
+{% endblock head_extra %}
+
+{% block title %}{{ form_title|capfirst }}{% endblock %}
+
+{% block content %}
+<h1>{{ form_title|capfirst }}</h1>
+
+{{ form_before|safe }}
+<form id="id_form" method="post" action="{{ form_action }}">
+{% for field in form %}
+<p>
+<label for="id_{{ field.name }}">{{ field.label }}:</label>
+{{ field }}
+<span id="error_{{ field.name }}" class="error">{{ field.errors.0 }}</span>
+</p>
+{% endfor %}
+<p>
+{{ form_hidden|safe }}
+<input type="submit" id="id_submit" name="submit" value="{{ form_submit|capfirst }}" />
+</p>
+</form>
+{{ form_after|safe }}
+{% endblock content %}
