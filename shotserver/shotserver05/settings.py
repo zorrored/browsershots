@@ -86,9 +86,9 @@ SECRET_KEY = '2gv9iy79(sbi4@i$0v-*w+v)qq)!o@#4v51nxn0o1blaj8ludu'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
     'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
+#   'django.template.loaders.filesystem.load_template_source',
+#   'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -113,9 +113,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'shotserver05.utils',
     'shotserver05.system',
     'shotserver05.xmlrpc',
-    'shotserver05.users',
+    'shotserver05.accounts',
     'shotserver05.platforms',
     'shotserver05.factories',
     'shotserver05.browsers',
