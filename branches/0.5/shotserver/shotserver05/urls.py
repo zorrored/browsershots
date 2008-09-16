@@ -31,7 +31,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^factories/', include('shotserver05.factories.urls')),
-    (r'^users/', include('shotserver05.users.urls')),
+    (r'^accounts/', include('shotserver05.accounts.urls')),
     (r'^xmlrpc/', include('shotserver05.xmlrpc.urls')),
     (r'^admin/(.*)', admin.site.root),
 )
