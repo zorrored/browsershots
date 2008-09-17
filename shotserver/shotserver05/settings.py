@@ -18,11 +18,11 @@
 Settings for Browsershots server installation.
 """
 
-import os
-
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
+
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
