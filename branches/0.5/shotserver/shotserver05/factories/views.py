@@ -64,6 +64,10 @@ def create(request):
         return HttpResponseRedirect('/factories/%s/' % factory.name)
     form_title = "Register a new screenshot factory"
     form_focus = 'name'
+    for field in form.fields:
+        if field in form.errors:
+            form_focus = field
+            break
     form_submit = "Register"
     form_validate = '/factories/validate/'
     return render_to_response('form.html', locals(),
