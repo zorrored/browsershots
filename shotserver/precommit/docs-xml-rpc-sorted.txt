@@ -1,6 +1,7 @@
 
 '2eb594e041eeb418e86ef0289328ed1c'
 '5afba7f48c2df4b85e3cac482df48010'
+* bpp int (bits per pixel)
 * codename string
 * details dict
 * dummy_number int (e.g. 123)
@@ -9,6 +10,7 @@
 * factory_name string (lowercase)
 * factory_name string (lowercase, use hostname if possible)
 * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
+* height int (vertical screen resolution in pixels)
 * help string (method documentation)
 * last_error string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * last_poll string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
@@ -27,6 +29,7 @@
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * username string (e.g. joe)
 * version string
+* width int (horizontal screen resolution in pixels)
 =================
 ============================
 ===================================
@@ -34,11 +37,14 @@
 =======================================
 ========================================
 ================================================
-=============================================================
+================================================================
 =================================================================
+======================================================================
+===========================================================================
 =================================================================================
 >>> md5('123hello2008-08-08T23:56:14Zfactorysecret').hexdigest()
 >>> md5('123hello2008-08-08T23:56:14Zjoesha1$e3$4d07f85').hexdigest()
+Add a supported screen resolution to a screenshot factory.
 Arguments:
 Create a new screenshot factory.
 Each signature is a list of type name strings, first the type of
@@ -53,9 +59,12 @@ Return value:
 Test factory authentication with MD5 hash. To compute the hash,
 Test user authentication with MD5 hash. To compute the hash,
 The result dict will contain the following entries:
-Update factory information.
+Update screenshot factory information.
 XML-RPC interface
+accounts.testAuth(string, int, string, string, string) => string
 concatenate the string values of all the other arguments and the
+factories.addColorDepth(string, string, int, string, string) => string
+factories.addScreenSize(string, string, int, int, string, string) => string
 factories.createFactory(string, string, string, string, string, string) => string
 factories.factoryDetails(string) => dict
 factories.listActiveFactories() => list
@@ -74,6 +83,5 @@ system.listMethods() => list
 system.methodHelp(string) => string
 system.methodSignature(string) => list
 the return value, then the types of the arguments.
-users.testAuth(string, int, string, string, string) => string
 ~~~~~~~~~~
 ~~~~~~~~~~~~~

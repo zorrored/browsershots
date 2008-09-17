@@ -40,6 +40,7 @@
     """
     '2eb594e041eeb418e86ef0289328ed1c'
     '5afba7f48c2df4b85e3cac482df48010'
+    * bpp int (bits per pixel)
     * browser string
     * codename string
     * command string
@@ -51,6 +52,7 @@
     * factory_name string (lowercase, use hostname if possible)
     * hardware string (e.g. MacBook, Intel Core Duo, 2 GHz, 2 GB)
     * hashkey string
+    * height int (vertical screen resolution in pixels)
     * help string (method documentation)
     * job dict (if matching job found)
     * last_error string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
@@ -69,9 +71,12 @@
     * status string (OK)
     * username string (e.g. joe)
     * version string
+    * width int (horizontal screen resolution in pixels)
     >>> md5('123hello2008-08-08T23:56:14Zfactorysecret').hexdigest()
     >>> md5('123hello2008-08-08T23:56:14Zjoesha1$e3$4d07f85').hexdigest()
+    Add a supported screen resolution to a screenshot factory.
     Arguments:
+    ColorDepth.objects.create(factory=factory, bits_per_pixel=bits_per_pixel)
     Create a new screenshot factory.
     Each signature is a list of type name strings, first the type of
     Factory.objects.create(name=factory_name, user=user,
@@ -83,11 +88,12 @@
     List all screenshot factories that are currently active.
     List the possible signatures of the specified method.
     Return value:
+    ScreenSize.objects.create(factory=factory, width=width, height=height)
     Test factory authentication with MD5 hash. To compute the hash,
     Test user authentication with MD5 hash. To compute the hash,
     The job dict will contain the following keys:
     The result dict will contain the following entries:
-    Update factory information.
+    Update screenshot factory information.
     attempt = Attempt.objects.create(job=job, factory=factory)
     browser = browser_for_job(job, factory)
     concatenate the string values of all the other arguments and the
@@ -141,22 +147,24 @@
 ###################### Methods without authentication ########################
 @factory_auth
 @user_auth
+XML-RPC methods for the accounts app.
 XML-RPC methods for the factories app.
 XML-RPC methods for the jobs app.
 XML-RPC methods for the platforms app.
 XML-RPC methods for the system app.
-XML-RPC methods for the users app.
 __author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:20:31 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:31:54 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:41:49 -0700 (Wed, 10 Sep 2008) $"
-__revision__ = "$Rev: 3056 $"
+__date__ = "$Date: 2008-09-12 22:27:14 -0700 (Fri, 12 Sep 2008) $"
+__date__ = "$Date: 2008-09-13 13:42:20 -0700 (Sat, 13 Sep 2008) $"
+__date__ = "$Date: 2008-09-16 14:59:20 -0700 (Tue, 16 Sep 2008) $"
 __revision__ = "$Rev: 3058 $"
-__revision__ = "$Rev: 3061 $"
-__revision__ = "$Rev: 3064 $"
 __revision__ = "$Rev: 3068 $"
+__revision__ = "$Rev: 3087 $"
+__revision__ = "$Rev: 3097 $"
+__revision__ = "$Rev: 3114 $"
+def addColorDepth(request, user, factory_name, bits_per_pixel):
+def addScreenSize(request, user, factory_name, width, height):
 def createFactory(request, user, factory_name, operating_system, hardware):
 def factoryDetails(request, factory_name):
 def listActiveFactories(request):
@@ -171,7 +179,7 @@ def testAuth(request, user, dummy_number, dummy_text):
 def updateFactory(request, user, factory_name, operating_system, hardware):
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from shotserver05.factories.models import Factory
+from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver05.factories.utils import last_poll_timeout
 from shotserver05.factories.utils import requests_for_factory
 from shotserver05.jobs.utils import browser_for_job

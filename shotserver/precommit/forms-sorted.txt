@@ -1,18 +1,20 @@
 
                     "Username may contain only simple letters (a-z0-9_.-).")
-                "Name should not be all uppercase.")
-                "Name should start with a capital letter.")
+                "Factory name must be at least 2 characters long.")
+                "Factory name must start with a lowercase letter.")
                 "The password must have at least %d characters." %
                 "The username must have at least %d characters." %
                 "Username must start with a lowercase letter.")
                 PASSWORD_MIN_LENGTH)
                 USERNAME_MIN_LENGTH)
                 raise forms.ValidationError(
-              "/static/js/jquery.form.js")
+            if letter not in FACTORY_NAME_CHARS:
             if username[index] not in USERNAME_CHARS:
             raise forms.ValidationError(
             raise forms.ValidationError("Enter the same password again.")
+            raise forms.ValidationError("Name should start with uppercase.")
             raise forms.ValidationError("The password is too simple.")
+            raise forms.ValidationError("This field is required.")
             raise forms.ValidationError("This username is already taken.")
             raise forms.ValidationError("This username is reserved.")
             return
@@ -23,41 +25,51 @@
         Check that the password and repeat is the same.
         Check that the password is long enough and not too silly.
         Check that the username is sensible and available.
-        exclude = ('name', 'user')
-        first_name = self.cleaned_data['first_name']
+        exclude = ('name', 'user', 'secret_key')
+        exclude = ('user', 'secret_key')
+        first_name = self.cleaned_data['first_name'].strip()
         for index in range(len(username)):
+        for letter in name[0]:
+        hardware = self.cleaned_data['hardware'].strip()
         if 'password' not in self.cleaned_data:
         if User.objects.filter(username=username).count():
-        if len(first_name) > 4 and first_name.upper() == first_name:
-        if len(last_name) > 4 and last_name.upper() == last_name:
+        if first_name[0].upper() != first_name[0]:
+        if last_name[0].upper() != last_name[0]:
+        if len(hardware) == 0:
+        if len(name) < 2:
+        if len(name) == 0:
         if len(password) < PASSWORD_MIN_LENGTH:
         if len(username) < USERNAME_MIN_LENGTH:
+        if name[0] not in LOWERCASE_LETTERS:
         if not first_name:
-        if not first_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
         if not last_name:
-        if not last_name[0] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
         if password.isdigit() or password == len(password) * password[0]:
         if repeat != password:
         if username in RESERVED_USERNAMES:
-        if username[0] not in USERNAME_CHARS_FIRST:
-        js = ("/static/js/jquery.js",
-        last_name = self.cleaned_data['last_name']
+        if username[0] not in LOWERCASE_LETTERS:
+        last_name = self.cleaned_data['last_name'].strip()
         model = Factory
+        name = self.cleaned_data['name'].strip()
         password = self.cleaned_data['password']
         print 'validating username'
         repeat = self.cleaned_data['repeat']
         return first_name
+        return hardware
         return last_name
+        return name
         return password
         return repeat
         return username
         username = self.cleaned_data['username'].strip()
     """
+    Create a new screenshot factory.
     Edit factory details.
-    class Media:
     class Meta:
+    clean_hardware = CreateFactoryForm.clean_hardware
     def clean_first_name(self):
+    def clean_hardware(self):
     def clean_last_name(self):
+    def clean_name(self):
     def clean_password(self):
     def clean_repeat(self):
     def clean_username(self):
@@ -67,10 +79,10 @@
     last_name = forms.CharField(max_length=40)
     password = forms.CharField(max_length=40, widget=forms.PasswordInput)
     repeat = forms.CharField(max_length=40, widget=forms.PasswordInput)
-    secret_key = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
     username = forms.CharField(max_length=40)
 """
 """.split()
+"Factory name may contain only lowercase letters, digits, hyphen, underscore.")
 #
 # (at your option) any later version.
 # Browsershots is distributed in the hope that it will be useful,
@@ -84,21 +96,25 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
+DIGITS = '0123456789'
+FACTORY_NAME_CHARS = LOWERCASE_LETTERS + DIGITS + '_-'
+Forms for the accounts app.
 Forms for the factories app.
-Forms for the users app.
+LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 PASSWORD_MIN_LENGTH = 6
+RESERVED_FACTORY_NAMES = """
 RESERVED_USERNAMES = """
-USERNAME_CHARS = USERNAME_CHARS_FIRST + '0123456789_.-'
-USERNAME_CHARS_FIRST = 'abcdefghijklmnopqrstuvwxyz'
+USERNAME_CHARS = LOWERCASE_LETTERS + DIGITS + '_-'
 USERNAME_MIN_LENGTH = 2
 __author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:17:54 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-12 13:05:44 -0700 (Fri, 12 Sep 2008) $"
-__revision__ = "$Rev: 3056 $"
-__revision__ = "$Rev: 3085 $"
-admin administrator root webmaster postmaster test testuser testclient staff
+__date__ = "$Date: 2008-09-16 18:54:02 -0700 (Tue, 16 Sep 2008) $"
+__revision__ = "$Rev: 3126 $"
+add auth validate
+admin administrator root webmaster www-data
+class CreateFactoryForm(forms.ModelForm):
+class CreateUserForm(forms.Form):
 class FactoryForm(forms.ModelForm):
-class UserCreateForm(forms.Form):
 from django import forms
 from django.contrib.auth.models import User
 from shotserver05.factories.models import Factory
+postmaster test testuser testclient staff auth add register

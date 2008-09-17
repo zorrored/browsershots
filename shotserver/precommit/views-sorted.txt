@@ -1,21 +1,24 @@
 
-                              context_instance=RequestContext(request))
-                break
-                form_focus = field
+            # Don't validate name when editing the other fields,
             # Don't validate username when editing the other fields,
+            # because database lookup for taken factory names is expensive.
             # because database lookup for taken usernames is expensive.
-            context_instance=RequestContext(request))
+            break
+            data['name'] = ''
             data['username'] = ''
-            if field in form.errors:
+            form_focus = field
             response['repeat'] = unicode(form.errors['repeat'][0])
             xmlrpclib.Fault(400, u"XML parser error: " + str(error)))
             xmlrpclib.Fault(500, u'%s: %s' % (sys.exc_type, sys.exc_value)))
         context_instance=RequestContext(request))
         data = dict(request.POST.items())
-        for field in form.fields:
-        form_focus = 'first_name'
+        factory = form.save(commit=False)
+        factory.save()
+        factory.user = request.user
         if 'repeat' in form.errors:
+        if field != 'name':
         if field != 'username':
+        if field in form.errors:
         is_post_request = len(request.POST)
         method = import_method(method_name)
         params, method_name = xmlrpclib.loads(request.raw_post_data)
@@ -27,18 +30,25 @@
         response[field] = unicode(form.errors[field][0])
         result = method(request, *params)
         return HttpResponse("Please send a POST request for XML-RPC.")
+        return HttpResponse('OK', 'text/plain')
         return HttpResponse(str(error), status=500)
         return HttpResponseForbidden('Forbidden', 'text/plain')
-        return render_to_response('users/register.html', locals(),
+        return HttpResponseRedirect('/factories/%s/' % factory.name)
         return response
         return xmlrpclib.dumps(
         return xmlrpclib.dumps(fault)
         return xmlrpclib.dumps(response, methodresponse=True)
         return xmlrpclib.dumps(xmlrpclib.Fault(404, str(error)))
     """
+    # form_action = '/accounts/validate/username/'
+    AJAX validator for the factory registration form.
     Get HTML file with encrypted user password for XML-RPC authentication.
     Get HTML file with secret key for XML-RPC authentication.
+    HttpResponse, HttpResponseForbidden, HttpResponseRedirect
     List active screenshot factories.
+    Private user profile.
+    Register a new screenshot factory.
+    Register a new user account.
     Show details for a specified factory.
     data = None
     else:
@@ -48,23 +58,35 @@
     except xmlrpclib.Fault, fault:
     except:
     factory = get_object_or_404(Factory, name=name)
+    for field in form.fields:
+    form = CreateFactoryForm(data)
+    form = CreateFactoryForm(request.POST or None)
+    form = CreateUserForm(data)
+    form = CreateUserForm(request.POST or None)
     form = FactoryForm(instance=factory)
-    form = UserCreateForm(data)
-    form = UserCreateForm(request.POST or None)
+    form_focus = 'first_name'
+    form_focus = 'name'
+    form_submit = "Register"
+    form_submit = 'Register'
+    form_title = "Register a new screenshot factory"
+    form_title = "Register a new user account"
+    form_validate = '/accounts/validate/'
+    form_validate = '/factories/validate/'
     if field == 'password':
     if field in form.errors:
+    if form.is_valid():
     if is_post_request:
-    if not form.is_valid():
     if request.POST:
     if request.user != factory.user and factory.user.username != 'testclient':
     if request.user != user and username != 'testclient':
     response = {field: ''}
-    return HttpResponse('OK', 'text/plain')
     return HttpResponse(simplejson.dumps(response), 'application/json')
+    return render_to_response('accounts/auth.html', locals(),
+    return render_to_response('accounts/profile.html', locals(),
     return render_to_response('factories/auth.html', locals(),
     return render_to_response('factories/details.html', locals(),
     return render_to_response('factories/index.html', locals(),
-    return render_to_response('users/auth.html', locals(),
+    return render_to_response('form.html', locals(),
     try:
     user = get_object_or_404(User, username=username)
 """
@@ -81,13 +103,14 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
+@login_required
+Views for the accounts app.
 Views for the browsers app.
 Views for the factories app.
 Views for the jobs app.
 Views for the platforms app.
 Views for the screenshots app.
 Views for the sponsors app.
-Views for the users app.
 Views for the websites app.
 Views for the xmlrpc app.
 __author__ = "$Author: johann $"
@@ -98,7 +121,8 @@ __date__ = "$Date: 2008-09-10 09:28:09 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:31:54 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:34:12 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:35:37 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-12 13:01:14 -0700 (Fri, 12 Sep 2008) $"
+__date__ = "$Date: 2008-09-16 17:56:36 -0700 (Tue, 16 Sep 2008) $"
+__date__ = "$Date: 2008-09-16 18:44:08 -0700 (Tue, 16 Sep 2008) $"
 __revision__ = "$Rev: 3057 $"
 __revision__ = "$Rev: 3058 $"
 __revision__ = "$Rev: 3060 $"
@@ -106,28 +130,31 @@ __revision__ = "$Rev: 3062 $"
 __revision__ = "$Rev: 3064 $"
 __revision__ = "$Rev: 3065 $"
 __revision__ = "$Rev: 3067 $"
-__revision__ = "$Rev: 3083 $"
+__revision__ = "$Rev: 3118 $"
+__revision__ = "$Rev: 3125 $"
 def auth_html(request, name):
 def auth_html(request, username):
+def create(request):
 def details(request, name):
 def dispatch_request(request):
 def index(request):
-def register(request):
+def profile(request):
 def validate(request, field):
 def xmlrpc(request):
 from django import forms
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404
 from django.http import HttpResponse, HttpResponseForbidden
-from django.http import HttpResponseForbidden
+from django.http import \
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
-from shotserver05.factories.forms import FactoryForm
+from shotserver05.accounts.forms import CreateUserForm
+from shotserver05.factories.forms import CreateFactoryForm, FactoryForm
 from shotserver05.factories.models import Factory
-from shotserver05.users.forms import UserCreateForm
 from shotserver05.xmlrpc.utils import import_method
 import sys
 import xmlrpclib

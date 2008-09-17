@@ -1,19 +1,35 @@
 
                                   default=random_secret_key)
                                 default=random_hash_key)
+                "Color depth must not be greater than 32 bits per pixel.")
+                "Color depth must not be smaller than 1 bit per pixel.")
+                "Screen width must not be greater than 1680 pixels.")
+                "Screen width must not be smaller than 240 pixels.")
+            parts.append('(%s)' % self.codename)
+            parts.append(self.version)
+            raise forms.ValidationError(
             self.browser_name.name, self.major, self.minor)
         """
         Get short browser version.
         Get the URL for the factory details page.
+        if bits_per_pixel < 1:
+        if bits_per_pixel > 32:
+        if self.codename:
+        if self.version:
+        if width < 240:
+        if width > 1680:
         ordering = ('bits_per_pixel', )
         ordering = ('date', 'screenshot_count')
         ordering = ('name', )
         ordering = ('width', 'height')
+        parts = [self.name]
+        return ' '.join(parts)
         return '%d.%d' % (self.major, self.minor)
         return '%dx%d' % (self.width, self.height)
         return '%s %s %s.%s' % (self.platform.name,
         return '%s/%s' % (self.name.name, self.version)
         return '/factories/%s/' % self.name
+        return True
         return self.domain
         return self.hashkey
         return self.message
@@ -21,9 +37,12 @@
         return self.url
         return self.website.url
         return str(self.bits_per_pixel)
+        unique_together = ('factory', 'bits_per_pixel')
         unique_together = ('factory', 'user_agent')
+        unique_together = ('factory', 'width', 'height')
         verbose_name_plural = 'factories'
     """
+    @staticmethod
     Common information about jobs that were submitted together.
     Daily statistics for each factory.
     SECRET_KEY_DEFAULT_LENGTH, random_secret_key
@@ -48,6 +67,8 @@
     def __unicode__(self):
     def get_absolute_url(self):
     def get_short_version(self):
+    def validate(bits_per_pixel):
+    def validate(width, height):
     domain = models.CharField(max_length=200)
     domain = models.ForeignKey(Domain)
     engine = models.ForeignKey(Engine)
@@ -112,6 +133,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
+Models for the accounts app.
 Models for the browsers app.
 Models for the factories app.
 Models for the jobs app.
@@ -119,21 +141,26 @@ Models for the platforms app.
 Models for the screenshots app.
 Models for the sponsors app.
 Models for the system app.
-Models for the users app.
 Models for the websites app.
 Models for the xmlrpc app.
 See django.contrib.auth.models for the User model.
 __author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:26:16 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:41:49 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 10:00:10 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 10:01:27 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-12 17:55:56 -0700 (Fri, 12 Sep 2008) $"
-__revision__ = "$Rev: 3061 $"
+__date__ = "$Date: 2008-09-12 22:27:14 -0700 (Fri, 12 Sep 2008) $"
+__date__ = "$Date: 2008-09-13 13:38:18 -0700 (Sat, 13 Sep 2008) $"
+__date__ = "$Date: 2008-09-15 17:36:02 -0700 (Mon, 15 Sep 2008) $"
+__date__ = "$Date: 2008-09-16 14:59:20 -0700 (Tue, 16 Sep 2008) $"
 __revision__ = "$Rev: 3068 $"
 __revision__ = "$Rev: 3070 $"
 __revision__ = "$Rev: 3071 $"
 __revision__ = "$Rev: 3086 $"
+__revision__ = "$Rev: 3087 $"
+__revision__ = "$Rev: 3093 $"
+__revision__ = "$Rev: 3108 $"
+__revision__ = "$Rev: 3114 $"
 class Attempt(models.Model):
 class Browser(models.Model):
 class BrowserName(models.Model):
@@ -152,6 +179,7 @@ class ScreenSize(models.Model):
 class Screenshot(models.Model):
 class Sponsor(models.Model):
 class Website(models.Model):
+from django import forms
 from django.contrib.auth.models import User
 from django.db import models
 from shotserver05.browsers.models import BrowserName
