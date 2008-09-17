@@ -101,5 +101,3 @@ def auth_html(request, name):
         return HttpResponseForbidden('Forbidden', 'text/plain')
     return render_to_response('factories/auth.html', locals(),
         context_instance=RequestContext(request))
-
-

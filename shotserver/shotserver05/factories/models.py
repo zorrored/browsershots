@@ -88,7 +88,6 @@ class ScreenSize(models.Model):
         return True
 
 
-
 class ColorDepth(models.Model):
     """
     Supported display color depths for each factory.
