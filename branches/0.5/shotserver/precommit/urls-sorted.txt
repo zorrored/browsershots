@@ -1,10 +1,22 @@
 
+        {'template_name': 'accounts/login.html'}),
+        {'template_name': 'accounts/logout.html'}),
+        {'template_name': 'accounts/password_change.html'}),
+        {'template_name': 'accounts/password_change_done.html'}),
+        {'template_name': 'accounts/password_reset.html'}),
     url(r'^$', views.index),
     url(r'^$', views.xmlrpc),
     url(r'^(?P<name>\S+)/$', views.details),
     url(r'^auth/(?P<name>\S+).html$', views.auth_html),
     url(r'^auth/(?P<username>\S+).html$', views.auth_html),
-    url(r'^register/$', views.register),
+    url(r'^create/$', views.create),
+    url(r'^login/$', auth.login,
+    url(r'^logout/$', auth.logout,
+    url(r'^password/change/$', auth.password_change,
+    url(r'^password/change/done/$', auth.password_change_done,
+    url(r'^password/reset/$', auth.password_reset,
+    url(r'^password/reset/done/$', auth.password_reset_done,
+    url(r'^profile/$', views.profile),
     url(r'^validate/(?P<field>\S+)/$', views.validate),
 """
 #
@@ -21,18 +33,21 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 )
+URLconf for the accounts app.
 URLconf for the factories app.
-URLconf for the users app.
 URLconf for the xmlrpc app.
 __author__ = "$Author: johann $"
 __date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-12 13:01:14 -0700 (Fri, 12 Sep 2008) $"
+__date__ = "$Date: 2008-09-16 15:01:47 -0700 (Tue, 16 Sep 2008) $"
+__date__ = "$Date: 2008-09-16 18:43:31 -0700 (Tue, 16 Sep 2008) $"
 __revision__ = "$Rev: 3060 $"
-__revision__ = "$Rev: 3083 $"
+__revision__ = "$Rev: 3116 $"
+__revision__ = "$Rev: 3124 $"
 from django.conf.urls.defaults import *
+from shotserver05.accounts import views
 from shotserver05.factories import views
-from shotserver05.users import views
 from shotserver05.xmlrpc import views
+import django.contrib.auth.views as auth
+urlpatterns = patterns('accounts/',
 urlpatterns = patterns('factories/',
-urlpatterns = patterns('users/',
 urlpatterns = patterns('xmlrpc/',

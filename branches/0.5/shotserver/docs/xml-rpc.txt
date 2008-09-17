@@ -2,6 +2,58 @@
 XML-RPC interface
 =================
 
+accounts.testAuth(string, int, string, string, string) => string
+================================================================
+
+Test user authentication with MD5 hash. To compute the hash,
+concatenate the string values of all the other arguments and the
+pre-hashed user password, then get the MD5 hash as 32 lowercase
+hexadecimal characters. If the username is 'joe' and the
+pre-hashed password is 'sha1$e3$4d07f85', you might get the
+following MD5 hash:
+
+>>> md5('123hello2008-08-08T23:56:14Zjoesha1$e3$4d07f85').hexdigest()
+'2eb594e041eeb418e86ef0289328ed1c'
+
+Arguments:
+~~~~~~~~~~
+* username string (e.g. joe)
+* dummy_number int (e.g. 123)
+* dummy_text string (e.g. hello)
+* timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+* md5_hash string (see below for details)
+
+Return value:
+~~~~~~~~~~~~~
+* status string (OK)
+
+factories.addColorDepth(string, string, int, string, string) => string
+======================================================================
+
+Add a supported screen resolution to a screenshot factory.
+
+Arguments:
+~~~~~~~~~~
+* username string (e.g. joe)
+* factory_name string (lowercase)
+* bpp int (bits per pixel)
+* timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+* md5_hash string (see users.testAuth for details)
+
+factories.addScreenSize(string, string, int, int, string, string) => string
+===========================================================================
+
+Add a supported screen resolution to a screenshot factory.
+
+Arguments:
+~~~~~~~~~~
+* username string (e.g. joe)
+* factory_name string (lowercase)
+* width int (horizontal screen resolution in pixels)
+* height int (vertical screen resolution in pixels)
+* timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
+* md5_hash string (see users.testAuth for details)
+
 factories.createFactory(string, string, string, string, string, string) => string
 =================================================================================
 
@@ -78,7 +130,7 @@ Return value:
 factories.updateFactory(string, string, string, string, string, string) => string
 =================================================================================
 
-Update factory information.
+Update screenshot factory information.
 
 Arguments:
 ~~~~~~~~~~
@@ -159,29 +211,4 @@ Return value:
 
 Each signature is a list of type name strings, first the type of
 the return value, then the types of the arguments.
-
-users.testAuth(string, int, string, string, string) => string
-=============================================================
-
-Test user authentication with MD5 hash. To compute the hash,
-concatenate the string values of all the other arguments and the
-pre-hashed user password, then get the MD5 hash as 32 lowercase
-hexadecimal characters. If the username is 'joe' and the
-pre-hashed password is 'sha1$e3$4d07f85', you might get the
-following MD5 hash:
-
->>> md5('123hello2008-08-08T23:56:14Zjoesha1$e3$4d07f85').hexdigest()
-'2eb594e041eeb418e86ef0289328ed1c'
-
-Arguments:
-~~~~~~~~~~
-* username string (e.g. joe)
-* dummy_number int (e.g. 123)
-* dummy_text string (e.g. hello)
-* timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
-* md5_hash string (see below for details)
-
-Return value:
-~~~~~~~~~~~~~
-* status string (OK)
 
