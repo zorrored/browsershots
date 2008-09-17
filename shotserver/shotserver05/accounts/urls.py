@@ -23,12 +23,24 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.conf.urls.defaults import *
-from django.contrib.auth.views import login
+import django.contrib.auth.views as auth
 from shotserver05.accounts import views
 
 urlpatterns = patterns('accounts/',
     url(r'^create/$', views.create),
     url(r'^validate/(?P<field>\S+)/$', views.validate),
     url(r'^auth/(?P<username>\S+).html$', views.auth_html),
-    url(r'^login/$', login, {'template_name': 'accounts/login.html'}),
+    url(r'^profile/$', views.profile),
+    url(r'^login/$', auth.login,
+        {'template_name': 'accounts/login.html'}),
+    url(r'^logout/$', auth.logout,
+        {'template_name': 'accounts/logout.html'}),
+    url(r'^password/change/$', auth.password_change,
+        {'template_name': 'accounts/password_change.html'}),
+    url(r'^password/change/done/$', auth.password_change_done,
+        {'template_name': 'accounts/password_change_done.html'}),
+    url(r'^password/reset/$', auth.password_reset,
+        {'template_name': 'accounts/password_reset.html'}),
+    url(r'^password/reset/done/$', auth.password_reset_done,
+        {'template_name': 'accounts/password_reset.html'}),
 )
