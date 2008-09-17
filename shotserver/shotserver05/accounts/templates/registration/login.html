@@ -1,0 +1,9 @@
+{% extends "form.html" %}
+
+{% block title %}Welcome{% endblock %}
+{% block form_title %}Welcome{% endblock %}
+{% block form_submit %}Log in{% endblock %}
+
+{% block form_hidden %}
+<input type="hidden" name="next" value="{{ next }}" />
+{% endblock%}
