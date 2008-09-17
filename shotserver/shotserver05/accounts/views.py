@@ -27,6 +27,7 @@ from django import forms
 from django.http import HttpResponse, HttpResponseForbidden
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from shotserver05.accounts.forms import CreateUserForm
 
@@ -78,4 +79,13 @@ def auth_html(request, username):
     if request.user != user and username != 'testclient':
         return HttpResponseForbidden('Forbidden', 'text/plain')
     return render_to_response('accounts/auth.html', locals(),
+        context_instance=RequestContext(request))
+
+
+@login_required
+def profile(request):
+    """
+    Private user profile.
+    """
+    return render_to_response('accounts/profile.html', locals(),
         context_instance=RequestContext(request))
