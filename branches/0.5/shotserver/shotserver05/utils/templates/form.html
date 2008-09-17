@@ -50,9 +50,9 @@ $(document).ready(function() {
 {% block title %}{{ form_title|capfirst }}{% endblock %}
 
 {% block content %}
-<h1>{{ form_title|capfirst }}</h1>
+<h1>{% block form_title %}{{ form_title|capfirst }}{% endblock %}</h1>
 
-{{ form_before|safe }}
+{% block form_before %}{{ form_before|safe }}{% endblock %}
 
 {% for key, error in form.errors.iteritems %}
 {% ifequal key "__all__" %}<p class="error">{{ error.0 }}</p>{% endifequal %}
@@ -67,10 +67,10 @@ $(document).ready(function() {
 </p>
 {% endfor %}
 <p>
-{{ form_hidden|safe }}
-<input type="submit" id="id_submit" name="submit" value="{{ form_submit|capfirst }}" />
+{% block form_hidden %}{{ form_hidden|safe }}{% endblock %}
+<input type="submit" id="id_submit" name="submit" value="{% block form_submit %}{% if form_submit %}{{ form_submit|capfirst }}{% else %}Submit{% endif %}{% endblock %}" />
 </p>
 </form>
 
-{{ form_after|safe }}
+{% block form_after %}{{ form_after|safe }}{% endblock %}
 {% endblock content %}
