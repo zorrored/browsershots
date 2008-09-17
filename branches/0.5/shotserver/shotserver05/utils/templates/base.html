@@ -7,6 +7,16 @@
 {% block head_extra %}{% endblock %}
 </head>
 <body>
+<div id="content">
 {% block content%}{% endblock%}
+</div>
+<div id="accounts">
+{% if request.user.is_authenticated %}
+<span id="signedin">{{ _("signed in as")|capfirst }} <a href="/accounts/profile/">{{ request.user.username }}</a></span>
+<span id="logout"><a href="/accounts/logout/">{{ _("logout")|capfirst }}</a></span>
+{% else%}
+<span id="login"><a href="/accounts/login/">{{ _("login")|capfirst }}</a></span>
+{% endif %}
+</div>
 </body>
 </html>
