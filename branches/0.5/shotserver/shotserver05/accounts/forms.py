@@ -44,10 +44,6 @@ class CreateUserForm(forms.Form):
     repeat = forms.CharField(max_length=40, widget=forms.PasswordInput)
     email = forms.EmailField()
 
-    class Media:
-        js = ("/static/js/jquery.js",
-              "/static/js/jquery.form.js")
-
     def clean_first_name(self):
         """
         Check that the first name starts with an uppercase letter.

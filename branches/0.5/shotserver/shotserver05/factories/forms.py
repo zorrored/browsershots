@@ -39,10 +39,6 @@ class CreateFactoryForm(forms.ModelForm):
     """
     hardware = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
 
-    class Media:
-        js = ("/static/js/jquery.js",
-              "/static/js/jquery.form.js")
-
     class Meta:
         model = Factory
         exclude = ('user', 'secret_key')
@@ -77,10 +73,6 @@ class FactoryForm(forms.ModelForm):
     hardware = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
 
     clean_hardware = CreateFactoryForm.clean_hardware
-
-    class Media:
-        js = ("/static/js/jquery.js",
-              "/static/js/jquery.form.js")
 
     class Meta:
         model = Factory

@@ -1,21 +1,22 @@
 {% extends "base.html" %}
 
 {% block head_extra %}
-{{ form.media }}
-{% if form_validate %}
+{% block form_media %}{{ form.media }}{% endblock %}
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/jquery.form.js"></script>
 <script type="text/javascript">
-
+{% if form_validate %}
 function validated(data) {
   for (var field in data) {
     $("#error_" + field).text(data[field]);
   }
 }
-
 function validate(event) {
   $.post("{{ form_validate }}" + this.name + "/",
 	 $("#id_form").formToArray(),
 	 validated, "json");
 }
+{% endif %}
 
 {% ifequal form_validate "/accounts/validate/" %}
 function recommend(event) {
@@ -37,14 +38,12 @@ function recommend(event) {
 {% endifequal %}
 
 $(document).ready(function() {
-  $("#id_{{ form_focus }}").focus();{% ifequal form_validate "/accounts/validate/" %}
-  $("#id_username").focus(recommend);{% endifequal %}
+  $("#id_{% block form_focus %}{{ form_focus }}{% endblock %}").focus();{% ifequal form_validate "/accounts/validate/" %}
+  $("#id_username").focus(recommend);{% endifequal %}{% if form_validate %}
   $("input").keyup(validate);
-  $("input").change(validate);
+  $("input").change(validate);{% endif %}
 });
-
 </script>
-{% endif %}
 {% endblock head_extra %}
 
 {% block title %}{{ form_title|capfirst }}{% endblock %}
