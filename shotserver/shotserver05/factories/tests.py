@@ -137,6 +137,15 @@ class ColorDepthTestCase(TestCase):
         self.assertRaises(ValidationError, ColorDepth.validate, -24)
 
 
+class WebTestCase(TestCase):
+    fixtures = ['authtestdata', 'test_factories']
+
+    def testCreateValidate(self):
+        response = self.client.post('/factories/create/validate/name/',
+                                    {'name': 'testfactory'})
+        self.assertEqual(response.status_code, 200)
+        self.assert_('exists' in response.content.lower())
+
 class XMLRPCTestCase(TestCase):
     fixtures = ['authtestdata', 'test_factories']
 
