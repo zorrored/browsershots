@@ -84,7 +84,6 @@ class CreateUserForm(forms.Form):
                     "Username may contain only simple letters (a-z0-9_.-).")
         if username in RESERVED_USERNAMES:
             raise forms.ValidationError("This username is reserved.")
-        print 'validating username'
         if User.objects.filter(username=username).count():
             raise forms.ValidationError("This username is already taken.")
         return username
@@ -113,3 +112,16 @@ class CreateUserForm(forms.Form):
         if repeat != password:
             raise forms.ValidationError("Enter the same password again.")
         return repeat
+
+    def save(self):
+        """
+        Create a new user with the form data.
+        """
+        user = User.objects.create_user(
+            username=self.cleaned_data['username'],
+            email=self.cleaned_data['email'],
+            password=self.cleaned_data['password'])
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
+        return user
