@@ -1,3 +1,29 @@
 label { position: absolute; }
 input, select { margin: 0 2em 0 12em; }
-.error { color: red; }
+
+p.hint, p.success, p.warning, p.error {
+  padding: 6px 6px 6px 36px;
+  background-repeat: no-repeat;
+  background-position: 4px 4px;
+  border: 1px solid;
+}
+p.hint {
+  border-color: darkblue;
+  background-color: #ddf;
+  background-image: url(hint.png);
+}
+p.success {
+  border-color: darkgreen;
+  background-color: #cfc;
+  background-image: url(success.png);
+}
+p.warning {
+  border-color: yellow;
+  background-color: #ffc;
+  background-image: url(warning.png);
+}
+p.error {
+  border-color: darkred;
+  background-color: #fcc;
+  background-image: url(error.png);
+}
