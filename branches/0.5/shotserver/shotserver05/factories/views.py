@@ -69,7 +69,7 @@ def create(request):
             form_focus = field
             break
     form_submit = "Register"
-    form_validate = '/factories/validate/'
+    form_validate = '/factories/create/validate/'
     return render_to_response('form.html', locals(),
         context_instance=RequestContext(request))
 
