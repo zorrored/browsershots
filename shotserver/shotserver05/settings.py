@@ -28,8 +28,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Your Name', 'admin@example.com'),
 )
+DEFAULT_FROM_EMAIL = ADMINS[0][1]
 
 MANAGERS = ADMINS
 
