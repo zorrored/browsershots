@@ -24,11 +24,13 @@ __author__ = "$Author$"
 
 from django.utils import simplejson
 from django import forms
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import \
+    HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from shotserver05.utils.views import success_page
 from shotserver05.accounts.forms import CreateUserForm
 
 
@@ -38,15 +40,18 @@ def create(request):
     """
     form = CreateUserForm(request.POST or None)
     if form.is_valid():
-        return HttpResponse('OK', 'text/plain')
+        user = form.save()
+        return success_page(request, "Account created",
+            "Your user account was created.",
+            "You can log in with the link in the top right corner.")
     form_focus = 'first_name'
     for field in form.fields:
         if field in form.errors:
             form_focus = field
             break
-    form_title = "Register a new user account"
-    form_validate = '/accounts/validate/'
-    form_submit = 'Register'
+    form_title = "Create a new user account"
+    form_validate = '/accounts/create/validate/'
+    form_submit = 'Create'
     # form_action = '/accounts/validate/username/'
     return render_to_response('form.html', locals(),
         context_instance=RequestContext(request))
