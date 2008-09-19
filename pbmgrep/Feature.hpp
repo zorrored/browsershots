@@ -1,5 +1,5 @@
-#define MAX_WIDTH 1600
-#define COLS32 MAX_WIDTH / 32
+#define MAX_WIDTH 1680
+#define COLS32 (MAX_WIDTH + 31) / 32
 
 
 class Feature
