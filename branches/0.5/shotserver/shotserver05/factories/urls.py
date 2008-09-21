@@ -29,6 +29,5 @@ urlpatterns = patterns('factories/',
     url(r'^$', views.index),
     url(r'^create/$', views.create),
     url(r'^create/validate/(?P<field>\S+)/$', views.validate),
-    url(r'^auth/(?P<name>\S+).html$', views.auth_html),
     url(r'^(?P<name>\S+)/$', views.details),
 )
