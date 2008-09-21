@@ -75,6 +75,7 @@ http://jqueryjs.googlecode.com/files/jquery-1.2.6.min.js
 xmlrpc : xmlrpc-system xmlrpc-factory xmlrpc-screen xmlrpc-browsers
 	@echo Polling the server for a matching job...
 	tools/xmlrpc.py factories.listActiveFactories | grep "\[\]"
+	rm -f testclient.html testfactory.html
 #	tools/xmlrpc.py --auth=testfactory.html jobs.poll testfactory
 #	tools/xmlrpc.py factories.listActiveFactories | grep testfactory
 
@@ -84,18 +85,15 @@ xmlrpc-system :
 	tools/xmlrpc.py system.methodHelp system.methodHelp | grep Arguments
 	tools/xmlrpc.py system.methodSignature system.methodHelp | grep string
 
-xmlrpc-factory :
+xmlrpc-factory : testclient.html
 	@echo Creating screenshot factory...
 	tools/xmlrpc.py platforms.operatingSystemDetails leopard | grep Leo
 	tools/xmlrpc.py factories.factoryDetails testfactory | grep 404
-	rm -f testclient.html testfactory.html
-	wget -q http://127.0.0.1:8000/users/auth/testclient.html
 	tools/xmlrpc.py --auth=testclient.html factories.createFactory \
 	testclient testfactory leopard MacBook
 	tools/xmlrpc.py factories.factoryDetails testfactory | grep leopard
-	wget -q http://127.0.0.1:8000/factories/auth/testfactory.html
 
-xmlrpc-screen :
+xmlrpc-screen : testclient.html
 	@echo Adding screen sizes and color depths...
 	tools/xmlrpc.py --auth=testclient.html factories.addScreenSize \
 	testclient testfactory 800 600
@@ -106,7 +104,14 @@ xmlrpc-screen :
 	tools/xmlrpc.py --auth=testclient.html factories.addColorDepth \
 	testclient testfactory 24
 
-xmlrpc-browsers :
+xmlrpc-browsers : testclient.html
 	@echo Adding browsers...
 #	tools/xmlrpc.py --auth=testclient.html factories.addBrowser \
 #	testclient testfactory "Firefox/2.0.0.1 Gecko/200808"
+
+testclient.html :
+	wget -q http://127.0.0.1:8000/xmlrpc/auth/accounts/testclient.html
+
+testfactory.html :
+	wget -q http://127.0.0.1:8000/xmlrpc/auth/factories/testfactory.html
+
