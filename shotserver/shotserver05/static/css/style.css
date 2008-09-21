@@ -27,3 +27,6 @@ p.error {
   background-color: #fcc;
   background-image: url(error.png);
 }
+span.error {
+  color: red;
+}
