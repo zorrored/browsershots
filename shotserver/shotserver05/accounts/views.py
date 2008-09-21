@@ -24,8 +24,7 @@ __author__ = "$Author$"
 
 from django.utils import simplejson
 from django import forms
-from django.http import \
-    HttpResponse, HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth.decorators import login_required
@@ -74,17 +73,6 @@ def validate(request, field):
         if 'repeat' in form.errors:
             response['repeat'] = unicode(form.errors['repeat'][0])
     return HttpResponse(simplejson.dumps(response), 'application/json')
-
-
-def auth_html(request, username):
-    """
-    Get HTML file with encrypted user password for XML-RPC authentication.
-    """
-    user = get_object_or_404(User, username=username)
-    if request.user != user and username != 'testclient':
-        return HttpResponseForbidden('Forbidden', 'text/plain')
-    return render_to_response('accounts/auth.html', locals(),
-        context_instance=RequestContext(request))
 
 
 @login_required
