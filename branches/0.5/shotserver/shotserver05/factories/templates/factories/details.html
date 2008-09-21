@@ -1,4 +1,15 @@
-{{ name }} : {{ factory.get_absolute_url }}
+{% extends "form.html" %}
 
-{{ form.as_p }}
+{% block title %}Screenshot factory {{ factory.name }}{% endblock %}
+{% block form_title %}Screenshot factory {{ factory.name }}{% endblock %}
 
+{% block form_before %}
+{% endblock %}
+
+{% block form_after %}
+<table>
+{% for browser in factory.browser_set.all %}
+<tr><td>{{ browser }}</td></tr>
+{% endfor %}
+</table>
+{% endblock %}
