@@ -27,4 +27,8 @@ from shotserver05.xmlrpc import views
 
 urlpatterns = patterns('xmlrpc/',
     url(r'^$', views.xmlrpc),
+    url(r'^auth/factories/(?P<factory_name>[^/]+).html$',
+        views.factory_auth_html),
+    url(r'^auth/accounts/(?P<username>[^/]+).html$',
+        views.user_auth_html),
 )

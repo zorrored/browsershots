@@ -24,11 +24,18 @@ __author__ = "$Author$"
 
 import sys
 import xmlrpclib
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.shortcuts import get_object_or_404, render_to_response
+from django.template import RequestContext
+from django.contrib.auth.models import User
+from shotserver05.factories.models import Factory
 from shotserver05.xmlrpc.utils import import_method
 
 
 def dispatch_request(request):
+    """
+    Load the requested module and call XML-RPC method.
+    """
     try:
         params, method_name = xmlrpclib.loads(request.raw_post_data)
     except expat.ExpatError, error:
@@ -49,6 +56,9 @@ def dispatch_request(request):
 
 
 def xmlrpc(request):
+    """
+    XML-RPC endpoint.
+    """
     try:
         is_post_request = len(request.POST)
     except (IOError, SystemError), error:
@@ -60,3 +70,29 @@ def xmlrpc(request):
         return response
     else:
         return HttpResponse("Please send a POST request for XML-RPC.")
+
+
+def user_auth_html(request, username):
+    """
+    Get HTML file with encrypted user password for XML-RPC authentication.
+    """
+    user = get_object_or_404(User, username=username)
+    if request.user != user and username != 'testclient':
+        return HttpResponseForbidden('Forbidden', 'text/plain')
+    username = user.username
+    password = user.password
+    return render_to_response('xmlrpc/auth.html', locals(),
+        context_instance=RequestContext(request))
+
+
+def factory_auth_html(request, factory_name):
+    """
+    Get HTML file with secret key for XML-RPC authentication.
+    """
+    factory = get_object_or_404(Factory, name=factory_name)
+    if request.user != factory.user and factory.user.username != 'testclient':
+        return HttpResponseForbidden('Forbidden', 'text/plain')
+    username = factory.name
+    password = factory.secret_key
+    return render_to_response('xmlrpc/auth.html', locals(),
+        context_instance=RequestContext(request))
