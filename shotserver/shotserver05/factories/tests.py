@@ -146,6 +146,7 @@ class WebTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assert_('exists' in response.content.lower())
 
+
 class XMLRPCTestCase(TestCase):
     fixtures = ['authtestdata', 'test_factories']
 
