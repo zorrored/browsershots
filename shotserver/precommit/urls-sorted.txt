@@ -1,23 +1,32 @@
 
+         'email_template_name': 'accounts/password_reset_email.html'}),
+        auth.password_reset_confirm,
+        views.factory_auth_html),
+        views.user_auth_html),
         {'template_name': 'accounts/login.html'}),
         {'template_name': 'accounts/logout.html'}),
-        {'template_name': 'accounts/password_change.html'}),
         {'template_name': 'accounts/password_change_done.html'}),
-        {'template_name': 'accounts/password_reset.html'}),
+        {'template_name': 'accounts/password_change_form.html'}),
+        {'template_name': 'accounts/password_reset_complete.html'}),
+        {'template_name': 'accounts/password_reset_confirm.html'}),
+        {'template_name': 'accounts/password_reset_done.html'}),
+        {'template_name': 'accounts/password_reset_form.html',
     url(r'^$', views.index),
     url(r'^$', views.xmlrpc),
     url(r'^(?P<name>\S+)/$', views.details),
-    url(r'^auth/(?P<name>\S+).html$', views.auth_html),
-    url(r'^auth/(?P<username>\S+).html$', views.auth_html),
+    url(r'^auth/accounts/(?P<username>[^/]+).html$',
+    url(r'^auth/factories/(?P<factory_name>[^/]+).html$',
     url(r'^create/$', views.create),
+    url(r'^create/validate/(?P<field>\S+)/$', views.validate),
     url(r'^login/$', auth.login,
     url(r'^logout/$', auth.logout,
     url(r'^password/change/$', auth.password_change,
     url(r'^password/change/done/$', auth.password_change_done,
     url(r'^password/reset/$', auth.password_reset,
+    url(r'^password/reset/complete/$', auth.password_reset_complete,
+    url(r'^password/reset/confirm/(?P<uidb36>[^/]+)/(?P<token>[^/]+)/$',
     url(r'^password/reset/done/$', auth.password_reset_done,
     url(r'^profile/$', views.profile),
-    url(r'^validate/(?P<field>\S+)/$', views.validate),
 """
 #
 # (at your option) any later version.
@@ -37,12 +46,12 @@ URLconf for the accounts app.
 URLconf for the factories app.
 URLconf for the xmlrpc app.
 __author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-16 15:01:47 -0700 (Tue, 16 Sep 2008) $"
-__date__ = "$Date: 2008-09-16 18:43:31 -0700 (Tue, 16 Sep 2008) $"
-__revision__ = "$Rev: 3060 $"
-__revision__ = "$Rev: 3116 $"
-__revision__ = "$Rev: 3124 $"
+__date__ = "$Date: 2008-09-21 15:17:40 -0700 (Sun, 21 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 15:20:12 -0700 (Sun, 21 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 15:22:18 -0700 (Sun, 21 Sep 2008) $"
+__revision__ = "$Rev: 3138 $"
+__revision__ = "$Rev: 3140 $"
+__revision__ = "$Rev: 3142 $"
 from django.conf.urls.defaults import *
 from shotserver05.accounts import views
 from shotserver05.factories import views
