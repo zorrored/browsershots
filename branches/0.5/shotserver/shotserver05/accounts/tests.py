@@ -22,11 +22,92 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
+import re
 from django.test import TestCase
+from django.core import mail
 from shotserver05.xmlrpc.tests import TestServerProxy, authenticate
 from shotserver05.system.utils import signature
 
 TESTCLIENT_PASSWORD = 'sha1$6efc0$f93efe9fd7542f25a7be94871ea45aa95de57161'
+
+
+class AccountsTestCase(TestCase):
+    fixtures = ['authtestdata']
+
+    def testLogin(self):
+        response = self.client.get('/accounts/login/')
+        self.assertEqual(response.status_code, 200)
+        self.assert_('id_username' in response.content)
+        self.assert_('id_password' in response.content)
+
+    def testLogout(self):
+        response = self.client.get('/accounts/logout/')
+        self.assertEqual(response.status_code, 200)
+        self.assert_('logged out' in response.content.lower())
+
+    def testCreate(self):
+        response = self.client.post('/accounts/create/',
+            {'first_name': 'Joe', 'last_name': 'Schmoe', 'username': 'joe',
+             'password': 'test123', 'repeat': 'test123',
+             'email': 'joe@example.com'})
+        self.assertEqual(response.status_code, 200)
+        self.assert_('account created' in response.content.lower())
+
+    def testCreateValidate(self):
+        response = self.client.post('/accounts/create/validate/username/',
+            {'username': 'testclient'})
+        self.assertEqual(response.status_code, 200)
+        self.assert_('reserved' in response.content.lower())
+
+    def testPasswordChange(self):
+        response = self.client.get('/accounts/password/change/')
+        self.assertEqual(response.status_code, 302)
+        self.assert_(response['Location'].endswith, '/accounts/login/' +
+                     '?next=/accounts/password/change/')
+        response = self.client.post('/accounts/password/change/',
+                                    {'old_password': 'password',
+                                     'new_password1': 'newpassword',
+                                     'new_password2': 'newpassword'})
+        self.assertEqual(response.status_code, 302)
+        self.assert_(response['Location'].endswith, '/accounts/login/' +
+                     '?next=/accounts/password/change/')
+        # Log in and try again
+        self.client.login(username='testclient', password='password')
+        response = self.client.get('/accounts/password/change/')
+        self.assertEqual(response.status_code, 200)
+        self.assert_('id_old_password' in response.content)
+        response = self.client.post('/accounts/password/change/',
+                                    {'old_password': 'password',
+                                     'new_password1': 'newpassword',
+                                     'new_password2': 'newpassword'})
+        self.assertEqual(response.status_code, 302)
+        self.assert_(response['Location'].endswith,
+                     '/accounts/password/change/done/')
+
+    def testPasswordReset(self):
+        self.assertEquals(len(mail.outbox), 0)
+        response = self.client.get('/accounts/password/reset/')
+        self.assertEqual(response.status_code, 200)
+        self.assert_('id_email' in response.content)
+        response = self.client.post('/accounts/password/reset/',
+                                    {'email': 'staffmember@example.com'})
+        self.assertEqual(response.status_code, 302)
+        self.assert_(response['Location'].endswith,
+                     '/accounts/password/reset/done/')
+        self.assertEquals(len(mail.outbox), 1)
+        body = mail.outbox[0].body
+        match = re.search('/accounts/password/reset/confirm/\S+', body)
+        self.assert_(match is not None)
+        path = match.group()
+        response = self.client.get(path)
+        self.assertEqual(response.status_code, 200)
+        self.assert_('reset' in response.content)
+        response = self.client.post(path,
+                                    {'new_password1': 'newpassword',
+                                     'new_password2': 'newpassword'})
+        self.assertEqual(response.status_code, 302)
+        self.assert_(response['Location'].endswith,
+                     '/accounts/password/reset/complete/')
 
 
 class XMLRPCTestCase(TestCase):
