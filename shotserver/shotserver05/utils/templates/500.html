@@ -1,0 +1,10 @@
+{% extends "result.html" %}
+
+{% block title %}{{ _("server error")|capfirst }}{% endblock %}
+{% block result_title %}{{ _("server error")|capfirst }}{% endblock %}
+{% block result_class %}error{% endblock %}
+{% block result_message %}{{ _("A server error has occurred.") }}{% endblock %}
+
+{% block extra_messages %}
+<p>{{ _("A notification email was sent to the webmaster.") }}</p>
+{% endblock %}

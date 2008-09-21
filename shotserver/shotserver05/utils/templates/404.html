@@ -1,0 +1,10 @@
+{% extends "result.html" %}
+
+{% block title %}{{ _("page not found")|capfirst }}{% endblock %}
+{% block result_title %}{{ _("page not found")|capfirst }}{% endblock %}
+{% block result_class %}error{% endblock %}
+{% block result_message %}{{ _("The requested page was not found.") }}{% endblock %}
+
+{% block extra_messages %}
+<p>{{ _("Please send email if you think this is a bug.") }}</p>
+{% endblock %}
