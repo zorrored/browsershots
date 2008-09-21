@@ -8,8 +8,10 @@
                 PASSWORD_MIN_LENGTH)
                 USERNAME_MIN_LENGTH)
                 raise forms.ValidationError(
+            email=self.cleaned_data['email'],
             if letter not in FACTORY_NAME_CHARS:
             if username[index] not in USERNAME_CHARS:
+            password=self.cleaned_data['password'])
             raise forms.ValidationError(
             raise forms.ValidationError("Enter the same password again.")
             raise forms.ValidationError("Name should start with uppercase.")
@@ -19,12 +21,14 @@
             raise forms.ValidationError("This username is reserved.")
             return
             return ''
+            username=self.cleaned_data['username'],
         """
         Check that the first name starts with an uppercase letter.
         Check that the last name starts with an uppercase letter.
         Check that the password and repeat is the same.
         Check that the password is long enough and not too silly.
         Check that the username is sensible and available.
+        Create a new user with the form data.
         exclude = ('name', 'user', 'secret_key')
         exclude = ('user', 'secret_key')
         first_name = self.cleaned_data['first_name'].strip()
@@ -51,7 +55,6 @@
         model = Factory
         name = self.cleaned_data['name'].strip()
         password = self.cleaned_data['password']
-        print 'validating username'
         repeat = self.cleaned_data['repeat']
         return first_name
         return hardware
@@ -59,7 +62,12 @@
         return name
         return password
         return repeat
+        return user
         return username
+        user = User.objects.create_user(
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
         username = self.cleaned_data['username'].strip()
     """
     Create a new screenshot factory.
@@ -73,6 +81,7 @@
     def clean_password(self):
     def clean_repeat(self):
     def clean_username(self):
+    def save(self):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=40)
     hardware = forms.CharField(widget=forms.TextInput(attrs={'size': '40'}))
@@ -107,14 +116,14 @@ RESERVED_USERNAMES = """
 USERNAME_CHARS = LOWERCASE_LETTERS + DIGITS + '_-'
 USERNAME_MIN_LENGTH = 2
 __author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-16 18:54:02 -0700 (Tue, 16 Sep 2008) $"
-__revision__ = "$Rev: 3126 $"
-add auth validate
+__date__ = "$Date: 2008-09-21 15:23:58 -0700 (Sun, 21 Sep 2008) $"
+__revision__ = "$Rev: 3143 $"
 admin administrator root webmaster www-data
 class CreateFactoryForm(forms.ModelForm):
 class CreateUserForm(forms.Form):
 class FactoryForm(forms.ModelForm):
+create
 from django import forms
 from django.contrib.auth.models import User
 from shotserver05.factories.models import Factory
-postmaster test testuser testclient staff auth add register
+postmaster test testuser testclient staff create

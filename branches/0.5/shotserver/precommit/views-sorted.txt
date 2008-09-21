@@ -1,4 +1,8 @@
 
+                       *extra_messages)
+                *extra_messages):
+            "You can log in with the link in the top right corner.")
+            "Your user account was created.",
             # Don't validate name when editing the other fields,
             # Don't validate username when editing the other fields,
             # because database lookup for taken factory names is expensive.
@@ -30,26 +34,31 @@
         response[field] = unicode(form.errors[field][0])
         result = method(request, *params)
         return HttpResponse("Please send a POST request for XML-RPC.")
-        return HttpResponse('OK', 'text/plain')
         return HttpResponse(str(error), status=500)
         return HttpResponseForbidden('Forbidden', 'text/plain')
         return HttpResponseRedirect('/factories/%s/' % factory.name)
         return response
+        return success_page(request, "Account created",
         return xmlrpclib.dumps(
         return xmlrpclib.dumps(fault)
         return xmlrpclib.dumps(response, methodresponse=True)
         return xmlrpclib.dumps(xmlrpclib.Fault(404, str(error)))
+        user = form.save()
     """
     # form_action = '/accounts/validate/username/'
     AJAX validator for the factory registration form.
     Get HTML file with encrypted user password for XML-RPC authentication.
     Get HTML file with secret key for XML-RPC authentication.
-    HttpResponse, HttpResponseForbidden, HttpResponseRedirect
     List active screenshot factories.
+    Load the requested module and call XML-RPC method.
     Private user profile.
     Register a new screenshot factory.
     Register a new user account.
+    Render error page with title and message.
+    Render result page with title and message.
+    Render success page with title and message.
     Show details for a specified factory.
+    XML-RPC endpoint.
     data = None
     else:
     except (IOError, SystemError), error:
@@ -57,6 +66,7 @@
     except expat.ExpatError, error:
     except xmlrpclib.Fault, fault:
     except:
+    factory = get_object_or_404(Factory, name=factory_name)
     factory = get_object_or_404(Factory, name=name)
     for field in form.fields:
     form = CreateFactoryForm(data)
@@ -67,11 +77,11 @@
     form_focus = 'first_name'
     form_focus = 'name'
     form_submit = "Register"
-    form_submit = 'Register'
+    form_submit = 'Create'
+    form_title = "Create a new user account"
     form_title = "Register a new screenshot factory"
-    form_title = "Register a new user account"
-    form_validate = '/accounts/validate/'
-    form_validate = '/factories/validate/'
+    form_validate = '/accounts/create/validate/'
+    form_validate = '/factories/create/validate/'
     if field == 'password':
     if field in form.errors:
     if form.is_valid():
@@ -79,16 +89,22 @@
     if request.POST:
     if request.user != factory.user and factory.user.username != 'testclient':
     if request.user != user and username != 'testclient':
+    password = factory.secret_key
+    password = user.password
     response = {field: ''}
     return HttpResponse(simplejson.dumps(response), 'application/json')
-    return render_to_response('accounts/auth.html', locals(),
     return render_to_response('accounts/profile.html', locals(),
-    return render_to_response('factories/auth.html', locals(),
     return render_to_response('factories/details.html', locals(),
     return render_to_response('factories/index.html', locals(),
     return render_to_response('form.html', locals(),
+    return render_to_response('result.html', locals(),
+    return render_to_response('xmlrpc/auth.html', locals(),
+    return result_page(request, 'error', result_title, result_message,
+    return result_page(request, 'success', result_title, result_message,
     try:
     user = get_object_or_404(User, username=username)
+    username = factory.name
+    username = user.username
 """
 #
 # (at your option) any later version.
@@ -104,6 +120,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 @login_required
+Useful helper views.
 Views for the accounts app.
 Views for the browsers app.
 Views for the factories app.
@@ -116,37 +133,39 @@ Views for the xmlrpc app.
 __author__ = "$Author: johann $"
 __date__ = "$Date: 2008-09-10 09:18:44 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:20:31 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:28:09 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:31:54 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:34:12 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:35:37 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-16 17:56:36 -0700 (Tue, 16 Sep 2008) $"
-__date__ = "$Date: 2008-09-16 18:44:08 -0700 (Tue, 16 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 15:16:13 -0700 (Sun, 21 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 15:17:40 -0700 (Sun, 21 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 15:20:12 -0700 (Sun, 21 Sep 2008) $"
 __revision__ = "$Rev: 3057 $"
 __revision__ = "$Rev: 3058 $"
-__revision__ = "$Rev: 3060 $"
 __revision__ = "$Rev: 3062 $"
 __revision__ = "$Rev: 3064 $"
 __revision__ = "$Rev: 3065 $"
 __revision__ = "$Rev: 3067 $"
-__revision__ = "$Rev: 3118 $"
-__revision__ = "$Rev: 3125 $"
-def auth_html(request, name):
-def auth_html(request, username):
+__revision__ = "$Rev: 3137 $"
+__revision__ = "$Rev: 3138 $"
+__revision__ = "$Rev: 3140 $"
 def create(request):
 def details(request, name):
 def dispatch_request(request):
+def error_page(request, result_title, result_message, *extra_messages):
+def factory_auth_html(request, factory_name):
 def index(request):
 def profile(request):
+def result_page(request, result_class, result_title, result_message,
+def success_page(request, result_title, result_message, *extra_messages):
+def user_auth_html(request, username):
 def validate(request, field):
 def xmlrpc(request):
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404
-from django.http import HttpResponse, HttpResponseForbidden
-from django.http import \
+from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_object_or_404, render_to_response
 from django.shortcuts import render_to_response
@@ -155,6 +174,7 @@ from django.utils import simplejson
 from shotserver05.accounts.forms import CreateUserForm
 from shotserver05.factories.forms import CreateFactoryForm, FactoryForm
 from shotserver05.factories.models import Factory
+from shotserver05.utils.views import success_page
 from shotserver05.xmlrpc.utils import import_method
 import sys
 import xmlrpclib
