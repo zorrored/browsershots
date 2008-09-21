@@ -29,7 +29,7 @@ LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 DIGITS = '0123456789'
 FACTORY_NAME_CHARS = LOWERCASE_LETTERS + DIGITS + '_-'
 RESERVED_FACTORY_NAMES = """
-add auth validate
+create
 """.split()
 
 

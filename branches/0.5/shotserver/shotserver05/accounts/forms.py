@@ -27,7 +27,7 @@ from django.contrib.auth.models import User
 
 RESERVED_USERNAMES = """
 admin administrator root webmaster www-data
-postmaster test testuser testclient staff auth add register
+postmaster test testuser testclient staff create
 """.split()
 LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz'
 DIGITS = '0123456789'
