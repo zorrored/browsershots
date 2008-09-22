@@ -1,0 +1,403 @@
+
+                                     'new_password1': 'newpassword',
+                                     'new_password2': 'newpassword'})
+                                    {'email': 'staffmember@example.com'})
+                                    {'name': 'testfactory'})
+                                    {'new_password1': 'newpassword',
+                                    {'old_password': 'password',
+                          Browser.objects.create,
+                          BrowserName.objects.create, name='Firefox')
+                          Engine.objects.create, name='Gecko')
+                          engine=self.firefox30.engine,
+                          engine_version=self.firefox30.engine_version,
+                          factory=self.firefox30.factory,
+                          major=3, minor=0,
+                          name=self.firefox30.name,
+                          self.server.factories.addColorDepth, *args)
+                          self.server.factories.addScreenSize, *args)
+                          user_agent=self.firefox30.user_agent)
+                          version='3.0.1',
+                         '/factories/testfactory/')
+                         ['dict', 'string'])
+                         ['list'])
+                         self.firefox30.browser_name)
+                     '/accounts/password/change/done/')
+                     '/accounts/password/reset/complete/')
+                     '/accounts/password/reset/done/')
+                     '?next=/accounts/password/change/')
+                'test_websites']
+             'email': 'joe@example.com'})
+             'password': 'test123', 'repeat': 'test123',
+            '/xmlrpc/', request_body, 'text/xml')
+            ColorDepth.objects.create, factory=self.testfactory,
+            ScreenSize.objects.create, factory=self.testfactory,
+            TestTransport(client))
+            ['string', 'string', 'int', 'string', 'string', 'string'])
+            ['string', 'string', 'string', 'int', 'int', 'string', 'string'])
+            ['string', 'string', 'string', 'int', 'string', 'string'])
+            [['list', 'string']])
+            bits_per_pixel=existing.bits_per_pixel)
+            browser_name=self.firefox, major=2, minor=0)
+            browser_name=self.firefox, major=3, minor=0)
+            browser_name=self.safari, major=3, minor=1)
+            factory=Factory.objects.get(name='testfactory'),
+            group=self.job_group, platform=self.mac,
+            major=3, minor=0)
+            name='factory2',
+            name=BrowserName.objects.get(name='Firefox'),
+            operating_system=OperatingSystem.objects.get(slug='leopard'))
+            return (self.response.status_code, 'OK', [])
+            return (self.response.status_code, self.response.content, [])
+            self, 'http://localhost/xmlrpc/',
+            self.assertEqual(fault.faultCode, 412)
+            self.assertEqual(platform.name.lower(), platform.slug)
+            self.assert_('already exists' in fault.faultString)
+            self.assert_(fault.faultString.startswith('Invalid name'))
+            self.fail("Created the same factory twice.")
+            self.server.factories.createFactory(*args)
+            self.server.system.methodSignature('system.methodSignature'),
+            signature('accounts.testAuth'),
+            signature('factories.testAuth'),
+            user=User.objects.get(username='testclient'),
+            width=existing.width, height=existing.height)
+            {'first_name': 'Joe', 'last_name': 'Schmoe', 'username': 'joe',
+            {'name': 'newfactory', 'operating_system': 1, 'hardware': ''})
+            {'name': 'newfactory', 'operating_system': 1, 'hardware': 'HW'})
+            {'username': 'testclient', 'password': 'password'})
+            {'username': 'testclient'})
+        # Adding the same color depth again should fail.
+        # Adding the same screen size again should fail.
+        # Log in and try again
+        active = self.server.factories.listActiveFactories()
+        args = ['testclient', 'smug', 'leopard', 'MacBook']
+        args = ['testclient', 'testfactory', 'panther', 'iBook G4']
+        args = ['testclient', 'testfactory', 1024, 768]
+        args = ['testclient', 'testfactory', 16]
+        args = ['testclient', 123, 'hello']
+        args = ['testfactory', 123, 'hello']
+        authenticate('accounts.testAuth', args, TESTCLIENT_PASSWORD)
+        authenticate('factories.addColorDepth', args, TESTCLIENT_PASSWORD)
+        authenticate('factories.addScreenSize', args, TESTCLIENT_PASSWORD)
+        authenticate('factories.createFactory', args, TESTCLIENT_PASSWORD)
+        authenticate('factories.testAuth', args, TESTFACTORY_SECRET)
+        authenticate('factories.updateFactory', args, TESTCLIENT_PASSWORD)
+        body = mail.outbox[0].body
+        connection.response = self.client.post(
+        db.reset_queries()
+        details = self.server.factories.factoryDetails('testfactory')
+        details = self.server.platforms.operatingSystemDetails('leopard')
+        else:
+        except xmlrpclib.Fault, fault:
+        existing = self.testfactory.colordepth_set.all()[0]
+        existing = self.testfactory.screensize_set.all()[0]
+        for platform in Platform.objects.all():
+        help = self.server.system.methodHelp('system.methodHelp')
+        if self.response.status_code / 100 == 2:
+        match = re.search('/accounts/password/reset/confirm/\S+', body)
+        methods = self.server.system.listMethods()
+        old_setting = settings.DEBUG
+        os_list = self.server.platforms.listOperatingSystems()
+        pass
+        path = '/accounts/create/'
+        path = '/factories/create/'
+        path = match.group()
+        response = self.client.get('/accounts/login/')
+        response = self.client.get('/accounts/logout/')
+        response = self.client.get('/accounts/password/change/')
+        response = self.client.get('/accounts/password/reset/')
+        response = self.client.get('/accounts/profile/')
+        response = self.client.get(path)
+        response = self.client.post('/accounts/create/validate/username/',
+        response = self.client.post('/accounts/login/',
+        response = self.client.post('/accounts/password/change/',
+        response = self.client.post('/accounts/password/reset/',
+        response = self.client.post('/factories/create/validate/name/',
+        response = self.client.post(path,
+        response = self.client.post(path, {'first_name': 'joe'})
+        response = self.client.post(path, {'last_name': 'schmoe'})
+        response = self.client.post(path, {'name': '123'})
+        response = self.client.post(path, {'name': 'a' * 100})
+        response = self.client.post(path, {'name': 'a'})
+        response = self.client.post(path, {'operating_system': 1000})
+        response = self.client.post(path, {'password': '123'})
+        response = self.client.post(path, {'password': '123456'})
+        response = self.client.post(path, {'username': '123'})
+        response = self.server.factories.createFactory(*args)
+        result = func(*args, **kwargs)
+        return TestConnection(self.client)
+        return TestFile(self.response.content)
+        return result
+        return self.content[self.start:self.index]
+        self.assertEqual(
+        self.assertEqual(details['codename'], 'Leopard')
+        self.assertEqual(details['hardware'], 'MacBook')
+        self.assertEqual(details['last_error'], '')
+        self.assertEqual(details['last_poll'], '')
+        self.assertEqual(details['last_upload'], '')
+        self.assertEqual(details['name'], 'Mac OS X')
+        self.assertEqual(details['name'], 'testfactory')
+        self.assertEqual(details['operating_system'], 'leopard')
+        self.assertEqual(details['platform'], 'Mac')
+        self.assertEqual(details['version'], '10.5')
+        self.assertEqual(len(active), 0)
+        self.assertEqual(len(self.testfactory.secret_key), 512)
+        self.assertEqual(response, 'OK')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(self.firefox.name, 'Firefox')
+        self.assertEqual(self.firefox20.browser_name,
+        self.assertEqual(self.firefox20.browser_name.name, 'Firefox')
+        self.assertEqual(self.firefox20.major, 2)
+        self.assertEqual(self.firefox20.minor, 0)
+        self.assertEqual(self.firefox30.get_short_version(), '3.0')
+        self.assertEqual(self.firefox30.major, 3)
+        self.assertEqual(self.firefox30.minor, 0)
+        self.assertEqual(self.firefox30.version, '3.0.1')
+        self.assertEqual(self.gecko.name, 'Gecko')
+        self.assertEqual(self.safari.browser_name.name, 'Safari')
+        self.assertEqual(self.safari.major, 3)
+        self.assertEqual(self.safari.minor, 1)
+        self.assertEqual(self.server.factories.addColorDepth(*args), 'OK')
+        self.assertEqual(self.server.factories.addScreenSize(*args), 'OK')
+        self.assertEqual(self.server.factories.updateFactory(*args), 'OK')
+        self.assertEqual(self.testfactory.colordepth_set.count(), 1)
+        self.assertEqual(self.testfactory.colordepth_set.count(), 2)
+        self.assertEqual(self.testfactory.get_absolute_url(),
+        self.assertEqual(self.testfactory.screensize_set.count(), 1)
+        self.assertEqual(self.testfactory.screensize_set.count(), 2)
+        self.assertEqual(signature('factories.addColorDepth'),
+        self.assertEqual(signature('factories.addScreenSize'),
+        self.assertEqual(signature('factories.createFactory'), 7 * ['string'])
+        self.assertEqual(signature('factories.factoryDetails'),
+        self.assertEqual(signature('factories.listActiveFactories'), ['list'])
+        self.assertEqual(signature('factories.updateFactory'), ['string'] * 7)
+        self.assertEqual(signature('platforms.listOperatingSystems'),
+        self.assertEqual(signature('platforms.operatingSystemDetails'),
+        self.assertEqual(signature('system.listMethods'), ['list'])
+        self.assertEqual(signature('system.methodHelp'), 2 * ['string'])
+        self.assertEquals(len(mail.outbox), 0)
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(self.server.accounts.testAuth(*args), 'OK')
+        self.assertEquals(self.server.factories.testAuth(*args), 'OK')
+        self.assertRaises(IntegrityError,
+        self.assertRaises(ValidationError, ColorDepth.validate, -1)
+        self.assertRaises(ValidationError, ColorDepth.validate, -24)
+        self.assertRaises(ValidationError, ColorDepth.validate, 0)
+        self.assertRaises(ValidationError, ColorDepth.validate, 33)
+        self.assertRaises(ValidationError, ScreenSize.validate, 1681, 1050)
+        self.assertRaises(ValidationError, ScreenSize.validate, 239, 480)
+        self.assertRaises(xmlrpclib.Fault,
+        self.assert_('"hardware" = iBook G4' in sql)
+        self.assert_('"last_upload" = ' not in sql)
+        self.assert_('"name" = ' not in sql)
+        self.assert_('"operating_system_id" = 4' in sql)
+        self.assert_('/accounts/login/' in response['Location'])
+        self.assert_('\nArguments:\n' in help)
+        self.assert_('\nReturn value:\n' in help)
+        self.assert_('account created' in response.content.lower())
+        self.assert_('accounts.testAuth' in methods)
+        self.assert_('already exists' in response.content)
+        self.assert_('at least 2 characters' in response.content)
+        self.assert_('at least 6 characters' in response.content)
+        self.assert_('at most 20 characters' in response.content)
+        self.assert_('factories.createFactory' in methods)
+        self.assert_('factory name must match' in response.content.lower())
+        self.assert_('field is required' in response.content)
+        self.assert_('hardy' in os_list)
+        self.assert_('id_email' in response.content)
+        self.assert_('id_old_password' in response.content)
+        self.assert_('id_password' in response.content)
+        self.assert_('id_username' in response.content)
+        self.assert_('leopard' in os_list)
+        self.assert_('logged out' in response.content.lower())
+        self.assert_('must start with uppercase' in response.content)
+        self.assert_('not one of the available choices' in response.content)
+        self.assert_('reserved' in response.content.lower())
+        self.assert_('reset' in response.content)
+        self.assert_('system.listMethods' in methods)
+        self.assert_('too simple' in response.content)
+        self.assert_('username must match' in response.content.lower())
+        self.assert_('winxp' in os_list)
+        self.assert_(ColorDepth.validate(1))
+        self.assert_(ColorDepth.validate(15))
+        self.assert_(ColorDepth.validate(16))
+        self.assert_(ColorDepth.validate(24))
+        self.assert_(ColorDepth.validate(32))
+        self.assert_(ColorDepth.validate(4))
+        self.assert_(ColorDepth.validate(8))
+        self.assert_(ScreenSize.validate(1024, 768))
+        self.assert_(ScreenSize.validate(1280, 1024))
+        self.assert_(ScreenSize.validate(1680, 1050))
+        self.assert_(ScreenSize.validate(240, 320))
+        self.assert_(ScreenSize.validate(320, 240))
+        self.assert_(ScreenSize.validate(640, 480))
+        self.assert_(ScreenSize.validate(800, 600))
+        self.assert_(match is not None)
+        self.assert_(response['Location'].endswith('/accounts/profile/'))
+        self.assert_(response['Location'].endswith,
+        self.assert_(response['Location'].endswith, '/accounts/login/' +
+        self.assert_(response['Location'].endswith, '/factories/newfactory/')
+        self.assert_(sql.startswith('UPDATE "factories_factory"'))
+        self.client = client
+        self.client.login(username='testclient', password='password')
+        self.content = content
+        self.factory2 = Factory.objects.create(
+        self.firefox = BrowserName.objects.get(name='Firefox')
+        self.firefox20 = Job.objects.create(
+        self.firefox30 = Browser.objects.get(
+        self.firefox30 = Job.objects.create(
+        self.gecko = Engine.objects.get(name='Gecko')
+        self.index += bytes
+        self.index = 0
+        self.job_group = JobGroup.objects.create(website_id=1)
+        self.mac = Platform.objects.get(name='Mac')
+        self.safari = BrowserName.objects.get(name='Safari')
+        self.safari = Job.objects.create(
+        self.server = TestServerProxy(self.client)
+        self.start = self.index
+        self.testfactory = Factory.objects.get(name='testfactory')
+        settings.DEBUG = True # collect database queries
+        settings.DEBUG = old_setting # restore old setting
+        sql = db.connection.queries[-1]['sql']
+        transaction.rollback()
+        try:
+        xmlrpclib.ServerProxy.__init__(
+    @debug
+    args.append(md5(message).hexdigest())
+    args.append(time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
+    def __init__(self, client):
+    def __init__(self, content):
+    def close(self):
+    def getfile(self):
+    def getreply(self):
+    def make_connection(self, host):
+    def read(self, bytes):
+    def send_content(self, connection, request_body):
+    def send_host(self, connection, host):
+    def send_request(self, connection, handler, request_body):
+    def send_user_agent(self, connection):
+    def setUp(self):
+    def testAddColorDepth(self):
+    def testAddScreenSize(self):
+    def testAttributes(self):
+    def testAuth(self):
+    def testCreate(self):
+    def testCreateFactory(self):
+    def testCreateValidate(self):
+    def testDuplicate(self):
+    def testFactoryDetails(self):
+    def testJob(self):
+    def testListActiveFactories(self):
+    def testListMethods(self):
+    def testListOperatingSystems(self):
+    def testLogin(self):
+    def testLogout(self):
+    def testMethodHelp(self):
+    def testMethodSignature(self):
+    def testOperatingSystemDetails(self):
+    def testPasswordChange(self):
+    def testPasswordReset(self):
+    def testRelated(self):
+    def testSlug(self):
+    def testUpdateFactory(self):
+    def testValidate(self):
+    def testVersion(self):
+    def wrapper(*args, **kwargs):
+    fixtures = ['authtestdata', 'test_factories', 'test_browsers',
+    fixtures = ['authtestdata', 'test_factories', 'test_browsers']
+    fixtures = ['authtestdata', 'test_factories']
+    fixtures = ['authtestdata']
+    from hashlib import md5
+    from md5 import md5 # before Python 2.5
+    message = ' '.join([method_name] + [str(arg) for arg in args] + [secret])
+    return wrapper
+    update_wrapper(wrapper, func)
+"""
+""".split())
+#
+# (at your option) any later version.
+# Browsershots is distributed in the hope that it will be useful,
+# Browsershots is free software: you can redistribute it and/or modify
+# Copyright (C) 2008 Johann C. Rocholl <johann@browsershots.org>
+# GNU General Public License for more details.
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# You should have received a copy of the GNU General Public License
+# along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
+# browsershots.org - Test your web design in different browsers
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+4Xf/UOLeOvpW3A5vX/0+aZT4B+ktsT+6j/50MjceG5bQY4pmVf1cg4JKqgl4FdOY
+5zbQncx+k44N4c+N/VKg2c8cOezIrtXcotKQ7Bxet2/u1ZGIEc2yR45f3iwwRqQ5
+6hmq3MxgKJVm9zCdIIxQh0EmOLQkrmajw2pLM8JMoHxBoxvaQKe6TkxRBnkSIQVF
+CMT326GQKUFzowhEZipydkp4myc7XctfyZ6gBIXUXHaRBd/4hYyF0i3XJX2cDMt9
+TESTCLIENT_PASSWORD = 'sha1$6efc0$f93efe9fd7542f25a7be94871ea45aa95de57161'
+TESTFACTORY_SECRET = ''.join("""
+Tests for browsers app.
+Tests for the accounts app.
+Tests for the jobs app.
+Tests for the platforms app.
+Tests for the systems app.
+Tests for the xmlrpc app.
+VbiQLrIXsvElzbkrETcqxefvtNX23cjTXqWZo7XoL5tk5u6d2pjEn/DM6JGWXtWx
+ZaraPQpTaEZx5T8NGva0DDcFJewJH4jMTer9UqQOf57Ld73+XAz7U3AEm7lsezNQ
+__author__ = "$Author: johann $"
+__date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
+__date__ = "$Date: 2008-09-13 13:39:29 -0700 (Sat, 13 Sep 2008) $"
+__date__ = "$Date: 2008-09-13 15:38:39 -0700 (Sat, 13 Sep 2008) $"
+__date__ = "$Date: 2008-09-16 14:59:20 -0700 (Tue, 16 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 18:11:30 -0700 (Sun, 21 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 22:51:05 -0700 (Sun, 21 Sep 2008) $"
+__revision__ = "$Rev: 3060 $"
+__revision__ = "$Rev: 3094 $"
+__revision__ = "$Rev: 3104 $"
+__revision__ = "$Rev: 3114 $"
+__revision__ = "$Rev: 3156 $"
+__revision__ = "$Rev: 3157 $"
+class AccountsTestCase(TestCase):
+class BrowserNameTestCase(TestCase):
+class BrowserTestCase(TestCase):
+class ColorDepthTestCase(TestCase):
+class EngineTestCase(TestCase):
+class FactoryTestCase(TestCase):
+class JobTestCase(TestCase):
+class PlatformTestCase(TestCase):
+class ScreenSizeTestCase(TestCase):
+class TestConnection:
+class TestFile:
+class TestServerProxy(xmlrpclib.ServerProxy):
+class TestTransport(xmlrpclib.Transport):
+class WebTestCase(TestCase):
+class XMLRPCTestCase(TestCase):
+def authenticate(method_name, args, secret):
+def debug(func):
+except:
+from django import db
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.core import mail
+from django.db import IntegrityError, transaction
+from django.db import transaction
+from django.forms import ValidationError
+from django.test import TestCase
+from django.test.client import Client
+from django.utils.functional import update_wrapper
+from shotserver05.accounts.tests import TESTCLIENT_PASSWORD
+from shotserver05.browsers.models import BrowserName
+from shotserver05.browsers.models import BrowserName, Engine, Browser
+from shotserver05.factories import xmlrpc as factories
+from shotserver05.factories.models import Factory
+from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
+from shotserver05.jobs.models import JobGroup, Job
+from shotserver05.platforms.models import OperatingSystem
+from shotserver05.platforms.models import Platform
+from shotserver05.platforms.models import Platform, OperatingSystem
+from shotserver05.system.utils import signature
+from shotserver05.xmlrpc.tests import TestServerProxy
+from shotserver05.xmlrpc.tests import TestServerProxy, authenticate
+import re
+import time
+import xmlrpclib
+try:
+wd4d6DReY8uCXa8WUexiIuQvGdGHqk2wsBypVlnfZTZMHzHG4ivdufRXzgTE6+Ar
+xEcYUVx+3H4tFABMleVTm6DFd9NW1Z7cDJWQNnMWEP19jPrj0EMi8ux8Kp1uutiv
