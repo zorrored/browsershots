@@ -77,16 +77,6 @@ class ScreenSize(models.Model):
     def __unicode__(self):
         return '%dx%d' % (self.width, self.height)
 
-    @staticmethod
-    def validate(width, height):
-        if width < 240:
-            raise forms.ValidationError(
-                "Screen width must not be smaller than 240 pixels.")
-        if width > 1680:
-            raise forms.ValidationError(
-                "Screen width must not be greater than 1680 pixels.")
-        return True
-
 
 class ColorDepth(models.Model):
     """
@@ -101,16 +91,6 @@ class ColorDepth(models.Model):
 
     def __unicode__(self):
         return str(self.bits_per_pixel)
-
-    @staticmethod
-    def validate(bits_per_pixel):
-        if bits_per_pixel < 1:
-            raise forms.ValidationError(
-                "Color depth must not be smaller than 1 bit per pixel.")
-        if bits_per_pixel > 32:
-            raise forms.ValidationError(
-                "Color depth must not be greater than 32 bits per pixel.")
-        return True
 
 
 class FactoryStatistics(models.Model):

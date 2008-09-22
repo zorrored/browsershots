@@ -32,6 +32,7 @@ from django.contrib.auth.models import User
 from django.utils.functional import update_wrapper
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
+from shotserver05.factories.forms import ScreenSizeForm, ColorDepthForm
 from shotserver05.factories import xmlrpc as factories
 from shotserver05.xmlrpc.tests import TestServerProxy, authenticate
 from shotserver05.accounts.tests import TESTCLIENT_PASSWORD
@@ -98,16 +99,20 @@ class ScreenSizeTestCase(TestCase):
             width=existing.width, height=existing.height)
         transaction.rollback()
 
+    def validate(self, width, height):
+        form = ScreenSizeForm({'width': width, 'height': height})
+        return form.is_valid()
+
     def testValidate(self):
-        self.assert_(ScreenSize.validate(240, 320))
-        self.assert_(ScreenSize.validate(320, 240))
-        self.assert_(ScreenSize.validate(640, 480))
-        self.assert_(ScreenSize.validate(800, 600))
-        self.assert_(ScreenSize.validate(1024, 768))
-        self.assert_(ScreenSize.validate(1280, 1024))
-        self.assert_(ScreenSize.validate(1680, 1050))
-        self.assertRaises(ValidationError, ScreenSize.validate, 239, 480)
-        self.assertRaises(ValidationError, ScreenSize.validate, 1681, 1050)
+        self.assertEqual(self.validate(240, 320), True)
+        self.assertEqual(self.validate(320, 240), True)
+        self.assertEqual(self.validate(640, 480), True)
+        self.assertEqual(self.validate(800, 600), True)
+        self.assertEqual(self.validate(1024, 768), True)
+        self.assertEqual(self.validate(1280, 1024), True)
+        self.assertEqual(self.validate(1680, 1050), True)
+        self.assertEqual(self.validate(239, 480), False)
+        self.assertEqual(self.validate(1681, 1050), False)
 
 
 class ColorDepthTestCase(TestCase):
@@ -123,18 +128,22 @@ class ColorDepthTestCase(TestCase):
             bits_per_pixel=existing.bits_per_pixel)
         transaction.rollback()
 
+    def validate(self, bits_per_pixel):
+        form = ColorDepthForm({'bits_per_pixel': bits_per_pixel})
+        return form.is_valid()
+
     def testValidate(self):
-        self.assert_(ColorDepth.validate(1))
-        self.assert_(ColorDepth.validate(4))
-        self.assert_(ColorDepth.validate(8))
-        self.assert_(ColorDepth.validate(15))
-        self.assert_(ColorDepth.validate(16))
-        self.assert_(ColorDepth.validate(24))
-        self.assert_(ColorDepth.validate(32))
-        self.assertRaises(ValidationError, ColorDepth.validate, 33)
-        self.assertRaises(ValidationError, ColorDepth.validate, 0)
-        self.assertRaises(ValidationError, ColorDepth.validate, -1)
-        self.assertRaises(ValidationError, ColorDepth.validate, -24)
+        self.assertEqual(self.validate(1), True)
+        self.assertEqual(self.validate(4), True)
+        self.assertEqual(self.validate(8), True)
+        self.assertEqual(self.validate(15), True)
+        self.assertEqual(self.validate(16), True)
+        self.assertEqual(self.validate(24), True)
+        self.assertEqual(self.validate(32), True)
+        self.assertEqual(self.validate(33), False)
+        self.assertEqual(self.validate(0), False)
+        self.assertEqual(self.validate(-1), False)
+        self.assertEqual(self.validate(-24), False)
 
 
 class WebTestCase(TestCase):
