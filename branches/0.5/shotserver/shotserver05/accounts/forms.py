@@ -25,6 +25,7 @@ __author__ = "$Author$"
 from django import forms
 from django.contrib.auth.models import User
 
+USERNAME_REGEX = r'[a-z][a-z0-9-_]*'
 RESERVED_USERNAMES = """
 admin administrator root webmaster www-data
 postmaster test testuser testclient staff create
@@ -34,8 +35,9 @@ postmaster test testuser testclient staff create
 class CreateUserForm(forms.Form):
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
-    username = forms.RegexField(min_length=2, max_length=40,
-        regex=r'[a-z][a-z0-9-_]+')
+    username = forms.RegexField(regex=USERNAME_REGEX,
+        error_messages={'invalid': "Username must match %s." % USERNAME_REGEX},
+        min_length=2, max_length=40)
     password = forms.CharField(min_length=6, max_length=40,
         widget=forms.PasswordInput)
     repeat = forms.CharField(max_length=40,
