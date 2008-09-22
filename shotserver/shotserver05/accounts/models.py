@@ -15,12 +15,10 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
-Models for the accounts app.
+Auxiliary models for the accounts app.
 See django.contrib.auth.models for the User model.
 """
 
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
-
-from django.db import models
