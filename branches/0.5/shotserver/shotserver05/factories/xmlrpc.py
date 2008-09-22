@@ -24,10 +24,12 @@ __author__ = "$Author$"
 
 import xmlrpclib
 from django.shortcuts import get_object_or_404
+from shotserver05.utils.forms import form_error
 from shotserver05.xmlrpc.utils import user_auth, factory_auth
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
-from shotserver05.factories.forms import CreateFactoryForm
+from shotserver05.factories.forms import \
+    FactoryForm, ScreenSizeForm, ColorDepthForm
 from shotserver05.factories.utils import last_poll_timeout
 
 
@@ -52,15 +54,10 @@ def createFactory(request, user, factory_name, operating_system, hardware):
     """
     operating_system = get_object_or_404(
         OperatingSystem, slug=operating_system)
-    form = CreateFactoryForm({
-            'name': factory_name,
-            'operating_system': operating_system.id,
-            'hardware': hardware,
-            })
+    form = FactoryForm({'name': factory_name,
+        'operating_system': operating_system.id, 'hardware': hardware})
     if not form.is_valid():
-        key = form.errors.keys()[0]
-        raise xmlrpclib.Fault(412, "Invalid %s: %s" % (
-                key, unicode(form.errors[key][0])))
+        raise xmlrpclib.Fault(412, form_error(form))
     Factory.objects.create(name=factory_name, user=user,
         operating_system=operating_system, hardware=hardware)
     return 'OK'
@@ -87,9 +84,14 @@ def updateFactory(request, user, factory_name, operating_system, hardware):
         raise xmlrpclib.Fault(401, "Unauthorized.")
     operating_system = get_object_or_404(
         OperatingSystem, slug=operating_system)
+    form = FactoryForm({'name': factory.name,
+        'operating_system': operating_system.id, 'hardware': hardware},
+                       instance=factory)
+    if not form.is_valid():
+        raise xmlrpclib.Fault(412, form_error(form))
     factory.update_fields(
-        operating_system = operating_system,
-        hardware = hardware)
+        operating_system=operating_system,
+        hardware=hardware)
     return 'OK'
 
 
@@ -108,6 +110,9 @@ def addScreenSize(request, user, factory_name, width, height):
     factory = get_object_or_404(Factory, name=factory_name)
     if factory.user != user:
         raise xmlrpclib.Fault(401, "Unauthorized.")
+    form = ScreenSizeForm({'width': width, 'height': height})
+    if not form.is_valid():
+        raise xmlrpclib.Fault(412, form_error(form))
     ScreenSize.objects.create(factory=factory, width=width, height=height)
     return 'OK'
 
@@ -121,11 +126,14 @@ def addColorDepth(request, user, factory_name, bits_per_pixel):
     ~~~~~~~~~~
     * username string (e.g. joe)
     * factory_name string (lowercase)
-    * bpp int (bits per pixel)
+    * bits_per_pixel int (color depth)
     """
     factory = get_object_or_404(Factory, name=factory_name)
     if factory.user != user:
         raise xmlrpclib.Fault(401, "Unauthorized.")
+    form = ColorDepthForm({'bits_per_pixel': bits_per_pixel})
+    if not form.is_valid():
+        raise xmlrpclib.Fault(412, form_error(form))
     ColorDepth.objects.create(factory=factory, bits_per_pixel=bits_per_pixel)
     return 'OK'
 
