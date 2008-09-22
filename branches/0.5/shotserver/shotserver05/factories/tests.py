@@ -168,6 +168,13 @@ class XMLRPCTestCase(TestCase):
         authenticate('factories.createFactory', args, TESTCLIENT_PASSWORD)
         response = self.server.factories.createFactory(*args)
         self.assertEqual(response, 'OK')
+        try:
+            self.server.factories.createFactory(*args)
+            self.fail("Created the same factory twice.")
+        except xmlrpclib.Fault, fault:
+            self.assertEqual(fault.faultCode, 412)
+            self.assertEqual(fault.faultString,
+                "Invalid name: Factory with this name already exists.")
 
     @debug
     def testUpdateFactory(self):
