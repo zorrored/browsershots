@@ -26,6 +26,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 from shotserver05.factories.models import Factory
 
+FACTORY_NAME_REGEX = r'[a-z][a-z0-9-_]*'
 RESERVED_FACTORY_NAMES = """
 localhost server factory shotfactory create
 """.split()
@@ -35,7 +36,10 @@ class CreateFactoryForm(forms.ModelForm):
     """
     Create a new screenshot factory.
     """
-    name = forms.RegexField(regex=r'[a-z][a-z0-9-_]',
+    name = forms.RegexField(regex=FACTORY_NAME_REGEX,
+        error_messages={'invalid': "Factory name must match %s." %
+                        FACTORY_NAME_REGEX},
+        min_length=2,
         max_length=Factory._meta.get_field('name').max_length)
     hardware = forms.CharField(
         max_length=Factory._meta.get_field('hardware').max_length,
