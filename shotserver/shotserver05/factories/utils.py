@@ -22,8 +22,6 @@ __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
 
-import random
-import base64
 from datetime import datetime, timedelta
 from django.db.models import Q
 

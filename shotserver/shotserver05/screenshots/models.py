@@ -30,6 +30,9 @@ from shotserver05.utils.random_keys import random_hash_key
 
 
 class Attempt(models.Model):
+    """
+    A screenshot factory is loading a screenshot request.
+    """
     job = models.ForeignKey(Job)
     hash_key = models.SlugField(max_length=32, unique=True,
                                 default=random_hash_key)
@@ -37,10 +40,13 @@ class Attempt(models.Model):
     started = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return self.hashkey
+        return self.hash_key
 
 
 class Screenshot(models.Model):
+    """
+    Successfully uploaded screenshot.
+    """
     attempt = models.ForeignKey(Attempt)
     width = models.IntegerField()
     height = models.IntegerField()
@@ -52,6 +58,9 @@ class Screenshot(models.Model):
 
 
 class Error(models.Model):
+    """
+    Factory error when trying to process or upload a screenshot.
+    """
     attempt = models.ForeignKey(Attempt)
     code = models.IntegerField()
     message = models.CharField(max_length=400)
@@ -62,6 +71,9 @@ class Error(models.Model):
 
 
 class Problem(models.Model):
+    """
+    User report about a problem with a screenshot.
+    """
     screenshot = models.ForeignKey(Screenshot)
     code = models.IntegerField()
     message = models.CharField(max_length=400)

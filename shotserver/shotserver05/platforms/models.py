@@ -26,6 +26,9 @@ from django.db import models
 
 
 class Platform(models.Model):
+    """
+    Supported platforms, e.g. Linux, Windows, Mac.
+    """
     name = models.CharField(max_length=20, unique=True)
     slug = models.SlugField(max_length=20, unique=True)
 
@@ -34,6 +37,9 @@ class Platform(models.Model):
 
 
 class OperatingSystem(models.Model):
+    """
+    Supported operating systems, e.g. Mac OS 10.5 Leopard.
+    """
     name = models.CharField(max_length=40)
     version = models.CharField(max_length=20, blank=True)
     codename = models.CharField(max_length=20, blank=True)
