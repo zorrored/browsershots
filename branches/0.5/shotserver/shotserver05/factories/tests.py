@@ -140,11 +140,33 @@ class ColorDepthTestCase(TestCase):
 class WebTestCase(TestCase):
     fixtures = ['authtestdata', 'test_factories']
 
+    def testCreate(self):
+        self.client.login(username='testclient', password='password')
+        path = '/factories/create/'
+        response = self.client.post(path, {'name': '123'})
+        self.assert_('factory name must match' in response.content.lower())
+        response = self.client.post(path, {'name': 'a'})
+        self.assert_('at least 2 characters' in response.content)
+        response = self.client.post(path, {'name': 'a' * 100})
+        self.assert_('at most 20 characters' in response.content)
+        response = self.client.post(path, {'operating_system': 1000})
+        self.assert_('not one of the available choices' in response.content)
+        response = self.client.post(path,
+            {'name': 'newfactory', 'operating_system': 1, 'hardware': ''})
+        self.assert_('field is required' in response.content)
+        response = self.client.post(path,
+            {'name': 'newfactory', 'operating_system': 1, 'hardware': 'HW'})
+        self.assertEqual(response.status_code, 302)
+        self.assert_(response['Location'].endswith, '/factories/newfactory/')
+        response = self.client.post(path,
+            {'name': 'newfactory', 'operating_system': 1, 'hardware': 'HW'})
+        self.assert_('already exists' in response.content)
+
     def testCreateValidate(self):
         response = self.client.post('/factories/create/validate/name/',
                                     {'name': 'testfactory'})
         self.assertEqual(response.status_code, 200)
-        self.assert_('exists' in response.content.lower())
+        self.assert_('already exists' in response.content)
 
 
 class XMLRPCTestCase(TestCase):
@@ -173,8 +195,8 @@ class XMLRPCTestCase(TestCase):
             self.fail("Created the same factory twice.")
         except xmlrpclib.Fault, fault:
             self.assertEqual(fault.faultCode, 412)
-            self.assertEqual(fault.faultString,
-                "Invalid name: Factory with this name already exists.")
+            self.assert_(fault.faultString.startswith('Invalid name'))
+            self.assert_('already exists' in fault.faultString)
 
     @debug
     def testUpdateFactory(self):
