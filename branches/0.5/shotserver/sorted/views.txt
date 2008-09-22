@@ -47,6 +47,7 @@
     """
     # form_action = '/accounts/validate/username/'
     AJAX validator for the factory registration form.
+    AJAX validator for user account registration form.
     Get HTML file with encrypted user password for XML-RPC authentication.
     Get HTML file with secret key for XML-RPC authentication.
     List active screenshot factories.
@@ -69,11 +70,11 @@
     factory = get_object_or_404(Factory, name=factory_name)
     factory = get_object_or_404(Factory, name=name)
     for field in form.fields:
-    form = CreateFactoryForm(data)
-    form = CreateFactoryForm(request.POST or None)
     form = CreateUserForm(data)
     form = CreateUserForm(request.POST or None)
+    form = FactoryForm(data)
     form = FactoryForm(instance=factory)
+    form = FactoryForm(request.POST or None)
     form_focus = 'first_name'
     form_focus = 'name'
     form_submit = "Register"
@@ -130,26 +131,8 @@ Views for the screenshots app.
 Views for the sponsors app.
 Views for the websites app.
 Views for the xmlrpc app.
-__author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:18:44 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:20:31 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:28:09 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:31:54 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:34:12 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 09:35:37 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-21 15:16:13 -0700 (Sun, 21 Sep 2008) $"
-__date__ = "$Date: 2008-09-21 15:17:40 -0700 (Sun, 21 Sep 2008) $"
-__date__ = "$Date: 2008-09-21 15:20:12 -0700 (Sun, 21 Sep 2008) $"
-__revision__ = "$Rev: 3057 $"
-__revision__ = "$Rev: 3058 $"
-__revision__ = "$Rev: 3062 $"
-__revision__ = "$Rev: 3064 $"
-__revision__ = "$Rev: 3065 $"
-__revision__ = "$Rev: 3067 $"
-__revision__ = "$Rev: 3137 $"
-__revision__ = "$Rev: 3138 $"
-__revision__ = "$Rev: 3140 $"
 def create(request):
+def create_validate(request, field):
 def details(request, name):
 def dispatch_request(request):
 def error_page(request, result_title, result_message, *extra_messages):
@@ -161,9 +144,9 @@ def success_page(request, result_title, result_message, *extra_messages):
 def user_auth_html(request, username):
 def validate(request, field):
 def xmlrpc(request):
-from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.http import HttpResponse, Http404, HttpResponseForbidden
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -172,7 +155,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson
 from shotserver05.accounts.forms import CreateUserForm
-from shotserver05.factories.forms import CreateFactoryForm, FactoryForm
+from shotserver05.factories.forms import FactoryForm
 from shotserver05.factories.models import Factory
 from shotserver05.utils.views import success_page
 from shotserver05.xmlrpc.utils import import_method

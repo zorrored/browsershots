@@ -91,6 +91,8 @@
         existing = self.testfactory.colordepth_set.all()[0]
         existing = self.testfactory.screensize_set.all()[0]
         for platform in Platform.objects.all():
+        form = ColorDepthForm({'bits_per_pixel': bits_per_pixel})
+        form = ScreenSizeForm({'width': width, 'height': height})
         help = self.server.system.methodHelp('system.methodHelp')
         if self.response.status_code / 100 == 2:
         match = re.search('/accounts/password/reset/confirm/\S+', body)
@@ -126,6 +128,7 @@
         result = func(*args, **kwargs)
         return TestConnection(self.client)
         return TestFile(self.response.content)
+        return form.is_valid()
         return result
         return self.content[self.start:self.index]
         self.assertEqual(
@@ -165,6 +168,26 @@
         self.assertEqual(self.testfactory.get_absolute_url(),
         self.assertEqual(self.testfactory.screensize_set.count(), 1)
         self.assertEqual(self.testfactory.screensize_set.count(), 2)
+        self.assertEqual(self.validate(-1), False)
+        self.assertEqual(self.validate(-24), False)
+        self.assertEqual(self.validate(0), False)
+        self.assertEqual(self.validate(1), True)
+        self.assertEqual(self.validate(1024, 768), True)
+        self.assertEqual(self.validate(1280, 1024), True)
+        self.assertEqual(self.validate(15), True)
+        self.assertEqual(self.validate(16), True)
+        self.assertEqual(self.validate(1680, 1050), True)
+        self.assertEqual(self.validate(1681, 1050), False)
+        self.assertEqual(self.validate(239, 480), False)
+        self.assertEqual(self.validate(24), True)
+        self.assertEqual(self.validate(240, 320), True)
+        self.assertEqual(self.validate(32), True)
+        self.assertEqual(self.validate(320, 240), True)
+        self.assertEqual(self.validate(33), False)
+        self.assertEqual(self.validate(4), True)
+        self.assertEqual(self.validate(640, 480), True)
+        self.assertEqual(self.validate(8), True)
+        self.assertEqual(self.validate(800, 600), True)
         self.assertEqual(signature('factories.addColorDepth'),
         self.assertEqual(signature('factories.addScreenSize'),
         self.assertEqual(signature('factories.createFactory'), 7 * ['string'])
@@ -180,12 +203,6 @@
         self.assertEquals(self.server.accounts.testAuth(*args), 'OK')
         self.assertEquals(self.server.factories.testAuth(*args), 'OK')
         self.assertRaises(IntegrityError,
-        self.assertRaises(ValidationError, ColorDepth.validate, -1)
-        self.assertRaises(ValidationError, ColorDepth.validate, -24)
-        self.assertRaises(ValidationError, ColorDepth.validate, 0)
-        self.assertRaises(ValidationError, ColorDepth.validate, 33)
-        self.assertRaises(ValidationError, ScreenSize.validate, 1681, 1050)
-        self.assertRaises(ValidationError, ScreenSize.validate, 239, 480)
         self.assertRaises(xmlrpclib.Fault,
         self.assert_('"hardware" = iBook G4' in sql)
         self.assert_('"last_upload" = ' not in sql)
@@ -218,20 +235,6 @@
         self.assert_('too simple' in response.content)
         self.assert_('username must match' in response.content.lower())
         self.assert_('winxp' in os_list)
-        self.assert_(ColorDepth.validate(1))
-        self.assert_(ColorDepth.validate(15))
-        self.assert_(ColorDepth.validate(16))
-        self.assert_(ColorDepth.validate(24))
-        self.assert_(ColorDepth.validate(32))
-        self.assert_(ColorDepth.validate(4))
-        self.assert_(ColorDepth.validate(8))
-        self.assert_(ScreenSize.validate(1024, 768))
-        self.assert_(ScreenSize.validate(1280, 1024))
-        self.assert_(ScreenSize.validate(1680, 1050))
-        self.assert_(ScreenSize.validate(240, 320))
-        self.assert_(ScreenSize.validate(320, 240))
-        self.assert_(ScreenSize.validate(640, 480))
-        self.assert_(ScreenSize.validate(800, 600))
         self.assert_(match is not None)
         self.assert_(response['Location'].endswith('/accounts/profile/'))
         self.assert_(response['Location'].endswith,
@@ -302,6 +305,8 @@
     def testUpdateFactory(self):
     def testValidate(self):
     def testVersion(self):
+    def validate(self, bits_per_pixel):
+    def validate(self, width, height):
     def wrapper(*args, **kwargs):
     fixtures = ['authtestdata', 'test_factories', 'test_browsers',
     fixtures = ['authtestdata', 'test_factories', 'test_browsers']
@@ -341,19 +346,6 @@ Tests for the systems app.
 Tests for the xmlrpc app.
 VbiQLrIXsvElzbkrETcqxefvtNX23cjTXqWZo7XoL5tk5u6d2pjEn/DM6JGWXtWx
 ZaraPQpTaEZx5T8NGva0DDcFJewJH4jMTer9UqQOf57Ld73+XAz7U3AEm7lsezNQ
-__author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:24:24 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-13 13:39:29 -0700 (Sat, 13 Sep 2008) $"
-__date__ = "$Date: 2008-09-13 15:38:39 -0700 (Sat, 13 Sep 2008) $"
-__date__ = "$Date: 2008-09-16 14:59:20 -0700 (Tue, 16 Sep 2008) $"
-__date__ = "$Date: 2008-09-21 18:11:30 -0700 (Sun, 21 Sep 2008) $"
-__date__ = "$Date: 2008-09-21 22:51:05 -0700 (Sun, 21 Sep 2008) $"
-__revision__ = "$Rev: 3060 $"
-__revision__ = "$Rev: 3094 $"
-__revision__ = "$Rev: 3104 $"
-__revision__ = "$Rev: 3114 $"
-__revision__ = "$Rev: 3156 $"
-__revision__ = "$Rev: 3157 $"
 class AccountsTestCase(TestCase):
 class BrowserNameTestCase(TestCase):
 class BrowserTestCase(TestCase):
@@ -386,6 +378,7 @@ from shotserver05.accounts.tests import TESTCLIENT_PASSWORD
 from shotserver05.browsers.models import BrowserName
 from shotserver05.browsers.models import BrowserName, Engine, Browser
 from shotserver05.factories import xmlrpc as factories
+from shotserver05.factories.forms import ScreenSizeForm, ColorDepthForm
 from shotserver05.factories.models import Factory
 from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver05.jobs.models import JobGroup, Job

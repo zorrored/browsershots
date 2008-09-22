@@ -43,13 +43,6 @@ Django admin for the factories app.
 Django admin for the jobs app.
 Django admin for the platforms app.
 Django admin for the websites app.
-__author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:31:54 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 10:12:24 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-13 13:40:11 -0700 (Sat, 13 Sep 2008) $"
-__revision__ = "$Rev: 3064 $"
-__revision__ = "$Rev: 3075 $"
-__revision__ = "$Rev: 3095 $"
 admin.site.register(Browser, BrowserAdmin)
 admin.site.register(BrowserName, BrowserNameAdmin)
 admin.site.register(ColorDepth)
