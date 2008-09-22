@@ -60,7 +60,7 @@ $(document).ready(function() {
 <form id="id_form" method="post" action="{{ form_action }}">
 {% for field in form %}
 <p>
-<label for="id_{{ field.name }}">{{ field.label }}:</label>
+<label for="id_{{ field.name }}">{{ field.label|capfirst }}:</label>
 {{ field }}
 <span id="error_{{ field.name }}" class="error">{{ field.errors.0 }}</span>
 </p>
