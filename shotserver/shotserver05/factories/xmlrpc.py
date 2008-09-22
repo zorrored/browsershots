@@ -25,8 +25,9 @@ __author__ = "$Author$"
 import xmlrpclib
 from django.shortcuts import get_object_or_404
 from shotserver05.xmlrpc.utils import user_auth, factory_auth
-from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver05.platforms.models import OperatingSystem
+from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
+from shotserver05.factories.forms import CreateFactoryForm
 from shotserver05.factories.utils import last_poll_timeout
 
 
@@ -51,6 +52,15 @@ def createFactory(request, user, factory_name, operating_system, hardware):
     """
     operating_system = get_object_or_404(
         OperatingSystem, slug=operating_system)
+    form = CreateFactoryForm({
+            'name': factory_name,
+            'operating_system': operating_system.id,
+            'hardware': hardware,
+            })
+    if not form.is_valid():
+        key = form.errors.keys()[0]
+        raise xmlrpclib.Fault(412, "Invalid %s: %s" % (
+                key, unicode(form.errors[key][0])))
     Factory.objects.create(name=factory_name, user=user,
         operating_system=operating_system, hardware=hardware)
     return 'OK'
