@@ -24,7 +24,7 @@ __author__ = "$Author$"
 
 from django import forms
 from django.utils.translation import ugettext as _
-from shotserver05.factories.models import Factory
+from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 
 FACTORY_NAME_REGEX = r'[a-z][a-z0-9-_]*'
 RESERVED_FACTORY_NAMES = """
@@ -32,7 +32,7 @@ localhost server factory shotfactory create
 """.split()
 
 
-class CreateFactoryForm(forms.ModelForm):
+class FactoryForm(forms.ModelForm):
     """
     Create a new screenshot factory.
     """
@@ -70,16 +70,41 @@ class CreateFactoryForm(forms.ModelForm):
         return hardware
 
 
-class FactoryForm(forms.ModelForm):
+class ScreenSizeForm(forms.ModelForm):
     """
-    Edit factory details.
+    Add supported screen size to a factory.
     """
-    hardware = forms.CharField(
-        max_length=Factory._meta.get_field('hardware').max_length,
-        widget=forms.TextInput(attrs={'size': '40'}))
-
-    clean_hardware = CreateFactoryForm.clean_hardware
 
     class Meta:
-        model = Factory
-        exclude = ('name', 'user', 'secret_key')
+        model = ScreenSize
+        exclude = ('factory')
+
+    def clean_width(self):
+        width = self.cleaned_data['width']
+        if width < 240:
+            raise forms.ValidationError(
+                "Screen width must not be smaller than 240 pixels.")
+        if width > 1680:
+            raise forms.ValidationError(
+                "Screen width must not be greater than 1680 pixels.")
+        return width
+
+
+class ColorDepthForm(forms.ModelForm):
+    """
+    Add supported color depth to a factory.
+    """
+
+    class Meta:
+        model = ColorDepth
+        exclude = ('factory')
+
+    def clean_bits_per_pixel(self):
+        bits_per_pixel = self.cleaned_data['bits_per_pixel']
+        if bits_per_pixel < 1:
+            raise forms.ValidationError(
+                "Color depth must not be smaller than 1 bit per pixel.")
+        if bits_per_pixel > 32:
+            raise forms.ValidationError(
+                "Color depth must not be greater than 32 bits per pixel.")
+        return bits_per_pixel
