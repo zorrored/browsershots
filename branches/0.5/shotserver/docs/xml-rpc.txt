@@ -36,7 +36,7 @@ Arguments:
 ~~~~~~~~~~
 * username string (e.g. joe)
 * factory_name string (lowercase)
-* bpp int (bits per pixel)
+* bits_per_pixel int (color depth)
 * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
 * md5_hash string (see users.testAuth for details)
 
