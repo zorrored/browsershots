@@ -23,12 +23,10 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.utils import simplejson
-from django import forms
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.template import RequestContext
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from shotserver05.utils.views import success_page
 from shotserver05.accounts.forms import CreateUserForm
 
@@ -57,6 +55,9 @@ def create(request):
 
 
 def validate(request, field):
+    """
+    AJAX validator for user account registration form.
+    """
     data = None
     if request.POST:
         data = dict(request.POST.items())

@@ -33,6 +33,9 @@ postmaster test testuser testclient staff create
 
 
 class CreateUserForm(forms.Form):
+    """
+    Create a new user account.
+    """
     first_name = forms.CharField(max_length=40)
     last_name = forms.CharField(max_length=40)
     username = forms.RegexField(regex=USERNAME_REGEX,

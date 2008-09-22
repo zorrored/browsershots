@@ -24,7 +24,7 @@ __author__ = "$Author$"
 
 import xmlrpclib
 from shotserver05.xmlrpc.utils import factory_auth
-from shotserver05.factories.utils import requests_for_factory
+from shotserver05.factories.utils import jobs_for_factory
 from shotserver05.jobs.utils import browser_for_job
 from shotserver05.screenshots.models import Attempt
 
