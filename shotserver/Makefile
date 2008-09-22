@@ -20,16 +20,15 @@ docs/html : docs
 	ls docs | grep txt | sed s/.txt// \
 	| xargs -Iname rst2html.py docs/name.txt docs/html/name.html
 
-precommit : docs headers pep8
-	mkdir -p $@
-	cat docs/xml-rpc.txt | sort -u > precommit/docs-xml-rpc-sorted.txt
-	cat shotserver05/*/admin.py | sort -u > precommit/admin-sorted.txt
-	cat shotserver05/*/forms.py | sort -u > precommit/forms-sorted.txt
-	cat shotserver05/*/models.py | sort -u > precommit/models-sorted.txt
-	cat shotserver05/*/urls.py | sort -u > precommit/urls-sorted.txt
-	cat shotserver05/*/views.py | sort -u > precommit/views-sorted.txt
-	cat shotserver05/*/xmlrpc.py | sort -u > precommit/xmlrpc-sorted.txt
-	cat shotserver05/*/tests.py | sort -u > precommit/tests-sorted.txt
+sorted : docs
+	cat docs/xml-rpc.txt | sort -u > sorted/docs-xml-rpc.txt
+	grep -hv '__ =' shotserver05/*/admin.py | sort -u > sorted/admin.txt
+	grep -hv '__ =' shotserver05/*/forms.py | sort -u > sorted/forms.txt
+	grep -hv '__ =' shotserver05/*/models.py | sort -u > sorted/models.txt
+	grep -hv '__ =' shotserver05/*/urls.py | sort -u > sorted/urls.txt
+	grep -hv '__ =' shotserver05/*/views.py | sort -u > sorted/views.txt
+	grep -hv '__ =' shotserver05/*/xmlrpc.py | sort -u > sorted/xmlrpc.txt
+	grep -hv '__ =' shotserver05/*/tests.py | sort -u > sorted/tests.txt
 
 headers :
 	find . -name "*.py" | grep -v build/ \

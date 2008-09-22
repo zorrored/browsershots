@@ -1,23 +1,14 @@
 
                                   default=random_secret_key)
                                 default=random_hash_key)
-                "Color depth must not be greater than 32 bits per pixel.")
-                "Color depth must not be smaller than 1 bit per pixel.")
-                "Screen width must not be greater than 1680 pixels.")
-                "Screen width must not be smaller than 240 pixels.")
             parts.append('(%s)' % self.codename)
             parts.append(self.version)
-            raise forms.ValidationError(
             self.browser_name.name, self.major, self.minor)
         """
         Get short browser version.
         Get the URL for the factory details page.
-        if bits_per_pixel < 1:
-        if bits_per_pixel > 32:
         if self.codename:
         if self.version:
-        if width < 240:
-        if width > 1680:
         ordering = ('bits_per_pixel', )
         ordering = ('date', 'screenshot_count')
         ordering = ('name', )
@@ -29,9 +20,8 @@
         return '%s %s %s.%s' % (self.platform.name,
         return '%s/%s' % (self.name.name, self.version)
         return '/factories/%s/' % self.name
-        return True
         return self.domain
-        return self.hashkey
+        return self.hash_key
         return self.message
         return self.name
         return self.url
@@ -42,17 +32,22 @@
         unique_together = ('factory', 'width', 'height')
         verbose_name_plural = 'factories'
     """
-    @staticmethod
+    A screenshot factory is loading a screenshot request.
     Common information about jobs that were submitted together.
     Daily statistics for each factory.
+    Factory error when trying to process or upload a screenshot.
     SECRET_KEY_DEFAULT_LENGTH, random_secret_key
     Screenshot factory: a remote machine that makes website screenshots.
     Screenshot request for a specific browser.
     Specific browser version installed on a screenshot factory.
+    Successfully uploaded screenshot.
     Supported browser engine, e.g. Gecko, AppleWebKit, Opera.
     Supported browser name, e.g. Firefox, Safari, Opera.
     Supported display color depths for each factory.
+    Supported operating systems, e.g. Mac OS 10.5 Leopard.
+    Supported platforms, e.g. Linux, Windows, Mac.
     Supported screen resolution for each factory.
+    User report about a problem with a screenshot.
     attempt = models.ForeignKey(Attempt)
     bits_per_pixel = models.IntegerField()
     bpp_max = models.IntegerField(blank=True, null=True)
@@ -67,8 +62,6 @@
     def __unicode__(self):
     def get_absolute_url(self):
     def get_short_version(self):
-    def validate(bits_per_pixel):
-    def validate(width, height):
     domain = models.CharField(max_length=200)
     domain = models.ForeignKey(Domain)
     engine = models.ForeignKey(Engine)
@@ -133,7 +126,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
-Models for the accounts app.
+Auxiliary models for the accounts app.
 Models for the browsers app.
 Models for the factories app.
 Models for the jobs app.
@@ -144,23 +137,6 @@ Models for the system app.
 Models for the websites app.
 Models for the xmlrpc app.
 See django.contrib.auth.models for the User model.
-__author__ = "$Author: johann $"
-__date__ = "$Date: 2008-09-10 09:41:49 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 10:00:10 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-10 10:01:27 -0700 (Wed, 10 Sep 2008) $"
-__date__ = "$Date: 2008-09-12 17:55:56 -0700 (Fri, 12 Sep 2008) $"
-__date__ = "$Date: 2008-09-12 22:27:14 -0700 (Fri, 12 Sep 2008) $"
-__date__ = "$Date: 2008-09-13 13:38:18 -0700 (Sat, 13 Sep 2008) $"
-__date__ = "$Date: 2008-09-16 14:59:20 -0700 (Tue, 16 Sep 2008) $"
-__date__ = "$Date: 2008-09-16 22:33:46 -0700 (Tue, 16 Sep 2008) $"
-__revision__ = "$Rev: 3068 $"
-__revision__ = "$Rev: 3070 $"
-__revision__ = "$Rev: 3071 $"
-__revision__ = "$Rev: 3086 $"
-__revision__ = "$Rev: 3087 $"
-__revision__ = "$Rev: 3093 $"
-__revision__ = "$Rev: 3114 $"
-__revision__ = "$Rev: 3127 $"
 class Attempt(models.Model):
 class Browser(models.Model):
 class BrowserName(models.Model):

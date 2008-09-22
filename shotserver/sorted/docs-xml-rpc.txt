@@ -1,7 +1,7 @@
 
 '2eb594e041eeb418e86ef0289328ed1c'
 '5afba7f48c2df4b85e3cac482df48010'
-* bpp int (bits per pixel)
+* bits_per_pixel int (color depth)
 * codename string
 * details dict
 * dummy_number int (e.g. 123)
