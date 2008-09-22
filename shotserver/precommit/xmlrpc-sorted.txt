@@ -1,10 +1,15 @@
 
+                key, unicode(form.errors[key][0])))
                 result.append('.'.join((app_name, method_name)))
+            'hardware': hardware,
+            'name': factory_name,
+            'operating_system': operating_system.id,
             continue
             if callable(method) and method.__module__ == module_name:
             method = module.__dict__[method_name]
             module = __import__(module_name)
             module = module.__dict__[part]
+            })
         'browser': job.group.slug,
         'codename': os.codename,
         'command': browser.command,
@@ -27,12 +32,14 @@
         for part in module_name.split('.')[1:]:
         hardware = hardware)
         if package != 'shotserver05':
+        key = form.errors.keys()[0]
         module_name = full_app_name + '.xmlrpc'
         operating_system = operating_system,
         operating_system=operating_system, hardware=hardware)
         package, app_name = full_app_name.split('.', 1)
         raise xmlrpclib.Fault(204, "No matching requests.")
         raise xmlrpclib.Fault(401, "Unauthorized.")
+        raise xmlrpclib.Fault(412, "Invalid %s: %s" % (
         return "Sorry, no documentation is available for this method."
         return method.__doc__.strip().replace('\n    ', '\n')
         try:
@@ -103,10 +110,12 @@
     factory.update_fields(
     following MD5 hash:
     for full_app_name in settings.INSTALLED_APPS:
+    form = CreateFactoryForm({
     hexadecimal characters. If the factory name is 'factory' and the
     hexadecimal characters. If the username is 'joe' and the
     if factory.user != user:
     if method.__doc__:
+    if not form.is_valid():
     if not len(jobs):
     job = jobs[0]
     jobs = jobs_for_factory(factory)[:1]
@@ -156,13 +165,13 @@ __author__ = "$Author: johann $"
 __date__ = "$Date: 2008-09-10 09:20:31 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-10 09:41:49 -0700 (Wed, 10 Sep 2008) $"
 __date__ = "$Date: 2008-09-12 22:27:14 -0700 (Fri, 12 Sep 2008) $"
-__date__ = "$Date: 2008-09-13 13:42:20 -0700 (Sat, 13 Sep 2008) $"
 __date__ = "$Date: 2008-09-16 14:59:20 -0700 (Tue, 16 Sep 2008) $"
+__date__ = "$Date: 2008-09-21 17:37:12 -0700 (Sun, 21 Sep 2008) $"
 __revision__ = "$Rev: 3058 $"
 __revision__ = "$Rev: 3068 $"
 __revision__ = "$Rev: 3087 $"
-__revision__ = "$Rev: 3097 $"
 __revision__ = "$Rev: 3114 $"
+__revision__ = "$Rev: 3153 $"
 def addColorDepth(request, user, factory_name, bits_per_pixel):
 def addScreenSize(request, user, factory_name, width, height):
 def createFactory(request, user, factory_name, operating_system, hardware):
@@ -179,6 +188,7 @@ def testAuth(request, user, dummy_number, dummy_text):
 def updateFactory(request, user, factory_name, operating_system, hardware):
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from shotserver05.factories.forms import CreateFactoryForm
 from shotserver05.factories.models import Factory, ScreenSize, ColorDepth
 from shotserver05.factories.utils import last_poll_timeout
 from shotserver05.factories.utils import requests_for_factory

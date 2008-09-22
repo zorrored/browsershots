@@ -29,6 +29,7 @@ precommit : docs headers pep8
 	cat shotserver05/*/urls.py | sort -u > precommit/urls-sorted.txt
 	cat shotserver05/*/views.py | sort -u > precommit/views-sorted.txt
 	cat shotserver05/*/xmlrpc.py | sort -u > precommit/xmlrpc-sorted.txt
+	cat shotserver05/*/tests.py | sort -u > precommit/tests-sorted.txt
 
 headers :
 	find . -name "*.py" | grep -v build/ \
