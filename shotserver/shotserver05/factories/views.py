@@ -29,7 +29,7 @@ from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from shotserver05.factories.models import Factory
-from shotserver05.factories.forms import CreateFactoryForm, FactoryForm
+from shotserver05.factories.forms import FactoryForm
 
 
 def index(request):
@@ -55,7 +55,7 @@ def create(request):
     """
     Register a new screenshot factory.
     """
-    form = CreateFactoryForm(request.POST or None)
+    form = FactoryForm(request.POST or None)
     if form.is_valid():
         factory = form.save(commit=False)
         factory.user = request.user
@@ -73,7 +73,7 @@ def create(request):
         context_instance=RequestContext(request))
 
 
-def validate(request, field):
+def create_validate(request, field):
     """
     AJAX validator for the factory registration form.
     """
@@ -84,7 +84,7 @@ def validate(request, field):
             # Don't validate name when editing the other fields,
             # because database lookup for taken factory names is expensive.
             data['name'] = ''
-    form = CreateFactoryForm(data)
+    form = FactoryForm(data)
     response = {field: ''}
     if field in form.errors:
         response[field] = unicode(form.errors[field][0])
