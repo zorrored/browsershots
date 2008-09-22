@@ -61,7 +61,7 @@ pylint :
 	| grep -vi "Wildcard import" \
 	| grep -v "has no 'objects' member" \
 	| grep -v "Unused argument 'request'" \
-	| grep -v "has no '_meta' member" \
+	| grep -v "_meta" \
 	| grep -v /tests.py:
 
 jquery :
