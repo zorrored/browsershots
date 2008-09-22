@@ -35,18 +35,44 @@ class AccountsTestCase(TestCase):
     fixtures = ['authtestdata']
 
     def testLogin(self):
+        response = self.client.get('/accounts/profile/')
+        self.assertEqual(response.status_code, 302)
+        self.assert_('/accounts/login/' in response['Location'])
         response = self.client.get('/accounts/login/')
         self.assertEqual(response.status_code, 200)
         self.assert_('id_username' in response.content)
         self.assert_('id_password' in response.content)
+        response = self.client.post('/accounts/login/',
+            {'username': 'testclient', 'password': 'password'})
+        self.assertEqual(response.status_code, 302)
+        self.assert_(response['Location'].endswith('/accounts/profile/'))
+        response = self.client.get('/accounts/profile/')
+        self.assertEqual(response.status_code, 200)
 
     def testLogout(self):
+        self.client.login(username='testclient', password='password')
+        response = self.client.get('/accounts/profile/')
+        self.assertEqual(response.status_code, 200)
         response = self.client.get('/accounts/logout/')
         self.assertEqual(response.status_code, 200)
         self.assert_('logged out' in response.content.lower())
+        response = self.client.get('/accounts/profile/')
+        self.assertEqual(response.status_code, 302)
+        self.assert_('/accounts/login/' in response['Location'])
 
     def testCreate(self):
-        response = self.client.post('/accounts/create/',
+        path = '/accounts/create/'
+        response = self.client.post(path, {'first_name': 'joe'})
+        self.assert_('must start with uppercase' in response.content)
+        response = self.client.post(path, {'last_name': 'schmoe'})
+        self.assert_('must start with uppercase' in response.content)
+        response = self.client.post(path, {'username': '123'})
+        self.assert_('username must match' in response.content.lower())
+        response = self.client.post(path, {'password': '123'})
+        self.assert_('at least 6 characters' in response.content)
+        response = self.client.post(path, {'password': '123456'})
+        self.assert_('too simple' in response.content)
+        response = self.client.post(path,
             {'first_name': 'Joe', 'last_name': 'Schmoe', 'username': 'joe',
              'password': 'test123', 'repeat': 'test123',
              'email': 'joe@example.com'})
