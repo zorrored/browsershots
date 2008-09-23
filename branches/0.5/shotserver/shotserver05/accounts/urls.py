@@ -28,7 +28,7 @@ from shotserver05.accounts import views
 
 urlpatterns = patterns('accounts/',
     url(r'^create/$', views.create),
-    url(r'^create/validate/(?P<field>\S+)/$', views.validate),
+    url(r'^create/validate/(?P<field>\S+)/$', views.create_validate),
     url(r'^profile/$', views.profile),
     url(r'^login/$', auth.login,
         {'template_name': 'accounts/login.html'}),

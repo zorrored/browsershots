@@ -54,7 +54,7 @@ def create(request):
         context_instance=RequestContext(request))
 
 
-def validate(request, field):
+def create_validate(request, field):
     """
     AJAX validator for user account registration form.
     """
