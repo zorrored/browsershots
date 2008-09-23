@@ -21,5 +21,3 @@ Models for the xmlrpc app.
 __revision__ = "$Rev$"
 __date__ = "$Date$"
 __author__ = "$Author$"
-
-from django.db import models

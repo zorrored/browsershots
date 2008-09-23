@@ -26,6 +26,9 @@ from django.db import models
 
 
 class Domain(models.Model):
+    """
+    Unique domain name, without www prefix.
+    """
     domain = models.CharField(max_length=200)
     submitted = models.DateTimeField(auto_now_add=True)
 
@@ -34,6 +37,9 @@ class Domain(models.Model):
 
 
 class Website(models.Model):
+    """
+    Website URL that was submitted for screenshots.
+    """
     url = models.CharField(max_length=400)
     domain = models.ForeignKey(Domain)
     submitted = models.DateTimeField(auto_now_add=True)

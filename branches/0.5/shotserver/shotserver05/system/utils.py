@@ -26,6 +26,9 @@ from shotserver05.xmlrpc.utils import import_method
 
 
 def signature(method_name):
+    """
+    Extract the XML-RPC signature from a method's docstring.
+    """
     method = import_method(method_name)
     lines = method.__doc__.splitlines()
     index = 0

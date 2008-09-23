@@ -23,7 +23,6 @@ __date__ = "$Date$"
 __author__ = "$Author$"
 
 from django.db import models
-from django import forms
 from django.contrib.auth.models import User
 from shotserver05.platforms.models import OperatingSystem
 from shotserver05.utils.random_keys import \
