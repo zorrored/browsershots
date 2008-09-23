@@ -15,6 +15,7 @@
 # along with Browsershots. If not, see <http://www.gnu.org/licenses/>.
 
 """
+Generate strings of random characters.
 """
 
 __revision__ = "$Rev$"

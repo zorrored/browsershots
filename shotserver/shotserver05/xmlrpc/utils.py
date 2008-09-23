@@ -37,6 +37,9 @@ except ImportError:
 
 
 def update_docstring(wrapper, insert):
+    """
+    Insert arguments for authentication.
+    """
     lines = wrapper.__doc__.splitlines()
     index = 0
     while not lines[index].lstrip().startswith('*'):
@@ -80,9 +83,14 @@ def user_auth(func):
 
     * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
     * md5_hash string (see users.testAuth for details)
+
+    These lines will be added automatically to the docstring.
     """
 
     def wrapper(*args):
+        """
+        Check user authentication, then call XML-RPC method.
+        """
         request, username = args[:2]
         timestamp, submitted_hash = args[-2:]
         # print 'username', username
@@ -111,9 +119,14 @@ def factory_auth(func):
 
     * timestamp string (UTC, ISO 8601: YYYY-MM-DDThh:mm:ssZ)
     * md5_hash string (see factories.testAuth for details)
+
+    These lines will be added automatically to the docstring.
     """
 
     def wrapper(*args):
+        """
+        Check factory authentication, then call XML-RPC method.
+        """
         request, factory_name = args[:2]
         timestamp, submitted_hash = args[-2:]
         # print 'factory_name', factory_name

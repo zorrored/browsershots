@@ -80,6 +80,9 @@ class ScreenSizeForm(forms.ModelForm):
         exclude = ('factory')
 
     def clean_width(self):
+        """
+        Check that the width is in a sensible range.
+        """
         width = self.cleaned_data['width']
         if width < 240:
             raise forms.ValidationError(
@@ -100,6 +103,9 @@ class ColorDepthForm(forms.ModelForm):
         exclude = ('factory')
 
     def clean_bits_per_pixel(self):
+        """
+        Check that the color depth is in a sensible range.
+        """
         bits_per_pixel = self.cleaned_data['bits_per_pixel']
         if bits_per_pixel < 1:
             raise forms.ValidationError(
