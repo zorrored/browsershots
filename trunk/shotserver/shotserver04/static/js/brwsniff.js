@@ -476,6 +476,9 @@ function hasFlashPlugin(obj) {
                 if (x.description) {
                     y = x.description;
                     f[1] = y.charAt(y.indexOf('.')-1);
+		    if (y.charAt(y.indexOf('.')-2)=="1") {
+			f[1] = "1" + f[1];
+		    }
                 }
             } else {
                 f[0] = 1;

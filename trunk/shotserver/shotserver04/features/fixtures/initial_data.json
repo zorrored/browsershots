@@ -133,6 +133,20 @@
         }
     }, 
     {
+        "pk": 8, 
+        "model": "features.flash", 
+        "fields": {
+            "version": "10"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "features.flash", 
+        "fields": {
+            "version": "11"
+        }
+    }, 
+    {
         "pk": 3, 
         "model": "features.flash", 
         "fields": {
