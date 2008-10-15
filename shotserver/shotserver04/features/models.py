@@ -63,7 +63,7 @@ class Javascript(models.Model):
     class Meta:
         verbose_name = _('Javascript version')
         verbose_name_plural = _('Javascript versions')
-        ordering = ('version', )
+        ordering = ('id', )
 
     __unicode__ = version_unicode
     features_q = version_q
@@ -81,7 +81,7 @@ class Java(models.Model):
     class Meta:
         verbose_name = _('Java version')
         verbose_name_plural = _('Java versions')
-        ordering = ('version', )
+        ordering = ('id', )
 
     __unicode__ = version_unicode
     features_q = version_q
@@ -94,12 +94,12 @@ class Flash(models.Model):
 
     version = models.CharField(
         _('version'), max_length=30, unique=True,
-        help_text=_("e.g. 5 / 6 / 7 / 8 / 9"))
+        help_text=_("e.g. 5 / 6 / 7 / 8 / 9 / 10"))
 
     class Meta:
         verbose_name = _('Flash version')
         verbose_name_plural = _('Flash versions')
-        ordering = ('version', )
+        ordering = ('id', )
 
     __unicode__ = version_unicode
     features_q = version_q
