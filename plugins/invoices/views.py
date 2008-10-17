@@ -177,14 +177,14 @@ def pdf_draw_footer(canvas, country):
     if country == 'DE':
         drawStrings(canvas, LEFT_COLUMN, 3*cm, 8,
                     u"Inhaber: Johann C. Rocholl",
-                    u"PayPal: johann@browsershots.org")
+                    u"PayPal: payment@browsershots.org")
         drawStrings(canvas, RIGHT_COLUMN, 3*cm, 8,
                     u"Konto: 3415213",
                     u"BLZ: 38070724")
     else:
         drawStrings(canvas, LEFT_COLUMN, 3*cm, 8,
                     u"Sole proprietor: Johann C. Rocholl",
-                    u"PayPal: johann@browsershots.org")
+                    u"PayPal: payment@browsershots.org")
         drawStrings(canvas, RIGHT_COLUMN, 3*cm, 8,
                     u"IBAN: DE63380707240341521300",
                     u"BIC / SWIFT: DEUTDEDBXXX")
