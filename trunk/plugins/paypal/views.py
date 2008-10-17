@@ -108,7 +108,7 @@ def create_user_priority(log):
     if UserPriority.objects.filter(txn_id=log.txn_id).count():
         mail_admins("Already processed txn %s" % log.txn_id, log)
         return
-    if log.receiver_email != 'johann@browsershots.org':
+    if not log.receiver_email.endswith('@browsershots.org'):
         mail_admins("Wrong receiver %s" % log.receiver_email, log)
         return
     activated = datetime.now()
