@@ -1,0 +1,33 @@
+#summary Installing the screenshot factory on Mac
+
+== Install prerequisites ==
+
+ * [http://www.codingmonkeys.de/mbo/ Subversion Binaries] (or *sudo port install subversion*)
+ * [http://netpbm.sourceforge.net/ NetPBM tools] (or *sudo port install netpbm*, or [http://sourceforge.net/project/showfiles.php?group_id=7130&package_id=14464 binaries from Gallery])
+ * [http://appscript.sourceforge.net/py-appscript/install.html Python appscript module] (or *sudo easy_install appscript*)
+ * [http://www.versiontracker.com/dyn/moreinfo/macosx/19753 cscreen] to change screen resolution ([http://download.browsershots.org/thirdparty/cscreen.dmg mirror])
+
+And if you want to support more media formats:
+
+ * Windows Media Player [http://www.apple.com/downloads/macosx/video/windowsmediaplayerformacosx.html for Mac OS X] ([http://www.microsoft.com/mac/otherproducts/otherproducts.aspx?pid=windowsmedia alternate link, also for Mac OS 8.1-9])
+
+== Get the source code ==
+
+Check out the source code from the Subversion repository:
+
+{{{
+svn checkout http://svn.browsershots.org/trunk/shotfactory
+}}}
+
+Also copy the cscreen program into the *shotfactory* directory.
+
+Starting with milestone:0.3-beta1, global installation with *python setup.py install* is no longer required.
+
+== Settings ==
+
+ * Disable the screensaver.
+ * Set the desktop background to white.
+ * For each browser that you want to run:
+   * Set it to start with an empty page.
+   * Hide the bookmark bar.
+   * Show the status bar.
