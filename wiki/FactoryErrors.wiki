@@ -197,7 +197,3 @@ User-reported error telling you that the shot screenshot was not recorded in the
 == This is not the requested Javascript version. / Javascript is not ?.?. ==
 
 Indicates that the screenshot requested a different Javascript version than the one used in the recorded browser. You will have to compare the settings within your Browsershots account to the real Javascript version used in the browser, and update the setting, if needed.
-
-
-(1 row)
-
