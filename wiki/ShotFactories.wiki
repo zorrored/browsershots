@@ -1,0 +1,1 @@
+#summary Plural form of ShotFactory

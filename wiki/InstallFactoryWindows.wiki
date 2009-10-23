@@ -1,10 +1,12 @@
 #summary Installing ShotFactory on Windows
 
-*Important security notice:* Don't run the screenshot factory on your Administrator account. The program will load many websites in your browser, and some of them may contain exploits for known security holes. [BlogWindowsXpFactoryTakenOverBySpyware One of my screenshot factories has been hijacked in this way.] It's safest to create a new unprivileged user account and run the screenshot factory there.
+*Important security notice:* don't run the screenshot factory on your Administrator account. The program will load many websites in your browser, and some of them may contain exploits for known security holes. [BlogWindowsXpFactoryTakenOverBySpyware One of my screenshot factories has been hijacked in this way.] It's safest to create a new unprivileged user account and run the screenshot factory there.
 
 See also StandaloneInternetExplorer if you want to run different versions of Internet Explorer on one machine.
 
 There are two different ways to install the screenshot factory on windows:
+
+[[PageOutline(2,,inline)]]
 
 == Simple method: binaries for Windows ==
 
@@ -31,8 +33,8 @@ Use this method if you want to fiddle with the source code.
    * [http://www.12noon.com/reschange.htm Resolution Changer (Console version): reschangecon.exe]
    * [http://www.teamcti.com/pview/prcview.htm Process Viewer (Command line version): pv.exe]
  * Check out the latest screenshot factory source code from http://svn.browsershots.org/trunk/shotfactory/
- * Starting with milestone:0.3-beta1, global installation with '''python setup.py install''' is no longer required 
- * Open a terminal, enter the source folder ('''cd shotfactory''') and run '''python shotfactory.py'''
- * Make sure that '''reschangecon.exe''' and '''pv.exe''' are in the same folder where you run the script.
+ * Starting with milestone:0.3-beta1, global installation with *python setup.py install* is no longer required 
+ * Open a terminal, enter the source folder (*cd shotfactory*) and run *python shotfactory.py*
+ * Make sure that *reschangecon.exe* and *pv.exe* are in the same folder where you run the script.
 
 See InstallFactory for registration and troubleshooting tips.

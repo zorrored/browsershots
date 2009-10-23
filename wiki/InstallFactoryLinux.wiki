@@ -1,5 +1,7 @@
 #summary Installing the screenshot factory on Linux
 
+This page has been updated to work with Browsershots 0.4.
+
 == Install prerequisites ==
 
 {{{

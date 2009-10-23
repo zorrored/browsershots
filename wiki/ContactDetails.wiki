@@ -1,0 +1,7 @@
+#summary Contact Details
+
+Mailing list on Google Groups:[[BR]]
+http://groups.google.com/group/browsershots/
+
+Send email (for direct feedback):[[BR]]
+[mailto:webmaster@browsershots.org webmaster@browsershots.org]

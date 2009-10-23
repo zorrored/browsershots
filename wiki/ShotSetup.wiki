@@ -1,0 +1,31 @@
+#summary An automated installer for the Windows ShotFactory
+
+*Download*[[BR]]
+Download from [http://www.fpow.net/shotsetup.exe] and follow instructions in InstallFactoryWindows
+
+*When is ShotSetup updated?*[[BR]]
+Whenever an update is released that affects the Windows operating system.[[BR]]
+
+*What Operating Systems are supported?*[[BR]]
+Microsoft Windows 98/ME/2000/XP. Due to current compatability issues, Vista is NOT supported!
+
+
+Current Version: 1.0.5 (Built on revision 796):[[br]]
+Changelog:[[br]]
+1.0.5 (Sept. 18, 2006):[[br]]
++Updated revision[[br]]
+
+1.0.4 (Sept. 11, 2006):[[br]]
++Fixed all known bugs[[br]]
+-Removed Python 2.4, 2.3 used due to problems[[br]]
+
+1.0.1 (Sept. 4, 2006):[[br]]
+Fixed: Windows 98/ME Support[[br]]
+Added: Used pv.exe instead of process.exe, process.exe lacks 98/ME support[[br]]
+Other: Removed excess, unneeded files[[br]]
+
+1.0.0 (Sept. 3, 2006):[[br]]
++Initial Release
+
+
+*Disclaimer*: The windows installer above is an unofficial third-party contribution. As with all software that you download from the internet, please use your own judgement about whether or not it may contain a Trojan horse. The administrator of Browsershots has no way of assuring that third-party contributions are safe to install.
